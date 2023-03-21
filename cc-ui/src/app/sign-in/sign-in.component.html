@@ -23,8 +23,7 @@
           <div class="flex flex-col rounded shadow-sm bg-white overflow-hidden">
             <div class="p-5 lg:p-6 grow w-full">
               <div class="sm:p-5 lg:px-10 lg:py-8">
-                <!-- Just for testing purposes change ng submit-->
-                <form (ngSubmit)="onSubmit()" class="space-y-6">
+                <form onsubmit="return false;" class="space-y-6">
                   <div class="space-y-1">
                     <label for="email" class="font-medium">Email</label>
                     <input class="block border border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" type="email" id="email" name="email" placeholder="Enter your email">
@@ -58,6 +57,7 @@
           <!-- END Sign In Form -->
 
           <!-- Footer -->
+
           <!-- END Footer -->
         </div>
         <!-- END Sign In Section -->
