@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SidebarComponent } from './redundant/sidebar/sidebar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterLink, RouterModule } from '@angular/router';
+
 
 @NgModule({
   declarations: [
@@ -14,11 +18,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     HomeComponent,
     RegisterComponent,
     SignInComponent,
-    DashboardComponent
+    DashboardComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    RouterLink,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
