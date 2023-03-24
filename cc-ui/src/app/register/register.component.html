@@ -16,7 +16,7 @@
                 
                 <!--base tile-->
                 <div class="flex flex-col rounded shadow-sm bg-white overflow-hidden">
-                    <form [formGroup]="membershipForm">
+                    <form >
 
                     <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
                         <div class="relative">
@@ -38,22 +38,29 @@
                         </div>
                           <br/>
                         <div class="relative ">
-                            <label for="country" class="font-medium text-sm">Country</label>
-                            <select class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="country" name="country" placeholder="Ex: Inodnesia">
-                                <option value="None" selected>None</option>
-                            </select>        
+
+                            <label  for="country" class="font-medium text-sm">Country</label>
+                            <input list="countries" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                             type="text" id="country" name="country"[(ngModel)]="countryName" placeholder="Ex: Inodnesia">
+                             <datalist id="countries">
+
+                                <option *ngFor="let country of getCountries()" [value]="country"></option>
+                              </datalist>
+                                    
                         </div>
                         <div class="relative">
                             <label for="city" class="font-medium text-sm">City</label>
-                            <input class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
-                            type="text" id="city" name="City" placeholder="Ex: Jakarta">      
+                            <input list="cities" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
+                            type="text" id="city" name="City" placeholder="Ex: Jakarta">  
+                            <datalist id="cities">
+                                <option *ngFor="let city of getCities()" [value]="city"></option>
+                              </datalist>    
                         </div>
 
                         <div class="space-y-1">
                             <label for="ph-no" class="font-medium">Phone Number</label>
                             <input class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="email" id="ph-no" name="PhoneNumber" placeholder="Ex: 9999999999">
+                             type="text" id="ph-no" name="PhoneNumber" [value]="phoneCode" placeholder="Ex: 9999999999">
                         </div>
                         <br/>
                         <div class="space-y-1">
