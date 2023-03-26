@@ -4,6 +4,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import {RegisterComponent} from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { UploadContractComponent } from './upload-contract/upload-contract.component';
+import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 
 const routes: Routes = [
   {
@@ -22,6 +24,14 @@ const routes: Routes = [
     component:DashboardComponent,
     path:'dashboard'
 
+  },
+  {
+    component:UploadContractComponent,
+    path:'upload-contract'
+  },
+  {
+    component:UploadInventoryComponent,
+    path:'upload-inventory'
   }
 ];
 
