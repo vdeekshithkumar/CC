@@ -11,6 +11,7 @@ export class RegisterComponent implements OnInit {
 
   countryName:string="";
   phoneCode:string="";
+  
   ngOnInit(): void {
   }
 

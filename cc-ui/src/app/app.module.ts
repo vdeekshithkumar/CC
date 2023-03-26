@@ -10,6 +10,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './redundant/sidebar/sidebar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
+import { UploadContractComponent } from './upload-contract/upload-contract.component';
+import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { RouterLink, RouterModule } from '@angular/router';
     RegisterComponent,
     SignInComponent,
     DashboardComponent,
-    SidebarComponent
+    SidebarComponent,
+    UploadContractComponent,
+    UploadInventoryComponent
   ],
   imports: [
     BrowserModule,
