@@ -8,12 +8,11 @@ import { RegisterComponent } from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './redundant/sidebar/sidebar.component';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink, RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,9 +27,8 @@ import { UploadInventoryComponent } from './upload-inventory/upload-inventory.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     RouterLink,
-    RouterModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule
   ],
