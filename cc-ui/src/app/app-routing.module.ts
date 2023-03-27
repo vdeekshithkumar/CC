@@ -33,6 +33,7 @@ const routes: Routes = [
     component:UploadInventoryComponent,
     path:'upload-inventory'
   }
+
 ];
 
 @NgModule({
