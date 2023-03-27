@@ -16,8 +16,8 @@ export class SignInComponent implements OnInit{
 constructor(private router: Router,private formBuilder: FormBuilder, private signInService: SignInService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ["",Validators.required], 
-      password: ["", Validators.required],
+      email: ["",Validators.email], 
+      password: ["",Validators.required],
     });
   }
 // loginForm=new FormGroup({
@@ -35,11 +35,11 @@ onSubmit() {
   if(this.loginForm.valid){
       this.router.navigate(['/dashboard'])
     }
-    // else {
-    //   alert('User form is not valid!!')
-    // }
+    else {
+      alert('User form is not valid!!')
+    }
         
-  }
+  
   // this.signInService.login(this.loginForm.value).subscribe(
   //   (response)=>{
   //     console.log(response);
@@ -59,3 +59,4 @@ onSubmit() {
 // }
 
 
+}

@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { UploadInventoryComponent } from './upload-inventory/upload-inventory.co
     DashboardComponent,
     SidebarComponent,
     UploadContractComponent,
-    UploadInventoryComponent
+    UploadInventoryComponent,
+    
   ],
   imports: [
     BrowserModule,
