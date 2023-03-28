@@ -9,6 +9,12 @@ namespace CC_api.Models
         
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+  public class DatabaseContext : DbContext
+  {
+    public DbSet<User> ccusersdb { get; set; }
+
+    public DbSet<Company> cccompany { get; set; }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //if (!optionsBuilder.IsConfigured)
             

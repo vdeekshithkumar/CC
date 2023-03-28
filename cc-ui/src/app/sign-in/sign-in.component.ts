@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
 @Component({
@@ -47,6 +47,7 @@ onSubmit() {
   //   },
   //   (error)=>{
   //     console.log('error',error);
+  //     alert('Invalid User')
   //   }
   //   );
   
