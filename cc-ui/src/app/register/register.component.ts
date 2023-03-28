@@ -1,8 +1,7 @@
 
 import { Component,Inject  } from '@angular/core';
-import { FormBuilder, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
 import { response } from 'express';
 import { Registerservice } from './register.service';
 import { Country, State, City } from 'country-state-city';

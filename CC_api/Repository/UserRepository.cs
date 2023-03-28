@@ -1,13 +1,13 @@
-using CC_api.Models;
+﻿using CC_api.Models;
 
 namespace CC_api.Repository
 {
     public class UserRepository
     {
-        private readonly DatabaseContext dbContext;
+        private readonly UserContext dbContext;
         public UserRepository()
         {
-            this.dbContext = new DatabaseContext();
+            this.dbContext = new UserContext();
         }
 
         public async Task Create(User user)

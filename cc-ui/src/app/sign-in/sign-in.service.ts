@@ -13,7 +13,7 @@ import { FormGroup } from '@angular/forms';
     
   }
     login(loginForm: FormGroup<any>){
-      const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
+      const headers=new HttpHeaders().set('Content-Type','application/x-www-urlencoded');
       return this.http.post(this.baseServerUrl,loginForm,{headers});
       
     // }
