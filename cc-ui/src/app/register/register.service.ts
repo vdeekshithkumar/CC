@@ -13,7 +13,7 @@ import { FormGroup } from '@angular/forms';
     
   }
     register(registrationForm: FormGroup<any>){
-      const headers=new HttpHeaders().set('Content-Type','application/json');
+      const headers=new HttpHeaders().set('Content-Type','application/json;charset=UTF-8');
       return this.http.post(this.apiUrl,registrationForm,{headers});
       
     }

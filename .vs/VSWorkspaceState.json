@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\CC_api",
+    "\\CC_api\\Business",
+    "\\CC_api\\Controllers",
+    "\\CC_api\\Models",
+    "\\CC_api\\Repository"
+  ],
+  "SelectedNode": "\\CC_api\\Repository\\InventoryRepository.cs",
+  "PreviewInSolutionExplorer": false
+}

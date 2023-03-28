@@ -37,27 +37,28 @@ ngOnInit(): void {
 //  }
  getCities(){
   const countries = Country.getAllCountries();
-  const country = countries.find(country => country.name === this.countryName);
+  const country = countries.find((country: { name: string; }) => country.name === this.countryName);
 
   let iso= country?.isoCode|| '';
   this.phoneCode = country?.phonecode || '';
   const allCityDetails= City.getCitiesOfCountry(iso);
-  return allCityDetails?.map((city)=>city.name);
+  return allCityDetails?.map((city: { name: any; })=>city.name);
 
 }
 
 
 getCountries(){
   const countries = Country.getAllCountries();
-  const countryNames = countries.map((country) => country.name);
+  const countryNames = countries.map((country: { name: any; }) => country.name);
 
   // Find a specific country by name
   return countryNames;
 }
  onSubmit() {
-  // if(this.registrationForm.valid){
-  //   this.router.navigate(['sign-in'])
-  // }
+   if(this.registrationForm.valid){
+    this.router.navigate(['sign-in'])
+    console.log(this.registrationForm.value); 
+  }
   // else {
   //   alert('User form is not valid!!')
   // }
@@ -65,15 +66,15 @@ getCountries(){
 //   (response)=>console.log(response),
 //   (error)=>console.warn(console.log(error))
 //   );
-  this.registerservice.register(this.registrationForm.value).subscribe(
-    (response)=>{
-      console.log(response);
-      this.router.navigate(['sign-in'])
-    },
-    (error)=>{
-      console.log('error',error);
-    }
-    );
+  // this.registerservice.register(this.registrationForm.value).subscribe(
+  //   (response)=>{
+  //     console.log(response);
+  //     this.router.navigate(['sign-in'])
+  //   },
+  //   (error)=>{
+  //     console.log('error',error);
+  //   }
+  //   );
 
 }
 }
