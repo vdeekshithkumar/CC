@@ -1,4 +1,4 @@
-﻿using CC_api.Business;
+using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -32,7 +32,7 @@ namespace CC_api.Controllers
 
         }
         [HttpPost("Login")]
-        public async Task<IActionResult> Login(Login loginmodel)
+        public async Task<IActionResult> Login([FromBody] Login loginmodel)
         {
 
             var login = await userBusiness.Login(loginmodel);

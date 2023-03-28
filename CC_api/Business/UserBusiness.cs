@@ -1,4 +1,4 @@
-﻿using CC_api.Models;
+using CC_api.Models;
 using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -12,14 +12,12 @@ namespace CC_api.Business
     public class UserBusiness
     {
         private readonly UserRepository userRepository;
-       
+
         public UserBusiness()
         {
             this.userRepository = new UserRepository();
        
         }
-
-
         public async Task<List<User>> GetAllUserAsync()
         {
             return await userRepository.GetAllUserAsync();

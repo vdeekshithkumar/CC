@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC_api.Models
 {
-    public class UserContext: DbContext
+    public class DatabaseContext: DbContext
     {
         public DbSet<User> ccusersdb { get; set; }
-        
+        public DbSet<Company> cccompany { get; set; }
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
