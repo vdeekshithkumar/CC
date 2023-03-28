@@ -1,4 +1,4 @@
-﻿using CC_api.Business;
+using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -20,6 +20,7 @@ namespace CC_api.Controllers
         {
             return await userBusiness.GetAllUserAsync();
         }
+
         [HttpPost("SaveUser")]
         //public async Task<IActionResult> SaveUser([FromForm] User user)
         //public async Task<HttpStatusCode> SaveUser(User user)

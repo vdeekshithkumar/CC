@@ -35,7 +35,7 @@ onSubmit() {
   if(this.loginForm.valid){
       this.router.navigate(['/dashboard'])
     }
-    else {
+  else {
       alert('User form is not valid!!')
     }
         

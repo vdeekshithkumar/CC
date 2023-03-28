@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC_api.Models
 {
     public class UserContext: DbContext
     {
         public DbSet<User> ccusersdb { get; set; }
+       public DbSet<Inventory> Inventory { get; set; }
         
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -12,7 +13,7 @@ namespace CC_api.Models
             //if (!optionsBuilder.IsConfigured)
             
  
-                optionsBuilder.UseSqlServer("Server=DEEKSHITH\\SQLEXPRESS;Database=CCMODEL;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
+                optionsBuilder.UseSqlServer("Server=THEJESH;Database=CC;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
             
         }
     }

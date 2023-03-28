@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CC_api.Models
 {
     public class User
+
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         //[Key]
