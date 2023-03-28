@@ -43,7 +43,7 @@ export class UploadInventoryComponent {
     try {
       const response = this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
       console.log(response);
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['/dashboard']);
     } 
     catch (error) {
       console.log('Error uploading inventory:', error);

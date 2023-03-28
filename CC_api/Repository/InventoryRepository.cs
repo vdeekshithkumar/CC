@@ -4,15 +4,15 @@ namespace CC_api.Repository
 {
   public class InventoryRepository
   {
-    private readonly UserContext dbContext;
+    private readonly DatabaseContext dbContext;
     public  InventoryRepository()
     {
-      this.dbContext = new UserContext();
+      this.dbContext = new DatabaseContext();
     }
 
     public async Task UploadI(Inventory inventory)
     {
-      dbContext.Inventory.Add(inventory);
+      dbContext.ccinventorydb.Add(inventory);
       await dbContext.SaveChangesAsync();
     }
    /* public async Task<List<User>> GetAllUserAsync()

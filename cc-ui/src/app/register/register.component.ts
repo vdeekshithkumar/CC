@@ -55,10 +55,10 @@ getCountries(){
   return countryNames;
 }
  onSubmit() {
-   if(this.registrationForm.valid){
-    this.router.navigate(['sign-in'])
-    console.log(this.registrationForm.value); 
-  }
+  //  if(this.registrationForm.valid){
+  //   this.router.navigate(['/sign-in'])
+  //   console.log(this.registrationForm.value); 
+  // }
   // else {
   //   alert('User form is not valid!!')
   // }
@@ -66,15 +66,15 @@ getCountries(){
 //   (response)=>console.log(response),
 //   (error)=>console.warn(console.log(error))
 //   );
-  // this.registerservice.register(this.registrationForm.value).subscribe(
-  //   (response)=>{
-  //     console.log(response);
-  //     this.router.navigate(['sign-in'])
-  //   },
-  //   (error)=>{
-  //     console.log('error',error);
-  //   }
-  //   );
+  this.registerservice.register(this.registrationForm.value).subscribe(
+    (response)=>{
+      console.log(response);
+      this.router.navigate(['/sign-in'])
+    },
+    (error)=>{
+      console.log('error',error);
+    }
+    );
 
 }
 }
