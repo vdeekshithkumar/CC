@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Theje\\Documents\\GitHub\\Container-conundrum\\CC_api\\CC_api.csproj": {}
+    "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Theje\\Documents\\GitHub\\Container-conundrum\\CC_api\\CC_api.csproj": {
+    "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Theje\\Documents\\GitHub\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "projectUniqueName": "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj",
         "projectName": "CC_api",
-        "projectPath": "C:\\Users\\Theje\\Documents\\GitHub\\Container-conundrum\\CC_api\\CC_api.csproj",
-        "packagesPath": "C:\\Users\\Theje\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Theje\\Documents\\GitHub\\Container-conundrum\\CC_api\\obj\\",
+        "projectPath": "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "packagesPath": "C:\\Users\\Vishr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Theje\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vishr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[3.6.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[7.0.4, )"
@@ -53,6 +57,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[7.0.4, )"
+            },
+            "MimeKit": {
+              "target": "Package",
+              "version": "[3.6.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -78,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

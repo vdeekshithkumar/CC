@@ -13,7 +13,7 @@ namespace CC_api.Models
             //if (!optionsBuilder.IsConfigured)
             
  
-                optionsBuilder.UseSqlServer("Server=THEJESH;Database=CC;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
+                optionsBuilder.UseSqlServer("Server=VISHRUTHA;Database=Cont-db;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
             
         }
     }
