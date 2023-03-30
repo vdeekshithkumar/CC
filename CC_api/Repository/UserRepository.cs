@@ -1,4 +1,4 @@
-﻿using CC_api.Models;
+using CC_api.Models;
 
 namespace CC_api.Repository
 {
@@ -12,16 +12,16 @@ namespace CC_api.Repository
 
         public async Task Create(User user)
        {
-           dbContext.ccusersdb.Add(user);
+           dbContext.users.Add(user);
             await dbContext.SaveChangesAsync();
         }
         public async Task<List<User>> GetAllUserAsync()
         {
-            return dbContext.ccusersdb.ToList();
+            return dbContext.users.ToList();
         }
         public async Task<User> Login(string userEmail, string password)
         {
-            var user = dbContext.ccusersdb.FirstOrDefault(x => x.Email == userEmail && x.Password == password);
+            var user = dbContext.users.FirstOrDefault(x => x.email == userEmail && x.password == password);
             if (user != null)
             {
                 return user;

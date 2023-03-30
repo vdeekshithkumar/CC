@@ -15,10 +15,16 @@ export class EditProfileComponent implements OnInit{
   }
   ngOnInit(): void {
     this.editprofileForm = this.formBuilder.group({
-      companyName: ['', Validators.required],
-      domainAddress: ['', Validators.email],
-       companyAddress:['', Validators.required],
-       rating:['',Validators.required],
+      company_id: ['15', Validators.required],
+      name: ['', Validators.required],
+      licence_id: ['11', Validators.required],
+      domain_address: ['', Validators.required],
+      company_logo: ['76', Validators.required],
+      company_locations: ['123452345678', Validators.required],
+      country: ['india', Validators.required],
+      rating:['', Validators.required],
+      port_id:['78',Validators.required],
+      address: ['', Validators.required],
       });
   }
 

@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CC_api.Models
 {
@@ -6,11 +7,21 @@ namespace CC_api.Models
   {
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int CompanyId { get; set; }
-    public string CompanyName { get; set; }
-    public string DomainAddress { get; set; }
-    public string CompanyAddress { get; set; }
-    public int Rating { get; set; }
+    [Key]
+    public int company_id { get; set; }
+    public string name { get; set; }
+
+    public int licence_id { get; set; }
+    public string domain_address { get; set; }
+
+    public int company_logo{ get; set; }// make its a byte[] to image 
+    public decimal company_locations { get; set; }
+    public string country { get; set; }
+
+    public double rating { get; set; }
+    public int port_id{ get; set; }
+    public string address { get; set; }
+
 
 
   }

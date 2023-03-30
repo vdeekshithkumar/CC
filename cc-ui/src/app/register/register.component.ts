@@ -25,11 +25,11 @@ ngOnInit(): void {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
      country:['', Validators.required],
-     city:['',Validators.required],
-  email: ['',[Validators.email]],
-   phoneNumber:['',[Validators.required]],
-    companyName:['',[Validators.required]],
-    password: ['', [Validators.minLength(5),Validators.maxLength(15)]],
+     city:['', Validators.required],
+    email: ['', Validators.required],
+   phoneNumber:['', Validators.required],
+    companyName:['', Validators.required],
+    password: ['', Validators.required],
   });
 }
 //  get f(){
@@ -55,6 +55,7 @@ getCountries(){
   return countryNames;
 }
  onSubmit() {
+  
   //  if(this.registrationForm.valid){
   //   this.router.navigate(['/sign-in'])
   //   console.log(this.registrationForm.value); 
@@ -66,15 +67,30 @@ getCountries(){
 //   (response)=>console.log(response),
 //   (error)=>console.warn(console.log(error))
 //   );
+
   this.registerservice.register(this.registrationForm.value).subscribe(
     (response)=>{
       console.log(response);
+      console.log(this.registrationForm.value);
       this.router.navigate(['/sign-in'])
     },
     (error)=>{
       console.log('error',error);
     }
     );
+
+
+
+//   {
+//     try {
+//       const response = this.registerservice.register(this.registrationForm.value).toPromise();
+//       console.log(response);
+//       this.router.navigate(['/sign-in']);
+//     } 
+//     catch (error) {
+//       console.log('Error registering:', error);
+//     }
+// }
 
 }
 }

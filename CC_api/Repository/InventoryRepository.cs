@@ -12,7 +12,7 @@ namespace CC_api.Repository
 
     public async Task UploadI(Inventory inventory)
     {
-      dbContext.ccinventorydb.Add(inventory);
+      dbContext.inventory.Add(inventory);
       await dbContext.SaveChangesAsync();
     }
    /* public async Task<List<User>> GetAllUserAsync()

@@ -1,4 +1,4 @@
-﻿using CC_api.Models;
+using CC_api.Models;
 using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -27,26 +27,32 @@ namespace CC_api.Business
         public async Task<IActionResult> SaveUserAsync(User user)
         {
             var us = new User();
-            us.FirstName = user.FirstName;
-            us.LastName = user.LastName;
-            us.Email = user.Email;
-            us.Country = user.Country;
-            us.City = user.City;    
-            us.PhoneNumber= user.PhoneNumber;
-            us.CompanyName = user.CompanyName;
-            us.Password = user.Password;
-            await userRepository.Create(us);
+            
+            us.company_id = user.company_id;
+            us.fname = user.fname;
+            us.lname = user.lname;
+            us.address = user.address;    
+            us.email= user.email;
+            us.phone_no = user.phone_no;
+            us.password = user.password;
+            us.permission_id = user.permission_id;
+            us.is_verified = user.is_verified;
+            us.is_active = user.is_active;
+            us.last_login = user.last_login;
+            us.designation = user.designation;
+            
+      await userRepository.Create(us);
             return new OkResult();  
 
         }
         public async Task<AuthenticationModel> Login(Login loginmodel)
         {
-            var login = await userRepository.Login(loginmodel.Email, loginmodel.Password);
+            var login = await userRepository.Login(loginmodel.email, loginmodel.password);
             var authmodel = new AuthenticationModel();
             if (login != null)
             { 
-                authmodel.Email = login.Email;
-                authmodel.Password = login.Password;
+                authmodel.Email = login.email;
+                authmodel.Password = login.password;
                 return authmodel;
 
             }

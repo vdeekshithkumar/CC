@@ -16,6 +16,10 @@ import { UploadInventoryComponent } from './upload-inventory/upload-inventory.co
 import { HeaderComponent } from './redundant/header/header.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { UploadInventoryservice } from './upload-inventory/upload-inventory.service';
+import { SignInService } from './sign-in/sign-in.service';
+import { Registerservice } from './register/register.service';
+import { EditProfileService } from './profile/edit-profile/edit-profile.service';
 
 @NgModule({
   declarations: [
@@ -40,7 +44,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UploadInventoryservice,SignInService,Registerservice,EditProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
