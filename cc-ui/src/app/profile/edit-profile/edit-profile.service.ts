@@ -12,6 +12,6 @@ export class EditProfileService {
   {
     const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
     return this.http.post(this.apiUrl,editprofileForm,{headers});
-
+    
   }
 }

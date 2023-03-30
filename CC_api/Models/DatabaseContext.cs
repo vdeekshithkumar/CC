@@ -7,6 +7,8 @@ namespace CC_api.Models
     public DbSet<User> ccusersdb { get; set; }
 
     public DbSet<Company> cccompany { get; set; }
+    public DbSet<Inventory> ccinventory { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //if (!optionsBuilder.IsConfigured)

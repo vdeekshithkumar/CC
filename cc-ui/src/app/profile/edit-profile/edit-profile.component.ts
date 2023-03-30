@@ -16,7 +16,7 @@ export class EditProfileComponent implements OnInit{
   ngOnInit(): void {
     this.editprofileForm = this.formBuilder.group({
       companyName: ['', Validators.required],
-      domainAddress: ['', Validators.email],
+      domainAddress: ['', Validators.required],
        companyAddress:['', Validators.required],
        rating:['',Validators.required],
       });
@@ -26,12 +26,12 @@ export class EditProfileComponent implements OnInit{
     this.editProfileService.edit(this.editprofileForm.value).subscribe(
       (response)=>{
         console.log(response);
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/profile'])
       },
       (error)=>{
         console.log('error',error);
       }
       );
-
+  
   }
 }

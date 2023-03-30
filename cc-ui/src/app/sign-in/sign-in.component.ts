@@ -32,24 +32,24 @@ constructor(private router: Router,private formBuilder: FormBuilder, private sig
 //  }
 isUserValid:boolean=false;
 onSubmit() {
-  if(this.loginForm.valid){
-      this.router.navigate(['/dashboard'])
-    }
-    else {
-      alert('User form is not valid!!')
-    }
+  // if(this.loginForm.valid){
+  //     this.router.navigate(['/dashboard'])
+  //   }
+  //   else {
+  //     alert('User form is not valid!!')
+  //   }
         
   
-  // this.signInService.login(this.loginForm.value).subscribe(
-  //   (response)=>{
-  //     console.log(response);
-  //     this.router.navigate(['/dashboard'])
-  //   },
-  //   (error)=>{
-  //     console.log('error',error);
-  //     alert('Invalid User')
-  //   }
-  //   );
+  this.signInService.login(this.loginForm.value).subscribe(
+    (response)=>{
+      console.log(response);
+      this.router.navigate(['/dashboard'])
+    },
+    (error)=>{
+      console.log('error',error);
+      alert('Invalid User')
+    }
+    );
   
 }
 // get Email():FormControl{

@@ -68,7 +68,7 @@ getCountries(){
   this.registerservice.register(this.registrationForm.value).subscribe(
     (response)=>{
       console.log(response);
-      this.router.navigate(['sign-in'])
+      this.router.navigate(['/sign-in'])
     },
     (error)=>{
       console.log('error',error);
