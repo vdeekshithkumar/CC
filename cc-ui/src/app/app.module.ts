@@ -13,6 +13,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
+import { HeaderComponent } from './redundant/header/header.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { UploadInventoryservice } from './upload-inventory/upload-inventory.service';
+import { SignInService } from './sign-in/sign-in.service';
+import { Registerservice } from './register/register.service';
+import { EditProfileService } from './profile/edit-profile/edit-profile.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +31,9 @@ import { UploadInventoryComponent } from './upload-inventory/upload-inventory.co
     SidebarComponent,
     UploadContractComponent,
     UploadInventoryComponent,
+    HeaderComponent,
+    ProfileComponent,
+    EditProfileComponent,
     
   ],
   imports: [
@@ -34,7 +44,7 @@ import { UploadInventoryComponent } from './upload-inventory/upload-inventory.co
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [UploadInventoryservice,SignInService,Registerservice,EditProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

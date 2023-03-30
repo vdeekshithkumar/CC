@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
 @Component({
@@ -32,23 +32,34 @@ constructor(private router: Router,private formBuilder: FormBuilder, private sig
 //  }
 isUserValid:boolean=false;
 onSubmit() {
-  if(this.loginForm.valid){
-      this.router.navigate(['/dashboard'])
-    }
-  else {
-      alert('User form is not valid!!')
-    }
-        
-  
-  // this.signInService.login(this.loginForm.value).subscribe(
-  //   (response)=>{
-  //     console.log(response);
+  // if(this.loginForm.valid){
   //     this.router.navigate(['/dashboard'])
-  //   },
-  //   (error)=>{
-  //     console.log('error',error);
   //   }
-  //   );
+  // else {
+  //     alert('User form is not valid!!')
+  //   } {
+
+
+    // try {
+    //   const response = this.signInService.login(this.loginForm.value).toPromise();
+    //   console.log(response);
+    //   this.router.navigate(['/dashboard']);
+    // } 
+    // catch (error) {
+    //   console.log('Invalid User:', error);
+    // }
+    
+    
+  this.signInService.login(this.loginForm.value).subscribe(
+    (response)=>{
+      console.log(response);
+      this.router.navigate(['/dashboard']);
+    },
+    (error)=>{
+      console.log('error',error);
+      alert('Invalid User')
+    }
+    );
   
 }
 // get Email():FormControl{
