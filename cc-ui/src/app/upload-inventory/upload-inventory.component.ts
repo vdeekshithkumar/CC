@@ -21,16 +21,16 @@ export class UploadInventoryComponent {
      }
   ngOnInit(): void {
     this.UploadInventoryForm = this.formBuilder.group({
-      InventoryId:['10'],
-      DateCreated:['2023-03-28'],
-      LastModified:['2023-03-28'],
-      CompanyId:['10'],
-      ContainerType:['',Validators.required],
-      Available: ['', Validators.required],
-      M: ['', Validators.required],
-      N:['', Validators.required],
-      PortId:['10'],
-      UpdatedBy:['10'],
+      inventory_id:['10'],
+      date_created:['2023-03-28'],
+      last_modified:['2023-03-28'],
+      company_id:['10'],
+      container_type:['',Validators.required],
+      available: ['', Validators.required],
+      maximum: ['', Validators.required],
+      minimum:['', Validators.required],
+      port_id:['10'],
+      updated_by:['10'],
     });
   }
   onSubmit() {
@@ -48,16 +48,19 @@ export class UploadInventoryComponent {
     catch (error) {
       console.log('Error uploading inventory:', error);
     }
+
   // }
   //  this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).subscribe(
   //   (response: any)=>{
   //     console.log(response);
   //     this.router.navigate(['sign-in'])
   //     },
+
   //      (error: any)=>{
   //       console.log('error',error);
   //    }
   //     );
+
 }
 }
 }

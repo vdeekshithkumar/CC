@@ -35,15 +35,15 @@ namespace CC_api.Business
       {
       var inv= new Inventory();
       
-      inv.DateCreated = inventory.DateCreated;
-      inv.LastModified = inventory.LastModified;
-      inv.CompanyId = inventory.CompanyId;
-      inv.ContainerType = inventory.ContainerType;
-      inv.Available = inventory.Available;
-      inv.M = inventory.M;
-      inv.N = inventory.N;
-      inv.PortId = inventory.PortId;
-      inv.UpdatedBy = inventory.UpdatedBy;
+      inv.date_created = inventory.date_created;
+      inv.last_modified = inventory.last_modified;
+      inv.company_id = inventory.company_id;
+      inv.container_type = inventory.container_type;
+      inv.available = inventory.available;
+      inv.maximum = inventory.maximum;
+      inv.minimum = inventory.minimum;
+      inv.port_id = inventory.port_id;
+      inv.updated_by = inventory.updated_by;
 
       await inventoryRepository.UploadI(inv);
         return new OkResult();

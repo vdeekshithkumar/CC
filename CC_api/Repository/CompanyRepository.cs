@@ -13,12 +13,12 @@ namespace CC_api.Repository
 
       public async Task Create(Company company)
       {
-        dbContext.cccompany.Add(company);
+        dbContext.company.Add(company);
         await dbContext.SaveChangesAsync();
       }
       public async Task<List<Company>> GetAllCompanyAsync()
       {
-        return dbContext.cccompany.ToList();
+        return dbContext.company.ToList();
       }
     }
   }

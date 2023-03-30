@@ -37,13 +37,23 @@ onSubmit() {
   //   }
   // else {
   //     alert('User form is not valid!!')
-  //   }
-        
-  
+  //   } {
+
+
+    // try {
+    //   const response = this.signInService.login(this.loginForm.value).toPromise();
+    //   console.log(response);
+    //   this.router.navigate(['/dashboard']);
+    // } 
+    // catch (error) {
+    //   console.log('Invalid User:', error);
+    // }
+    
+    
   this.signInService.login(this.loginForm.value).subscribe(
     (response)=>{
       console.log(response);
-      this.router.navigate(['/dashboard'])
+      this.router.navigate(['/dashboard']);
     },
     (error)=>{
       console.log('error',error);
