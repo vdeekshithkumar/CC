@@ -22,14 +22,19 @@ export class RegisterComponent {
 }
 ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-     country:['', Validators.required],
-     city:['', Validators.required],
-    email: ['', Validators.required],
-   phoneNumber:['', Validators.required],
-    companyName:['', Validators.required],
-    password: ['', Validators.required],
+    user_id: ['2',Validators.required],
+    company_id:['1',Validators.required],
+    fname: ['ff', Validators.required],
+    lname: ['oo', Validators.required],
+    address: ['fgc', Validators.required],
+    email: ['ffgdgd', Validators.required],
+    phone_no:['9875446788', Validators.required],
+    password: ['tfhgff', Validators.required],
+    is_verified:['1',Validators.required],
+    is_approved:['1',Validators.required],
+    is_active:['1',Validators.required],
+    last_login:['2023-07-15 13:30:00.000',Validators.required],
+    designation: ['admin',Validators.required],
   });
 }
 //  get f(){
@@ -55,7 +60,7 @@ getCountries(){
   return countryNames;
 }
  onSubmit() {
-  
+
   //  if(this.registrationForm.valid){
   //   this.router.navigate(['/sign-in'])
   //   console.log(this.registrationForm.value); 

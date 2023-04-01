@@ -14,12 +14,12 @@ namespace CC_api.Models
     public int licence_id { get; set; }
     public string domain_address { get; set; }
 
-    public int company_logo{ get; set; }// make its a byte[] to image 
-    public decimal company_locations { get; set; }
+    public byte[] company_logo{ get; set; }
+    public string company_location { get; set; }
     public string country { get; set; }
 
-    public double rating { get; set; }
-    public int port_id{ get; set; }
+    public decimal rating { get; set; }
+    
     public string address { get; set; }
 
 

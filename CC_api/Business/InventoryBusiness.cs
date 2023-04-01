@@ -4,37 +4,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-
-
 using System.Net;
-
 using System.Text;
 using System.ComponentModel.Design;
 
 namespace CC_api.Business
+
 {
   public class InventoryBusiness
   {
-   
-  
-    
       private readonly InventoryRepository inventoryRepository;
-
       public InventoryBusiness()
       {
         this.inventoryRepository = new InventoryRepository();
-
       }
-
-
      /* public async Task<List<User>> UploadInventory()
       {
         return await userRepository.GetAllUserAsync();
       }*/
+
       public async Task<IActionResult> UploadInventory(Inventory inventory)
       {
-      var inv= new Inventory();
-      
+      var inv = new Inventory();
+
       inv.date_created = inventory.date_created;
       inv.last_modified = inventory.last_modified;
       inv.company_id = inventory.company_id;
@@ -49,7 +41,6 @@ namespace CC_api.Business
         return new OkResult();
 
       }
-
 /*
     public async Task<AuthenticationModel> Login(Login loginmodel)
     {
@@ -60,9 +51,7 @@ namespace CC_api.Business
         authmodel.Email = login.Email;
         authmodel.Password = login.Password;
         return authmodel;
-
       }
-
       return null;
     }
     public async Task PopulateJwtTokenAsync(AuthenticationModel authModel)
@@ -73,10 +62,7 @@ namespace CC_api.Business
       {
         Subject = new ClaimsIdentity(new Claim[]
           {
-
                         new Claim(ClaimTypes.Email, authModel.Email.ToString()),
-
-
           }),
         Expires = authModel.TokenExpiryDate = DateTime.UtcNow.AddMinutes(50),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
@@ -87,6 +73,7 @@ namespace CC_api.Business
     }
   }
 }*/
+
 
 }
 }
