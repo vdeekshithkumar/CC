@@ -39,7 +39,7 @@ namespace CC_api.Business
       ct.user_id = contract.user_id;
       ct.content = contract.content;
       ct.title = contract.title;
-      ct.upload_id = contract.upload_id;
+      ct.upload_file = contract.upload_file;
       ct.updated_by = contract.updated_by;
       ct.updated_date_time = contract.updated_date_time;
      

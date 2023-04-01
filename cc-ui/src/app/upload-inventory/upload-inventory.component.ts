@@ -21,16 +21,16 @@ export class UploadInventoryComponent {
      }
   ngOnInit(): void {
     this.UploadInventoryForm = this.formBuilder.group({
-      inventory_id:['10'],
+      inventory_id:['8'],
       date_created:['2023-03-28'],
       last_modified:['2023-03-28'],
-      company_id:['10'],
+      company_id:['1'],
       container_type:['',Validators.required],
       available: ['', Validators.required],
       maximum: ['', Validators.required],
       minimum:['', Validators.required],
-      port_id:['10'],
-      updated_by:['10'],
+      port_id:['1'],
+      updated_by:['1'],
     });
   }
   onSubmit() {
