@@ -31,7 +31,7 @@ ngOnInit(): void {
     phone_no:['9875446788', Validators.required],
     password: ['tfhgff', Validators.required],
     is_verified:['1',Validators.required],
-    is_approved:['1',Validators.required],
+    is_approved:['0',Validators.required],
     is_active:['1',Validators.required],
     last_login:['2023-07-15 13:30:00.000',Validators.required],
     designation: ['admin',Validators.required],

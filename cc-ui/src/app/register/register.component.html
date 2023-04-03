@@ -61,6 +61,7 @@
                              type="text" id="ph-no" name="PhoneNumber" [value]="phoneCode" placeholder="Ex: 9999999999">
                         </div>
                         <br/> -->
+                        <br/>
                      <div class="space-y-1">
                             <label for="ph-no" class="font-medium">Phone Number</label>
                             
@@ -71,24 +72,19 @@
                          </div>
                         
                         <br/> 
+                         <div class="space-y-1">
+                            <label for="company-name" class="font-medium">Company id</label>
+                            <input formControlName="company_id"class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                             type="text" id="company-name" placeholder="Ex: ABC Group">
+                        </div>
+                       <br/>
                         <div class="space-y-1">
                             <label for="password" class="font-medium">Password</label>
                             <input formControlName="password" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                              type="text" id="password" placeholder="Password">
-                             <div class="space-y-1">
-                                <label for="company-name" class="font-medium">Company id</label>
-                                <input formControlName="company_id"class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                                 type="text" id="company-name" placeholder="Ex: ABC Group">
-                            </div>
-                             <input formControlName="last_login"  type="hidden" placeholder="232" >
-                             <input formControlName="is_verified" value=55 type="hidden" placeholder="232" >
-                             <input formControlName="user_id"  type="hidden" placeholder="232" >
-                             <input formControlName="company_id" value=55 type="hidden" placeholder="232" >
-                             <input formControlName="is_approved" type="hidden" placeholder="232" >
-                             <input formControlName="is_active" value=77 type="hidden" placeholder="232" >
-                             <input formControlName="designation" value=77 type="hidden" placeholder="232" >
+                            
                         </div>
-                        <br/> 
+                       <br/>
                         <!-- <div class="space-y-1 text-sm">
                             <input type="checkbox" > Accept Terms and Conditions
                         </div> -->
@@ -99,6 +95,14 @@
                         </div>
 
                     </div>
+                   
+                    <input formControlName="last_login"  type="hidden" placeholder="232" >
+                    <input formControlName="is_verified" value=55 type="hidden" placeholder="232" >
+                    <input formControlName="user_id"  type="hidden" placeholder="232" >
+                    <input formControlName="company_id" value=55 type="hidden" placeholder="232" >
+                    <input formControlName="is_approved" type="hidden" placeholder="232" >
+                    <input formControlName="is_active" value=77 type="hidden" placeholder="232" >
+                    <input formControlName="designation" value=77 type="hidden" placeholder="232" >
                 </form>
                 </div>
 
