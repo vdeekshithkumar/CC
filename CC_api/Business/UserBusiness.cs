@@ -35,8 +35,9 @@ namespace CC_api.Business
             us.email= user.email;
             us.phone_no = user.phone_no;
             us.password = user.password;
-            us.permission_id = user.permission_id;
+            
             us.is_verified = user.is_verified;
+            us.is_approved = user.is_approved;
             us.is_active = user.is_active;
             us.last_login = user.last_login;
             us.designation = user.designation;

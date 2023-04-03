@@ -24,7 +24,6 @@ const routes: Routes = [
   {
     component:DashboardComponent,
     path:'dashboard'
-
   },
   {
     component:UploadContractComponent,

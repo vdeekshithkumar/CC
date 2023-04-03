@@ -14,7 +14,7 @@ namespace CC_api.Models
     public int user_id { get; set; }
     public string content{ get; set; }
     public string title { get; set; }
-    public int upload_id { get; set; }
+    public byte[] upload_file { get; set; }
     public int updated_by { get; set; }
 
     public DateTime updated_date_time { get; set; }

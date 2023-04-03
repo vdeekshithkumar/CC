@@ -20,11 +20,11 @@ namespace CC_api.Models
         public string address { get; set; }
 
         public string email { get; set; }
-        public int phone_no { get; set; }
+        public string phone_no { get; set; }
         public string password { get; set; }
-        public int permission_id { get; set; }
-        public byte is_verified { get; set; }
-        public byte is_active { get; set; }
+        public int is_verified { get; set; }
+        public int is_approved { get; set; }
+        public int is_active { get; set; }
         public DateTime last_login { get; set; }
         public string designation { get; set; }
        
