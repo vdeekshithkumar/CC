@@ -29,8 +29,8 @@ export class UploadInventoryComponent {
       available: ['', Validators.required],
       maximum: ['', Validators.required],
       minimum:['', Validators.required],
-      port_id:['1'],
-      updated_by:['1'],
+      port_id:['6'],
+      updated_by:['4'],
     });
   }
   onSubmit() {
@@ -53,7 +53,7 @@ export class UploadInventoryComponent {
   //  this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).subscribe(
   //   (response: any)=>{
   //     console.log(response);
-  //     this.router.navigate(['sign-in'])
+  //     this.router.navigate(['/dashboard'])
   //     },
 
   //      (error: any)=>{

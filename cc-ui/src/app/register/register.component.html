@@ -39,11 +39,11 @@
                           <div class="relative ">
                             <label  for="address" class="font-medium text-sm">Country</label>
                             <input list="countries" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="address" formControlName="address"[(ngModel)]="countryName" placeholder="Ex: Inodnesia">
-                             <datalist id="countries">
+                             type="text" id="address" formControlName="address" placeholder="Ex: Inodnesia">
+                             <!-- <datalist id="countries">
 
                                 <option *ngFor="let country of getCountries()" [value]="country"></option>
-                              </datalist>
+                              </datalist> -->
                         </div>
                         <!-- <div class="relative">
                             <label for="city" class="font-medium text-sm">City</label>
@@ -95,14 +95,7 @@
                         </div>
 
                     </div>
-                   
-                    <input formControlName="last_login"  type="hidden" placeholder="232" >
-                    <input formControlName="is_verified" value=55 type="hidden" placeholder="232" >
-                    <input formControlName="user_id"  type="hidden" placeholder="232" >
-                    <input formControlName="company_id" value=55 type="hidden" placeholder="232" >
-                    <input formControlName="is_approved" type="hidden" placeholder="232" >
-                    <input formControlName="is_active" value=77 type="hidden" placeholder="232" >
-                    <input formControlName="designation" value=77 type="hidden" placeholder="232" >
+                 
                 </form>
                 </div>
 

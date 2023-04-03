@@ -39,26 +39,27 @@ ngOnInit(): void {
 }
 //  get f(){
 //     return this.form.controls;
-//  }
- getCities(){
-  const countries = Country.getAllCountries();
-  const country = countries.find((country: { name: string; }) => country.name === this.countryName);
+// //  }
+//  getCities(){
+//   const countries = Country.getAllCountries();
+//   const country = countries.find((country: { name: string; }) => country.name === this.countryName);
 
-  let iso= country?.isoCode|| '';
-  this.phoneCode = country?.phonecode || '';
-  const allCityDetails= City.getCitiesOfCountry(iso);
-  return allCityDetails?.map((city: { name: any; })=>city.name);
+//   let iso= country?.isoCode|| '';
+//   this.phoneCode = country?.phonecode || '';
+//   const allCityDetails= City.getCitiesOfCountry(iso);
+//   return allCityDetails?.map((city: { name: any; })=>city.name);
 
-}
+// }
 
 
-getCountries(){
-  const countries = Country.getAllCountries();
-  const countryNames = countries.map((country: { name: any; }) => country.name);
+// getCountries(){
+//   const countries = Country.getAllCountries();
+//   const countryNames = countries.map((country: { name: any; }) => country.name);
 
-  // Find a specific country by name
-  return countryNames;
-}
+//   // Find a specific country by name
+//   return countryNames;
+// }
+
  onSubmit() {
 
   //  if(this.registrationForm.valid){
@@ -73,29 +74,29 @@ getCountries(){
 //   (error)=>console.warn(console.log(error))
 //   );
 
-  this.registerservice.register(this.registrationForm.value).subscribe(
-    (response)=>{
+  // this.registerservice.register(this.registrationForm.value).subscribe(
+  //   (response)=>{
+  //     console.log(response);
+  //     console.log(this.registrationForm.value);
+  //     this.router.navigate(['/sign-in'])
+  //   },
+  //   (error)=>{
+  //     console.log('error',error);
+  //   }
+  //   );
+
+
+
+  {
+    try {
+      const response = this.registerservice.register(this.registrationForm.value).toPromise();
       console.log(response);
-      console.log(this.registrationForm.value);
-      this.router.navigate(['/sign-in'])
-    },
-    (error)=>{
-      console.log('error',error);
+      this.router.navigate(['/sign-in']);
+    } 
+    catch (error) {
+      console.log('Error registering:', error);
     }
-    );
-
-
-
-//   {
-//     try {
-//       const response = this.registerservice.register(this.registrationForm.value).toPromise();
-//       console.log(response);
-//       this.router.navigate(['/sign-in']);
-//     } 
-//     catch (error) {
-//       console.log('Error registering:', error);
-//     }
-// }
+}
 
 }
 }

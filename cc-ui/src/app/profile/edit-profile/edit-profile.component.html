@@ -14,12 +14,6 @@
                 <form [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
               <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
                 <div class="md:col-span-5">
-                  
-                        <input formControlName="company_id" value=55 type="hidden" placeholder="232" >                       
-                        <input formControlName="licence_id" value=77 type="hidden" placeholder="232" >
-                        <input formControlName="company_logo" value=79 type="hidden" placeholder="232" >
-                        <input formControlName="country" type="hidden" placeholder="232" >
-                        <input formControlName="company_locations" type="hidden" placeholder="232" >
 
                   <label for="name">Company Name</label>
                   <input type="text" formControlName="name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
