@@ -21,6 +21,8 @@ namespace CC_api.Models
 
         public string email { get; set; }
         public string phone_no { get; set; }
+
+       
         public string password { get; set; }
         public int is_verified { get; set; }
         public int is_approved { get; set; }

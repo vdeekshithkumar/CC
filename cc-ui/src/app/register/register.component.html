@@ -66,17 +66,27 @@
                             <label for="ph-no" class="font-medium">Phone Number</label>
                             
                             <input formControlName="phone_no" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="ph-no" placeholder="Ex: 9999999999"[value]="phoneCode">
+                             type="text" id="ph-no" placeholder="Ex: 9999999999">
                              <!-- <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required.</div>  
-                             <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Mobile Number.</div> --> -->
+                             <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Mobile Number.</div> --> 
                          </div>
-                        
-                        <br/> 
+                         <br/>
+
                          <div class="space-y-1">
-                            <label for="company-name" class="font-medium">Company id</label>
-                            <input formControlName="company_id"class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="company-name" placeholder="Ex: ABC Group">
+                            <label  for="company" class="font-medium text-sm">Company</label>
+                             <select #company [(ngModel)]="company_name" formControlName="company_id"   id = "Company" class="block border w-[200%] border-gray-200 rounded px-5 py-1 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                <option selected>Select your company</option>
+                                <option *ngFor ="let company of company_list" [value]="company.company_id">{{company.name}}</option>
+                            </select>
                         </div>
+
+                        <!-- <div class="space-y-1">
+                            <label for="email" class="font-medium">Company Id</label>
+                            <input formControlName="company_id" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                             type="email" id="email" placeholder="Ex: mathew123@domain.com">
+                        </div>
+                         -->
+                
                        <br/>
                         <div class="space-y-1">
                             <label for="password" class="font-medium">Password</label>

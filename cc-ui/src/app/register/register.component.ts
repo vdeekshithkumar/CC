@@ -7,6 +7,7 @@ import { Registerservice } from './register.service';
 import { Country, State, City } from 'country-state-city';
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,16 +16,18 @@ import { Country, State, City } from 'country-state-city';
 export class RegisterComponent {
   registrationForm!: FormGroup;
   form: any;
-   countryName: string='';
-  phoneCode:string="";
+  company_name="";
+  company_list :any;
+  
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
 
+    
 }
 ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
     company_id:['1',Validators.required],
-    fname: ['ff', Validators.required],
+    fname: ['fanbns', Validators.required],
     lname: ['oo', Validators.required],
     address: ['fgc', Validators.required],
     email: ['ffgdgd', Validators.required],
@@ -33,9 +36,20 @@ ngOnInit(): void {
     is_verified:['1',Validators.required],
     is_approved:['0',Validators.required],
     is_active:['1',Validators.required],
-    last_login:['2023-07-15 13:30:00.000',Validators.required],
+    last_login:['2023-07-15',Validators.required],
     designation: ['admin',Validators.required],
   });
+
+  this.registerservice.getAllCompanies().subscribe(
+    data => {
+      this.company_list = data;
+      console.log("port list fetched: ", this.company_list); 
+    },
+    error => {
+      console.log("Company loading error: "+ error);
+    }
+  );
+
 }
 //  get f(){
 //     return this.form.controls;
@@ -87,16 +101,17 @@ ngOnInit(): void {
 
 
 
-  {
-    try {
-      const response = this.registerservice.register(this.registrationForm.value).toPromise();
-      console.log(response);
-      this.router.navigate(['/sign-in']);
-    } 
-    catch (error) {
-      console.log('Error registering:', error);
+    {
+      try {
+        const response = this.registerservice.register(this.registrationForm.value).toPromise();
+        console.log(response);
+        console.log(this.registrationForm.value)
+        this.router.navigate(['/sign-in']);
+      } 
+      catch (error) {
+        console.log('Error registering:', error);
+      }
     }
-}
 
 }
 }

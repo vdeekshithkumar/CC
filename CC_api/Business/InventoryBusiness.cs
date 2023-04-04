@@ -18,11 +18,12 @@ namespace CC_api.Business
       {
         this.inventoryRepository = new InventoryRepository();
       }
-     /* public async Task<List<User>> UploadInventory()
+
+       /* public async Task<List<User>> UploadInventory()
       {
         return await userRepository.GetAllUserAsync();
       }*/
-
+      
       public async Task<IActionResult> UploadInventory(Inventory inventory)
       {
       var inv = new Inventory();
