@@ -22,7 +22,7 @@ namespace CC_api.Models
         public string email { get; set; }
         public string phone_no { get; set; }
 
-        [Required, MinLength(6, ErrorMessage = "Please enter at least 6 characters, dude!")]
+       
         public string password { get; set; }
         public int is_verified { get; set; }
         public int is_approved { get; set; }

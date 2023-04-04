@@ -11,16 +11,15 @@ import { Router } from '@angular/router';
   templateUrl: './upload-inventory.component.html',
   styleUrls: ['./upload-inventory.component.css']
 })
-export class UploadInventoryComponent implements OnInit {
+export class UploadInventoryComponent {
  
   UploadInventoryForm!: FormGroup;
     form: any;
-    ports_name="";
-    ports_list:any;
+    port_name="";
+    port_list:any;
   
-    constructor(private formBuilder: FormBuilder,private router:Router,private uploadInventoryservice:UploadInventoryservice)
-     {
-      this.ports_list=uploadInventoryservice.ports;
+    constructor(private formBuilder: FormBuilder,private router:Router,private uploadInventoryservice:UploadInventoryservice){
+      
      }
   ngOnInit(): void {
     this.UploadInventoryForm = this.formBuilder.group({
@@ -32,27 +31,23 @@ export class UploadInventoryComponent implements OnInit {
       available: ['', Validators.required],
       maximum: ['', Validators.required],
       minimum:['', Validators.required],
-      port_id:[''],
+      port_id:['',Validators.required],
       updated_by:['4'],
     });
 
     this.uploadInventoryservice.getAllPorts().subscribe(
       data => {
-        this.ports_list = data;
+        this.port_list = data;
+        console.log("Port list fetched: ", this.port_list); 
       },
       error => {
-        console.log("ports loading error: "+ error);
+        console.log("ports loading error:" +error);
       }
     );
 
   }
-  getPorts(){
-    console.warn("from the function\n"+this.ports_list);
-    return this.ports_list;
-  }
-  update(e: { target: { value: string; }; }){
-    this.ports_name = e.target.value
-  }
+  
+
   onSubmit() {
   //   if(this.UploadInventoryForm.valid){
   //    this.router.navigate(['sign-in'])

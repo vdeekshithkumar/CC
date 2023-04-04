@@ -19,9 +19,9 @@ namespace CC_api.Repository
         {
             return dbContext.users.ToList();
         }
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string userEmail, string password)
         {
-            var user = dbContext.users.FirstOrDefault(x => x.email == email && x.password == password);
+            var user = dbContext.users.FirstOrDefault(x => x.email == userEmail && x.password == password);
             if (user != null)
             {
                 return user;

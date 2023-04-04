@@ -22,8 +22,7 @@ namespace CC_api.Controllers
         }
 
         [HttpPost("SaveUser")]
-        //public async Task<IActionResult> SaveUser([FromForm] User user)
-        //public async Task<HttpStatusCode> SaveUser(User user)
+        
         public async Task<IActionResult> SaveUserAsync([FromBody] User user)
         {
             {
