@@ -3,6 +3,8 @@ using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
+
+
 namespace CC_api.Controllers
 {
   public class UserController : Controller
@@ -15,31 +17,43 @@ namespace CC_api.Controllers
       userBusiness = new UserBusiness();
     }
 
+
+
     [HttpGet("GetAllUser")]
     public async Task<List<User>> GetAllUser()
     {
       return await userBusiness.GetAllUserAsync();
     }
 
+
+
     [HttpPost("SaveUser")]
-    //public async Task<IActionResult> SaveUser([FromForm] User user)
-    //public async Task<HttpStatusCode> SaveUser(User user)
-    public async Task<IActionResult> SaveUserAsync([FromBody] User user)
+    //public async Task<IActionResult> SaveUser([FromForm] User user)
+    //public async Task<HttpStatusCode> SaveUser(User user)
+    public async Task<IActionResult> SaveUserAsync([FromBody] User user)
     {
       {
         return await userBusiness.SaveUserAsync(user);
 
+
+
       }
+
+
 
     }
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] Login loginmodel)
     {
 
+
+
       var login = await userBusiness.Login(loginmodel);
       if (login != null)
       {
         await userBusiness.PopulateJwtTokenAsync(login);
+
+
 
         return Ok(login);
       }
@@ -47,6 +61,8 @@ namespace CC_api.Controllers
       {
         return BadRequest();
       }
+
+
 
 
     }

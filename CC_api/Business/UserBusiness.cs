@@ -7,15 +7,21 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 
+
+
 namespace CC_api.Business
 {
   public class UserBusiness
   {
     private readonly UserRepository userRepository;
 
+
+
     public UserBusiness()
     {
       this.userRepository = new UserRepository();
+
+
 
     }
     public async Task<List<User>> GetAllUserAsync()
@@ -25,29 +31,41 @@ namespace CC_api.Business
     public async Task<IActionResult> SaveUserAsync(User user)
     {
       var us = new User();
-      us.FirstName = user.FirstName;
-      us.LastName = user.LastName;
-      us.Email = user.Email;
-      us.Country = user.Country;
-      us.City = user.City;
-      us.PhoneNumber = user.PhoneNumber;
-      us.CompanyName = user.CompanyName;
-      us.Password = user.Password;
-      await userRepository.Create(us);
+      us.company_id = user.company_id;
+      us.fname = user.fname;
+      us.lname = user.lname;
+      us.address = user.address;
+      us.email = user.email;
+      us.phone_no = user.phone_no;
+      us.password = user.password;
+
+
+
+      us.is_verified = user.is_verified;
+      us.is_approved = user.is_approved;
+      us.is_active = user.is_active;
+      us.last_login = user.last_login;
+      us.designation = user.designation;
       return new OkResult();
+
+
 
     }
     public async Task<AuthenticationModel> Login(Login loginmodel)
     {
-      var login = await userRepository.Login(loginmodel.Email, loginmodel.Password);
+      var login = await userRepository.Login(loginmodel.email, loginmodel.password);
       var authmodel = new AuthenticationModel();
       if (login != null)
       {
-        authmodel.Email = login.Email;
-        authmodel.Password = login.Password;
+        authmodel.Email = login.email;
+        authmodel.Password = login.password;
         return authmodel;
 
+
+
       }
+
+
 
       return null;
     }
@@ -58,15 +76,21 @@ namespace CC_api.Business
       var tokenDescriptor = new SecurityTokenDescriptor
       {
         Subject = new ClaimsIdentity(new Claim[]
-          {
-
-                        new Claim(ClaimTypes.Email, authModel.Email.ToString()),
+      {
 
 
-          }),
+
+ new Claim(ClaimTypes.Email, authModel.Email.ToString()),
+
+
+
+
+      }),
         Expires = authModel.TokenExpiryDate = DateTime.UtcNow.AddMinutes(50),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
       };
+
+
 
       var token = tokenHandler.CreateToken(tokenDescriptor);
       authModel.Token = tokenHandler.WriteToken(token);
