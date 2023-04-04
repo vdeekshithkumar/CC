@@ -11,12 +11,12 @@ export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
   submitted: Boolean = false;
   Invalid:Boolean=false;
-  
   errorMessage: string | undefined;
+
 constructor(private router: Router,private formBuilder: FormBuilder, private signInService: SignInService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ["",Validators.email], 
+      email: ["",Validators.required], 
       password: ["",Validators.required],
     });
   }

@@ -19,6 +19,7 @@ namespace CC_api.Controllers
     {
       return await companyBusiness.GetAllCompanyAsync();
     }
+
     [HttpPost("SaveCompany")]
     //public async Task<IActionResult> SaveUser([FromForm] User user)
     //public async Task<HttpStatusCode> SaveUser(User user)
