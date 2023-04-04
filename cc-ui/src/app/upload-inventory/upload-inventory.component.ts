@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./upload-inventory.component.css']
 })
 export class UploadInventoryComponent {
- 
+
+
   UploadInventoryForm!: FormGroup;
     form: any;
     port_name="";

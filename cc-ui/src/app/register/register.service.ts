@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-
 export interface Company {
   id: number;
   name: string;

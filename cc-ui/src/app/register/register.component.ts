@@ -7,6 +7,7 @@ import { Registerservice } from './register.service';
 import { Country, State, City } from 'country-state-city';
 
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

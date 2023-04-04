@@ -34,6 +34,7 @@ import { EditProfileService } from './profile/edit-profile/edit-profile.service'
     HeaderComponent,
     ProfileComponent,
     EditProfileComponent,
+
     
   ],
   imports: [

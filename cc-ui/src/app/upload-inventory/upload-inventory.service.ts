@@ -16,7 +16,8 @@ export interface Port {
     private apiUrl='https://localhost:7157/UploadInventory';
      
   constructor(private http:HttpClient) {
-    
+
+
   }
     uploadInventory(UploadInventoryForm: FormGroup<any>){
       const headers=new HttpHeaders().set('content-Type','application/json');

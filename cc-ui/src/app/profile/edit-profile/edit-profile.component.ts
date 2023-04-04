@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { EditProfileService } from './edit-profile.service';
 
 
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
