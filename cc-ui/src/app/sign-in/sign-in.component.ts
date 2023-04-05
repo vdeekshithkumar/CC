@@ -10,8 +10,8 @@ import { SignInService } from './sign-in.service';
 export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
   submitted: Boolean = false;
-  Invalid:Boolean=false;
-  
+  Invalid: Boolean = false;
+
   errorMessage: string | undefined;
 constructor(private router: Router,private formBuilder: FormBuilder, private signInService: SignInService) { }
   ngOnInit(): void {
@@ -35,25 +35,15 @@ onSubmit() {
   // if(this.loginForm.valid){
   //     this.router.navigate(['/dashboard'])
   //   }
-  // else {
+  //   else {
   //     alert('User form is not valid!!')
-  //   } {
-
-
-    // try {
-    //   const response = this.signInService.login(this.loginForm.value).toPromise();
-    //   console.log(response);
-    //   this.router.navigate(['/dashboard']);
-    // } 
-    // catch (error) {
-    //   console.log('Invalid User:', error);
-    // }
-    
-    
+  //   }
+        
+  
   this.signInService.login(this.loginForm.value).subscribe(
     (response)=>{
       console.log(response);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/dashboard'])
     },
     (error)=>{
       console.log('error',error);

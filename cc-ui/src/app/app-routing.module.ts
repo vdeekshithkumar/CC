@@ -42,6 +42,7 @@ const routes: Routes = [
     path:'add-employee'
   }
 
+
 ];
 
 @NgModule({

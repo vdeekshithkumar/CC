@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UploadInventoryservice } from './upload-inventory.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,12 +12,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./upload-inventory.component.css']
 })
 export class UploadInventoryComponent {
- 
+
+
   UploadInventoryForm!: FormGroup;
     form: any;
+    port_name="";
+    port_list:any;
   
-    constructor(private formBuilder: FormBuilder,private router:Router,private uploadInventoryservice:UploadInventoryservice)
-     {
+    constructor(private formBuilder: FormBuilder,private router:Router,private uploadInventoryservice:UploadInventoryservice){
+      
      }
   ngOnInit(): void {
     this.UploadInventoryForm = this.formBuilder.group({
@@ -29,10 +32,23 @@ export class UploadInventoryComponent {
       available: ['', Validators.required],
       maximum: ['', Validators.required],
       minimum:['', Validators.required],
-      port_id:['6'],
+      port_id:['',Validators.required],
       updated_by:['4'],
     });
+
+    this.uploadInventoryservice.getAllPorts().subscribe(
+      data => {
+        this.port_list = data;
+        console.log("Port list fetched: ", this.port_list); 
+      },
+      error => {
+        console.log("ports loading error:" +error);
+      }
+    );
+
   }
+  
+
   onSubmit() {
   //   if(this.UploadInventoryForm.valid){
   //    this.router.navigate(['sign-in'])
@@ -43,6 +59,7 @@ export class UploadInventoryComponent {
     try {
       const response = this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
       console.log(response);
+      console.log(this.UploadInventoryForm.value)
       this.router.navigate(['/dashboard']);
     } 
     catch (error) {
