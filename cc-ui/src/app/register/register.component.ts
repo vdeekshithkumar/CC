@@ -15,8 +15,7 @@ import { Country, State, City } from 'country-state-city';
 export class RegisterComponent {
   registrationForm!: FormGroup;
   form: any;
-   countryName: string='';
-  phoneCode:string="";
+  
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
 
 }
@@ -33,7 +32,7 @@ ngOnInit(): void {
     is_verified:['1',Validators.required],
     is_approved:['0',Validators.required],
     is_active:['1',Validators.required],
-    last_login:['2023-07-15 13:30:00.000',Validators.required],
+    last_login:['2023-07-15',Validators.required],
     designation: ['admin',Validators.required],
   });
 }
@@ -91,6 +90,7 @@ ngOnInit(): void {
     try {
       const response = this.registerservice.register(this.registrationForm.value).toPromise();
       console.log(response);
+      
       this.router.navigate(['/sign-in']);
     } 
     catch (error) {

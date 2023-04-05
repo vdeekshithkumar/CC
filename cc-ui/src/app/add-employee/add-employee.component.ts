@@ -30,7 +30,7 @@ export class AddEmployeeComponent {
     is_approved:['0',Validators.required],
     is_active:['1',Validators.required],
     last_login:['2024-07-15',Validators.required],
-    designation: ['user',Validators.required],
+    designation: ['user'],
     });
 
     this.addPermissionForm = this.formBuilder.group({
