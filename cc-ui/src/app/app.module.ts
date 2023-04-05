@@ -37,8 +37,6 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     EditProfileComponent,
     AddEmployeeComponent,
     
-
-    
   ],
   imports: [
     BrowserModule,
