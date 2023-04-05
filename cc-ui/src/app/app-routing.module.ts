@@ -7,7 +7,7 @@ import {RegisterComponent} from './register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
-
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -36,6 +36,10 @@ const routes: Routes = [
   {
     component:ProfileComponent,
     path:'profile'
+  },
+  {
+    component:AddEmployeeComponent,
+    path:'add-employee'
   }
 
 ];

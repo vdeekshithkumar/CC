@@ -20,6 +20,7 @@ import { UploadInventoryservice } from './upload-inventory/upload-inventory.serv
 import { SignInService } from './sign-in/sign-in.service';
 import { Registerservice } from './register/register.service';
 import { EditProfileService } from './profile/edit-profile/edit-profile.service';
+import { AddEmployeeComponent } from './add-employee/add-employee.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { EditProfileService } from './profile/edit-profile/edit-profile.service'
     HeaderComponent,
     ProfileComponent,
     EditProfileComponent,
+    AddEmployeeComponent,
     
   ],
   imports: [
