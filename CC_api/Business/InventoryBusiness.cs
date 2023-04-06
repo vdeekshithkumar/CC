@@ -37,44 +37,17 @@ namespace CC_api.Business
       inv.minimum = inventory.minimum;
       inv.port_id = inventory.port_id;
       inv.updated_by = inventory.updated_by;
+      inv.container_size=inventory.container_size;
+
 
       await inventoryRepository.UploadI(inv);
         return new OkResult();
 
       }
-/*
-    public async Task<AuthenticationModel> Login(Login loginmodel)
+    public async Task<List<Inventory>> GetAllInventoryAsync()
     {
-      var login = await userRepository.Login(loginmodel.Email, loginmodel.Password);
-      var authmodel = new AuthenticationModel();
-      if (login != null)
-      {
-        authmodel.Email = login.Email;
-        authmodel.Password = login.Password;
-        return authmodel;
-      }
-      return null;
+      return await inventoryRepository.GetAllInventoryAsync();
     }
-    public async Task PopulateJwtTokenAsync(AuthenticationModel authModel)
-    {
-      var tokenHandler = new JwtSecurityTokenHandler();
-      var key = Encoding.ASCII.GetBytes("!@#$%^&*()!@#$%^&*()");
-      var tokenDescriptor = new SecurityTokenDescriptor
-      {
-        Subject = new ClaimsIdentity(new Claim[]
-          {
-                        new Claim(ClaimTypes.Email, authModel.Email.ToString()),
-          }),
-        Expires = authModel.TokenExpiryDate = DateTime.UtcNow.AddMinutes(50),
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-      };
 
-      var token = tokenHandler.CreateToken(tokenDescriptor);
-      authModel.Token = tokenHandler.WriteToken(token);
-    }
   }
-}*/
-
-
-}
 }

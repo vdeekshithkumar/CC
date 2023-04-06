@@ -98,8 +98,6 @@ ngOnInit(): void {
   //   }
   //   );
 
-
-
     {
       try {
         const response = this.registerservice.register(this.registrationForm.value).toPromise();

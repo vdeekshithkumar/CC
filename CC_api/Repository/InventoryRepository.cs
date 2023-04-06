@@ -15,21 +15,10 @@ namespace CC_api.Repository
       dbContext.inventory.Add(inventory);
       await dbContext.SaveChangesAsync();
     }
-   /* public async Task<List<User>> GetAllUserAsync()
+
+    public async Task<List<Inventory>> GetAllInventoryAsync()
     {
-      return dbContext.ccusersdb.ToList();
+      return dbContext.inventory.ToList();
     }
-    public async Task<User> Login(string userEmail, string password)
-    {
-      var user = dbContext.ccusersdb.FirstOrDefault(x => x.Email == userEmail && x.Password == password);
-      if (user != null)
-      {
-        return user;
-      }
-      else
-      {
-        return user;
-      }
-    }*/
   }
 }

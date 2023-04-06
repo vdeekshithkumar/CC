@@ -17,6 +17,7 @@ namespace CC_api.Models
         //if (!optionsBuilder.IsConfigured)
         optionsBuilder.UseSqlServer("Server=localhost;Database=CC_Models;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
 
+
       }
     }
   
