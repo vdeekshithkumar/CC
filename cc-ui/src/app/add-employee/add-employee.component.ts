@@ -27,7 +27,7 @@ export class AddEmployeeComponent {
     phone_no:['9875446788', Validators.required],
     password: ['tfhgff', Validators.required],
     is_verified:['1',Validators.required],
-    is_approved:['0',Validators.required],
+    is_approved:['1',Validators.required],
     is_active:['1',Validators.required],
     last_login:['2024-07-15',Validators.required],
     designation: ['user',Validators.required],

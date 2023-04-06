@@ -30,23 +30,11 @@ namespace CC_api.Controllers
         }
 
       }
-      /*[HttpPost("Login")]
-      public async Task<IActionResult> Login(Login loginmodel)
-      {
 
-        var login = await userBusiness.Login(loginmodel);
-        if (login != null)
-        {
-          await userBusiness.PopulateJwtTokenAsync(login);
-
-          return Ok(login);
-        }
-        else
-        {
-          return BadRequest();
-        }
-
-
-      }*/
+    [HttpGet("GetAllInventory")]
+    public async Task<List<Inventory>> GetAllInventory()
+    {
+      return await inventoryBusiness.GetAllInventoryAsync();
     }
+  }
   }
