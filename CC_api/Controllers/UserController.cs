@@ -1,5 +1,7 @@
 using CC_api.Business;
 using CC_api.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -9,10 +11,13 @@ namespace CC_api.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly UserBusiness userBusiness;
+   
         public UserController(ILogger<UserController> logger)
         {
             _logger = logger;
             userBusiness = new UserBusiness();
+    
+     
         }
 
         [HttpGet("GetAllUser")]
@@ -30,8 +35,11 @@ namespace CC_api.Controllers
 
             }
 
-        }
-        [HttpPost("Login")]
+    
+}
+
+
+[HttpPost("Login")]
         public async Task<IActionResult> Login(Login loginmodel)
         {
 

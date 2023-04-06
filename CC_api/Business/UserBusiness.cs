@@ -42,10 +42,12 @@ namespace CC_api.Business
             us.designation = user.designation;
             
       await userRepository.Create(us);
-            return new OkResult();  
+            return new OkResult(); 
 
         }
-        public async Task<AuthenticationModel> Login(Login loginmodel)
+
+   
+    public async Task<AuthenticationModel> Login(Login loginmodel)
         {
             var login = await userRepository.Login(loginmodel.email, loginmodel.password);
             var authmodel = new AuthenticationModel();
