@@ -15,7 +15,7 @@ namespace CC_api.Models
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
         //if (!optionsBuilder.IsConfigured)
-        optionsBuilder.UseSqlServer("Server=localhost;Database=CC_Models;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
+        optionsBuilder.UseSqlServer("Server=THEJESH;Database=CC_Models;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
 
 
       }
