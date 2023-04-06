@@ -1,9 +1,6 @@
 using CC_api.Business;
 using CC_api.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
 namespace CC_api.Controllers
 {
