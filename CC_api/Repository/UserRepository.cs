@@ -10,11 +10,13 @@ namespace CC_api.Repository
             this.dbContext = new DatabaseContext();
         }
 
-        public async Task Create(User user)
+        public async Task<int> Create(User user)
        {
            dbContext.users.Add(user);
             await dbContext.SaveChangesAsync();
+      return user.user_id;
         }
+
         public async Task<List<User>> GetAllUserAsync()
         {
             return dbContext.users.ToList();

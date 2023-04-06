@@ -16,12 +16,11 @@ import { Country, State, City } from 'country-state-city';
 export class RegisterComponent {
   registrationForm!: FormGroup;
   form: any;
-  company_name="";
-  company_list :any;
-  
+   company_name= "";
+   company_list : any;
+
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
 
-    
 }
 ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
