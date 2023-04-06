@@ -16,8 +16,9 @@ import { Country, State, City } from 'country-state-city';
 export class RegisterComponent {
   registrationForm!: FormGroup;
   form: any;
-   countryName: string='';
-  phoneCode:string="";
+   company_name= "";
+   company_list : any;
+
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
 
 }

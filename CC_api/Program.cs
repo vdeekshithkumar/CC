@@ -1,5 +1,7 @@
-var builder = WebApplication.CreateBuilder(args);
 
+
+var builder = WebApplication.CreateBuilder(args);
+var Configuration = builder.Configuration;
 // Add services to the container.
 
 builder.Services.AddControllers();
