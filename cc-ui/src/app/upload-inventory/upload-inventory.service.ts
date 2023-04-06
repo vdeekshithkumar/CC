@@ -5,6 +5,11 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 
 
+export interface Inventory {
+  id: number;
+  container_type: string;
+}
+
 export interface Port {
   id: number;
   name: string;
@@ -22,9 +27,15 @@ export interface Port {
     uploadInventory(UploadInventoryForm: FormGroup<any>){
       const headers=new HttpHeaders().set('content-Type','application/json');
       return this.http.post(this.apiUrl,UploadInventoryForm,{headers});
+      
     }
 
     getAllPorts(): Observable<any> {
       return this.http.get('https://localhost:7157/GetAllPorts');
+    }
+    
+    getAllInventory(): Observable<any> {
+      return this.http.get('https://localhost:7157/GetAllInventory');
+      
     }
   }
