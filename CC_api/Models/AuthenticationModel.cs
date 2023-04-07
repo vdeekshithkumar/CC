@@ -2,10 +2,9 @@ namespace CC_api.Models
 {
     public class AuthenticationModel
     {
-        public string Email { get; set; }
+        public string email { get; set; }
 
-        public string Password { get; set; }
-        public DateTime TokenExpiryDate { get; set; }
-        public string Token { get; set; } = null!;
+        public string password { get; set; }
+       
     }
 }

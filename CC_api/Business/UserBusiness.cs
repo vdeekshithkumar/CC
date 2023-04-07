@@ -45,41 +45,55 @@ namespace CC_api.Business
             return new OkResult(); 
 
         }
+    public async Task<AuthenticationModel> GetUserByEmailAndPassword(string email, string password)
+    {
+      var login = await userRepository.GetUserByEmailAndPassword(email, password);
+      var authmodel = new AuthenticationModel();
+      if (login != null)
+      {
+        authmodel.email = login.email;
+        authmodel.password = login.password;
+        return authmodel;
 
-   
-    public async Task<AuthenticationModel> Login(Login loginmodel)
-        {
-            var login = await userRepository.Login(loginmodel.email, loginmodel.password);
-            var authmodel = new AuthenticationModel();
-            if (login != null)
-            { 
-                authmodel.Email = login.email;
-                authmodel.Password = login.password;
-                return authmodel;
+      }
 
-            }
-
-            return null;
-        }
-        public async Task PopulateJwtTokenAsync(AuthenticationModel authModel)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes("!@#$%^&*()!@#$%^&*()");
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                        
-                        new Claim(ClaimTypes.Email, authModel.Email.ToString()),
-                         
-
-                }),
-                Expires = authModel.TokenExpiryDate = DateTime.UtcNow.AddMinutes(50),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            authModel.Token = tokenHandler.WriteToken(token);
-        }
+      return null;
     }
+ 
+
+    /* public async Task<AuthenticationModel> Login(Login loginmodel)
+         {
+             var login = await userRepository.Login(loginmodel.email, loginmodel.password);
+             var authmodel = new AuthenticationModel();
+             if (login != null)
+             { 
+                 authmodel.Email = login.email;
+                 authmodel.Password = login.password;
+                 return authmodel;
+
+             }
+
+             return null;
+         }
+         public async Task PopulateJwtTokenAsync(AuthenticationModel authModel)
+         {
+             var tokenHandler = new JwtSecurityTokenHandler();
+             var key = Encoding.ASCII.GetBytes("!@#$%^&*()!@#$%^&*()");
+             var tokenDescriptor = new SecurityTokenDescriptor
+             {
+                 Subject = new ClaimsIdentity(new Claim[]
+                 {
+
+                         new Claim(ClaimTypes.Email, authModel.Email.ToString()),
+
+
+                 }),
+                 Expires = authModel.TokenExpiryDate = DateTime.UtcNow.AddMinutes(50),
+                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
+             };
+
+             var token = tokenHandler.CreateToken(tokenDescriptor);
+             authModel.Token = tokenHandler.WriteToken(token);
+         }*/
+  }
 }

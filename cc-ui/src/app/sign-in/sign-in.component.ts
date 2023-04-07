@@ -31,7 +31,7 @@ constructor(private router: Router,private formBuilder: FormBuilder, private sig
 // // const data=registrationForm.value;
 //  }
 isUserValid:boolean=false;
-onSubmit() {
+onLoginSubmit() {
   // if(this.loginForm.valid){
   //     this.router.navigate(['/dashboard'])
   //   }
