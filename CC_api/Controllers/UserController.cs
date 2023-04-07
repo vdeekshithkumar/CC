@@ -43,7 +43,7 @@ namespace CC_api.Controllers
         var loginUser =  await userBusiness.GetUserByEmailAndPassword(user.email, user.password);
         if (loginUser == null)
         {
-          return BadRequest("User not exist");
+          return Ok(new { message = "User not exist", user = loginUser });
         }
 
         return Ok(new { message = "Login successful", user = loginUser });

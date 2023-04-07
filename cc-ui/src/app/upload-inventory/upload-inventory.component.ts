@@ -116,7 +116,8 @@ async onSubmit() {
     await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
     await this.router.navigate(['/upload-inventory']);
     await window.location.reload()
-  } catch (error) {
+  } 
+  catch (error) {
     console.log('Error uploading inventory:', error);
   }
 }

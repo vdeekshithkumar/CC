@@ -20,4 +20,9 @@ import { FormGroup } from '@angular/forms';
   
     }
   
+  // loginUser(loginUserData: { email: string; password: string; }){
+  //   return this.http.post<any>(this.apiUrl,loginUserData)
+  // }
+  
+  
   }
