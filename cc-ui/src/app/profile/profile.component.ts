@@ -10,27 +10,43 @@ import { SignInService } from '../sign-in/sign-in.service';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent  implements OnInit{
+  company_id?: number;
+  name?:string;
+ domain_address?:string;
+ licence_id?:number;
+      rating?:number;
+      address?:string;
+      // company_logo?:string
+      company_location?:string
+      country?:string
+      
   company_list :any;
   showDiv = false;
   profileForm!:FormGroup;
-  company_id: any;
+ 
   constructor(private formBuilder: FormBuilder,private router:Router,private profileService:ProfileService,private signInService: SignInService){
 
   }
   ngOnInit(): void {
-    this.profileForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      // licence_id: ['11', Validators.required],
-      domain_address: ['', Validators.required],
-      rating:['', Validators.required],
-      address: ['', Validators.required],
-      });
-      this.profileService.getCompanyById(this.company_id).subscribe(
-        data => {
-          console.log(
-          this.company_id = data);
-        },
-      );
+    this.profileService.getCompanyById(1).subscribe(
+      data => {
+          // Handle the data returned by the HTTP GET request
+          // this.company_id=data.company_id,
+          this.name=data.name,
+          this.licence_id=data.licence_id,
+          this.domain_address=data.domain_address,
+          
+          // this.company_logo=data.company_logo,
+          this.company_location=data.company_location,
+      this.country=data.country,
+          this.rating=data.rating,
+          this.address=data.address
+      },
+      error => {
+          // Handle any errors that occur
+          console.warn("oninit error"+error);
+      }
+  );
   }
   // const company_id = this.signInService.getCompanyById();
   // this.signInService.getCompanyById(company_id).subscribe(

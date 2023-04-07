@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace CC_api.Models
 {
@@ -6,12 +7,15 @@ namespace CC_api.Models
   {
 
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int CompanyId { get; set; }
-    public string CompanyName { get; set; }
-    public string DomainAddress { get; set; }
-    public string CompanyAddress { get; set; }
-    public int Rating { get; set; }
-
-
+    [Key]
+    public int company_id { get; set; }
+    public string name { get; set; }
+   public int licence_id { get; set; }
+    public string domain_address { get; set; }
+    //public byte[] company_logo{ get; set; }
+    public string company_location { get; set; }
+   public string country { get; set; }
+    public int rating { get; set; }
+    public string address { get; set; }
   }
 }

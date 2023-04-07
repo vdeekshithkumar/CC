@@ -7,7 +7,7 @@ import { map } from "rxjs/operators";
   providedIn: 'root'
 })
 export class ProfileService {
-//   private apiUrl='https://localhost:7157/GetCompany';
+    private apiUrl='https://localhost:7157/GetCompanyById';
   constructor(private http:HttpClient) { }
 //   edit(editprofileForm: FormGroup<any>)
 //   {
@@ -27,7 +27,9 @@ export class ProfileService {
   getCompanyById(company_id:number):Observable<any>{
     
     // return this.http.get('https://localhost:7157/GetCompanyById',{params:{'company_id':company_id}})
-    return this.http.get('https://localhost:7157/GetCompanyById${company_id}')
+    // return this.http.get('https://localhost:7157/GetCompanyById${company_id}')
+    console.log(`${this.apiUrl}?company_id=${company_id}`)
+    return this.http.get(`${this.apiUrl}?companyId=${company_id}`);
  }
 getallUser():Observable<any>{
     return this.http.get('https://localhost:7157/GetAllUser')

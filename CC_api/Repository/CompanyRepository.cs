@@ -30,11 +30,11 @@ namespace CC_api.Repository
       if (cp != null)
       {
         cp.name = company.name;
-        //cp.licence_id = company.licence_id;
+        cp.licence_id = company.licence_id;
         cp.domain_address = company.domain_address;
         //cp.company_logo = company.company_logo;
-        //cp.company_location = company.company_location;
-        //cp.country = company.country;
+        cp.company_location = company.company_location;
+        cp.country = company.country;
         cp.rating = company.rating;
         cp.address = company.address;
         await this.dbContext.SaveChangesAsync();
@@ -42,4 +42,3 @@ namespace CC_api.Repository
     }
   }
   }
-

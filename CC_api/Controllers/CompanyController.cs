@@ -41,5 +41,6 @@ namespace CC_api.Controllers
     {
       return await companyBusiness.UpdateCompanyAsync(company);
     }
+
   }
 }
