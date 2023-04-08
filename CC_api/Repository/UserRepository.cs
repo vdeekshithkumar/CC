@@ -24,19 +24,24 @@ namespace CC_api.Repository
             return dbContext.users.ToList();
         }
 
-          public async Task<User> GetUserByEmailAndPassword(string UserEmail, string password)
-          {
-            var user = dbContext.users.FirstOrDefault(u => u.email == UserEmail && u.password == password);
-              if (user != null)
-              {
-                
-                return user;
-              }
-              else
-              {
-                return user;
-              }
-          }
+    /*public async Task<User> GetUserByEmailAndPassword(string UserEmail, string password)
+    {
+      var user = dbContext.users.FirstOrDefault(u => u.email == UserEmail && u.password == password);
+        if (user != null)
+        {
+
+          return user;
+        }
+        else
+        {
+          return user;
+        }
+    }*/
+
+    public async Task<User> GetUserByEmailAndPassword(string email, string password)
+    {
+      return await dbContext.users.Where(u => u.email == email).FirstOrDefaultAsync();
+    }
 
 
     /*public async Task<User> Login(string userEmail, string password)
@@ -51,5 +56,5 @@ namespace CC_api.Repository
                 return user;
             }
         }*/
-    }
+  }
 }

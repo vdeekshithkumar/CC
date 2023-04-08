@@ -97,7 +97,7 @@ export class UploadInventoryComponent {
       maximum: this.ExcelData[0].Maximum,
       minimum: this.ExcelData[0].Minimum,
       port_id: 3,
-      updated_by:4,
+      updated_by:2,
       container_size: 4
       
   

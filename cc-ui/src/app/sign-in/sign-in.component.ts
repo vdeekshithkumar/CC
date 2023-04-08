@@ -68,9 +68,17 @@ isUserValid:boolean=false;
       (response: Object) => {
         const loginResponse = response as LoginResponse;
         console.log(response);
-        if (loginResponse.message === 'Login successful') {
+        if (loginResponse.message === 'Admin Login successful') {
           // redirect to dashboard
           this.router.navigate(['/dashboard']);
+          this.loginForm.reset();
+        } 
+        if (loginResponse.message === 'User Login Successful') {
+          // redirect to dashboard
+
+          console.log("printed from loop")
+          this.router.navigate(['/dashboard']);
+
           this.loginForm.reset();
         } 
         else if (loginResponse.message === 'User not exist') {
@@ -78,9 +86,30 @@ isUserValid:boolean=false;
           alert(loginResponse.message);
           this.loginForm.reset();
         }
+        else if (loginResponse.message === 'Account Not Approved Yet') {
+            alert(loginResponse.message);
+            this.loginForm.reset();
+          }
+        else if (loginResponse.message === 'Admin Password Mismatched') {
+            alert(loginResponse.message);
+            this.loginForm.reset();
+        }
+        else if (loginResponse.message === 'User Password Mismatched') {
+            alert(loginResponse.message);
+            this.loginForm.reset();
+        }
+        else if (loginResponse.message === 'Account Not Active') {
+            alert(loginResponse.message);
+            this.loginForm.reset();
+        }
+        else if (loginResponse.message === 'Not Verified') {
+            alert(loginResponse.message);
+            this.loginForm.reset();
+        }
         else {
           // display error message
           alert(loginResponse.message);
+          this.loginForm.reset();
         }
       },
       (error) => {

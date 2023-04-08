@@ -46,7 +46,7 @@ namespace CC_api.Controllers
           return Ok(new { message = "User not exist", user = loginUser });
         }
 
-        return Ok(new { message = "Login successful", user = loginUser });
+        return Ok(loginUser);
       }
       catch (Exception ex)
       {

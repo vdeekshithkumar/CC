@@ -45,21 +45,84 @@ namespace CC_api.Business
             return new OkResult(); 
 
         }
-    public async Task<AuthenticationModel> GetUserByEmailAndPassword(string email, string password)
-    {
-      var login = await userRepository.GetUserByEmailAndPassword(email, password);
-      var authmodel = new AuthenticationModel();
-      if (login != null)
-      {
-        authmodel.email = login.email;
-        authmodel.password = login.password;
-        return authmodel;
+    /*   public async Task<AuthenticationModel> GetUserByEmailAndPassword(string email, string password)
+       {
+         var login = await userRepository.GetUserByEmailAndPassword(email, password);
+         var authmodel = new AuthenticationModel();
+         if (login != null)
+         {
+           authmodel.email = login.email;
+           authmodel.password = login.password;
+           return authmodel;
 
-      }
+         }
 
-      return null;
+         return null;
+       }*/
+    public async Task<AuthResponse> GetUserByEmailAndPassword(string email, string password)
+     {
+         var login = await userRepository.GetUserByEmailAndPassword(email, password);
+         if (login != null)
+         {
+
+              if (login.is_active == 1)
+                {
+                  if (login.designation == "admin")
+                  {
+                      if (login.is_approved == 1)
+                      {
+                          if (login.is_verified == 1)
+                          {
+
+                              if (login.email == email && login.password == password)
+                              {
+
+                                return new AuthResponse { User = login, Message = "Admin Login Successful", Token = null };
+                              }
+                              else
+                              {
+                                return new AuthResponse { User = null, Message = "Admin Password Mismatched", Token = null };
+                              }
+                          }
+                          else
+                          {
+                            return new AuthResponse { User = null, Message = "Not Verified", Token = null };
+                          }
+                      }
+                      else
+                      {
+                        return new AuthResponse { User = null, Message = "Account Not Approved Yet", Token = null };
+                      }
+                  }
+                  else
+                  {
+                      if (login.email == email && login.password == password)
+                      {
+
+                        return new AuthResponse { User = login, Message = "User Login Successful", Token = null };
+                      }
+                      else
+                      {
+                        return new AuthResponse { User = null, Message = "User Password Mismatched", Token = null };
+                      }
+                  }
+                }
+              else
+               {
+         
+          
+                   return new AuthResponse { User = null, Message = "Account Not Active", Token = null };
+         
+              }
+         
+          
+        
+          }
+          else
+          {
+            return new AuthResponse { User = null, Message = "User Not Found", Token = null };
+          }
     }
- 
 
     /* public async Task<AuthenticationModel> Login(Login loginmodel)
          {
