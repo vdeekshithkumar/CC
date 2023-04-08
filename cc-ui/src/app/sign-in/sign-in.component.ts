@@ -81,7 +81,7 @@ isUserValid:boolean=false;
 
           this.loginForm.reset();
         } 
-        else if (loginResponse.message === 'User not exist') {
+        else if (loginResponse.message === 'User Not Found') {
           this.router.navigate(['/register']);
           alert(loginResponse.message);
           this.loginForm.reset();
