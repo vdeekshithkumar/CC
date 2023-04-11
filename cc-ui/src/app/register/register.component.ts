@@ -23,6 +23,8 @@ export class RegisterComponent {
 
 }
 ngOnInit(): void {
+  const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
     company_id:['1',Validators.required],
@@ -33,9 +35,9 @@ ngOnInit(): void {
     phone_no:['9875446788', Validators.required],
     password: ['tfhgff', Validators.required],
     is_verified:['1',Validators.required],
-    is_approved:['0',Validators.required],
+    is_approved:['1',Validators.required],
     is_active:['1',Validators.required],
-    last_login:['2023-07-15',Validators.required],
+    last_login:formattedDate,
     designation: ['admin',Validators.required],
   });
 
@@ -103,7 +105,7 @@ ngOnInit(): void {
         const response = this.registerservice.register(this.registrationForm.value).toPromise();
         console.log(response);
         console.log(this.registrationForm.value)
-        this.router.navigate(['/sign-in']);
+        this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
       } 
       catch (error) {
         console.log('Error registering:', error);

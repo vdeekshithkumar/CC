@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { AddEmployeeServiceService } from './add-employee.service';
+import { SessionService } from '../session.service';
+import { filter } from 'rxjs';
  
 @Component({
   selector: 'app-add-employee',
@@ -9,19 +11,23 @@ import { AddEmployeeServiceService } from './add-employee.service';
   styleUrls: ['./add-employee.component.css']
 })
 export class AddEmployeeComponent {
+  
   addEmployeeForm!: FormGroup;
   addPermissionForm!:FormGroup;
   form:any;
-  Ar:any;
-  Aw:any;
-  Nr:any;
-  Nw:any;
+  Ar=9;
+  
+  Aw=8;
+  Nr=7;
+  Nw=6;
+  
 
+  currentUser: any;
  
  
   
 
-  constructor(private formBuilder:FormBuilder,private router:Router,private addEmployeesService:AddEmployeeServiceService){
+  constructor(private formBuilder:FormBuilder,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService){
 
   }
   ngOnInit():void{
@@ -46,16 +52,38 @@ export class AddEmployeeComponent {
       user_id: ['',Validators.required],
       permission_id:['',Validators.required],
     
-    
-    
     });
-   
-    this.Ar=9;
-    this.Aw=8;
-this.Nr=7;
-this.Nw=6;
+//session
+this.sessionService.getCurrentUser().subscribe(user => {
+  // if (user.id==null && user.token==null) {  // use this once token is used for a user
+  if (user.user_id==null) {
+    // if user session is null, redirect to login page
+    this.router.navigate(['/sign-in']);
+  }
+  else{
+    this.currentUser = user;
+  console.log('From session '+this.currentUser.email+'  id here '+this.currentUser.user_id)
 
   }
+  // store the user session information in a property
+  
+});
+ //when navigate back to sign-in session ends
+ this.router.events.pipe(
+  filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
+).subscribe(() => {
+  this.sessionService.clearSession();
+});
+}
+   
+
+logout(): void {
+  // clear session data and redirect to login page
+  this.sessionService.clearSession();
+
+}
+  
+  
   OnMainPer(){
     console.log('Ar:', this.Ar);
 console.log('Nr:', this.Nr);

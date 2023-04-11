@@ -1,6 +1,7 @@
 using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace CC_api.Controllers
 {
@@ -33,26 +34,45 @@ namespace CC_api.Controllers
             }
 
     
-}
-
-
-[HttpPost("Login")]
-        public async Task<IActionResult> Login(Login loginmodel)
-        {
-
-            var login = await userBusiness.Login(loginmodel);
-            if (login != null)
-            {
-                await userBusiness.PopulateJwtTokenAsync(login);
-
-                return Ok(login);
-            }
-            else
-            {
-                return BadRequest();
-            }
-
-
         }
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] Login user)
+    {
+      try
+      {
+        var loginUser =  await userBusiness.GetUserByEmailAndPassword(user.email, user.password);
+        if (loginUser == null)
+        {
+          return Ok(new { message = "User not exist", user = loginUser });
+        }
+
+        return Ok(loginUser);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest();
+      }
+    }
+
+
+      /*[HttpPost("Login")]
+              public async Task<IActionResult> Login(Login loginmodel)
+              {
+
+                  var login = await userBusiness.Login(loginmodel);
+                  if (login != null)
+                  {
+                      await userBusiness.PopulateJwtTokenAsync(login);
+
+                      return Ok(login);
+                  }
+                  else
+                  {
+                      return BadRequest();
+                  }
+
+
+              }*/
+
     }
 }
