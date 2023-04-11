@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators,ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
+import { SessionService } from '../session.service';
+
 
 interface LoginResponse {
   message: string;
@@ -23,7 +25,7 @@ export class SignInComponent implements OnInit{
 
 
   errorMessage: string | undefined;
-constructor(private router: Router,private formBuilder: FormBuilder, private signInService: SignInService) { }
+constructor(private router: Router,private formBuilder: FormBuilder,private sessionService: SessionService, private signInService: SignInService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ["",Validators.email], 
@@ -68,17 +70,20 @@ isUserValid:boolean=false;
       (response: Object) => {
         const loginResponse = response as LoginResponse;
         console.log(response);
-        if (loginResponse.message === 'Admin Login successful') {
-          // redirect to dashboard
+        
+        if (loginResponse.message === 'Admin Login Successful') {
+          this.sessionService.setCurrentUser(loginResponse.user);//session
+          console.log("admin login success inside loop")
           this.router.navigate(['/dashboard']);
+          alert(loginResponse.message)
           this.loginForm.reset();
         } 
         if (loginResponse.message === 'User Login Successful') {
+          this.sessionService.setCurrentUser(loginResponse.user);//session
           // redirect to dashboard
-
           console.log("printed from loop")
           this.router.navigate(['/dashboard']);
-
+          alert(loginResponse.message)
           this.loginForm.reset();
         } 
         else if (loginResponse.message === 'User Not Found') {

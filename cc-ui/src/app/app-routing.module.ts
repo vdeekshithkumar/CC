@@ -8,6 +8,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { AuthGuard } from './auth.guard';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -23,23 +24,28 @@ const routes: Routes = [
   },
   {
     component:DashboardComponent,
-    path:'dashboard'
+    path:'dashboard',
+    canActivate: [AuthGuard]
   },
   {
     component:UploadContractComponent,
-    path:'upload-contract'
+    path:'upload-contract',
+    canActivate: [AuthGuard]
   },
   {
     component:UploadInventoryComponent,
-    path:'upload-inventory'
+    path:'upload-inventory',
+    canActivate: [AuthGuard]
   },
   {
     component:ProfileComponent,
-    path:'profile'
+    path:'profile',
+    canActivate: [AuthGuard]
   },
   {
     component:AddEmployeeComponent,
-    path:'add-employee'
+    path:'add-employee',
+    canActivate: [AuthGuard]
   }
 
 

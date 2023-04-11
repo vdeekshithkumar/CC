@@ -19,10 +19,7 @@ namespace CC_api.Business
         this.inventoryRepository = new InventoryRepository();
       }
 
-       /* public async Task<List<User>> UploadInventory()
-      {
-        return await userRepository.GetAllUserAsync();
-      }*/
+      
       
       public async Task<IActionResult> UploadInventory(Inventory inventory)
       {
@@ -44,6 +41,40 @@ namespace CC_api.Business
         return new OkResult();
 
       }
+    public async Task<IActionResult> DeleteInventory(int id)
+    {
+      var inv = await inventoryRepository.GetInventoryById(id);
+      if (inv == null)
+      {
+        return new NotFoundResult();
+      }
+
+      await inventoryRepository.DeleteI(inv.inventory_id);
+      return new OkResult();
+    }
+
+
+    public async Task<IActionResult> EditInventory(int id, Inventory inventory)
+    {
+      var inv = await inventoryRepository.GetInventoryById(id);
+      if (inv == null)
+      {
+        return new NotFoundResult();
+      }
+
+      inv.last_modified = DateTime.Now;
+      inv.company_id = inventory.company_id;
+      inv.container_type = inventory.container_type;
+      inv.available = inventory.available;
+      inv.maximum = inventory.maximum;
+      inv.minimum = inventory.minimum;
+      inv.port_id = inventory.port_id;
+      inv.updated_by = inventory.updated_by;
+      inv.container_size = inventory.container_size;
+
+      await inventoryRepository.EditInventoryAsync(inv);
+      return new OkResult();
+    }
     public async Task<List<Inventory>> GetAllInventoryAsync()
     {
       return await inventoryRepository.GetAllInventoryAsync();

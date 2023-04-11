@@ -20,6 +20,7 @@ namespace CC_api.Business
         }
 
 
+
         public async Task<List<User>> GetAllUserAsync()
         {
             return await userRepository.GetAllUserAsync();
@@ -59,6 +60,8 @@ namespace CC_api.Business
 
          return null;
        }*/
+
+
     public async Task<AuthResponse> GetUserByEmailAndPassword(string email, string password)
      {
          var login = await userRepository.GetUserByEmailAndPassword(email, password);

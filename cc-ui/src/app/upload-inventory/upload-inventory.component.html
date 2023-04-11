@@ -6,30 +6,37 @@
     
     <div class="col-span-1 lg:col-span-6">
       <h4 class="text-base text-gray-700 mb-5 text-center text-3xl">UPLOAD INVENTORY</h4>
-      <div class="p-10 rounded-md shadow-md bg-white">
+      <div class="p-20 rounded-md shadow-md bg-white">
 
        <div class="mb-6">
         <label class="block mb-3 text-gray-600" for="">Name on Port</label>
         
         
-          <select #port [(ngModel)]="port_name" formControlName="port_id" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider">
+          <select #port [(ngModel)]="port_name" formControlName="port_id" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider">
             <option selected>Select your port </option>
             <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
           </select>
         
        </div>
 
-       <div class="mb-6">
+       <!-- <div class="mb-6">
         <label class="block mb-3 text-gray-600" for="">Container Type</label>
         <select formControlName="container_type" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider">
-          <option>Refrigerated</option>
-          <option>Non-Refrigerated</option>
+          <option>refrigerated</option>
+          <option>non_refrigerated</option>
         </select>
-       </div>
+       </div> -->
+       <div class="mb-6">
+        <label class="block mb-3 text-gray-600" for="">Container Type</label>
+        <select formControlName="container_type" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider">
+          <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
+        </select>
+      </div>
+      
 
        <div class="mb-6">
         <label class="block mb-3 text-gray-600" for="">Container Size</label>
-        <select formControlName="container_size" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider">
+        <select formControlName="container_size" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider">
           <option>1</option>
           <option>2</option>
           <option>4</option>
@@ -38,23 +45,26 @@
 
        <div class="mb-6">
         <label class="block mb-3 text-gray-600" for="">Available</label>
-        <input type="text" formControlName="available" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider"/>
+        <input type="text" formControlName="available" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
        </div>
        
        
        <div class="mb-6">
         <label class="block mb-3 text-gray-600" for="">Maximum</label>
-        <input type="text" formControlName="maximum" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider"/>
+        <input type="text" formControlName="maximum" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
        </div>
 
        <div class="mb-6">
         <label class="block mb-3 text-gray-600" for="">Minimum</label>
-        <input type="text" formControlName="minimum" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider"/>
+        <input type="text" formControlName="minimum" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
        </div>
-    <label class="text-gray-600">Upload Excel Here 
+       <div class="mb-2">
+    <label class="block mb-3 text-gray-600">Upload Excel Here 
        <input class="ml-10" type="file" (change)="ReadExcel($event)">
       </label>
-      
+       </div>
+
+      <div class="mb-2">
        <div class="flex justify-between mt-5">
         
         <button type="button" routerLink="/dashboard" class="w-1/2 px-4 py-3 mr-10 ml-10 bg-blue-500 rounded-md shadow-md text-white font-semibold">
@@ -63,6 +73,7 @@
         <button type="submit" class="w-1/2 mr-10 ml-10 px-4 py-3 bg-blue-500 rounded-md shadow-md text-white font-semibold">
           Save
         </button>
+      </div>
       </div>
       
 
@@ -85,24 +96,34 @@
             <table class="min-w-full text-left text-sm font-light">
               <thead class="border-b font-medium dark:border-neutral-500">
                 <tr>
-                  <th scope="col" class="border border-gray-800 px-4 py-2 text-center">Port Id</th>
-                  <th scope="col" class="border border-gray-800 px-4 py-2 text-center">Container Type</th>
-                  <th scope="col" class="border border-gray-800 px-2 py-2 text-center">Container Size</th>
-                  <th scope="col" class="border border-gray-800 px-4 py-2 text-center">Available</th>
-                  <th scope="col" class="border border-gray-800 px-4 py-2 text-center">Maximum</th>
-                  <th scope="col" class="border border-gray-800 px-4 py-2 text-center">Minimum</th>
+                  <th scope="col" class="border px-4 py-2 text-center">Port Id</th>
+                  <th scope="col" class="border px-4 py-2 text-center">Container Type</th>
+                  <th scope="col" class="border px-2 py-2 text-center">Container Size</th>
+                  <th scope="col" class="border px-4 py-2 text-center">Available</th>
+                  <th scope="col" class="border px-4 py-2 text-center">Maximum</th>
+                  <th scope="col" class="border px-4 py-2 text-center">Minimum</th>
+                  <th scope="col" class="border px-6 py-2 text-center"></th>
+                  <th scope="col" class="border px-6 py-2 text-center"></th>
+                  
                   
                   
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let inv of inventory_list" class="border-b dark:border-neutral-500">
-                  <td scope="col" class="border border-gray-800 px-4 py-2 text-center">{{inv.port_id}}</td>
-                  <td scope="col" class="border border-gray-800 px-4 py-2 text-center">{{inv.container_type}}</td>
-                  <td scope="col" class="border border-gray-800 px-2 py-2 text-center">{{inv.container_size}}</td>
-                  <td scope="col" class="border border-gray-800 px-4 py-2 text-center">{{inv.available}}</td>
-                  <td scope="col" class="border border-gray-800 px-4 py-2 text-center">{{inv.maximum}}</td>
-                  <td scope="col" class="border border-gray-800 px-4 py-2 text-center">{{inv.minimum}}</td>
+                  <td scope="col" class="border px-4 py-2 text-center">{{inv.port_id}}</td>
+                  <td scope="col" class="border px-4 py-2 text-center">{{inv.container_type}}</td>
+                  <td scope="col" class="border px-2 py-2 text-center">{{inv.container_size}}</td>
+                  <td scope="col" class="border px-4 py-2 text-center">{{inv.available}}</td>
+                  <td scope="col" class="border px-4 py-2 text-center">{{inv.maximum}}</td>
+                  <td scope="col" class="border px-4 py-2 text-center">{{inv.minimum}}</td>
+                  <td scope="col" class="border px-4 py-2 text-center">
+                    <button class="edit-button">Edit</button>
+                  </td>
+                  <td scope="col" class="border px-4 py-2 text-center">
+                    
+                    <button (click)="deleteInventory(inv.inventory_id)" class="delete-button">Delete</button>
+                  </td>
                   
                   
                 </tr>

@@ -13,15 +13,9 @@ namespace CC_api.Controllers
         _logger = logger;
          inventoryBusiness = new InventoryBusiness();
       }
-/*
-      [HttpGet("UploadInventory")]
-      public async Task<List<User>> UploadInventory()
-      {
-        return await inventoryBusiness.UploadInventory();
-      }*/
+
       [HttpPost("UploadInventory")]
-      //public async Task<IActionResult> SaveUser([FromForm] User user)
-      //public async Task<HttpStatusCode> SaveUser(User user)
+      
       public async Task<IActionResult> UploadInventory([FromBody] Inventory inventory)
       {
         {
@@ -30,6 +24,19 @@ namespace CC_api.Controllers
         }
 
       }
+    [HttpDelete("DeleteInventory/{id}")]
+    public async Task<IActionResult> DeleteInventory(int id)
+    {
+      await inventoryBusiness.DeleteInventory(id);
+      return new OkResult();
+    }
+
+
+    [HttpPut("EditInventory/{id}")]
+    public async Task<IActionResult> EditInventory(int id, [FromBody] Inventory inventory)
+    {
+      return await inventoryBusiness.EditInventory(id, inventory);
+    }
 
     [HttpGet("GetAllInventory")]
     public async Task<List<Inventory>> GetAllInventory()

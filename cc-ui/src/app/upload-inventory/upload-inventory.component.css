@@ -1,0 +1,44 @@
+/* Styles for the table */
+.table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table thead th {
+    font-weight: 500;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .table th {
+    text-align: center;
+  }
+  
+  /* Styles for the buttons */
+  .edit-button{
+    padding: 0.5rem;
+    border: none;
+    background-color: #f30a0a9d;
+    color: #faf6f6;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  .delete-button{
+    padding: 0.5rem;
+    border: none;
+    background-color: #7e69f6c3;
+    color: #faf6f6;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  
+  .edit-button:hover,
+  .delete-button:hover {
+    background-color: #cbd5e0;
+  }
+  

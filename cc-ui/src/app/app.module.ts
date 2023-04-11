@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,7 +11,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './redundant/sidebar/sidebar.component';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { HeaderComponent } from './redundant/header/header.component';
@@ -21,7 +22,9 @@ import { SignInService } from './sign-in/sign-in.service';
 import { Registerservice } from './register/register.service';
 import { EditProfileService } from './profile/edit-profile/edit-profile.service';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
-
+import { SessionService } from './session.service';
+import { AuthGuard } from './auth.guard';
+import { AuthInterceptor } from './auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +40,7 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     EditProfileComponent,
     AddEmployeeComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -44,9 +48,10 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
     RouterLink,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
   ],
-  providers: [UploadInventoryservice,SignInService,Registerservice,EditProfileService],
+  providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

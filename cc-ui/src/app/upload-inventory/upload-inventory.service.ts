@@ -19,6 +19,7 @@ export interface Port {
   })
   export class UploadInventoryservice {
     private apiUrl='https://localhost:7157/UploadInventory';
+    private baseUrl='https://localhost:7157/DeleteInventory';
      
   constructor(private http:HttpClient) {
 
@@ -37,5 +38,8 @@ export interface Port {
     getAllInventory(): Observable<any> {
       return this.http.get('https://localhost:7157/GetAllInventory');
       
+    }
+    deleteInventory(id: number): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
     }
   }
