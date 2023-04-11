@@ -4,158 +4,103 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-
-
 using System.Net;
-
 using System.Text;
 using System.ComponentModel.Design;
 
+ 
+
 namespace CC_api.Business
+
+ 
+
 {
-  public class InventoryBusiness
-  {
-<<<<<<< HEAD
-      private readonly InventoryRepository inventoryRepository;
-      public InventoryBusiness()
-      {
-        this.inventoryRepository = new InventoryRepository();
-      }
+  public class InventoryBusiness
+  {
+      private readonly InventoryRepository inventoryRepository;
+      public InventoryBusiness()
+      {
+        this.inventoryRepository = new InventoryRepository();
+      }
 
-      
-      
-      public async Task<IActionResult> UploadInventory(Inventory inventory)
-      {
-      var inv = new Inventory();
+ 
 
-      inv.date_created = inventory.date_created;
-      inv.last_modified = inventory.last_modified;
-      inv.company_id = inventory.company_id;
-      inv.container_type = inventory.container_type;
-      inv.available = inventory.available;
-      inv.maximum = inventory.maximum;
-      inv.minimum = inventory.minimum;
-      inv.port_id = inventory.port_id;
-      inv.updated_by = inventory.updated_by;
-      inv.container_size=inventory.container_size;
+      
 
-=======
+      public async Task<IActionResult> UploadInventory(Inventory inventory)
+      {
+      var inv = new Inventory();
 
+ 
 
+      inv.date_created = inventory.date_created;
+      inv.last_modified = inventory.last_modified;
+      inv.company_id = inventory.company_id;
+      inv.container_type = inventory.container_type;
+      inv.available = inventory.available;
+      inv.maximum = inventory.maximum;
+      inv.minimum = inventory.minimum;
+      inv.port_id = inventory.port_id;
+      inv.updated_by = inventory.updated_by;
+      inv.container_size=inventory.container_size;
 
-    private readonly InventoryRepository inventoryRepository;
-
-    public InventoryBusiness()
-    {
-      this.inventoryRepository = new InventoryRepository();
-
-    }
+ 
 
 
-    /* public async Task<List<User>> UploadInventory()
-     {
-       return await userRepository.GetAllUserAsync();
-     }*/
-    public async Task<IActionResult> UploadInventory(Inventory inventory)
-    {
-      var inv = new Inventory();
+      await inventoryRepository.UploadI(inv);
+        return new OkResult();
 
-      inv.DateCreated = inventory.DateCreated;
-      inv.LastModified = inventory.LastModified;
-      inv.CompanyId = inventory.CompanyId;
-      inv.ContainerType = inventory.ContainerType;
-      inv.Available = inventory.Available;
-      inv.M = inventory.M;
-      inv.N = inventory.N;
-      inv.PortId = inventory.PortId;
-      inv.UpdatedBy = inventory.UpdatedBy;
->>>>>>> deekshith_iv
+ 
 
-      await inventoryRepository.UploadI(inv);
-      return new OkResult();
+      }
+    public async Task<IActionResult> DeleteInventory(int id)
+    {
+      var inv = await inventoryRepository.GetInventoryById(id);
+      if (inv == null)
+      {
+        return new NotFoundResult();
+      }
 
-<<<<<<< HEAD
-      }
-    public async Task<IActionResult> DeleteInventory(int id)
-    {
-      var inv = await inventoryRepository.GetInventoryById(id);
-      if (inv == null)
-      {
-        return new NotFoundResult();
-      }
+ 
 
-      await inventoryRepository.DeleteI(inv.inventory_id);
-      return new OkResult();
-    }
+      await inventoryRepository.DeleteI(inv.inventory_id);
+      return new OkResult();
+    }
+
+ 
 
 
-    public async Task<IActionResult> EditInventory(int id, Inventory inventory)
-    {
-      var inv = await inventoryRepository.GetInventoryById(id);
-      if (inv == null)
-      {
-        return new NotFoundResult();
-      }
+    public async Task<IActionResult> EditInventory(int id, Inventory inventory)
+    {
+      var inv = await inventoryRepository.GetInventoryById(id);
+      if (inv == null)
+      {
+        return new NotFoundResult();
+      }
 
-      inv.last_modified = DateTime.Now;
-      inv.company_id = inventory.company_id;
-      inv.container_type = inventory.container_type;
-      inv.available = inventory.available;
-      inv.maximum = inventory.maximum;
-      inv.minimum = inventory.minimum;
-      inv.port_id = inventory.port_id;
-      inv.updated_by = inventory.updated_by;
-      inv.container_size = inventory.container_size;
+ 
 
-      await inventoryRepository.EditInventoryAsync(inv);
-      return new OkResult();
-    }
-    public async Task<List<Inventory>> GetAllInventoryAsync()
-    {
-      return await inventoryRepository.GetAllInventoryAsync();
-    }
+      inv.last_modified = DateTime.Now;
+      inv.company_id = inventory.company_id;
+      inv.container_type = inventory.container_type;
+      inv.available = inventory.available;
+      inv.maximum = inventory.maximum;
+      inv.minimum = inventory.minimum;
+      inv.port_id = inventory.port_id;
+      inv.updated_by = inventory.updated_by;
+      inv.container_size = inventory.container_size;
 
-=======
-    }
+ 
 
-    /*
-        public async Task<AuthenticationModel> Login(Login loginmodel)
-        {
-          var login = await userRepository.Login(loginmodel.Email, loginmodel.Password);
-          var authmodel = new AuthenticationModel();
-          if (login != null)
-          {
-            authmodel.Email = login.Email;
-            authmodel.Password = login.Password;
-            return authmodel;
+      await inventoryRepository.EditInventoryAsync(inv);
+      return new OkResult();
+    }
+    public async Task<List<Inventory>> GetAllInventoryAsync()
+    {
+      return await inventoryRepository.GetAllInventoryAsync();
+    }
 
-          }
+ 
 
-          return null;
-        }
-        public async Task PopulateJwtTokenAsync(AuthenticationModel authModel)
-        {
-          var tokenHandler = new JwtSecurityTokenHandler();
-          var key = Encoding.ASCII.GetBytes("!@#$%^&*()!@#$%^&*()");
-          var tokenDescriptor = new SecurityTokenDescriptor
-          {
-            Subject = new ClaimsIdentity(new Claim[]
-              {
-
-                            new Claim(ClaimTypes.Email, authModel.Email.ToString()),
-
-
-              }),
-            Expires = authModel.TokenExpiryDate = DateTime.UtcNow.AddMinutes(50),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-          };
-
-          var token = tokenHandler.CreateToken(tokenDescriptor);
-          authModel.Token = tokenHandler.WriteToken(token);
-        }
-      }
-    }*/
-
->>>>>>> deekshith_iv
-  }
+  }
 }

@@ -3,139 +3,98 @@ using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-
+ 
 
 namespace CC_api.Controllers
 {
-  public class UserController : Controller
-<<<<<<< HEAD
-    {
-        private readonly ILogger<UserController> _logger;
-        private readonly UserBusiness userBusiness;
-   
-        public UserController(ILogger<UserController> logger)
-        {
-            _logger = logger;
-            userBusiness = new UserBusiness();
-    
-     
-        }
+  public class UserController : Controller
+    {
+        private readonly ILogger<UserController> _logger;
+        private readonly UserBusiness userBusiness;
 
-        [HttpGet("GetAllUser")]
-        public async Task<List<User>> GetAllUser()
-        {
-            return await userBusiness.GetAllUserAsync();
-        }
-
-        [HttpPost("SaveUser")]
-        
-        public async Task<IActionResult> SaveUserAsync([FromBody] User user)
-        {
-            {
-                return await userBusiness.SaveUserAsync(user);
-
-            }
-
-    
-        }
-    [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] Login user)
-    {
-      try
-      {
-        var loginUser =  await userBusiness.GetUserByEmailAndPassword(user.email, user.password);
-        if (loginUser == null)
-        {
-          return Ok(new { message = "User not exist", user = loginUser });
-        }
-
-        return Ok(loginUser);
-      }
-      catch (Exception ex)
-      {
-        return BadRequest();
-      }
-    }
+        public UserController(ILogger<UserController> logger)
+        {
+            _logger = logger;
+            userBusiness = new UserBusiness();
 
 
-      /*[HttpPost("Login")]
-              public async Task<IActionResult> Login(Login loginmodel)
-              {
+        }
 
-                  var login = await userBusiness.Login(loginmodel);
-                  if (login != null)
-                  {
-                      await userBusiness.PopulateJwtTokenAsync(login);
+ 
 
-                      return Ok(login);
-                  }
-                  else
-                  {
-                      return BadRequest();
-                  }
+        [HttpGet("GetAllUser")]
+        public async Task<List<User>> GetAllUser()
+        {
+            return await userBusiness.GetAllUserAsync();
+        }
 
+ 
 
-              }*/
+        [HttpPost("SaveUser")]
 
-=======
-  {
-    private readonly ILogger<UserController> _logger;
-    private readonly UserBusiness userBusiness;
-    public UserController(ILogger<UserController> logger)
-    {
-      _logger = logger;
-      userBusiness = new UserBusiness();
->>>>>>> deekshith_iv
-    }
+        public async Task<IActionResult> SaveUserAsync([FromBody] User user)
+        {
+            {
+                return await userBusiness.SaveUserAsync(user);
 
+ 
 
+            }
 
-    [HttpGet("GetAllUser")]
-    public async Task<List<User>> GetAllUser()
-    {
-      return await userBusiness.GetAllUserAsync();
-    }
+ 
 
+    
+        }
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] Login user)
+    {
+      try
+      {
+        var loginUser =  await userBusiness.GetUserByEmailAndPassword(user.email, user.password);
+        if (loginUser == null)
+        {
+          return Ok(new { message = "User not exist", user = loginUser });
+        }
 
+ 
 
-    [HttpPost("SaveUser")]
-    //public async Task<IActionResult> SaveUser([FromForm] User user)
-    //public async Task<HttpStatusCode> SaveUser(User user)
-    public async Task<IActionResult> SaveUserAsync([FromBody] User user)
-    {
-      {
-        return await userBusiness.SaveUserAsync(user);
+        return Ok(loginUser);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest();
+      }
+    }
 
-
-
-      }
+ 
 
 
+      /*[HttpPost("Login")]
+              public async Task<IActionResult> Login(Login loginmodel)
+              {
 
-    }
-    [HttpPost("Login")]
-    public async Task<IActionResult> Login([FromBody] Login loginmodel)
-    {
+ 
 
+                  var login = await userBusiness.Login(loginmodel);
+                  if (login != null)
+                  {
+                      await userBusiness.PopulateJwtTokenAsync(login);
 
+ 
 
-      var login = await userBusiness.Login(loginmodel);
-      if (login != null)
-      {
-        await userBusiness.PopulateJwtTokenAsync(login);
+                      return Ok(login);
+                  }
+                  else
+                  {
+                      return BadRequest();
+                  }
 
-
-
-        return Ok(login);
-      }
-      else
-      {
-        return BadRequest();
-      }
-
-
+ 
 
 
-    }
-  }
+              }*/
+
+ 
+
+    }
 }
