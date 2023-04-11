@@ -1,4 +1,4 @@
-namespace CC_api.Models
+﻿namespace CC_api.Models
 {
     public class Login
     {

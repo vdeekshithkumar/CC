@@ -30,13 +30,12 @@ export class UploadInventoryComponent {
     key:any;
     id:any;
     currentUser: any;
-  userId: any;
-  companyId: any;
-  inventoryId: any;
+    userId: any;
+    companyId: any;
+    inventoryId: any;
    
   
-    constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){
-      
+    constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
      }
     
   

@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vishr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "projectName": "CC_api",
+        "projectPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "packagesPath": "C:\\Users\\vdeek\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\vdeek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> deekshith_iv
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

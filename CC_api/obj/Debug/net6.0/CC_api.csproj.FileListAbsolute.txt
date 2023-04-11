@@ -172,6 +172,7 @@ C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\obj\Debug
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\obj\Debug\net6.0\CC_api.pdb
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\obj\Debug\net6.0\CC_api.genruntimeconfig.cache
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\obj\Debug\net6.0\ref\CC_api.dll
+<<<<<<< HEAD
 C:\Users\Theje\Documents\GitHub\Container-conundrum\CC_api\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Theje\Documents\GitHub\Container-conundrum\CC_api\bin\Debug\net6.0\appsettings.json
 C:\Users\Theje\Documents\GitHub\Container-conundrum\CC_api\bin\Debug\net6.0\CC_api.exe
@@ -351,3 +352,5 @@ C:\Users\Vishr\OneDrive\Documents\GitHub\gitub_codes\Container-conundrum\CC_api\
 C:\Users\Vishr\OneDrive\Documents\GitHub\gitub_codes\Container-conundrum\CC_api\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Users\Vishr\OneDrive\Documents\GitHub\gitub_codes\Container-conundrum\CC_api\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\Vishr\OneDrive\Documents\GitHub\gitub_codes\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+=======
+>>>>>>> deekshith_iv

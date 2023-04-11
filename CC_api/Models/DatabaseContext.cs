@@ -20,5 +20,5 @@ namespace CC_api.Models
 
       }
     }
-  
+
 }

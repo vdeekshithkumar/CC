@@ -19,7 +19,7 @@ export interface Company {
     
   }
     register(registrationForm: FormGroup<any>){
-      const headers=new HttpHeaders().set('content-Type','application/json');
+      const headers=new HttpHeaders().set('Content-Type','application/json');
       return this.http.post(this.apiUrl,registrationForm,{headers});
       
     }
@@ -28,15 +28,3 @@ export interface Company {
     }
     
   }
-  // export class Registerservice {
-  //   private apiUrl='https://localhost:7157/SaveUser';
- 
-  // constructor(private http:HttpClient) {
-    
-  // }
-  // register(registrationForm: FormGroup<any>){
-  //     const headers=new HttpHeaders().set('content-Type','application/json;charset=UTF-8');
-  //     return this.http.post(this.apiUrl,registrationForm,{headers});
-  //   }
-  // }
-
