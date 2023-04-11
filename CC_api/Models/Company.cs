@@ -10,19 +10,12 @@ namespace CC_api.Models
     [Key]
     public int company_id { get; set; }
     public string name { get; set; }
-
-    public int licence_id { get; set; }
+   public int licence_id { get; set; }
     public string domain_address { get; set; }
-
-    public byte[] company_logo{ get; set; }
+    //public byte[] company_logo{ get; set; }
     public string company_location { get; set; }
-    public string country { get; set; }
-
-    public decimal rating { get; set; }
-    
+   public string country { get; set; }
+    public int rating { get; set; }
     public string address { get; set; }
-
-
-
   }
 }

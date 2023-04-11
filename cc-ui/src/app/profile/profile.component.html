@@ -1,44 +1,44 @@
-   <app-header></app-header>
-<!-- sidebar horizontally aligned with the rest of the view pane -->
 <div class="flex flex-row font-poppins">
   <!-- Sidebar -->
-  <app-sidebar class="sticky w-[110px]"></app-sidebar>
-  <!-- Main View -->
-  <div class="w-full flex flex-col first:flex-row">
+  <app-sidebar class="sticky w-[8vw] border-r-2"></app-sidebar>
+  <!-- Main View Canvas -->
+  <div class="w-full flex flex-col sm:w-fit first:flex-row">
+    <!-- Company Details section  -->
     <div class="p-2 m-4 shadow-md h-fit">
       <div class="flex">
         <div class="flex flexbox">
-          <div class="relative">
-            <img
-              class="object-cover w-14 h-14 rounded-full"
-              src="https://images.unsplash.com/photo-1520315342629-6ea920342047?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGNhdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-              alt="Avatar"
-            />
-            <!-- Edit Profile Link -->
-            <button (click)="showDiv = !showDiv" class="cursor-pointer">
-              <img
-                class="absolute right-0 w-4 h-4 rounded-full top-8"
-                src="../../assets/images/edit-97-16.png"
-              />
-            </button>
-
-            <!-- A hidden div for edit profile -->
-            <div class="my-3 relative" [class.hidden]="!showDiv">
-              <div class="absolute top-0 left-0 shadow-md z-20">
-                <app-edit-profile></app-edit-profile> 
-
-              </div>
-          </div>
-          </div>
           <!-- first box which contains the company details -->
-          <div class="flex flex-row">
+          <form [formGroup]= "profileForm" (ngSubmit)="onSubmit()"> 
+         
+          <div class="flex flex-wrap">
+            <div class="relative">
+              <img
+                class="object-cover w-14 h-14 rounded-full"
+                src="https://images.unsplash.com/photo-1520315342629-6ea920342047?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGNhdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                alt="Avatar"
+              />
+              <!-- Edit Profile Link -->
+              <button (click)="showDiv = !showDiv" class="cursor-pointer">
+                <img
+                  class="absolute right-0 w-4 h-4 rounded-full top-8"
+                  src="../../assets/images/edit-97-16.png"
+                />
+              </button>
+
+              <!-- A hidden div for edit profile -->
+              <div class="my-3 relative" [class.hidden]="!showDiv">
+                <div class="absolute top-0 left-0 shadow-md z-20">
+                  <app-edit-profile></app-edit-profile>
+                </div>
+              </div>
+            </div>
             <!-- Sub box 1 -->
-            <div class="flex-1 flex-col">
+            <div class="flex flex-col">
               <div
-                class="px-3 w-fit text-xl mb-[10px] font-bold font-poppins flex md:text-sm"
+                class="px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm"
               >
-                Company Name
-                <span class="text-xs font-thin pt-2 px-2">4.7</span>
+                {{name}}
+                <span class="text-xs font-thin pt-2 px-2"></span>
                 <!-- SVG FOR STARS -->
                 <svg width="20" height="20" viewBox="0 0 24 24">
                   <polygon
@@ -71,86 +71,101 @@
                   />
                 </svg>
               </div>
-              <div
-                class="bg-gray-100 w-fit flex mx-4 justify-end rounded-md sm:text-[10px]"
-              >
-                <img
-                  src="../../assets/images/location-41-16.png"
-                  class="w-3 h-4 flex pt-1"
-                /><span class="px-1 flex-1 text-sm md:overflow-hidden"
-                  >6391 Elgin St. Celina, Delaware 10299</span
+              <div class="flex flex-row">
+                <div
+                  class="bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px]"
                 >
-              </div>
-            </div>
-            <!-- Sub box 2 -->
-            <div class="mt-9 mx-5">
-              <span class="bg-gray-100 rounded-md text-sm"
-                >XX-YYY-1923-XXXMMM</span
-              >
-            </div>
-            <!-- Sub box 3 -->
-            <div class="mt-9 mx-5">
-              <span class="bg-gray-100 rounded-md text-sm"
-                >www.dertusline.com</span
-              >
-            </div>
+                  <img
+                    src="../../assets/images/location-41-16.png"
+                    class="w-3 h-4 flex pt-1"
+                  /><span class="px-1 flex-1 text-sm md:overflow-hidden leading-3"
+                    >{{address}}</span
+                  >
+                </div>
+                <!-- Sub box 2 -->
+                <div class="mx-[1rem] flex-shrink-0">
+                  <span class="bg-gray-100 rounded-md text-sm  leading-3"
+                    >{{licence_id}}</span
+                  >
+                </div>
+                <!-- Sub box 3 -->
+                <div class=" mx-[1rem] flex-shrink-0">
+                  <span class="bg-gray-100 rounded-md text-sm  leading-3"
+                    >{{domain_address}}</span
+                  >
+                </div>
+                <div class=" mx-[1rem] flex-shrink-0">
+                  <span class="bg-gray-100 rounded-md text-sm  leading-3"
+                    >{{country}}</span
+                  >
+                </div>
 
-            <!-- Ratings -->
-            <div class="mt-9 mx-6 flex">
-              <svg width="20" height="20" viewBox="0 0 24 24">
-                <polygon
-                  fill="#000"
-                  points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
-                /></svg>
-                <span class="flex-1">4.7</span>
-            </div>
-
-            <div class="mx-3 w-[11%] h-[70%] bg-gray-100 flex">
-              <div
-                class="flex-1 text-3xl font-bold flex items-center justify-center"
-              >
-                49
-              </div>
-              <div class="flex-1 text-sm flex items-center justify-center">
-                Active members
-              </div>
-            </div>
-
-            <div class="mx-3 w-[11%] h-fit bg-gray-100 flex">
-              <div
-                class="flex-1 text-3xl flex-col font-bold flex items-center justify-center"
-              >
-                100
-                <span class="text-xs">Teu</span>
-              </div>
-              <div class="flex-1 text-sm flex items-center justify-center">
-                Available slots
+                <!-- Ratings -->
+                <div class=" mx-[1rem] flex">
+                  <svg width="20" height="20" viewBox="0 0 24 24">
+                    <polygon
+                      fill="#000"
+                      points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
+                    />
+                  </svg>
+                  <span class="flex-1">{{rating}}</span>
+                </div>
               </div>
             </div>
 
-            <div class="mx-3 w-[11%] h-fit bg-gray-100 flex">
-              <div
-                class="flex-1 text-3xl flex-col font-bold flex items-center justify-center"
-              >
-                100
-                <span class="text-xs">Teu</span>
+           
+            
+            <div class="flex flex-row ">
+              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+                <div
+                  class="flex-1 text-3xl font-bold flex items-center justify-center"
+                >
+                  49
+                </div>
+                <div class="flex-1 text-sm flex items-center justify-center">
+                  Active members
+                </div>
               </div>
-              <div class="flex-1 text-sm flex items-center justify-center">
-                Available for lease
+
+              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+                <div
+                  class="flex-1 text-2xl flex-col font-bold flex items-center justify-center"
+                >
+                  100
+                  <span class="text-xs">Teu</span>
+                </div>
+                <div class="flex-1 text-sm flex items-center justify-center">
+                  Available slots
+                </div>
+              </div>
+
+              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+                <div
+                  class="flex-1 text-2xl flex-col font-bold flex items-center justify-center"
+                >
+                  100
+                  <span class="text-xs">Teu</span>
+                </div>
+                <div class="flex-1 text-sm flex items-center justify-center">
+                  Available for lease
+                </div>
+              </div>
+
+              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+                <div
+                  class="flex-1 text-2xl flex-col font-bold flex items-center justify-center"
+                >
+                  100
+                  <span class="text-xs">Teu</span>
+                </div>
+                <div class="flex-1 text-sm flex items-center justify-center">
+                  Available for sale
+                </div>
               </div>
             </div>
-            <div class="mx-3 w-[11%] h-fit bg-gray-100 flex">
-              <div
-                class="flex-1 text-3xl flex-col font-bold flex items-center justify-center"
-              >
-                100
-                <span class="text-xs">Teu</span>
-              </div>
-              <div class="flex-1 text-sm flex items-center justify-center">
-                Available for sale
-              </div>
-            </div>
+            <!-- Availability boxes END -->
           </div>
+          </form>
         </div>
       </div>
     </div>
@@ -165,12 +180,12 @@
             class="flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit"
           >
             <img
-              src="../../assets/images/profile.png"
+             
               class="w-2 h-3 flex pt-1"
             />
             <div class="flex-1 px-2">Admin</div>
           </div>
-          <div class="text-xs px-2">Admin Name</div>
+          <div class="text-xs px-2"></div>
         </div>
         <!-- box2 -->
         <div class="flex flex-col px-[5%]">
@@ -183,7 +198,7 @@
             />
             <div class="flex-1 px-2">E-mail</div>
           </div>
-          <div class="text-xs px-2">admin@containercompany.com</div>
+          <div class="text-xs px-2"></div>
         </div>
         <!-- box3 -->
         <div class="flex flex-col px-[5%]">
@@ -191,28 +206,28 @@
             class="flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit"
           >
             <img
+              *ngif 
               src="../../assets/images/profile.png"
               class="w-2 h-3 flex pt-1"
             />
-            <div class="flex-1 px-2">Phone Number</div>
+            <div class="flex-1 px-px">Phone Number</div>
           </div>
-          <div class="text-xs px-2">(704) 555-0127</div>
+          <div class="text-xs mx-auto"></div>
         </div>
       </div>
-      <div class="flex flex-row">
-        <button class="bg-gray-300 p-2 text-md mx-4 my-3">
+      <div class="flex flex-row ">
+        <button class="bg-gray-300 h-[3rem] w-fit px-[1rem] text-md mx-4 my-3 md:text-sm flex-shrink-0">
           Approve Ads (6)
         </button>
-        <button class="bg-gray-300 p-2 text-md mx-4 my-3">Sync Data</button>
-        <button class="bg-gray-300 p-2 text-md mx-4 my-3">
+        <button class="bg-gray-300  h-[3rem] w-fit px-[1rem]  text-md mx-4 my-3 md:text-sm">Sync Data</button>
+        <button class="bg-gray-300  h-[3rem] w-fit px-[1rem]  text-md mx-4 my-3 md:text-sm">
           Upload Contracts
         </button>
-        <button class="bg-gray-300 p-2 text-md mx-4 my-3">
+        <button class="bg-gray-300  h-[3rem] w-fit px-[1rem]  text-md mx-4 my-3 md:text-sm">
           View Contracts
         </button>
-        <button class="bg-gray-300 p-2 text-md mx-4 my-3 "> <a routerLink="/add-employee" >
-          Add new Member
-        </a>
+        <button class="bg-gray-300 h-[3rem] w-fit px-[1rem] text-md mx-4 my-3 md:text-sm flex-shrink-0">
+          Add New Member
         </button>
         <div class="max-w-sm mt-4 w-full">
           <div
@@ -247,9 +262,10 @@
         </div>
       </div>
 
-      <!-- Search bar -->
+      <!-- Search bar end -->
     </div>
     <hr class="mx-2" />
+
     <!-- Table start -->
     <div class="flex flex-col overflow-x-auto">
       <div class="sm:-mx-6 lg:-mx-8">
@@ -264,21 +280,32 @@
                   <th scope="col" class="px-6 py-4">Created</th>
                   <th scope="col" class="px-6 py-4">Remarks</th>
                   <th colspan="4" scope="col" class="px-6 py-4">Actions</th>
-
                 </tr>
               </thead>
               <tbody>
                 <tr class="border-b dark:border-neutral-500">
-                  <td class="whitespace-nowrap px-2 py-4 font-medium"><button>+</button></td>
-                  <td class="whitespace-nowrap px-2 py-4 "><input type ="checkbox"></td>
+                  <td class="whitespace-nowrap px-2 py-4 font-medium">
+                    <button>+</button>
+                  </td>
+                  <td class="whitespace-nowrap px-2 py-4">
+                    <input type="checkbox" />
+                  </td>
                   <td class="whitespace-nowrap px-6 py-4">Cell</td>
                   <td class="whitespace-nowrap px-6 py-4">Cell</td>
                   <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  <td class="whitespace-nowrap px-6 py-4"><a routerLink="#" class="text-CCblue">Approve</a></td>
-                  <td class="whitespace-nowrap px-6 py-4"><a routerLink="#" class="text-CCblue">Reject</a></td>
-                  <td class="whitespace-nowrap px-6 py-4"><a routerLink="#" class="text-CCblue">Edit</a></td>
-                  <td class="whitespace-nowrap px-6 py-4"><a routerLink="#" class="text-CCblue">Delete</a></td>
-                </tr> 
+                  <td class="whitespace-nowrap px-6 py-4">
+                    <a routerLink="#" class="text-CCblue">Approve</a>
+                  </td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                    <a routerLink="#" class="text-CCblue">Reject</a>
+                  </td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                    <a routerLink="#" class="text-CCblue">Edit</a>
+                  </td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                    <a routerLink="#" class="text-CCblue">Delete</a>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -286,6 +313,5 @@
       </div>
     </div>
     <!-- Table end -->
-
   </div>
 </div>

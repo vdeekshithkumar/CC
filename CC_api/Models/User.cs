@@ -1,24 +1,28 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Security;
 
 namespace CC_api.Models
 {
     public class User
-
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.None)]
         //[Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key] 
-        public int user_id { get; set; }
-        public int company_id { get; set; }
 
-        public string fname { get; set; }
+        public int Id { get; set; }
+     
+        public string FirstName { get; set; }
 
-        public string lname { get; set; }
-        public string address { get; set; }
+        public string LastName { get; set; }
 
+        public string Email { get; set; }
+        public string Country { get; set; } 
+        public string City { get; set; }
+        public string PhoneNumber { get; set; }
+        public string CompanyName { get; set; }
+        public string Password { get; set; }
+
+<<<<<<< HEAD
         public string email { get; set; }
         public string phone_no { get; set; }
 
@@ -33,5 +37,7 @@ namespace CC_api.Models
         
        
         
+=======
+>>>>>>> deekshith_iv
     }
 }

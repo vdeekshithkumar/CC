@@ -6,16 +6,17 @@ namespace CC_api.Repository
   public class InventoryRepository
   {
     private readonly DatabaseContext dbContext;
-    public  InventoryRepository()
+    public InventoryRepository()
     {
       this.dbContext = new DatabaseContext();
     }
 
     public async Task UploadI(Inventory inventory)
     {
-      dbContext.inventory.Add(inventory);
+      dbContext.ccinventory.Add(inventory);
       await dbContext.SaveChangesAsync();
     }
+<<<<<<< HEAD
     public async Task EditInventoryAsync(Inventory inventory)
     {
       dbContext.inventory.Update(inventory);
@@ -44,5 +45,23 @@ namespace CC_api.Repository
     {
       return dbContext.inventory.ToList();
     }
+=======
+    /* public async Task<List<User>> GetAllUserAsync()
+     {
+       return dbContext.ccusersdb.ToList();
+     }
+     public async Task<User> Login(string userEmail, string password)
+     {
+       var user = dbContext.ccusersdb.FirstOrDefault(x => x.Email == userEmail && x.Password == password);
+       if (user != null)
+       {
+         return user;
+       }
+       else
+       {
+         return user;
+       }
+     }*/
+>>>>>>> deekshith_iv
   }
 }
