@@ -12,22 +12,17 @@ import { FormGroup } from '@angular/forms';
   constructor(private http:HttpClient) {
     
   }
+
     login(loginForm: FormGroup<any>){
       const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
       return this.http.post(this.baseServerUrl,loginForm,{headers});
       
-    // }
-    // login(logininfo:Array<string>){
-    //     return this.http.post(
-    //         this.baseServerUrl,
-    //         {
-    //             Email:logininfo[0],
-    //             Password:logininfo[1],
-    //         },
-    //         {
-    //             responseType:'text',
-    //         }
-    //     );
+  
     }
+  
+  // loginUser(loginUserData: { email: string; password: string; }){
+  //   return this.http.post<any>(this.apiUrl,loginUserData)
+  // }
+  
   
   }

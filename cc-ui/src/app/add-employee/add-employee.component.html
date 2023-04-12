@@ -1,0 +1,326 @@
+<!-- component -->
+
+<link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
+
+<link rel="stylesheet"
+
+  href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
+
+
+
+
+
+<section class="py-1 bg-blueGray-50">
+
+  <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+
+      <div class="rounded-t bg-white mb-0 px-0 py-0">
+
+
+
+
+      </div>
+
+      <div class="flex-auto px-4 lg:px-5 py-10 pt-0">
+
+        <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()">
+
+          <h6 class="text-black-400 text-sm mt-3 mb-6 font-bold uppercase">
+
+            <div class="text-center mb-10">
+
+              User Information
+
+            </div>
+
+          </h6>
+
+          <div class="flex flex-wrap">
+
+
+
+
+            <div class="w-full lg:w-6/12 px-4">
+
+              <div class="relative w-full mb-3">
+
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+
+                  First Name
+
+                </label>
+
+                <input type="text" formControlName="fname"
+
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+
+                  value="jessika">
+
+              </div>
+
+            </div>
+
+            <div class="w-full lg:w-6/12 px-4">
+
+              <div class="relative w-full mb-3">
+
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+
+                  Last Name
+
+                </label>
+
+                <input type="text" formControlName="lname"
+
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+
+                  value="Lucky">
+
+              </div>
+
+            </div>
+
+            <div class="w-full lg:w-6/12 px-4">
+
+              <div class="relative w-full mb-3">
+
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+
+                  Email
+
+                </label>
+
+                <input type="email" formControlName="email"
+
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+
+                  value="Jesse">
+
+              </div>
+
+            </div>
+
+
+
+
+            <div class="w-full lg:w-6/12 px-4">
+
+              <div class="relative w-full mb-3">
+
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+
+                  PhoneNumber
+
+                </label>
+
+                <input type="text" formControlName="phone_no"
+
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+
+                  value="0000000000">
+
+              </div>
+
+            </div>
+
+
+
+
+            <div class="w-full lg:w-6/12 px-4">
+
+              <div class="relative w-full mb-3">
+
+                <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+
+                  Address
+
+                </label>
+
+                <input type="text" formControlName="address"
+
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+
+                  value="Manglore">
+
+              </div>
+
+            </div>
+
+
+
+
+
+            <div class="w-full lg:w-6/12 px-4">
+
+
+
+
+              <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" htmlfor="grid-password">
+
+
+
+
+                Password
+
+
+
+
+              </label>
+
+              <input type="text" formControlName="password"
+
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+
+                value="****">
+
+
+
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+
+
+
+          <hr class="mt-6 border-b-1 border-blueGray-300">
+
+
+
+
+          <form [formGroup]="addPermissionForm" (ngSubmit)="onAdd()">
+
+            <h6 class="text-black-400 text-sm mt-3 mb-6 font-bold uppercase">
+
+              <div class="text-center mb-2">
+
+                User Permission
+
+              </div>
+
+            </h6>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <h2>Advertisement :</h2>
+
+
+
+
+
+            &nbsp;
+
+            <label for="Aread-checkbox">Read</label> &nbsp;
+
+            <input type="checkbox" (click)="OnAdRead()" id="Aread-checkbox" name="Apermissions[]" value="1">
+
+
+
+
+            &nbsp;
+
+            <label for="Awrite-checkbox">Write</label> &nbsp;
+
+            <input type="checkbox" (click)="OnAdWrite()" id="Awrite-checkbox" name="Apermissions[]" value="2"
+
+              onclick="document.getElementById('Aread-checkbox').checked = this.checked;">
+
+
+
+
+           
+
+            <div></div>
+
+            <br>
+
+            <h2>Negotiation:</h2>
+
+
+
+
+
+            &nbsp;
+
+
+
+
+            <label for="Nread-checkbox">NRead</label> &nbsp;
+
+            <input type="checkbox" (click)="OnNRead()"  id="Nread-checkbox" name="Npermissions[]" value="read">
+
+
+
+
+            &nbsp;
+
+            <label for="Nwrite-checkbox">Write</label> &nbsp;
+
+            <input type="checkbox" (click)=" OnNWrite()" id="Nwrite-checkbox" name="Npermissions[]" value="write"
+
+              onclick="document.getElementById('Nread-checkbox').checked = this.checked; ">
+
+           
+
+
+
+
+
+          </form>
+
+          <div class="flex justify-center space-x-2">
+
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ">
+
+              Save
+
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+
+    <footer class="relative  pt-8 pb-6 mt-2">
+
+      <div class="container mx-auto px-4">
+
+        <div class="flex flex-wrap items-center md:justify-between justify-center">
+
+          <div class="w-full md:w-6/12 px-4 mx-auto text-center">
+
+
+
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </footer>
+
+  </div>
+
+</section>

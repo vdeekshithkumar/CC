@@ -20,13 +20,13 @@
                     <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
                         <div class="relative">
                         <label for="fname" class="font-medium text-sm">Fname</label>
-                        <input type="text" formControlName="firstName" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        <input type="text" formControlName="fname" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                          type="text" id="fname"placeholder="Ex: Mathews">
 
                         </div>
                         <div class="relative">
                             <label for="lname" class="font-medium text-sm">Lname</label>
-                            <input formControlName="lastName"class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                            <input formControlName="lname"class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                              type="text" id="lname"placeholder="Ex: Mathews">
 
                         </div> 
@@ -37,22 +37,22 @@
                         </div>
                           <br/> 
                           <div class="relative ">
-                            <label  for="country" class="font-medium text-sm">Country</label>
+                            <label  for="address" class="font-medium text-sm">Country</label>
                             <input list="countries" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="country" formControlName="country"[(ngModel)]="countryName" placeholder="Ex: Inodnesia">
-                             <datalist id="countries">
+                             type="text" id="address" formControlName="address" placeholder="Ex: Inodnesia">
+                             <!-- <datalist id="countries">
 
                                 <option *ngFor="let country of getCountries()" [value]="country"></option>
-                              </datalist>
+                              </datalist> -->
                         </div>
-                        <div class="relative">
+                        <!-- <div class="relative">
                             <label for="city" class="font-medium text-sm">City</label>
                             <input list="cities" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50" 
                             type="text" id="city" formControlName="city" placeholder="Ex: Jakarta">  
                             <datalist id="cities">
                                 <option *ngFor="let city of getCities()" [value]="city"></option>
                               </datalist>    
-                        </div>
+                        </div> -->
 
                         <!-- <div class="space-y-1">
                             <label for="ph-no" class="font-medium">Phone Number</label>
@@ -61,27 +61,40 @@
                              type="text" id="ph-no" name="PhoneNumber" [value]="phoneCode" placeholder="Ex: 9999999999">
                         </div>
                         <br/> -->
+                        <br/>
                      <div class="space-y-1">
                             <label for="ph-no" class="font-medium">Phone Number</label>
                             
-                            <input formControlName="phoneNumber" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="ph-no" placeholder="Ex: 9999999999"[value]="phoneCode">
+                            <input formControlName="phone_no" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                             type="text" id="ph-no" placeholder="Ex: 9999999999">
                              <!-- <div *ngIf="f.mobileNumber.errors.required">Mobile Number is required.</div>  
                              <div *ngIf="f.mobileNumber.errors.pattern">Please, Enter 10 digit Mobile Number.</div> --> 
                          </div>
-                        <br/> 
-                        <div class="space-y-1">
-                            <label for="company-name" class="font-medium">Company Name</label>
-                            <input formControlName="companyName"class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                             type="text" id="company-name" placeholder="Ex: ABC Group">
+                         <br/>
+
+                         <div class="space-y-1">
+                            <label  for="company" class="font-medium text-sm">Company</label>
+                             <select #company [(ngModel)]="company_name" formControlName="company_id"   id = "Company" class="block border w-[200%] border-gray-200 rounded px-5 py-1 leading-6 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50">
+                                <option selected>Select your company</option>
+                                <option *ngFor ="let company of company_list" [value]="company.company_id">{{company.name}}</option>
+                            </select>
                         </div>
-                        <br/> 
+
+                        <!-- <div class="space-y-1">
+                            <label for="email" class="font-medium">Company Id</label>
+                            <input formControlName="company_id" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                             type="email" id="email" placeholder="Ex: mathew123@domain.com">
+                        </div>
+                         -->
+                
+                       <br/>
                         <div class="space-y-1">
                             <label for="password" class="font-medium">Password</label>
                             <input formControlName="password" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                              type="text" id="password" placeholder="Password">
+                            
                         </div>
-                        <br/> 
+                       <br/>
                         <!-- <div class="space-y-1 text-sm">
                             <input type="checkbox" > Accept Terms and Conditions
                         </div> -->
@@ -92,6 +105,7 @@
                         </div>
 
                     </div>
+                 
                 </form>
                 </div>
 

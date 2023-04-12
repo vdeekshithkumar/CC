@@ -1,90 +1,3 @@
-D:\cc ui\CC_api\bin\Debug\net6.0\appsettings.Development.json
-D:\cc ui\CC_api\bin\Debug\net6.0\appsettings.json
-D:\cc ui\CC_api\bin\Debug\net6.0\CC_api.exe
-D:\cc ui\CC_api\bin\Debug\net6.0\CC_api.deps.json
-D:\cc ui\CC_api\bin\Debug\net6.0\CC_api.runtimeconfig.json
-D:\cc ui\CC_api\bin\Debug\net6.0\CC_api.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\CC_api.pdb
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Caching.Abstractions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.OpenApi.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.csproj.AssemblyReference.cache
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.GeneratedMSBuildEditorConfig.editorconfig
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.AssemblyInfoInputs.cache
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.AssemblyInfo.cs
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.csproj.CoreCompileInputs.cache
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.MvcApplicationPartsAssemblyInfo.cs
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.MvcApplicationPartsAssemblyInfo.cache
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets\msbuild.CC_api.Microsoft.AspNetCore.StaticWebAssets.props
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets\msbuild.build.CC_api.props
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.CC_api.props
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.CC_api.props
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets.pack.json
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets.build.json
-D:\cc ui\CC_api\obj\Debug\net6.0\staticwebassets.development.json
-D:\cc ui\CC_api\obj\Debug\net6.0\scopedcss\bundle\CC_api.styles.css
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.csproj.CopyComplete
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.dll
-D:\cc ui\CC_api\obj\Debug\net6.0\refint\CC_api.dll
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.pdb
-D:\cc ui\CC_api\obj\Debug\net6.0\CC_api.genruntimeconfig.cache
-D:\cc ui\CC_api\obj\Debug\net6.0\ref\CC_api.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Azure.Core.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Azure.Identity.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Humanizer.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.Configuration.Abstractions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Identity.Client.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\Mono.TextTemplating.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.CodeDom.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Drawing.Common.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Memory.Data.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Runtime.Caching.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Security.Permissions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Text.Encodings.Web.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Text.Json.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\System.Windows.Extensions.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
-D:\cc ui\CC_api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\appsettings.json
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\CC_api.exe
@@ -95,6 +8,7 @@ C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Azure.Core.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Azure.Identity.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Humanizer.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\MailKit.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
@@ -123,7 +37,9 @@ C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Microsoft.OpenApi.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Microsoft.SqlServer.Server.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\MimeKit.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Mono.TextTemplating.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\BouncyCastle.Crypto.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -133,6 +49,7 @@ C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.Memory.Data.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.Security.Permissions.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\System.Text.Encodings.Web.dll
@@ -148,6 +65,7 @@ C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll

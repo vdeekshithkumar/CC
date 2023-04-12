@@ -5,7 +5,6 @@ import { EditProfileService } from './edit-profile.service';
 import { Observable, Subscriber } from 'rxjs';
 
 
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',

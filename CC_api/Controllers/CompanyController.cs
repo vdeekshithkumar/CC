@@ -28,6 +28,7 @@ namespace CC_api.Controllers
     {
       return await companyBusiness.GetAllCompanyAsync();
     }
+
     [HttpPost("SaveCompany")]
     public async Task<IActionResult> SaveCompanyAsync([FromBody] Company company)
 
