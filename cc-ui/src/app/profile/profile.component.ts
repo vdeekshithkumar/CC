@@ -33,7 +33,7 @@ export class ProfileComponent  implements OnInit{
   ngOnInit():void{
 
     this.profileService.getCompanyById(1).subscribe(
-      data => {
+       data => {
           // Handle the data returned by the HTTP GET request
           this.company_id=data.company_id,
           this.name=data.name,
