@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EditProfileService } from './edit-profile.service';
 import { Observable, Subscriber } from 'rxjs';
-
+import { ProfileComponent } from '../profile.component';
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,21 +16,25 @@ export class EditProfileComponent implements OnInit{
   title = 'imgtobase64';
   myimage!: Observable<any>;
   base64code!: any
-  constructor(private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
-
+  productImage: any;
+  constructor(private profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
   }
   ngOnInit(): void {
+    debugger
     this.editprofileForm = this.formBuilder.group({
-     company_id:['',Validators.required],
-      name: ['', Validators.required],
-      licence_id: ['11', Validators.required],
-      domain_address: ['', Validators.required],
-      // company_logo: ['', Validators.required],
-      company_location: ['', Validators.required],
-      country: ['india', Validators.required],
-      rating:['', Validators.required],
-      address: ['', Validators.required],
+     company_id:[this.profileComponent.company_id,Validators.required],
+      name: [this.profileComponent.name, Validators.required],
+      domain_address: [this.profileComponent.domain_address, Validators.required],
+      company_logo: [this.profileComponent.company_logo, Validators.required],
+      company_location: [this.profileComponent.company_location, Validators.required],
+      country: [this.profileComponent.country, Validators.required],
+      rating:[ this.profileComponent.rating, Validators.required],
+      address: [this.profileComponent.address, Validators.required],
       });
+  }
+  onCancel() {
+    // Call the reset method on the form group to reset the form
+    this.editprofileForm.reset();
   }
   onChange = ($event: Event) => {
     const target = $event.target as HTMLInputElement;
@@ -60,6 +64,10 @@ export class EditProfileComponent implements OnInit{
       subscriber.complete();
     };
   }
+  
+  UploadImage(image: any) {
+    this.productImage = image;
+  }
   // onEdit(){
   //   this.editProfileService.edit(this.editprofileForm.value).subscribe(
   //     (response)=>{
@@ -80,15 +88,33 @@ export class EditProfileComponent implements OnInit{
                 })  
               }
             
+    // onEdit() {
+    //             this.editProfileService.updatecompany(company_id).subscribe(data => {
+    //               this.editprofileForm.patchValue(data);
+    //             })
+    //           }
   
   GetAllCompany() {
     throw new Error('Method not implemented.');
   }
-  // onEdit(companyId:number){
-  //   this.editProfileService.getCompanyById(companyId).subscribe(data=>{
-      
-  //     this.editProfileService.patchValue(data);
-  //   })
+//   onSubmit(){
+//   var updatemodel = {     
+//     company_id:this.editprofileForm.value.company_id,
+//   name: this.editprofileForm.value.firstName,
+//   licence_id: this.editprofileForm.value.licence_id,
+//   domain_address: this.editprofileForm.value.domain_address,
+//   company_location: this.editprofileForm.value.company_location,
+//   country: this.editprofileForm.value.country,
+//   rating: this.editprofileForm.value.rating,
+//   address: this.editprofileForm.value.address,
+ 
+// }
+
+// this.editProfileService.updatecompany(updatemodel).subscribe(data=>{
+// this.GetAllCompany();
+
+// })
+// }
   // resetForm(){
   //   this.editprofileForm.value.company_id=''
   //   this.editprofileForm.value.name=''
