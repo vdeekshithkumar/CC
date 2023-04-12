@@ -24,7 +24,7 @@
                 </div>
                 <div class="md:col-span-5">
                   <label for="domain">Licence ID</label>
-                  <input type="text" formControlName="licence_id" id="domain" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="www.domain.com" />
+                  <input type="text" formControlName="licence_id" id="domain" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
                 </div>
   
   
@@ -57,12 +57,12 @@
                   <a (click)="UploadImage(productImage)"></a>
                 </div> -->
                 <div class="md:col-span-3">
-                  <label for="address">CompanyLogo</label>
-                <input formControlName="company_logo" type="file" (change)="onChange($event)" />
+                  <label for="address">CompanyLogo</label>&nbsp;
+                <input formControlName="company_logo" type="file" (change)="onChange($event)"/>
                 <div *ngIf="myimage">
                 <img src="{{'data:image/jpg;base64,' + myimage}}"/>
                 <img [src]="myimage" width="200px" height="200px" alt="" />
-                <textarea rows="30" cols="60" [(ngModel)]="base64code"></textarea>
+                <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
                 </div>
                 </div> 
                 <!-- <div class="md:col-span-2">
@@ -84,18 +84,14 @@
                     <label for="LicenceID">LicenceID</label>
                     <input type="text" name="licence" id="license" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
                   </div> -->
-  
-                
-  
-  
-  
                 <div class="md:col-span-5 text-right">
                   <button
                       type="button"
                       class="inline-block rounded bg-primary-100 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
                       data-te-modal-dismiss
                       data-te-ripple-init
-                      data-te-ripple-color="light">
+                      data-te-ripple-color="light"
+                      (click)="onCancel()">
                       Close
                 </button>
                 
