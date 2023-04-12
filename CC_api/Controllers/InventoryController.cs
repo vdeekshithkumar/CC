@@ -37,6 +37,13 @@ namespace CC_api.Controllers
       return new OkResult();
     }
 
+
+    [HttpGet("GetInventoryById/{id}")]
+    public async Task<Inventory> GetInventory(int id)
+    {
+      return await inventoryBusiness.GetInventoryById(id); 
+    }
+
  
 
 

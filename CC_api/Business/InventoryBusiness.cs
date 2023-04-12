@@ -67,10 +67,16 @@ namespace CC_api.Business
       return new OkResult();
     }
 
- 
+    public async Task<Inventory> GetInventoryById(int id)
+    {
+      return await inventoryRepository.GetInventoryById(id);
+      
+    }
 
 
-    public async Task<IActionResult> EditInventory(int id, Inventory inventory)
+
+
+    public async Task<IActionResult> EditInventory(int id, Inventory inventory)
     {
       var inv = await inventoryRepository.GetInventoryById(id);
       if (inv == null)

@@ -49,7 +49,8 @@ export class SessionService {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.url.includes('sign-in')) {
         const registered = this.router.parseUrl(event.url).queryParams['registered'];
-        if (!registered) {
+        const login = this.router.parseUrl(event.url).queryParams['login'];
+        if (!registered && !login) {
           this.clearSession();
           alert("Login Please (Session Cleared)")
         }
