@@ -11,11 +11,11 @@ import { SessionService } from '../session.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent  implements OnInit{
-  company_id?: number;
-  name?:string;
- domain_address?:string;
- licence_id?:number;
+export class ProfileComponent implements OnInit{
+  public company_id?: number;
+  public name?:string;
+      domain_address?:string;
+        licence_id?:number;
       rating?:number;
       address?:string;
       company_logo?:string
@@ -31,7 +31,6 @@ export class ProfileComponent  implements OnInit{
 
 
   ngOnInit():void{
-
     this.profileService.getCompanyById(1).subscribe(
        data => {
           // Handle the data returned by the HTTP GET request
