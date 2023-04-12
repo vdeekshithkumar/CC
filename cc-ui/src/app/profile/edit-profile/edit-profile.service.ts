@@ -26,9 +26,9 @@ export class EditProfileService {
   }
   getCompanyById(company_id:number):Observable<any>{
     return this.http.get('https://localhost:7157/GetCompanyById',{params:{'companyId':company_id}})
-}
-updatecompany(editprofileForm: FormGroup<any>){
+  }
+ updatecompany(editprofileForm: FormGroup<any>){
   const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
     return this.http.put(this.apiUrl,editprofileForm,{headers});
-}
+ }
 }
