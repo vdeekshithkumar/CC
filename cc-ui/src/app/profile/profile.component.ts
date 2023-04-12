@@ -41,7 +41,7 @@ export class ProfileComponent  implements OnInit{
           this.domain_address=data.domain_address,
           this.company_logo="data:image/png;base64,"+data.company_logo,
           this.company_location=data.company_location,
-      this.country=data.country,
+          this.country=data.country,
           this.rating=data.rating,
           this.address=data.address
       },
