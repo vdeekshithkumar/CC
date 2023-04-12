@@ -59,10 +59,10 @@
         <input type="text" formControlName="minimum" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
        </div>
        <div class="mb-2">
-    <label class="block mb-3 text-gray-600">Upload Excel Here 
-       <input class="ml-10" type="file" (change)="ReadExcel($event)">
+      <label class="block mb-3 text-gray-600">Upload Excel Here 
+      <input class="ml-10" type="file" (change)="ReadExcel($event)">
       </label>
-       </div>
+      </div>
 
       <div class="mb-2">
        <div class="flex justify-between mt-5">
@@ -118,7 +118,7 @@
                   <td scope="col" class="border px-4 py-2 text-center">{{inv.maximum}}</td>
                   <td scope="col" class="border px-4 py-2 text-center">{{inv.minimum}}</td>
                   <td scope="col" class="border px-4 py-2 text-center">
-                    <button class="edit-button">Edit</button>
+                    <button (click)="getInventoryById(inv.inventory_id)" class="edit-button">Edit</button>
                   </td>
                   <td scope="col" class="border px-4 py-2 text-center">
                     

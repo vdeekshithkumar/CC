@@ -21,6 +21,7 @@ export class UploadInventoryComponent {
   UploadInventoryForm!: FormGroup;
     form: any;
     port_name="";
+    
     port_list:any;
     container_type="";
     inventory_list=null;
@@ -29,10 +30,13 @@ export class UploadInventoryComponent {
     x: any;
     key:any;
     id:any;
+    inv_id:any;
+    isEdit:any=0;
     currentUser: any;
     userId: any;
     companyId: any;
     inventoryId: any;
+  inventory_data: any;
    
   
     constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
@@ -200,16 +204,61 @@ export class UploadInventoryComponent {
       
   
     });
-//  
-
-
-    // console.log('session id retrieved  '+this.session_user_id)
     
   }
 
+  
 
+  getInventoryById(inv_id: number) {
+  
+    this.uploadInventoryservice.getInventoryById(inv_id)
+      .subscribe(
+        (        data: any) => {
+       
+          this.inventory_data = data;
+        
+          console.log(this.inventory_data);
+          // console.log(this.inventory_data.inventory_id);
+      
+          this.editI(inv_id);
+
+        },
+        (        error: any) => console.log(error));
+  }
+
+
+  editI(inv_id:number){
+    const parsedData = JSON.parse(this.inventory_data);
+    console.log('parsed data is'+parsedData.maximum)
+    console.log('inventory id is' + inv_id)
+
+    console.log(this.isEdit)
+    
+    this.isEdit=1;
+    console.log('now turned '+this.isEdit)
+    const now = new Date();
+    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+   
+    this.UploadInventoryForm.setValue({
+  
+      inventory_id:105,
+      date_created:"2023-03-28",
+      last_modified:formattedDate,
+      company_id:this.companyId,
+      container_type:"refrigerated",
+      available: 96544,
+      maximum: 987,
+      minimum:987,
+      port_id:3,
+      updated_by:this.userId,
+      container_size:4
+      
+  
+    });
+  }
 
   deleteInventory(id: number) {
+  
     this.uploadInventoryservice.deleteInventory(id)
       .subscribe(
         (        data: any) => {
@@ -221,37 +270,45 @@ export class UploadInventoryComponent {
         },
         (        error: any) => console.log(error));
   }
-  // editInventory(id: number) {
-  //   this.uploadInventoryservice.editInventory(id)
-  //     .subscribe(
-  //       (        data: any) => {
-  //         console.log(data);
-  //          this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-  //         this.router.navigate(['/upload-inventory']);
-  //          window.location.reload()
-  //         // this.getAllInventory()
-  //       },
-  //       (        error: any) => console.log(error));
-  // }
+ 
 
 
 async onSubmit() {
-  try {
-    const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
-    console.log(response);
-    console.log(this.UploadInventoryForm.value);
-    // reset the form after successful upload
+  if(this.isEdit==1){
+   
+    const parsedData = JSON.parse(this.inventory_data);
+    console.log(parsedData.inventory_id)
+    const response = await this.uploadInventoryservice.editInventory(parsedData.inventory_id,this.UploadInventoryForm.value).toPromise();
+    console.log('edit'+response)
+    this.isEdit=0
     this.UploadInventoryForm.reset();
-    
-    // reload the component
-    await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-    await this.router.navigate(['/upload-inventory']);
-    await window.location.reload()
-  } 
-  catch (error) {
-    console.log('Error uploading inventory:', error);
-    console.log(this.UploadInventoryForm.value);
+   // reload the component
+
+   await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+   await this.router.navigate(['/upload-inventory']);
+   await window.location.reload()
+
   }
+
+  else{
+    try {
+      const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
+      console.log(response);
+      console.log(this.UploadInventoryForm.value);
+      // reset the form after successful upload
+      this.UploadInventoryForm.reset();
+      
+      // reload the component
+      await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+      await this.router.navigate(['/upload-inventory']);
+      await window.location.reload()
+    } 
+    catch (error) {
+      console.log('Error uploading inventory:', error);
+      console.log(this.UploadInventoryForm.value);
+    }
+  }
+  
 }
 
 }
