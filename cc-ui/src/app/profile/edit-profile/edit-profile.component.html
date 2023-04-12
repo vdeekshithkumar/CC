@@ -52,16 +52,19 @@
                   <label for="address">Address / Street</label>
                   <input type="text" formControlName="address" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
                 </div>
-                
                 <!-- <div class="md:col-span-3">
+                  <input type="file" formControlName=""/>
+                  <a (click)="UploadImage(productImage)"></a>
+                </div> -->
+                <div class="md:col-span-3">
                   <label for="address">CompanyLogo</label>
                 <input formControlName="company_logo" type="file" (change)="onChange($event)" />
                 <div *ngIf="myimage">
                 <img src="{{'data:image/jpg;base64,' + myimage}}"/>
-                <img [src]="myimage" width="200px" height="200px" alt="" /> -->
-                <!-- <textarea rows="30" cols="60" [(ngModel)]="base64code"></textarea>
+                <img [src]="myimage" width="200px" height="200px" alt="" />
+                <textarea rows="30" cols="60" [(ngModel)]="base64code"></textarea>
                 </div>
-                </div>  -->
+                </div> 
                 <!-- <div class="md:col-span-2">
                   <label for="city">City</label>
                   <input type="text" name="city" id="city" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />

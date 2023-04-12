@@ -3917,25 +3917,11 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
-    "C:\\Users\\Vishr\\.nuget\\packages\\": {}
-=======
     "C:\\Users\\vdeek\\.nuget\\packages\\": {}
->>>>>>> deekshith_iv
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj",
-      "projectName": "CC_api",
-      "projectPath": "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\CC_api.csproj",
-      "packagesPath": "C:\\Users\\Vishr\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Vishr\\OneDrive\\Documents\\GitHub\\gitub_codes\\Container-conundrum\\CC_api\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\Vishr\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
       "projectUniqueName": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
       "projectName": "CC_api",
       "projectPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
@@ -3944,7 +3930,6 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\vdeek\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> deekshith_iv
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4016,7 +4001,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -16,6 +16,7 @@ export class EditProfileComponent implements OnInit{
   title = 'imgtobase64';
   myimage!: Observable<any>;
   base64code!: any
+  productImage: any;
   constructor(private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
 
   }
@@ -23,11 +24,11 @@ export class EditProfileComponent implements OnInit{
     this.editprofileForm = this.formBuilder.group({
      company_id:['',Validators.required],
       name: ['', Validators.required],
-      licence_id: ['11', Validators.required],
+      licence_id: ['', Validators.required],
       domain_address: ['', Validators.required],
-      // company_logo: ['', Validators.required],
+      company_logo: ['', Validators.required],
       company_location: ['', Validators.required],
-      country: ['india', Validators.required],
+      country: ['', Validators.required],
       rating:['', Validators.required],
       address: ['', Validators.required],
       });
@@ -60,6 +61,10 @@ export class EditProfileComponent implements OnInit{
       subscriber.complete();
     };
   }
+  
+  UploadImage(image: any) {
+    this.productImage = image;
+  }
   // onEdit(){
   //   this.editProfileService.edit(this.editprofileForm.value).subscribe(
   //     (response)=>{
@@ -80,15 +85,33 @@ export class EditProfileComponent implements OnInit{
                 })  
               }
             
+    // onEdit() {
+    //             this.editProfileService.updatecompany(company_id).subscribe(data => {
+    //               this.editprofileForm.patchValue(data);
+    //             })
+    //           }
   
   GetAllCompany() {
     throw new Error('Method not implemented.');
   }
-  // onEdit(companyId:number){
-  //   this.editProfileService.getCompanyById(companyId).subscribe(data=>{
-      
-  //     this.editProfileService.patchValue(data);
-  //   })
+//   onSubmit(){
+//   var updatemodel = {     
+//     company_id:this.editprofileForm.value.company_id,
+//   name: this.editprofileForm.value.firstName,
+//   licence_id: this.editprofileForm.value.licence_id,
+//   domain_address: this.editprofileForm.value.domain_address,
+//   company_location: this.editprofileForm.value.company_location,
+//   country: this.editprofileForm.value.country,
+//   rating: this.editprofileForm.value.rating,
+//   address: this.editprofileForm.value.address,
+ 
+// }
+
+// this.editProfileService.updatecompany(updatemodel).subscribe(data=>{
+// this.GetAllCompany();
+
+// })
+// }
   // resetForm(){
   //   this.editprofileForm.value.company_id=''
   //   this.editprofileForm.value.name=''

@@ -8,15 +8,14 @@
       <div class="flex">
         <div class="flex flexbox">
           <!-- first box which contains the company details -->
-          <form [formGroup]= "profileForm" (ngSubmit)="onSubmit()"> 
+          <form [formGroup]= "profileForm"> 
          
           <div class="flex flex-wrap">
             <div class="relative">
               <img
                 class="object-cover w-14 h-14 rounded-full"
-                src="https://images.unsplash.com/photo-1520315342629-6ea920342047?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGNhdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                alt="Avatar"
-              />
+                src={{company_logo}}
+                />
               <!-- Edit Profile Link -->
               <button (click)="showDiv = !showDiv" class="cursor-pointer">
                 <img
@@ -24,7 +23,7 @@
                   src="../../assets/images/edit-97-16.png"
                 />
               </button>
-
+              
               <!-- A hidden div for edit profile -->
               <div class="my-3 relative" [class.hidden]="!showDiv">
                 <div class="absolute top-0 left-0 shadow-md z-20">
@@ -99,6 +98,13 @@
                     >{{country}}</span
                   >
                 </div>
+              <!-- <div>
+                  <input type="file" (change)="onFileChange($event)">
+                  <button (click)="uploadImage()">Upload</button>
+              </div>
+              <div *ngIf="imageUrl">
+                  <img [src]="imageUrl" alt="Uploaded Image">
+              </div> -->
 
                 <!-- Ratings -->
                 <div class=" mx-[1rem] flex">

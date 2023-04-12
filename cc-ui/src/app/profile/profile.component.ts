@@ -18,7 +18,7 @@ export class ProfileComponent  implements OnInit{
  licence_id?:number;
       rating?:number;
       address?:string;
-      // company_logo?:string
+      company_logo?:string
       company_location?:string
       country?:string
       
@@ -33,16 +33,15 @@ export class ProfileComponent  implements OnInit{
   ngOnInit():void{
 
     this.profileService.getCompanyById(1).subscribe(
-      data => {
+       data => {
           // Handle the data returned by the HTTP GET request
-          // this.company_id=data.company_id,
+          this.company_id=data.company_id,
           this.name=data.name,
           this.licence_id=data.licence_id,
           this.domain_address=data.domain_address,
-          
-          // this.company_logo=data.company_logo,
+          this.company_logo="data:image/png;base64,"+data.company_logo,
           this.company_location=data.company_location,
-      this.country=data.country,
+          this.country=data.country,
           this.rating=data.rating,
           this.address=data.address
       },
@@ -86,7 +85,3 @@ export class ProfileComponent  implements OnInit{
 }
  
 }
-
-  
-  
-    
