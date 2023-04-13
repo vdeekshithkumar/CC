@@ -15,6 +15,7 @@ export interface Port {
   name: string;
 }
 @Injectable({
+
     providedIn: 'root'
   })
   export class UploadInventoryservice {
@@ -59,4 +60,5 @@ export interface Port {
     deleteInventory(id: number): Observable<any> {
       return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
     }
-  }
+
+}

@@ -1,46 +1,29 @@
-import { Component } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
-import { SessionService } from '../session.service';
+import { Component, OnInit } from '@angular/core';
+import { UploadService } from './upload.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-upload-contract',
-  templateUrl: './upload-contract.component.html',
-  styleUrls: ['./upload-contract.component.css']
+    selector: 'app-upload-contract',
+    templateUrl: './upload-contract.component.html',
+    styleUrls: ['./upload-contract.component.css']
 })
-export class UploadContractComponent {
-  currentUser: any;
+export class UploadContractComponent implements OnInit {
+    contractForm!: FormGroup;
+    description!:"None"
+    constructor(private uploadService:UploadService, private formBuilder: FormBuilder) {
+    }
+    
 
-  constructor(private sessionService: SessionService,private router: Router) { }
+    ngOnInit(): void { }
 
-  ngOnInit(): void {
-    // retrieve the user session information
-    this.sessionService.getCurrentUser().subscribe(user => {
-      // if (user.id==null && user.token==null) {  // use this once token is used for a user
-      if (user.user_id==null) {
-        // if user session is null, redirect to login page
-        this.router.navigate(['/sign-in']);
+    onChange($event: Event) {
+        const target = $event.target as HTMLInputElement;
+        const file: File = (target.files as FileList)[0];
+    
+        if (file) {
+          this.uploadService.uploadFile(file,10,2, this.description).subscribe(response => {
+            console.log(response);
+          });
+        }
       }
-      else{
-        this.currentUser = user;
-      console.log('From session '+this.currentUser.email+'  id here '+this.currentUser.user_id)
-
-      }
-      // store the user session information in a property
-      
-    });
-
-    //when navigate back to sign-in session ends
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
-    ).subscribe(() => {
-      this.sessionService.clearSession();
-    });
-  }
-
-  logout(): void {
-    // clear session data and redirect to login page
-    this.sessionService.clearSession();
-  
-}
 }

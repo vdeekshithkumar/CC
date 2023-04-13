@@ -48,36 +48,7 @@ namespace CC_api.Controllers
     {
       return await companyBusiness.UpdateCompanyAsync(company);
     }
-    //[HttpPost("UploadImage")]
-    //public async Task<IActionResult> Upload([FromBody] Company company)
-    //{
-    //  return await companyBusiness.UploadImageAsync(company);
-    //}
-    //public async Task<IActionResult> Upload([FromBody] IFormFile file)
-    //{
-    //  if (file == null || file.Length == 0)
-    //  {
-    //    return BadRequest("File not selected.");
-
-    //  }
-    //  string uniqueFileName = Path.GetFileNameWithoutExtension(file.FileName)
-    //        + "_" + Guid.NewGuid().ToString().Substring(0, 8)
-    //        + Path.GetExtension(file.FileName);
-
-    //  string uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
-    //  string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-    //  using (var stream = new FileStream(filePath, FileMode.Create))
-    //  {
-    //    await file.CopyToAsync(stream);
-    //  }
-
-    // Save image data to database
-    //var image = new Image
-    //{
-    //  FileName = uniqueFileName,
-    //  FilePath = filePath,
-    //  // other properties or data you want to store in the database
-    //};
+    
 
   }
 }

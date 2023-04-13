@@ -25,6 +25,7 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
+import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { AuthInterceptor } from './auth.interceptor';
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
+    PageNotFoundComponent,
     
     
   ],
