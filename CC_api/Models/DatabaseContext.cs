@@ -13,9 +13,10 @@ namespace CC_api.Models
 
     public DbSet<Up> up_mapping { get; set; }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-      //if (!optionsBuilder.IsConfigured)
-      optionsBuilder.UseSqlServer("Server=DESKTOP-OASQ11G;Database=CC_Models;Encrypt=False;Integrated Security=True;Trusted_Connection=True;");
+
+      {
+        //if (!optionsBuilder.IsConfigured)
+        optionsBuilder.UseSqlServer("Server=THEJESH;Database=CC_Models;Integrated Security=True;Trusted_Connection=True;Encrypt=False;");
 
 
     }

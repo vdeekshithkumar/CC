@@ -1,8 +1,7 @@
 using CC_api.Models;
 using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+
 using System.Security.Claims;
 using System.Net;
 using System.Text;
@@ -73,7 +72,10 @@ namespace CC_api.Business
       
     }
 
-
+    public async Task<List<Inventory>> GetInventoryByIdCID(int companyId)
+    {
+      return await inventoryRepository.GetInventoryByIdCID(companyId);
+    }
 
 
     public async Task<IActionResult> EditInventory(int id, Inventory inventory)

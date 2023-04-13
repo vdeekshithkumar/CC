@@ -15,43 +15,50 @@ export interface Port {
   name: string;
 }
 @Injectable({
-  providedIn: 'root'
-})
-export class UploadInventoryservice {
-  private apiUrl = 'https://localhost:7157/UploadInventory';
-  private baseUrl = 'https://localhost:7157/DeleteInventory';
-  private IdUrl = 'https://localhost:7157/GetInventoryById';
-  private editUrl = 'https://localhost:7157/EditInventory';
-  constructor(private http: HttpClient) {
+
+    providedIn: 'root'
+  })
+  export class UploadInventoryservice {
+    private apiUrl='https://localhost:7157/UploadInventory';
+    private baseUrl='https://localhost:7157/DeleteInventory';
+    private IdUrl='https://localhost:7157/GetInventoryById';
+     private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
+     private editUrl='https://localhost:7157/EditInventory';
+  constructor(private http:HttpClient) {
 
 
   }
-  uploadInventory(UploadInventoryForm: FormGroup<any>) {
-    const headers = new HttpHeaders().set('content-Type', 'application/json');
-    return this.http.post(this.apiUrl, UploadInventoryForm, { headers });
-  }
+    uploadInventory(UploadInventoryForm: FormGroup<any>){
+      const headers=new HttpHeaders().set('content-Type','application/json');
+      return this.http.post(this.apiUrl,UploadInventoryForm,{headers}); 
+    }
+   
+    editInventory(id: number, UploadInventoryForm: FormGroup<any>) {
+      const headers = new HttpHeaders().set('content-Type', 'application/json');
+  
+      return this.http.put(`${this.editUrl}/${id}`,UploadInventoryForm,{ headers });
+    }
+    
+    
 
-  editInventory(id: number, UploadInventoryForm: FormGroup<any>) {
-    const headers = new HttpHeaders().set('content-Type', 'application/json');
-    debugger
-    return this.http.put(`${this.editUrl}/${id}`, UploadInventoryForm, { headers });
-  }
+    getAllPorts(): Observable<any> {
+      return this.http.get('https://localhost:7157/GetAllPorts');
+    }
+    
+    getAllInventory(): Observable<any> {
+      return this.http.get('https://localhost:7157/GetAllInventory');  
+    }
+    getInventoryById(id: number): Observable<any> {
+      return this.http.get(`${this.IdUrl}/${id}`, { responseType: 'json' });
+    }
 
+    
+    getInventoryByIdCID(companyId:number): Observable<any> {
+      return this.http.get(`${this.CIdUrl}/${companyId}`, { responseType: 'json' });
+    }
 
+    deleteInventory(id: number): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    }
 
-  getAllPorts(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllPorts');
-  }
-
-  getAllInventory(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllInventory');
-  }
-
-  getInventoryById(id: number): Observable<any> {
-    return this.http.get(`${this.IdUrl}/${id}`, { responseType: 'text' });
-  }
-
-  deleteInventory(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
-  }
 }

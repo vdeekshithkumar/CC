@@ -39,15 +39,21 @@ namespace CC_api.Controllers
 
 
     [HttpGet("GetInventoryById/{id}")]
-    public async Task<Inventory> GetInventory(int id)
+    public async Task<Inventory> GetInventoryById(int id)
     {
       return await inventoryBusiness.GetInventoryById(id); 
     }
 
- 
+    [HttpGet("GetInventoryByIdCID/{companyId}")]
+    public async Task<List<Inventory>> GetInventoryByIdCID(int companyId)
+    {
+      return await inventoryBusiness.GetInventoryByIdCID(companyId);
+    }
 
 
-    [HttpPut("EditInventory/{id}")]
+
+
+    [HttpPut("EditInventory/{id}")]
     public async Task<IActionResult> EditInventory(int id, [FromBody] Inventory inventory)
     {
       return await inventoryBusiness.EditInventory(id, inventory);
