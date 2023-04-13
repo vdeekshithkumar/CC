@@ -7,6 +7,7 @@ import * as XLSX from 'xlsx'
 import { NavigationEnd, Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { filter } from 'rxjs';
+import { NumberSymbol } from '@angular/common';
 
 
 @Injectable({
@@ -25,6 +26,7 @@ export class UploadInventoryComponent {
     port_list:any;
     container_type="";
     inventory_list=null;
+    inventory_list_by_companyId=null;
     refrigerated:any;
     ExcelData:any;
     x: any;
@@ -49,6 +51,7 @@ export class UploadInventoryComponent {
       const fileReader = new FileReader();
       fileReader.readAsBinaryString(file);
       fileReader.onload = (e: ProgressEvent<FileReader>) => {
+        
         if (e.target && e.target.result) {
           const binaryString = e.target.result;
           const workBook = XLSX.read(binaryString, { type: 'binary' });
@@ -66,11 +69,13 @@ export class UploadInventoryComponent {
             });
             console.log(this.ExcelData);
             this.setV();
-          } else {
+          }
+           else {
             console.error('No sheets found in uploaded Excel file');
           }
         } else {
           console.error('Uploaded file is empty');
+         alert("Uploaded file is empty")
         }
       }
   }
@@ -151,6 +156,16 @@ export class UploadInventoryComponent {
       }
     );
 
+    this.uploadInventoryservice.getInventoryByIdCID(this.companyId).subscribe(
+      data => {
+        this.inventory_list_by_companyId = data;
+        console.log("inv list by company id is fetched: ", this.inventory_list_by_companyId); 
+      },
+      error => {
+        console.log("inv loading error:" +error);
+      }
+    );
+
 
     //session 
     this.sessionService.getCurrentUser().subscribe(user => {
@@ -217,7 +232,7 @@ export class UploadInventoryComponent {
        
           this.inventory_data = data;
         
-          console.log(this.inventory_data);
+          console.log("single inventory received"+this.inventory_data);
           // console.log(this.inventory_data.inventory_id);
       
           this.editI(inv_id);
@@ -228,9 +243,9 @@ export class UploadInventoryComponent {
 
 
   editI(inv_id:number){
-    const parsedData = JSON.parse(this.inventory_data);
-    console.log('parsed data is'+parsedData.maximum)
-    console.log('inventory id is' + inv_id)
+    // const parsedData = JSON.parse(this.inventory_data);
+
+    console.log('inventory id is    shis' + inv_id)
 
     console.log(this.isEdit)
     
@@ -241,19 +256,18 @@ export class UploadInventoryComponent {
    
     this.UploadInventoryForm.setValue({
   
-      inventory_id:105,
+      inventory_id:inv_id,
       date_created:"2023-03-28",
       last_modified:formattedDate,
       company_id:this.companyId,
-      container_type:"refrigerated",
-      available: 96544,
-      maximum: 987,
-      minimum:987,
-      port_id:3,
+      container_type:this.inventory_data.container_type,
+      available: this.inventory_data.available,
+      maximum: this.inventory_data.maximum,
+      minimum:this.inventory_data.minimum,
+      port_id:this.inventory_data.port_id,
       updated_by:this.userId,
-      container_size:4
-      
-  
+      container_size:this.inventory_data.container_size
+
     });
   }
 
@@ -276,9 +290,8 @@ export class UploadInventoryComponent {
 async onSubmit() {
   if(this.isEdit==1){
    
-    const parsedData = JSON.parse(this.inventory_data);
-    console.log(parsedData.inventory_id)
-    const response = await this.uploadInventoryservice.editInventory(parsedData.inventory_id,this.UploadInventoryForm.value).toPromise();
+   
+    const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
     console.log('edit'+response)
     this.isEdit=0
     this.UploadInventoryForm.reset();
@@ -287,7 +300,6 @@ async onSubmit() {
    await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
    await this.router.navigate(['/upload-inventory']);
    await window.location.reload()
-
   }
 
   else{

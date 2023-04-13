@@ -36,19 +36,22 @@ namespace CC_api.Repository
       dbContext.inventory.Remove(inventory);
       await dbContext.SaveChangesAsync();
     }
-    /*public async Task<Inventory> GetInventoryById(int id)
-    {
-      return await dbContext.inventory.FindAsync(id);
-    }
-*/
+    
+
     public async Task<Inventory> GetInventoryById(int id)
     {
       return await dbContext.inventory.FirstOrDefaultAsync(x => x.inventory_id == id);
     }
+    public async Task<List<Inventory>>GetInventoryByIdCID(int companyId)
+    {
+      return await dbContext.inventory.Where(x => x.company_id == companyId).ToListAsync();
+      /*return await dbContext.inventory.FirstOrDefaultAsync(x => x.company_id == companyId);*/
+    }
 
- 
 
-    public async Task<List<Inventory>> GetAllInventoryAsync()
+
+
+    public async Task<List<Inventory>> GetAllInventoryAsync()
     {
       return dbContext.inventory.ToList();
     }

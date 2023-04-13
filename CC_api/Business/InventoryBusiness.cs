@@ -72,7 +72,10 @@ namespace CC_api.Business
       
     }
 
-
+    public async Task<List<Inventory>> GetInventoryByIdCID(int companyId)
+    {
+      return await inventoryRepository.GetInventoryByIdCID(companyId);
+    }
 
 
     public async Task<IActionResult> EditInventory(int id, Inventory inventory)

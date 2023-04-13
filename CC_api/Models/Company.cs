@@ -15,7 +15,7 @@ namespace CC_api.Models
     public byte[] company_logo{ get; set; }
     public string company_location { get; set; }
    public string country { get; set; }
-    public int rating { get; set; }
+    public decimal rating { get; set; }
     public string address { get; set; }
   }
 }
