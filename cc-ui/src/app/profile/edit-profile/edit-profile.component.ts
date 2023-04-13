@@ -20,7 +20,6 @@ export class EditProfileComponent implements OnInit{
   constructor(private profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
   }
   ngOnInit(): void {
-    debugger
     this.editprofileForm = this.formBuilder.group({
      company_id:[this.profileComponent.company_id,Validators.required],
       name: [this.profileComponent.name, Validators.required],

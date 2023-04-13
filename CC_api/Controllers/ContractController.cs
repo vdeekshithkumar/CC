@@ -1,64 +1,73 @@
 using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 
 namespace CC_api.Controllers
 {
+
   public class ContractController : Controller
   {
-    private readonly ILogger<ContractController> _logger;
-    private readonly ContractBusiness contractBusiness;
-    public ContractController(ILogger<ContractController> logger)
+    private readonly DatabaseContext dbContext;
+
+    private readonly ILogger<InventoryController> _logger;
+    private readonly ContractBusiness _contractBusiness;
+    public ContractController(ILogger<InventoryController> logger)
     {
       _logger = logger;
-      contractBusiness = new ContractBusiness();
+      _contractBusiness = new ContractBusiness();
+      this.dbContext = new DatabaseContext();
+
     }
-    /*
-          [HttpGet("UploadInventory")]
-          public async Task<List<User>> UploadInventory()
-          {
-            return await inventoryBusiness.UploadInventory();
-          }*/
-    [HttpPost("UploadContract")]
-    //public async Task<IActionResult> SaveUser([FromForm] User user)
-    //public async Task<HttpStatusCode> SaveUser(User user)
-    public async Task<IActionResult> UploadContract([FromBody] Contract contract)
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content)
     {
+      // Check if the file is not null
+      if (file == null || file.Length == 0)
+        return BadRequest("File not selected");
+
+      // Generate a random file name using a GUID
+      var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+      // Define the path to save the file
+      var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
+
+      // Save the file
+      using (var stream = new FileStream(filePath, FileMode.Create))
       {
-        return await contractBusiness.UploadContract(contract);
-
-
-
+        await file.CopyToAsync(stream);
       }
 
+      // Save the file path to the database
+      var contract = new Contract { company_id = companyId, user_id = userId, updated_by = userId, updated_date_time = DateTime.Now, title = fileName, content = "some random words", uploaded_file = filePath };
+      dbContext.contracts.Add(contract);
+      await dbContext.SaveChangesAsync();
 
-
+      // Return the file path
+      return Ok(new { filePath });
     }
-    /*[HttpPost("Login")]
-    public async Task<IActionResult> Login(Login loginmodel)
-    {
 
- 
+    [HttpGet("download/{fileName}")]
+    public async Task<IActionResult> Download(string fileName)
+    {
+      // Define the path to the file
+      var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
 
-      var login = await userBusiness.Login(loginmodel);
-      if (login != null)
-      {
-        await userBusiness.PopulateJwtTokenAsync(login);
+      // Check if the file exists
+      if (!System.IO.File.Exists(filePath))
+        return NotFound();
 
- 
+      // Return the file
+      var memory = new MemoryStream();
+      using (var stream = new FileStream(filePath, FileMode.Open))
+      {
+        await stream.CopyToAsync(memory);
+      }
+      memory.Position = 0;
 
-        return Ok(login);
-      }
-      else
-      {
-        return BadRequest();
-      }
-
- 
-
-
-    }*/
-  }
+      return File(memory, "application/pdf", Path.GetFileName(filePath));
+    }
+  }
 }
