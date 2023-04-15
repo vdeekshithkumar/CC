@@ -52,7 +52,7 @@ export class SessionService {
         const login = this.router.parseUrl(event.url).queryParams['login'];
         if (!registered && !login) {
           this.clearSession();
-          alert("Login Please (Session Cleared)")
+          // alert("Login Please (Session Cleared)")
         }
       }
     });

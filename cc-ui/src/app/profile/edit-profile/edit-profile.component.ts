@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { EditProfileService } from './edit-profile.service';
 import { Observable, Subscriber } from 'rxjs';
 import { ProfileComponent } from '../profile.component';
+import { response } from 'express';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,22 +21,26 @@ export class EditProfileComponent implements OnInit{
   productImage: any;
   constructor(private profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
   }
+
   ngOnInit(): void {
     this.editprofileForm = this.formBuilder.group({
-     company_id:[this.profileComponent.company_id,Validators.required],
-      name: [this.profileComponent.name, Validators.required],
-      domain_address: [this.profileComponent.domain_address, Validators.required],
-      company_logo: [this.profileComponent.company_logo, Validators.required],
-      company_location: [this.profileComponent.company_location, Validators.required],
-      country: [this.profileComponent.country, Validators.required],
-      rating:[ this.profileComponent.rating, Validators.required],
-      address: [this.profileComponent.address, Validators.required],
+     company_id:['1',Validators.required],
+     licence_id:['5',Validators.required],
+      name: ['Yak PVT LTD', Validators.required],
+      domain_address: ['hh', Validators.required],
+      company_logo: ['', Validators.required],
+      company_location: ['imfa', Validators.required],
+      country: ['uk', Validators.required],
+      rating:['9 ', Validators.required],
+      address: ['hfgf', Validators.required],
       });
   }
+
   onCancel() {
     // Call the reset method on the form group to reset the form
     this.editprofileForm.reset();
   }
+  
   onChange = ($event: Event) => {
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
@@ -79,46 +85,33 @@ export class EditProfileComponent implements OnInit{
   //     );
   
   // }
-  onEdit(){
-    this.editProfileService.updatecompany(this.editprofileForm.value)  
-                .subscribe((data) => {  
-                    this.router.navigate(['/dashboard']);
-                    // this.resetForm();  
-                })  
-              }
-            
-    // onEdit() {
-    //             this.editProfileService.updatecompany(company_id).subscribe(data => {
-    //               this.editprofileForm.patchValue(data);
-    //             })
+  async onEdit(){
+    console.log("submit form va;ue goes below"+ this.editprofileForm);
+    
+    // this.editProfileService.updatecompany(this.editprofileForm.value)  
+    //             .subscribe((data) => {  
+    //                 this.router.navigate(['/dashboard']);
+    //                 // this.resetForm();  
+    //             })  
     //           }
-  
-  GetAllCompany() {
-    throw new Error('Method not implemented.');
-  }
-//   onSubmit(){
-//   var updatemodel = {     
-//     company_id:this.editprofileForm.value.company_id,
-//   name: this.editprofileForm.value.firstName,
-//   licence_id: this.editprofileForm.value.licence_id,
-//   domain_address: this.editprofileForm.value.domain_address,
-//   company_location: this.editprofileForm.value.company_location,
-//   country: this.editprofileForm.value.country,
-//   rating: this.editprofileForm.value.rating,
-//   address: this.editprofileForm.value.address,
- 
-// }
 
-// this.editProfileService.updatecompany(updatemodel).subscribe(data=>{
-// this.GetAllCompany();
-
-// })
-// }
-  // resetForm(){
-  //   this.editprofileForm.value.company_id=''
-  //   this.editprofileForm.value.name=''
-  //   this.editprofileForm.value.domain_address=''
-  //   this.editprofileForm.value.rating=''
-  //   this.editprofileForm.value.address=''
-  // }
+    {
+      try {
+        const response = await this.editProfileService.updatecompany(this.editprofileForm.value).toPromise();
+        console.log(response);
+        
+        this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
+        await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+        await this.router.navigate(['/upload-inventory']);
+        await window.location.reload()
+      } 
+      catch (error) {
+        console.log('Error uploading inventory:', error);
+        console.log(this.editprofileForm.value);
+      }
+    }
 }
+}
+
+      
+              

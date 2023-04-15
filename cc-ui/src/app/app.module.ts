@@ -25,6 +25,9 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
@@ -40,6 +43,8 @@ import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
+    SearchPipe,
+    
     PageNotFoundComponent,
     
     
@@ -51,6 +56,7 @@ import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],

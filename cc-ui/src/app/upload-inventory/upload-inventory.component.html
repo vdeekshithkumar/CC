@@ -9,6 +9,10 @@
       <div class="p-20 rounded-md shadow-md bg-white">
 
        <div class="mb-6">
+        
+        
+
+
         <label class="block mb-3 text-gray-600" for="">Name on Port</label>
         
         
@@ -94,7 +98,28 @@
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div class="overflow-x-auto">
             
+            <nav class="table-navbar mb-2 w-full">
+              <div class="max-w-sm ml-10 flex items-center">
+                <label class="mr-2 w-full ">Search by:</label>
+                <div class="relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden">
+                  <div class="grid place-items-center h-full w-10 text-black-300">
+                    <!-- search bar icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="gray">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <input name="port_id" [(ngModel)]="searchTerm" 
+                         class="peer h-full w-full outline-none text-sm bg-gray-100 text-black-300 pr-2"
+                         type="text"
+                         id="search"
+                         placeholder="Port Id | Container Type"
+                  />
+                </div>
+              </div>
+            </nav>
+            
             <table class="min-w-full text-left text-sm font-light">
+              
               <thead class="border-b font-medium dark:border-neutral-500">
                 <tr>
                   <th scope="col" class="border px-4 py-2 text-center">Port Id</th>
@@ -111,7 +136,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let inv of inventory_list_by_companyId" class="border-b dark:border-neutral-500">
+                <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm" class="border-b dark:border-neutral-500">
                   <td scope="col" class="border px-4 py-2 text-center">{{inv.port_id}}</td>
                   <td scope="col" class="border px-4 py-2 text-center">{{inv.container_type}}</td>
                   <td scope="col" class="border px-2 py-2 text-center">{{inv.container_size}}</td>
