@@ -15,6 +15,7 @@ export interface Port {
   name: string;
 }
 @Injectable({
+
     providedIn: 'root'
   })
   export class UploadInventoryservice {

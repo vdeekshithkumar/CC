@@ -28,6 +28,7 @@ import { AuthInterceptor } from './auth.interceptor';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchPipe } from './search.pipe';
+import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +45,7 @@ import { SearchPipe } from './search.pipe';
     AddEmployeeComponent,
     SearchPipe,
     
+    PageNotFoundComponent,
     
     
   ],

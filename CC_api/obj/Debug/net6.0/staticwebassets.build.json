@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "5B8Qen0OnWp+UPAu+Ob6O71ddWTRKBeabbm5VPWgUR8=",
+  "Hash": "wBL5fTpXAlR1CZUIdbPnjvB98eu5Krk+5qNj+tYrpH8=",
   "Source": "CC_api",
   "BasePath": "_content/CC_api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "CC_api\\wwwroot",
+      "Source": "CC_api",
+      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\Temp\\Container-conundrum\\CC_api\\wwwroot\\",
+      "BasePath": "_content/CC_api",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }

@@ -23,7 +23,6 @@ export class EditProfileComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    debugger
     this.editprofileForm = this.formBuilder.group({
      company_id:['1',Validators.required],
      licence_id:['5',Validators.required],
