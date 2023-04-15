@@ -12,6 +12,6 @@ export class HomeComponent {
 
 
   route(){
-    this.router.navigate(['/sign-in'],{ queryParams: { login: true }});
+    this.router.navigate(['/sign-in']);
   }
 }

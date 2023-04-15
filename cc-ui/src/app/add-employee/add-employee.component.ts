@@ -75,15 +75,11 @@ this.sessionService.getCurrentUser().subscribe(user => {
   this.sessionService.clearSession();
 });
 }
-   
-
 logout(): void {
   // clear session data and redirect to login page
   this.sessionService.clearSession();
 
 }
-  
-  
   OnMainPer(){
     console.log('Ar:', this.Ar);
 console.log('Nr:', this.Nr);
@@ -171,15 +167,13 @@ console.log('Nw:', this.Nw);
   this.OnMainPer()
  }
 
-
   OnAdWrite(){
     this.Aw = 20;
     this.Ar =10;
    
     this.OnMainPer()
   }
-
-  
+ 
  OnNRead()
  {
   this.Nr =30;
@@ -193,10 +187,6 @@ console.log('Nw:', this.Nw);
     this.OnMainPer()
   }
 
-
-
-
- 
   onAdd(){
     try{
       const response = this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();

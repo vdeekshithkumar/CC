@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as XLSX from 'xlsx'
 import { NavigationEnd, Router } from '@angular/router';
 import { SessionService } from '../session.service';
-import { filter } from 'rxjs';
+import { filter, map } from 'rxjs';
 import { NumberSymbol } from '@angular/common';
 
 
@@ -22,11 +22,11 @@ export class UploadInventoryComponent {
   UploadInventoryForm!: FormGroup;
     form: any;
     port_name="";
-    
+    searchPortId: any;
     port_list:any;
     container_type="";
     inventory_list=null;
-    inventory_list_by_companyId=null;
+    inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
     x: any;
@@ -39,7 +39,9 @@ export class UploadInventoryComponent {
     companyId: any;
     inventoryId: any;
   inventory_data: any;
-   
+  port_id: any;
+  
+  searchTerm:any;
   
     constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
      }
@@ -165,6 +167,9 @@ export class UploadInventoryComponent {
         console.log("inv loading error:" +error);
       }
     );
+    
+    
+    
 
 
     //session 
@@ -195,6 +200,7 @@ export class UploadInventoryComponent {
     });
 
   }
+
 
   logout(): void {
     // clear session data and redirect to login page
@@ -271,8 +277,59 @@ export class UploadInventoryComponent {
     });
   }
 
+ 
+//   getSortedInventoryList(searchPortId:number) {
+//     if (this.searchPortId) { 
+    
+// const data = JSON.parse(this.inventory_list_by_companyId);
+
+// const filteredData = [];
+
+// for (const obj of data) {
+//   if (obj.port_id == searchPortId) {
+//     filteredData.push(obj);
+//   }
+// }
+
+// console.log(filteredData); 
+//     }
+//   }
+   
+    //   const data = JSON.parse(this.inventory_list_by_companyId);
+    //   // const filteredData = data.filter((obj: { port_id: any; }) => obj.port_id === this.searchPortId);
+    //   // const filteredJsonData = JSON.stringify(filteredData);
+    //   // console.log(filteredJsonData);
+    //   // console.log(filteredData+"non stringyfied")
+    //   console.log(data)
+    
+
+    // } else {
+    //   return this.inventory_list_by_companyId;
+     
+    // }
+
+    //
+
+
+
+
+//
+
+// Search(){
+//   debugger
+//   if(this.port_id==""){
+//     this.ngOnInit();
+//   }
+//   else{
+//     this.inventory_list_by_companyId=this.inventory_list_by_companyId.filter((res: { port_id: string; })=>{
+//       return res.port_id.match(this.port_id);
+//     });
+//   }
+// }
+    
+
+
   deleteInventory(id: number) {
-  
     this.uploadInventoryservice.deleteInventory(id)
       .subscribe(
         (        data: any) => {
@@ -284,24 +341,17 @@ export class UploadInventoryComponent {
         },
         (        error: any) => console.log(error));
   }
- 
-
 
 async onSubmit() {
   if(this.isEdit==1){
-   
-   
     const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
     console.log('edit'+response)
     this.isEdit=0
     this.UploadInventoryForm.reset();
-   // reload the component
-
-   await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-   await this.router.navigate(['/upload-inventory']);
-   await window.location.reload()
+    await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+    await this.router.navigate(['/upload-inventory']);
+    await window.location.reload()
   }
-
   else{
     try {
       const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
@@ -318,9 +368,9 @@ async onSubmit() {
     catch (error) {
       console.log('Error uploading inventory:', error);
       console.log(this.UploadInventoryForm.value);
+      }
     }
-  }
   
-}
+  }
 
 }

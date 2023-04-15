@@ -17,11 +17,7 @@ export class EditProfileService {
     return this.http.post(this.apiUrl,editprofileForm,{headers});
   }
   GetAllCompany():Observable<any>{
-    // const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
-    // return this.http.get(this.apiUrl);
-    // return this.http.get(this.apiUrl)  
-    //  .map((response: Response) => response.json())  
-    // .catch(this.errorHandler);  
+   
     return this.http.get('https://localhost:7157/GetAllCompany')
     // .pipe(map(res => res.json()));
   }
@@ -29,6 +25,7 @@ export class EditProfileService {
     return this.http.get('https://localhost:7157/GetCompanyById',{params:{'companyId':company_id}})
   }
  updatecompany(editprofileForm: FormGroup<any>){
+  console.log(editprofileForm)
   const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
     return this.http.put(this.apiUrl,editprofileForm,{headers});
  }

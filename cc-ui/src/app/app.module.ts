@@ -25,6 +25,9 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
+
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchPipe } from './search.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +42,8 @@ import { AuthInterceptor } from './auth.interceptor';
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
+    SearchPipe,
+    
     
     
   ],
@@ -49,6 +54,7 @@ import { AuthInterceptor } from './auth.interceptor';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule
   
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],

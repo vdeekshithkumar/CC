@@ -21,10 +21,9 @@ export interface Port {
     private apiUrl='https://localhost:7157/UploadInventory';
     private baseUrl='https://localhost:7157/DeleteInventory';
     private IdUrl='https://localhost:7157/GetInventoryById';
-     private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
-     private editUrl='https://localhost:7157/EditInventory';
-  constructor(private http:HttpClient) {
-
+    private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
+    private editUrl='https://localhost:7157/EditInventory';
+    constructor(private http:HttpClient) {
 
   }
     uploadInventory(UploadInventoryForm: FormGroup<any>){
@@ -60,3 +59,4 @@ export interface Port {
       return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
     }
   }
+  
