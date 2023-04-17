@@ -43,12 +43,12 @@ namespace CC_api.Controllers
       return Ok(alumnus);
     }
 
-    [HttpPut("UpdateCompany")]
-    public async Task<IActionResult> UpdateCompany([FromBody] Company company)
+    [HttpPut("UpdateCompany/{id}")]
+    public async Task<IActionResult> UpdateCompany(int id,[FromBody] Company company)
     {
-      return await companyBusiness.UpdateCompanyAsync(company);
+      return await companyBusiness.UpdateCompanyAsync(id,company);
     }
-    //[HttpPost("UploadImage")]
+    //[HttpPost("UploadImage")] 
     //public async Task<IActionResult> Upload([FromBody] Company company)
     //{
     //  return await companyBusiness.UploadImageAsync(company);

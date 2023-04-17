@@ -17,19 +17,19 @@ export class EditProfileService {
     return this.http.post(this.apiUrl,editprofileForm,{headers});
   }
   GetAllCompany():Observable<any>{
-    // const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
-    // return this.http.get(this.apiUrl);
-    // return this.http.get(this.apiUrl)  
-    //  .map((response: Response) => response.json())  
-    // .catch(this.errorHandler);  
+  
     return this.http.get('https://localhost:7157/GetAllCompany')
     // .pipe(map(res => res.json()));
   }
   getCompanyById(company_id:number):Observable<any>{
     return this.http.get('https://localhost:7157/GetCompanyById',{params:{'companyId':company_id}})
   }
- updatecompany(editprofileForm: FormGroup<any>){
-  const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
-    return this.http.put(this.apiUrl,editprofileForm,{headers});
+ updatecompany(id:number,editprofileForm: FormGroup<any>){
+  debugger;
+  const headers=new HttpHeaders().set('ContentType','application/json');
+  console.log(editprofileForm.value + "from service");
+  return this.http.put(`${this.apiUrl}/${id}`,editprofileForm,{headers});
  }
 }
+
+

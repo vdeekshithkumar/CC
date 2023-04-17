@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EditProfileService } from './edit-profile.service';
 import { Observable, Subscriber } from 'rxjs';
 import { ProfileComponent } from '../profile.component';
+import { SessionService } from 'src/app/session.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -17,20 +18,41 @@ export class EditProfileComponent implements OnInit{
   myimage!: Observable<any>;
   base64code!: any
   productImage: any;
-  constructor(private profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
+  companyId:any;
+  companyName:any;
+  company_logo:any;
+  licenceId:any;
+  constructor(private sessionService: SessionService, profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
   }
   ngOnInit(): void {
-    debugger
+    this.sessionService.getCompanyId().subscribe(
+      (companyId: number) => {
+        this.companyId = companyId;
+        this.companyName=this.companyName;
+        console.log('company ID is :', companyId);
+      },
+      (error: any) => {
+        console.error('Error retrieving company ID:', error);
+      }
+    );
     this.editprofileForm = this.formBuilder.group({
-     company_id:[this.profileComponent.company_id,Validators.required],
-      name: [this.profileComponent.name, Validators.required],
-      domain_address: [this.profileComponent.domain_address, Validators.required],
-      company_logo: [this.profileComponent.company_logo, Validators.required],
-      company_location: [this.profileComponent.company_location, Validators.required],
-      country: [this.profileComponent.country, Validators.required],
-      rating:[ this.profileComponent.rating, Validators.required],
-      address: [this.profileComponent.address, Validators.required],
+     company_id:this.companyId,
+     name:['mnnm', Validators.required],
+      licence_id:['56', Validators.required],
+      domain_address: ['mnnm', Validators.required],
+      company_logo: [''],
+      company_location: ['kjbnbs', Validators.required],
+      country: ['snbn', Validators.required],
+      rating:['9', Validators.required],
+      address: ['kjsksk', Validators.required],
       });
+      // const userData = sessionStorage.getItem('userData');
+      // if (userData) {
+      //   const data = JSON.parse(userData);
+      //   // Set the retrieved data to the form controls
+      //   this.editprofileForm.patchValue({
+      // company_id:this.companyId,
+    
   }
   onCancel() {
     // Call the reset method on the form group to reset the form
@@ -42,14 +64,16 @@ export class EditProfileComponent implements OnInit{
     console.log(file);
     this.convertToBase64(file)
   };
-  convertToBase64(file: File) {
+ convertToBase64(file: File) {
     const observable = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
     });
     observable.subscribe((d) => {
+      debugger;
       console.log(d)
       this.myimage = d
      this.editprofileForm.get('company_logo')?.setValue(d.split(',')[1]);
+     console.log(this.editprofileForm);
     })
   }
   readFile(file: File, subscriber: Subscriber<any>) {
@@ -63,63 +87,27 @@ export class EditProfileComponent implements OnInit{
       subscriber.error(error);
       subscriber.complete();
     };
-  }
+  } 
   
   UploadImage(image: any) {
     this.productImage = image;
   }
-  // onEdit(){
-  //   this.editProfileService.edit(this.editprofileForm.value).subscribe(
-  //     (response)=>{
-  //       console.log(response);
-  //       this.router.navigate(['/profile'])
-  //     },
-  //     (error)=>{
-  //       console.log('error',error);
-  //     }
-  //     );
+
+  async onEdit(){
+    debugger;
+    let base64String=this.myimage
+    const obj = Object.freeze({
+      base64String: base64String
+    });
+    this.editprofileForm.value.company_logo = base64String;
+    const response = await this.editProfileService.updatecompany(this.companyId,this.editprofileForm.value).toPromise();
+    console.log('edit'+response)
+    await this.router.navigateByUrl('profile',{skipLocationChange:true});
+    await this.router.navigate(['profile']);
+    await window.location.reload();
+ }
   
-  // }
-  onEdit(){
-    this.editProfileService.updatecompany(this.editprofileForm.value)  
-                .subscribe((data) => {  
-                    this.router.navigate(['/dashboard']);
-                    // this.resetForm();  
-                })  
-              }
-            
-    // onEdit() {
-    //             this.editProfileService.updatecompany(company_id).subscribe(data => {
-    //               this.editprofileForm.patchValue(data);
-    //             })
-    //           }
-  
-  GetAllCompany() {
+  GetAllCompany() { 
     throw new Error('Method not implemented.');
-  }
-//   onSubmit(){
-//   var updatemodel = {     
-//     company_id:this.editprofileForm.value.company_id,
-//   name: this.editprofileForm.value.firstName,
-//   licence_id: this.editprofileForm.value.licence_id,
-//   domain_address: this.editprofileForm.value.domain_address,
-//   company_location: this.editprofileForm.value.company_location,
-//   country: this.editprofileForm.value.country,
-//   rating: this.editprofileForm.value.rating,
-//   address: this.editprofileForm.value.address,
- 
-// }
-
-// this.editProfileService.updatecompany(updatemodel).subscribe(data=>{
-// this.GetAllCompany();
-
-// })
-// }
-  // resetForm(){
-  //   this.editprofileForm.value.company_id=''
-  //   this.editprofileForm.value.name=''
-  //   this.editprofileForm.value.domain_address=''
-  //   this.editprofileForm.value.rating=''
-  //   this.editprofileForm.value.address=''
-  // }
+  }  
 }

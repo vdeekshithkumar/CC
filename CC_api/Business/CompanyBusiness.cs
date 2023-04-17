@@ -40,9 +40,14 @@ namespace CC_api.Business
       var alumnus = await companyRepository.GetById(Id);
       return alumnus;
     }
-    public async Task<IActionResult> UpdateCompanyAsync(Company company)
+    public async Task<IActionResult> UpdateCompanyAsync(int id,Company company)
     {
-      var cp = new Company();
+      var cp = await companyRepository.GetById(id);
+      if (cp == null)
+      {
+        return new NotFoundResult();
+      }
+      //var cp = new Company();
       cp.company_id = company.company_id;
       cp.name = company.name;
       cp.licence_id = company.licence_id;

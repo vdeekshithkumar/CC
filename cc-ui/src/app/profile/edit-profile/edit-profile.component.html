@@ -14,10 +14,10 @@
           <div class="lg:col-span-2">
                 <form [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
               <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                <div class="md:col-span-5">
+                <!-- <div class="md:col-span-5">
                   <label for="name">Company Id</label>
                   <input type="text" formControlName="company_id" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                </div>
+                </div> -->
                 <div class="md:col-span-5">
                   <label for="name">Company Name</label>
                   <input type="text" formControlName="name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
@@ -52,38 +52,17 @@
                   <label for="address">Address / Street</label>
                   <input type="text" formControlName="address" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
                 </div>
-                <!-- <div class="md:col-span-3">
-                  <input type="file" formControlName=""/>
-                  <a (click)="UploadImage(productImage)"></a>
-                </div> -->
+             
                 <div class="md:col-span-3">
                   <label for="address">CompanyLogo</label>&nbsp;
                 <input formControlName="company_logo" type="file" (change)="onChange($event)"/>
                 <div *ngIf="myimage">
-                <img src="{{'data:image/jpg;base64,' + myimage}}"/>
-                <img [src]="myimage" width="200px" height="200px" alt="" />
+                <img src="{{'data:image/jpg;base64,'+myimage}}"/>
+                <img [src]="myimage" width="100px" height="100px" alt="" />
                 <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
                 </div>
                 </div> 
-                <!-- <div class="md:col-span-2">
-                  <label for="city">City</label>
-                  <input type="text" name="city" id="city" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                </div>
-                <div class="md:col-span-2">
-                  <label for="country">Country / region</label>
-                  <div class="h-10 bg-gray-50 flex border border-gray-200 rounded items-center mt-1">
-                    <input name="country" id="country" placeholder="Country" class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" value="" />
-                  </div>
-                </div>
-                <input name="state" id="state" placeholder="State" class="px-4 appearance-none outline-none text-gray-800 w-full bg-transparent" value="" />
-                <div class="md:col-span-1">
-                  <label for="zipcode">Zipcode</label>
-                  <input type="text" name="zipcode" id="zipcode" class="transition-all flex items-center h-10 border mt-1 rounded px-4 w-full bg-gray-50" placeholder="" value="" />
-                </div>
-                <div class="md:col-span-3">
-                    <label for="LicenceID">LicenceID</label>
-                    <input type="text" name="licence" id="license" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                  </div> -->
+        
                 <div class="md:col-span-5 text-right">
                   <button
                       type="button"

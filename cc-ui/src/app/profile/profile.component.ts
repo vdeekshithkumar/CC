@@ -21,7 +21,7 @@ export class ProfileComponent implements OnInit{
       company_logo?:string
       company_location?:string
       country?:string
-      
+      companyId:any;
   company_list :any;
   showDiv = false;
    currentUser: any;
@@ -31,18 +31,29 @@ export class ProfileComponent implements OnInit{
 
 
   ngOnInit():void{
-    this.profileService.getCompanyById(1).subscribe(
+    
+    this.sessionService.getCompanyId().subscribe(
+      (companyId: number) => {
+        this.companyId = companyId;
+        console.log('company ID is :', companyId);
+      },
+      (error: any) => {
+        console.error('Error retrieving company ID:', error);
+      }
+    );
+    this.profileService.getCompanyById(this.companyId).subscribe(
        data => {
           // Handle the data returned by the HTTP GET request
           this.company_id=data.company_id,
           this.name=data.name,
           this.licence_id=data.licence_id,
           this.domain_address=data.domain_address,
-          this.company_logo="data:image/png;base64,"+data.company_logo,
+          this.company_logo=data.company_logo,
           this.company_location=data.company_location,
           this.country=data.country,
           this.rating=data.rating,
           this.address=data.address
+          console.log(data)
       },
       error => {
           // Handle any errors that occur
@@ -79,7 +90,7 @@ export class ProfileComponent implements OnInit{
     (company_id:number)=>{
        // this.profileService.subscribe(data=>{
        //   this.profileForm.patchValue(data);
-       // })
+       // }) 
      }
 }
  

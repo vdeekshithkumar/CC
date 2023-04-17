@@ -9,25 +9,13 @@ import { map } from "rxjs/operators";
 export class ProfileService {
     private apiUrl='https://localhost:7157/GetCompanyById';
   constructor(private http:HttpClient) { }
-//   edit(editprofileForm: FormGroup<any>)
-//   {
-//     const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
-//     return this.http.post(this.apiUrl,editprofileForm,{headers});
-    
-//   }
+//  
   GetAllCompany():Observable<any>{
-    // const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
-    // return this.http.get(this.apiUrl);
-    // return this.http.get(this.apiUrl)  
-    //  .map((response: Response) => response.json())  
-    // .catch(this.errorHandler);  
+ 
     return this.http.get('https://localhost:7157/GetAllCompany')
     // .pipe(map(res => res.json()));
   }
   getCompanyById(company_id:number):Observable<any>{
-    
-    // return this.http.get('https://localhost:7157/GetCompanyById',{params:{'company_id':company_id}})
-    // return this.http.get('https://localhost:7157/GetCompanyById${company_id}')
     console.log(`${this.apiUrl}?company_id=${company_id}`)
     return this.http.get(`${this.apiUrl}?companyId=${company_id}`);
  }
