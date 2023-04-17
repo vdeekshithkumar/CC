@@ -31,6 +31,7 @@ export class ProfileComponent implements OnInit {
   lname?: string
   email?: string
   phone?: string
+  companyId: any;
   getCompanyId() {
     return this.company_id;
   }
@@ -40,8 +41,77 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
-    
-    this.profileService.getUserDetails(8).subscribe(
+
+    this.sessionService.getCurrentUser().subscribe(user => {
+      // if (user.id==null && user.token==null) {  // use this once token is used for a user
+      if (user.user_id == null) {
+        // if user session is null, redirect to login page
+        this.router.navigate(['/sign-in']);
+      }
+      else {
+        this.currentUser = user;
+        console.log('From session ' + this.currentUser.email + '  id here ' + this.currentUser.user_id)
+      }
+      // store the user session information in a property
+
+    });
+
+
+    this.sessionService.getCompanyId().subscribe(
+
+      (companyId: number) => {
+
+        this.companyId = companyId;
+
+        console.log('company ID is :', companyId);
+
+      },
+
+      (error: any) => {
+
+        console.error('Error retrieving company ID:', error);
+
+      }
+
+    );
+
+    this.profileService.getCompanyById(this.companyId).subscribe(
+
+       data => {
+
+          // Handle the data returned by the HTTP GET request
+
+          this.company_id=data.company_id,
+
+          this.name=data.name,
+
+          this.licence_id=data.licence_id,
+
+          this.domain_address=data.domain_address,
+
+          this.company_logo=data.company_logo,
+
+          this.company_location=data.company_location,
+
+          this.country=data.country,
+
+          this.rating=data.rating,
+
+          this.address=data.address
+
+          console.log(data)
+
+      },
+
+      error => {
+
+          // Handle any errors that occur
+
+          console.warn("oninit error"+error);
+
+      }
+);
+    this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
       data => {
         debugger
         // Handle the data returned by the HTTP GET request
@@ -56,39 +126,9 @@ export class ProfileComponent implements OnInit {
         console.warn("oninit error" + error);
       }
     );
-    this.profileService.getCompanyById(1).subscribe(
-      data => {
-        // Handle the data returned by the HTTP GET request
-        this.company_id = data.company_id,
-          this.name = data.name,
-          this.licence_id = data.licence_id,
-          this.domain_address = data.domain_address,
-          this.company_logo = "data:image/png;base64," + data.company_logo,
-          this.company_location = data.company_location,
-          this.country = data.country,
-          this.rating = data.rating,
-          this.address = data.address
-      },
-      error => {
-        // Handle any errors that occur
-        console.warn("oninit error" + error);
-      }
-    );
+   
 
-    this.sessionService.getCurrentUser().subscribe(user => {
-      // if (user.id==null && user.token==null) {  // use this once token is used for a user
-      if (user.user_id == null) {
-        // if user session is null, redirect to login page
-        this.router.navigate(['/sign-in']);
-      }
-      else {
-        this.currentUser = user;
-        console.log('From session ' + this.currentUser.email + '  id here ' + this.currentUser.user_id)
-
-      }
-      // store the user session information in a property
-
-    });
+    
     //when navigate back to sign-in session ends
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
@@ -107,5 +147,8 @@ export class ProfileComponent implements OnInit {
       // })
     }
   }
+
+   
+  
 
 }

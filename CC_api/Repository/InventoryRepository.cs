@@ -20,6 +20,7 @@ namespace CC_api.Repository
       dbContext.inventory.Add(inventory);
       await dbContext.SaveChangesAsync();
     }
+
     public async Task EditInventoryAsync(Inventory inventory)
     {
       dbContext.inventory.Update(inventory);

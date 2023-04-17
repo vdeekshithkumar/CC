@@ -29,6 +29,34 @@ namespace CC_api.Controllers
       return await userBusiness.GetAllUserAsync();
     }
 
+
+    public class VerifyOTPRequest
+    {
+      public int UserId { get; set; }
+      public int Otp { get; set; }
+
+    }
+
+    [HttpPost("VerifyOTP")]
+    public async Task<IActionResult> VerifyOTPAsync([FromBody] VerifyOTPRequest request)
+    {
+      try
+      {
+        var result = await userBusiness.VerifyOTPAsync(request.UserId, request.Otp);
+
+
+
+        if (result)
+          return Ok(new { message = "OTP verified successfully." });
+        else
+          return Ok(new { message = "OTP verification failed." });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest();
+      }
+    }
+
     [HttpPost("SaveUser")]
 
     public async Task<IActionResult> SaveUserAsync([FromBody] User user)
@@ -40,6 +68,25 @@ namespace CC_api.Controllers
 
       }
     }
+
+    [HttpGet("GetUserByEmail/{email}")]
+    public async Task<IActionResult> GetUserByEmail(string email)
+    {
+      try
+      {
+        var user = await userBusiness.GetUserByEmail(email);
+        if (user == null)
+        {
+          return NotFound(new { message = "User not found" });
+        }
+        return Ok(user);
+      }
+      catch (Exception ex)
+      {
+        return BadRequest();
+      }
+    }
+
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] Login user)
     {

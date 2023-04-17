@@ -40,10 +40,15 @@ namespace CC_api.Business
       var alumnus = await companyRepository.GetById(Id);
       return alumnus;
     }
-    public async Task<IActionResult> UpdateCompanyAsync(Company company)
+    public async Task<IActionResult> UpdateCompanyAsync(int id, Company company)
     {
-      var cp = new Company();
-      cp.company_id = company.company_id;
+      var cp = await companyRepository.GetById(id);
+      if (cp == null)
+      {
+        return new NotFoundResult();
+      }
+      //var cp = new Company();
+      cp.company_id = company.company_id;
       cp.name = company.name;
       cp.licence_id = company.licence_id;
       cp.domain_address = company.domain_address;
@@ -54,6 +59,8 @@ namespace CC_api.Business
       cp.address = company.address;
       await companyRepository.Update(cp);
       return new OkResult();
+
+
 
     }
     //  public async Task<IActionResult> UploadImageAsync()

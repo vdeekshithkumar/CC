@@ -1,44 +1,66 @@
 
-import { Component,Inject  } from '@angular/core';
+import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { response } from 'express';
 import { Registerservice } from './register.service';
-import { Country, State, City } from 'country-state-city';
 
 
+
+interface RegisterResponse {
+  message: string;
+  user? : {
+  user_id:number;
+  otp:number;
+};
+}
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit 
+{
+  public user_id? : number;
+  public otp?:number;
   registrationForm!: FormGroup;
+  verifyotpForm! :FormGroup;
+  emailFormControl! :FormGroup;
+  user_data:any;
   form: any;
+  fetched_user_id:any;
    company_name= "";
    company_list : any;
 
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
+  }
 
-}
 ngOnInit(): void {
+
   const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
-    company_id:['1',Validators.required],
+    company_id:['',Validators.required],
     fname: ['fanbns', Validators.required],
     lname: ['oo', Validators.required],
     address: ['fgc', Validators.required],
-    email: ['ffgdgd', Validators.required],
+    email: ['', Validators.required],
     phone_no:['9875446788', Validators.required],
     password: ['tfhgff', Validators.required],
+    otp:['12345',Validators.required],
     is_verified:['1',Validators.required],
     is_approved:['1',Validators.required],
     is_active:['1',Validators.required],
     last_login:formattedDate,
     designation: ['admin',Validators.required],
+    
+  });
+
+  this.verifyotpForm = this.formBuilder.group({
+    UserId: ['23'],
+    otp:['',Validators.required],
+     
   });
 
   this.registerservice.getAllCompanies().subscribe(
@@ -52,65 +74,82 @@ ngOnInit(): void {
   );
 
 }
-//  get f(){
-//     return this.form.controls;
-// //  }
-//  getCities(){
-//   const countries = Country.getAllCountries();
-//   const country = countries.find((country: { name: string; }) => country.name === this.countryName);
-
-//   let iso= country?.isoCode|| '';
-//   this.phoneCode = country?.phonecode || '';
-//   const allCityDetails= City.getCitiesOfCountry(iso);
-//   return allCityDetails?.map((city: { name: any; })=>city.name);
-
-// }
-
-
-// getCountries(){
-//   const countries = Country.getAllCountries();
-//   const countryNames = countries.map((country: { name: any; }) => country.name);
-
-//   // Find a specific country by name
-//   return countryNames;
-// }
 
  onSubmit() {
-
-  //  if(this.registrationForm.valid){
-  //   this.router.navigate(['/sign-in'])
-  //   console.log(this.registrationForm.value); 
-  // }
-  // else {
-  //   alert('User form is not valid!!')
-  // }
-//  this.registerservice.register(this.registrationForm).subscribe(
-//   (response)=>console.log(response),
-//   (error)=>console.warn(console.log(error))
-//   );
-
-  // this.registerservice.register(this.registrationForm.value).subscribe(
-  //   (response)=>{
-  //     console.log(response);
-  //     console.log(this.registrationForm.value);
-  //     this.router.navigate(['/sign-in'])
-  //   },
-  //   (error)=>{
-  //     console.log('error',error);
-  //   }
-  //   );
+  
+ 
 
     {
       try {
         const response = this.registerservice.register(this.registrationForm.value).toPromise();
         console.log(response);
         console.log(this.registrationForm.value)
-        this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
+
+        // console.log("This is the fetched user_d",this.fetched_user_id);
+        //       alert("User added success verification pending")
+        // this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
       } 
       catch (error) {
         console.log('Error registering:', error);
+      
       }
     }
+   
+}
 
+
+onverifyOtp(){
+
+  const emailValue = this.registrationForm.value.email;
+  console.log('Email value:', emailValue);
+
+  this.registerservice.getEmail(emailValue).subscribe(
+    (response: Object) => {
+      const RegisterResponse = response as RegisterResponse;
+  
+      console.log("this is user retrhhhhhhhhhhhhhhhhhieved" + RegisterResponse);
+      this.user_data= RegisterResponse;
+      const parseData = JSON.parse(this.user_data);
+      console.log('parsed user user data ' +  parseData.user.user_id)
+
+   { this.verifyotpForm.setValue({
+      UserId:parseData.user.user_id,
+      otp:''
+    });
+  }
+
+    },
+    (error) => {
+      console.log("Error while retrieving", error);
+      
+    }
+  );
+
+  
+      
+    
+  
+  
+  
+
+
+console.log(this.verifyotpForm.value)
+// this.Email();
+    
+  try {
+     
+    const response = this.registerservice.verify(this.verifyotpForm.value).toPromise();
+    console.log(response);
+    // console.log(this.fetched_user_id);
+    console.log(this.verifyotpForm.value)
+    alert(" success verification ")
+
+    // this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
+
+  } 
+  catch (error) {
+    console.log('Error registering:', error);
+
+  }
 }
 }
