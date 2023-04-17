@@ -14,6 +14,8 @@ export interface Company {
   })
   export class Registerservice {
     private apiUrl='https://localhost:7157/SaveUser';
+    private baseUrl='https://localhost:7157/VerifyOTP';
+    private getUrl = 'https://localhost:7157/GetuserByEmail'
  
   constructor(private http:HttpClient) {
     
@@ -21,6 +23,18 @@ export interface Company {
     register(registrationForm: FormGroup<any>){
       const headers=new HttpHeaders().set('Content-Type','application/json');
       return this.http.post(this.apiUrl,registrationForm,{headers});
+      
+    }
+
+    verify(registrationForm: FormGroup<any>){
+      const headers=new HttpHeaders().set('Content-Type','application/json');
+      return this.http.post(this.baseUrl,registrationForm,{headers});
+      
+    }
+
+    getEmail(email:string): Observable<any> {
+    
+      return this.http.get(`${this.getUrl}/${email}`,{ responseType:'text' });
       
     }
     getAllCompanies(): Observable<any> {

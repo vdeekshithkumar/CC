@@ -4,8 +4,10 @@ import { Router } from '@angular/router';
 import { EditProfileService } from './edit-profile.service';
 import { Observable, Subscriber } from 'rxjs';
 import { ProfileComponent } from '../profile.component';
-import { response } from 'express';
-import { Console } from 'console';
+import { SessionService } from 'src/app/session.service';
+import { ProfileService } from '../profile.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -19,42 +21,65 @@ export class EditProfileComponent implements OnInit{
   myimage!: Observable<any>;
   base64code!: any
   productImage: any;
-  constructor(private profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
-  }
-
-  ngOnInit(): void {
-    this.editprofileForm = this.formBuilder.group({
-     company_id:['1',Validators.required],
-     licence_id:['5',Validators.required],
-      name: ['Yak PVT LTD', Validators.required],
-      domain_address: ['hh', Validators.required],
-      company_logo: ['', Validators.required],
-      company_location: ['imfa', Validators.required],
-      country: ['uk', Validators.required],
-      rating:['9 ', Validators.required],
-      address: ['hfgf', Validators.required],
-      });
-  }
-
-  onCancel() {
-    // Call the reset method on the form group to reset the form
-    this.editprofileForm.reset();
-  }
+  companyId:any;
+  companyName:any;
+  company_logo:any;
+  licenceId:any;
   
+  showform=true;
+  constructor(private sessionService: SessionService, profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService
+    ,private location: Location){
+  }
+  ngOnInit(): void {
+    this.sessionService.getCompanyId().subscribe(
+      (companyId: number) => {
+        this.companyId = companyId;
+        this.companyName=this.companyName;
+        console.log('company ID is :', companyId);
+      },
+      (error: any) => {
+        console.error('Error retrieving company ID:', error);
+      }
+    );
+    this.editprofileForm = this.formBuilder.group({
+     company_id:this.companyId,
+     name:['mnnm', Validators.required],
+      licence_id:['56', Validators.required],
+      domain_address: ['mnnm', Validators.required],
+      company_logo: [''],
+      company_location: ['kjbnbs', Validators.required],
+      country: ['snbn', Validators.required],
+      rating:['9', Validators.required],
+      address: ['kjsksk', Validators.required],
+      });
+      // const userData = sessionStorage.getItem('userData');
+      // if (userData) {
+      //   const data = JSON.parse(userData);
+      //   // Set the retrieved data to the form controls
+      //   this.editprofileForm.patchValue({
+      // company_id:this.companyId,
+    
+  }
+  onCancel() {
+    // this.editprofileForm.reset()
+    window.location.reload()
+}
   onChange = ($event: Event) => {
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
     console.log(file);
     this.convertToBase64(file)
   };
-  convertToBase64(file: File) {
+ convertToBase64(file: File) {
     const observable = new Observable((subscriber: Subscriber<any>) => {
       this.readFile(file, subscriber);
     });
     observable.subscribe((d) => {
+      debugger;
       console.log(d)
       this.myimage = d
      this.editprofileForm.get('company_logo')?.setValue(d.split(',')[1]);
+     console.log(this.editprofileForm);
     })
   }
   readFile(file: File, subscriber: Subscriber<any>) {
@@ -68,50 +93,27 @@ export class EditProfileComponent implements OnInit{
       subscriber.error(error);
       subscriber.complete();
     };
-  }
+  } 
   
   UploadImage(image: any) {
     this.productImage = image;
   }
-  // onEdit(){
-  //   this.editProfileService.edit(this.editprofileForm.value).subscribe(
-  //     (response)=>{
-  //       console.log(response);
-  //       this.router.navigate(['/profile'])
-  //     },
-  //     (error)=>{
-  //       console.log('error',error);
-  //     }
-  //     );
-  
-  // }
+
   async onEdit(){
-    console.log("submit form va;ue goes below"+ this.editprofileForm);
-    
-    // this.editProfileService.updatecompany(this.editprofileForm.value)  
-    //             .subscribe((data) => {  
-    //                 this.router.navigate(['/dashboard']);
-    //                 // this.resetForm();  
-    //             })  
-    //           }
-
-    {
-      try {
-        const response = await this.editProfileService.updatecompany(this.editprofileForm.value).toPromise();
-        console.log(response);
-        
-        this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
-        await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-        await this.router.navigate(['/upload-inventory']);
-        await window.location.reload()
-      } 
-      catch (error) {
-        console.log('Error uploading inventory:', error);
-        console.log(this.editprofileForm.value);
-      }
-    }
+    debugger;
+    let base64String=this.myimage
+    const obj = Object.freeze({
+      base64String: base64String
+    });
+    this.editprofileForm.value.company_logo = base64String;
+    const response = await this.editProfileService.updatecompany(this.companyId,this.editprofileForm.value).toPromise();
+    console.log('edit'+response)
+    await this.router.navigateByUrl('profile',{skipLocationChange:true});
+    await this.router.navigate(['profile']);
+    await window.location.reload();
+ }
+  
+  GetAllCompany() { 
+    throw new Error('Method not implemented.');
+  }  
 }
-}
-
-      
-              

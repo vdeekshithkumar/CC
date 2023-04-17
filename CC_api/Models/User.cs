@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security;
 
@@ -41,6 +41,7 @@ namespace CC_api.Models
         public int is_active { get; set; }
         public DateTime last_login { get; set; }
         public string designation { get; set; }
+        public int otp { get; set; }
 
  
 

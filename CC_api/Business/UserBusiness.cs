@@ -14,10 +14,11 @@ namespace CC_api.Business
   public class UserBusiness
   {
     private readonly UserRepository userRepository;
-
+    private readonly EmailService _emailService;
     public UserBusiness()
     {
       this.userRepository = new UserRepository();
+      this._emailService = new EmailService();
 
     }
     public async Task<User> GetUserAsync(int userID)
@@ -31,7 +32,19 @@ namespace CC_api.Business
     }
     public async Task<IActionResult> SaveUserAsync(User user)
     {
+
+      var random = new Random();
+      DateTime expirationTime = DateTime.Now.AddMinutes(5);
+      var otp = random.Next(100000, 999999);
+
+      await _emailService.SendOTPAsync(user.email, otp);
+
+
+
+
       var us = new User();
+
+
 
       us.company_id = user.company_id;
       us.fname = user.fname;
@@ -45,9 +58,13 @@ namespace CC_api.Business
       us.is_active = user.is_active;
       us.last_login = user.last_login;
       us.designation = user.designation;
+      us.otp = otp;
 
       await userRepository.Create(us);
+
       return new OkResult();
+
+
 
 
 
@@ -71,7 +88,36 @@ namespace CC_api.Business
          return null;
        }*/
 
+    public async Task<bool> VerifyOTPAsync(int userId, int otp)
+    {
+      try
+      {
+        return await userRepository.VerifyOTPAsync(userId, otp);
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
+    }
+    public async Task<AuthResponse> GetUserByEmail(string email)
+    {
 
+
+
+      var emailValue = await userRepository.GetUserByEmail(email);
+      if (emailValue != null)
+      {
+        return new AuthResponse { User = emailValue, Message = "User found" };
+      }
+      else
+      {
+        return new AuthResponse { User = null, Message = "User not found" };
+      }
+
+
+
+
+    }
 
 
     public async Task<AuthResponse> GetUserByEmailAndPassword(string email, string password)
