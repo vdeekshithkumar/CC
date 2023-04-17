@@ -144,7 +144,7 @@ console.log(this.verifyotpForm.value)
     console.log(this.verifyotpForm.value)
     alert(" success verification ")
 
-    // this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
+    //   this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
 
   } 
   catch (error) {

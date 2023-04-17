@@ -12,12 +12,13 @@ export class UploadService {
   baseUrl = 'https://localhost:7157'
   constructor(private http: HttpClient) { }
 
-  uploadFile(file: File, userId: number, companyId: number, contentDesc:string) {
+  uploadFile(file: File, userId: number, companyId: number, contentDesc:string, title:string) {
     debugger
     const formData = new FormData();
     formData.append('file', file);
     formData.append('userId', userId.toString());
     formData.append('content', contentDesc);
+    formData.append('title', title);
     formData.append('companyId', companyId.toString());
     
     return this.http.post(`${this.baseUrl}/upload`, formData);

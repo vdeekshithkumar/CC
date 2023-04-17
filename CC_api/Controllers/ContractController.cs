@@ -22,7 +22,7 @@ namespace CC_api.Controllers
 
     }
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content)
+    public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content,string title)
     {
       // Check if the file is not null
       if (file == null || file.Length == 0)
@@ -41,7 +41,7 @@ namespace CC_api.Controllers
       }
 
       // Save the file path to the database
-      var contract = new Contract { company_id = companyId, user_id = userId, updated_by = userId, updated_date_time = DateTime.Now, title = fileName, content = "some random words", uploaded_file = filePath };
+      var contract = new Contract { company_id = companyId, user_id = userId, updated_by = userId, updated_date_time = DateTime.Now, title = title, content = content, uploaded_file = filePath };
       dbContext.contracts.Add(contract);
       await dbContext.SaveChangesAsync();
 
