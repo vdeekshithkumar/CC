@@ -75,6 +75,7 @@ export class ResetPasswordComponent implements OnInit{
     
   }
   OnSubmit(){
+    debugger
     this.resetService.updatePassword(this.userId,this.companyId,this.password2).subscribe((response:PassWriteRes )=>{
       debugger
       if (response.message === "Success")
