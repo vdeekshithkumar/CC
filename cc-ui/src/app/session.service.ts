@@ -5,6 +5,7 @@
 // @Injectable({
 //   providedIn: 'root'
 // })
+
 // export class SessionService {
 
 //   private currentUserSubject = new BehaviorSubject<any>(null);
@@ -20,8 +21,7 @@
 //   clearSession() {
 //     sessionStorage.clear();
 //   }
-  
-  
+
 // }
 
 import { Injectable } from '@angular/core';
@@ -75,8 +75,6 @@ public getCompanyId(): Observable<any> {
 //   return of(user.);
 // }
 
-
-
   setToken(token: string): void {
     sessionStorage.setItem(this.TOKEN_KEY, token);
   }
@@ -108,3 +106,5 @@ public getCompanyId(): Observable<any> {
     localStorage.removeItem(this.USER_SESSION_KEY);
   }
 }
+
+

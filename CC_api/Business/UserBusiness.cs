@@ -99,6 +99,7 @@ namespace CC_api.Business
         throw ex;
       }
     }
+
     public async Task<AuthResponse> GetUserByEmail(string email)
     {
 
