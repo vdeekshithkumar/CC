@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
-
+  showPopup = false;
+  
+  logout() {
+    // your logout logic here
+  }
 }

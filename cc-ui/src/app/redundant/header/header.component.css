@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header-box{
+    @apply text-gray-600  sticky bg-white  top-0 z-50 font-poppins shadow-md p-1;
+}
+.search-bar{
+    @apply relative flex items-center w-fit h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+}
+
+.search-bar-inp{
+    @apply  h-full w-full outline-none text-sm bg-gray-100 pr-2;
+}
+
+.header-img {
+    @apply rounded-full border-CCblue border-2 w-[2.5em] h-[2.5em] cursor-pointer ;
+}
+
+a:hover {
+    @apply text-CCblue;
+}
+

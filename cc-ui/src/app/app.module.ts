@@ -29,6 +29,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
+import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found
     SearchPipe,
     
     PageNotFoundComponent,
+          ResetPasswordComponent,
     
     
   ],
