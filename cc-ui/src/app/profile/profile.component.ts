@@ -59,57 +59,57 @@ export class ProfileComponent implements OnInit {
 
     this.sessionService.getCompanyId().subscribe(
 
-      (companyId: number) => {
+   (companyId: number) => {
 
-        this.companyId = companyId;
+    this.companyId = companyId;
 
-        console.log('company ID is :', companyId);
+    console.log('company ID is :', companyId);
 
-      },
+   },
 
-      (error: any) => {
+   (error: any) => {
 
-        console.error('Error retrieving company ID:', error);
+    console.error('Error retrieving company ID:', error);
 
-      }
+   }
 
-    );
+  );
 
-    this.profileService.getCompanyById(this.companyId).subscribe(
+  this.profileService.getCompanyById(this.companyId).subscribe(
 
-       data => {
+   data => {
 
-          // Handle the data returned by the HTTP GET request
+     // Handle the data returned by the HTTP GET request
 
-          this.company_id=data.company_id,
+     this.company_id=data.company_id,
 
-          this.name=data.name,
+     this.name=data.name,
 
-          this.licence_id=data.licence_id,
+     this.licence_id=data.licence_id,
 
-          this.domain_address=data.domain_address,
+     this.domain_address=data.domain_address,
 
-          this.company_logo=data.company_logo,
+     this.company_logo=data.company_logo,
 
-          this.company_location=data.company_location,
+     this.company_location=data.company_location,
 
-          this.country=data.country,
+     this.country=data.country,
 
-          this.rating=data.rating,
+     this.rating=data.rating,
 
-          this.address=data.address
+     this.address=data.address
 
-          console.log(data)
+     console.log(data)
 
-      },
+   },
 
-      error => {
+   error => {
 
-          // Handle any errors that occur
+     // Handle any errors that occur
 
-          console.warn("oninit error"+error);
+     console.warn("oninit error"+error);
 
-      }
+   }
 );
     this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
       data => {

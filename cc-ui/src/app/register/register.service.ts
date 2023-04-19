@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 export interface Company {
   id: number;
@@ -26,11 +26,31 @@ export interface Company {
       
     }
 
-    verify(registrationForm: FormGroup<any>){
-      const headers=new HttpHeaders().set('Content-Type','application/json');
-      return this.http.post(this.baseUrl,registrationForm,{headers});
-      
+    
+
+    verify(userId:number,otp:number): Observable<any> {
+      debugger
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      };
+    const payload = {
+        userId: userId,
+        otp:otp
+      };
+      const url = `${this.baseUrl}`;
+  
+      return this.http.post(url, payload, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
     }
+    private handleError(error: any) {
+      console.error('An error occurred ,', error);
+      return throwError(error);
+    }
+
 
     getEmail(email:string): Observable<any> {
     

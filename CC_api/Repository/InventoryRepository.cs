@@ -37,9 +37,15 @@ namespace CC_api.Repository
       dbContext.inventory.Remove(inventory);
       await dbContext.SaveChangesAsync();
     }
-    
 
-    public async Task<Inventory> GetInventoryById(int id)
+    public async Task Add(Inventory inventory)
+    {
+      await dbContext.inventory.AddAsync(inventory);
+      await dbContext.SaveChangesAsync();
+    }
+
+
+    public async Task<Inventory> GetInventoryById(int id)
     {
       return await dbContext.inventory.FirstOrDefaultAsync(x => x.inventory_id == id);
     }
@@ -50,8 +56,10 @@ namespace CC_api.Repository
     }
 
 
-
-
+    public async Task DeleteAllInventory()
+    {
+      await dbContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE inventory");
+    }
     public async Task<List<Inventory>> GetAllInventoryAsync()
     {
       return dbContext.inventory.ToList();

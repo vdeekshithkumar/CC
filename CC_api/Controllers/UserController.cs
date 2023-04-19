@@ -29,19 +29,14 @@ namespace CC_api.Controllers
     }
 
 
-    public class VerifyOTPRequest
-    {
-      public int UserId { get; set; }
-      public int Otp { get; set; }
-
-    }
+    
 
     [HttpPost("VerifyOTP")]
-    public async Task<IActionResult> VerifyOTPAsync([FromBody] VerifyOTPRequest request)
+    public async Task<IActionResult> VerifyOTPAsync([FromBody] VerifyOTPRequest payload)
     {
       try
       {
-        var result = await userBusiness.VerifyOTPAsync(request.UserId, request.Otp);
+        var result = await userBusiness.VerifyOTPAsync(payload.UserId, payload.otp);
 
 
 

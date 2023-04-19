@@ -66,6 +66,52 @@ namespace CC_api.Business
       return new OkResult();
     }
 
+
+
+    public async Task<IActionResult> AddExcelData(List<Inventory> excelData,int user_id,int company_id)
+    {
+      await inventoryRepository.DeleteAllInventory();
+
+
+      if (excelData == null || excelData.Count == 0)
+      {
+        throw new System.Exception("Excel data is empty.");
+      }
+      else
+      {
+
+        foreach (var item in excelData)
+        {
+          //
+          var inv = new Inventory();
+
+          DateTime currentDate = DateTime.Now;
+
+
+          inv.date_created = currentDate;
+          inv.last_modified = currentDate;
+          inv.company_id = company_id;
+          inv.container_type = item.container_type;
+          inv.available = item.available;
+          inv.maximum = item.maximum;
+          inv.minimum = item.minimum;
+          inv.port_id = item.port_id;
+          inv.updated_by = user_id;
+          inv.container_size = item.container_size;
+
+
+          await inventoryRepository.Add(inv);
+
+        }
+        return new OkResult();
+
+      }
+
+
+ 
+    }
+
+
     public async Task<Inventory> GetInventoryById(int id)
     {
       return await inventoryRepository.GetInventoryById(id);
@@ -107,8 +153,13 @@ namespace CC_api.Business
     {
       return await inventoryRepository.GetAllInventoryAsync();
     }
+  
+    public async Task DeleteAllInventory()
+    {
+      await inventoryRepository.DeleteAllInventory();
+    }
 
- 
 
-  }
+
+  }
 }

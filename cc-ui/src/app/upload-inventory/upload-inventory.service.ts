@@ -2,7 +2,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 
 export interface Inventory {
@@ -24,6 +24,7 @@ export interface Port {
     private IdUrl='https://localhost:7157/GetInventoryById';
     private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
     private editUrl='https://localhost:7157/EditInventory';
+    private BASE_URL='https://localhost:7157/AddExcel';
     constructor(private http:HttpClient) {
 
   }
@@ -58,6 +59,29 @@ export interface Port {
 
     deleteInventory(id: number): Observable<any> {
       return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    }
+    sendExcelData(excelData: any,user_id:number,company_id:number): Observable<any> {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+        })
+      };
+        const payload = {
+        excelData: excelData,
+        user_id: user_id,
+        company_id:company_id
+      };
+      
+      const url = `${this.BASE_URL}`;
+  
+      return this.http.post(url, payload, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+    private handleError(error: any) {
+      console.error('An error occurred ,', error);
+      return throwError(error);
     }
   }
   

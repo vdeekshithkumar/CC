@@ -29,8 +29,11 @@ export class RegisterComponent implements OnInit
   user_data:any;
   form: any;
   fetched_user_id:any;
+  userId:any;
+  Otp:any;
    company_name= "";
    company_list : any;
+  r: any;
 
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
   }
@@ -60,7 +63,6 @@ ngOnInit(): void {
   this.verifyotpForm = this.formBuilder.group({
     UserId: ['23'],
     otp:['',Validators.required],
-     
   });
 
   this.registerservice.getAllCompanies().subscribe(
@@ -97,26 +99,61 @@ ngOnInit(): void {
    
 }
 
+private redirect(){
+
+  if(this.r==1){
+    this.router.navigate(['/sign-in'])
+  }
+
+}
 
 onverifyOtp(){
-
   const emailValue = this.registrationForm.value.email;
   console.log('Email value:', emailValue);
+  
+  const otp = this.verifyotpForm.value.otp;
+  console.log('otp value:', otp);
 
   this.registerservice.getEmail(emailValue).subscribe(
     (response: Object) => {
       const RegisterResponse = response as RegisterResponse;
   
-      console.log("this is user retrhhhhhhhhhhhhhhhhhieved" + RegisterResponse);
+ 
       this.user_data= RegisterResponse;
       const parseData = JSON.parse(this.user_data);
-      console.log('parsed user user data ' +  parseData.user.user_id)
-
-   { this.verifyotpForm.setValue({
-      UserId:parseData.user.user_id,
-      otp:''
-    });
-  }
+      console.log('parsed user user id' +  parseData.user.user_id)
+      this.userId=parseData.user.user_id;
+     this.Otp=otp;
+              try {
+                this.registerservice.verify(this.userId,this.Otp)
+                .subscribe(
+                  response => {
+                    console.log('verified suhhhhhhhhhccessfully:', response.message);
+               if(response.message=="OTP verified successfully"){
+                this.redirect();
+               }
+               else{
+                alert("Enter the valid OTP")
+               }
+                    // window.location.reload()
+                  },
+                  error => {
+                    console.error('An error occurred while verifying:', error);
+                  }
+                );
+              
+                // const response = this.registerservice.verify(this.userId,this.Otp).toPromise();
+                // console.log(response);
+                // alert(" success verification ")
+              } 
+              catch (error) {
+                console.log('Error veryfying:', error);
+              }
+              
+                
+           
+              
+            
 
     },
     (error) => {
@@ -125,31 +162,5 @@ onverifyOtp(){
     }
   );
 
-  
-      
-    
-  
-  
-  
-
-
-console.log(this.verifyotpForm.value)
-// this.Email();
-    
-  try {
-     
-    const response = this.registerservice.verify(this.verifyotpForm.value).toPromise();
-    console.log(response);
-    // console.log(this.fetched_user_id);
-    console.log(this.verifyotpForm.value)
-    alert(" success verification ")
-
-    //   this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
-
-  } 
-  catch (error) {
-    console.log('Error registering:', error);
-
-  }
 }
 }
