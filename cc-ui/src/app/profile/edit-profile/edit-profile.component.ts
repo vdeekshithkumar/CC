@@ -5,6 +5,9 @@ import { EditProfileService } from './edit-profile.service';
 import { Observable, Subscriber } from 'rxjs';
 import { ProfileComponent } from '../profile.component';
 import { SessionService } from 'src/app/session.service';
+import { ProfileService } from '../profile.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-edit-profile',
@@ -22,7 +25,10 @@ export class EditProfileComponent implements OnInit{
   companyName:any;
   company_logo:any;
   licenceId:any;
-  constructor(private sessionService: SessionService, profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService){
+  
+  showform=true;
+  constructor(private sessionService: SessionService, profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService
+    ,private location: Location){
   }
   ngOnInit(): void {
     this.sessionService.getCompanyId().subscribe(
@@ -55,9 +61,9 @@ export class EditProfileComponent implements OnInit{
     
   }
   onCancel() {
-    // Call the reset method on the form group to reset the form
-    this.editprofileForm.reset();
-  }
+    // this.editprofileForm.reset()
+    window.location.reload()
+}
   onChange = ($event: Event) => {
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];

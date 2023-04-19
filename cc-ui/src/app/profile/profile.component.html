@@ -1,9 +1,9 @@
 <app-header></app-header>
-<div class="flex flex-row font-poppins">
+<div class="div">
   <!-- Sidebar -->
-  <app-sidebar class="sticky w-[8vw] border-r-2"></app-sidebar>
+  <app-sidebar class="div-app-sidebar"></app-sidebar>
   <!-- Main View Canvas -->
-  <div class="w-full flex flex-col sm:w-fit first:flex-row">
+  <div class="div-company-details">
     <!-- Company Details section  -->
     <div class="p-2 m-4 shadow-md h-fit">
       <div class="flex">
@@ -17,10 +17,10 @@
                 class="object-cover w-14 h-14 rounded-full"
                 src={{company_logo}}
                 />
-              <!-- Edit Profile Link -->
+               
               <button (click)="showDiv = !showDiv" class="cursor-pointer">
                 <img
-                  class="absolute right-0 w-4 h-4 rounded-full top-8"
+                  class="div-editcompany"
                   src="../../assets/images/edit-97-16.png"
                 />
               </button>
@@ -35,67 +35,36 @@
             <!-- Sub box 1 -->
             <div class="flex flex-col">
               <div
-                class="px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm"
+                class="div-company"
               >
                 {{name}}
-                <span class="text-xs font-thin pt-2 px-2"></span>
-                <!-- SVG FOR STARS -->
-                <!-- <svg width="20" height="20" viewBox="0 0 24 24">
-                  <polygon
-                    fill="#FF0"
-                    points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
-                  />
-                </svg>
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                  <polygon
-                    fill="#FF0"
-                    points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
-                  />
-                </svg>
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                  <polygon
-                    fill="#FF0"
-                    points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
-                  />
-                </svg>
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                  <polygon
-                    fill="#FF0"
-                    points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
-                  />
-                </svg>
-                <svg width="20" height="20" viewBox="0 0 24 24">
-                  <polygon
-                    fill="#000"
-                    points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
-                  />
-                </svg> -->
+                <span class="div-company-name"></span>
               </div>
               <div class="flex flex-row">
                 <div
-                  class="bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px]"
+                  class="div-tag"
                 >
                   <img
                     src="../../assets/images/location-41-16.png"
                     class="w-3 h-4 flex pt-1"
-                  /><span class="px-1 flex-1 text-sm md:overflow-hidden leading-3"
+                  /><span class="div-detail"
                     >{{address}}</span
                   >
                 </div>
                 <!-- Sub box 2 -->
-                <div class="mx-[1rem] flex-shrink-0">
-                  <span class="bg-gray-100 rounded-md text-sm  leading-3"
+                <div class="div-sub-box">
+                  <span class="div-detail"
                     >{{licence_id}}</span
                   >
                 </div>
                 <!-- Sub box 3 -->
-                <div class=" mx-[1rem] flex-shrink-0">
-                  <span class="bg-gray-100 rounded-md text-sm  leading-3"
+                <div class="div-sub-box">
+                  <span class="div-detail"
                     >{{domain_address}}</span
                   >
                 </div>
-                <div class=" mx-[1rem] flex-shrink-0">
-                  <span class="bg-gray-100 rounded-md text-sm  leading-3"
+                <div class="div-sub-box">
+                  <span class="bg-gray-100 rounded-md text-sm leading-3"
                     >{{country}}</span
                   >
                 </div>
@@ -117,49 +86,49 @@
            
             
             <div class="flex flex-row ">
-              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+              <div class="div-box">
                 <div
-                  class="flex-1 text-3xl font-bold flex items-center justify-center"
+                  class="div-box-numbers"
                 >
                   49
                 </div>
-                <div class="flex-1 text-sm flex items-center justify-center">
+                <div class="div-box-data">
                   Active members
                 </div>
               </div>
 
-              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+              <div class="div-box">
                 <div
-                  class="flex-1 text-2xl flex-col font-bold flex items-center justify-center"
+                  class="div-box-number"
                 >
                   100
                   <span class="text-xs">Teu</span>
                 </div>
-                <div class="flex-1 text-sm flex items-center justify-center">
+                <div class="div-box-data">
                   Available slots
                 </div>
               </div>
 
-              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+              <div class="div-box">
                 <div
-                  class="flex-1 text-2xl flex-col font-bold flex items-center justify-center"
+                  class="div-box-number"
                 >
                   100
                   <span class="text-xs">Teu</span>
                 </div>
-                <div class="flex-1 text-sm flex items-center justify-center">
+                <div class="div-box-data">
                   Available for lease
                 </div>
               </div>
 
-              <div class="mx-3 w-[10em] h-[3.5em] bg-gray-100 flex">
+              <div class="div-box">
                 <div
-                  class="flex-1 text-2xl flex-col font-bold flex items-center justify-center"
+                  class="div-box-number"
                 >
                   100
                   <span class="text-xs">Teu</span>
                 </div>
-                <div class="flex-1 text-sm flex items-center justify-center">
+                <div class="div-box-data">
                   Available for sale
                 </div>
               </div>
@@ -172,13 +141,13 @@
     </div>
     <!-- Employee details section -->
     <hr class="mx-2" />
-    <div class="m-2 h-fit w-full flex-col">
+    <div class="div-employee">
       <!--Change height to fit-->
       <div class="flex flex-row">
         <!-- box1 -->
         <div class="flex flex-col pr-[5%]">
           <div
-            class="flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit"
+            class="div-employee-box"
           >
             <img
              
@@ -186,25 +155,25 @@
             />
             <div class="flex-1 px-2">Admin</div>
           </div>
-          <div class="text-xs px-2"></div>
+          <div class="div-employee-name">{{fname}} {{lname}}</div>
         </div>
         <!-- box2 -->
         <div class="flex flex-col px-[5%]">
           <div
-            class="flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit"
+            class="div-employee-box"
           >
             <img
               src="../../assets/images/profile.png"
               class="w-2 h-3 flex pt-1"
             />
-            <div class="flex-1 px-2">E-mail</div>
+            <div class="flex-1">E-mail</div>
           </div>
-          <div class="text-xs px-2"></div>
+          <div class="text-xs px-2 mx-auto">{{email}}</div>
         </div>
         <!-- box3 -->
         <div class="flex flex-col px-[5%]">
           <div
-            class="flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit"
+            class="div-employee-box"
           >
             <img
               *ngif 
@@ -213,28 +182,30 @@
             />
             <div class="flex-1 px-px">Phone Number</div>
           </div>
-          <div class="text-xs mx-auto"></div>
+          <div class="text-xs px-2 mx-auto">{{phone}}</div>
         </div>
       </div>
       <div class="flex flex-row ">
-        <button class="bg-gray-300 h-[3rem] w-fit px-[1rem] text-md mx-4 my-3 md:text-sm flex-shrink-0">
+        <button class="div-action-button">
           Approve Ads (6)
         </button>
-        <button class="bg-gray-300  h-[3rem] w-fit px-[1rem]  text-md mx-4 my-3 md:text-sm">Sync Data</button>
-        <button class="bg-gray-300  h-[3rem] w-fit px-[1rem]  text-md mx-4 my-3 md:text-sm">
+        <button class="div-action-button">
+          Sync Data
+        </button>
+        <button class="div-action-button">
           Upload Contracts
         </button>
-        <button class="bg-gray-300  h-[3rem] w-fit px-[1rem]  text-md mx-4 my-3 md:text-sm">
+        <button class="div-action-button">
           View Contracts
         </button>
-        <button class="bg-gray-300 h-[3rem] w-fit px-[1rem] text-md mx-4 my-3 md:text-sm flex-shrink-0" routerLink="/add-employee">
+        <button class="div-action-button" routerLink="/add-employee">
           Add New Member
         </button>
         <div class="max-w-sm mt-4 w-full">
           <div
-            class="relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden"
+            class="div-search"
           >
-            <div class="grid place-items-center h-full w-12 text-black-300">
+            <div class="div-search-icon">
               <!-- search bar icon -->
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -253,7 +224,7 @@
             </div>
 
             <input
-              class="peer h-full w-full outline-none text-xs bg-gray-100 text-black-300 pr-2"
+              class="input-search"
               type="text"
               id="search"
               placeholder="Search something.."
@@ -270,10 +241,10 @@
     <!-- Table start -->
     <div class="flex flex-col overflow-x-auto">
       <div class="sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="employee-list">
           <div class="overflow-x-auto">
-            <table class="min-w-full text-left text-sm font-light">
-              <thead class="border-b font-medium dark:border-neutral-500">
+            <table class="employee-table">
+              <thead class="emplist-thead">
                 <tr>
                   <th scope="col" class="px-2 py-4"></th>
                   <th scope="col" class="px-2 py-4"></th>
@@ -284,26 +255,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr class="border-b dark:border-neutral-500">
-                  <td class="whitespace-nowrap px-2 py-4 font-medium">
+                <tr class="employee-add">
+                  <td class="employee-add-btn">
                     <button>+</button>
                   </td>
                   <td class="whitespace-nowrap px-2 py-4">
                     <input type="checkbox" />
                   </td>
-                  <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  <td class="whitespace-nowrap px-6 py-4">Cell</td>
-                  <td class="whitespace-nowrap px-6 py-4">
+                  <td class="emplist">Cell</td>
+                  <td class="emplist">Cell</td>
+                  <td class="emplist">Cell</td>
+                  <td class="emplist">
                     <a routerLink="#" class="text-CCblue">Approve</a>
                   </td>
-                  <td class="whitespace-nowrap px-6 py-4">
+                  <td class="emplist">
                     <a routerLink="#" class="text-CCblue">Reject</a>
                   </td>
-                  <td class="whitespace-nowrap px-6 py-4">
+                  <td class="emplist">
                     <a routerLink="#" class="text-CCblue">Edit</a>
                   </td>
-                  <td class="whitespace-nowrap px-6 py-4">
+                  <td class="emplist">
                     <a routerLink="#" class="text-CCblue">Delete</a>
                   </td>
                 </tr>

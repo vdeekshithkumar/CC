@@ -6,3 +6,12 @@
         @apply text-left py-2 px-1 cursor-pointer  ;
     }
 }
+.sidebar-div{
+    @apply block h-screen  shadow-md font-poppins;
+}
+.sidebar-nav{
+    @apply flex flex-col w-full;
+}
+.sidebar-a{
+    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 text-xs;
+}

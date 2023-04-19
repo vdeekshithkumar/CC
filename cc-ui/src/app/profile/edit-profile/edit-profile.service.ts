@@ -27,7 +27,7 @@ export class EditProfileService {
  updatecompany(id:number,editprofileForm: FormGroup<any>){
   debugger;
   const headers=new HttpHeaders().set('ContentType','application/json');
-  console.log(editprofileForm.value + "from service");
+ 
   return this.http.put(`${this.apiUrl}/${id}`,editprofileForm,{headers});
  }
 }

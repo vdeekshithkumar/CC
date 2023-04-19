@@ -49,4 +49,7 @@ export class DashboardComponent {
     this.sessionService.clearSession();
   
 }
+OnClick(){
+  this.router.navigate(['/dashboard']);
+}
 }

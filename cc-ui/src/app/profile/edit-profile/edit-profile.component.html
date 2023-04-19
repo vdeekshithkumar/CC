@@ -1,90 +1,72 @@
-
-<div class="min-h-full min-w-max p-6 bg-gray-100 flex items-center justify-center">
-    <div class="container max-w-screen-lg mx-auto">
-      <div>
-        <h2 class="font-semibold text-xl text-gray-600">Edit Company Profile</h2>
-        <div class="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
-          <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-3">
-            <div class="text-gray-600">
-              <p class="font-medium text-lg">Company Details</p>
-              <p>Please fill out all the fields.</p>
-            </div>
-
-
-          <div class="lg:col-span-2">
-                <form [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
-              <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-5">
-                <!-- <div class="md:col-span-5">
-                  <label for="name">Company Id</label>
-                  <input type="text" formControlName="company_id" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                </div> -->
-                <div class="md:col-span-5">
-                  <label for="name">Company Name</label>
-                  <input type="text" formControlName="name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
-                </div>
-                <div class="md:col-span-5">
-                  <label for="domain">Licence ID</label>
-                  <input type="text" formControlName="licence_id" id="domain" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                </div>
-  
-  
-                <div class="md:col-span-5">
-                  <label for="domain">Domain Address</label>
-                  <input type="text" formControlName="domain_address" id="domain" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="www.domain.com" />
-                </div>
-                
-                <div class="md:col-span-3">
-                  <label for="address">Company Location</label>
-                  <input type="text" formControlName="company_location" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                </div> 
-
-                 <div class="md:col-span-3">
-                  <label for="address">Country</label>
-                  <input type="text" formControlName="country" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                </div>
-
-                <div class="md:col-span-1">
-                  <label for="city">rating</label>
-                  <input type="text"  pattern="^\d*(\.\d{0,2})?$" formControlName="rating" id="rating" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                </div>
-
-                <div class="md:col-span-3">
-                  <label for="address">Address / Street</label>
-                  <input type="text" formControlName="address" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
-                </div>
-             
-                <div class="md:col-span-3">
-                  <label for="address">CompanyLogo</label>&nbsp;
-                <input formControlName="company_logo" type="file" (change)="onChange($event)"/>
-                <div *ngIf="myimage">
-                <img src="{{'data:image/jpg;base64,'+myimage}}"/>
-                <img [src]="myimage" width="100px" height="100px" alt="" />
-                <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
-                </div>
-                </div> 
-        
-                <div class="md:col-span-5 text-right">
-                  <button
-                      type="button"
-                      class="inline-block rounded bg-primary-100 px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-primary-700 transition duration-150 ease-in-out hover:bg-primary-accent-100 focus:bg-primary-accent-100 focus:outline-none focus:ring-0 active:bg-primary-accent-200"
-                      data-te-modal-dismiss
-                      data-te-ripple-init
-                      data-te-ripple-color="light"
-                      (click)="onCancel()">
-                      Close
-                </button>
-                
-                  <div class="inline-flex items-end">
-                    <button class="bg-CCblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
-                  </div>
-
-                </div>
-  
+<div class="div" [class.hidden]="!showform">
+  <div class="editcompany">
+    <div>
+      <h2 class="editcompany-h1">Edit Company Profile</h2>
+      <div class="editcompany-bg">
+        <div class="editcompany-form">
+          <div class="text-gray-600">
+            <p class="editcompany-p">Company Details</p>
+            <p>Please fill out all the fields.</p>
+          </div>
+        <div class="lg:col-span-2">
+              <form [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
+            <div class="editcompany-form">
+              <div class="md:col-span-5">
+                <label for="name">Company Name</label>
+                <input type="text" formControlName="name" id="full_name" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" />
               </div>
-              </form>
-            </div>
+              <div class="md:col-span-5">
+                <label for="domain">Licence ID</label>
+                <input type="text" formControlName="licence_id" id="domain" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-5">
+                <label for="domain">Domain Address</label>
+                <input type="text" formControlName="domain_address" id="domain" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="www.domain.com" />
+              </div>
+              <div class="md:col-span-3">
+                <label for="address">Company Location</label>
+                <input type="text" formControlName="company_location" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+              </div> 
+               <div class="md:col-span-3">
+                <label for="address">Country</label>
+                <input type="text" formControlName="country" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-1">
+                <label for="city">rating</label>
+                <input type="text"  pattern="^\d*(\.\d{0,2})?$" formControlName="rating" id="rating" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-3">
+                <label for="address">Address / Street</label>
+                <input type="text" formControlName="address" id="address" class="h-10 border mt-1 rounded px-4 w-full bg-gray-50" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-3">
+                <label for="address">CompanyLogo</label>&nbsp;
+              <input formControlName="company_logo" type="file" (change)="onChange($event)"/>
+              <div *ngIf="myimage">
+              <img src="{{'data:image/jpg;base64,'+myimage}}"/>
+              <img [src]="myimage" width="100px" height="100px" alt="" />
+              <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
+              </div>
+              </div> 
+              <div class="btn">
+                <button
+                    type="button"
+                    class="btn-editcompany"
+                    data-te-modal-dismiss
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                    (click)="onCancel()">
+                    Close
+              </button>
+                <div class="inline-flex items-end">
+                  <button class="submit-btn">Submit</button>
+                </div>
+              </div>
+             </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
