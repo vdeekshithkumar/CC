@@ -9,6 +9,8 @@ import { UploadContractComponent } from './upload-contract/upload-contract.compo
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AuthGuard } from './auth.guard';
+import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
+import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -46,7 +48,14 @@ const routes: Routes = [
     component:AddEmployeeComponent,
     path:'add-employee',
     canActivate: [AuthGuard]
-  }
+  },
+  {
+    component:ResetPasswordComponent,
+    path:'reset-password',
+    canActivate: [AuthGuard]
+  },
+  {path: '**', component: PageNotFoundComponent}
+
 
 
 ];

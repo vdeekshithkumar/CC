@@ -3,7 +3,6 @@ using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 
-
 namespace CC_api.Controllers
 {
   public class ContractController : Controller
@@ -15,16 +14,8 @@ namespace CC_api.Controllers
       _logger = logger;
       contractBusiness = new ContractBusiness();
     }
-    /*
-          [HttpGet("UploadInventory")]
-          public async Task<List<User>> UploadInventory()
-          {
-            return await inventoryBusiness.UploadInventory();
-          }*/
-    [HttpPost("UploadContract")]
-    //public async Task<IActionResult> SaveUser([FromForm] User user)
-    //public async Task<HttpStatusCode> SaveUser(User user)
-    public async Task<IActionResult> UploadContract([FromBody] Contract contract)
+    [HttpPost("upload")]
+    public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content, string title)
     {
       {
         return await contractBusiness.UploadContract(contract);
@@ -33,8 +24,13 @@ namespace CC_api.Controllers
 
       }
 
+      // Save the file path to the database
+      var contract = new Contract { company_id = companyId, user_id = userId, updated_by = userId, updated_date_time = DateTime.Now, title = title, content = content, uploaded_file = filePath };
+      dbContext.contracts.Add(contract);
+      await dbContext.SaveChangesAsync();
 
-
+      // Return the file path
+      return Ok(new { filePath, message = "Success" });
     }
     /*[HttpPost("Login")]
     public async Task<IActionResult> Login(Login loginmodel)

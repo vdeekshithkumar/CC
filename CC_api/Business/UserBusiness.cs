@@ -11,27 +11,45 @@ using System.Text;
 
 namespace CC_api.Business
 {
-    public class UserBusiness
-    {
-        private readonly UserRepository userRepository;
+  public class UserBusiness
+  {
+    private readonly UserRepository userRepository;
+    private readonly EmailService _emailService;
+    public UserBusiness()
+    {
+      this.userRepository = new UserRepository();
+      this._emailService = new EmailService();
 
-        public UserBusiness()
-        {
-            this.userRepository = new UserRepository();
+    }
+    public async Task<User> GetUserAsync(int userID)
+    {
+      var userData = await userRepository.GetUserAsync(userID);
+      return userData;
+    }
+    public async Task<IActionResult> UpdatePasswordAsync(int user_id, int company_id, string password)
+    {
+      await userRepository.UpdatePasswordAsync(user_id, company_id, password);
+      return new OkResult();
+    }
+    public async Task<List<User>> GetAllUserAsync()
+    {
+      return await userRepository.GetAllUserAsync();
+    }
+    public async Task<IActionResult> SaveUserAsync(User user)
+    {
 
-        }
+      var random = new Random();
+      DateTime expirationTime = DateTime.Now.AddMinutes(5);
+      var otp = random.Next(100000, 999999);
 
- 
+      await _emailService.SendOTPAsync(user.email, otp);
 
- 
 
-        public async Task<List<User>> GetAllUserAsync()
-        {
-            return await userRepository.GetAllUserAsync();
-        }
-        public async Task<IActionResult> SaveUserAsync(User user)
-        {
-            var us = new User();
+
+
+      var us = new User();
+
+
 
             us.company_id = user.company_id;
             us.fname = user.fname;

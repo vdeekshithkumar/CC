@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NavigationEnd, Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,5 +7,17 @@ import { Component } from '@angular/core';
 })
 export class HeaderComponent {
 
+  showPopup = false;
+
+  constructor(private router:Router) {
+     
+
+  }
+  logout() {
+    // your logout logic here
+  }
+  OnClick(){
+  
+  }
 
 }
