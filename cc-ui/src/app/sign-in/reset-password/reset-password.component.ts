@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/session.service';
 import { ResetService } from './reset.service';
-import {ConfirmationResponse} from './ConfirmationResponse';
+import {ConfirmationResponse,PassWriteRes} from './ConfirmationResponse';
 import {Location} from '@angular/common';
-import { response } from 'express';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -15,7 +15,9 @@ import { response } from 'express';
 export class ResetPasswordComponent implements OnInit{
   userId : any;
   companyId : any;
-  constructor(private sessionService:SessionService, private resetService:ResetService, private _location : Location) { }
+  success = false
+  isFailure = false
+  constructor(private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location) { }
   ngOnInit(): void {
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
@@ -73,10 +75,26 @@ export class ResetPasswordComponent implements OnInit{
     
   }
   OnSubmit(){
-    this.resetService.updatePassword(this.userId,this.companyId,this.password2).subscribe((response)=>{
-      console.log(response)
+    this.resetService.updatePassword(this.userId,this.companyId,this.password2).subscribe((response:PassWriteRes )=>{
+      debugger
+      if (response.message === "Success")
+      {
+        this.success = true 
+        new Promise(f => setTimeout(f, 1000));
+        
+      }
+      else 
+      {
+        console.log ("error in the password changing process")
+        this.isFailure = true
+      }
+    },
+    error=>
+    {
+      console.log("network error")
     }
   );
+  this.router.navigate(['']);
   }
   
 }

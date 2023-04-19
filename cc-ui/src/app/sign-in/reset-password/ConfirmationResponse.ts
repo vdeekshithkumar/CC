@@ -7,5 +7,8 @@ export interface ConfirmationResponse {
       user_id: number;
       company_id: number;
     };
-  }
+}
+export interface PassWriteRes{
+    message:string;
+}
   
