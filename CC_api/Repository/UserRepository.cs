@@ -1,4 +1,5 @@
 using CC_api.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -18,7 +19,15 @@ namespace CC_api.Repository
       var userdata = dbContext.users.FirstOrDefault(u => u.user_id == userId);
       return userdata;
     }
-
+    public async Task UpdatePasswordAsync(int user_id, int company_id, string password)
+    {
+      var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == user_id && u.company_id == company_id);
+      if (user != null)
+      {
+        user.password = password;
+        await dbContext.SaveChangesAsync();
+      }
+    }
     public async Task<bool> VerifyOTPAsync(int userId, int otp)
     {
       try
@@ -63,46 +72,11 @@ namespace CC_api.Repository
 
     {
 
-      //try
-
-      //{
-
-      // set the OTP in the user object
-
-      /*  user.is_verified = 0; */// set isVerified to false initially
-
-
-
-      // save the user to the database
-
       dbContext.users.Add(user);
 
       await dbContext.SaveChangesAsync();
-
-
-
       return user.user_id;
-
-      //}
-
-      //catch (Exception ex)
-
-      //{
-
-      //  throw ex;
-
-      //}
-
-
-
-
-
     }
-
-
-
-
-
 
     public async Task<List<User>> GetAllUserAsync()
     {

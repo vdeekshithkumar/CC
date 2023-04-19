@@ -1,9 +1,8 @@
 using CC_api.Business;
 using CC_api.Models;
+using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-
-
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CC_api.Controllers
 {
@@ -106,6 +105,12 @@ namespace CC_api.Controllers
       {
         return BadRequest();
       }
+    }
+
+    [HttpPut("UpdatePassword")]
+    public async Task<IActionResult> UpdateCompany([FromBody] User user)
+    {
+      return await userBusiness.UpdatePasswordAsync(user.user_id, user.company_id, user.password);
     }
   }
 }

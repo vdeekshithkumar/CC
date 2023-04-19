@@ -1,8 +1,6 @@
 using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
 
 
 namespace CC_api.Controllers
@@ -22,7 +20,7 @@ namespace CC_api.Controllers
 
     }
     [HttpPost("upload")]
-    public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content,string title)
+    public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content, string title)
     {
       // Check if the file is not null
       if (file == null || file.Length == 0)
@@ -46,7 +44,7 @@ namespace CC_api.Controllers
       await dbContext.SaveChangesAsync();
 
       // Return the file path
-      return Ok(new { filePath });
+      return Ok(new { filePath, message = "Success" });
     }
 
     [HttpGet("download/{fileName}")]

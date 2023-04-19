@@ -57,18 +57,21 @@
     </div>
 
     <!-- Profile icon -->
-    <div class="flex-1 flex justify-end relative " (click)="showPopup = !showPopup">
-      <img
-        src="https://source.unsplash.com/random/200x200?sig=1"
-        class="header-img"
-      />
-      <div class="absolute top-full right-0 rounded-md " *ngIf="showPopup" >
-        <div class="text-xs w-fit items-center leading-6 p-2 flex flex-col shadow-lg bg-white">
-          <a>Edit profile</a>
-          <a>Reset password</a>
-          <button (click)="logout()" class=" text-red-600" >Logout</button>
+    <div class="flex-1 mx-2 cursor-auto">
+      <div class="flex-1 flex justify-end relative cursor-pointer" (click)="showPopup = !showPopup">
+        <img
+          src="https://picsum.photos/200/300"
+          class="header-img"
+        />
+        <div class="absolute top-full right-0 rounded-md " *ngIf="showPopup" >
+          <div class="text-xs w-fit items-center leading-6 p-2 flex flex-col shadow-lg bg-white ">
+            <a>Edit profile</a>
+            <a routerLink="../reset-password">Reset password</a>
+            <button (click)="logout()" class="text-red-600" >Logout</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  
 </header>

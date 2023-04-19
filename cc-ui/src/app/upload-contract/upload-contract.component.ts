@@ -1,29 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { SessionService } from '../session.service';
-import { Router } from '@angular/router';
+
 
 
 @Component({
-    selector: 'app-upload-contract',
-    templateUrl: './upload-contract.component.html',
-    styleUrls: ['./upload-contract.component.css']
+  selector: 'app-upload-contract',
+  templateUrl: './upload-contract.component.html',
+  styleUrls: ['./upload-contract.component.css']
 })
 export class UploadContractComponent implements OnInit {
-    contractForm!: FormGroup;
-    description!:any;
-    companyId:any;
-    userId:any;
-    title!:any; 
+  contractForm!: FormGroup;
+  description!: any;
+  companyId: any;
+  userId: any;
+  title!: any;
+  fileName: string = "Not selected"
+  file?: File
+  statusMsg?:string
 
-    constructor(private uploadService:UploadService, private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router) {
-    }
-    
+  constructor(private uploadService: UploadService, private sessionService: SessionService) {
+  }
 
-    ngOnInit(): void {
-      
-       //get company id from session
+
+  ngOnInit(): void {
+
+    //get company id from session
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -34,8 +37,8 @@ export class UploadContractComponent implements OnInit {
       }
     );
 
-     //user id from session 
-     this.sessionService.getUserId().subscribe(
+    //user id from session 
+    this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
         console.log('User ID is :', userId);
@@ -44,22 +47,28 @@ export class UploadContractComponent implements OnInit {
         console.error('Error retrieving user ID:', error);
       }
     );
+  }
 
+  onChange($event: Event) {
+    debugger
+    const target = $event.target as HTMLInputElement;
+    const file: File = (target.files as FileList)[0];
+    this.file = file
+    this.title = file.name
+  }
+  onUpload() {
     
-
-   
-   
-
-     }
-
-    onChange($event: Event) {
-        const target = $event.target as HTMLInputElement;
-        const file: File = (target.files as FileList)[0];
-    
-        if (file) {
-          this.uploadService.uploadFile(file,this.userId,this.companyId, this.description,this.title).subscribe(response => {
-            console.log(response);
-          });
+    if (this.file) {
+      debugger
+      this.uploadService.uploadFile(this.file, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
+        debugger
+        if (response.message === 'Success') {
+          this.statusMsg = 'Success';
+        } else {
+          this.statusMsg = 'Failed';
+          console.log(response.status) ;
         }
-      }
+      });
+    }
+  }
 }

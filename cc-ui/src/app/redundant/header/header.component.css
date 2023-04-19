@@ -17,9 +17,7 @@
     @apply rounded-full border-CCblue border-2 w-[2.5em] h-[2.5em] cursor-pointer ;
 }
 
-
 a:hover {
-    @apply text-CCblue cursor-pointer;
-  
+    @apply text-CCblue;
 }
 
