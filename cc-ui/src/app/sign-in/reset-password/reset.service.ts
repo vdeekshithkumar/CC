@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ConfirmationResponse } from './ConfirmationResponse';
+import { ConfirmationResponse, PassWriteRes } from './ConfirmationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +18,6 @@ export class ResetService {
     const headers=new HttpHeaders().set('ContentType','application/json');
 
     const body = { user_id, company_id, password };
-    return this.http.put(`${this.baseUrl}/UpdatePassword`, body,{headers});
+    return this.http.put<PassWriteRes>(`${this.baseUrl}/UpdatePassword`, body,{headers});
   }
 }
