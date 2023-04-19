@@ -17,7 +17,7 @@ export class HeaderComponent {
     // your logout logic here
   }
   OnClick(){
-  
+  this.router.navigate(['/dashboard']);
   }
 
 }
