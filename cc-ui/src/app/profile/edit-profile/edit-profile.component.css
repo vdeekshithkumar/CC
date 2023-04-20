@@ -4,6 +4,9 @@
 .div{
   @apply min-h-full min-w-max p-6 bg-gray-100 flex items-center justify-center;
 }
+.div-input{
+ @apply h-10 border mt-1 rounded px-4 w-full bg-gray-50
+}
 .editcompany{
     @apply container max-w-screen-lg mx-auto;
 }

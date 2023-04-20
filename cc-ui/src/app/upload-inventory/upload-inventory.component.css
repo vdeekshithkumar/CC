@@ -1,4 +1,95 @@
-/* Styles for the table */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.div{
+    @apply fixed z-10 inset-0 overflow-y-auto;
+}
+.div-card{
+    @apply fixed z-10 inset-0 overflow-y-auto
+}
+.div-bg{
+  @apply fixed inset-0 transition-opacity bg-gray-500 opacity-75
+}
+.div-size{
+  @apply relative z-50 w-full max-w-md mx-auto mt-8
+}
+.div-details{
+  @apply bg-white rounded-lg shadow-lg p-6
+}
+.div-btn{
+  @apply px-4 py-2 bg-gray-300 text-gray-700 rounded-lg mr-4
+}
+.div-btn-set{
+  @apply px-4 py-2 bg-blue-500 text-white rounded-lg
+}
+.div-form{
+  @apply flex flex-col items-center md:flex-row
+}
+.div-form-size{
+  @apply mr-4 ml-4 mt-10 w-full md:w-1/2 mb-4
+}
+.uploadinv-grp{
+  @apply col-span-1 lg:col-span-6
+}
+.uploadinv-h1{
+  @apply text-base text-gray-700 mb-5 text-center text-3xl
+}
+.uploadinv-label{
+  @apply block mb-3 text-gray-600
+}
+.uploadinv-select{
+  @apply border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider
+}
+.uploadinv-btn{
+  @apply w-1/2 px-4 py-3 mr-10 ml-10 bg-blue-500 rounded-md shadow-md text-white font-semibold border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.uploadinv-input{
+  @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2
+}
+.uploadinv-table{
+  @apply min-w-full text-left text-sm font-light
+}
+.uploadinv-thead{
+  @apply border-b font-medium dark:border-neutral-500
+}
+.uploadinv-th{
+  @apply border px-4 py-2 text-center
+}
+.uploadinv-div{
+  @apply w-full md:w-1/2 mt-4 ml-4 mr-4 border
+}
+.uploadinv-card{
+  @apply flex flex-col overflow-x-auto
+}
+.uploadinv-card-div{
+  @apply inline-block min-w-full py-2 sm:px-6 lg:px-8
+}
+.uploadinv-search{
+  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
+}
+.uploadinv-icon{
+  @apply grid place-items-center h-full w-10 text-black
+}
+.uploadinv-size{
+  @apply max-w-sm ml-10 flex items-center
+}
+.uploadinv-nav{
+  @apply mb-2 w-full
+}
+.uploadinv-bt{
+  @apply border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.div-app-sidebar{
+  @apply sticky w-[8vw] border-r-2 z-50;
+}
+
+
+
+
+
+
+
 .table {
     border-collapse: collapse;
     width: 100%;

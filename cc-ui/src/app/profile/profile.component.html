@@ -149,13 +149,10 @@
           <div
             class="div-employee-box"
           >
-            <img
-             
-              class="w-2 h-3 flex pt-1"
-            />
-            <div class="flex-1 px-2">Admin</div>
+          
+            <div class="flex-1 px-2">&emsp;Admin</div>
           </div>
-          <div class="div-employee-name">{{fname}} {{lname}}</div>
+          <div class="div-employee-name">&emsp;{{fname}} {{lname}}</div>
         </div>
         <!-- box2 -->
         <div class="flex flex-col px-[5%]">
@@ -166,7 +163,7 @@
               src="../../assets/images/profile.png"
               class="w-2 h-3 flex pt-1"
             />
-            <div class="flex-1">E-mail</div>
+            <div class="flex-1">&emsp;E-mail</div>
           </div>
           <div class="text-xs px-2 mx-auto">{{email}}</div>
         </div>
@@ -192,14 +189,17 @@
         <button class="div-action-button">
           Sync Data
         </button>
-        <button class="div-action-button">
+        <button class="div-action-button" routerLink="/upload-contract">
           Upload Contracts
         </button>
-        <button class="div-action-button">
+        <button class="div-action-button" >
           View Contracts
         </button>
         <button class="div-action-button" routerLink="/add-employee">
           Add New Member
+        </button>
+        <button class="div-action-button" routerLink="/upload-inventory">
+         Upload Inventory
         </button>
         <div class="max-w-sm mt-4 w-full">
           <div

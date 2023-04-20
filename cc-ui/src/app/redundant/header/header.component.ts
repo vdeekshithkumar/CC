@@ -10,7 +10,6 @@ export class HeaderComponent {
   showPopup = false;
 
   constructor(private router:Router) {
-     
 
   }
   logout() {

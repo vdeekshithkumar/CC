@@ -41,6 +41,9 @@
  .div-card-card{
   @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] overflow-y-auto
  }
+ .div-card-a{
+  @apply text-CCblue bottom-0 block left-0
+ }
  .div-div-card{
   @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] overflow-y-auto
  }

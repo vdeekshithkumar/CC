@@ -1,4 +1,5 @@
 <app-header></app-header>
+<app-sidebar class="div-app-sidebar"></app-sidebar>
 <div *ngIf="statusMsg === 'Failed'" class="div" role="alert">
   <strong class="font-bold">Holy smokes!</strong>
   <span class="block sm:inline">Something seriously bad happened.</span>
@@ -14,10 +15,11 @@
   </span>
 </div>
 
+
 <!-- Whole page is the below div -->
 <div
   data-te-modal-init
-  class="fixed inset-0 flex flex-col items-center shadow-md rounded-md justify-center h-auto w-auto bg-white overflow-y-auto overflow-x-hidden outline-none"
+  class="div-page"
   id="exampleModalCenteredScrollable"
   tabindex="-1"
   aria-labelledby="exampleModalCenteredScrollable"
@@ -26,20 +28,20 @@
 >
 
   <!-- Upload contracts card -->
-  <div class="p-2 shadow-lg bg-gray-50 w-fit rounded-md">
+  <div class="contract-card">
     
     <div class="p-2 font-poppins w-fit">
       <div class="flex">
         <div class="flex-1 flex-col">
           <input
-            class="border-CCblue  border-2 m-2 h-[2em] rounded-md w-3/4"
+            class="contract-card-inp"
             type="text"
             [(ngModel)]="title"
             placeholder=" Title"
             required="required"
           />
           <textarea
-            class="border-CCblue border-2 mx-2 h-[4em] rounded-md w-3/4"
+            class="contract-card-text"
             rows=""
             cols=""
             placeholder="Enter your description here..."
@@ -48,7 +50,7 @@
         </div>
         <div class="flex flex-col items-center">
           <label
-            class="bg-CCblue text-white px-4 py-1 rounded cursor-pointer hover:bg-blue-700 leading-tight"
+            class="div-upload-file"
           >
             Upload File
             <input
@@ -60,7 +62,7 @@
           </label>
           <br/>
           <label
-            class="bg-green-500 text-white px-4 py-1 rounded cursor-pointer hover:bg-green-400 leading-tight"
+            class="div-save-file"
           >
             Save File
             <input
@@ -73,12 +75,12 @@
       </div>
     </div>
 
-    <div class="flex items-center justify-center w-full">
+    <div class="div-form">
       <label
         for="dropzone-file"
-        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-100"
+        class="div-form-label"
       >
-        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+        <div class="fdiv-form-svg">
           <svg
             aria-hidden="true"
             class="w-10 h-10 mb-3 text-gray-400"
@@ -94,10 +96,10 @@
               d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
             ></path>
           </svg>
-          <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+          <p class="div-form-p">
             <span class="font-semibold">Click to upload</span> or drag and drop
           </p>
-          <p class="text-xs text-gray-500 dark:text-gray-400">
+          <p class="tdiv-form-file">
             Only upload .pdf files
           </p>
         </div>
@@ -109,7 +111,8 @@
         />
       </label>
     </div>
-    <a routerLink="../dashboard" class="text-blue-600 hover:text-blue-400 self-start"> < Back</a>
+    <a routerLink="../dashboard" class="div-a"> < Back</a>
   </div>
 </div>
+
 

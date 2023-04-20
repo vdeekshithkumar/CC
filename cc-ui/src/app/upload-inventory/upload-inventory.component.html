@@ -1,47 +1,49 @@
 <app-header></app-header>
-<div class="flex flex-col items-center md:flex-row">
-  <div class="mr-4 ml-4 mt-10 w-full md:w-1/2 mb-4">
+<div class="div" *ngIf="showModal">
+  <div class="div-card">
+    <div class="div-bg">
+    </div>
+    <div class="div-size">
+      <div class="div-details">
+        <p>Are you sure you want to add this inventory details ?</p>
+        <div class="mt-4 flex justify-end">
+          <button class="div-btn" (click)="showModal = false">No</button>
+          <button class="div-btn-set" (click)="OnSetY()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="div-form">
+   
+ <div class="div-form-size">
+
     <!-- Form code goes here -->
     
   <form [formGroup]= "UploadInventoryForm" (ngSubmit)="onSubmit()">
     
-    <div class="col-span-1 lg:col-span-6">
-      <h4 class="text-base text-gray-700 mb-5 text-center text-3xl">UPLOAD INVENTORY</h4>
+    <div class="uploadinv-grp">
+      <h4 class="uploadinv-h1">UPLOAD INVENTORY</h4>
       <div class="p-20 rounded-md shadow-md bg-white">
-
        <div class="mb-6">
-        
-        
-
-
-        <label class="block mb-3 text-gray-600" for="">Name on Port</label>
-        
-        
-          <select #port [(ngModel)]="port_name" formControlName="port_id" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider">
+        <label class="uploadinv-label" for="">Name on Port</label>
+          <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select">
             <option selected>Select your port </option>
             <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
           </select>
-        
        </div>
-
-       <!-- <div class="mb-6">
-        <label class="block mb-3 text-gray-600" for="">Container Type</label>
-        <select formControlName="container_type" class="border border-gray-500 rounded-md inline-block py-2 px-3 w-full text-gray-600 tracking-wider">
-          <option>refrigerated</option>
-          <option>non_refrigerated</option>
-        </select>
-       </div> -->
        <div class="mb-6">
-        <label class="block mb-3 text-gray-600" for="">Container Type</label>
-        <select formControlName="container_type" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider">
+        <label class="uploadinv-label" for="">Container Type</label>
+        <select formControlName="container_type" class="uploadinv-select">
           <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
         </select>
       </div>
       
 
        <div class="mb-6">
-        <label class="block mb-3 text-gray-600" for="">Container Size</label>
-        <select formControlName="container_size" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider">
+        <label class="uploadinv-label" for="">Container Size</label>
+        <select formControlName="container_size" class="uploadinv-select">
           <option>1</option>
           <option>2</option>
           <option>4</option>
@@ -49,68 +51,61 @@
        </div>
 
        <div class="mb-6">
-        <label class="block mb-3 text-gray-600" for="">Available</label>
-        <input type="text" formControlName="available" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
+        <label class="uploadinv-label" for="">Available</label>
+        <input type="text" formControlName="available" class="uploadinv-select"/>
        </div>
        
        
        <div class="mb-6">
-        <label class="block mb-3 text-gray-600" for="">Maximum</label>
-        <input type="text" formControlName="maximum" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
+        <label class="uploadinv-label" for="">Maximum</label>
+        <input type="text" formControlName="maximum" class="uploadinv-select"/>
        </div>
 
        <div class="mb-6">
-        <label class="block mb-3 text-gray-600" for="">Minimum</label>
-        <input type="text" formControlName="minimum" class="border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider"/>
+        <label class="uploadinv-label" for="">Minimum</label>
+        <input type="text" formControlName="minimum" class="uploadinv-select"/>
        </div>
        <div class="mb-2">
-      <label class="block mb-3 text-gray-600">Upload Excel Here 
+      <label class="uploadinv-label">Upload Excel Here 
       <input class="ml-10" type="file" (change)="ReadExcel($event)">
       </label>
       </div>
-
+      
       <div class="mb-2">
        <div class="flex justify-between mt-5">
         
-        <button type="button" routerLink="/dashboard" class="w-1/2 px-4 py-3 mr-10 ml-10 bg-blue-500 rounded-md shadow-md text-white font-semibold">
+        <button type="button" routerLink="/dashboard" class="uploadinv-btn">
           Back
         </button>
-        <button type="submit" class="w-1/2 mr-10 ml-10 px-4 py-3 bg-blue-500 rounded-md shadow-md text-white font-semibold">
+        <button type="submit" class="uploadinv-btn">
           Save
         </button>
       </div>
       </div>
-      
-
        </div>
       </div>
-    
- 
-  
   </form>
- 
   </div>
 
-
-  <div class="w-full md:w-1/2 mt-4 ml-4 mr-4 border">
+  <div class="uploadinv-div">
     <!-- Table code goes here -->
-    <div class="flex flex-col overflow-x-auto">
+    <div class="uploadinv-card">
       <div class="sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+        <div class="uploadinv-card-div">
           <div class="overflow-x-auto">
             
-            <nav class="table-navbar mb-2 w-full">
-              <div class="max-w-sm ml-10 flex items-center">
+            <nav class="uploadinv-nav">
+              <div class="uploadinv-size">
                 <label class="mr-2 w-full ">Search by:</label>
-                <div class="relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden">
-                  <div class="grid place-items-center h-full w-10 text-black-300">
+                <div class="uploadinv-search">
+                  <div class="uploadinv-icon">
                     <!-- search bar icon -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="gray">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                   </div>
                   <input name="port_id" [(ngModel)]="searchTerm" 
-                         class="peer h-full w-full outline-none text-sm bg-gray-100 text-black-300 pr-2"
+                         class="uploadinv-input"
                          type="text"
                          id="search"
                          placeholder="Port Id | Container Type"
@@ -119,18 +114,18 @@
               </div>
             </nav>
             
-            <table class="min-w-full text-left text-sm font-light">
+            <table class="uploadinv-table">
               
-              <thead class="border-b font-medium dark:border-neutral-500">
+              <thead class="uploadinv-thead">
                 <tr>
-                  <th scope="col" class="border px-4 py-2 text-center">Port Id</th>
-                  <th scope="col" class="border px-4 py-2 text-center">Container Type</th>
-                  <th scope="col" class="border px-2 py-2 text-center">Container Size</th>
-                  <th scope="col" class="border px-4 py-2 text-center">Available</th>
-                  <th scope="col" class="border px-4 py-2 text-center">Maximum</th>
-                  <th scope="col" class="border px-4 py-2 text-center">Minimum</th>
-                  <th scope="col" class="border px-6 py-2 text-center"></th>
-                  <th scope="col" class="border px-6 py-2 text-center"></th>
+                  <th scope="col" class="uploadinv-th">Port Id</th>
+                  <th scope="col" class="uploadinv-th">Container Type</th>
+                  <th scope="col" class="uploadinv-th">Container Size</th>
+                  <th scope="col" class="uploadinv-th">Available</th>
+                  <th scope="col" class="uploadinv-th">Maximum</th>
+                  <th scope="col" class="uploadinv-th">Minimum</th>
+                  <th scope="col" class="uploadinv-th"></th>
+                  <th scope="col" class="uploadinv-th"></th>
                   
                   
                   
@@ -138,16 +133,16 @@
               </thead>
               <tbody>
                 <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm" class="border-b dark:border-neutral-500">
-                  <td scope="col" class="border px-4 py-2 text-center">{{inv.port_id}}</td>
-                  <td scope="col" class="border px-4 py-2 text-center">{{inv.container_type}}</td>
-                  <td scope="col" class="border px-2 py-2 text-center">{{inv.container_size}}</td>
-                  <td scope="col" class="border px-4 py-2 text-center">{{inv.available}}</td>
-                  <td scope="col" class="border px-4 py-2 text-center">{{inv.maximum}}</td>
-                  <td scope="col" class="border px-4 py-2 text-center">{{inv.minimum}}</td>
-                  <td scope="col" class="border px-4 py-2 text-center">
+                  <td scope="col" class="uploadinv-th">{{inv.port_id}}</td>
+                  <td scope="col" class="uploadinv-th">{{inv.container_type}}</td>
+                  <td scope="col" class="uploadinv-th">{{inv.container_size}}</td>
+                  <td scope="col" class="uploadinv-th">{{inv.available}}</td>
+                  <td scope="col" class="uploadinv-th">{{inv.maximum}}</td>
+                  <td scope="col" class="uploadinv-th">{{inv.minimum}}</td>
+                  <td scope="col" class="uploadinv-th">
                     <button (click)="getInventoryById(inv.inventory_id)" class="edit-button">Edit</button>
                   </td>
-                  <td scope="col" class="border px-4 py-2 text-center">
+                  <td scope="col" class="uploadinv-th">
                     
                     <button (click)="deleteInventory(inv.inventory_id)" class="delete-button">Delete</button>
                   </td>
@@ -156,8 +151,12 @@
                 </tr>
               </tbody>
             </table>
-  </div>
+            
+      </div>
+
 </div>
+
+ 
 
 
   

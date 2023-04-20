@@ -47,6 +47,7 @@ export class DashboardComponent {
   logout(): void {
     // clear session data and redirect to login page
     this.sessionService.clearSession();
+    this.router.navigate(['/sign-in'])
   
 }
 OnClick(){

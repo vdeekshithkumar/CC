@@ -1,6 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer components {
+    .w-13 {
+      width: 8%;
+    }
+  }
+  @layer components {
+    .aspect-w-2 {
+      width: 2;
+    }
+  }
+  @layer components {
+    .aspect-h-1 {
+      height: 1;
+    }
+  }
+  /* .div-img{
+    @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
+  }
+   */
 .div{
   @apply flex flex-row font-poppins;
 }
@@ -79,6 +98,7 @@
 .emplist{
     @apply whitespace-nowrap px-6 py-4;
 }
+
 .label-contain {
     display: grid;
     align-items: center; 
