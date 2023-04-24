@@ -148,9 +148,6 @@ export class ProfileComponent implements OnInit {
         console.warn("oninit error" + error);
       }
     );
-   
-
-    
     //when navigate back to sign-in session ends
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
@@ -162,7 +159,7 @@ export class ProfileComponent implements OnInit {
 
     this.profileService.getUserDetails(user_id)
     .subscribe(
-      (           data:any)=> {
+      (           data:any)=> {debugger
         this.user_data = data;
         console.log("User data fetcged"+this.user_data);
         
