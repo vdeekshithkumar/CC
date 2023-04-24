@@ -129,7 +129,7 @@ namespace CC_api.Controllers
     [HttpGet("GetAllUserCount/{companyid}")]
     public async Task<int> GetAllUserCount(int companyid)
     {
-      return await userBusiness.GetAllUserCount(companyid);
+       return await userBusiness.GetAllUserCount(companyid);
     }
 
     [HttpDelete("DeleteUser/{id}")]

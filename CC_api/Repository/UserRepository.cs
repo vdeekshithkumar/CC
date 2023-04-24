@@ -83,10 +83,10 @@ namespace CC_api.Repository
       return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == 1).ToListAsync();
 
     }
-    public async Task<int> GetAllUserCount(int companyId)
+    public async Task<int>GetAllUserCount(int companyId)
     {
-      var userCount = await dbContext.users.Where(u => u.company_id == companyId && u.is_active == 1).CountAsync();
-      return userCount;
+       var userCount = await dbContext.users.Where(u =>u.company_id == companyId&&u.is_active == 1).CountAsync();
+       return userCount;
     }
 
     public async Task DeleteUser(int userId)

@@ -104,7 +104,7 @@ export class ProfileComponent implements OnInit {
     data => {
       this.usercount_list = data;
      
-      console.log("employee list fetched: ", this.usercount_list); 
+      console.log("employee Count: ", this.usercount_list); 
       
     },
     error => {

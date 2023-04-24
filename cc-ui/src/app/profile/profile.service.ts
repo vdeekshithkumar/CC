@@ -28,7 +28,7 @@ export class ProfileService {
   getallUser(companyid:number): Observable<any> {
     return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
   }
-  getallUserCount(companyid:number): Observable<any> {
+  getallUserCount(companyid:number):Observable<any> {
     return this.http.get(`${this.usercountUrl}/${companyid}`,{responseType:'json'});
   }
 
