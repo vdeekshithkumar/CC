@@ -40,3 +40,6 @@
 .signin-noact-a{
     @apply font-medium text-blue-600 hover:text-blue-400
 }
+.a-otp-val{
+    @apply inline-block text-blue-600 hover:text-blue-400
+}

@@ -41,9 +41,7 @@
                 <span class="div-company-name"></span>
               </div>
               <div class="flex flex-row">
-                <div
-                  class="div-tag"
-                >
+                <div class="div-tag"> 
                   <img
                     src="../../assets/images/location-41-16.png"
                     class="w-3 h-4 flex pt-1"
@@ -227,7 +225,7 @@
               class="input-search"
               type="text"
               id="search"
-              placeholder="Search something.."
+              placeholder="Search"
             />
           </div>
           <div></div>
@@ -246,37 +244,29 @@
             <table class="employee-table">
               <thead class="emplist-thead">
                 <tr>
-                  <th scope="col" class="px-2 py-4"></th>
-                  <th scope="col" class="px-2 py-4"></th>
-                  <th scope="col" class="px-6 py-4">Designations</th>
-                  <th scope="col" class="px-6 py-4">Created</th>
-                  <th scope="col" class="px-6 py-4">Remarks</th>
-                  <th colspan="4" scope="col" class="px-6 py-4">Actions</th>
+              
+                  <th scope="col" class="px-6 py-4">FName</th>
+                  <th scope="col" class="px-6 py-4">LName</th>
+                  <th scope="col" class="px-6 py-4">Email</th>
+                  <th scope="col" class="px-6 py-4">Phone Number</th>
+                  <th scope="col" class="px-6 py-4">Password</th>
+                  <th colspan="4" scope="col" class="px-6 py-4">&ensp;Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="employee-add">
-                  <td class="employee-add-btn">
-                    <button>+</button>
-                  </td>
-                  <td class="whitespace-nowrap px-2 py-4">
-                    <input type="checkbox" />
-                  </td>
-                  <td class="emplist">Cell</td>
-                  <td class="emplist">Cell</td>
-                  <td class="emplist">Cell</td>
-                  <td class="emplist">
-                    <a routerLink="#" class="text-CCblue">Approve</a>
-                  </td>
-                  <td class="emplist">
-                    <a routerLink="#" class="text-CCblue">Reject</a>
-                  </td>
-                  <td class="emplist">
-                    <a routerLink="#" class="text-CCblue">Edit</a>
-                  </td>
-                  <td class="emplist">
-                    <a routerLink="#" class="text-CCblue">Delete</a>
-                  </td>
+                <tr *ngFor="let u of alluser_list" class="employee-add">
+                 
+                  <td class="emplist">{{u.fname}}</td>
+                  <td class="emplist">{{u.lname}}</td>
+                  <td class="emplist">{{u.email}}</td>
+                  <td class="emplist">{{u.phone_no}}</td>
+                  <td class="emplist">{{u.password}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                   <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                    <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
+                 </td>
                 </tr>
               </tbody>
             </table>

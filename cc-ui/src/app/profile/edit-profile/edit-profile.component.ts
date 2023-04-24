@@ -43,21 +43,16 @@ export class EditProfileComponent implements OnInit{
     );
     this.editprofileForm = this.formBuilder.group({
      company_id:this.companyId,
-     name:['mnnm', Validators.required],
-      licence_id:['56', Validators.required],
-      domain_address: ['mnnm', Validators.required],
+     name:['', Validators.required],
+      licence_id:['', Validators.required],
+      domain_address: ['', Validators.required],
       company_logo: [''],
-      company_location: ['kjbnbs', Validators.required],
-      country: ['snbn', Validators.required],
-      rating:['9', Validators.required],
-      address: ['kjsksk', Validators.required],
+      company_location: ['', Validators.required],
+      country: ['', Validators.required],
+      rating:['', Validators.required],
+      address: ['', Validators.required],
       });
-      // const userData = sessionStorage.getItem('userData');
-      // if (userData) {
-      //   const data = JSON.parse(userData);
-      //   // Set the retrieved data to the form controls
-      //   this.editprofileForm.patchValue({
-      // company_id:this.companyId,
+   
     
   }
   onCancel() {

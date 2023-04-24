@@ -11,6 +11,9 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AuthGuard } from './auth.guard';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
+import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
+import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
+import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -54,6 +57,22 @@ const routes: Routes = [
     path:'reset-password',
     canActivate: [AuthGuard]
   },
+  {
+    component:OtpVerifyComponent,
+    path:'otp-validation',
+  },
+  {
+    component:ForgotPasswordComponent,
+    path:'forgot-password',
+    canActivate: [AuthGuard]
+
+  },
+  {
+    component:VerifyComponent,
+    path:'verify',
+    canActivate: [AuthGuard]
+  },
+
   {path: '**', component: PageNotFoundComponent}
 
 

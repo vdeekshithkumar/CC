@@ -2,7 +2,7 @@ using CC_api.Models;
 using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
 
- 
+
 
 namespace CC_api.Business
 {
@@ -33,9 +33,60 @@ namespace CC_api.Business
         return new BadRequestObjectResult(ex.Message);
       }
     }
-    public async Task<List<User>> GetAllUserAsync()
+    public async Task<User> GetUserById(int id)
     {
-      return await userRepository.GetAllUserAsync();
+      return await userRepository.GetUserById(id);
+
+    }
+    public async Task<int> generateOTP(string email)
+    {
+      var random = new Random();
+      var otp = random.Next(100000, 999999);
+      await _emailService.SendOTPAsync(email, otp);
+      return otp;
+    }
+    public async Task<IActionResult> EditUserById(int id, User user)
+    {
+      var us = await userRepository.GetUserById(id);
+      if (us == null)
+      {
+        return new NotFoundResult();
+      }
+
+
+
+
+
+      us.company_id = user.company_id;
+      us.fname = user.fname;
+      us.lname = user.lname;
+      us.address = user.address;
+      us.email = user.email;
+      us.phone_no = user.phone_no;
+      us.password = user.password;
+      us.is_verified = user.is_verified;
+      us.is_approved = user.is_approved;
+      us.is_active = user.is_active;
+      us.last_login = user.last_login;
+      us.designation = user.designation;
+      us.otp = -1;
+
+
+
+
+
+      await userRepository.EditUserById(us);
+      return new OkResult();
+    }
+
+
+    public async Task DeleteUser(int id)
+    {
+      await userRepository.DeleteUser(id);
+    }
+    public async Task<List<User>> GetAllUserAsync(int companyId)
+    {
+      return await userRepository.GetAllUserAsync(companyId);
     }
     public async Task<IActionResult> SaveUserAsync(User user)
     {
@@ -53,23 +104,27 @@ namespace CC_api.Business
 
 
 
-            us.company_id = user.company_id;
-            us.fname = user.fname;
-            us.lname = user.lname;
-            us.address = user.address;    
-            us.email= user.email;
-            us.phone_no = user.phone_no;
-            us.password = user.password;
-            us.is_verified = user.is_verified;
-            us.is_approved = user.is_approved;
-            us.is_active = user.is_active;
-            us.last_login = user.last_login;
-            us.designation = user.designation;
+      us.company_id = user.company_id;
+      us.fname = user.fname;
+      us.lname = user.lname;
+      us.address = user.address;
+      us.email = user.email;
+      us.phone_no = user.phone_no;
+      us.password = user.password;
+      us.is_verified = user.is_verified;
+      us.is_approved = user.is_approved;
+      us.is_active = user.is_active;
+      us.last_login = user.last_login;
+      us.designation = user.designation;
+      us.otp = otp;
 
-      await userRepository.Create(us);
-            return new OkResult();
+      await userRepository.Create(us);
 
- 
+      return new OkResult();
+
+
+
+
 
     }
 
@@ -84,6 +139,7 @@ namespace CC_api.Business
         throw ex;
       }
     }
+
     public async Task<AuthResponse> GetUserByEmail(string email)
     {
 
@@ -102,6 +158,9 @@ namespace CC_api.Business
 
 
 
+    }
+
+
     public async Task<AuthResponse> GetUserByEmailAndPassword(string email, string password)
     {
       var login = await userRepository.GetUserByEmailAndPassword(email, password);
@@ -116,52 +175,52 @@ namespace CC_api.Business
               if (login.is_verified == 1)
               {
 
- 
-
-                              if (login.email == email && login.password == password)
-                              {
-
- 
-
-                                return new AuthResponse { User = login, Message = "Admin Login Successful", Token = null };
-                              }
-                              else
-                              {
-                                return new AuthResponse { User = null, Message = "Admin Password Mismatched", Token = null };
-                              }
-                          }
-                          else
-                          {
-                            return new AuthResponse { User = null, Message = "Not Verified", Token = null };
-                          }
-                      }
-                      else
-                      {
-                        return new AuthResponse { User = null, Message = "Account Not Approved Yet", Token = null };
-                      }
-                  }
-                  else
-                  {
-                      if (login.email == email && login.password == password)
-                      {
-
- 
-
-                        return new AuthResponse { User = login, Message = "User Login Successful", Token = null };
-                      }
-                      else
-                      {
-                        return new AuthResponse { User = null, Message = "User Password Mismatched", Token = null };
-                      }
-                  }
-                }
-              else
-               {
 
 
-                   return new AuthResponse { User = null, Message = "Account Not Active", Token = null };
+                if (login.email == email && login.password == password)
+                {
 
-              }
+
+
+                  return new AuthResponse { User = login, Message = "Admin Login Successful", Token = null };
+                }
+                else
+                {
+                  return new AuthResponse { User = null, Message = "Admin Password Mismatched", Token = null };
+                }
+              }
+              else
+              {
+                return new AuthResponse { User = null, Message = "Not Verified", Token = null };
+              }
+            }
+            else
+            {
+              return new AuthResponse { User = null, Message = "Account Not Approved Yet", Token = null };
+            }
+          }
+          else
+          {
+            if (login.email == email && login.password == password)
+            {
+
+
+
+              return new AuthResponse { User = login, Message = "User Login Successful", Token = null };
+            }
+            else
+            {
+              return new AuthResponse { User = null, Message = "User Password Mismatched", Token = null };
+            }
+          }
+        }
+        else
+        {
+
+
+          return new AuthResponse { User = null, Message = "Account Not Active", Token = null };
+
+        }
 
 
 
@@ -173,4 +232,3 @@ namespace CC_api.Business
     }
   }
 }
-

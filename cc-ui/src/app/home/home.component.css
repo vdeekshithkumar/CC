@@ -1,3 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 .div{
     @apply grid grid-cols-2 gap-5 content-center  flex-col h-screen font-poppins 
 }

@@ -21,17 +21,19 @@ export class ProfileComponent implements OnInit {
   company_logo?: string
   company_location?: string
   country?: string
-
+  alluser_list=null;
   company_list: any;
   showDiv = false;
   currentUser: any;
   profileForm!: FormGroup;
-
+  user_id:any;
+  user_data:any;
   fname?: string
   lname?: string
   email?: string
   phone?: string
   companyId: any;
+  userId:any;
   getCompanyId() {
     return this.company_id;
   }
@@ -41,6 +43,17 @@ export class ProfileComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.sessionService.getUserId().subscribe(
+        (userId: number) => {
+        this.userId = userId;
+         console.log('User ID is :', userId);
+         },
+         (error: any) => {
+         console.error('Error retrieving user ID:', error);
+        }
+         );
+
+
 
     this.sessionService.getCurrentUser().subscribe(user => {
       // if (user.id==null && user.token==null) {  // use this once token is used for a user
@@ -56,7 +69,7 @@ export class ProfileComponent implements OnInit {
 
     });
 
-
+   
     this.sessionService.getCompanyId().subscribe(
 
    (companyId: number) => {
@@ -74,7 +87,16 @@ export class ProfileComponent implements OnInit {
    }
 
   );
-
+  this.profileService.getallUser(this.companyId).subscribe(
+    data => {
+      this.alluser_list = data;
+      console.log("employee list fetched: ", this.alluser_list); 
+     
+    },
+    error => {
+      console.log("employee loading error:" +error);
+    }
+  );
   this.profileService.getCompanyById(this.companyId).subscribe(
 
    data => {
@@ -135,6 +157,33 @@ export class ProfileComponent implements OnInit {
     ).subscribe(() => {
       this.sessionService.clearSession();
     });
+  }
+  getUserByID(user_id:number) {
+
+    this.profileService.getUserDetails(user_id)
+    .subscribe(
+      (           data:any)=> {
+        this.user_data = data;
+        console.log("User data fetcged"+this.user_data);
+        
+       
+      },
+      (          error:any) => console.log(error)
+    );
+    this.router.navigate(['/add-employee'], { queryParams: { edit: true } });
+  }
+  deleteUserById(id: number) {
+  
+    this.profileService.deleteUserById(id)
+      .subscribe(
+        (        data: any) => {
+          console.log(data);
+           this.router.navigateByUrl('/profile', { skipLocationChange: true });
+          this.router.navigate(['/profile']);
+           window.location.reload()
+          // this.getAllInventory()
+        },
+        (        error: any) => console.log(error));
   }
   logout(): void {
     // clear session data and redirect to login page

@@ -75,7 +75,7 @@ isUserValid:boolean=false;
           this.sessionService.setCurrentUser(loginResponse.user);//session
           console.log("admin login success inside loop")
           this.router.navigate(['/dashboard']);
-          alert(loginResponse.message)
+      
           this.loginForm.reset();
         } 
         if (loginResponse.message === 'User Login Successful') {
@@ -83,7 +83,7 @@ isUserValid:boolean=false;
           // redirect to dashboard
           console.log("printed from loop")
           this.router.navigate(['/dashboard']);
-          alert(loginResponse.message)
+        
           this.loginForm.reset();
         } 
         else if (loginResponse.message === 'User Not Found') {

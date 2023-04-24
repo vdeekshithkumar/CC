@@ -30,6 +30,8 @@ export class UploadInventoryComponent {
     refrigerated:any;
     ExcelData:any;
     x: any;
+    emailValue: string = '';
+    showModal=false;
     key:any;
     id:any;
     inv_id:any;
@@ -40,22 +42,52 @@ export class UploadInventoryComponent {
     inventoryId: any;
   inventory_data: any;
   port_id: any;
-  
+  y:any=0;
   searchTerm:any;
   
     constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
      }
-    
+     addExcel(): void {
+
+          if(this.y==1){
+            this.uploadInventoryservice.sendExcelData(this.ExcelData,this.userId,this.companyId)
+            .subscribe(
+              response => {
+                console.log('Excel data sent successfully:', response);
+                this.y=0;
+                window.location.reload()
+              },
+              error => {
+                console.error('An error occurred while sending Excel data:', error);
+              }
+            );
+          }
+          else{
+          alert("no suceed")
+          }
+}
   
+OnSetY(){
+  this.y=1;
+  this.showModal=false;
+this.addExcel();
+}
+
+
+ReadExcel(event: any) {
+  const file = event.target.files[0];
+  const fileType = file.type;
+  if (fileType !== "application/vnd.ms-excel" && fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+    alert("Please upload a valid Excel file");
     
-     ReadExcel(event: any) {
-      const file = event.target.files[0];
-      const fileReader = new FileReader();
-      fileReader.readAsBinaryString(file);
-      fileReader.onload = (e: ProgressEvent<FileReader>) => {
-        
-        if (e.target && e.target.result) {
-          const binaryString = e.target.result;
+    return;
+  }
+
+  const fileReader = new FileReader();
+  fileReader.readAsBinaryString(file);
+  fileReader.onload = (e: ProgressEvent<FileReader>) => {
+    if (e.target && e.target.result) {
+      const binaryString = e.target.result;
           const workBook = XLSX.read(binaryString, { type: 'binary' });
           const sheetNames = workBook.SheetNames;
           if (sheetNames && sheetNames.length > 0) {
@@ -69,23 +101,21 @@ export class UploadInventoryComponent {
               });
               this.ExcelData[this.ExcelData.indexOf(row)] = newRow;
             });
-            console.log(this.ExcelData);
-            this.setV();
+            console.log("this is the list of excel"+this.ExcelData);
+          this.showModal=true;
           }
-           else {
+          else {
+
+            alert("no sheets found")
             console.error('No sheets found in uploaded Excel file');
           }
-        } else {
-          console.error('Uploaded file is empty');
-         alert("Uploaded file is empty")
-        }
-      }
+              
+    } else {
+      alert("Uploaded file is empty");
+      console.error('Uploaded file is empty');
+    }
   }
-  
-    
-     
-    
-    
+}
 
   ngOnInit(): void {
 
@@ -99,6 +129,7 @@ export class UploadInventoryComponent {
         console.error('Error retrieving user ID:', error);
       }
     );
+
     //get company id from session
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
@@ -110,16 +141,6 @@ export class UploadInventoryComponent {
       }
     );
 
-// get inventory id from session
-// this.sessionService.getInventoryId().subscribe(
-//   (inventoryId: number) => {
-//     this.inventoryId = inventoryId;
-//     console.log('inv  ID is :', inventoryId);
-//   },
-//   (error: any) => {
-//     console.error('Error retrieving inventory ID:', error);
-//   }
-// );
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
@@ -206,27 +227,28 @@ export class UploadInventoryComponent {
     // clear session data and redirect to login page
     this.sessionService.clearSession();
   }
-   private setV(){
-    const now = new Date();
-    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
-    this.UploadInventoryForm.setValue({
   
-      inventory_id:8,
-      date_created:"2023-07-28T00:00:00",
-      last_modified:formattedDate,
-      company_id:this.companyId,
-      container_type:this.ExcelData[0].container_type,
-      available: this.ExcelData[0].available,
-      maximum: this.ExcelData[0].maximum,
-      minimum: this.ExcelData[0].minimum,
-      port_id: this.ExcelData[0].port_id,
-      updated_by:this.userId,
-      container_size: this.ExcelData[0].container_size
+  //  private setV(){
+  //   const now = new Date();
+  //   const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+  //   this.UploadInventoryForm.setValue({
+      
+  //     inventory_id:8,
+  //     date_created:"2023-07-28T00:00:00",
+  //     last_modified:formattedDate,
+  //     company_id:this.companyId,
+  //     container_type:this.ExcelData[0].container_type,
+  //     available: this.ExcelData[0].available,
+  //     maximum: this.ExcelData[0].maximum,
+  //     minimum: this.ExcelData[0].minimum,
+  //     port_id: this.ExcelData[0].port_id,
+  //     updated_by:this.userId,
+  //     container_size: this.ExcelData[0].container_size
       
   
-    });
+  //   });
     
-  }
+  // }
 
   
 
@@ -310,10 +332,6 @@ export class UploadInventoryComponent {
 
     //
 
-
-
-
-//
 
 // Search(){
 //   debugger

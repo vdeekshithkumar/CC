@@ -5,23 +5,37 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CC_api.Controllers
 {
+
   public class ContractController : Controller
   {
-    private readonly ILogger<ContractController> _logger;
-    private readonly ContractBusiness contractBusiness;
-    public ContractController(ILogger<ContractController> logger)
+    private readonly DatabaseContext dbContext;
+
+    private readonly ILogger<InventoryController> _logger;
+    private readonly ContractBusiness _contractBusiness;
+    public ContractController(ILogger<InventoryController> logger)
     {
       _logger = logger;
-      contractBusiness = new ContractBusiness();
+      _contractBusiness = new ContractBusiness();
+      this.dbContext = new DatabaseContext();
+
     }
     [HttpPost("upload")]
     public async Task<IActionResult> Upload(IFormFile file, int userId, int companyId, string content, string title)
     {
+      // Check if the file is not null
+      if (file == null || file.Length == 0)
+        return BadRequest("File not selected");
+
+      // Generate a random file name using a GUID
+      var fileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
+
+      // Define the path to save the file
+      var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
+
+      // Save the file
+      using (var stream = new FileStream(filePath, FileMode.Create))
       {
-        return await contractBusiness.UploadContract(contract);
-
-
-
+        await file.CopyToAsync(stream);
       }
 
       // Save the file path to the database
@@ -32,29 +46,26 @@ namespace CC_api.Controllers
       // Return the file path
       return Ok(new { filePath, message = "Success" });
     }
-    /*[HttpPost("Login")]
-    public async Task<IActionResult> Login(Login loginmodel)
-    {
 
- 
+    [HttpGet("download/{fileName}")]
+    public async Task<IActionResult> Download(string fileName)
+    {
+      // Define the path to the file
+      var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
 
-      var login = await userBusiness.Login(loginmodel);
-      if (login != null)
-      {
-        await userBusiness.PopulateJwtTokenAsync(login);
+      // Check if the file exists
+      if (!System.IO.File.Exists(filePath))
+        return NotFound();
 
- 
+      // Return the file
+      var memory = new MemoryStream();
+      using (var stream = new FileStream(filePath, FileMode.Open))
+      {
+        await stream.CopyToAsync(memory);
+      }
+      memory.Position = 0;
 
-        return Ok(login);
-      }
-      else
-      {
-        return BadRequest();
-      }
-
- 
-
-
-    }*/
-  }
+      return File(memory, "application/pdf", Path.GetFileName(filePath));
+    }
+  }
 }

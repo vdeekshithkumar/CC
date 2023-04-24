@@ -60,5 +60,6 @@
     @apply text-blue-600 hover:text-blue-400 self-start
 }
 .div-app-sidebar{
-    @apply sticky w-[8vw] border-r-2 z-50;
+    @apply sticky w-[8vw] border-r-2 z-30;
   }
+  

@@ -12,7 +12,7 @@
     }
   }
 .sidebar-div{
-    @apply block h-screen  shadow-md font-poppins;
+    @apply block h-screen shadow-md font-poppins;
 }
 .sidebar-nav{
     @apply flex flex-col w-fit;
@@ -20,3 +20,6 @@
 .sidebar-a{
     @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 Poppins  text-xs;
 }
+.sidebar-d {
+    @apply block h-screen shadow-md font-poppins fixed w-[110px] border-r-2 z-50 left-0 top-12;
+  }

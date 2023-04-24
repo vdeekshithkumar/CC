@@ -4,6 +4,7 @@ import { ResetService } from './reset.service';
 import {ConfirmationResponse,PassWriteRes} from './ConfirmationResponse';
 import {Location} from '@angular/common';
 import { Router } from '@angular/router';
+import { ForgotPassService } from '../forgot-password/forgot-password.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,11 +18,20 @@ export class ResetPasswordComponent implements OnInit{
   companyId : any;
   success = false
   isFailure = false
-  constructor(private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location) { }
+  showEmailInput = true;
+  email = '';
+  password1! :string
+  password2! :string
+  constructor(private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location
+    ,private forgotService:ForgotPassService) {
+    this.showEmailInput = this.resetService.getShowEmailInput();
+   }
   ngOnInit(): void {
+    debugger
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
+        // this.resetService.setUid(userId)
       },
       (error: any) => {
         console.error('Error retrieving user ID:', error);
@@ -30,17 +40,37 @@ export class ResetPasswordComponent implements OnInit{
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
+        // this.resetService.setCid(companyId)
       },
       (error: any) => {
         console.error('Error retrieving company ID:', error);
       }
     );
+
+    //if you enter via forgot password workflow
+    if (this.email = this.forgotService.getEmail())
+    {
+      
+      this.resetService.confirmation(this.email).subscribe(
+        (response: ConfirmationResponse) => {
+          if (response.message === "User found") {
+            const { user_id, company_id } = response.user;
+            this.userId = user_id
+            this.companyId = company_id
+            // Do something with user_id and company_id
+          } else {
+            console.log("User not found");
+          }
+        },
+        error => {
+         console.log("error occured while fetching the email")
+        }
+      );
+    }
+
   }
   
-  showEmailInput = true;
-  email = '';
-  password1! :string
-  password2! :string
+
 
   getBack(){
     this._location.back();
@@ -51,6 +81,8 @@ export class ResetPasswordComponent implements OnInit{
     return true 
     else return false
   }
+
+
 
   onEmailSend(){
     debugger
@@ -75,7 +107,6 @@ export class ResetPasswordComponent implements OnInit{
     
   }
   OnSubmit(){
-    debugger
     this.resetService.updatePassword(this.userId,this.companyId,this.password2).subscribe((response:PassWriteRes )=>{
       debugger
       if (response.message === "Success")

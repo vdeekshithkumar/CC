@@ -6,37 +6,56 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CC_api.Controllers
 {
-  public class UserController : Controller
-    {
-        private readonly ILogger<UserController> _logger;
-        private readonly UserBusiness userBusiness;
+  public class UserController : Controller
+  {
+    private readonly ILogger<UserController> _logger;
+    private readonly UserBusiness userBusiness;
 
-        public UserController(ILogger<UserController> logger)
-        {
-            _logger = logger;
-            userBusiness = new UserBusiness();
+    public UserController(ILogger<UserController> logger)
+    {
+      _logger = logger;
+      userBusiness = new UserBusiness();
+    }
+    [HttpGet("GetUserDetails")]
+    public async Task<IActionResult> GetUserAsync(int userId)
+    {
+      return Ok(await userBusiness.GetUserAsync(userId));
+    }
+
+    //[HttpGet("GetAllUser")]
+    //public async Task<List<User>> GetAllUser(int companyid)
+    //{
+    //  return await userBusiness.GetAllUserAsync(companyid);
+    //}
 
 
-        }
 
- 
+    [HttpPost("VerifyOTP")]
+    public async Task<IActionResult> VerifyOTPAsync([FromBody] VerifyOTPRequest payload)
+    {
+      try
+      {
+        var result = await userBusiness.VerifyOTPAsync(payload.UserId, payload.otp);
 
-        [HttpGet("GetAllUser")]
-        public async Task<List<User>> GetAllUser()
-        {
-            return await userBusiness.GetAllUserAsync();
-        }
 
- 
 
-        [HttpPost("SaveUser")]
+        if (result)
+          return Ok(new { message = "OTP verified successfully" });
+        else
+          return Ok(new { message = "OTP verification failed" });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest();
+      }
+    }
 
-        public async Task<IActionResult> SaveUserAsync([FromBody] User user)
-        {
-            {
-                return await userBusiness.SaveUserAsync(user);
+    [HttpPost("SaveUser")]
 
- 
+    public async Task<IActionResult> SaveUserAsync([FromBody] User user)
+    {
+      {
+        return await userBusiness.SaveUserAsync(user);
 
       }
     }
@@ -79,11 +98,42 @@ namespace CC_api.Controllers
         return BadRequest();
       }
     }
+    [HttpGet("OTPVerification/{email}")]
+    public async Task<int> OtpVerification(string email)
+    {
+      return await userBusiness.generateOTP(email);
 
+    }
     [HttpPut("UpdatePassword")]
     public async Task<IActionResult> UpdateCompany([FromBody] User user)
     {
       return await userBusiness.UpdatePasswordAsync(user.user_id, user.company_id, user.password);
+    }
+    [HttpGet("GetUserById/{id}")]
+    public async Task<User> GetUserById(int id)
+    {
+      return await userBusiness.GetUserById(id);
+    }
+
+    [HttpPut("EditUserById/{id}")]
+    public async Task<IActionResult> EditUserById(int id, [FromBody] User user)
+    {
+      return await userBusiness.EditUserById(id, user);
+
+    }
+    [HttpGet("GetAllUser/{companyid}")]
+    public async Task<List<User>> GetAllUser(int companyid)
+    {
+      return await userBusiness.GetAllUserAsync(companyid);
+    }
+
+    [HttpDelete("DeleteUser/{id}")]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+      //await userBusiness.DeleteUser(id);
+      await userBusiness.DeleteUser(id);
+
+      return new OkResult();
     }
   }
 }

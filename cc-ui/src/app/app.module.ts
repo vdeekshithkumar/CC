@@ -29,6 +29,9 @@ import { AuthInterceptor } from './auth.interceptor';
 import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
+import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
+import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
+import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,10 +46,14 @@ import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
+    
     SearchPipe,
     
     PageNotFoundComponent,
           ResetPasswordComponent,
+          OtpVerifyComponent,
+          ForgotPasswordComponent,
+          VerifyComponent,
     
     
   ],

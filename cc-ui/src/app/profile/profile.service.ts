@@ -6,6 +6,9 @@ import { Observable,of } from 'rxjs';
 })
 export class ProfileService {
   private apiUrl = 'https://localhost:7157/GetCompanyById';
+   private UIdUrl = 'https://localhost:7157/GetUserById';
+  private userUrl = 'https://localhost:7157/GetAllUser';
+   private deleteUrl = 'https://localhost:7157/DeleteUser';  
   constructor(private http: HttpClient) { }
   getUserDetails(user_id: number): Observable<any> {
     return this.http.get(`https://localhost:7157/GetUserDetails?userId=${user_id}`);
@@ -17,12 +20,21 @@ export class ProfileService {
   }
   getCompanyById(company_id: number): Observable<any> {
 
-    // return this.http.get('https://localhost:7157/GetCompanyById',{params:{'company_id':company_id}})
-    // return this.http.get('https://localhost:7157/GetCompanyById${company_id}')
+   
     console.log(`${this.apiUrl}?company_id=${company_id}`)
     return this.http.get(`${this.apiUrl}?companyId=${company_id}`);
   }
-  getallUser(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllUser')
+
+  getallUser(companyid:number): Observable<any> {
+    return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
   }
+
+ deleteUserById(id: number): Observable<any> {
+    return this.http.delete(`${this.deleteUrl}/${id}`, { responseType: 'text' });
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.UIdUrl}/${id}`, { responseType: 'json' });
+  }
+
 }

@@ -1,91 +1,145 @@
-<div id="page-container" class="div">
-    <main id="page-content" class="div-main">
-        <!--max-h-screen -> min-h-screen-->
-        <div class="div-register">
-
-            <div class="register-page">
-                <div class="mb-8 text-center">
-                    <h2 class="register-page-h1">
-                        <!-- company's svg -->
-                          <span>Register</span>
-                      </h2>
-                      <p class="text-gray-500">
-                        Welcome, please fill the appropriate information
-                      </p>
-                </div>
-                <!--base tile-->
-                <div class="register-page-title">
-                    <form [formGroup]= "registrationForm" (ngSubmit)="onSubmit()">
-                    <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
-                        <div class="relative">
-                        <label for="fname" class="font-medium text-sm">Fname</label>
-                        <input type="text" formControlName="fname" class="register-page-data"
-                         type="text" id="fname"placeholder="Ex: Mathews">
-                        </div>
-                        <div class="relative">
-                            <label for="lname" class="font-medium text-sm">Lname</label>
-                            <input formControlName="lname"class="register-page-data"
-                             type="text" id="lname"placeholder="Ex: Mathews">
-
-                        </div> 
-                        <div class="space-y-1">
-                            <label for="email" class="font-medium">Email</label>
-                            <input formControlName="email" class="register-page-data"
-                             type="email" id="email" placeholder="Ex: mathew123@domain.com">
-                        </div>
-                           
-                          <div class="relative ">
-                            <label  for="address" class="font-medium text-sm">Country</label>
-                            <input list="countries" class="register-page-data"
-                             type="text" id="address" formControlName="address" placeholder="Ex: Inodnesia">
-                        </div>
-                        
-                     <div class="space-y-1">
-                            <label for="ph-no" class="font-medium">Phone Number</label>
-                            <input formControlName="phone_no" class="register-page-data"
-                             type="text" id="ph-no" placeholder="Ex: 9999999999">
-                         </div>
-                         
-                         <div class="space-y-1">
-                            <label  for="company" class="font-medium text-sm">Company</label>
-                             <select #company [(ngModel)]="company_name" formControlName="company_id" id = "Company" class="register-page-data">
-                                <option *ngFor ="let company of company_list" [value]="company.company_id">{{company.name}}</option>
-                            </select>
-                        </div>
-                       
-                        <div class="space-y-1">
-                            <label for="password" class="font-medium">Password</label>
-                            <input formControlName="password" class="register-page-data"
-                             type="text" id="password" placeholder="Password">                  
-                            
-                        </div>
-                       <br/>
-                        <div class="space-y-1">
-                            <button type="submit" class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6  caret-CCblue bg-CCblue text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">
-                                Send Otp
-                              </button>
-                        </div>
-                        <br/>
-                        <form [formGroup]= "verifyotpForm" (ngSubmit)="onverifyOtp()">
-                            <div class="space-y-1">
-                                <label for="otp" class="font-medium">Enter otp</label>
-                                <input formControlName="otp" class="block border border-gray-200 rounded px-5 py-1 leading-6 w-[200%] focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                                 type="text" id="otp" placeholder="Password">
-                                
-                            </div>
-                            <br/>
-                            <div class="space-y-1">
-                                <button type="submit" class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6  caret-CCblue bg-CCblue text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">
-                                    Verify otp
-                                  </button>
-                            </div>
-                        </form>
-                    </div>
-                </form>
-                </div>
-            </div>
-
+<div id="page-container"
+  class="div"
+>
+  <main id="page-content" class="div-main">
+    <!--max-h-screen -> min-h-screen-->
+    <div
+      class="div-register"
+    >
+      <div class="register-page">
+        <div class="mb-8 text-center">
+          <h2
+            class="register-page-h1"
+          >
+            <!-- company's svg -->
+            <span>Register</span>
+          </h2>
+          <p class="text-gray-500">
+            Welcome, please fill the appropriate information
+          </p>
         </div>
+        <!--base tile-->
 
-    </main>
+        <div class="register-page-title">
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
+              <div class="relative">
+                <label for="fname" class="font-medium text-sm">Fname</label>
+                <input
+                  type="text"
+                  formControlName="fname"
+                  class="register-page-data"
+                  type="text"
+                  id="fname"
+                  placeholder="Ex: Mathews"
+                />
+              </div>
+              <div class="relative">
+                <label for="lname" class="font-medium text-sm">Lname</label>
+                <input
+                  formControlName="lname"
+                  class="register-page-data"
+                  type="text"
+                  id="lname"
+                  placeholder="Ex: Mathews"
+                />
+              </div>
+              <div class="col-span-2">
+                <label for="email" class="font-medium">Email</label>
+                <input
+                  formControlName="email"
+                  class="register-page-data"
+                  type="email"
+                  id="email"
+                  placeholder="Ex: mathew123@domain.com"
+                />
+              </div>
+              <div class="space-y-1">
+                <label for="address" class="font-medium text-sm">Country</label>
+                <input
+                  list="countries"
+                  class="register-page-data"
+                  type="text"
+                  id="address"
+                  formControlName="address"
+                  placeholder="Ex: Inodnesia"
+                />
+              </div>
+              <div class="space-y-1">
+                <label for="ph-no" class="font-medium">Phone Number</label>
+
+                <input
+                  formControlName="phone_no"
+                  class="register-page-data"
+                  type="text"
+                  id="ph-no"
+                  placeholder="Ex: 9999999999"
+                />
+                
+              </div>
+
+              <div class="space-y-1 col-span-2">
+                <label for="company" class="font-medium text-sm">Company</label>
+                <select
+                  #company
+                  [(ngModel)]="company_name"
+                  formControlName="company_id"
+                  id="Company"
+                  class="register-page-data"
+                >
+                  <option selected>Select your company</option>
+                  <option
+                    *ngFor="let company of company_list"
+                    [value]="company.company_id"
+                  >
+                    {{ company.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="space-y-1 col-span-2">
+                <label for="password" class="font-medium">Password</label>
+                <input
+                  formControlName="password"
+                  class="register-page-data"
+                  type="text"
+                  id="password"
+                  placeholder="Password"
+                />
+              </div>
+              <div></div>
+              <div class="space-y-1">
+                <button
+                  type="submit"
+                  class="div-otp-btn"
+                >
+                  Send OTP
+                </button>
+              </div>
+              <form [formGroup]="verifyotpForm" (ngSubmit)="onverifyOtp()" class = 'flex flex-row col-span-2' >
+                <div class="space-y-1 col-span-1">
+                  <label for="otp" class="font-medium">Enter OTP
+                  <input
+                    formControlName="otp"
+                    class="register-page-data"
+                    type="text"
+                    id="otp"
+                    placeholder="Password"
+                  /></label>
+                </div>
+                <div class="my-5 mx-6">
+                  <button
+                    type="submit"
+                    class="div-otp-btn"
+                  >
+                    Verify OTP
+                  </button>
+                </div>
+              </form>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
 </div>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
+import { SessionService } from 'src/app/session.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -9,12 +10,20 @@ export class HeaderComponent {
 
   showPopup = false;
 
-  constructor(private router:Router) {
+  constructor(private router:Router,private sessionService:SessionService) {
 
   }
-  logout() {
-    // your logout logic here
-  }
+  logout(): void {
+
+        // clear session data and redirect to login page
+    
+        this.sessionService.clearSession();
+    
+        this.router.navigate(['/sign-in'])
+    
+     
+    
+    }
   OnClick(){
   this.router.navigate(['/dashboard']);
   }

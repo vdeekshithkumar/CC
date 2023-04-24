@@ -2,17 +2,17 @@ using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
- 
+
 
 namespace CC_api.Repository
 {
-    public class UserRepository
-    {
-        private readonly DatabaseContext dbContext;
-        public UserRepository()
-        {
-            this.dbContext = new DatabaseContext();
-        }
+  public class UserRepository
+  {
+    private readonly DatabaseContext dbContext;
+    public UserRepository()
+    {
+      this.dbContext = new DatabaseContext();
+    }
 
     public async Task<User> GetUserAsync(int userId)
     {
@@ -78,13 +78,36 @@ namespace CC_api.Repository
       return user.user_id;
     }
 
-    public async Task<List<User>> GetAllUserAsync()
+    public async Task<List<User>> GetAllUserAsync(int companyId)
     {
-      return dbContext.users.ToList();
+      return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == 1).ToListAsync();
+
+    }
+    public async Task DeleteUser(int userId)
+    {
+      var upmapping = await dbContext.up_mapping.FirstOrDefaultAsync(x => x.user_id == userId);
+      var user = await dbContext.users.FirstOrDefaultAsync(x => x.user_id == userId);
+
+      if (upmapping != null)
+      {
+        user.is_active = 0;
+        dbContext.up_mapping.Remove(upmapping);
+        await dbContext.SaveChangesAsync();
+      }
+    }
+    public async Task EditUserById(User user)
+    {
+      dbContext.users.Update(user);
+      //dbContext.Entry(user).State = EntityState.Modified;
+      await dbContext.SaveChangesAsync();
     }
     public async Task<User> GetUserByEmailAndPassword(string email, string password)
     {
       return await dbContext.users.Where(u => u.email == email).FirstOrDefaultAsync();
+    }
+    public async Task<User> GetUserById(int id)
+    {
+      return await dbContext.users.FirstOrDefaultAsync(x => x.user_id == id);
     }
   }
 }
