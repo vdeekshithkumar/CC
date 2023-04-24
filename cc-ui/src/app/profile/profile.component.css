@@ -48,7 +48,7 @@
     @apply mx-[1rem] flex-shrink-0
 }
 .div-box{
-    @apply mx-3 w-[10em] h-[3.5em] bg-gray-100 flex;
+    @apply mx-2 w-[10em] h-[3.5em] bg-gray-100 flex;
 }
 .div-box-numbers{
     @apply flex-1 text-3xl font-bold flex items-center justify-center;

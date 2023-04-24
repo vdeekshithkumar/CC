@@ -88,6 +88,10 @@ namespace CC_api.Business
     {
       return await userRepository.GetAllUserAsync(companyId);
     }
+    public async Task<int> GetAllUserCount(int companyId)
+    {
+      return await userRepository.GetAllUserCount(companyId);
+    }
     public async Task<IActionResult> SaveUserAsync(User user)
     {
 

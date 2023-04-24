@@ -22,11 +22,13 @@ export class ProfileComponent implements OnInit {
   company_location?: string
   country?: string
   alluser_list=null;
+  usercount_list=null;
   company_list: any;
   showDiv = false;
   currentUser: any;
   profileForm!: FormGroup;
   user_id:any;
+  
   user_data:any;
   fname?: string
   lname?: string
@@ -34,12 +36,15 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
+  user:any;
   getCompanyId() {
     return this.company_id;
   }
 
 
-  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService) { }
+  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService) { 
+    
+  }
 
 
   ngOnInit(): void {
@@ -52,9 +57,6 @@ export class ProfileComponent implements OnInit {
          console.error('Error retrieving user ID:', error);
         }
          );
-
-
-
     this.sessionService.getCurrentUser().subscribe(user => {
       // if (user.id==null && user.token==null) {  // use this once token is used for a user
       if (user.user_id == null) {
@@ -90,8 +92,20 @@ export class ProfileComponent implements OnInit {
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
       this.alluser_list = data;
-      console.log("employee list fetched: ", this.alluser_list); 
      
+      console.log("employee list fetched: ", this.alluser_list); 
+      
+    },
+    error => {
+      console.log("employee loading error:" +error);
+    }
+  );
+  this.profileService.getallUserCount(this.companyId).subscribe(
+    data => {
+      this.usercount_list = data;
+     
+      console.log("employee list fetched: ", this.usercount_list); 
+      
     },
     error => {
       console.log("employee loading error:" +error);
@@ -156,7 +170,7 @@ export class ProfileComponent implements OnInit {
     });
   }
   getUserByID(user_id:number) {
-
+    debugger
     this.profileService.getUserDetails(user_id)
     .subscribe(
       (           data:any)=> {debugger
