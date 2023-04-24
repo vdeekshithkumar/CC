@@ -1,0 +1,78 @@
+<header class="header-box">
+  <div class="header-box-div">
+    <!-- Title -->
+    <div class="flex-1">
+      <!-- This div will take up the remaining space -->
+      <a class="header-box-a">
+        <button (click)="OnClick()">
+        <!-- svg for company logo (change req) -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          class="header-box-svg"
+          viewBox="0 0 24 24"
+        >
+        
+          <path
+            d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"
+          ></path>
+        </svg>
+        </button> 
+        <span class="ml-3 text-xl">Container Conundrum</span>
+      </a>
+    </div>
+
+    <!-- Search bar -->
+    <div class="flex-1">
+      <div class="search-bar">
+        <div class="search-bar-icon">
+          <!-- search bar icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="gray"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+        <!-- icon end -->
+        <!-- input for the search bar -->
+        <input
+          class="search-bar-inp"
+          type="text"
+          id="search"
+          placeholder="Search something..."
+        />
+      </div>
+    </div>
+
+    <!-- Profile icon -->
+    <div class="flex-1 mx-2 cursor-auto">
+      <div class="profile-icon" (click)="showPopup = !showPopup">
+        <img
+          src="https://picsum.photos/200/300"
+          class="header-img"
+        />
+        <div class="profile-div" *ngIf="showPopup" >
+          <div class="profile-box">
+            <a>Edit profile</a>
+            <a routerLink="../reset-password">Reset password</a>
+            <button (click)="logout()" class="text-red-600" >Logout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</header>

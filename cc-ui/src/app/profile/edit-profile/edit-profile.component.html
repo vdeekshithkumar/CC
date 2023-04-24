@@ -1,0 +1,72 @@
+<div class="div" [class.hidden]="!showform">
+  <div class="editcompany">
+    <div>
+      <h2 class="editcompany-h1">Edit Company Profile</h2>
+      <div class="editcompany-bg">
+        <div class="editcompany-form">
+          <div class="text-gray-600">
+            <p class="editcompany-p">Company Details</p>
+            <p>Please fill out all the fields.</p>
+          </div>
+        <div class="lg:col-span-2">
+              <form [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
+            <div class="editcompany-form">
+              <div class="md:col-span-5">
+                <label for="name">Company Name</label>
+                <input type="text" formControlName="name" id="full_name" class="div-input" value="" />
+              </div>
+              <div class="md:col-span-5">
+                <label for="domain">Licence ID</label>
+                <input type="text" formControlName="licence_id" id="domain" class="div-input" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-5">
+                <label for="domain">Domain Address</label>
+                <input type="text" formControlName="domain_address" id="domain" class="div-input" value="" placeholder="www.domain.com" />
+              </div>
+              <div class="md:col-span-3">
+                <label for="address">Company Location</label>
+                <input type="text" formControlName="company_location" id="address" class="div-input" value="" placeholder="" />
+              </div> 
+               <div class="md:col-span-3">
+                <label for="address">Country</label>
+                <input type="text" formControlName="country" id="address" class="div-input" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-1">
+                <label for="city">rating</label>
+                <input type="text"  pattern="^\d*(\.\d{0,2})?$" formControlName="rating" id="rating" class="div-input" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-3">
+                <label for="address">Address / Street</label>
+                <input type="text" formControlName="address" id="address" class="div-input" value="" placeholder="" />
+              </div>
+              <div class="md:col-span-3">
+                <label for="address">CompanyLogo</label>&nbsp;
+              <input formControlName="company_logo" type="file" (change)="onChange($event)"/>
+              <div *ngIf="myimage">
+              <img src="{{'data:image/jpg;base64,'+myimage}}"/>
+              <img [src]="myimage" width="100px" height="100px" alt="" />
+              <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
+              </div>
+              </div> 
+              <div class="btn">
+                <button
+                    type="button"
+                    class="btn-editcompany"
+                    data-te-modal-dismiss
+                    data-te-ripple-init
+                    data-te-ripple-color="light"
+                    (click)="onCancel()">
+                    Close
+              </button>
+                <div class="inline-flex items-end">
+                  <button class="submit-btn">Submit</button>
+                </div>
+              </div>
+             </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

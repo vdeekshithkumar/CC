@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.header-box-div{
+    @apply flex justify-between items-center
+}
+.header-box-a{
+    @apply flex  font-medium items-center text-gray-900 mb-4 md:mb-0
+}
+.header-box{
+  @apply text-gray-600  sticky bg-white  top-0 z-50 font-poppins shadow-md p-1;
+}
+.header-box-svg{
+  @apply w-10 h-10 text-white p-2 bg-indigo-500 rounded-full
+}
+.div-svg{
+  @apply w-10 h-10 text-white p-2 bg-indigo-500 rounded-full 
+}
+.search-bar{
+  @apply relative flex items-center w-fit h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+}
+.search-bar-icon{
+  @apply grid place-items-center h-full w-12 text-black
+}
+.search-bar-inp{
+  @apply  h-full w-full outline-none text-sm bg-gray-100 pr-2;
+}
+
+.header-img {
+  @apply rounded-full border-CCblue border-2 w-[2.5em] h-[2.5em] cursor-pointer ;
+}
+
+a:hover {
+  @apply text-CCblue cursor-pointer;
+
+}
+.profile-icon{
+  @apply flex-1 flex justify-end relative cursor-pointer
+}
+.profile-div{
+  @apply absolute top-full right-0 rounded-md 
+}
+.profile-box{
+  @apply text-xs w-fit items-center leading-6 p-2 flex flex-col shadow-lg bg-white 
+}

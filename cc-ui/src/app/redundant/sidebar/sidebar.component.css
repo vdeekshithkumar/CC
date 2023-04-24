@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+
+@layer utility{
+    .menu-tile{
+        @apply text-left py-2 px-1 cursor-pointer  ;
+    }
+}
+@layer base {
+    .Poppins {
+      font-family: Poppins;
+    }
+  }
+.sidebar-div{
+    @apply block h-screen shadow-md font-poppins;
+}
+.sidebar-nav{
+    @apply flex flex-col w-fit;
+}
+.sidebar-a{
+    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 Poppins  text-xs;
+}
+.sidebar-d {
+    @apply block h-screen shadow-md font-poppins fixed w-[110px] border-r-2 z-50 left-0 top-12;
+  }
