@@ -1,28 +1,3 @@
-// import { Injectable } from '@angular/core';
-// import { BehaviorSubject, Observable } from 'rxjs';
-
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class SessionService {
-
-//   private currentUserSubject = new BehaviorSubject<any>(null);
-
-//   constructor() { }
-
-//   public setCurrentUser(user: any): void {
-//     this.currentUserSubject.next(user);
-//   }
-//   public getCurrentUser(): Observable<any> {
-//     return this.currentUserSubject.asObservable();
-//   }
-//   clearSession() {
-//     sessionStorage.clear();
-//   }
-  
-  
-// }
 
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
@@ -37,21 +12,13 @@ export class SessionService {
   private TOKEN_KEY = 'my_app_token';
    
 
-  // constructor(private router: Router) { 
-  //   this.router.events.subscribe(event => {
-  //     if (event instanceof NavigationEnd && event.url.includes('sign-in')) {
-  //       this.clearSession();
-  //       alert("Login Please  (Session Cleared)")
-  //     }
-  //   });
-  // }
   constructor(private router: Router) { 
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.url.includes('sign-in')) {
         const registered = this.router.parseUrl(event.url).queryParams['registered'];
         if (!registered) {
           this.clearSession();
-          alert("Login Please (Session Cleared)")
+
         }
       }
     });
@@ -73,8 +40,6 @@ public getCompanyId(): Observable<any> {
 //   const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
 //   return of(user.);
 // }
-
-
 
   setToken(token: string): void {
     sessionStorage.setItem(this.TOKEN_KEY, token);
@@ -107,3 +72,5 @@ public getCompanyId(): Observable<any> {
     localStorage.removeItem(this.USER_SESSION_KEY);
   }
 }
+
+

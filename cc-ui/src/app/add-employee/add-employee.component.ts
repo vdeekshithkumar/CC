@@ -206,6 +206,7 @@ private async addP() {
   else{
 
   try {
+    debugger
     const emailValue = this.addEmployeeForm.value.email;
     console.log('Email value:', emailValue);
     
@@ -240,7 +241,7 @@ else
   
 
   try {
-  
+  debugger
     const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
     alert('User Added Successfully')
     await this.router.navigate(['/profile'])
