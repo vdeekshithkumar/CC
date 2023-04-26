@@ -16,9 +16,10 @@ export class UploadContractComponent implements OnInit {
   companyId: any;
   userId: any;
   title!: any;
-  fileName: string = "Not selected"
+  fileName?: string
   file?: File
   statusMsg?:string
+  showFile:boolean = false
 
   constructor(private uploadService: UploadService, private sessionService: SessionService) {
   }
@@ -49,26 +50,35 @@ export class UploadContractComponent implements OnInit {
     );
   }
 
-  onChange($event: Event) {
+  async onChange($event: Event) {
     debugger
     const target = $event.target as HTMLInputElement;
     const file: File = (target.files as FileList)[0];
     this.file = file
     this.title = file.name
+    this.fileName = file.name
+    this.showFile = !this.showFile;
+    await  setTimeout(() => {this.showFile = !this.showFile}, 3000);
   }
-  onUpload() {
+   async onUpload() {
     
     if (this.file) {
       debugger
-      this.uploadService.uploadFile(this.file, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
+       this.uploadService.uploadFile(this.file, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
         debugger
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
+          setTimeout(()=> {this.statusMsg = ""},2000)
+          this.clear()
         } else {
           this.statusMsg = 'Failed';
           console.log(response.status) ;
         }
       });
     }
+  }
+  clear(){
+    this.title= null
+    this.description = null
   }
 }
