@@ -12,6 +12,7 @@ namespace CC_api.Models
     public DbSet<Ports> ports { get; set; }
 
     public DbSet<Up> up_mapping { get; set; }
+   /* public DbSet<Ad> advertisement { get; set; }*/
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
         //if (!optionsBuilder.IsConfigured)

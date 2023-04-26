@@ -18,11 +18,14 @@ namespace CC_api.Controllers
       _logger = logger;
       upBusiness = new UpBusiness();
 
-
-
-
     }
 
+    [HttpGet("UserPermissions")]
+    public async Task<IActionResult> GetPermissions(int user_id)
+    {
+      var permissions = await upBusiness.GetPermissions(user_id);
+      return Ok(permissions);
+    }
 
 
 

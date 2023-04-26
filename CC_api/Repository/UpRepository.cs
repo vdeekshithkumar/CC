@@ -47,6 +47,19 @@ namespace CC_api.Repository
           .Where(up => up.user_id == userId)
           .ToListAsync();
     }
+    public async Task<List<long>> GetPermissionIds(int userId)
+    {
+      var mapping = await dbContext.up_mapping
+          .Where(up => up.user_id == userId)
+          .ToListAsync();
+
+      var permissionIds = new List<long>();
+      foreach (var map in mapping)
+      {
+        permissionIds.Add(map.permission_id);
+      }
+      return permissionIds;
+    }
 
     public async Task DeletePermission(Up up)
     {

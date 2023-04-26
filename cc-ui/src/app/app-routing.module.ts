@@ -14,6 +14,7 @@ import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.
 import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
+import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     component:DashboardComponent,
     path:'dashboard',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:MyAdvertisementComponent,
+    path:'my-ad',
     canActivate: [AuthGuard]
   },
   {
