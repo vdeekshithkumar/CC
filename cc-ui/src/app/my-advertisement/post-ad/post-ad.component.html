@@ -1,7 +1,6 @@
+<!-- component -->
 <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')</style>
 <style>
-
-
 
 .form-radio {
   -webkit-appearance: none;
@@ -82,10 +81,8 @@
 
 </style>
 
-
-
-<div class="min-h-full min-w-[800px] w-14 ml-40 mt-10 mb-10 bg-gray-50 items-center justify-center shadow-lg">
-<div class="min-h-full min-w-[800px] bg-gray-200 py-5">
+<div class="min-h-[300px] min-w-[800px] w-5 ml-80 mt-10 mb-10 bg-gray-50 items-center justify-center shadow-lg">
+<div class="min-h-full min-w-[800px] bg-blue-100 py-5">
     <div class="px-5">
        
         <div class="mb-2">
@@ -96,70 +93,87 @@
         </div> -->
     </div>
 </div>
-
-    <div class="min-h-full min-w-[800px] bg-blue border-t border-b border-gray-200 px-5 py-10 text-gray-800 shadow-lg">
-        <div class="min-h-full min-w-[800px]">
+    <div class="min-h-[300px] min-w-[800px] bg-blue border-t border-b border-gray-200 px-5 py-10 text-gray-800 shadow-lg -mt-16">
+        
            
                 <!-- <div class="px-3 md:w-7/12 lg:pr-10"> -->
-                    <div class="min-w-[800px] mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6">
-                        <div class="min-w-[800px] flex items-center">
+                    <div class="min-w-[200px] min-h-[100px] mx-auto text-gr ay-800 font-light mb-6 border-b border-gray-500 pb-6 mr-5">
+                        <div class="min-w-[800px] min-h-[100px] flex items-center mt-0">
                            
-                            <div class="flex-grow px-2 lg:max-w-xs">
-                                <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Port of Departure</label>
-                                <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
-                                </div>
+                           
+                            <div class="flex-grow px-2 ml-15 lg:max-w-xs">
+                                <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Port of departure</label>
+                                <div class="bg-white font-medium shadow-lg">
+                                    <select class="shadow-lg" data-te-select-init data-te-select-clear-button="true">
+                                        <option value="1">Select your country</option>
+                                        <option value="2">USA</option>
+                                        <option value="3">INDIA</option>
+                                        <option value="4">CALIFORNIA</option>
+                                        <option value="5">Five</option>
+                                      </select>
+                                  </div>
                             </div>
                             <div class="flex-grow px-2 ml-15 lg:max-w-xs">
-                                <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Port of arrival</label>
-                                <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
-                                </div>
+                                <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Port of Arrival</label>
+                                <div class="bg-white font-medium shadow-lg">
+                                    <select class="shadow-lg" data-te-select-init data-te-select-clear-button="true">
+                                        <option value="1">Select your country</option>
+                                        <option value="2">USA</option>
+                                        <option value="3">INDIA</option>
+                                        <option value="4">CALIFORNIA</option>
+                                        <option value="5">Five</option>
+                                      </select>
+                                  </div>
                             </div>
                             <div class="flex-grow px-2 ml-0 lg:max-w-xs mt-6">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Duration</label>
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors shadow-lg" placeholder="XXXXXX" type="date"/>
                                 </div>
                                 <label class="text-gray-500 font-semi text-sm mb-2 ml-1">From date</label>
                             </div>
-                            <div class="flex-grow px-2 ml-0 mr-5 lg:max-w-xs mt-6">
+                            <div class="flex-grow px-2 ml-0 mr-5 lg:max-w-xs mt-12">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1"></label>
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors shadow-lg" type="number" step="7" min="1" max="100"/>
                                 </div>
-                                <label class="text-gray-500 font-semi text-sm mb-2 ml-1">For a period of</label>
+                                <label class="text-gray-500 font-semi text-sm mb-2 ml-1">For a period of in &nbsp;weeks</label>
                             </div>
                             
                         </div>
                     </div>
-                    <div class="min-w-[800px] mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6">
-                        <div class="min-w-[800px] flex items-center">
+                    <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6 mr-5">
+                        <div class="min-w-[800px] min-h-[100px] flex items-center">
                            
                             <div class="flex-grow px-2 lg:max-w-xs">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Select your requirement</label>
-                                
-                                    <div>
-                                        <button class="text-sm ml-5 bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none"> Buy</button>
-                                        <button class="text-sm ml-3 bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none">Lease</button>
-                                    </div>
-                                    <div>
-                                        <button class="text-sm ml-5 bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none">Sell</button>
-                                        <button class="text-sm ml-5 mt-2 bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none">Swap</button>
-                                    </div>
+                               
+                                    <div class="flex text-black-600 left-0">
+                                    <button
+                                         *ngFor="let option of options; let i = index"
+                                         class="radio-button shadow-lg"
+                                         [ngClass]="{ 'radio-button--selected shadow-lg': selectedOption === i }"
+                                         (click)="selectOption(i)"
+                                        >
+                                         {{ option }}
+                                        </button>
+                                        </div>
+                                   
+                            
+                                                            
                                     <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Number of slots you want to buy</label>
                             </div>
-                            <div class="flex-grow px-2 mr-5 lg:max-w-xs">
+                            <!-- <div class="flex-grow px-2 mr-5 lg:max-w-xs">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Slot Details</label>
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 shadow-lg border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
                                 </div>
                                 <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Number of slots you want to buy</label>
-                            </div>
+                            </div> -->
                             <div class="flex-grow px-2 mr-5 lg:max-w-xs">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Price</label>
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 border border-gray-200 shadow-lg rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
                                     
                                 </div>
                                  <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Price per TEU IN $</label>
@@ -168,15 +182,15 @@
                             
                         </div>
                     </div>
-                    <div class="min-w-[800px] mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6">
+                    <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6 mr-5">
                         <label class="text-gray-900 md:text-2xl font-bold text-sm mb-4 ml-2">Terms</label>
-                        <div class="min-w-[800px] flex items-center">
+                        <div class="min-w-[800px] min-h-[100px] flex items-center">
                            
                             <div class="flex-grow px-2 lg:max-w-xs">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Free Days</label>
                                 
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 border shadow-lg border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
                                     
                                 </div>
                                 <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Days(per container startingat pick-up)</label>
@@ -184,14 +198,14 @@
                             <div class="flex-grow px-2 mr-5 lg:max-w-xs">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Per Diem</label>
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 border shadow-lg border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
                                 </div>
                                 <label class="text-gray-500 font-semi text-sm mb-2 ml-1">USD $(per day after free days)</label>
                             </div>
                             <div class="flex-grow px-2 mr-5 lg:max-w-xs">
                                 <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Pick up charges</label>
                                 <div>
-                                    <input class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
+                                    <input class="w-full px-3 py-2 border shadow-lg border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="XXXXXX" type="text"/>
                                     
                                 </div>
                                  <label class="text-gray-500 font-semi text-sm mb-2 ml-1">USD $(per container)</label>
@@ -211,12 +225,12 @@
                             <div class="flex-grow px-2 lg:max-w-xs">
                                 <label class="w-2/2 text-gray-600 font-semibold text-sm mb-2 ml-1">Comments</label>
                                 <div>
-                                    <textarea class="w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Write your comments here"style="height: 150px; width: 100%;" ></textarea>
+                                    <textarea class="shadow-lg w-full px-3 py-2 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Write your comments here"style="height: 150px; width: 100%;" ></textarea>
                                     <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Type or copy-paste any communication</label>
                             </div>
                             </div>
                             <div class="flex-grow px-2 ml-20 lg:max-w-xs">
-                                <label class="w-2/2 text-gray-600 font-semibold text-sm mb-2 ml-16">Upload multiple requirements</label>
+                                <label class="shadow-lg w-2/2 text-gray-600 font-semibold text-sm mb-2 ml-16">Upload multiple requirements</label>
                                 <div class="mt-1 bg-gray-400 flex justify-center ml-50 mr-5 px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                    
                                     <div class="space-y-1 text-center">
@@ -243,31 +257,34 @@
                             
                         </div>
                      </div>  
-                     <div class="min-w-[800px] mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6">
+                     <div class="min-w-[200px] min-h-[100px]mx-auto text-gray-800 font-light mb-6 border-b border-gray-500 pb-6 mr-5">
                        
                         <div class="min-w-[800px] flex items-center">
                            
                             <div class="flex-grow px-2 lg:max-w-xs">
                                 
                                     <div>
-                                        <button class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Save as Draft</button>
+                                        <button class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Save as Draft</button>
                                         
                                     </div>
                                     <div>
-                                        <button class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Send for approval</button>
+                                        <button class="inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 mt-2 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Send for approval</button>
                                        
                                     </div>
                                     
+                                        
                             </div>
                             
                         </div>
+                        
                     </div>  
-        </div>
+        
     </div>
-</div>
-
 
 
 
 
     
+
+
+

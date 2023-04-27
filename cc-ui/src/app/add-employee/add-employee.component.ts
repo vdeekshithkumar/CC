@@ -40,8 +40,9 @@ companyId:any;
         this.isEdit = true;
         console.log('Edit mode enabled and woking bhhhh');
       //
-      this.Puser_id =62;
+      this.Puser_id =5;
         this.Pfname = "testingname";
+        // this.PCompanyId=1;
       
       //
       }
@@ -77,7 +78,7 @@ companyId:any;
   
    this.addEmployeeForm.setValue({
      user_id:167,
-     company_id:3,
+     company_id:this.companyId,
      fname:this.Pfname,
      lname: "K",
      address: "sdhgd",

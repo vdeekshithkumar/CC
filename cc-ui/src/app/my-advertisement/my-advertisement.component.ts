@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../session.service';
 
+
 @Component({
   selector: 'app-my-advertisement',
   templateUrl: './my-advertisement.component.html',
   styleUrls: ['./my-advertisement.component.css']
 })
 export class MyAdvertisementComponent {
+
  
   companyId:any;
   companyName:any;
@@ -27,6 +29,8 @@ export class MyAdvertisementComponent {
 
   
   ngOnInit(): void {
+   
+   
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -63,6 +67,7 @@ export class MyAdvertisementComponent {
    
      
    }
+   
      
   onCancel() {
     // this.editprofileForm.reset()
