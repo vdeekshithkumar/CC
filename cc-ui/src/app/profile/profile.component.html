@@ -85,10 +85,8 @@
             
             <div class="flex flex-row ">
               <div class="div-box">
-                <div
-                  class="div-box-numbers"
-                >
-                49
+                <div class="div-box-numbers"> 
+               {{usercount_list}}
                 </div>
                 <div class="div-box-data">
                   Active members
@@ -250,6 +248,7 @@
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
                   <th scope="col" class="px-6 py-4">Password</th>
+                 
                   <th colspan="4" scope="col" class="px-6 py-4">&ensp;Actions</th>
                 </tr>
               </thead>
@@ -261,6 +260,8 @@
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
                   <td class="emplist">{{u.password}}</td>
+                  <td class="emplist">{{u.length}}</td>
+                 
                   <td class="whitespace-nowrap px-6 py-4">
                    <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
                     </td>
