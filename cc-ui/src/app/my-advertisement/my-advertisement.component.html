@@ -14,13 +14,25 @@
         <button class="bg-blue-500 w-20 hover:bg-black-700 text-white mr-8 font-bold py-2 px-4 rounded disabled:opacity-50" [disabled]="isButtonDisabled"  (click)="showDiv = !showDiv">Post Ad</button>
        
        
-        <div [class.hidden]="!showDiv">
+        <div class="flex flex-wrap">
+          <div class="relative">
+           ]
+            
+            <!-- A hidden div for edit profile -->
+            <div class="my-3 relative" [class.hidden]="!showDiv">
+              <div class="absolute top-0 left-0 shadow-md z-20">
+                <app-post-ad></app-post-ad>
+              </div>
+            </div>
+          </div>
+       
+        <!-- <div [class.hidden]="!showDiv">
           <div class="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
             <div class="bg-white p-6 rounded-md" style="width: 700px; height: 600px;">
               <app-post-ad></app-post-ad>
             </div>
           </div>
-        </div>
+        </div> -->
       
       </div>
     </div>
