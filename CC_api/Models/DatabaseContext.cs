@@ -10,9 +10,10 @@ namespace CC_api.Models
       public DbSet<Company> company { get; set; }
     public DbSet<Contract> contracts { get; set; }
     public DbSet<Ports> ports { get; set; }
-
+    public DbSet<Ad> advertisement { get; set; }
     public DbSet<Up> up_mapping { get; set; }
-   /* public DbSet<Ad> advertisement { get; set; }*/
+    public DbSet<Container> container_type { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
         //if (!optionsBuilder.IsConfigured)
