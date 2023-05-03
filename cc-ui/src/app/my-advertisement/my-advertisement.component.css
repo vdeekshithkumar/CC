@@ -20,6 +20,15 @@
     @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
   }
    */
+
+   .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  
 .div{
   @apply flex flex-row font-poppins;
 }
@@ -113,3 +122,49 @@
     @apply bg-CCblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
 }
    
+.div{
+
+    @apply flex flex-row
+    
+   }
+    
+    
+    
+    
+   .div-app-sidebar{
+    
+    @apply sticky w-[110px]
+    
+   }
+    
+    
+    
+    
+   .div-card{
+    
+    @apply w-full flex flex-col first:flex-row
+    
+   }
+    
+   .div-card-div{
+    
+    @apply text-2xl font-bold font-poppins mt-8 mb-4 p-3
+    
+   }
+    
+    
+    
+    
+   .buttons-container {
+    
+    @apply absolute top-12 right-0 mt-8 mr-8 flex items-center;
+    
+    }
+    
+   
+    
+    .my-button {
+    
+    @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+    
+    }

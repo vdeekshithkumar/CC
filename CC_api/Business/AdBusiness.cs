@@ -21,6 +21,40 @@ namespace CC_api.Business
     {
       this.AdRepository = new AdRepository();
     }
+
+    public async Task<IActionResult> UpdateAd(Ad Ad)
+    {
+      var existingAd = await AdRepository.GetAdById(Ad.ad_id);
+
+      if (existingAd == null)
+      {
+        return new NotFoundResult();
+      }
+
+      existingAd.date_created = Ad.date_created;
+      existingAd.from_date = Ad.from_date;
+      existingAd.expiry_date = Ad.expiry_date;
+      existingAd.type_of_ad = Ad.type_of_ad;
+      existingAd.container_type_id = Ad.container_type_id;
+      existingAd.price = Ad.price;
+      existingAd.status = Ad.status;
+      existingAd.quantity = Ad.quantity;
+      existingAd.port_id = Ad.port_id;
+      existingAd.company_id = Ad.company_id;
+      existingAd.posted_by = Ad.posted_by;
+      existingAd.contents = Ad.contents;
+      existingAd.port_of_departure = Ad.port_of_departure;
+      existingAd.port_of_arrival = Ad.port_of_arrival;
+      existingAd.free_days = Ad.free_days;
+      existingAd.per_diem = Ad.per_diem;
+      existingAd.pickup_charges = Ad.pickup_charges;
+      existingAd.file = Ad.file;
+
+      await AdRepository.UpdateAd(existingAd);
+
+      return new OkResult();
+    }
+
     public async Task<IActionResult> PostAd(Ad Ad)
     {
       var ad = new Ad();

@@ -6,6 +6,8 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Upload;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
+using System.IO;
 
 namespace CC_api.Controllers
 {
@@ -35,11 +37,11 @@ namespace CC_api.Controllers
       DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
       decimal price, int quantity, int port_id, int posted_by, int company_id,
       string contents, string port_of_departure, string port_of_arrival, int free_days,
-      int per_diem, decimal pickup_charges,string operation)
+      int per_diem, decimal pickup_charges, string operation)
 
-     
+
     {
-      if(operation == "PostAd")
+      if (operation == "PostAd")
       {
         // Load the Service account credentials and define the scope of its access.
         var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
@@ -157,7 +159,7 @@ namespace CC_api.Controllers
           return Ok(new { uploadedFileId, message = "Success" });
         }
       }
-      
+
     }
 
     //End upload
@@ -191,6 +193,200 @@ namespace CC_api.Controllers
 
       // Return the list of results as a JSON array
       return Json(results);
+    }
+
+    [HttpPut("Edit/{id}")]
+   
+        public async Task<ActionResult> UpdateAd(int id,IFormFile file,
+      DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
+      decimal price, int quantity, int port_id, int posted_by, int company_id,
+      string contents, string port_of_departure, string port_of_arrival, int free_days,
+      int per_diem, decimal pickup_charges, string operation)
+    {
+      if (operation == "Approve")
+      {
+        // Load the Service account credentials and define the scope of its access.
+        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                        .CreateScoped(DriveService.ScopeConstants.Drive);
+
+        var service = new DriveService(new BaseClientService.Initializer()
+        {
+          HttpClientInitializer = credential
+        });
+
+        // Upload file Metadata
+        var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+        {
+          Name = file.FileName,
+          Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
+        };
+
+        await using (var stream = file.OpenReadStream())
+        {
+          var request = service.Files.Create(fileMetadata, stream, "application/pdf");
+          request.Fields = "*";
+          var results = await request.UploadAsync(CancellationToken.None);
+          Console.WriteLine($"File upload status: {results.Status}");
+          Console.WriteLine($"in weeks: {expiry_date}");
+          if (results.Status == UploadStatus.Failed)
+          {
+            Console.WriteLine($"Error uploading file: {results.Exception.Message}");
+          }
+
+          // the file id of the new file we created
+          uploadedFileId = request.ResponseBody?.Id;
+          var Ad = new Ad
+          {
+            ad_id = id,
+            date_created = DateTime.Now,
+            from_date = from_date,
+            expiry_date = from_date,
+            type_of_ad = type_of_ad,
+            container_type_id = container_type_id,
+            price = price,
+            status = "approved",
+            quantity = quantity,
+            port_id = port_id,
+            company_id = company_id,
+            posted_by = posted_by,
+            contents = contents,
+            port_of_departure = port_of_departure,
+            port_of_arrival = port_of_arrival,
+            free_days = free_days,
+            per_diem = per_diem,
+            pickup_charges = pickup_charges,
+            file = uploadedFileId
+          };
+          await this._AdBusiness.UpdateAd(Ad);
+
+
+          return Ok(new { uploadedFileId, message = "Success" });
+        }
+
+      }
+      else if(operation=="Draft")
+      {
+        // Load the Service account credentials and define the scope of its access.
+        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                        .CreateScoped(DriveService.ScopeConstants.Drive);
+
+        var service = new DriveService(new BaseClientService.Initializer()
+        {
+          HttpClientInitializer = credential
+        });
+
+        // Upload file Metadata
+        var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+        {
+          Name = file.FileName,
+          Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
+        };
+
+        await using (var stream = file.OpenReadStream())
+        {
+          var request = service.Files.Create(fileMetadata, stream, "application/pdf");
+          request.Fields = "*";
+          var results = await request.UploadAsync(CancellationToken.None);
+          Console.WriteLine($"File upload status: {results.Status}");
+          Console.WriteLine($"in weeks: {expiry_date}");
+          if (results.Status == UploadStatus.Failed)
+          {
+            Console.WriteLine($"Error uploading file: {results.Exception.Message}");
+          }
+
+          // the file id of the new file we created
+          uploadedFileId = request.ResponseBody?.Id;
+          var Ad = new Ad
+          {
+            ad_id = id,
+            date_created = DateTime.Now,
+            from_date = from_date,
+            expiry_date = from_date,
+            type_of_ad = type_of_ad,
+            container_type_id = container_type_id,
+            price = price,
+            status = "draft",
+            quantity = quantity,
+            port_id = port_id,
+            company_id = company_id,
+            posted_by = posted_by,
+            contents = contents,
+            port_of_departure = port_of_departure,
+            port_of_arrival = port_of_arrival,
+            free_days = free_days,
+            per_diem = per_diem,
+            pickup_charges = pickup_charges,
+            file = uploadedFileId
+          };
+          await this._AdBusiness.UpdateAd(Ad);
+
+
+          return Ok(new { uploadedFileId, message = "Success" });
+        }
+
+      }
+      else
+      {
+        // Load the Service account credentials and define the scope of its access.
+        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                        .CreateScoped(DriveService.ScopeConstants.Drive);
+
+        var service = new DriveService(new BaseClientService.Initializer()
+        {
+          HttpClientInitializer = credential
+        });
+
+        // Upload file Metadata
+        var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+        {
+          Name = file.FileName,
+          Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
+        };
+
+        await using (var stream = file.OpenReadStream())
+        {
+          var request = service.Files.Create(fileMetadata, stream, "application/pdf");
+          request.Fields = "*";
+          var results = await request.UploadAsync(CancellationToken.None);
+          Console.WriteLine($"File upload status: {results.Status}");
+          Console.WriteLine($"in weeks: {expiry_date}");
+          if (results.Status == UploadStatus.Failed)
+          {
+            Console.WriteLine($"Error uploading file: {results.Exception.Message}");
+          }
+
+          // the file id of the new file we created
+          uploadedFileId = request.ResponseBody?.Id;
+          var Ad = new Ad
+          {
+            ad_id = id,
+            date_created = DateTime.Now,
+            from_date = from_date,
+            expiry_date = from_date,
+            type_of_ad = type_of_ad,
+            container_type_id = container_type_id,
+            price = price,
+            status = "pending",
+            quantity = quantity,
+            port_id = port_id,
+            company_id = company_id,
+            posted_by = posted_by,
+            contents = contents,
+            port_of_departure = port_of_departure,
+            port_of_arrival = port_of_arrival,
+            free_days = free_days,
+            per_diem = per_diem,
+            pickup_charges = pickup_charges,
+            file = uploadedFileId
+          };
+          await this._AdBusiness.UpdateAd(Ad);
+
+
+          return Ok(new { uploadedFileId, message = "Success" });
+        }
+
+      }
+
     }
 
     [HttpDelete("DeleteAd")]

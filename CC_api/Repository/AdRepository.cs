@@ -36,6 +36,17 @@ namespace CC_api.Repository
         .FirstOrDefaultAsync();
       return fileID;
     }
+    public async Task<Ad> GetAdById(int adId)
+    {
+      return await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+    }
+
+    public async Task UpdateAd(Ad Ad)
+    {
+      dbContext.advertisement.Update(Ad);
+      await dbContext.SaveChangesAsync();
+    }
+
     public async Task<List<KeyValuePair<int, string>>> GetAdByCompanyID(int companyID)
     {
       var Ad = dbContext.advertisement.Where(c => c.company_id == companyID);

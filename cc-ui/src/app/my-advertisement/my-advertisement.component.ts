@@ -11,9 +11,43 @@ import { SessionService } from '../session.service';
   styleUrls: ['./my-advertisement.component.css']
 })
 export class MyAdvertisementComponent {
+  contractForm!: FormGroup;
+  description!: any;
+  companyId: any;
+  
+  userId: any;
+  ad_id:any;
+  title!: any;
+  port_name="";
+  C_Type="";
 
- 
-  companyId:any;
+  fileName?: string
+  file?: File
+  port_list:any;
+  CType_list:any;
+  statusMsg?:string
+  showFile:boolean = false
+  showform:boolean=true;
+date_created:any;
+  from_date:any;
+  expiry_date:any;
+  type_of_ad:any;
+  operation:any;
+  container_type_id:any;
+  price:any;
+status:any;
+quantity:any;
+port_id:any;
+contents:any;
+port_of_departure:any;
+port_of_arrival:any;
+free_days:any;
+per_diem:any;
+pickup_charges:any;
+ ContinueDraft:any;
+ Approve:any;
+ adId:any;
+
   companyName:any;
   company_logo:any;
   currentUser: any;
@@ -21,7 +55,7 @@ export class MyAdvertisementComponent {
   showDiv = false;
   data: any;
   public isButtonDisabled: boolean = false;
-  userId: any;
+
   PList: any[] = [];
 
   constructor(private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private myadservice: MyAdService){
@@ -86,11 +120,56 @@ export class MyAdvertisementComponent {
 //     await window.location.reload();
 //  }
 
-   
+   DisplayPostForm(){
+    this.showDiv = !this.showDiv;
+    this.ContinueDraft=1;
+  
+
+   }
+   DisplayDraftForm(adId: number){
+    this.showDiv = !this.showDiv;
+    this.ContinueDraft=1;
+    this.adId=adId;
+
+   }
+   DisplayApproveForm(adId: number){
+    this.showDiv = !this.showDiv;
+    this.Approve=1;
+    this.adId=adId;
+
+   }
+   edit(adId: number){
+    this.adId=adId;
+    if (this.port_id && this.container_type_id && this.file) {
+
+
+      this.myadservice.updateAd(adId,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+    
+      
+       if (response.message === 'Success') {
+         this.statusMsg = 'Success';
+         setTimeout(()=> {this.statusMsg = ""},2000)
+         this.clear()
+         window.location.reload()
+       } else {
+         this.statusMsg = 'Failed';
+         console.log(response.status) ;
+       }
+     });
+   }
+   else{
+     alert("Please Fill the Mandatory Fields")
+   }
+
+   }
   onExportClick() {
 
     console.log("Button clicked");
     alert("button clicked")
+  }
+  clear(){
+    this.title= null
+    this.description = null
   }
 }
 

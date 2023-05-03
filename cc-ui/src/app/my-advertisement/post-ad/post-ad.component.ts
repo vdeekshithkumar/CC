@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Input} from '@angular/core';
 import { Select, initTE } from "tw-elements";
 import { FormGroup } from '@angular/forms';
 
@@ -21,13 +21,18 @@ import { PostAdService } from './post-ad.service';
   styleUrls: ['./post-ad.component.css']
 })
 export class PostAdComponent implements OnInit{
+  @Input() ContinueDraft: number | undefined;
+  @Input() adId: any;
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
+  
   userId: any;
+  ad_id:any;
   title!: any;
   port_name="";
   C_Type="";
+
   fileName?: string
   file?: File
   port_list:any;
@@ -62,7 +67,14 @@ pickup_charges:any;
 
   ngOnInit(): void {
     this.isButtonDisabled = true;
-
+    if(this.ContinueDraft===1)
+    {
+      console.log("value is one");
+    }
+    else{
+      console.log("proceed value zero");
+    }
+// console.log("proceed value is "+this.adId)
     initTE({ Select });
     //get company id from session
     this.sessionService.getCompanyId().subscribe(
@@ -121,7 +133,7 @@ pickup_charges:any;
   }
 
   async Draft(){
-    debugger
+  
     this.operation="Draft";
     this.onPost();
 
@@ -135,7 +147,7 @@ pickup_charges:any;
   async onPost() {
   
   if(this.operation=="PostAd"){
-    if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id) {
+    if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) {
 
     
       this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
@@ -182,6 +194,49 @@ pickup_charges:any;
 
   }
     
+  }
+
+  continueDraft(ad_id: number){
+    this.operation="Draft";
+    this.Edit(ad_id);
+    console.log("ad id id "+ ad_id)
+  }
+  DraftPosting(ad_id: number){
+    this.operation="Pending";
+    this.Edit(ad_id);
+    console.log("ad id id "+ ad_id)
+  }
+
+  approve(ad_id: number){
+    debugger
+    ad_id=7;
+    this.operation="Approve";
+    this.Edit(ad_id);
+    console.log("ad id id "+ ad_id)
+  }
+
+  Edit(ad_id: number){
+    if (this.port_id && this.container_type_id && this.file) {
+    
+
+      this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+    
+      
+       if (response.message === 'Success') {
+         this.statusMsg = 'Success';
+         setTimeout(()=> {this.statusMsg = ""},2000)
+         this.clear()
+         window.location.reload()
+       } else {
+         this.statusMsg = 'Failed';
+         console.log(response.status) ;
+       }
+     });
+   }
+   else{
+     alert("Please Fill the Mandatory Fields")
+   }
+
   }
 
   
