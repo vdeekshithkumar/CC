@@ -33,7 +33,7 @@ export class MyAdService {
   private apiUrl = 'https://localhost:7157/UserPermissions';
   private Url = 'https://localhost:7157/GetCompanyById';
   private userUrl = 'https://localhost:7157/GetAllUser';
-  private adsUrl = 'https://localhost:7157/api/advertisement/GetAllAds';
+  private adsUrl = 'https://localhost:7157/GetAllAds';
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {

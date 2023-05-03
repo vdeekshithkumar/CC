@@ -424,6 +424,7 @@ namespace CC_api.Controllers
 
     }
 
+
     [HttpDelete("DeleteAd")]
     public async Task<IActionResult> DeleteAd(int AdID)
     {
