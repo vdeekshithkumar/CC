@@ -122,9 +122,7 @@ pickup_charges:any;
 
    DisplayPostForm(){
     this.showDiv = !this.showDiv;
-    this.ContinueDraft=1;
-  
-
+    this.ContinueDraft=0;
    }
    DisplayDraftForm(adId: number){
     this.showDiv = !this.showDiv;

@@ -23,6 +23,7 @@ import { PostAdService } from './post-ad.service';
 export class PostAdComponent implements OnInit{
   @Input() ContinueDraft: number | undefined;
   @Input() adId: any;
+  @Input() Approve: any;
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
@@ -198,11 +199,13 @@ pickup_charges:any;
 
   continueDraft(ad_id: number){
     this.operation="Draft";
+    ad_id=7;
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
   DraftPosting(ad_id: number){
     this.operation="Pending";
+    ad_id=7;
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
