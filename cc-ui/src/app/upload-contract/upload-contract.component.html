@@ -41,6 +41,7 @@
               [(ngModel)]="title"
               placeholder=" Title"
               required="required"
+              #inputRef="ngModel"
             />
             <textarea
               class="contract-card-text"
@@ -48,26 +49,30 @@
               cols=""
               placeholder="Enter your description here..."
               [(ngModel)]="description"
+              #inputRef="ngModel"
             ></textarea>
+            <div *ngIf="inputRef.invalid && inputRef.touched" class= "text-sm text-red-500">All fields are mandatory</div>
           </div>
           <div class="flex flex-col items-center">
             <label
-              class="div-upload-file"
+              class="div-upload-file w-full mt-2"
             >
-              Upload File
+              Select File
               <input
                 class="hidden"
                 type="file"
                 id="contract-file-input"
                 (change)="onChange($event)"
                 accept="application/pdf"
+                multiple
+
               />
             </label>
             <br/>
             <label
-              class="div-save-file"
+              class="div-save-file  w-[12cw]"
             >
-              Save File
+              Upload File
               <input
                 class="hidden"
                 type="button"
@@ -112,9 +117,13 @@
             class="hidden"
             (change)="onChange($event)"
             accept="application/pdf"
+            multiple
           />
         </label>
       </div>
       <a routerLink="../dashboard" class="div-a"> < Back</a>
+      <a routerLink="../view-contract" class="div-a-end">View Contracts</a>
     </div>
   </div>
+
+ 

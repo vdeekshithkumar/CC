@@ -56,6 +56,9 @@
 .div-a{
     @apply text-blue-600 hover:text-blue-400 self-start
 }
+.div-a-end{
+    @apply text-blue-600 hover:text-blue-400 float-right
+}
 
 .dropspace-text-sm
 {

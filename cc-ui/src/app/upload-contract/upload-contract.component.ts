@@ -17,9 +17,9 @@ export class UploadContractComponent implements OnInit {
   userId: any;
   title!: any;
   fileName?: string
-  file?: File
   statusMsg?:string
   showFile:boolean = false
+  files!: File[];
 
   constructor(private uploadService: UploadService, private sessionService: SessionService) {
   }
@@ -49,22 +49,22 @@ export class UploadContractComponent implements OnInit {
       }
     );
   }
-
+  
   async onChange($event: Event) {
     debugger
     const target = $event.target as HTMLInputElement;
-    const file: File = (target.files as FileList)[0];
-    this.file = file
-    this.title = file.name
-    this.fileName = file.name
+    const files: FileList = target.files as FileList;
+    this.files = Array.from(files);
+
     this.showFile = !this.showFile;
-    await  setTimeout(() => {this.showFile = !this.showFile}, 3000);
-  }
+    // await setTimeout(() => { this.showFile = !this.showFile }, 3000);
+}
+
    async onUpload() {
-    
-    if (this.file) {
+    debugger
+    if (this.files.length>0) {
       debugger
-       this.uploadService.uploadFile(this.file, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
+       this.uploadService.uploadFile(this.files, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
         debugger
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
@@ -78,7 +78,6 @@ export class UploadContractComponent implements OnInit {
     }
   }
   clear(){
-    this.title= null
     this.description = null
   }
 }
