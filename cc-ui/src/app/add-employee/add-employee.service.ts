@@ -14,16 +14,18 @@ export class AddEmployeeServiceService {
   private baseEditUrl = 'https://localhost:7157/EditPermission'
 
   constructor(private http:HttpClient) { }
-  addPermission(permissionList: any,emailValue:string): Observable<any> {
+  addPermission(ppList: any,emailValue:string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
+
 const payload = {
-      permissionList: permissionList,
+      ppList: ppList,
       emailvalue: emailValue
     };
+
     const url = `${this.baseUrl}`;
 
     return this.http.post(url, payload, httpOptions)
@@ -47,14 +49,14 @@ const payload = {
   
       return this.http.put(`${this.editUrl}/${id}`,addEmployeeForm,{ headers });
   }
-  EditPermission(permissionList: any,user_id:number): Observable<any> {
+  EditPermission(ppList: any,user_id:number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 const payload = {
-      permissionList: permissionList,
+  ppList: ppList,
       user_id: user_id
     };
     const url =`${this.baseEditUrl}/${user_id}`;
@@ -64,6 +66,8 @@ const payload = {
         catchError(this.handleError)
       );
   }
-
+  getAllPermission(): Observable<Permissions[]> {
+    return this.http.get<Permissions[]>('https://localhost:7157/GetAllPermission');
+  }
   
 }

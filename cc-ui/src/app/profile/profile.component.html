@@ -85,8 +85,10 @@
             
             <div class="flex flex-row ">
               <div class="div-box">
-                <div class="div-box-numbers"> 
-               {{usercount_list}}
+                <div
+                  class="div-box-numbers"
+                >
+                49
                 </div>
                 <div class="div-box-data">
                   Active members
@@ -179,7 +181,7 @@
         </div>
       </div>
       <div class="flex flex-row ">
-        <button class="div-action-button">
+        <button class="div-action-button" routerLink="/view-advertisement">
           Approve Ads (6)
         </button>
         <button class="div-action-button">
@@ -198,6 +200,7 @@
          Upload Inventory
         </button>
         <div class="max-w-sm mt-4 w-full">
+          
           <div
             class="div-search"
           >
@@ -226,12 +229,28 @@
               placeholder="Search"
             />
           </div>
-          <div></div>
+          
         </div>
       </div>
 
       <!-- Search bar end -->
     </div>
+    <br>&nbsp;&nbsp;&nbsp;
+    <div>
+      <label class="mr-1 ml-2 w-full">Search by:</label>
+      &nbsp;
+      <input  [(ngModel)]="searchTerm" 
+      class="uploademp-input"
+      type="text"
+      id="search"
+      placeholder="Fname | Lname |Email"
+
+      
+/>
+
+    </div>
+    
+    <br>
     <hr class="mx-2" />
 
     <!-- Table start -->
@@ -248,20 +267,17 @@
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
                   <th scope="col" class="px-6 py-4">Password</th>
-                 
                   <th colspan="4" scope="col" class="px-6 py-4">&ensp;Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let u of alluser_list" class="employee-add">
+                <tr *ngFor="let u of alluser_list | search: searchTerm" class="employee-add">
                  
                   <td class="emplist">{{u.fname}}</td>
                   <td class="emplist">{{u.lname}}</td>
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
                   <td class="emplist">{{u.password}}</td>
-                  <td class="emplist">{{u.length}}</td>
-                 
                   <td class="whitespace-nowrap px-6 py-4">
                    <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
                     </td>

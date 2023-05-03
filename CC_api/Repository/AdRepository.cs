@@ -13,6 +13,23 @@ namespace CC_api.Repository
       this.dbContext = new DatabaseContext();
     }
 
+
+    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
+    {
+      if (operation == "Active")
+      {
+        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "active").ToListAsync();
+      }
+      else if (operation == "Pending")
+      {
+        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "pending").ToListAsync();
+      }
+      else
+      {
+        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "draft").ToListAsync();
+
+      }
+    }
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);
@@ -61,3 +78,5 @@ namespace CC_api.Repository
     }
   }
 }
+
+

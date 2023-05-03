@@ -165,7 +165,7 @@ namespace CC_api.Controllers
     //End upload
 
 
-    [HttpGet("GetAllAds")]
+/*    [HttpGet("GetAllAds")]
     public async Task<IActionResult> GetAllFiles(int companyID)
     {
       var Ads = await this._AdRepository.GetAdByCompanyID(companyID);
@@ -193,6 +193,41 @@ namespace CC_api.Controllers
 
       // Return the list of results as a JSON array
       return Json(results);
+    }
+*/
+
+
+    [HttpGet("GetAllAds")]
+    public async Task<IActionResult> GetAllFiles(int companyID, string operation)
+    {
+      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation);
+      // Load the Service account credentials and define the scope of its access.
+      var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+          .CreateScoped(DriveService.ScopeConstants.Drive);
+
+      var service = new DriveService(new BaseClientService.Initializer()
+      {
+        HttpClientInitializer = credential
+      });
+
+      // Create a list to store the results
+      var results = new List<Ad>();
+
+      // Retrieve the file name for each Ad
+      foreach (var Ad in Ads)
+      {
+
+        var fileId = Ad.file;
+        var request = service.Files.Get(fileId);
+        request.Fields = "name";
+        var file = await request.ExecuteAsync();
+        Ad.file = file.Name;
+        results.Add(Ad);
+
+      }
+
+      // Return the list of results as a JSON array
+      return new JsonResult(results);
     }
 
     [HttpPut("Edit/{id}")]

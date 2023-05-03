@@ -2,6 +2,28 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+export interface Advertisement {
+  ad_id: number;
+  date_created: Date;
+  from_date: Date;
+  expiry_date: Date;
+  type_of_ad: string;
+  container_type_id: number;
+  price: number;
+  status: string;
+  quantity: number;
+  port_id: number;
+  company_id: number;
+  posted_by: number;
+  contents: string;
+  file: string;
+  port_of_departure: string;
+  port_of_arrival: string;
+  free_days: number;
+  per_diem: number;
+  pickup_charges: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,6 +31,9 @@ export class MyAdService {
 
   baseUrl = 'https://localhost:7157'
   private apiUrl = 'https://localhost:7157/UserPermissions';
+  private Url = 'https://localhost:7157/GetCompanyById';
+  private userUrl = 'https://localhost:7157/GetAllUser';
+  private adsUrl = 'https://localhost:7157/api/advertisement/GetAllAds';
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {
@@ -44,4 +69,24 @@ const url = `${this.baseUrl}/Edit/${id}`;
 return this.http.put(url, formData);
 }
 
- }
+getCompanyById(company_id: number): Observable<any> {
+
+   
+  console.log(`${this.Url}?company_id=${company_id}`)
+  return this.http.get(`${this.apiUrl}?companyId=${company_id}`);
+}
+
+getallUser(companyid:number): Observable<any> {
+  return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
+}
+
+getAdsById(company_id: number, operation: string): Observable<Advertisement[]> {
+  const url = `${this.adsUrl}?companyId=${company_id}&operation=${operation}`;
+  return this.http.get<Advertisement[]>(url);
+}
+}
+
+
+
+
+ ////////////////////////////

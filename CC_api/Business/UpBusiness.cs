@@ -43,7 +43,6 @@ namespace CC_api.Business
 
 
     }
-
     public async Task<List<int>> GetPermissions(int userId)
     {
       var permissionIds = await upRepository.GetPermissionIds(userId);
@@ -116,9 +115,25 @@ namespace CC_api.Business
 
 
 
-
+    public async Task<List<Permissions>> GetAllPermissionAsync()
+    {
+      return await upRepository.GetAllPermissionAsync();
+    }
 
 
 
   }
 }
+
+
+
+  
+
+   
+
+
+
+
+
+
+

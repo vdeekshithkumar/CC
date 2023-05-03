@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from './profile.service';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router,ActivatedRoute } from '@angular/router';
 import { SignInService } from '../sign-in/sign-in.service';
 import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
@@ -21,14 +21,15 @@ export class ProfileComponent implements OnInit {
   company_logo?: string
   company_location?: string
   country?: string
-  alluser_list=null;
-  usercount_list=null;
+  alluser_list:any;
+  searchTerm:any;
   company_list: any;
-  showDiv = false;
+ 
+  
   currentUser: any;
   profileForm!: FormGroup;
   user_id:any;
-  
+  public showDiv = false;
   user_data:any;
   fname?: string
   lname?: string
@@ -36,15 +37,12 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
-  user:any;
   getCompanyId() {
     return this.company_id;
   }
 
 
-  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService) { 
-    
-  }
+  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
 
 
   ngOnInit(): void {
@@ -57,6 +55,16 @@ export class ProfileComponent implements OnInit {
          console.error('Error retrieving user ID:', error);
         }
          );
+         if (this.activatedRoute != null) {
+          // Access the route parameters using the params property of the activatedRoute object
+          const id = this.activatedRoute.snapshot.params['id'];
+          console.log('ID:', id);
+        }
+
+        if (this.activatedRoute != null) {
+          const id = this.activatedRoute.snapshot.params['id'];
+          console.log('ID:', id);
+        }
     this.sessionService.getCurrentUser().subscribe(user => {
       // if (user.id==null && user.token==null) {  // use this once token is used for a user
       if (user.user_id == null) {
@@ -92,20 +100,8 @@ export class ProfileComponent implements OnInit {
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
       this.alluser_list = data;
-     
       console.log("employee list fetched: ", this.alluser_list); 
-      
-    },
-    error => {
-      console.log("employee loading error:" +error);
-    }
-  );
-  this.profileService.getallUserCount(this.companyId).subscribe(
-    data => {
-      this.usercount_list = data;
      
-      console.log("employee Count: ", this.usercount_list); 
-      
     },
     error => {
       console.log("employee loading error:" +error);
@@ -149,7 +145,7 @@ export class ProfileComponent implements OnInit {
 );
     this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
       data => {
-        debugger
+        
         // Handle the data returned by the HTTP GET request
         this.fname = data.fname
         this.lname = data.lname
@@ -170,7 +166,7 @@ export class ProfileComponent implements OnInit {
     });
   }
   getUserByID(user_id:number) {
-    debugger
+
     this.profileService.getUserDetails(user_id)
     .subscribe(
       (           data:any)=> {debugger

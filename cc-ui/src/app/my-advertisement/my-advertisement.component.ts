@@ -1,9 +1,34 @@
 import { Component } from '@angular/core';
 import { MyAdService } from './my-ad.service';
+
+
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../session.service';
 
+
+
+export interface Advertisement {
+  ad_id: number;
+  date_created: Date;
+  from_date: Date;
+  expiry_date: Date;
+  type_of_ad: string;
+  container_type_id: number;
+  price: number;
+  status: string;
+  quantity: number;
+  port_id: number;
+  company_id: number;
+  posted_by: number;
+  contents: string;
+  file: string;
+  port_of_departure: string;
+  port_of_arrival: string;
+  free_days: number;
+  per_diem: number;
+  pickup_charges: number;
+}
 
 @Component({
   selector: 'app-my-advertisement',
@@ -11,12 +36,15 @@ import { SessionService } from '../session.service';
   styleUrls: ['./my-advertisement.component.css']
 })
 export class MyAdvertisementComponent {
+  
+
+  
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
   
   userId: any;
-  ad_id:any;
+
   title!: any;
   port_name="";
   C_Type="";
@@ -47,6 +75,32 @@ pickup_charges:any;
  ContinueDraft:any;
  Approve:any;
  adId:any;
+
+ time:number = 10;
+ alluser_list:any;
+   public company_id?: number;
+   public ad_id?: number;
+   public name?: string;
+   domain_address?: string;
+   licence_id?: number;
+   rating?: number;
+   address?: string;
+   fname?: string
+  //  company_logo?: string
+   company_location?: string
+   country?: string
+   
+     profileForm!: FormGroup;
+     activeAdsClicked = false;
+     pendingAdsClicked = false;
+   ads: Advertisement[] = [];
+
+   advertisements: any;
+   http: any;
+  getCompanyId() {
+     return this.company_id;
+   }
+ 
 
   companyName:any;
   company_logo:any;
@@ -98,7 +152,42 @@ pickup_charges:any;
       }
     );
 
+    this.myadservice.getCompanyById(this.companyId).subscribe(
+      data => {
+  
+        // Handle the data returned by the HTTP GET request
    
+        this.company_id=data.company_id,
+   
+        this.name=data.name,
+   
+        this.licence_id=data.licence_id,
+   
+        this.domain_address=data.domain_address,
+   
+        this.company_logo=data.company_logo,
+   
+        this.company_location=data.company_location,
+   
+        this.country=data.country,
+   
+        this.rating=data.rating,
+   
+        this.address=data.address
+   
+        console.log(data)
+   
+      },
+   
+      error => {
+   
+        // Handle any errors that occur
+   
+        console.warn("oninit error"+error);
+   
+      }
+    );
+  
      
    }
    
@@ -136,6 +225,61 @@ pickup_charges:any;
     this.adId=adId;
 
    }
+
+  
+
+
+  
+  
+
+
+viewAds(){
+  debugger
+this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
+  (data: Advertisement[]) => {
+    this.ads = data;
+    console.log(this.ads); // for testing purposes only
+  },
+  error => console.log(error)
+);
+}
+onViewActive(){
+this.operation = 'Active';
+this.viewAds();
+}
+onPendingActive(){
+this.operation = 'Pending';
+this.viewAds();
+}
+onDraftsActive(){
+this.operation = 'Drafts';
+this.viewAds();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    edit(adId: number){
     this.adId=adId;
     if (this.port_id && this.container_type_id && this.file) {
@@ -170,20 +314,16 @@ pickup_charges:any;
     this.description = null
   }
 }
+/////////////////////////////////////////////
 
 
-
-
-
-
-
- 
- 
- 
- 
 
 
   
-  
- 
 
+
+   
+  
+
+  
+    
