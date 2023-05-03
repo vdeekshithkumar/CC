@@ -6,6 +6,7 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Upload;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC_api.Controllers
 {
@@ -31,10 +32,10 @@ namespace CC_api.Controllers
     }
 
     [HttpPost("upload")]
-    public async Task<ActionResult> UploadToDrive(IFormFile file, int userId, int companyId, string content, string title)
+    public async Task<ActionResult> UploadToDrive(List<IFormFile> files, int userId, int companyId, string content, string title)
     {
 
-
+      string folderId = null;
       // Load the Service account credentials and define the scope of its access.
       var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
                       .CreateScoped(DriveService.ScopeConstants.Drive);
@@ -44,32 +45,64 @@ namespace CC_api.Controllers
         HttpClientInitializer = credential
       });
 
-      // Upload file Metadata
-      var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+
+      if (await this._contractRepository.exists(title))
       {
-        Name = file.FileName,
-        Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
-      };
-
-      await using (var stream = file.OpenReadStream())
-      {
-        var request = service.Files.Create(fileMetadata, stream, "application/pdf");
-        request.Fields = "*";
-        var results = await request.UploadAsync(CancellationToken.None);
-
-        if (results.Status == UploadStatus.Failed)
-        {
-          Console.WriteLine($"Error uploading file: {results.Exception.Message}");
-        }
-
-        // the file id of the new file we created
-        uploadedFileId = request.ResponseBody?.Id;
+        folderId = await this._contractRepository.GetFolderId(title, companyId);
       }
-      var contract = new Contract { company_id = companyId, user_id = userId, updated_by = userId, updated_date_time = DateTime.Now, title = title, content = content, uploaded_file = uploadedFileId };
-      await this._contractBusiness.UploadContract(contract);
+      else
+      {
+        // Create folder Metadata
+        var folderMetadata = new Google.Apis.Drive.v3.Data.File()
+        {
+          Name = title,
+          MimeType = "application/vnd.google-apps.folder",
+          Parents = new List<string>() { DirectoryId }
+        };
+        var folderRequest = service.Files.Create(folderMetadata);
+        folderRequest.Fields = "id";
+        var folderResults = await folderRequest.ExecuteAsync();
+        //folder id of the folder we just created
+        folderId = folderResults.Id;
+      }
 
+      foreach (var file in files)
+      {
+        // Upload file Metadata
+        var fileMetadata = new Google.Apis.Drive.v3.Data.File()
+        {
+          Name = file.FileName,
+          Parents = new List<string>() { folderId }
+        };
 
-      return Ok(new { uploadedFileId, message = "Success" });
+        await using (var stream = file.OpenReadStream())
+        {
+          var request = service.Files.Create(fileMetadata, stream, "application/pdf");
+          request.Fields = "*";
+          var results = await request.UploadAsync(CancellationToken.None);
+
+          if (results.Status == UploadStatus.Failed)
+          {
+            Console.WriteLine($"Error uploading file: {results.Exception.Message}");
+          }
+
+          // the file id of the new file we created
+          uploadedFileId = request.ResponseBody?.Id;
+          var contract = new Contract
+          {
+            company_id = companyId,
+            user_id = userId,
+            updated_by = userId,
+            updated_date_time = DateTime.Now,
+            title = title,
+            content = content,
+            uploaded_file = folderId + "," + uploadedFileId
+          };
+          await this._contractBusiness.UploadContract(contract);
+        }
+      }
+
+      return Ok(new { message = "Success" });
     }
 
     //End upload
@@ -86,6 +119,7 @@ namespace CC_api.Controllers
         HttpClientInitializer = credential,
       });
       var fileID = await this._contractRepository.GetUploadFileID(userId, companyId, contractID);
+      if (fileID == null) { return NotFound(); }
 
       // Get the file metadata
       var fileMetadata = await service.Files.Get(fileID).ExecuteAsync();
@@ -100,10 +134,10 @@ namespace CC_api.Controllers
       return File(memoryStream, "application/pdf", fileMetadata.Name);
     }
 
-    [HttpGet("GetAllContracts")]
-    public async Task<IActionResult> GetAllFiles(int companyID)
+    [HttpGet("GetAllTitles")]
+    public async Task<IActionResult> GetAllTitles(int companyID)
     {
-      var contracts = await this._contractRepository.GetContractsByCompanyID(companyID);
+      var contracts = await this._contractRepository.GetTitlesByCompanyID(companyID);
       // Load the Service account credentials and define the scope of its access.
       var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
                       .CreateScoped(DriveService.ScopeConstants.Drive);
@@ -112,22 +146,14 @@ namespace CC_api.Controllers
       {
         HttpClientInitializer = credential
       });
+      return Ok(contracts);
+    }
+    [HttpGet("GetAllContractsByTitle")]
+    public async Task<IActionResult> GetContractsByTitle(string title, int companyId)
+    {
+      var list = await this._contractRepository.GetContractsByTitle(title, companyId);
 
-      // Create a list to store the results
-      var results = new List<KeyValuePair<int, string>>();
-
-      // Retrieve the file name for each contract
-      foreach (var contract in contracts)
-      {
-        var fileId = contract.Value;
-        var request = service.Files.Get(fileId);
-        request.Fields = "name";
-        var file = await request.ExecuteAsync();
-        results.Add(new KeyValuePair<int, string>(contract.Key, file.Name));
-      }
-
-      // Return the list of results as a JSON array
-      return Json(results);
+      return Ok(list);
     }
 
     [HttpDelete("DeleteContract")]
