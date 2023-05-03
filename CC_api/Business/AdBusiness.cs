@@ -1,112 +1,91 @@
-/*using CC_api.Models;
+using CC_api.Models;
 using CC_api.Repository;
+using Google.Apis.Auth.OAuth2;
+using Google.Apis.Drive.v3;
+using Google.Apis.Services;
 using Microsoft.AspNetCore.Mvc;
-
-using System.Security.Claims;
 using System.Net;
-using System.Text;
-using System.ComponentModel.Design;
-
 
 
 namespace CC_api.Business
-
-
-
 {
   public class AdBusiness
   {
-    private readonly AdRepository adRepository;
+    private string PathToServiceAccountKeyFile = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "client_secret.json");
+    private const string ServiceAccountEmail = "cc-436@cc-repository.iam.gserviceaccount.com";
+    private const string DirectoryId = "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS";
+
+
+    private readonly AdRepository AdRepository;
     public AdBusiness()
     {
-      this.adRepository = new AdRepository();
+      this.AdRepository = new AdRepository();
     }
 
-
-
-
-
-    public async Task<IActionResult> PostAd(Ad ad)
+    public async Task<IActionResult> UpdateAd(Ad Ad)
     {
-      var a = new Ad();
+      var existingAd = await AdRepository.GetAdById(Ad.ad_id);
 
-
-
-      a.date_created = ad.date_created;
-      a.last_modified = ad.last_modified;
-      a.company_id = ad.company_id;
-      a.container_type = ad.container_type;
-      a.available = ad.available;
-      a.maximum = ad.maximum;
-      a.minimum = ad.minimum;
-      a.port_id = ad.port_id;
-      a.updated_by = ad.updated_by;
-      a.container_size = ad.container_size;
-      await adRepository.PostA(a);
-      return new OkResult();
-
-    }
-
-
-
-    public async Task<IActionResult> DeleteAd(int id)
-    {
-      var ad = await adRepository.GetAdById(id);
-      if (ad == null)
+      if (existingAd == null)
       {
         return new NotFoundResult();
       }
 
+      existingAd.date_created = Ad.date_created;
+      existingAd.from_date = Ad.from_date;
+      existingAd.expiry_date = Ad.expiry_date;
+      existingAd.type_of_ad = Ad.type_of_ad;
+      existingAd.container_type_id = Ad.container_type_id;
+      existingAd.price = Ad.price;
+      existingAd.status = Ad.status;
+      existingAd.quantity = Ad.quantity;
+      existingAd.port_id = Ad.port_id;
+      existingAd.company_id = Ad.company_id;
+      existingAd.posted_by = Ad.posted_by;
+      existingAd.contents = Ad.contents;
+      existingAd.port_of_departure = Ad.port_of_departure;
+      existingAd.port_of_arrival = Ad.port_of_arrival;
+      existingAd.free_days = Ad.free_days;
+      existingAd.per_diem = Ad.per_diem;
+      existingAd.pickup_charges = Ad.pickup_charges;
+      existingAd.file = Ad.file;
 
+      await AdRepository.UpdateAd(existingAd);
 
-      await adRepository.DeleteAd(ad.ad_id);
       return new OkResult();
     }
 
-
-
-
-
-    public async Task<Inventory> GetAdById(int id)
+    public async Task<IActionResult> PostAd(Ad Ad)
     {
-      return await adRepository.GetAdById(id);
+      var ad = new Ad();
 
-    }
+      ad.ad_id = Ad.ad_id;
+      ad.date_created = Ad.date_created;
+      ad.from_date = ad.from_date;
+      ad.expiry_date = Ad.expiry_date;
+      ad.type_of_ad = Ad.type_of_ad;
+      ad.container_type_id = Ad.container_type_id;
+      ad.price = Ad.price;
+      ad.status = Ad.status;
+      ad.quantity = Ad.quantity;
+      ad.port_id = Ad.port_id;
+      ad.company_id=Ad.company_id;
+      ad.posted_by = Ad.posted_by;
+      ad.contents = Ad.contents;
+      ad.port_of_departure= Ad.port_of_departure;
+      ad.port_of_arrival= Ad.port_of_arrival;
+      ad.free_days= Ad.free_days;
+      ad.per_diem= Ad.per_diem;
+      ad.pickup_charges= Ad.pickup_charges;
+      ad.file = Ad.file;
+ 
 
-    public async Task<List<Ad>> GetAdByIdCID(int companyId)
-    {
-      return await adRepository.GetAdByIdCID(companyId);
-    }
-
-
-    public async Task<IActionResult> EditAd(int id, Ad ad)
-    {
-      var ad = await adRepository.GetAdById(id);
-      if (ad == null)
-      {
-        return new NotFoundResult();
-      }
-
-
-
-      a.date_created = ad.date_created;
-      a.last_modified = ad.last_modified;
-      a.company_id = ad.company_id;
-      a.container_type = ad.container_type;
-      a.available = ad.available;
-      a.maximum = ad.maximum;
-      a.minimum = ad.minimum;
-      a.port_id = ad.port_id;
-      a.updated_by = ad.updated_by;
-      a.container_size = ad.container_size;
-
-      await adRepository.EditAdAsync(a);
+      await AdRepository.PostAd(ad);
       return new OkResult();
+
     }
-  
-
-
 
   }
 }
-*/
+
+

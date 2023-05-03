@@ -2,51 +2,180 @@
 
 <div class="flex">
   <!-- Sidebar -->
-  <app-sidebar class="w-1/6"></app-sidebar>
+  <app-sidebar class="w-20"></app-sidebar>
 
   <!-- Main View Canvas -->
   <div class="w-full mt-4 left-0" >
     <!-- Company Details section  -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center ml-20 mb-6">
       <h1 class="text-2xl text-black-100">My Advertisement</h1>
       <div>
-        <button class="bg-blue-500 w-20 hover:bg-black-700 text-white mr-8 font-bold py-2 px-4 mr-4 rounded disabled:opacity-50"  (click)="onExportClick()">Export</button>
-        <button class="bg-blue-500 w-20 hover:bg-black-700 text-white mr-8 font-bold py-2 px-4 rounded disabled:opacity-50" [disabled]="isButtonDisabled"  (click)="showDiv = !showDiv">Post Ad</button>
-       
-       
-        <div class="flex flex-wrap">
-          <div class="relative">
-           ]
-            
-            <!-- A hidden div for edit profile -->
-            <div class="my-3 relative" [class.hidden]="!showDiv">
-              <div class="absolute top-0 left-0 shadow-md z-20">
-                <app-post-ad></app-post-ad>
-              </div>
-            </div>
-          </div>
-       
-        <!-- <div [class.hidden]="!showDiv">
-          <div class="flex justify-center items-center fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50">
-            <div class="bg-white p-6 rounded-md" style="width: 700px; height: 600px;">
-              <app-post-ad></app-post-ad>
-            </div>
-          </div>
+        <div class="buttons-container">
+
+        <button class="bg-blue-500 w-20 hover:bg-black-700 text-white mr-4 font-bold py-2 my-button px-4 mr-4 rounded disabled:opacity-50"  (click)="onExportClick()">Export</button>
+        <button class="bg-blue-500 right-0 hover:bg-black-700 text-white mr-2 font-bold py-2 my-button px-4 rounded disabled:opacity-50" [disabled]="isButtonDisabled"  (click)="DisplayPostForm()">Post Ad</button>
+
+        <!-- <div *ngFor="let ad of adList">
+          <button class="bg-blue-500 right-0 hover:bg-black-700 text-white mr-2 font-bold py-2 my-button px-4 rounded disabled:opacity-50" (click)="DisplayDraftForm(ad.ad_id)">Edit</button>
         </div> -->
+
+        <!-- <div *ngFor="let ad of adList">
+          <button class="bg-blue-500 right-0 hover:bg-black-700 text-white mr-2 font-bold py-2 my-button px-4 rounded disabled:opacity-50" (click)="DisplayApproveForm(ad.ad_id)">View and Approve</button>
+        </div> -->
+
+      <!-- <div *ngFor="let ad of adList">
+          <button class="bg-blue-500 right-0 hover:bg-black-700 text-white mr-2 font-bold py-2 my-button px-4 rounded disabled:opacity-50" (click)="approve(ad.ad_id)">Approve</button>
+        </div> -->
+
+        </div>
       
-      </div>
-    </div>
-    <hr class="mx-2" />
-    
-
-    
-
-    <!-- Employee details section -->
-    <ul class="mt-4">
-      <li *ngFor="let item of PList" class="mb-2">{{ item }}</li>
-    </ul>
-
-    <!-- view ad here start -->
-    <!-- view ad here end -->
   </div>
 </div>
+<br/>
+
+
+<nav class="header-links contents font-semibold text-base lg:text-lg">
+  <ul class="flex items-center ml-20 xl:ml-20 mr-auto">
+    <li class="nav-item" [routerLinkActive]="['active']"  >
+      <a >
+        <button (click)="onViewActive()">Active Ads</button>
+        
+      </a>
+    </li>
+    &nbsp; &nbsp; &nbsp;
+    <li class="p-3 xl:p-6" class="nav-item" [routerLinkActive]="['active']">
+      <a>
+        <button (click)="onPendingActive()">Pending Ads</button>
+      </a>
+    </li>
+    <li class="p-3 xl:p-6">
+      <a >
+        <button (click)="onDraftsActive()">Draft Ads</button>
+      </a>
+    </li>
+   
+  </ul>
+</nav>
+<!-- A hidden div for edit profile -->
+       <!-- Company Details section  -->
+<div class="p-2 m-4 ml-16 shadow-md h-fit flex flex-wrap items-center">
+<div class="relative">
+<img class="object-cover w-14 h-14 rounded-full" src={{company_logo}} />
+&nbsp;
+<!-- A hidden div for edit profile -->
+</div>
+<!-- Sub box 1 -->
+<div class="flex flex-col flex-grow ml-4">
+<div class="div-company flex items-center">
+{{name}}
+<span class="div-company-name"></span>
+</div>
+<div class="flex flex-row items-center">
+<div class="div-tag flex items-center mr-4"> 
+<img src="../../assets/images/location-41-16.png" class="w-3 h-4 flex pt-1" />
+<span class="div-detail">{{address}}</span>
+</div>
+<!-- Sub box 2 -->
+<div class="div-sub-box mr-4">
+<span class="div-detail">{{licence_id}}</span>
+</div>
+<!-- Sub box 3 -->
+<div class="div-sub-box mr-4">
+<span class="div-detail">{{domain_address}}</span>
+</div>
+<div class="div-sub-box">
+<span class="bg-gray-100 rounded-md text-sm leading-3">{{country}}</span>
+</div>
+<!-- Ratings -->
+<div class="mx-[1rem] flex items-center">
+<svg width="20" height="20" viewBox="0 0 24 24">
+<polygon fill="#000" points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3" />
+</svg>
+<span class="flex-1">{{rating}}</span>
+&nbsp;
+<div></div>
+<!-- Buttons -->
+<div class="flex ml-4">
+<button class="bg-blue-500 text-white px-4 py-2 rounded-md">View Ads</button>
+<button class="bg-red-500 text-white px-4 py-2 ml-2 rounded-md">Delete</button>
+</div>
+<br/>
+
+</div>
+</div>
+</div>
+
+<div class="p-2 m-4 shadow-md h-fit">
+<table>
+<thead>
+<tr>
+
+
+<th>Expiry Date</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Type of Ad</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Price</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Status</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Quantity</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+<th>Port of Departure</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Port of Arrival</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Free days</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Per Diem</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<th>Pickup charges</th>
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let ad of ads">
+
+
+<td>{{ ad.expiry_date }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.type_of_ad }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.price }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.status }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.quantity }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+
+
+<td>{{ ad.port_of_departure }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.port_of_arrival }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.free_days }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.per_diem }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+<td>{{ ad.pickup_charges }}</td>
+&nbsp; &nbsp;&nbsp;&nbsp;
+
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+
+<div class="flex justify-center shadow-lg bg-gray-100 " [class.hidden]="!showDiv">
+      <app-post-ad [ContinueDraft]="ContinueDraft" [adId]="adId" [Approve]="Approve"></app-post-ad>
+</div>
+
+
+</div>
+
+

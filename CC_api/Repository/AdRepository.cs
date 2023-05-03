@@ -14,55 +14,69 @@ namespace CC_api.Repository
     }
 
 
-
-    public async Task PostAd(Inventory inventory)
+    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
-      dbContext.inventory.Add(inventory);
+      if (operation == "Active")
+      {
+        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "active").ToListAsync();
+      }
+      else if (operation == "Pending")
+      {
+        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "pending").ToListAsync();
+      }
+      else
+      {
+        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "draft").ToListAsync();
+
+      }
+    }
+    public async Task PostAd(Ad Ad)
+    {
+      dbContext.advertisement.Add(Ad);
+      await dbContext.SaveChangesAsync();
+    }
+    public async Task<string> GetUploadFileID(int userID, int companyID, int AdID)
+    {
+      //returns the Ad name stored in db which matches to file id in the Drive folder
+      var Ad = await dbContext.advertisement
+      .Where(a => a.posted_by == userID && a.company_id == companyID && a.ad_id == AdID)
+      .Select(c => c.file)
+      .FirstOrDefaultAsync();
+
+      return Ad;
+    }
+    public async Task<string> GetFileIDbyAdID(int AdID)
+    {
+      var fileID = await dbContext.advertisement
+        .Where(c => c.ad_id.Equals(AdID))
+        .Select(c => c.file)
+        .FirstOrDefaultAsync();
+      return fileID;
+    }
+    public async Task<Ad> GetAdById(int adId)
+    {
+      return await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+    }
+
+    public async Task UpdateAd(Ad Ad)
+    {
+      dbContext.advertisement.Update(Ad);
       await dbContext.SaveChangesAsync();
     }
 
-    public async Task EditInventoryAsync(Inventory inventory)
+    public async Task<List<KeyValuePair<int, string>>> GetAdByCompanyID(int companyID)
     {
-      dbContext.inventory.Update(inventory);
+      var Ad = dbContext.advertisement.Where(c => c.company_id == companyID);
+      var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
+      return uploadedFiles;
+    }
+    public async Task DeleteAd(int AdID)
+    {
+      dbContext.advertisement.Remove(
+       dbContext.advertisement.FirstOrDefault(c => c.ad_id == AdID));
       await dbContext.SaveChangesAsync();
-    }
-    public async Task DeleteI(int id)
-    {
-      var inventory = await dbContext.inventory.FindAsync(id);
-      if (inventory == null)
-        throw new Exception("Inventory not found");
-
-
-
-      dbContext.inventory.Remove(inventory);
-      await dbContext.SaveChangesAsync();
-    }
-
-    public async Task Add(Inventory inventory)
-    {
-      await dbContext.inventory.AddAsync(inventory);
-      await dbContext.SaveChangesAsync();
-    }
-
-
-    public async Task<Inventory> GetInventoryById(int id)
-    {
-      return await dbContext.inventory.FirstOrDefaultAsync(x => x.inventory_id == id);
-    }
-    public async Task<List<Inventory>> GetInventoryByIdCID(int companyId)
-    {
-      return await dbContext.inventory.Where(x => x.company_id == companyId).ToListAsync();
-      /*return await dbContext.inventory.FirstOrDefaultAsync(x => x.company_id == companyId);*/
-    }
-
-
-    public async Task DeleteAllInventory()
-    {
-      await dbContext.Database.ExecuteSqlRawAsync("TRUNCATE TABLE inventory");
-    }
-    public async Task<List<Inventory>> GetAllInventoryAsync()
-    {
-      return dbContext.inventory.ToList();
     }
   }
 }
+
+

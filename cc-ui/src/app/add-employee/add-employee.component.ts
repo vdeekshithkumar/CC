@@ -3,9 +3,18 @@ import { NavigationEnd, Router,ActivatedRoute } from '@angular/router';
 import { AddEmployeeServiceService } from './add-employee.service';
 import { SessionService } from '../session.service';
 import { filter } from 'rxjs';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { enableDebugTools } from '@angular/platform-browser';
 import { Component, ChangeDetectorRef } from '@angular/core';
- 
+
+interface Permission {
+  write: any;
+  read: any;
+  permission_id: number;
+  type: string;
+  actions: string;
+}
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -15,38 +24,59 @@ export class AddEmployeeComponent {
   Pfname:any;
   statusMsg?:string
   addEmployeeForm!: FormGroup;
+  permissionsByType = {};
+  selectedPermissions: Permission[] = [];
   addPermissionForm!:FormGroup;
   form:any;
+  permissionList: Permission[] = [];
+  correspondingPermission:any;
   advertisementRead: boolean = false;
   advertisementWrite: boolean = false;
   NegotiationRead:boolean = false;
   NegotiationWrite:boolean = false;
-  permissionList: string[] = [];
-permission:any;
+  ppList: any[] = []; // Initialize ppList as an empty array
+permissions: any[] = [] ;
+PList:any;
+read: boolean|undefined;
+write: boolean|undefined;
+permission_id: number | undefined;
+type: string | undefined;
+actions: string | undefined;
 companyId:any;
   currentUser: any;
   cdr: any;
   changeDetectorRef: any;
   isEdit:boolean=false;
   Puser_id:any;
-  
+  types = [];
+ 
+
+
 
   constructor(private formBuilder:FormBuilder,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
-
+    this.permissions = []
+    ;
   }
   ngOnInit():void{
+
+    this.addEmployeesService.getAllPermission().subscribe((data: Permissions[]) => {
+      this.PList = data;
+      console.log("this is permisssions list fetched"+this.PList)
+
+
+    });
+
     this.route.queryParams.subscribe(params => {
       if (params['edit'] === 'true') {
         this.isEdit = true;
         console.log('Edit mode enabled and woking bhhhh');
       //
-      this.Puser_id =5;
+      this.Puser_id =1014;
         this.Pfname = "testingname";
-        // this.PCompanyId=1;
-      
+
       //
       }
-      
+
     });
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
@@ -74,11 +104,11 @@ companyId:any;
     designation: ['user'],
     });
     if(this.isEdit == true)
-    {     
-  
+    {
+
    this.addEmployeeForm.setValue({
      user_id:167,
-     company_id:this.companyId,
+     company_id:3,
      fname:this.Pfname,
      lname: "K",
      address: "sdhgd",
@@ -90,9 +120,9 @@ companyId:any;
      is_active:1,
      last_login:'2024-07-15',
      designation: 'user',
-   }) 
+   })
   }
-   
+
 //session
 this.sessionService.getCurrentUser().subscribe(user => {
   // if (user.id==null && user.token==null) {  // use this once token is used for a user
@@ -103,10 +133,9 @@ this.sessionService.getCurrentUser().subscribe(user => {
   else{
     this.currentUser = user;
   console.log('From session '+this.currentUser.email+'  id here '+this.currentUser.user_id)
-
   }
   // store the user session information in a property
-  
+
 });
  //when navigate back to sign-in session ends
  this.router.events.pipe(
@@ -121,145 +150,103 @@ logout(): void {
 
 }
 
-
-
-onPermissionChange(event: any, value: number) {
-  let checkbox1 = document.getElementById('checkbox-1') as HTMLInputElement;
-  let checkbox3 = document.getElementById('checkbox-3') as HTMLInputElement;
-  
-  if (event.target.checked) {
-    switch(value){
-      case 1:
-        if (!this.permissionList.includes('2')) {
-          this.permissionList.push('1');
-        } else {
-          event.target.checked = false; // uncheck the checkbox
-        }
-        break;
-      case 2:
-        this.permissionList = this.permissionList.filter(permission => permission !== '1');
-        this.permissionList.push('2');
-        if (this.permissionList.includes('4')) {
-          checkbox3.disabled = true; // disable the value 3 checkbox
-        }
-        break;
-      case 3:
-        if (!this.permissionList.includes('4')) {
-          this.permissionList.push('3');
-        } else {
-          event.target.checked = false; // uncheck the checkbox
-        }
-        break;
-      case 4:
-        this.permissionList = this.permissionList.filter(permission => permission !== '3');
-        this.permissionList.push('4');
-        if (this.permissionList.includes('2')) {
-          checkbox1.disabled = true; // disable the value 1 checkbox
-        }
-        break;
-    }
+updateReadCheckbox(event: Event) {
+  const writeCheckbox = event.target as HTMLInputElement;
+  const readCheckbox = writeCheckbox.parentElement?.previousElementSibling?.querySelector('input[type="checkbox"]') as HTMLInputElement;
+  if (writeCheckbox.checked) {
+    readCheckbox.checked = true;
   } else {
-    switch(value){
-      case 1:
-        this.permissionList = this.permissionList.filter(permission => permission !== '1');
-        break;
-      case 2:
-        this.permissionList = this.permissionList.filter(permission => permission !== '2');
-        checkbox1.disabled = false; // enable the value 1 checkbox
-        checkbox3.disabled = false; // enable the value 3 checkbox
-        break;
-      case 3:
-        this.permissionList = this.permissionList.filter(permission => permission !== '3');
-        break;
-      case 4:
-        this.permissionList = this.permissionList.filter(permission => permission !== '4');
-        checkbox3.disabled = false; // enable the value 3 checkbox
-        checkbox1.disabled = false; // enable the value 1 checkbox
-        break;
-    }
+    readCheckbox.checked = false;
   }
-  
-  if (this.permissionList.length === 0) {
-    // if all checkboxes are unchecked, clear the permission list
-    this.permissionList = [];
-  }
-  console.log('View initialized:', this.changeDetectorRef?.view);
-  this.cdr.detectChanges();
 }
+
+
+updateReadAccess(permission: any, event: any) {
+  const checkbox = event.target as HTMLInputElement;
+  const action = checkbox.id.includes('write') ? 'write' : 'read';
+
+  this.correspondingPermission = this.PList.find((p: { type: any; actions: string; }) => p.type === permission.type && p.actions === action);
+
+  if (this.correspondingPermission) {
+    console.log('Permission ID:', this.correspondingPermission.permission_id);
+    console.log('Action:', this.correspondingPermission.actions);
+    console.log('Type:', this.correspondingPermission.type);
+
+    if (action === 'write' && checkbox.checked) {
+      const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
+      readCheckbox.checked = true;
+      readCheckbox.disabled = true; // Disable the read checkbox
+    } else if (action === 'write' && !checkbox.checked) {
+      const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
+      readCheckbox.checked = false;
+      readCheckbox.disabled = false; // Enable the read checkbox
+    }
+
+    this.ppList.push(this.correspondingPermission.permission_id);
+  }
+}
+
+
+
+
 
 
 private async addP() {
-  if(this.isEdit == true)
-  {
-    try
-    {
-   debugger
-    console.log("test in addP" + this.Puser_id)
-    const response = await this.addEmployeesService.EditPermission(this.permissionList, this.Puser_id).toPromise();
-    console.log(response);
-    console.log(this.addPermissionForm.value);
-
-    this.router.navigate(['/profile']);
-  } catch(error) {
-    console.log('Could not add', error);
-  }
-  }
-  else{
-
-  try {
-    debugger
-    const emailValue = this.addEmployeeForm.value.email;
-    console.log('Email value:', emailValue);
-    
-    const response = await this.addEmployeesService.addPermission(this.permissionList, emailValue).toPromise();
-    console.log(response);
-    console.log(this.addPermissionForm.value);
-
-    this.router.navigate(['/profile']);
-  } catch(error) {
-    console.log('Could not add', error);
-  }
-}
-}
-
-
-async onAdd() {
-
-if(this.isEdit == true){
-  debugger
- const response = await this.addEmployeesService.EditUser(this.Puser_id,this.addEmployeeForm.value).toPromise();
-
-
- await this.addP();
- alert('User Edited Successfully')
-    await this.router.navigate(['/profile'])
- this.isEdit = false;
- this.addEmployeeForm.reset();
-
-}
-else
-{
-  
-
-  try {
-  debugger
-    const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
-    alert('User Added Successfully')
-    await this.router.navigate(['/profile'])
-
-
-    await this.addP(); // Wait for permissions to be added
-
-    console.log(this.addPermissionForm.value);
-
-   
+  if (this.isEdit) {
+    try {
       
-    // reload the component
-   
-    await this.router.navigate(['/dashboard']);
+      console.log('User ID in addP:', this.Puser_id);
+      const response = await this.addEmployeesService.EditPermission(this.ppList, this.Puser_id).toPromise();
+      console.log(response);
+      console.log(this.addPermissionForm.value);
+      this.router.navigate(['/profile']);
     
-  } catch(error) {
-    console.log('Could not add', error);
+    } catch (error) {
+      console.log('Could not edit:', error);
+    }
+  } else {
+    try {
+      const emailValue = this.addEmployeeForm.value.email;
+      console.log('Email value:', emailValue);
+
+      const response = await this.addEmployeesService.addPermission(this.ppList, emailValue).toPromise();
+      console.log(response);
+ 
+
+      this.router.navigate(['/profile']);
+    } catch (error) {
+      console.log('Could not add:', error);
+    }
   }
 }
-}  }
+async onAdd() {
+  if (this.isEdit) {
+    try {
+      const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
+
+      await this.addP();
+      alert('User Edited Successfully');
+      await this.router.navigate(['/profile']);
+      this.isEdit = false;
+      this.addEmployeeForm.reset();
+    } catch (error) {
+      console.log('Could not edit:', error);
+      }
+    } else {
+      try {
+        const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
+        alert('User Added Successfully');
+        await this.router.navigate(['/profile']);
+
+        await this.addP(); // Wait for permissions to be added
+
+        console.log(this.addPermissionForm.value);
+
+        // Reload the component
+        await this.router.navigate(['/dashboard']);
+      } catch (error) {
+        console.log('Could not add:', error);
+      }
+    }
+  }
+}

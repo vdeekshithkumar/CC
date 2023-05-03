@@ -20,6 +20,15 @@
     @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
   }
    */
+
+   .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+  }
+  
+  
 .div{
   @apply flex flex-row font-poppins;
 }
@@ -113,3 +122,109 @@
     @apply bg-CCblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
 }
    
+.div{
+
+    @apply flex flex-row
+    
+   }
+    
+    
+    
+    
+   .div-app-sidebar{
+    
+    @apply sticky w-[110px]
+    
+   }
+    
+    
+    
+    
+   .div-card{
+    
+    @apply w-full flex flex-col first:flex-row
+    
+   }
+    
+   .div-card-div{
+    
+    @apply text-2xl font-bold font-poppins mt-8 mb-4 p-3
+    
+   }
+    
+    
+    
+    
+   .buttons-container {
+    
+    @apply absolute top-12 right-0 mt-8 mr-8 flex items-center;
+    
+    }
+    
+   
+    
+    .my-button {
+    
+    @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+    
+    }
+
+    .div{
+        @apply flex flex-row font-poppins;
+      }
+      .div-app-sidebar{
+          @apply sticky w-[8vw] border-r-2;
+        }
+    
+        .div-card{
+            @apply w-full flex flex-col first:flex-row
+           }
+           .div-card-div{
+            @apply text-2xl font-bold font-poppins mt-8 mb-4 p-3
+           }
+    
+           .buttons-container {
+            @apply absolute top-12 right-0 mt-8 mr-3 flex items-center;
+          }
+          
+          .my-button {
+            @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+          }
+          .div-company{
+            @apply px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
+        }
+        .div-tag{
+          @apply bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px];
+      }
+        .div-company-name{
+            @apply text-xs font-thin pt-2 px-2;
+        }
+        .div-sub-box{
+          @apply mx-[1rem] flex-shrink-0
+      }
+      .div-detail{
+        @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
+    }
+    .div-company-details {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .div-company-details .div-company {
+      display: flex;
+      align-items: center;
+      margin-right: 1rem;
+    }
+    
+    .div-company-details .div-company img {
+      margin-right: 1rem;
+    }
+    
+    .div-company-details .mx-[1rem] {
+      display: flex;
+      align-items: center;
+    }
+    .my-button {
+      @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+    }

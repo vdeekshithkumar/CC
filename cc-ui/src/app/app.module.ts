@@ -26,6 +26,7 @@ import { SessionService } from './session.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
 
+
 import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
@@ -34,6 +35,8 @@ import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-passwo
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
 import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
+import { EmpSearchPipe } from './employee-search.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,6 +61,7 @@ import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
           VerifyComponent,
           MyAdvertisementComponent,
           PostAdComponent,
+          EmpSearchPipe,
     
     
   ],
