@@ -1,42 +1,33 @@
 using CC_api.Models;
-using CC_api.Repository;
-using Google.Apis.Auth.OAuth2;
-using Google.Apis.Drive.v3;
-using Google.Apis.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
 
-namespace CC_api.Business
+namespace CC_api.Repository
 {
-  public class ContractBusiness
+  public class CompanyRepository
   {
-    private string PathToServiceAccountKeyFile = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "client_secret.json");
-    private const string ServiceAccountEmail = "cc-436@cc-repository.iam.gserviceaccount.com";
-    private const string DirectoryId = "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS";
-
-
-    private readonly ContractRepository contractRepository;
-    public ContractBusiness()
+    private readonly DatabaseContext dbContext;
+    public CompanyRepository()
     {
-      this.contractRepository = new ContractRepository();
-    }
-    public async Task<IActionResult> UploadContract(Contract contract)
-    {
-      var con = new Contract();
-
-      con.contract_id = contract.contract_id;
-      con.company_id = contract.company_id;
-      con.user_id = contract.user_id;
-      con.content = contract.content;
-      con.title = contract.title;
-      con.uploaded_file = contract.uploaded_file;
-      con.updated_by = contract.updated_by;
-      con.updated_date_time = contract.updated_date_time;
-
-      await contractRepository.UploadC(con);
-      return new OkResult();
-
+      this.dbContext = new DatabaseContext();
     }
 
+    public async Task Create(Company company)
+    {
+      dbContext.company.Add(company);
+      await dbContext.SaveChangesAsync();
+    }
+    public async Task<List<Company>> GetAllCompanyAsync()
+    {
+      return dbContext.company.ToList();
+    }
+    public async Task<Company> GetById(int Id)
+    {
+      var company = dbContext.company.FirstOrDefault(e => e.company_id == Id);
+      return company;
+    }
+    public async Task Update(Company company)
+    {
+      dbContext.company.Update(company);
+      await dbContext.SaveChangesAsync();
+    }
   }
 }
