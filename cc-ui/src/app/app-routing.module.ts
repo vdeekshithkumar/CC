@@ -15,6 +15,7 @@ import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
+import { ViewContractsComponent } from './view-contracts/view-contracts.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -76,6 +77,11 @@ const routes: Routes = [
   {
     component:VerifyComponent,
     path:'verify',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:ViewContractsComponent,
+    path:'view-contract',
     canActivate: [AuthGuard]
   },
 

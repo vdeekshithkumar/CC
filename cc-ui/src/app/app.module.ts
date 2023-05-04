@@ -36,6 +36,7 @@ import { VerifyComponent } from './sign-in/forgot-password/verify/verify.compone
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
 import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 import { EmpSearchPipe } from './employee-search.pipe';
+import { ViewContractsComponent } from './view-contracts/view-contracts.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { EmpSearchPipe } from './employee-search.pipe';
           MyAdvertisementComponent,
           PostAdComponent,
           EmpSearchPipe,
+          ViewContractsComponent,
     
     
   ],
