@@ -107,10 +107,10 @@
   @apply sticky w-[8vw] border-r-2 z-50;
 }
 .div-grp{
-  @apply flex flex-col sm:flex-row top-0 bottom-0 ml-20
+  @apply flex flex-col sm:flex-row top-0 mb-0 ml-5
 }
 .div-section{
-  @apply antialiased min-h-screen p-9 max-w-2x1 mx-auto bg-cyan-700 bg-blend-saturation rounded-md shadow-2xl dark:bg-gray-800 ml-10 mt-10 mb-96 bottom-0
+  @apply antialiased min-h-screen p-9 max-w-2x1 mx-auto bg-cyan-700 bg-blend-saturation rounded-md shadow-2xl dark:bg-gray-800 ml-24 mt-10 mb-96 bottom-0
 }
 .div-section-h1{
   @apply text-xl font-bold text-white capitalize dark:text-white
@@ -128,7 +128,7 @@
   @apply relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500
 }
 .div-table{
-  @apply w-full md:w-12 mt-2 ml-2 mr-1 border flex-1 text-sm bg-white p-6 rounded-sm m-3 h-[900px] overflow-y-auto
+  @apply w-full md:w-10 mt-2 ml-2 mr-1 border flex-1 text-sm bg-white p-6 rounded-sm m-3 h-[900px] overflow-y-auto
 }
 .div-search{
   @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden

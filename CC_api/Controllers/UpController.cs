@@ -32,7 +32,7 @@ namespace CC_api.Controllers
       var userId = await upBusiness.GetUserIdByEmail(permission.emailValue);
       if (userId != null)
       {
-        await upBusiness.AddPermissionAsync(permission.permissionList, permission.emailValue);
+        await upBusiness.AddPermissionAsync(permission.ppList, permission.emailValue);
         return Ok();
       }
       else
@@ -45,14 +45,26 @@ namespace CC_api.Controllers
     [HttpPut("EditPermission/{user_id}")]
     public async Task<IActionResult> EditPermissionAsync([FromBody] Permission permission)
     {
-      return await upBusiness.EditPermissionById(permission.permissionList, permission.user_id);
+      return await upBusiness.EditPermissionById(permission.ppList, permission.user_id);
+    }
+
+    [HttpGet("UserPermissions")]
+    public async Task<IActionResult> GetPermissions(int user_id)
+    {
+      var permissions = await upBusiness.GetPermissions(user_id);
+      return Ok(permissions);
     }
 
 
-
-
+    [HttpGet("GetAllPermission")]
+    public async Task<List<Permissions>> GetAllPermission()
+    {
+      return await upBusiness.GetAllPermissionAsync();
+    }
 
 
 
   }
 }
+
+

@@ -14,9 +14,10 @@ import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.
 import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
-import { PostAdComponent } from './post-ad/post-ad.component';
-import { ForecastingComponent } from './forecasting/forecasting.component';
+import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
+import { ViewContractsComponent } from './view-contracts/view-contracts.component';
 import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
+import { ForecastingComponent } from './forecasting/forecasting.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -33,6 +34,11 @@ const routes: Routes = [
   {
     component:DashboardComponent,
     path:'dashboard',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:MyAdvertisementComponent,
+    path:'my-ad',
     canActivate: [AuthGuard]
   },
   {
@@ -92,6 +98,23 @@ const routes: Routes = [
   {
     component:VerifyComponent,
     path:'verify',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:ForecastingComponent,
+    path:'forecasting',
+    canActivate: [AuthGuard]
+
+  },
+  {
+    component:ForecastingTableViewComponent,
+    path:'forecasting-table-view',
+    canActivate: [AuthGuard]
+
+  },
+  {
+    component:ViewContractsComponent,
+    path:'view-contract',
     canActivate: [AuthGuard]
   },
 

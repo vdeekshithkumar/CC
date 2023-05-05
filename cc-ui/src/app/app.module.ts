@@ -26,18 +26,22 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
+
 import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
 import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
-import { PostAdComponent } from './post-ad/post-ad.component';
+import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
+import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
+import { EmpSearchPipe } from './employee-search.pipe';
+import { ViewContractsComponent } from './view-contracts/view-contracts.component';
 import { ForecastingComponent } from './forecasting/forecasting.component';
-import { NgxPaginationModule } from 'ngx-pagination';
 import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +57,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
-
+   
     SearchPipe,
     
     PageNotFoundComponent,
@@ -61,9 +65,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
           OtpVerifyComponent,
           ForgotPasswordComponent,
           VerifyComponent,
+          MyAdvertisementComponent,
           PostAdComponent,
+          EmpSearchPipe,
+          ViewContractsComponent,
           ForecastingComponent,
-          AppComponent,
           ForecastingTableViewComponent,
     
     
@@ -75,9 +81,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
     NgxPaginationModule,
-    BrowserAnimationsModule,
   
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],

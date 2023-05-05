@@ -2,31 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/session.service';
+
 import { ForecastingTableService } from './forecasting-table-view.service';
 
-interface Inventory {
-  inventory_id:number,
-  date_created:Date,
-  last_modified:Date,
-  company_id:number,
-  container_type:string,
-  available: number,
-  maximum: number,
-  minimum:number,
-  port_id:number,
-  updated_by:string,
-  container_size:number,
-  deficit:number,
-  surplus:number,
-
-  // Add any other properties here
-}
 @Component({
   selector: 'app-forecasting-table-view',
   templateUrl: './forecasting-table-view.component.html',
   styleUrls: ['./forecasting-table-view.component.css']
 })
-
 export class ForecastingTableViewComponent implements OnInit{
   
   showModal=false;
@@ -43,8 +26,8 @@ export class ForecastingTableViewComponent implements OnInit{
   inventory_list=null;
 inventory_data: any;
 port_id: any;
-inventory_list_by_companyId: Inventory[] = [];
-sortedData: Inventory[] = [];
+inventory_list_by_companyId=[];
+// sortedData: Inventory[] = [];
 port_list:any;
 port_name="";
 itemsPerPage: number = 10;
@@ -116,7 +99,7 @@ ngOnInit(): void {
       data => {
         this.inventory_list_by_companyId = data;
         console.log("inv list by company id is fetched: ", this.inventory_list_by_companyId); 
-        this.sortedData = this.inventory_list_by_companyId;
+        // this.sortedData = this.inventory_list_by_companyId;
       },
       error => {
         console.log("inv loading error:" +error);
@@ -137,15 +120,15 @@ ngOnInit(): void {
       // store the user session information in a property
       
     })
-    this.sortedData = this.data;
+    // this.sortedData = this.data;
   }
-  sortData(sortOrder: string): void {
-    if (sortOrder === 'asc') {
-      this.sortedData = this.inventory_list_by_companyId.sort((a, b) => a.surplus - b.surplus);
-    } else if (sortOrder === 'desc') {
-      this.sortedData = this.inventory_list_by_companyId.sort((a, b) => b.surplus - a.surplus);
-    } 
-  }
+  // sortData(sortOrder: string): void {
+  //   if (sortOrder === 'asc') {
+  //     this.sortedData = this.inventory_list_by_companyId.sort((a, b) => a.surplus - b.surplus);
+  //   } else if (sortOrder === 'desc') {
+  //     this.sortedData = this.inventory_list_by_companyId.sort((a, b) => b.surplus - a.surplus);
+  //   } 
+  // }
   
     getPortName(portId: number): string {
       const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
@@ -192,3 +175,4 @@ ngOnInit(): void {
   
 }
   
+

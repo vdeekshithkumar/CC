@@ -6,14 +6,14 @@
 <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
       <nav class="table-navbar w-full">
         <div class="max-w-sm ml-4 flex items-center">	
-          <button class="ml-16 -mt-3 font-medium text-black capitalize dark:text-white" (click)="backPage()">&lt; Back</button>
-          <h1 class="text-2xl -mr-20 font-bold text-black capitalize dark:text-white">&ensp;Forecasting</h1>
+          <button class="ml-16 -mt-0 font-medium text-black capitalize dark:text-white" (click)="backPage()">&lt; Back</button>
+          <h1 class="text-2xl -mr-20 -mt-1 font-bold text-black capitalize dark:text-white">&ensp;Forecasting</h1>
           <div class="flex items-center p-1 x-1 bg-white w-0 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500 ml-auto -mx-96">
             <div class="flex bg-gray-100 p-3 w-76 space-x-4 shadow-lg rounded-lg ml-72">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-8 opacity-30 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-              <input [(ngModel)]="searchTerm" class="bg-gray-100 outline-none" type="text" placeholder="PortName|Containertype" />
+              <input [(ngModel)]="searchTerm" class="bg-gray-100 outline-none" type="text" placeholder="PortName | Containertype" />
             </div>
         </div>
       </div>
@@ -57,12 +57,12 @@
                               <th scope="col" class="px-4 py-3.5 text-1xl font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                 <div class="flex items-center justify-between">
                                   <span>Surplus</span>
-                                  <div class="ml-2">
+                                  <!-- <div class="ml-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                       <path d="M10 16a1 1 0 01-.707-.293l-4-4a1 1 0 011.414-1.414L10 13.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 16z"/>
                                       <path d="M10 4a1 1 0 01-.707-.293l-4-4a1 1 0 011.414-1.414L10 2.586l3.293-3.293a1 1 0 111.414 1.414l-4 4A1 1 0 0110 4z"/>
                                     </svg>
-                                  </div>
+                                  </div> -->
                                 </div>
                               </th>
                               <th scope="col" class="px-4 py-3.5  text-1xl font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400">

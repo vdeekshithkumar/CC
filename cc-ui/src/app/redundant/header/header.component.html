@@ -60,7 +60,11 @@
     <!-- Profile icon -->
     <div class="flex-1 mx-2 cursor-auto">
       <div class="profile-icon" (click)="showPopup = !showPopup">
-        <img class="-mt-2 inline-flex rounded-full" src="assets/images/user.jpg" width="64" height="64" alt="User" />
+        <!-- <img
+          src="https://picsum.photos/200/300"
+          class="header-img"
+        /> -->
+        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
         <div class="profile-div" *ngIf="showPopup" >
           <div class="profile-box">
             <a >Edit profile</a>

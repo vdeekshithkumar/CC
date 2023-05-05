@@ -8,11 +8,8 @@
 .div{
     @apply bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative z-50
 }
-.div-span{
-    @apply absolute top-0 bottom-0 right-0 px-4 py-3
-}
 .div-span-svg{
-    @apply fill-current h-6 w-6 text-red-500
+    @apply fill-current h-6 w-6 text-red-500 inline
 }
 .div-box{
     @apply bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative z-50
@@ -48,7 +45,7 @@
     @apply flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-100
 }
 .div-form-svg{
-    @apply flex-col items-center justify-center pt-5 pb-6
+    @apply flex flex-col items-center justify-center pt-5 pb-6
 }
 .div-form-p{
     @apply mb-2 text-sm text-gray-500 dark:text-gray-400
@@ -59,7 +56,12 @@
 .div-a{
     @apply text-blue-600 hover:text-blue-400 self-start
 }
-.div-app-sidebar{
-    @apply sticky w-[8vw] border-r-2 z-30;
-  }
+.div-a-end{
+    @apply text-blue-600 hover:text-blue-400 float-right
+}
+
+.dropspace-text-sm
+{
+    @apply text-xs text-gray-500;
+}
   

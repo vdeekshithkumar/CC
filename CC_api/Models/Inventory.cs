@@ -33,6 +33,8 @@ namespace CC_api.Models
     public int port_id { get; set; }
     public int updated_by { get; set; }
     public int container_size { get; set; }
+    public int surplus { get; set; }
+    public int deficit { get; set; }
 
  
 

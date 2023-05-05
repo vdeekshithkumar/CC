@@ -44,11 +44,11 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
     }
 
-
     public async Task<Inventory> GetInventoryById(int id)
     {
       return await dbContext.inventory.FirstOrDefaultAsync(x => x.inventory_id == id);
     }
+
     public async Task<List<Inventory>>GetInventoryByIdCID(int companyId)
     {
       return await dbContext.inventory.Where(x => x.company_id == companyId).ToListAsync();

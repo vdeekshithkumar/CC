@@ -43,6 +43,16 @@ namespace CC_api.Business
 
 
     }
+    public async Task<List<int>> GetPermissions(int userId)
+    {
+      var permissionIds = await upRepository.GetPermissionIds(userId);
+      var permissions = new List<int>();
+      foreach (var id in permissionIds)
+      {
+        permissions.Add((int)id);
+      }
+      return permissions;
+    }
     public async Task<IActionResult> EditPermissionById(List<int> permissionList, int user_id)
     {
       //a user_id should be retrieve method
@@ -105,9 +115,25 @@ namespace CC_api.Business
 
 
 
-
+    public async Task<List<Permissions>> GetAllPermissionAsync()
+    {
+      return await upRepository.GetAllPermissionAsync();
+    }
 
 
 
   }
 }
+
+
+
+  
+
+   
+
+
+
+
+
+
+
