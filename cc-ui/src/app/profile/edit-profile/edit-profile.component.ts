@@ -8,7 +8,6 @@ import { SessionService } from 'src/app/session.service';
 import { ProfileService } from '../profile.service';
 import { Location } from '@angular/common';
 
-
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
@@ -25,36 +24,47 @@ export class EditProfileComponent implements OnInit{
   companyName:any;
   company_logo:any;
   licenceId:any;
-  
   showform=true;
-  constructor(private sessionService: SessionService, profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private editProfileService:EditProfileService
+  constructor(private sessionService: SessionService, profileComponent:ProfileComponent,private formBuilder: FormBuilder,private router:Router,private profileService: ProfileService,private editProfileService:EditProfileService
     ,private location: Location){
   }
   ngOnInit(): void {
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
-        this.companyName=this.companyName;
         console.log('company ID is :', companyId);
+  
+        // Initialize form controls
+        this.editprofileForm = this.formBuilder.group({
+          company_id: [companyId],
+          name: ['', Validators.required],
+          licence_id: ['', Validators.required],
+          domain_address: ['', Validators.required],
+          company_logo: [''],
+          company_location: ['', Validators.required],
+          country: ['', Validators.required],
+          rating: ['', Validators.required],
+          address: ['', Validators.required],
+        });
+  
+        // Get company details and set form values
+        this.profileService.getCompanyById(this.companyId).subscribe(
+          data => {
+            this.editprofileForm.patchValue(data);
+            console.log(data);
+          },
+          error => {
+            console.error('Error retrieving company details:', error);
+          }
+        );
       },
-      (error: any) => {
+      error => {
         console.error('Error retrieving company ID:', error);
       }
     );
-    this.editprofileForm = this.formBuilder.group({
-     company_id:this.companyId,
-     name:['', Validators.required],
-      licence_id:['', Validators.required],
-      domain_address: ['', Validators.required],
-      company_logo: [''],
-      company_location: ['', Validators.required],
-      country: ['', Validators.required],
-      rating:['', Validators.required],
-      address: ['', Validators.required],
-      });
-   
-    
   }
+  
+  
   onCancel() {
     // this.editprofileForm.reset()
     window.location.reload()
@@ -111,4 +121,4 @@ export class EditProfileComponent implements OnInit{
   GetAllCompany() { 
     throw new Error('Method not implemented.');
   }  
-}
+  }

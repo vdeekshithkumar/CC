@@ -45,6 +45,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
+    
     HomeComponent,
     RegisterComponent,
     SignInComponent,

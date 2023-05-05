@@ -24,11 +24,11 @@
   @apply flex flex-row font-poppins;
 }
 .div-app-sidebar{
-    @apply sticky w-[8vw] border-r-2;
+    @apply sticky w-[8vw] ;
   }
-.div-company-details{
+/* .div-company-details{
     @apply w-full flex flex-col sm:w-fit first:flex-row;
-}
+} */
 .div-editcompany{
     @apply absolute right-0 w-4 h-4 rounded-full top-8;
 }

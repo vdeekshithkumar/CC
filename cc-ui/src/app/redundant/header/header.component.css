@@ -37,7 +37,7 @@ a:hover {
 }
 .profile-icon{
   @apply flex-1 flex justify-end relative cursor-pointer
-}
+}     
 .profile-div{
   @apply absolute top-full right-0 rounded-md 
 }
