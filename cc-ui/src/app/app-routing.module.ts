@@ -9,6 +9,7 @@ import { UploadContractComponent } from './upload-contract/upload-contract.compo
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { AuthGuard } from './auth.guard';
+import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
 import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
@@ -90,8 +91,8 @@ const routes: Routes = [
   },
   {
     component:PostAdComponent,
-    path:'post-ad',
-    // canActivate: [AuthGuard]
+    path:'forecasting-table-view',
+    canActivate: [AuthGuard]
 
   },
   
