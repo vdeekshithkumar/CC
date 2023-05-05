@@ -24,16 +24,16 @@
   @apply flex flex-row font-poppins;
 }
 .div-app-sidebar{
-    @apply sticky w-[8vw] border-r-2;
+    @apply sticky w-[8vw] ;
   }
 .div-company-details{
-    @apply w-full flex flex-col sm:w-fit first:flex-row;
+    @apply w-fit flex flex-col  first:flex-row ml-20 -mt-2;
 }
 .div-editcompany{
     @apply absolute right-0 w-4 h-4 rounded-full top-8;
 }
 .div-company{
-    @apply px-2 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
+    @apply px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
 }
 .div-company-name{
     @apply text-xs font-thin pt-2 px-2;
@@ -48,7 +48,7 @@
     @apply mx-[1rem] flex-shrink-0
 }
 .div-box{
-    @apply mx-3 w-[10em] h-[3.5em] bg-gray-100 flex;
+    @apply mx-2 w-[10em] h-[3.5em] bg-gray-100 flex;
 }
 .div-box-numbers{
     @apply flex-1 text-3xl font-bold flex items-center justify-center;
@@ -98,6 +98,20 @@
 .emplist{
     @apply whitespace-nowrap px-6 py-4;
 }
+.radio-button {
+  @apply px-1 py-1 border-0 text-black border-gray-800  ml-1 w-16 h-8 ;
+ }
+ 
+ .radio-button--selected {
+  @apply bg-blue-500 text-white border-blue-500;
+ }
+ .my-custom-select {
+   /* add your styles here */
+   font-size: 10px;
+   padding: 8px;
+   border-radius: 4px;
+   border: 1px solid #ccc;
+ }
 
 .label-contain {
     display: grid;

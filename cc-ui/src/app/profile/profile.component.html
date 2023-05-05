@@ -5,7 +5,7 @@
   <!-- Main View Canvas -->
   <div class="div-company-details">
     <!-- Company Details section  -->
-    <div class="p-2 m-4 shadow-md h-fit">
+    <div class="p-2 m-1 shadow-md h-fit">
       <div class="flex">
         <div class="flex flexbox">
           <!-- first box which contains the company details -->
@@ -85,10 +85,8 @@
             
             <div class="flex flex-row ">
               <div class="div-box">
-                <div
-                  class="div-box-numbers"
-                >
-                49
+                <div class="div-box-numbers"> 
+               {{usercount_list}}
                 </div>
                 <div class="div-box-data">
                   Active members
@@ -190,7 +188,7 @@
         <button class="div-action-button" routerLink="/upload-contract">
           Upload Contracts
         </button>
-        <button class="div-action-button" >
+        <button class="div-action-button" routerLink="/view-contract">
           View Contracts
         </button>
         <button class="div-action-button" routerLink="/add-employee">
@@ -262,8 +260,8 @@
               <thead class="emplist-thead">
                 <tr>
               
-                  <th scope="col" class="px-6 py-4">FName</th>
-                  <th scope="col" class="px-6 py-4">LName</th>
+                  <th scope="col" class="px-6 py-4">First Name</th>
+                  <th scope="col" class="px-6 py-4">Last Name</th>
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
                   <th scope="col" class="px-6 py-4">Password</th>

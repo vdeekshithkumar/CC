@@ -12,6 +12,7 @@ import { SidebarComponent } from './redundant/sidebar/sidebar.component';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { HeaderComponent } from './redundant/header/header.component';
@@ -37,6 +38,9 @@ import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.co
 import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 import { EmpSearchPipe } from './employee-search.pipe';
 import { ViewContractsComponent } from './view-contracts/view-contracts.component';
+import { ForecastingComponent } from './forecasting/forecasting.component';
+import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,7 @@ import { ViewContractsComponent } from './view-contracts/view-contracts.componen
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
-    
+   
     SearchPipe,
     
     PageNotFoundComponent,
@@ -64,6 +68,8 @@ import { ViewContractsComponent } from './view-contracts/view-contracts.componen
           PostAdComponent,
           EmpSearchPipe,
           ViewContractsComponent,
+          ForecastingComponent,
+          ForecastingTableViewComponent,
     
     
   ],
@@ -74,6 +80,7 @@ import { ViewContractsComponent } from './view-contracts/view-contracts.componen
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
   
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],

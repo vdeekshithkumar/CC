@@ -16,6 +16,8 @@ import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-passwo
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
 import { ViewContractsComponent } from './view-contracts/view-contracts.component';
+import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
+import { ForecastingComponent } from './forecasting/forecasting.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -78,6 +80,18 @@ const routes: Routes = [
     component:VerifyComponent,
     path:'verify',
     canActivate: [AuthGuard]
+  },
+  {
+    component:ForecastingComponent,
+    path:'forecasting',
+    canActivate: [AuthGuard]
+
+  },
+  {
+    component:ForecastingTableViewComponent,
+    path:'forecasting-table-view',
+    canActivate: [AuthGuard]
+
   },
   {
     component:ViewContractsComponent,

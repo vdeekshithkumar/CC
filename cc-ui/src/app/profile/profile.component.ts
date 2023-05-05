@@ -13,6 +13,7 @@ import { SessionService } from '../session.service';
 })
 export class ProfileComponent implements OnInit {
   public company_id?: number;
+  usercount_list=null;
   public name?: string;
   domain_address?: string;
   licence_id?: number;
@@ -102,6 +103,17 @@ export class ProfileComponent implements OnInit {
       this.alluser_list = data;
       console.log("employee list fetched: ", this.alluser_list); 
      
+    },
+    error => {
+      console.log("employee loading error:" +error);
+    }
+  );
+  this.profileService.getallUserCount(this.companyId).subscribe(
+    data => {
+      this.usercount_list = data;
+     
+      console.log("employee Count: ", this.usercount_list); 
+      
     },
     error => {
       console.log("employee loading error:" +error);
