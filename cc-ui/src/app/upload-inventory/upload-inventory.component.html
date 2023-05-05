@@ -16,7 +16,7 @@
   </div>
 </div>
 <!-- Viewpane -->
-<div class="flex flex-row">
+
   <!-- Sidebar -->
   <app-sidebar class="sticky w-[8vw] border-r-2 z-30"></app-sidebar>
   <!-- Main View -->
@@ -28,7 +28,7 @@
         <h1 class="div-section-h1">Upload Inventory</h1>
         <form [formGroup]= "UploadInventoryForm" (ngSubmit)="onSubmit()">
             <div class="div-form">
-                <div>
+                 <div>
                     <label class="div-form-label" for="username">Name on Port</label>
                     <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select">
                       <option selected>Select your port </option>
@@ -94,16 +94,8 @@
               <div class="flex justify-end mt-2">
                 <button type="button" routerLink="/dashboard" class="uploadinv-btn">Back</button>
             </div>
-      
-           
         </form>
       </section>
-      
-        
-      
-        
-      
-     
       <div class="div-table">
         <!-- Table code goes here -->
         <div class="flex flex-col overflow-x-auto mr-15 ml-2">
@@ -128,10 +120,9 @@
                 />
               </div>
                 </div>
-                
-            
-          </nav>
-              </div>
+    
+              </nav>
+            </div>
           <table class="div-table-inv">
               <thead class="div-thead">
                   <tr>
@@ -159,7 +150,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr  *ngFor="let inv of inventory_list_by_companyId | search: searchTerm" class="div-tbody-tr">
+                  <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="div-tbody-tr">
                       <th scope="row" class="div-tbody-th">
                         {{inv.port_id}}
                       </th>
@@ -186,11 +177,34 @@
                         
                         </div>
                   </tr>
+                  
               </tbody>
+         
           </table>
+          <div class="flex items-center justify-between bg-white" >
+            <button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" class="flex font-medium items-center ml-22 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-white-800">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                </svg>
+      
+                <span>
+                    previous
+                </span>
+            </button>z
+      
+            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" class="flex font-medium items-center ml-22 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-white-800">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
+                    
+                </svg>
+      
+                <span>
+                    Next
+                    
+                </span>
+            </button>
+        </div>
         </div>
             
             
           </div></div>
       </div>
-      

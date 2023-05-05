@@ -27,7 +27,7 @@
     @apply sticky w-[8vw] ;
   }
 .div-company-details{
-    @apply w-full flex flex-col sm:w-fit first:flex-row;
+    @apply w-fit flex flex-col  first:flex-row ml-20 -mt-2;
 }
 .div-editcompany{
     @apply absolute right-0 w-4 h-4 rounded-full top-8;
@@ -98,6 +98,20 @@
 .emplist{
     @apply whitespace-nowrap px-6 py-4;
 }
+.radio-button {
+  @apply px-1 py-1 border-0 text-black border-gray-800  ml-1 w-16 h-8 ;
+ }
+ 
+ .radio-button--selected {
+  @apply bg-blue-500 text-white border-blue-500;
+ }
+ .my-custom-select {
+   /* add your styles here */
+   font-size: 10px;
+   padding: 8px;
+   border-radius: 4px;
+   border: 1px solid #ccc;
+ }
 
 .label-contain {
     display: grid;

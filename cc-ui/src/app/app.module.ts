@@ -12,6 +12,7 @@ import { SidebarComponent } from './redundant/sidebar/sidebar.component';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { HeaderComponent } from './redundant/header/header.component';
@@ -25,16 +26,22 @@ import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SessionService } from './session.service';
 import { AuthGuard } from './auth.guard';
 import { AuthInterceptor } from './auth.interceptor';
-
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
 import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
+import { PostAdComponent } from './post-ad/post-ad.component';
+import { ForecastingComponent } from './forecasting/forecasting.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
   declarations: [
     AppComponent,
+    
     HomeComponent,
     RegisterComponent,
     SignInComponent,
@@ -46,7 +53,7 @@ import { VerifyComponent } from './sign-in/forgot-password/verify/verify.compone
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
-    
+
     SearchPipe,
     
     PageNotFoundComponent,
@@ -54,6 +61,10 @@ import { VerifyComponent } from './sign-in/forgot-password/verify/verify.compone
           OtpVerifyComponent,
           ForgotPasswordComponent,
           VerifyComponent,
+          PostAdComponent,
+          ForecastingComponent,
+          AppComponent,
+          ForecastingTableViewComponent,
     
     
   ],
@@ -64,6 +75,9 @@ import { VerifyComponent } from './sign-in/forgot-password/verify/verify.compone
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserModule,
+    NgxPaginationModule,
+    BrowserAnimationsModule,
   
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],

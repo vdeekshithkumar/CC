@@ -184,7 +184,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/add-employee'], { queryParams: { edit: true } });
   }
   deleteUserById(id: number) {
-  
+  debugger
     this.profileService.deleteUserById(id)
       .subscribe(
         (        data: any) => {

@@ -21,5 +21,5 @@
     @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 Poppins  text-xs;
 }
 .sidebar-d {
-    @apply block h-screen shadow-md font-poppins fixed w-[110px] border-r-2 z-50 left-0 top-12;
+    @apply block h-screen shadow-md font-poppins fixed w-[100px] border-r-2 z-50 left-0 top-16;
   }
