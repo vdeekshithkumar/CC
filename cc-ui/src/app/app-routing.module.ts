@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-passwo
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
 import { ViewContractsComponent } from './view-contracts/view-contracts.component';
+import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -37,6 +38,11 @@ const routes: Routes = [
   {
     component:MyAdvertisementComponent,
     path:'my-ad',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:PostAdComponent,
+    path:'post-ad',
     canActivate: [AuthGuard]
   },
   {

@@ -16,6 +16,17 @@
       height: 1;
     }
   }
+
+@layer utility{
+    .menu-tile{
+        @apply text-left py-2 px-1 cursor-pointer  ;
+    }
+}
+@layer base {
+    .Poppins {
+      font-family: Poppins;
+    }
+  }
   /* .div-img{
     @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
   }
@@ -138,7 +149,9 @@
    }
     
     
-    
+   .underline-a{
+    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-b-4 Poppins;
+}
     
    .div-card{
     

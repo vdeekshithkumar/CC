@@ -180,8 +180,8 @@
           <div class="text-xs px-2 mx-auto">{{phone}}</div>
         </div>
       </div>
-      <div class="flex flex-row ">
-        <button class="div-action-button" routerLink="/my-ad">
+      <div class="flex flex-row ml-2 ">
+        <button class="div-action-button" (click)="onClick()">
           Approve Ads (6)
         </button>
         <button class="div-action-button">
@@ -199,54 +199,49 @@
         <button class="div-action-button" routerLink="/upload-inventory">
          Upload Inventory
         </button>
-        <div class="max-w-sm mt-4 w-full">
-          
-          <div
-            class="div-search"
-          >
-            <div class="div-search-icon">
-              <!-- search bar icon -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="gray"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
-
-            <input
-              class="input-search"
-              type="text"
-              id="search"
-              placeholder="Search"
-            />
-          </div>
-          
-        </div>
-      </div>
+      
 
       <!-- Search bar end -->
     </div>
     <br>&nbsp;&nbsp;&nbsp;
     <div>
-      <label class="mr-1 ml-2 w-full">Search by:</label>
-      &nbsp;
-      <input  [(ngModel)]="searchTerm" 
-      class="uploademp-input"
-      type="text"
-      id="search"
-      placeholder="Fname | Lname |Email"
-
       
-/>
+      <label class="ml-16 w-full">Search by:</label>
+
+      <div class="max-w-sm mt-4 ml-6 w-full">
+          
+        <div
+          class="div-search"
+        >
+          <div class="div-search-icon">
+            <!-- search bar icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="gray"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+
+          <input
+            class="input-search"
+            type="text" [(ngModel)]="searchTerm"
+            id="search"
+            placeholder="Fname | Lname |Email"
+          />
+        </div>
+        
+      </div>
+    </div>
+       
 
     </div>
     
@@ -254,7 +249,7 @@
     <hr class="mx-2" />
 
     <!-- Table start -->
-    <div class="flex flex-col overflow-x-auto">
+    <div class="flex flex-col overflow-x-auto ml-8">
       <div class="sm:-mx-6 lg:-mx-8">
         <div class="employee-list">
           <div class="overflow-x-auto">
@@ -262,8 +257,8 @@
               <thead class="emplist-thead">
                 <tr>
               
-                  <th scope="col" class="px-6 py-4">FName</th>
-                  <th scope="col" class="px-6 py-4">LName</th>
+                  <th scope="col" class="px-6 py-4 ml-20">First Name</th>
+                  <th scope="col" class="px-6 py-4">Last Name</th>
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
                   <th scope="col" class="px-6 py-4">Password</th>
@@ -273,7 +268,7 @@
               <tbody>
                 <tr *ngFor="let u of alluser_list | search: searchTerm" class="employee-add">
                  
-                  <td class="emplist">{{u.fname}}</td>
+                  <td class="emplist ml-20">{{u.fname}}</td>
                   <td class="emplist">{{u.lname}}</td>
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
