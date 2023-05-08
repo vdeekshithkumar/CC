@@ -12,6 +12,7 @@ import { SidebarComponent } from './redundant/sidebar/sidebar.component';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { HeaderComponent } from './redundant/header/header.component';
@@ -39,10 +40,14 @@ import { EmpSearchPipe } from './employee-search.pipe';
 import { ViewContractsComponent } from './view-contracts/view-contracts.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from 'src/material.module';
+import { ForecastingComponent } from './forecasting/forecasting.component';
+import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     AppComponent,
+    
     HomeComponent,
     RegisterComponent,
     SignInComponent,
@@ -54,7 +59,7 @@ import { MaterialModule } from 'src/material.module';
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
-    
+   
     SearchPipe,
     
     PageNotFoundComponent,
@@ -66,6 +71,8 @@ import { MaterialModule } from 'src/material.module';
           PostAdComponent,
           EmpSearchPipe,
           ViewContractsComponent,
+          ForecastingComponent,
+          ForecastingTableViewComponent,
     
     
   ],
@@ -78,7 +85,7 @@ import { MaterialModule } from 'src/material.module';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MaterialModule,
-  
+    NgxPaginationModule,
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]

@@ -8,7 +8,8 @@ export class ProfileService {
   private apiUrl = 'https://localhost:7157/GetCompanyById';
    private UIdUrl = 'https://localhost:7157/GetUserById';
   private userUrl = 'https://localhost:7157/GetAllUser';
-   private deleteUrl = 'https://localhost:7157/DeleteUser';  
+   private deleteUrl = 'https://localhost:7157/DeleteUser'; 
+   private usercountUrl = 'https://localhost:7157/GetAllUserCount'; 
   constructor(private http: HttpClient) { }
   getUserDetails(user_id: number): Observable<any> {
     return this.http.get(`https://localhost:7157/GetUserDetails?userId=${user_id}`);
@@ -30,5 +31,8 @@ export class ProfileService {
   }
   getUserById(id: number): Observable<any> {
     return this.http.get(`${this.UIdUrl}/${id}`, { responseType: 'json' });
+  }
+  getallUserCount(companyid:number):Observable<any> {
+    return this.http.get(`${this.usercountUrl}/${companyid}`,{responseType:'json'});
   }
 }

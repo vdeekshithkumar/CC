@@ -13,6 +13,7 @@ import { SessionService } from '../session.service';
 })
 export class ProfileComponent implements OnInit {
   public company_id?: number;
+  usercount_list=null;
   public name?: string;
   domain_address?: string;
   licence_id?: number;
@@ -24,8 +25,6 @@ export class ProfileComponent implements OnInit {
   alluser_list:any;
   searchTerm:any;
   company_list: any;
- 
-  
   currentUser: any;
   profileForm!: FormGroup;
   user_id:any;
@@ -40,11 +39,7 @@ export class ProfileComponent implements OnInit {
   getCompanyId() {
     return this.company_id;
   }
-
-
   constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
-
-
   ngOnInit(): void {
     this.sessionService.getUserId().subscribe(
         (userId: number) => {
@@ -79,7 +74,6 @@ export class ProfileComponent implements OnInit {
 
     });
 
-   
     this.sessionService.getCompanyId().subscribe(
 
    (companyId: number) => {
@@ -102,6 +96,17 @@ export class ProfileComponent implements OnInit {
       this.alluser_list = data;
       console.log("employee list fetched: ", this.alluser_list); 
      
+    },
+    error => {
+      console.log("employee loading error:" +error);
+    }
+  );
+  this.profileService.getallUserCount(this.companyId).subscribe(
+    data => {
+      this.usercount_list = data;
+     
+      console.log("employee Count: ", this.usercount_list); 
+      
     },
     error => {
       console.log("employee loading error:" +error);
@@ -132,7 +137,6 @@ export class ProfileComponent implements OnInit {
      this.address=data.address
 
      console.log(data)
-
    },
 
    error => {
@@ -180,7 +184,7 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/add-employee'], { queryParams: { edit: true } });
   }
   deleteUserById(id: number) {
-  
+  debugger
     this.profileService.deleteUserById(id)
       .subscribe(
         (        data: any) => {

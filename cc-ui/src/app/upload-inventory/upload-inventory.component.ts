@@ -26,10 +26,13 @@ export class UploadInventoryComponent {
     port_list:any;
     container_type="";
     inventory_list=null;
+    records:any[]=[];
     inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
-    x: any;
+    itemsPerPage: number = 10;
+    currentPage: number = 1;
+    x:any;
     emailValue: string = '';
     showModal=false;
     key:any;
@@ -40,10 +43,10 @@ export class UploadInventoryComponent {
     userId: any;
     companyId: any;
     inventoryId: any;
-  inventory_data: any;
-  port_id: any;
-  y:any=0;
-  searchTerm:any;
+    inventory_data: any;
+    port_id: any;
+    y:any=0;
+    searchTerm:any;
   
     constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
      }
@@ -208,11 +211,7 @@ ReadExcel(event: any) {
         }
       // store the user session information in a property
       
-    });
-
-   
-   
-
+    })
     //when navigate back to sign-in session ends
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
@@ -345,7 +344,9 @@ ReadExcel(event: any) {
 //   }
 // }
     
-
+get totalPages(): number {
+  return Math.ceil(this.records.length / 5);
+}
 
   deleteInventory(id: number) {
     this.uploadInventoryservice.deleteInventory(id)
