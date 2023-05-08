@@ -28,7 +28,7 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class MyAdService {
-
+  private deleteUrl = 'https://localhost:7157/DeleteAd';
   baseUrl = 'https://localhost:7157'
   private apiUrl = 'https://localhost:7157/UserPermissions';
   private Url = 'https://localhost:7157/GetCompanyById';
@@ -69,6 +69,7 @@ const url = `${this.baseUrl}/Edit/${id}`;
 return this.http.put(url, formData);
 }
 
+
 getCompanyById(company_id: number): Observable<any> {
 
    
@@ -84,6 +85,10 @@ getAdsById(company_id: number, operation: string): Observable<Advertisement[]> {
   const url = `${this.adsUrl}?companyId=${company_id}&operation=${operation}`;
   return this.http.get<Advertisement[]>(url);
 }
+deleteAd(AdId: number): Observable<any> {
+  return this.http.delete(`${this.deleteUrl}?AdID=${AdId}`);
+}
+
 }
 
 

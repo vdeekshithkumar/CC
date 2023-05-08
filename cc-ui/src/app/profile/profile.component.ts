@@ -196,6 +196,11 @@ export class ProfileComponent implements OnInit {
         },
         (        error: any) => console.log(error));
   }
+
+  onClick() {
+    this.router.navigate(['/my-ad'], { queryParams: { value: 1 } });
+  }
+
   logout(): void {
     // clear session data and redirect to login page
     this.sessionService.clearSession();

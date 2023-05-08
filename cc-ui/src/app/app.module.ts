@@ -38,6 +38,8 @@ import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.co
 import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 import { EmpSearchPipe } from './employee-search.pipe';
 import { ViewContractsComponent } from './view-contracts/view-contracts.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MaterialModule } from 'src/material.module';
 import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -81,8 +83,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     NgxPaginationModule,
-  
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]

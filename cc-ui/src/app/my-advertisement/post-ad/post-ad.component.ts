@@ -1,4 +1,4 @@
-import { Component, OnInit,Input} from '@angular/core';
+import { Component, OnInit,Input, Inject} from '@angular/core';
 import { Select, initTE } from "tw-elements";
 import { FormGroup } from '@angular/forms';
 
@@ -14,6 +14,9 @@ import { NumberSymbol } from '@angular/common';
 
 import { SessionService } from 'src/app/session.service';
 import { PostAdService } from './post-ad.service';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { inject } from '@angular/core/testing';
+
 
 @Component({
   selector: 'app-post-ad',
@@ -21,9 +24,8 @@ import { PostAdService } from './post-ad.service';
   styleUrls: ['./post-ad.component.css']
 })
 export class PostAdComponent implements OnInit{
-  @Input() ContinueDraft: number | undefined;
-  @Input() adId: any;
-  @Input() Approve: any;
+  ContinueDraft:any;
+  adId:any;
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
@@ -57,24 +59,25 @@ port_of_arrival:any;
 free_days:any;
 per_diem:any;
 pickup_charges:any;
+public isButtonDisabled: boolean = false;
+Approve: any;
 
 
-  public isButtonDisabled: boolean = false;
 
-
-  constructor(private postAdService: PostAdService,private router:Router,private sessionService: SessionService) {
+  constructor(@Inject(MAT_DIALOG_DATA)public data:any, private ref:MatDialogRef<PostAdComponent>,private postAdService: PostAdService,private router:Router,private sessionService: SessionService) {
   }
   
 
   ngOnInit(): void {
     this.isButtonDisabled = true;
-    if(this.ContinueDraft===1)
-    {
-      console.log("value is one");
-    }
-    else{
-      console.log("proceed value zero");
-    }
+   this.ContinueDraft=this.data.ContinueDraft; 
+   this.Approve=this.data.Approve;
+   this.adId=this.adId;
+
+   console.log(this.Approve+"fghjht");
+   
+
+    
 // console.log("proceed value is "+this.adId)
     initTE({ Select });
     //get company id from session
@@ -121,6 +124,7 @@ pickup_charges:any;
       }
     );
   }
+  
 
   async onChange($event: Event) {
 
@@ -210,9 +214,10 @@ pickup_charges:any;
     console.log("ad id id "+ ad_id)
   }
 
+  
   approve(ad_id: number){
     debugger
-    ad_id=7;
+    ad_id=10;
     this.operation="Approve";
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)

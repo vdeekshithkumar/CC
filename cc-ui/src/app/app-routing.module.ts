@@ -43,6 +43,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    component:PostAdComponent,
+    path:'post-ad',
+    canActivate: [AuthGuard]
+  },
+  {
     component:UploadContractComponent,
     path:'upload-contract',
     canActivate: [AuthGuard]
