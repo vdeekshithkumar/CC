@@ -29,13 +29,14 @@ export class PostAdComponent implements OnInit{
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  
+  showModal=false;
+  y:any=0;
   userId: any;
   ad_id:any;
   title!: any;
   port_name="";
   C_Type="";
-
+  ExcelData:any;
   fileName?: string
   file?: File
   port_list:any;
@@ -66,6 +67,77 @@ Approve: any;
 
   constructor(@Inject(MAT_DIALOG_DATA)public data:any, private ref:MatDialogRef<PostAdComponent>,private postAdService: PostAdService,private router:Router,private sessionService: SessionService) {
   }
+
+  addExcel(): void {
+
+    if(this.y==1){
+      this.postAdService.sendExcelData(this.ExcelData,this.userId,this.companyId)
+      .subscribe(
+        response => {
+          console.log('Excel data sent successfully:', response);
+          this.y=0;
+          window.location.reload()
+        },
+        error => {
+          console.error('An error occurred while sending Excel data:', error);
+        }
+      );
+    }
+    else{
+    alert("no suceed")
+    }
+}
+
+OnSetY(){
+this.y=1;
+this.showModal=false;
+this.addExcel();
+}
+
+
+onExcelRead(event: any) {
+const file = event.target.files[0];
+const fileType = file.type;
+if (fileType !== "application/vnd.ms-excel" && fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
+alert("Please upload a valid Excel file");
+
+return;
+}
+
+const fileReader = new FileReader();
+fileReader.readAsBinaryString(file);
+fileReader.onload = (e: ProgressEvent<FileReader>) => {
+if (e.target && e.target.result) {
+const binaryString = e.target.result;
+    const workBook = XLSX.read(binaryString, { type: 'binary' });
+    const sheetNames = workBook.SheetNames;
+    if (sheetNames && sheetNames.length > 0) {
+      this.ExcelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
+      this.ExcelData.forEach((row: any) => {
+        const newRow: any = {};
+        Object.keys(row).forEach((key: string) => {
+          const newKey = key.toLowerCase().replace(/ /g, '_');
+          const value = row[key].toString().toLowerCase().replace(/ /g, '_');
+          newRow[newKey] = value;
+        });
+        this.ExcelData[this.ExcelData.indexOf(row)] = newRow;
+      });
+      console.log("this is the list of excel"+this.ExcelData);
+    this.showModal=true;
+    }
+    else {
+
+      alert("no sheets found")
+      console.error('No sheets found in uploaded Excel file');
+    }
+        
+} else {
+alert("Uploaded file is empty");
+console.error('Uploaded file is empty');
+}
+}
+}
+
   
 
   ngOnInit(): void {
@@ -144,7 +216,7 @@ Approve: any;
 
   }
   async PostAd(){
-    this.operation="PostAd";
+    this.operation="Pending";
     this.onPost();
   }
 

@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../session.service';
 import { PostAdComponent } from './post-ad/post-ad.component';
+import * as moment from 'moment';
 
 
 
@@ -105,6 +106,8 @@ pickup_charges:any;
 
    advertisements: any;
    http: any;
+  Active: any;
+  negotiationcount: any;
   getCompanyId() {
      return this.company_id;
    }
@@ -148,6 +151,9 @@ pickup_charges:any;
         console.error('Error retrieving user ID:', error);
       }
     );
+
+
+
     
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
@@ -207,8 +213,18 @@ pickup_charges:any;
  
      
    }
-   
-   
+   getNegotiationCount(adId:number):number {
+   this.myadservice.getNegotiationCount(adId).subscribe(
+    data => {
+      this.negotiationcount = data;
+
+    },
+    error => {
+     this.negotiationcount=error;
+    }
+  );
+  return this.negotiationcount;
+}
      
   onCancel() {
     // this.editprofileForm.reset()
@@ -255,25 +271,25 @@ pickup_charges:any;
 
 
    }
-   DisplayApproveForm(adId: number){
+  //  DisplayApproveForm(adId: number){
 
-
- 
-    this.dialog.open(PostAdComponent,{
-      width:'70%',
-      height:'500px',
-      data:{
+  //   debugger
+  //   this.dialog.open(PostAdComponent,{
+  //     width:'70%',
+  //     height:'500px',
+  //     data:{
     
-        Approve:1,
-        adId:adId
-      }
+  //       Approve:1,
+  //       adId:adId
+  //     }
       
       
+      
 
-    })
+  //   })
+  //   this.Edit(adId);
 
-
-   }
+  //  }
    approve(ad_id: number){
 
     ad_id=10;
@@ -281,7 +297,20 @@ pickup_charges:any;
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
-
+  getDateOnly(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    const timestamp = newDate.getTime();
+    const dateOnly=new Date(timestamp);
+    const dateString = dateOnly.toLocaleDateString('en-GB');
+    this.expiry_date=dateString.toString().slice(0, 10);
+    return this.expiry_date;
+  }
+  
+  
   Edit(ad_id: number){
     if (this.port_id && this.container_type_id && this.file) {
     
@@ -314,11 +343,9 @@ this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
   (data: Advertisement[]) => {
     this.ads = data;
     console.log(this.ads);
-
-    for(this.i=0;this.i<this.ads.length;this.i++){
-      this.explist=this.ads[this.i].expiry_date;
-      
-    }
+    
+    
+    
     
 
   },
@@ -329,13 +356,16 @@ this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
 
 
 onViewActive(){
-  
+this.Active=true;
+this.pendingActive = false;
+this.draftActive = false;
 this.operation = 'Active';
 this.viewAds();
 }
 
 onPendingActive(){
 this.pendingActive = true;
+this.Active=false;
 this.draftActive = false;
 this.operation = 'Pending';
 this.viewAds();
@@ -343,6 +373,7 @@ this.viewAds();
 onDraftsActive(){
   this.pendingActive = false;
 this.draftActive = true;
+this.Active=false;
 this.operation = 'Draft';
 this.viewAds();
 }

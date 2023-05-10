@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 
 export interface Port {
@@ -13,6 +13,7 @@ export interface Port {
 })
 export class PostAdService {
   baseUrl = 'https://localhost:7157'
+  private BASE_URL='https://localhost:7157/AdExcelUpload';
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string) {
@@ -110,5 +111,31 @@ return this.http.put(url, formData);
   getAllCTypes(): Observable<any> {
     return this.http.get('https://localhost:7157/GetAllCTypes');
   }
+
+  sendExcelData(excelData: any,user_id:number,company_id:number): Observable<any> {
+    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+      const payload = {
+      excelData: excelData,
+      user_id: user_id,
+      company_id:company_id
+    };
+    
+    const url = `${this.BASE_URL}`;
+
+    return this.http.post(url, payload, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  private handleError(error: any) {
+    console.error('An error occurred ,', error);
+    return throwError(error);
+  }
+
 
 }

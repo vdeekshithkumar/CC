@@ -29,7 +29,8 @@ export interface Advertisement {
 })
 export class MyAdService {
   private deleteUrl = 'https://localhost:7157/DeleteAd';
-  baseUrl = 'https://localhost:7157'
+  baseUrl = 'https://localhost:7157';
+  private negotiationcountUrl = 'https://localhost:7157/GetNegotiationCount'; 
   private apiUrl = 'https://localhost:7157/UserPermissions';
   private Url = 'https://localhost:7157/GetCompanyById';
   private userUrl = 'https://localhost:7157/GetAllUser';
@@ -87,6 +88,9 @@ getAdsById(company_id: number, operation: string): Observable<Advertisement[]> {
 }
 deleteAd(AdId: number): Observable<any> {
   return this.http.delete(`${this.deleteUrl}?AdID=${AdId}`);
+}
+getNegotiationCount(adid:number):Observable<any> {
+  return this.http.get(`${this.negotiationcountUrl}/${adid}`,{responseType:'json'});
 }
 
 }

@@ -16,7 +16,7 @@ namespace CC_api.Controllers
     private readonly ILogger<CompanyController> _logger;
     private readonly CompanyBusiness companyBusiness;
     private readonly IWebHostEnvironment _environment;
- 
+
     public CompanyController(ILogger<CompanyController> logger)
     {
       _logger = logger;
