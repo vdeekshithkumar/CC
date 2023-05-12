@@ -9,6 +9,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../session.service';
 import { PostAdComponent } from './post-ad/post-ad.component';
 import * as moment from 'moment';
+import * as XLSX from 'xlsx';
+
 
 
 
@@ -103,6 +105,7 @@ pickup_charges:any;
      activeAdsClicked = false;
      pendingAdsClicked = false;
    ads: Advertisement[] = [];
+   Eads: Advertisement[] = [];
 
    advertisements: any;
    http: any;
@@ -227,7 +230,7 @@ pickup_charges:any;
 }
      
   onCancel() {
-    // this.editprofileForm.reset()
+    
     window.location.reload()
 }
   
@@ -261,6 +264,7 @@ pickup_charges:any;
 
         adId:adId
       }
+    
       
       
 
@@ -290,11 +294,18 @@ pickup_charges:any;
   //   this.Edit(adId);
 
   //  }
+  ApproveAd(ad_id:number){
+    debugger
+    this.myadservice.updateAdStatus(ad_id).subscribe(() => {
+      console.log('Ad status updated successfully');
+      this.onPendingActive();
+      
+    });
+  }
    approve(ad_id: number){
-
-    ad_id=10;
+debugger
     this.operation="Approve";
-    this.Edit(ad_id);
+    this.ApproveAd(ad_id);
     console.log("ad id id "+ ad_id)
   }
   getDateOnly(date: Date): Date {
@@ -310,30 +321,30 @@ pickup_charges:any;
     return this.expiry_date;
   }
   
-  
-  Edit(ad_id: number){
-    if (this.port_id && this.container_type_id && this.file) {
+  //for draft
+  // Edit(ad_id: number){
+  //   if (this.port_id && this.container_type_id && this.file) {
     
 
-      this.myadservice.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+  //     this.myadservice.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
     
       
-       if (response.message === 'Success') {
-         this.statusMsg = 'Success';
-         setTimeout(()=> {this.statusMsg = ""},2000)
-         this.clear()
-         window.location.reload()
-       } else {
-         this.statusMsg = 'Failed';
-         console.log(response.status) ;
-       }
-     });
-   }
-   else{
-     alert("Please Fill the Mandatory Fields")
-   }
+  //      if (response.message === 'Success') {
+  //        this.statusMsg = 'Success';
+  //        setTimeout(()=> {this.statusMsg = ""},2000)
+  //        this.clear()
+  //        window.location.reload()
+  //      } else {
+  //        this.statusMsg = 'Failed';
+  //        console.log(response.status) ;
+  //      }
+  //    });
+  //  }
+  //  else{
+  //    alert("Please Fill the Mandatory Fields")
+  //  }
 
-  }
+  // }
   
 
 
@@ -342,12 +353,7 @@ viewAds(){
 this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
   (data: Advertisement[]) => {
     this.ads = data;
-    console.log(this.ads);
-    
-    
-    
-    
-
+    console.log("this is view ads"+this.ads);
   },
   error => console.log(error)
 );
@@ -378,35 +384,35 @@ this.operation = 'Draft';
 this.viewAds();
 }
 
-   edit(adId: number){
-    this.adId=adId;
-    if (this.port_id && this.container_type_id && this.file) {
-
-
-      this.myadservice.updateAd(adId,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+  
+   onExport(){
+const worksheetName = 'Advertisements';
+      const excelFileName = 'advertisements.xlsx';
+      const header = ['Date created','From date','Expiry date','Type of Ad','Container type id','Price', 'Status','Quantity','Port id','Contents','Port of Departure','Port of arrival','Free days','Per diem','Pickup Charges'];
+      const data = this.Eads.map((ad) => [ad.date_created,ad.from_date,ad.expiry_date,ad.type_of_ad,ad.container_type_id,ad.price,ad.status,ad.quantity,ad.port_id,ad.contents,ad.port_of_departure,ad.port_of_arrival,ad.free_days,ad.per_diem,ad.pickup_charges]);
     
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+    
+      XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+      XLSX.writeFile(workbook, excelFileName);
+   }
+
+
+    onExportClick(): void {
+       this.operation = 'Active';
+      this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
+        (data: Advertisement[]) => {
+          this.Eads = data;
+          console.log(" this is e data"+ this.Eads);
+          this.onExport();
+        },
+        error => console.log(error)
+      );
+
       
-       if (response.message === 'Success') {
-         this.statusMsg = 'Success';
-         setTimeout(()=> {this.statusMsg = ""},2000)
-         this.clear()
-         window.location.reload()
-       } else {
-         this.statusMsg = 'Failed';
-         console.log(response.status) ;
-       }
-     });
-   }
-   else{
-     alert("Please Fill the Mandatory Fields")
-   }
-
-   }
-  onExportClick() {
-
-    console.log("Button clicked");
-    alert("button clicked")
-  }
+    }
+  
   clear(){
     this.title= null
     this.description = null

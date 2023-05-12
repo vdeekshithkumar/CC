@@ -70,7 +70,11 @@ const url = `${this.baseUrl}/Edit/${id}`;
 return this.http.put(url, formData);
 }
 
-
+updateAdStatus(adId: number) {
+  debugger
+  const url = `${this.baseUrl}/Approve?adId=${adId}`;
+  return this.http.put(url, null);
+}
 getCompanyById(company_id: number): Observable<any> {
 
    
@@ -87,6 +91,7 @@ getAdsById(company_id: number, operation: string): Observable<Advertisement[]> {
   return this.http.get<Advertisement[]>(url);
 }
 deleteAd(AdId: number): Observable<any> {
+debugger
   return this.http.delete(`${this.deleteUrl}?AdID=${AdId}`);
 }
 getNegotiationCount(adid:number):Observable<any> {
@@ -95,7 +100,4 @@ getNegotiationCount(adid:number):Observable<any> {
 
 }
 
-
-
-
- ////////////////////////////
+/////////////////////////////

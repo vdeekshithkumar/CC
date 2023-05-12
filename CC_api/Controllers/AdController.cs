@@ -32,6 +32,23 @@ namespace CC_api.Controllers
       this.dbContext = new DatabaseContext();
 
     }
+    [HttpPost("ExcelUploadAd")]
+    public async Task<IActionResult> UploadAdExcel([FromBody] ImportAd payload)
+    {
+
+      if (payload.excelData == null || !payload.excelData.Any())
+      {
+        return BadRequest("Excel data is empty.");
+      }
+      else
+      {
+
+        await _AdBusiness.AddExcelData(payload.excelData, payload.user_id, payload.company_id);
+        return Ok();
+      }
+
+    }
+
 
     [HttpPost("PostAd")]
     public async Task<ActionResult> PostAd(IFormFile file,
@@ -438,24 +455,42 @@ namespace CC_api.Controllers
 
     }
 
+    [HttpPut("Approve")]
+    public async Task<IActionResult> ActivateAd(int adId)
+    {
+      await _AdBusiness.UpdateAdStatus(adId);
+      return Ok();
+    }
+
 
     [HttpDelete("DeleteAd")]
     public async Task<IActionResult> DeleteAd(int AdID)
     {
-      // Load the Service account credentials and define the scope of its access.
-      var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
-                      .CreateScoped(DriveService.ScopeConstants.Drive);
-      var service = new DriveService(new BaseClientService.Initializer
+      try
       {
-        HttpClientInitializer = credential,
-      });
-      var fileId = await _AdRepository.GetFileIDbyAdID(AdID);
-      // Delete the file from Google Drive
-      await service.Files.Delete(fileId).ExecuteAsync();
-      await _AdRepository.DeleteAd(AdID);
+        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                     .CreateScoped(DriveService.ScopeConstants.Drive);
+        var service = new DriveService(new BaseClientService.Initializer
+        {
+          HttpClientInitializer = credential,
+        });
+        var fileId = await _AdRepository.GetFileIDbyAdID(AdID);
+        // Delete the file from Google Drive
+        await service.Files.Delete(fileId).ExecuteAsync();
+        await _AdRepository.DeleteAd(AdID);
 
-      // Return a success response
-      return Ok();
+        // Return a success response
+        return Ok();
+      }
+      catch
+      {
+        await _AdRepository.DeleteAd(AdID);
+
+        // Return a success response
+        return Ok();
+      }
+      
+   
     }
   }
 }

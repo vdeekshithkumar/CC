@@ -199,6 +199,7 @@
 .div-form{
   @apply flex flex-col items-center md:flex-row
 }
+
 .div-form-size{
   @apply mr-4 ml-4 mt-10 w-full md:w-1/2 mb-4
 }

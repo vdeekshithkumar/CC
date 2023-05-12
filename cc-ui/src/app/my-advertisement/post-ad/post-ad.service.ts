@@ -13,7 +13,7 @@ export interface Port {
 })
 export class PostAdService {
   baseUrl = 'https://localhost:7157'
-  private BASE_URL='https://localhost:7157/AdExcelUpload';
+  private UploadAd_URL='https://localhost:7157/ExcelUploadAd';
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string) {
@@ -23,6 +23,7 @@ export class PostAdService {
     formData.append('file', file);
 
  
+    
     formData.append('from_date', (from_date || 0).toString());
     formData.append('expiry_date', (expiry_date || 0).toString());
     formData.append('type_of_ad', (type_of_ad || 'NA'));
@@ -112,8 +113,8 @@ return this.http.put(url, formData);
     return this.http.get('https://localhost:7157/GetAllCTypes');
   }
 
-  sendExcelData(excelData: any,user_id:number,company_id:number): Observable<any> {
-    
+  UploadExcelData(excelData: any,user_id:number,company_id:number): Observable<any> {
+    debugger
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -125,7 +126,7 @@ return this.http.put(url, formData);
       company_id:company_id
     };
     
-    const url = `${this.BASE_URL}`;
+    const url = `${this.UploadAd_URL}`;
 
     return this.http.post(url, payload, httpOptions)
       .pipe(

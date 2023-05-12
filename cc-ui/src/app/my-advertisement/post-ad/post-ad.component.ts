@@ -45,6 +45,7 @@ export class PostAdComponent implements OnInit{
   showFile:boolean = false
   showform:boolean=true;
 date_created:any;
+
   from_date:any;
   expiry_date:any;
   type_of_ad:any;
@@ -69,9 +70,9 @@ Approve: any;
   }
 
   addExcel(): void {
-
+debugger
     if(this.y==1){
-      this.postAdService.sendExcelData(this.ExcelData,this.userId,this.companyId)
+      this.postAdService.UploadExcelData(this.ExcelData,this.userId,this.companyId)
       .subscribe(
         response => {
           console.log('Excel data sent successfully:', response);
@@ -91,6 +92,7 @@ Approve: any;
 OnSetY(){
 this.y=1;
 this.showModal=false;
+console.log("this is excel d"+this.ExcelData)
 this.addExcel();
 }
 
@@ -122,7 +124,7 @@ const binaryString = e.target.result;
         });
         this.ExcelData[this.ExcelData.indexOf(row)] = newRow;
       });
-      console.log("this is the list of excel"+this.ExcelData);
+      console.log("this is the list of excel"+this.ExcelData[0]);
     this.showModal=true;
     }
     else {
@@ -216,7 +218,7 @@ console.error('Uploaded file is empty');
 
   }
   async PostAd(){
-    this.operation="Pending";
+    this.operation="PostAd";
     this.onPost();
   }
 
@@ -275,13 +277,13 @@ console.error('Uploaded file is empty');
 
   continueDraft(ad_id: number){
     this.operation="Draft";
-    ad_id=7;
+ 
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
   DraftPosting(ad_id: number){
     this.operation="Pending";
-    ad_id=7;
+
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
@@ -289,7 +291,7 @@ console.error('Uploaded file is empty');
   
   approve(ad_id: number){
     debugger
-    ad_id=10;
+
     this.operation="Approve";
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)

@@ -14,23 +14,24 @@ namespace CC_api.Repository
     }
 
     //to return file also for ad use this below code//
-  /*  public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
-    {
-      if (operation == "Active")
+    /*  public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
       {
-        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "active").ToListAsync();
-      }
-      else if (operation == "Pending")
-      {
-        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "pending").ToListAsync();
-      }
-      else
-      {
-        return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "draft").ToListAsync();
+        if (operation == "Active")
+        {
+          return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "active").ToListAsync();
+        }
+        else if (operation == "Pending")
+        {
+          return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "pending").ToListAsync();
+        }
+        else
+        {
+          return await dbContext.advertisement.Where(c => c.company_id == companyID && c.status == "draft").ToListAsync();
 
-      }
-    }*/
-
+        }
+      }*/
+  
+  
     public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
 
@@ -125,6 +126,11 @@ namespace CC_api.Repository
 
         return ads;
       }
+    }
+    public async Task Add(Ad ad)
+    {
+      await dbContext.advertisement.AddAsync(ad);
+      await dbContext.SaveChangesAsync();
     }
     public async Task PostAd(Ad Ad)
     {

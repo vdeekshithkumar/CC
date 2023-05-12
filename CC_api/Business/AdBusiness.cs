@@ -22,6 +22,79 @@ namespace CC_api.Business
       this.AdRepository = new AdRepository();
     }
 
+    public async Task UpdateAdStatus(int adId)
+    {
+      try
+      {
+        var ad = await AdRepository.GetAdById(adId);
+
+        if (ad != null)
+        {
+          ad.status = "active";
+          await AdRepository.UpdateAd(ad);
+         
+        }
+      }
+      catch (Exception ex)
+      {
+        // handle the exception here, e.g. log it or throw a custom exception
+      }
+    }
+
+    public async Task<IActionResult> AddExcelData(List<Ad> excelData, int user_id, int company_id)
+    {
+  
+
+
+      if (excelData == null || excelData.Count == 0)
+      {
+        throw new System.Exception("Excel data is empty.");
+      }
+      else
+      {
+
+        foreach (var item in excelData)
+        {
+          //
+          var ad = new Ad();
+
+          DateTime currentDate = DateTime.Now;
+
+          ad.ad_id = item.ad_id;
+          ad.date_created = item.date_created;
+          ad.from_date = item.from_date;
+          ad.expiry_date = item.expiry_date;
+          ad.type_of_ad = item.type_of_ad;
+          ad.container_type_id = item.container_type_id;
+          ad.price = item.price;
+          ad.status = "pending";
+          ad.quantity = item.quantity;
+          ad.port_id = item.port_id;
+          ad.company_id = company_id;
+          ad.posted_by = user_id;
+          ad.contents = item.contents;
+          ad.port_of_departure = item.port_of_departure;
+          ad.port_of_arrival = item.port_of_arrival;
+          ad.free_days = item.free_days;
+          ad.per_diem = item.per_diem;
+          ad.pickup_charges = item.pickup_charges;
+          ad.file = "NA";
+
+
+          await AdRepository.PostAd(ad);
+          return new OkResult();
+
+        }
+        return new OkResult();
+
+      }
+
+
+
+    }
+
+
+
     public async Task<IActionResult> UpdateAd(Ad Ad)
     {
       var existingAd = await AdRepository.GetAdById(Ad.ad_id);
