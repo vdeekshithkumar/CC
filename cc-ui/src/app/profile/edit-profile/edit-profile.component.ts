@@ -64,7 +64,6 @@ export class EditProfileComponent implements OnInit{
     );
   }
   
-  
   onCancel() {
     // this.editprofileForm.reset()
     window.location.reload()

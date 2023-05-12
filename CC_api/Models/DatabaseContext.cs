@@ -15,6 +15,7 @@ namespace CC_api.Models
     public DbSet<Permissions> permission { get; set; }
 
     public DbSet<Container> container_type { get; set; }
+    public DbSet<Negotiation> negotiation { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

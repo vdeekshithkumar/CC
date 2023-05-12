@@ -150,7 +150,7 @@
     
     
    .underline-a{
-    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-b-4 Poppins;
+    @apply menu-tile hover:border-CCblue border-blue-500 hover:text-CCblue hover:border-b-4 Poppins;
 }
     
    .div-card{

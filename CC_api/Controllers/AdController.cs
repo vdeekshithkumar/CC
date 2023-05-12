@@ -5,6 +5,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Google.Apis.Upload;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using System.IO;
@@ -31,6 +32,23 @@ namespace CC_api.Controllers
       this.dbContext = new DatabaseContext();
 
     }
+    [HttpPost("ExcelUploadAd")]
+    public async Task<IActionResult> UploadAdExcel([FromBody] ImportAd payload)
+    {
+
+      if (payload.excelData == null || !payload.excelData.Any())
+      {
+        return BadRequest("Excel data is empty.");
+      }
+      else
+      {
+
+        await _AdBusiness.AddExcelData(payload.excelData, payload.user_id, payload.company_id);
+        return Ok();
+      }
+
+    }
+
 
     [HttpPost("PostAd")]
     public async Task<ActionResult> PostAd(IFormFile file,
@@ -71,13 +89,14 @@ namespace CC_api.Controllers
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
 
+          DateTime expiry_date_time = from_date.AddDays(expiry_date * 7);
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
             date_created = DateTime.Now,
             from_date = from_date,
-            expiry_date = from_date,
+            expiry_date = expiry_date_time,
             type_of_ad = type_of_ad,
             container_type_id = container_type_id,
             price = price,
@@ -130,13 +149,14 @@ namespace CC_api.Controllers
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
 
+          DateTime expiry_date_time = from_date.AddDays(expiry_date * 7);
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
             date_created = DateTime.Now,
             from_date = from_date,
-            expiry_date = from_date,
+            expiry_date = expiry_date_time,
             type_of_ad = type_of_ad,
             container_type_id = container_type_id,
             price = price,
@@ -198,36 +218,44 @@ namespace CC_api.Controllers
 
 
     [HttpGet("GetAllAds")]
-    public async Task<IActionResult> GetAllFiles(int companyID, string operation)
+    public async Task<List<Ad>> GetAllFiles(int companyID, string operation)
     {
       var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation);
+      return Ads;
+
+
+
+      //to return with file use this//
+
       // Load the Service account credentials and define the scope of its access.
-      var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
-          .CreateScoped(DriveService.ScopeConstants.Drive);
+      /* var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+           .CreateScoped(DriveService.ScopeConstants.Drive);
 
-      var service = new DriveService(new BaseClientService.Initializer()
-      {
-        HttpClientInitializer = credential
-      });
+       var service = new DriveService(new BaseClientService.Initializer()
+       {
+         HttpClientInitializer = credential
+       });
 
-      // Create a list to store the results
-      var results = new List<Ad>();
+       // Create a list to store the results
+       var results = new List<Ad>();*/
 
       // Retrieve the file name for each Ad
-      foreach (var Ad in Ads)
-      {
+      /* foreach (var Ad in Ads)
+       {
 
-        var fileId = Ad.file;
-        var request = service.Files.Get(fileId);
-        request.Fields = "name";
-        var file = await request.ExecuteAsync();
-        Ad.file = file.Name;
-        results.Add(Ad);
+         var fileId = Ad.file;
+         var request = service.Files.Get(fileId);
+         request.Fields = "name";
+         var file = await request.ExecuteAsync();
+         Ad.file = file.Name;
+         results.Add(Ad);
 
-      }
+       }*/
 
       // Return the list of results as a JSON array
-      return new JsonResult(results);
+      /*  return new JsonResult(results);*/
+
+
     }
 
     [HttpPut("Edit/{id}")]
@@ -270,16 +298,19 @@ namespace CC_api.Controllers
 
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
+
+          DateTime expiry_date_time = from_date.AddDays(expiry_date*7);
+
           var Ad = new Ad
           {
             ad_id = id,
             date_created = DateTime.Now,
             from_date = from_date,
-            expiry_date = from_date,
+          expiry_date = expiry_date_time,
             type_of_ad = type_of_ad,
             container_type_id = container_type_id,
             price = price,
-            status = "approved",
+            status = "active",
             quantity = quantity,
             port_id = port_id,
             company_id = company_id,
@@ -424,24 +455,42 @@ namespace CC_api.Controllers
 
     }
 
+    [HttpPut("Approve")]
+    public async Task<IActionResult> ActivateAd(int adId)
+    {
+      await _AdBusiness.UpdateAdStatus(adId);
+      return Ok();
+    }
+
 
     [HttpDelete("DeleteAd")]
     public async Task<IActionResult> DeleteAd(int AdID)
     {
-      // Load the Service account credentials and define the scope of its access.
-      var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
-                      .CreateScoped(DriveService.ScopeConstants.Drive);
-      var service = new DriveService(new BaseClientService.Initializer
+      try
       {
-        HttpClientInitializer = credential,
-      });
-      var fileId = await _AdRepository.GetFileIDbyAdID(AdID);
-      // Delete the file from Google Drive
-      await service.Files.Delete(fileId).ExecuteAsync();
-      await _AdRepository.DeleteAd(AdID);
+        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                     .CreateScoped(DriveService.ScopeConstants.Drive);
+        var service = new DriveService(new BaseClientService.Initializer
+        {
+          HttpClientInitializer = credential,
+        });
+        var fileId = await _AdRepository.GetFileIDbyAdID(AdID);
+        // Delete the file from Google Drive
+        await service.Files.Delete(fileId).ExecuteAsync();
+        await _AdRepository.DeleteAd(AdID);
 
-      // Return a success response
-      return Ok();
+        // Return a success response
+        return Ok();
+      }
+      catch
+      {
+        await _AdRepository.DeleteAd(AdID);
+
+        // Return a success response
+        return Ok();
+      }
+      
+   
     }
   }
 }
