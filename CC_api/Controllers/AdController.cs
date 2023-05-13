@@ -8,6 +8,7 @@ using Google.Apis.Upload;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using Newtonsoft.Json;
 using System.IO;
 
 namespace CC_api.Controllers
@@ -32,22 +33,28 @@ namespace CC_api.Controllers
       this.dbContext = new DatabaseContext();
 
     }
-    [HttpPost("ExcelUploadAd")]
-    public async Task<IActionResult> UploadAdExcel([FromBody] ImportAd payload)
+
+
+
+      [HttpPost("ExcelUploadAd")]
+    public async Task<ActionResult> AdUploadExcelData([FromForm] string excelImportedData, [FromForm] int user_id, [FromForm] int company_id)
     {
 
-      if (payload.excelData == null || !payload.excelData.Any())
+        List<AdData> item = JsonConvert.DeserializeObject<List<AdData>>(excelImportedData);
+        if (item == null || !item.Any())
       {
         return BadRequest("Excel data is empty.");
       }
       else
       {
 
-        await _AdBusiness.AddExcelData(payload.excelData, payload.user_id, payload.company_id);
+        await _AdBusiness.AdImportData(item, user_id, company_id);
         return Ok();
       }
 
     }
+   
+
 
 
     [HttpPost("PostAd")]

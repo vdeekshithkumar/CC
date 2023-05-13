@@ -206,7 +206,9 @@ namespace CC_api.Business
       await inventoryRepository.DeleteAllInventory();
     }
 
-
-
+    internal Task AddExcelData(List<AddExcel> excelImportedData, int user_id, int company_id)
+    {
+      throw new NotImplementedException();
+    }
   }
 }

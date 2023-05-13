@@ -41,43 +41,45 @@ namespace CC_api.Business
       }
     }
 
-    public async Task<IActionResult> AddExcelData(List<Ad> excelData, int user_id, int company_id)
+   
+    
+          public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
     {
   
 
 
-      if (excelData == null || excelData.Count == 0)
+      if (item == null || item.Count == 0)
       {
         throw new System.Exception("Excel data is empty.");
       }
       else
       {
 
-        foreach (var item in excelData)
+        foreach (var i in item)
         {
           //
           var ad = new Ad();
 
           DateTime currentDate = DateTime.Now;
 
-          ad.ad_id = item.ad_id;
-          ad.date_created = item.date_created;
-          ad.from_date = item.from_date;
-          ad.expiry_date = item.expiry_date;
-          ad.type_of_ad = item.type_of_ad;
-          ad.container_type_id = item.container_type_id;
-          ad.price = item.price;
-          ad.status = "pending";
-          ad.quantity = item.quantity;
-          ad.port_id = item.port_id;
+          ad.ad_id = i.ad_id;
+          ad.date_created = i.date_created;
+          ad.from_date = i.from_date;
+          ad.expiry_date = i.expiry_date;
+          ad.type_of_ad = i.type_of_ad;
+          ad.container_type_id = i.container_type_id;
+          ad.price = i.price;
+          ad.status = i.status;
+          ad.quantity = i.quantity;
+          ad.port_id = i.port_id;
           ad.company_id = company_id;
           ad.posted_by = user_id;
-          ad.contents = item.contents;
-          ad.port_of_departure = item.port_of_departure;
-          ad.port_of_arrival = item.port_of_arrival;
-          ad.free_days = item.free_days;
-          ad.per_diem = item.per_diem;
-          ad.pickup_charges = item.pickup_charges;
+          ad.contents = i.contents;
+          ad.port_of_departure = i.port_of_departure;
+          ad.port_of_arrival = i.port_of_arrival;
+          ad.free_days = i.free_days;
+          ad.per_diem = i.per_diem;
+          ad.pickup_charges = i.pickup_charges;
           ad.file = "NA";
 
 

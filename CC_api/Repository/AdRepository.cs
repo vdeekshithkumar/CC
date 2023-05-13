@@ -30,8 +30,12 @@ namespace CC_api.Repository
 
         }
       }*/
-  
-  
+    public async Task Add(Ad ad)
+    {
+      await dbContext.advertisement.AddAsync(ad);
+      await dbContext.SaveChangesAsync();
+    }
+
     public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
 
@@ -127,11 +131,7 @@ namespace CC_api.Repository
         return ads;
       }
     }
-    public async Task Add(Ad ad)
-    {
-      await dbContext.advertisement.AddAsync(ad);
-      await dbContext.SaveChangesAsync();
-    }
+ 
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);
