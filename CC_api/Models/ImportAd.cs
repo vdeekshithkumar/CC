@@ -4,8 +4,7 @@ namespace CC_api.Models
   {
 
 
-
-    public List<Ad> excelData { get; set; }
+    public List<AdData> excelImportedData { get; set; }
     public int user_id { get; set; }
     public int company_id { get; set; }
   

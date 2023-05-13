@@ -51,7 +51,9 @@ export class MyAdvertisementComponent {
   companyId: any;
   
   userId: any;
-
+ActiveadsCount:any;
+DraftadsCount:any;
+PendingadsCount:any;
   title!: any;
   port_name="";
   C_Type="";
@@ -216,18 +218,7 @@ pickup_charges:any;
  
      
    }
-   getNegotiationCount(adId:number):number {
-   this.myadservice.getNegotiationCount(adId).subscribe(
-    data => {
-      this.negotiationcount = data;
-
-    },
-    error => {
-     this.negotiationcount=error;
-    }
-  );
-  return this.negotiationcount;
-}
+   
      
   onCancel() {
     
@@ -237,7 +228,18 @@ pickup_charges:any;
 //   async onEdit(){
 //     debugger;
  
-    
+public getNegotiationCount(adId:number):number {
+  this.myadservice.getNegotiationCount(adId).subscribe(
+   data => {
+     this.negotiationcount = data;
+
+   },
+   error => {
+    this.negotiationcount=error;
+   }
+ );
+ return this.negotiationcount;
+}
   
 
    DisplayPostForm(){
@@ -295,7 +297,7 @@ pickup_charges:any;
 
   //  }
   ApproveAd(ad_id:number){
-    debugger
+    
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
       this.onPendingActive();
@@ -353,6 +355,7 @@ viewAds(){
 this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
   (data: Advertisement[]) => {
     this.ads = data;
+ 
     console.log("this is view ads"+this.ads);
   },
   error => console.log(error)

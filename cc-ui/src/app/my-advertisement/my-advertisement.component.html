@@ -35,19 +35,19 @@
 <ul class="flex items-center ml-20 xl:ml-20 ">
   <li class="nav-item" [routerLinkActive]="['active']"  >
     <a >
-      <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-a">Active Ads</button>
+      <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-a">Active Ads  {{ActiveadsCount}}</button>
       
     </a>
   </li>
   &nbsp; &nbsp; &nbsp;
   <li class="p-3 xl:p-6" class="nav-item" [routerLinkActive]="['pending']">
     <a>
-      <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" class="underline-a">Pending Ads</button>
+      <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" class="underline-a">Pending Ads  {{PendingadsCount}}</button>
     </a>
   </li>
   <li class="p-3 xl:p-6">
     <a >
-      <button [ngClass]="{'border-b-2': draftActive}"  (click)="onDraftsActive()" class="underline-a text-red-500">Draft Ads</button>
+      <button [ngClass]="{'border-b-2': draftActive}"  (click)="onDraftsActive()" class="underline-a text-red-500">Draft Ads  {{DraftadsCount}}</button>
     </a>
   </li>
  
@@ -138,7 +138,7 @@
 <td><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" cscope="row" class="div-tbody-th px-6 py-4">Approve</button>
 </td>
 <td>
-  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="div-tbody-th px-6 py-4">Open Negotiations</button>
+  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="div-tbody-th px-6 py-4">Open Negotiations{{ getNegotiationCount(ad.ad_id) }}</button>
   </td>
 </div>
 

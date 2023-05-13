@@ -71,8 +71,10 @@ export class UploadInventoryComponent {
 }
   
 OnSetY(){
+  debugger
   this.y=1;
   this.showModal=false;
+  console.log("this is excel d"+JSON.stringify(this.ExcelData))
 this.addExcel();
 }
 
