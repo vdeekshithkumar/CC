@@ -305,7 +305,7 @@ public getNegotiationCount(adId:number):number {
     });
   }
    approve(ad_id: number){
-debugger
+
     this.operation="Approve";
     this.ApproveAd(ad_id);
     console.log("ad id id "+ ad_id)
@@ -355,7 +355,18 @@ viewAds(){
 this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
   (data: Advertisement[]) => {
     this.ads = data;
- 
+    if(this.operation=='Active'){
+      this.ActiveadsCount=this.ads.length;
+    }
+    else if(this.operation=='Pending'){
+      this.PendingadsCount=this.ads.length;
+    }
+    else{
+      this.DraftadsCount=this.ads.length;
+    }
+    
+
+   
     console.log("this is view ads"+this.ads);
   },
   error => console.log(error)

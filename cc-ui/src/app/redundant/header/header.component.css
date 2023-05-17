@@ -44,3 +44,7 @@ a:hover {
 .profile-box{
   @apply text-xs w-fit items-center leading-6 p-2 flex flex-col shadow-lg bg-white 
 }
+.hidden {
+  display: none;
+}
+
