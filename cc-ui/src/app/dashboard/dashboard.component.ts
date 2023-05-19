@@ -5,6 +5,7 @@ import { filter } from 'rxjs';
 
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -44,6 +45,7 @@ export class DashboardComponent {
     });
   }
 
+  
   logout(): void {
     // clear session data and redirect to login page
     this.sessionService.clearSession();

@@ -104,7 +104,7 @@ companyId:any;
 
    this.addEmployeeForm.setValue({
      user_id:167,
-     company_id:3,
+     company_id:this.companyId,
      fname:this.Pfname,
      lname: "K",
      address: "sdhgd",
