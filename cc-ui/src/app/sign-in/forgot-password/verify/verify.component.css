@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.boxes{
+
+ @apply border-gray-200 border rounded-md py-2 px-3 col-span-2 text-center;
+
+}
+.div{
+   @apply flex justify-center items-center h-screen bg-gray-100
+}
+.div-box{
+    @apply bg-white rounded-md shadow-md p-8 w-full max-w-md
+}
+.div-box-h1{
+    @apply text-2xl font-bold mb-4 text-center
+}
+.div-btn{
+    @apply bg-CCblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 col-span-12
+}

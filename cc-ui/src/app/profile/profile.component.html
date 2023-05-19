@@ -1,0 +1,289 @@
+<app-header></app-header>
+<div class="div">
+  <!-- Sidebar -->
+  <app-sidebar class="div-app-sidebar"></app-sidebar>
+  <!-- Main View Canvas -->
+  <div class="div-company-details">
+    <!-- Company Details section  -->
+    <div class="p-2 m-1 shadow-md h-fit">
+      <div class="flex">
+        <div class="flex flexbox">
+          <!-- first box which contains the company details -->
+          <form [formGroup]= "profileForm"> 
+         
+          <div class="flex flex-wrap">
+            <div class="relative">
+              <img
+                class="object-cover w-14 h-14 rounded-full"
+                src={{company_logo}}
+                />
+               
+              <button (click)="showDiv = !showDiv" class="cursor-pointer">
+                <img
+                  class="div-editcompany"
+                  src="../../assets/images/edit-97-16.png"
+                />
+              </button>
+              
+              <!-- A hidden div for edit profile -->
+              <div class="my-3 relative" [class.hidden]="!showDiv">
+                <div class="absolute top-0 left-0 shadow-md z-20">
+                  <app-edit-profile></app-edit-profile>
+                </div>
+              </div>
+            </div>
+            <!-- Sub box 1 -->
+            <div class="flex flex-col">
+              <div
+                class="div-company"
+              >
+                {{name}}
+                <span class="div-company-name"></span>
+              </div>
+              <div class="flex flex-row">
+                <div class="div-tag"> 
+                  <img
+                    src="../../assets/images/location-41-16.png"
+                    class="w-3 h-4 flex pt-1"
+                  /><span class="div-detail"
+                    >{{address}}</span
+                  >
+                </div>
+                <!-- Sub box 2 -->
+                <div class="div-sub-box">
+                  <span class="div-detail"
+                    >{{licence_id}}</span
+                  >
+                </div>
+                <!-- Sub box 3 -->
+                <div class="div-sub-box">
+                  <span class="div-detail"
+                    >{{domain_address}}</span
+                  >
+                </div>
+                <div class="div-sub-box">
+                  <span class="bg-gray-100 rounded-md text-sm leading-3"
+                    >{{country}}</span
+                  >
+                </div>
+          
+
+                <!-- Ratings -->
+                <div class=" mx-[1rem] flex">
+                  <svg width="20" height="20" viewBox="0 0 24 24">
+                    <polygon
+                      fill="#000"
+                      points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3"
+                    />
+                  </svg>
+                  <span class="flex-1">{{rating}}</span>
+                </div>
+              </div>
+            </div>
+
+           
+            
+            <div class="flex flex-row ">
+              <div class="div-box">
+                <div class="div-box-numbers"> 
+               {{usercount_list}}
+                </div>
+                <div class="div-box-data">
+                  Active members
+                </div>
+              </div>
+
+              <div class="div-box">
+                <div
+                  class="div-box-number"
+                >
+                  100
+                  <span class="text-xs">Teu</span>
+                </div>
+                <div class="div-box-data">
+                  Available slots
+                </div>
+              </div>
+
+              <div class="div-box">
+                <div
+                  class="div-box-number"
+                >
+                  100
+                  <span class="text-xs">Teu</span>
+                </div>
+                <div class="div-box-data">
+                  Available for lease
+                </div>
+              </div>
+
+              <div class="div-box">
+                <div
+                  class="div-box-number"
+                >
+                  100
+                  <span class="text-xs">Teu</span>
+                </div>
+                <div class="div-box-data">
+                  Available for sale
+                </div>
+              </div>
+            </div>
+            <!-- Availability boxes END -->
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Employee details section -->
+    <hr class="mx-2" />
+    <div class="div-employee">
+      <!--Change height to fit-->
+      <div class="flex flex-row">
+        <!-- box1 -->
+        <div class="flex flex-col pr-[5%]">
+          <div
+            class="div-employee-box"
+          >
+          
+            <div class="flex-1 px-2">&emsp;Admin</div>
+          </div>
+          <div class="div-employee-name">&emsp;{{fname}} {{lname}}</div>
+        </div>
+        <!-- box2 -->
+        <div class="flex flex-col px-[5%]">
+          <div
+            class="div-employee-box"
+          >
+            <img
+              src="../../assets/images/profile.png"
+              class="w-2 h-3 flex pt-1"
+            />
+            <div class="flex-1">&emsp;E-mail</div>
+          </div>
+          <div class="text-xs px-2 mx-auto">{{email}}</div>
+        </div>
+        <!-- box3 -->
+        <div class="flex flex-col px-[5%]">
+          <div
+            class="div-employee-box"
+          >
+            <img
+              *ngif 
+              src="../../assets/images/profile.png"
+              class="w-2 h-3 flex pt-1"
+            />
+            <div class="flex-1 px-px">Phone Number</div>
+          </div>
+          <div class="text-xs px-2 mx-auto">{{phone}}</div>
+        </div>
+      </div>
+      <div class="flex flex-row ml-2 ">
+        <button class="div-action-button" (click)="onClick()">
+          Approve Ads (6)
+        </button>
+        <button class="div-action-button">
+          Sync Data
+        </button>
+        <button class="div-action-button" routerLink="/upload-contract">
+          Upload Contracts
+        </button>
+        <button class="div-action-button" routerLink="/view-contract">
+          View Contracts
+        </button>
+        <button class="div-action-button" routerLink="/add-employee">
+          Add New Member
+        </button>
+        <button class="div-action-button" routerLink="/upload-inventory">
+         Upload Inventory
+        </button>
+      
+
+      <!-- Search bar end -->
+    </div>
+    <br>&nbsp;&nbsp;&nbsp;
+    <div>
+      
+      <label class="ml-16 w-full">Search by:</label>
+
+      <div class="max-w-sm mt-4 ml-6 w-full">
+          
+        <div
+          class="div-search"
+        >
+          <div class="div-search-icon">
+            <!-- search bar icon -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="gray"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </div>
+
+          <input
+            class="input-search"
+            type="text" [(ngModel)]="searchTerm"
+            id="search"
+            placeholder="Fname | Lname |Email"
+          />
+        </div>
+        
+      </div>
+    </div>
+       
+
+    </div>
+    
+    <br>
+    <hr class="mx-2" />
+
+    <!-- Table start -->
+    <div class="flex flex-col overflow-x-auto ml-8">
+      <div class="sm:-mx-6 lg:-mx-8">
+        <div class="employee-list">
+          <div class="overflow-x-auto">
+            <table class="employee-table">
+              <thead class="emplist-thead">
+                <tr>
+              
+                  <th scope="col" class="px-6 py-4 ml-20">First Name</th>
+                  <th scope="col" class="px-6 py-4">Last Name</th>
+                  <th scope="col" class="px-6 py-4">Email</th>
+                  <th scope="col" class="px-6 py-4">Phone Number</th>
+                  <th scope="col" class="px-6 py-4">Password</th>
+                  <th colspan="4" scope="col" class="px-6 py-4">&ensp;Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let u of alluser_list | search: searchTerm" class="employee-add">
+                 
+                  <td class="emplist ml-20">{{u.fname}}</td>
+                  <td class="emplist">{{u.lname}}</td>
+                  <td class="emplist">{{u.email}}</td>
+                  <td class="emplist">{{u.phone_no}}</td>
+                  <td class="emplist">{{u.password}}</td>
+                  <td class="whitespace-nowrap px-6 py-4">
+                   <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                    <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
+                 </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Table end -->
+  </div>
+</div>

@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "Hash": "xG+8LSE7PPZRtIbZEj/ay2eGSFOM7ro55FPCYXJ0b2k=",
+  "Source": "CC_api",
+  "BasePath": "_content/CC_api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "CC_api\\wwwroot",
+      "Source": "CC_api",
+      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\responsive\\Container-conundrum\\CC_api\\wwwroot\\",
+      "BasePath": "_content/CC_api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\bhavi\\OneDrive\\Desktop\\responsive\\Container-conundrum\\CC_api\\wwwroot\\client_secret.json",
+      "SourceId": "CC_api",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\responsive\\Container-conundrum\\CC_api\\wwwroot\\",
+      "BasePath": "_content/CC_api",
+      "RelativePath": "client_secret.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\client_secret.json"
+    }
+  ]
+}
