@@ -89,5 +89,10 @@ namespace CC_api.Controllers
     {
       return await inventoryBusiness.GetAllInventoryAsync();
     }
-  }
+    [HttpGet("GetInventoryForMap/{companyId}")]
+    public async Task<IActionResult> GetInventoryForMap(int companyId)
+    {
+      return Json(await inventoryBusiness.GetInventoryForMap(companyId));
+    }
+  }
   }

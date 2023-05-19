@@ -64,5 +64,35 @@ namespace CC_api.Repository
     {
       return dbContext.inventory.ToList();
     }
-  }
+    public class PortDetails
+    {
+      public int PortId { get; set; }
+      public string PortCode { get; set; }
+      public int Surplus { get; set; }
+      public int Deficit { get; set; }
+      public decimal Latitude { get; set; }
+      public decimal Longitude { get; set; }
+    }
+
+    public async Task<List<PortDetails>> GetPortDetailsAsync(int companyId)
+    {
+      var result = await dbContext.inventory
+          .Where(i => i.company_id == companyId)
+          .Join(dbContext.ports,
+              inventory => inventory.port_id,
+              port => port.port_id,
+              (inventory, port) => new PortDetails
+              {
+                PortId = inventory.port_id,
+                Surplus = inventory.surplus,
+                Deficit = inventory.deficit,
+                Latitude = port.latitude,
+                PortCode = port.port_code,
+                Longitude = port.longitude
+              })
+          .ToListAsync();
+
+      return result;
+    }
+  }
 }

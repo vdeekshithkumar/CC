@@ -1,0 +1,41 @@
+<form class="font-poppins grid grid-cols-2 overflow-y-hidden gap-2 p-2" (ngSubmit)="onSubmit()">
+    <h3 mat-dialog-title class="col-span-2 text-center text-CCblue">Edit Profile</h3>
+    <div class="col-span-1">
+        <label>First Name</label>
+        <input
+          class="input-tag"
+          placeholder="Enter your first name"
+          name="firstName"
+          [(ngModel)]="fname"
+          #firstName="ngModel"
+          pattern="[A-Za-z]{1,32}"
+        />
+        <!-- <span
+          class="mt-2 text-sm text-red-500"
+        >
+          Invalid entry
+        </span> -->
+      </div>
+        <div class="col-span-1">
+            <label>Last Name</label>
+            <input class="input-tag" placeholder="Enter your last name" [(ngModel)]="lname" name="lname"  pattern="[A-Za-z]{1,32}">
+            <!-- <span
+          class="mt-2 text-sm text-red-500"
+        >Invalid entry</span> -->
+        </div>
+        <div class="col-span-2 flex justify-center">
+            <div class="w-[12cw]">
+                <label>Phone Number</label>
+                <input class="input-tag" placeholder="Enter your phone number" [(ngModel)]="phone_no" name = "phone_no"  pattern="[0-9]{1,}">
+                <!-- <span
+              class="mt-2 text-sm text-red-500"
+            >Invalid entry</span> -->
+            </div>
+        </div>
+        <div class="col-span-2">
+            <label>Address</label>
+            <textarea class="input-tag" [(ngModel)] = "address" name = "address"> </textarea>
+        </div>
+        <button mat-raised-button matDialogClose="" class="w-fit px-4 col-span-1 ml-auto text-red-600">Cancel</button>
+        <button mat-raised-button class="w-fit px-4 col-span-1 bg-CCblue text-white" type = "submit" (submit)="onSubmit()">Submit</button>
+  </form>

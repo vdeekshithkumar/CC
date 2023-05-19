@@ -15,8 +15,8 @@
 <!-- Main View Canvas -->
 <div class="w-full mt-2 left-0 overflow-auto mr-2" >
   <!-- Company Details section  -->
-  <div class="flex justify-between items-center ml-20 mb-6">
-    <h1 class="text-2xl text-black-100">My Advertisement</h1>
+  <div class="flex justify-between items-center ml-20 mb-2">
+    <h1 class="text-2xl text-black-100 mt-4">My Advertisement</h1>
     <div>
       <div class="buttons-container">
 
@@ -35,21 +35,52 @@
 <ul class="flex items-center ml-20 xl:ml-20 ">
   <li class="nav-item" [routerLinkActive]="['active']"  >
     <a >
-      <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-a">Active Ads  {{ActiveadsCount}}</button>
-      
+   
+      <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-button">
+        <div class="flex items-center">
+          <span class="underline-a">Active Ads</span>
+          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
+            <span [class.hover:text-black]="true">{{ActiveadsCount}}</span>
+          </div>
+        </div>
+      </button>
     </a>
   </li>
   &nbsp; &nbsp; &nbsp;
-  <li class="p-3 xl:p-6" class="nav-item" [routerLinkActive]="['pending']">
-    <a>
-      <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" class="underline-a">Pending Ads  {{PendingadsCount}}</button>
-    </a>
-  </li>
-  <li class="p-3 xl:p-6">
+  <li class="nav-item" [routerLinkActive]="['pending']"  >
     <a >
-      <button [ngClass]="{'border-b-2': draftActive}"  (click)="onDraftsActive()" class="underline-a text-red-500">Draft Ads  {{DraftadsCount}}</button>
+   
+      <button  [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()"  class="underline-button">
+        <div class="flex items-center">
+          <span class="underline-a">Pending Ads</span>
+          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
+            <span [class.hover:text-black]="true">{{PendingadsCount}}</span>
+          </div>
+        </div>
+      </button>
     </a>
   </li>
+  &nbsp; &nbsp; &nbsp;
+  <li class="nav-item" [routerLinkActive]="['pending']"  >
+    <a >
+   
+      <button [ngClass]="{'border-b-2': draftActive}"  (click)="onDraftsActive()"  class="underline-button">
+        <div class="flex items-center">
+          <span class="underline-a">Draft Ads</span>
+          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
+            <span [class.hover:text-black]="true">{{DraftadsCount}}</span>
+          </div>
+        </div>
+      </button>
+    </a>
+  </li>
+
+
+
+  
+
+
+
  
 </ul>
 </nav>
@@ -75,13 +106,13 @@
       </tr>
     </thead>
 
-    <tbody class="w-full h-full ml-16">
+    <tbody class="w-full h-full ml-16 mt-4">
 
  
    
     
   
-<tr *ngFor="let ad of ads" class=" w-full mt-4" >
+<tr *ngFor="let ad of ads" class=" w-full" >
 
   
 
@@ -126,7 +157,7 @@
 <td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 py-4 mr-2">Approve</button></td>
 <td *ngIf="operation === 'Active'">
   <!-- <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="flex-1 text-center p-6 py-4 mr-2">Open Negotiations{{ getNegotiationCount(ad.ad_id) }}</button> -->
-  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="flex-1 text-center p-6 py-4 mr-2 mt-2">Open Negotiations</button> 
+  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2  " style="font-size: 12px;">Open Negotiations</button> 
 </td>
 
 </div>
@@ -184,6 +215,3 @@
             </div>
   </section>
   </div>
-
-
-

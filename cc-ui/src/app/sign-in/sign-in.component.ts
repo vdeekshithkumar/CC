@@ -22,14 +22,14 @@ export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
   submitted: Boolean = false;
   Invalid: Boolean = false;
-
-
+  showPassword=false;
+  show=false;
   errorMessage: string | undefined;
 constructor(private router: Router,private formBuilder: FormBuilder,private sessionService: SessionService, private signInService: SignInService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email: ["",Validators.email], 
-      password: ["",Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})')]],
     });
   }
 // loginForm=new FormGroup({

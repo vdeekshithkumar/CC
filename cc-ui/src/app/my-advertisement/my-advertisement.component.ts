@@ -1,4 +1,3 @@
-
 import { MyAdService } from './my-ad.service';
 
 import {Component, Inject} from '@angular/core';
@@ -9,6 +8,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../session.service';
 import { PostAdComponent } from './post-ad/post-ad.component';
 import * as moment from 'moment';
+import * as XLSX from 'xlsx';
+
+
 import * as XLSX from 'xlsx';
 
 

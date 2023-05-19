@@ -63,12 +63,12 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-  
+
        })
        .ToListAsync();
 
         return ads;
-       
+
       }
       else if (operation == "Pending")
       {
@@ -131,7 +131,12 @@ namespace CC_api.Repository
         return ads;
       }
     }
- 
+    public async Task<List<Ad>> GetAllAdvertisement(int companyID)
+    {
+
+      return await dbContext.advertisement.Where(c => c.company_id != companyID).ToListAsync();
+
+    }
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);
@@ -180,5 +185,4 @@ namespace CC_api.Repository
     }
   }
 }
-
 

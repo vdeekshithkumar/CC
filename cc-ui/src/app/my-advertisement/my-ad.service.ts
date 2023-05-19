@@ -99,5 +99,3 @@ getNegotiationCount(adid:number):Observable<any> {
 }
 
 }
-
-/////////////////////////////

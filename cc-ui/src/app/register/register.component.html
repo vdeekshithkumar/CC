@@ -24,7 +24,7 @@
           <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
             <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
               <div class="relative">
-                <label for="fname" class="font-medium text-sm">Fname</label>
+                <label for="fname" class="font-medium text-sm">First Name<span class="text-red-500">*</span></label>
                 <input
                   type="text"
                   formControlName="fname"
@@ -35,7 +35,7 @@
                 />
               </div>
               <div class="relative">
-                <label for="lname" class="font-medium text-sm">Lname</label>
+                <label for="lname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
                 <input
                   formControlName="lname"
                   class="register-page-data"
@@ -45,7 +45,7 @@
                 />
               </div>
               <div class="col-span-2">
-                <label for="email" class="font-medium">Email</label>
+                <label for="email" class="font-medium text-sm">Email<span class="text-red-500">*</span></label>
                 <input
                   formControlName="email"
                   class="register-page-data"
@@ -53,9 +53,17 @@
                   id="email"
                   placeholder="Ex: mathew123@domain.com"
                 />
+                <div *ngIf="registrationForm.get('email')?.errors && (registrationForm.get('email')?.dirty || registrationForm.get('email')?.touched)" class="text-red-500 text-sm mt-1">
+                
+                  <div *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</div>
+
+                  <div *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format</div>
+
+                </div>
               </div>
+              
               <div class="space-y-1">
-                <label for="address" class="font-medium text-sm">Country</label>
+                <label for="address" class="font-medium text-sm">Country<span class="text-red-500">*</span></label>
                 <input
                   list="countries"
                   class="register-page-data"
@@ -66,7 +74,7 @@
                 />
               </div>
               <div class="space-y-1">
-                <label for="ph-no" class="font-medium">Phone Number</label>
+                <label for="ph-no" class="font-medium text-sm">Phone Number<span class="text-red-500">*</span></label>
 
                 <input
                   formControlName="phone_no"
@@ -79,7 +87,7 @@
               </div>
 
               <div class="space-y-1 col-span-2">
-                <label for="company" class="font-medium text-sm">Company</label>
+                <label for="company" class="font-medium text-sm">Company<span class="text-red-500">*</span></label>
                 <select
                   #company
                   [(ngModel)]="company_name"
@@ -97,28 +105,42 @@
                 </select>
               </div>
 
-              <div class="space-y-1 col-span-2">
-                <label for="password" class="font-medium">Password</label>
-                <input
-                  formControlName="password"
-                  class="register-page-data"
-                  type="text"
-                  id="password"
-                  placeholder="Password"
-                />
-              </div>
-              <div></div>
-              <div class="space-y-1">
-                <button
-                  type="submit"
-                  class="div-otp-btn"
-                >
+              
+              <div class = 'flex flex-row col-span-2' >
+                <div class="space-y-1 col-span-1">
+                  <label for="password" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
+                  <div class="relative">
+                    <input
+                      formControlName="password"
+                      class="register-page-data pr-10"
+                      type="{{ showPassword ? 'text' : 'password' }}"
+                      id="password"
+                      placeholder="Password"
+                    />
+                    <button class="absolute top-2 right-2" (click)="showPassword = !showPassword">
+                     
+                    </button>
+                  </div>
+                  <div *ngIf="registrationForm.get('password')?.errors && (registrationForm.get('password')?.dirty || registrationForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password required</div>
+                    <div *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be Strong</div>
+                  </div>
+                </div>
+                
+              
+                
+                <div class="my-5 mx-6">
+                  <button
+                    type="submit"
+                    class="div-otp-btn"
+                  >
                   Send OTP
-                </button>
+                  </button>
+                </div>
               </div>
               <form [formGroup]="verifyotpForm" (ngSubmit)="onverifyOtp()" class = 'flex flex-row col-span-2' >
                 <div class="space-y-1 col-span-1">
-                  <label for="otp" class="font-medium">Enter OTP
+                  <label for="otp" class="font-medium text-sm">Enter OTP<span class="text-red-500">*</span>
                   <input
                     formControlName="otp"
                     class="register-page-data"

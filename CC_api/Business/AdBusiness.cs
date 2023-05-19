@@ -32,7 +32,7 @@ namespace CC_api.Business
         {
           ad.status = "active";
           await AdRepository.UpdateAd(ad);
-         
+
         }
       }
       catch (Exception ex)
@@ -41,11 +41,11 @@ namespace CC_api.Business
       }
     }
 
-   
-    
-          public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
+
+
+    public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
     {
-  
+
 
 
       if (item == null || item.Count == 0)
@@ -84,7 +84,7 @@ namespace CC_api.Business
 
 
           await AdRepository.PostAd(ad);
-          return new OkResult();
+          
 
         }
         return new OkResult();
@@ -94,8 +94,6 @@ namespace CC_api.Business
 
 
     }
-
-
 
     public async Task<IActionResult> UpdateAd(Ad Ad)
     {
@@ -144,16 +142,16 @@ namespace CC_api.Business
       ad.status = Ad.status;
       ad.quantity = Ad.quantity;
       ad.port_id = Ad.port_id;
-      ad.company_id=Ad.company_id;
+      ad.company_id = Ad.company_id;
       ad.posted_by = Ad.posted_by;
       ad.contents = Ad.contents;
-      ad.port_of_departure= Ad.port_of_departure;
-      ad.port_of_arrival= Ad.port_of_arrival;
-      ad.free_days= Ad.free_days;
-      ad.per_diem= Ad.per_diem;
-      ad.pickup_charges= Ad.pickup_charges;
+      ad.port_of_departure = Ad.port_of_departure;
+      ad.port_of_arrival = Ad.port_of_arrival;
+      ad.free_days = Ad.free_days;
+      ad.per_diem = Ad.per_diem;
+      ad.pickup_charges = Ad.pickup_charges;
       ad.file = Ad.file;
- 
+
 
       await AdRepository.PostAd(ad);
       return new OkResult();
@@ -162,5 +160,4 @@ namespace CC_api.Business
 
   }
 }
-
 
