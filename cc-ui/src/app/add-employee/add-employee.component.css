@@ -104,3 +104,9 @@
 .form-h2{
   @apply block text-sm font-medium mb-1
 }
+.div-table-inv{
+  @apply w-full h-full text-sm text-left font-medium text-black dark:text-black border-2 border-black
+}
+.div-thead{
+  @apply text-xs text-white uppercase font-medium bg-gray-400 border-black dark:text-white border-2
+}

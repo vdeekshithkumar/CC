@@ -49,10 +49,6 @@ companyId:any;
   isEdit:boolean=false;
   Puser_id:any;
   types = [];
- 
-
-
-
   constructor(private formBuilder:FormBuilder,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
     this.permissions = []
     ;
@@ -135,7 +131,6 @@ this.sessionService.getCurrentUser().subscribe(user => {
   console.log('From session '+this.currentUser.email+'  id here '+this.currentUser.user_id)
   }
   // store the user session information in a property
-
 });
  //when navigate back to sign-in session ends
  this.router.events.pipe(
@@ -149,7 +144,6 @@ logout(): void {
   this.sessionService.clearSession();
 
 }
-
 updateReadCheckbox(event: Event) {
   const writeCheckbox = event.target as HTMLInputElement;
   const readCheckbox = writeCheckbox.parentElement?.previousElementSibling?.querySelector('input[type="checkbox"]') as HTMLInputElement;
@@ -159,8 +153,6 @@ updateReadCheckbox(event: Event) {
     readCheckbox.checked = false;
   }
 }
-
-
 updateReadAccess(permission: any, event: any) {
   const checkbox = event.target as HTMLInputElement;
   const action = checkbox.id.includes('write') ? 'write' : 'read';
@@ -185,12 +177,6 @@ updateReadAccess(permission: any, event: any) {
     this.ppList.push(this.correspondingPermission.permission_id);
   }
 }
-
-
-
-
-
-
 private async addP() {
   if (this.isEdit) {
     try {
@@ -211,8 +197,6 @@ private async addP() {
 
       const response = await this.addEmployeesService.addPermission(this.ppList, emailValue).toPromise();
       console.log(response);
- 
-
       this.router.navigate(['/profile']);
     } catch (error) {
       console.log('Could not add:', error);

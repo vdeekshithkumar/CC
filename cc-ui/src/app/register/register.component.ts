@@ -33,8 +33,9 @@ export class RegisterComponent implements OnInit
   Otp:any;
    company_name= "";
    company_list : any;
+   errors:any;
   r: any;
-
+  showPassword=false;
   constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
   }
 
@@ -45,12 +46,12 @@ ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
     company_id:['',Validators.required],
-    fname: ['fanbns', Validators.required],
-    lname: ['oo', Validators.required],
-    address: ['fgc', Validators.required],
-    email: ['', Validators.required],
-    phone_no:['9875446788', Validators.required],
-    password: ['tfhgff', Validators.required],
+    fname: ['', Validators.required],
+    lname: ['', Validators.required],
+    address: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    phone_no:['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})')]],
     otp:['12345',Validators.required],
     is_verified:['1',Validators.required],
     is_approved:['1',Validators.required],
@@ -163,4 +164,5 @@ onverifyOtp(){
   );
 
 }
+
 }

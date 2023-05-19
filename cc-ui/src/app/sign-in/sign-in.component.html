@@ -27,14 +27,23 @@
               <!-- Just for testing purposes change ng submit-->
               <form [formGroup]= "loginForm" (ngSubmit)="onLoginSubmit()">
                 <div class="space-y-1">
-                  <label for="email" class="font-medium">Email</label>
+                  <label for="email" class="font-medium">Email<span class="text-red-500">*</span></label>
                   <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email">
+                  <div *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="text-red-500 text-sm mt-1">
                 
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+  
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
+  
+                  </div>
                 </div>
-                <div class="space-y-1">
-                  <label for="password" class="font-medium">Password</label>
+                <div class="space-y-1 mt-5">
+                  <label for="password" class="font-medium">Password<span class="text-red-500">*</span></label>
                   <input formControlName="password" class="signin-form-input" type="password" id="password" name="password" placeholder="Enter your password">
-                  
+                  <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="loginForm.get('password')?.errors?.['required']">Password required</div>
+                    <div *ngIf="loginForm.get('password')?.errors?.['minlength']"></div>
+                  </div>
                 </div>
                 <div>
                   <button type="submit"class="signin-btn">

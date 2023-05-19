@@ -1,4 +1,3 @@
-
 import { MyAdService } from './my-ad.service';
 
 import {Component, Inject} from '@angular/core';
@@ -8,6 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SessionService } from '../session.service';
 import { PostAdComponent } from './post-ad/post-ad.component';
+
+import * as XLSX from 'xlsx';
+
 
 
 
@@ -48,7 +50,9 @@ export class MyAdvertisementComponent {
   companyId: any;
   
   userId: any;
-
+ActiveadsCount:any;
+DraftadsCount:any;
+PendingadsCount:any;
   title!: any;
   port_name="";
   C_Type="";
@@ -102,9 +106,12 @@ pickup_charges:any;
      activeAdsClicked = false;
      pendingAdsClicked = false;
    ads: Advertisement[] = [];
+   Eads: Advertisement[] = [];
 
    advertisements: any;
    http: any;
+  Active: any;
+  negotiationcount: any;
   getCompanyId() {
      return this.company_id;
    }
@@ -148,6 +155,9 @@ pickup_charges:any;
         console.error('Error retrieving user ID:', error);
       }
     );
+
+
+
     
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
@@ -208,17 +218,27 @@ pickup_charges:any;
      
    }
    
-   
      
   onCancel() {
-    // this.editprofileForm.reset()
+    
     window.location.reload()
 }
   
 //   async onEdit(){
 //     debugger;
  
-    
+public getNegotiationCount(adId:number):number {
+  this.myadservice.getNegotiationCount(adId).subscribe(
+   data => {
+     this.negotiationcount = data;
+
+   },
+   error => {
+    this.negotiationcount=error;
+   }
+ );
+ return this.negotiationcount;
+}
   
 
    DisplayPostForm(){
@@ -245,6 +265,7 @@ pickup_charges:any;
 
         adId:adId
       }
+    
       
       
 
@@ -255,56 +276,76 @@ pickup_charges:any;
 
 
    }
-   DisplayApproveForm(adId: number){
+  //  DisplayApproveForm(adId: number){
 
-
- 
-    this.dialog.open(PostAdComponent,{
-      width:'70%',
-      height:'500px',
-      data:{
+  //   debugger
+  //   this.dialog.open(PostAdComponent,{
+  //     width:'70%',
+  //     height:'500px',
+  //     data:{
     
-        Approve:1,
-        adId:adId
-      }
+  //       Approve:1,
+  //       adId:adId
+  //     }
       
       
+      
 
-    })
+  //   })
+  //   this.Edit(adId);
 
-
-   }
+  //  }
+  ApproveAd(ad_id:number){
+    
+    this.myadservice.updateAdStatus(ad_id).subscribe(() => {
+      console.log('Ad status updated successfully');
+      this.onPendingActive();
+      
+    });
+  }
    approve(ad_id: number){
 
-    ad_id=10;
     this.operation="Approve";
-    this.Edit(ad_id);
+    this.ApproveAd(ad_id);
     console.log("ad id id "+ ad_id)
   }
-
-  Edit(ad_id: number){
-    if (this.port_id && this.container_type_id && this.file) {
+  getDateOnly(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    const timestamp = newDate.getTime();
+    const dateOnly=new Date(timestamp);
+    const dateString = dateOnly.toLocaleDateString('en-GB');
+    this.expiry_date=dateString.toString().slice(0, 10);
+    return this.expiry_date;
+  }
+  
+  //for draft
+  // Edit(ad_id: number){
+  //   if (this.port_id && this.container_type_id && this.file) {
     
 
-      this.myadservice.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+  //     this.myadservice.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
     
       
-       if (response.message === 'Success') {
-         this.statusMsg = 'Success';
-         setTimeout(()=> {this.statusMsg = ""},2000)
-         this.clear()
-         window.location.reload()
-       } else {
-         this.statusMsg = 'Failed';
-         console.log(response.status) ;
-       }
-     });
-   }
-   else{
-     alert("Please Fill the Mandatory Fields")
-   }
+  //      if (response.message === 'Success') {
+  //        this.statusMsg = 'Success';
+  //        setTimeout(()=> {this.statusMsg = ""},2000)
+  //        this.clear()
+  //        window.location.reload()
+  //      } else {
+  //        this.statusMsg = 'Failed';
+  //        console.log(response.status) ;
+  //      }
+  //    });
+  //  }
+  //  else{
+  //    alert("Please Fill the Mandatory Fields")
+  //  }
 
-  }
+  // }
   
 
 
@@ -313,14 +354,19 @@ viewAds(){
 this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
   (data: Advertisement[]) => {
     this.ads = data;
-    console.log(this.ads);
-
-    for(this.i=0;this.i<this.ads.length;this.i++){
-      this.explist=this.ads[this.i].expiry_date;
-      
+    if(this.operation=='Active'){
+      this.ActiveadsCount=this.ads.length;
+    }
+    else if(this.operation=='Pending'){
+      this.PendingadsCount=this.ads.length;
+    }
+    else{
+      this.DraftadsCount=this.ads.length;
     }
     
 
+   
+    console.log("this is view ads"+this.ads);
   },
   error => console.log(error)
 );
@@ -329,13 +375,16 @@ this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
 
 
 onViewActive(){
-  
+this.Active=true;
+this.pendingActive = false;
+this.draftActive = false;
 this.operation = 'Active';
 this.viewAds();
 }
 
 onPendingActive(){
 this.pendingActive = true;
+this.Active=false;
 this.draftActive = false;
 this.operation = 'Pending';
 this.viewAds();
@@ -343,39 +392,40 @@ this.viewAds();
 onDraftsActive(){
   this.pendingActive = false;
 this.draftActive = true;
+this.Active=false;
 this.operation = 'Draft';
 this.viewAds();
 }
 
-   edit(adId: number){
-    this.adId=adId;
-    if (this.port_id && this.container_type_id && this.file) {
-
-
-      this.myadservice.updateAd(adId,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+  
+   onExport(){
+const worksheetName = 'Advertisements';
+      const excelFileName = 'advertisements.xlsx';
+      const header = ['Date created','From date','Expiry date','Type of Ad','Container type id','Price', 'Status','Quantity','Port id','Contents','Port of Departure','Port of arrival','Free days','Per diem','Pickup Charges'];
+      const data = this.Eads.map((ad) => [ad.date_created,ad.from_date,ad.expiry_date,ad.type_of_ad,ad.container_type_id,ad.price,ad.status,ad.quantity,ad.port_id,ad.contents,ad.port_of_departure,ad.port_of_arrival,ad.free_days,ad.per_diem,ad.pickup_charges]);
     
+      const workbook = XLSX.utils.book_new();
+      const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+    
+      XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+      XLSX.writeFile(workbook, excelFileName);
+   }
+
+
+    onExportClick(): void {
+       this.operation = 'Active';
+      this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
+        (data: Advertisement[]) => {
+          this.Eads = data;
+          console.log(" this is e data"+ this.Eads);
+          this.onExport();
+        },
+        error => console.log(error)
+      );
+
       
-       if (response.message === 'Success') {
-         this.statusMsg = 'Success';
-         setTimeout(()=> {this.statusMsg = ""},2000)
-         this.clear()
-         window.location.reload()
-       } else {
-         this.statusMsg = 'Failed';
-         console.log(response.status) ;
-       }
-     });
-   }
-   else{
-     alert("Please Fill the Mandatory Fields")
-   }
-
-   }
-  onExportClick() {
-
-    console.log("Button clicked");
-    alert("button clicked")
-  }
+    }
+  
   clear(){
     this.title= null
     this.description = null

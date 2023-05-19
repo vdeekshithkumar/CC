@@ -206,7 +206,10 @@ namespace CC_api.Business
       await inventoryRepository.DeleteAllInventory();
     }
 
-
+    public async Task<List<InventoryRepository.PortDetails>> GetInventoryForMap(int id)
+    {
+      return await inventoryRepository.GetPortDetailsAsync(id);
+    }
 
   }
 }

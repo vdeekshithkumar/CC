@@ -148,9 +148,15 @@
     
    }
     
-    
+   .underline-button{
+    @apply menu-tile border-blue-500 hover:border-b-4 Poppins;
+}
    .underline-a{
-    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-b-4 Poppins;
+    @apply menu-tile  hover:text-CCblue  Poppins;
+}
+
+.underline-b{
+  @apply menu-tile hover:border-black border-black  hover:border-b-2 Poppins;
 }
     
    .div-card{

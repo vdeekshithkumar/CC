@@ -72,7 +72,7 @@
     @apply bg-gray-300 h-[3rem] w-fit px-[1rem]  mx-4 my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
-    @apply relative flex items-center w-40 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+    @apply relative flex items-center w-80 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;

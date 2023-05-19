@@ -1,0 +1,108 @@
+<app-header class="header"></app-header>
+<div class="div">
+
+  <!-- Sidebar -->
+  <div class="sidebar-container">
+  <app-sidebar class="div-app-sidebar"></app-sidebar>
+</div>
+ 
+  <div class="text-after-sidebar">
+    <p>Search Containers as per your Requirement</p>
+    <br/>
+    <div class="search-container">
+      <div [class.selected]="type === 'Buy'" (click)="toggleOption('Buy') ">Buy</div> &nbsp;
+      <div [class.selected]="type === 'Lease'" (click)="toggleOption('Lease')">Lease</div>&nbsp;
+      <div [class.selected]="type === 'Swap'" (click)="toggleOption('Swap')">Swap</div>&nbsp;
+    </div>
+<br/>
+     
+    <div class="div-form">
+      <div class="port-container">
+        <div class="port-input">
+          <p>Port of Departure</p>
+          <label class="div-form-label">Name on Port</label>
+          <select class="uploadinv-select" [(ngModel)]="port_of_departure">
+            <option selected>Select port</option>
+            <option *ngFor ="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
+          </select>
+        </div>
+<br/>
+        <div class="port-input">
+          <p>Port of Arrival</p>
+          <label class="div-form-label">Name on Port</label>
+          <select class="uploadinv-select"  [(ngModel)]="port_of_arrival">
+            <option selected>Select port</option>
+            <option *ngFor ="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="text-after-sidebar">
+      <p>Select View</p>
+      <div class="search-container">
+        <div [class.selected]="type === 'Map'" (click)="toggleOption('Map')">Map</div> &nbsp;
+        <div [class.selected]="type === 'List'" (click)="toggleOption('List')">List</div>&nbsp;
+
+      </div>
+      <br/>
+      <div class="text-after-sidebar">
+        <p>Select Type</p>
+        <div class="search-container">
+          <div [class.selected]="type === '20 DC'" (click)="toggleOption('20 DC')">20 DC</div> &nbsp;
+          <div [class.selected]="type === '40 HC'" (click)="toggleOption('40 HC')">40 HC</div>&nbsp;
+          <div [class.selected]="type === '45 HQ'" (click)="toggleOption('45 HQ')">45 HQ</div>&nbsp;
+          <div [class.selected]="type === '40 DC'" (click)="toggleOption('40 DC')">40 DC</div>&nbsp;
+        </div>
+        <br/>
+        <br/>
+      <div class="buttons-container">
+        <button (click)="clearOptions()">Clear</button>
+        <button (click)="searchAdvertisements()">Search</button>
+        <br/>
+        <p class="no-selection-message" *ngIf="showNoSelectionMessage">Select your requirement</p>
+        
+        </div>
+        
+        <div class="vertical-line"></div>
+        
+        <div class="advertisement-details">
+          <h2>Advertisement Details</h2>
+          
+          <table>
+            
+            <thead>
+              <tr>
+                <th>Expiry Date</th>
+                <th>Ad Type</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Contents</th>
+                <th>Port of Departure</th>
+                <th>Port of Arrival</th>
+                <th>Free Days</th>
+                <th>Per Diem</th>
+                <th>Pickup Charges</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ad of ads">
+                
+                <td>{{ ad.expiry_date }}</td>
+                <td>{{ ad.type_of_ad }}</td>
+                <td>{{ ad.price }}</td>
+                <td>{{ ad.quantity }}</td>
+                <td>{{ ad.contents }}</td>
+                <td>{{ ad.port_of_departure }}</td>
+                <td>{{ ad.port_of_arrival }}</td>
+                <td>{{ ad.free_days }}</td>
+                <td>{{ ad.per_diem }}</td>
+                <td>{{ ad.pickup_charges }}</td>
+                <td><button  class="negotiation-button" >Start Negotiation</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    

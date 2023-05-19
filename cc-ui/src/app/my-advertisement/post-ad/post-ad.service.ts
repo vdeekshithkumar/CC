@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 
 export interface Port {
@@ -13,6 +13,8 @@ export interface Port {
 })
 export class PostAdService {
   baseUrl = 'https://localhost:7157'
+  private BASE_URL = 'https://localhost:7157/ExcelUploadAd';
+
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string) {
@@ -22,6 +24,7 @@ export class PostAdService {
     formData.append('file', file);
 
  
+
     formData.append('from_date', (from_date || 0).toString());
     formData.append('expiry_date', (expiry_date || 0).toString());
     formData.append('type_of_ad', (type_of_ad || 'NA'));
@@ -110,5 +113,19 @@ return this.http.put(url, formData);
   getAllCTypes(): Observable<any> {
     return this.http.get('https://localhost:7157/GetAllCTypes');
   }
+
+  UploadExcelData(excelImportedData:any,user_id:number,company_id:number) {
+  
+    const formData = new FormData();
+    const jsonArrayString = JSON.stringify(excelImportedData);
+    formData.append('excelImportedData', jsonArrayString);
+    formData.append('user_id', user_id.toString());
+    formData.append('company_id', company_id.toString());
+    
+    return this.http.post(`${this.baseUrl}/ExcelUploadAd`, formData);
+
+  }
+
+
 
 }

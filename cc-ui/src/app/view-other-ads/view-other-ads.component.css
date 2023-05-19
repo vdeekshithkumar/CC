@@ -1,0 +1,144 @@
+.text-after-sidebar {
+    margin-top: 30px;
+  }
+  
+  .div-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+  }
+  
+  .div-app-sidebar {
+    position: sticky;
+    width: 8vw;
+    border-right: 2px solid;
+  }
+  
+  .uploadinv-select {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 100%;
+    color: #444;
+  }
+  
+  .div-form-label {
+    color: #fff;
+  }
+  
+  .sidebar-container {
+    margin-right: 120px;
+  }
+  
+  .div {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Poppins';
+    position: relative;
+    margin-right: 20px;
+  }
+  
+  .vertical-line {
+    width: 0.5px;
+    background-color: #000;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 35%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+  .selected {
+    background-color: lightblue;
+  }
+  .buttons-container {
+    margin-top: 1px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .button-selected {
+    background-color: lightblue;
+  }
+  .option {
+    cursor: pointer;
+  }
+  .buttons-container button {
+    flex: 1 0 auto;
+    background-color: blue;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    font-size: 10px;
+  }
+  
+  .advertisement-details {
+    position: absolute;
+    top: 30px;
+    left: calc(37% + 10px);
+    width: calc(50% - 20px);
+  }
+  .negotiation-button {
+    background-color: blue; 
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 2px;
+    font-size: 10px;
+  }
+  
+  .advertisement-details h2 {
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .advertisement-details table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .advertisement-details th,
+  .advertisement-details td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .advertisement-details th {
+    background-color: #f2f2f2;
+  }
+  .search-container {
+    display: flex;
+  }
+  .no-results-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .no-selection-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+  .search-container div {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    background-color: blue;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .search-container div.selected {
+    background-color: #007bff;
+    color: lightblue;
+  }
+  

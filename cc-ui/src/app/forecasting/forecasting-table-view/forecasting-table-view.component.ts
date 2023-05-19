@@ -35,7 +35,7 @@ currentPage: number = 1;
 records:any[]=[];
 // inventory_list_by_companyId: any[] = [];
   contracts: any;
-  dataa = [{ surplus: 10 }, { surplus: 5 }, { surplus: 20 }];
+
  
 constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) { 
 }
@@ -134,6 +134,17 @@ ngOnInit(): void {
       const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
       return port ? port.port_name : '';
   }
+  options = ['Map', 'Table', 'Surplus','Deficit'];
+  selectedOption = 0;
+  selectOption(index: number) {
+    this.selectedOption = index;
+    if (this.options[index] === 'Table') {
+      this.router.navigate(['/forecasting-table-view']);
+    }
+    if (this.options[index] === 'Map') {
+      this.router.navigate(['/forecast-map']);
+    }
+  }
   
     getInventoryById(inv_id: number) {
     
@@ -167,7 +178,7 @@ ngOnInit(): void {
       
        }
        backPage(){
-        this.router.navigate(['forecasting']);
+        this.router.navigate(['forecast-map']);
        }
   onSubmit(){
   

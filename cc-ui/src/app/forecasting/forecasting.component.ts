@@ -22,5 +22,8 @@ export class ForecastingComponent implements OnInit{
     if (this.options[index] === 'Table') {
       this.router.navigate(['/forecasting-table-view']);
     }
+    if (this.options[index] === 'Map') {
+      this.router.navigate(['/forecast-map']);
+    }
   }
 }

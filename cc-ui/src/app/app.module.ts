@@ -43,6 +43,11 @@ import { MaterialModule } from 'src/material.module';
 import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
+import { FormComponent } from './forecasting/forecast-map/form/form.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
+import { EditUserDetailsComponent } from './redundant/header/edit-user-details/edit-user-details.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +78,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
           ViewContractsComponent,
           ForecastingComponent,
           ForecastingTableViewComponent,
-    
+          ForecastMapComponent,
+          FormComponent,
+          ViewOtherAdsComponent,
+          EditUserDetailsComponent,
+          
     
   ],
   imports: [
@@ -86,6 +95,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserAnimationsModule,
     MaterialModule,
     NgxPaginationModule,
+    GoogleMapsModule,
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]
