@@ -1,0 +1,18 @@
+<div class="div">
+    <div class="div-box">
+      <h1 class="div-box-h1">Verify OTP</h1>
+      <form class="grid grid-cols-12 gap-4">
+        <input type="text" class="boxes" maxlength="1" #txt1 (keyup)="move($event, '', txt1, txt2)">
+        <input type="text" class="boxes" maxlength="1" #txt2 (keyup)="move($event, txt1 , txt2, txt3)">
+        <input type="text" class="boxes" maxlength="1" #txt3 (keyup)="move($event, txt2, txt3, txt4)">
+        <input type="text" class="boxes" maxlength="1" #txt4  (keyup)="move($event, txt3, txt4, txt5)">
+        <input type="text" class="boxes" maxlength="1" #txt5  (keyup)="move($event, txt4, txt5, txt6)">
+        <input type="text" class="boxes" maxlength="1" #txt6  (keyup)="move($event, txt5, txt6, '')">
+        <button type="submit" (click)= "verify(txt1.value,txt2.value,txt3.value,txt4.value,txt5.value,txt6.value)"  
+         class="div-btn">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  
