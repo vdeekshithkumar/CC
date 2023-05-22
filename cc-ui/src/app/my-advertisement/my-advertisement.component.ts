@@ -10,12 +10,6 @@ import { PostAdComponent } from './post-ad/post-ad.component';
 import * as moment from 'moment';
 import * as XLSX from 'xlsx';
 
-
-import * as XLSX from 'xlsx';
-
-
-
-
 export interface Advertisement {
   ad_id: number;
   date_created: Date;
