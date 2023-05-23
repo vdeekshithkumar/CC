@@ -82,7 +82,13 @@ export class ViewContractsComponent implements OnInit{
     this.currentPage = 1;
     this.itemsPerPage = 5;
   }
-  
+  isEndT()
+  {
+    return (this.currentPage == Math.ceil(this.titles.length / this.itemsPerPage))? true : false;
+  }
+  isEnd (){//for contracts
+    return (this.currentPage == Math.ceil(this.contracts.length / this.itemsPerPage))? true : false;
+  }
 
   viewContract(contractId:number)
   {
