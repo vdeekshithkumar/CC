@@ -35,7 +35,7 @@ export class ForecastMapComponent implements OnInit {
     );
 
   }
-  options = ['Map', 'Table', 'Surplus','Deficit'];
+  options = ['Map', 'Table', 'Surplus Area','Deficit Area'];
   selectedOption = 0;
   selectOption(index: number) {
     this.selectedOption = index;
