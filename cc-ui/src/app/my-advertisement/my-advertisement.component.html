@@ -30,7 +30,7 @@
 </div>
 <br/>
 
-
+<hr style="height: 2px;">
 <nav class="header-links contents font-semibold text-base lg:text-lg">
 <ul class="flex items-center ml-20 xl:ml-20 ">
   <li class="nav-item" [routerLinkActive]="['active']"  >
@@ -85,7 +85,8 @@
 </ul>
 </nav>
 
-<div class="w-full h-full flex flex-col">
+
+<div class="w-full h-full flex flex-col mt-2">
   <table class="table-auto ml-16 mr-2">
     <thead class="bg-green-100">
       <tr class="bg-green-100 justify-center">
@@ -100,7 +101,7 @@
         <th class="flex-1 px-6 py-4">Port of Departure</th>
         <th class="flex-1 px-6 py-4">Port of Arrival</th>
         <td class="px-6 py-4 separator"></td>
-        <th class="flex-1 px-6 py-4 text-center">Actions</th>
+        <th class="flex-1 px-6 py-4" style="text-align: left;">Actions</th>
 
 
       </tr>
@@ -154,10 +155,10 @@
   <button [disabled]="isButtonDisabled"  mat-raised-button color="primary" (click)="DisplayApproveForm(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="div-tbody-th px-6 py-4">View & Approve</button>
 </td> -->
 
-<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 py-4 mr-2">Approve</button></td>
+<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
 <td *ngIf="operation === 'Active'">
   <!-- <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="flex-1 text-center p-6 py-4 mr-2">Open Negotiations{{ getNegotiationCount(ad.ad_id) }}</button> -->
-  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2  " style="font-size: 12px;">Open Negotiations</button> 
+  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary"  *ngIf="operation === 'Active'"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 11px;">Open Negotiations</button> 
 </td>
 
 </div>
