@@ -296,6 +296,15 @@ namespace CC_api.Controllers
 
     }
 
+    [HttpGet("AdsCount")]
+    public async Task<IActionResult> GetAdsCount(int company_id)
+    {
+      var count = await _AdBusiness.GetAdsCount(company_id);
+      return Ok(count);
+    }
+
+
+
     [HttpPut("Edit/{id}")]
 
     public async Task<ActionResult> UpdateAd(int id, IFormFile file,
