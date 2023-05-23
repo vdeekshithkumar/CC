@@ -149,7 +149,7 @@
   @apply bg-gray-500 border-b border-blue-400 hover:bg-gray-400
 }
 .div-edit-btn{
-  @apply mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none 
+  @apply mr-3 text-sm bg-blue-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none 
 }
 .div-delete-btn{
   @apply text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none
@@ -199,7 +199,6 @@
     cursor: pointer;
     margin-right: 0.25rem;
   }
-  
   .edit-button:hover,
   .delete-button:hover {
     background-color: #b5f5e1;

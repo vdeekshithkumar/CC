@@ -246,9 +246,5 @@ export class ViewOtherAdsComponent {
       },
       error => console.log(error)
     );
-  }
-  
-  
-  
-  
+  } 
 }  

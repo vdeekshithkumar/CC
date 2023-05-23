@@ -48,10 +48,11 @@ namespace CC_api.Controllers
       return await companyBusiness.UpdateCompanyAsync(id, company);
     }
 
+
     [HttpGet("GetOtherCompany")]
-    public async Task<List<Company>> GetOtherCompany(int companyID)
-    {
-      return await companyBusiness.GetOtherCompanyAsync(companyID);
+    public async Task<List<Company>>GetOtherCompany(int companyID) {
+      
+     return await companyBusiness.GetOtherCompanyAsync(companyID);
     } 
   }
 }

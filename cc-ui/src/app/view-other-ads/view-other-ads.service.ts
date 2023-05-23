@@ -37,6 +37,5 @@ export class ViewOtherAdsService {
   }
   getotherCompany(companyId: string): Observable<any> {
     return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
-  
   }
 }
