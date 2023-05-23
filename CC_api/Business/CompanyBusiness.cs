@@ -63,6 +63,10 @@ namespace CC_api.Business
 
 
     }
+    public async Task<List<Company>> GetOtherCompanyAsync(int companyID)
+    {
+      return await companyRepository.GetOtherCompanyAsync(companyID);
+    }
     //  public async Task<IActionResult> UploadImageAsync()
     //}
   }
