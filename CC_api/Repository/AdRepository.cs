@@ -32,18 +32,18 @@ namespace CC_api.Repository
       }*/
 
 
-    /*public async Task<List<long>> GetAdsCount(int companyId)
+    public async Task<List<long>> GetAdsCount(int companyId)
     {
 
-    
-       
+
+
       var activeAds = await dbContext.advertisement
       .Where(a => a.company_id == companyId && a.status == "active").CountAsync();
       var count = new List<long>();
       count.Add(activeAds);
 
-     var PendingAds = await dbContext.advertisement
-    .Where(a => a.company_id == companyId && a.status == "pending").CountAsync();
+      var PendingAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "pending").CountAsync();
       count.Add(PendingAds);
 
       var DraftAds = await dbContext.advertisement
@@ -52,7 +52,7 @@ namespace CC_api.Repository
 
 
       return count;
-    }*/
+    }
 
     public async Task Add(Ad ad)
     {

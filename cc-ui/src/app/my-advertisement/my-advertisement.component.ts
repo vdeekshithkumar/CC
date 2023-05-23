@@ -154,7 +154,7 @@ pickup_charges:any;
       (count: any[]) => {
         this.adscount = count;
       
-        console.log("permissions are "+this.adscount);
+        console.log("count is are "+this.adscount);
       
       },
       (error: any) => {
@@ -473,7 +473,6 @@ const worksheetName = 'Advertisements';
   }
 
   deleteAd(id: number) {
-    debugger
     this.myadservice.deleteAd(id)
       .subscribe(
         (        data: any) => {

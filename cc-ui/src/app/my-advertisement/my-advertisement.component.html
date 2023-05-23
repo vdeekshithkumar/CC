@@ -15,19 +15,17 @@
 <!-- Main View Canvas -->
 <div class="w-full mt-2 left-0 overflow-auto mr-2" >
   <!-- Company Details section  -->
-  <div class="flex justify-between items-center ml-20">
-    <h1 class="text-2xl text-black-100 mt-2">My Advertisement</h1>
-    <div class="flex-1">
-
-      <button mat-raised-button color="primary" class="bg-blue-500 w-20 hover:bg-black-700 text-white mr-2 font-bold py-2 my-button px-4 mr-4 mt-2  rounded disabled:opacity-50"  (click)="onExportClick()">Export</button>
-      <button mat-raised-button color="primary"  class="bg-blue-500 right-0 hover:bg-black-700 text-white mr-0 font-bold py-2 my-button px-4 mt-2 rounded disabled:opacity-50" [disabled]="isButtonDisabled"  (click)="DisplayPostForm()">Post Ad</button>
-
-
-      </div>
-    <div>
+ 
+      <div class="flex justify-between items-center ml-20">
+        <h1 class="text-2xl text-black-100 mt-2 flex-1">My Advertisement</h1>
+        <div>
+            <button mat-raised-button color="primary" class="bg-blue-500 hover:bg-black-700 text-white font-bold py-2 my-button px-4 mr-4  rounded disabled:opacity-50" [disabled]="isButtonDisabled" (click)="DisplayPostForm()">Post Ad</button>
+            <button mat-raised-button color="primary" class="bg-blue-500 hover:bg-black-700 text-white font-bold py-2 my-button px-4 mr-4 rounded disabled:opacity-50" (click)="onExportClick()">Export</button>
+        </div>
+  
       
     
-</div>
+
 </div>
 <br/>
 
@@ -41,7 +39,7 @@
         <div class="flex items-center">
           <span class="underline-a">Active Ads</span>
           <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-            <span [class.hover:text-black]="true">{{ActiveadsCount}}</span>
+            <span [class.hover:text-black]="true">{{this.adscount[0]}}</span>
           </div>
         </div>
       </button>
@@ -55,7 +53,7 @@
         <div class="flex items-center">
           <span class="underline-a">Pending Ads</span>
           <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-            <span [class.hover:text-black]="true">{{PendingadsCount}}</span>
+            <span [class.hover:text-black]="true">{{this.adscount[1]}}</span>
           </div>
         </div>
       </button>
@@ -69,7 +67,7 @@
         <div class="flex items-center">
           <span class="underline-a">Draft Ads</span>
           <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-            <span [class.hover:text-black]="true">{{DraftadsCount}}</span>
+            <span [class.hover:text-black]="true">{{this.adscount[2]}}</span>
           </div>
         </div>
       </button>
