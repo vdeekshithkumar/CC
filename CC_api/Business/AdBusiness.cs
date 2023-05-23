@@ -94,7 +94,16 @@ namespace CC_api.Business
 
 
     }
-
+/*    public async Task<List<int>> GetAdsCount(int companyId)
+    {
+      var AdsCount = await AdRepository.GetAdsCount(companyId);
+      var count = new List<int>();
+      foreach (var c in AdsCount)
+      {
+        count.Add((int)c);
+      }
+      return count;
+    }*/
     public async Task<IActionResult> UpdateAd(Ad Ad)
     {
       var existingAd = await AdRepository.GetAdById(Ad.ad_id);

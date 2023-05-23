@@ -45,7 +45,9 @@ export class MyAdvertisementComponent {
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  
+  itemsPerPage: number = 6;
+currentPage: number = 1;
+
   userId: any;
 ActiveadsCount:any;
 DraftadsCount:any;
@@ -82,7 +84,7 @@ free_days:any;
 per_diem:any;
 pickup_charges:any;
  ContinueDraft:any;
-
+ contracts: any;
  adId:any;
 
  time:number = 10;
@@ -109,6 +111,8 @@ pickup_charges:any;
    http: any;
   Active: any;
   negotiationcount: any;
+  CurrentPageBtn: number=1;
+  adscount: any[] = [];
   getCompanyId() {
      return this.company_id;
    }
@@ -143,6 +147,23 @@ pickup_charges:any;
         console.error('Error retrieving company ID:', error);
       }
     );
+
+  
+     
+     this.myadservice.getAdsCount(this.companyId).subscribe(
+      (count: any[]) => {
+        this.adscount = count;
+      
+        console.log("permissions are "+this.adscount);
+      
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
+      }
+    );
+    
+      
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
@@ -224,17 +245,19 @@ pickup_charges:any;
 //   async onEdit(){
 //     debugger;
  
-public getNegotiationCount(adId:number):number {
+getNegotiationCount(adId:number):number {
   this.myadservice.getNegotiationCount(adId).subscribe(
    data => {
      this.negotiationcount = data;
-
+     
    },
    error => {
     this.negotiationcount=error;
+    return 0;
    }
  );
  return this.negotiationcount;
+
 }
   
 
@@ -273,6 +296,27 @@ public getNegotiationCount(adId:number):number {
 
 
    }
+
+
+   get totalPages(): number {
+    return Math.ceil(this.ads.length / 6);
+  }
+  prevPage() {
+
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+    
+     }
+     nextPage() {
+      if (this.currentPage < Math.ceil(this.ads.length / this.itemsPerPage)) {
+        this.currentPage++;
+      }
+    
+     }
+     backPage(){
+      this.router.navigate(['forecast-map']);
+     }
   //  DisplayApproveForm(adId: number){
 
   //   debugger
