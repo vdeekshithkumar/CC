@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "xG+8LSE7PPZRtIbZEj/ay2eGSFOM7ro55FPCYXJ0b2k=",
+  "Hash": "naP8+q0UnhDSpO+LEBVeTMN7q6yUU1tGzC8mQX+d/TU=",
   "Source": "CC_api",
   "BasePath": "_content/CC_api",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CC_api\\wwwroot",
       "Source": "CC_api",
-      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\responsive\\Container-conundrum\\CC_api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\some new files\\Container-conundrum\\CC_api\\wwwroot\\",
       "BasePath": "_content/CC_api",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\bhavi\\OneDrive\\Desktop\\responsive\\Container-conundrum\\CC_api\\wwwroot\\client_secret.json",
+      "Identity": "C:\\Users\\bhavi\\OneDrive\\Desktop\\some new files\\Container-conundrum\\CC_api\\wwwroot\\client_secret.json",
       "SourceId": "CC_api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\responsive\\Container-conundrum\\CC_api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\bhavi\\OneDrive\\Desktop\\some new files\\Container-conundrum\\CC_api\\wwwroot\\",
       "BasePath": "_content/CC_api",
       "RelativePath": "client_secret.json",
       "AssetKind": "All",

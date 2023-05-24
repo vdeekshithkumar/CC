@@ -94,5 +94,47 @@ namespace CC_api.Repository
 
       return result;
     }
+    public async Task<List<PortDetails>> GetSurplusPortDetailsAsync(int companyId)
+    {
+      var result = await dbContext.inventory
+          .Where(i => i.company_id == companyId)
+          .Join(dbContext.ports,
+              inventory => inventory.port_id,
+              port => port.port_id,
+              (inventory, port) => new PortDetails
+              {
+                PortId = inventory.port_id,
+                Surplus = inventory.surplus,
+                Deficit = inventory.deficit,
+                Latitude = port.latitude,
+                PortCode = port.port_code,
+                Longitude = port.longitude
+              })
+          .Where(pd => pd.Surplus > pd.Deficit)
+          .ToListAsync();
+
+      return result;
+    }
+    public async Task<List<PortDetails>> GetDeficitPortDetailsAsync(int companyId)
+    {
+      var result = await dbContext.inventory
+          .Where(i => i.company_id == companyId)
+          .Join(dbContext.ports,
+              inventory => inventory.port_id,
+              port => port.port_id,
+              (inventory, port) => new PortDetails
+              {
+                PortId = inventory.port_id,
+                Surplus = inventory.surplus,
+                Deficit = inventory.deficit,
+                Latitude = port.latitude,
+                PortCode = port.port_code,
+                Longitude = port.longitude
+              })
+          .Where(pd => pd.Deficit > pd.Surplus)
+          .ToListAsync();
+
+      return result;
+    }
   }
 }
