@@ -100,11 +100,16 @@
         <th class="flex-1 px-6 py-4">Pickup charges</th>
         <th class="flex-1 px-6 py-4">Port of Departure</th>
         <th class="flex-1 px-6 py-4">Port of Arrival</th>
-        <td class="px-6 py-4 separator"></td><th *ngIf="operation === 'Active'" class="flex-1 px-6 py-4" style="text-align: left;">Negotiations</th>
+      
 
 
-        <th *ngIf="operation != 'Active'" class="flex-1 px-6 py-4" style="text-align: left;">Actions</th>
-        
+        <td class="px-6 py-4 separator"></td>
+        <th class="flex-1 px-6 py-4" style="text-align: left;">   {{ operation === 'active' ? 'Negotiation' : 'Actions' }}</th>
+     
+
+    
+
+
       </tr>
     </thead>
 
@@ -148,6 +153,7 @@
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
   </svg>
   </button>
+
 </td>
   
 <td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Draft'" scope="row" class="flex-1 text-center px-6 py-4 mr-2">Proceed</button></td>
@@ -157,12 +163,13 @@
 </td> -->
 
 <td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
-<td *ngIf="operation === 'Active'">
+<td >
   <button [disabled]="getNegotiationCount(ad.ad_id)<1" mat-raised-button color="primary" *ngIf="operation === 'Active'" scope="row" class="flex-1 text-center px-4 py-4 mr-2 mt-2" style="font-size: 11px;">
     Open
     <!-- {{ getNegotiationCount(ad.ad_id) }} -->
     </button>
 </td>
+
 
 </div>
 
@@ -177,7 +184,7 @@
 <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
   <nav aria-label="Page navigation">
       <ul class="inline-flex">
-          <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage() " [disabled]="currentPage<2"
+          <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
                   class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
                   <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                       <path
@@ -185,16 +192,23 @@
                           clip-rule="evenodd" fill-rule="evenodd"></path>
                   </svg></button>
           </li>
-          <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()" *ngIf = "currentPage>1" [disabled]="currentPage<2"
+
+          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
                   class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
           </li>
+
+
           <li><button
-                  class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
+                  class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
           </li>
-          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"  [disabled]="currentPage>=totalPages"
+
+
+          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
                   class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
           </li>
-          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"[disabled]="currentPage>=totalPages"
+
+
+          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"[hidden]="currentPage>=totalPages"
                   class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
                   <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                       <path

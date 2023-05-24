@@ -444,7 +444,9 @@ this.Active=true;
 this.pendingActive = false;
 this.draftActive = false;
 this.operation = 'Active';
+this.currentPage=1;
 this.viewAds();
+
 }
 
 onPendingActive(){
@@ -452,6 +454,7 @@ this.pendingActive = true;
 this.Active=false;
 this.draftActive = false;
 this.operation = 'Pending';
+this.currentPage=1;
 this.viewAds();
 }
 onDraftsActive(){
@@ -459,6 +462,7 @@ onDraftsActive(){
 this.draftActive = true;
 this.Active=false;
 this.operation = 'Draft';
+this.currentPage=1;
 this.viewAds();
 }
 

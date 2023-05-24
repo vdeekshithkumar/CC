@@ -202,12 +202,12 @@ namespace CC_api.Repository
       var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
       return uploadedFiles;
     }
-    public async Task DeleteAd(int AdID)
+   /* public async Task DeleteAd(int AdID)
     {
       dbContext.advertisement.Remove(
        dbContext.advertisement.FirstOrDefault(c => c.ad_id == AdID));
       await dbContext.SaveChangesAsync();
-    }
+    }*/
   }
 }
 
