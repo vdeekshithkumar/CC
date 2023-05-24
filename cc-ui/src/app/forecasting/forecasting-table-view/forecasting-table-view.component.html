@@ -6,16 +6,15 @@
     <form> 
       <div class="flex flex-row">  
           <div class="mx-3 w-24 h-[4em] bg-gray flex-wrap -mt-3">
-            <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-4">Region</label>
+            <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-4">Port</label>
             <div>
-            <select class="border-2 ml-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-black-900 dark:border-gray-700 dark:text-gray-400">
-                <option>A</option>
-                <option>B</option>
-                <option>C</option>
-              </select>
+            <select #port [(ngModel)]="port_name" formControlName="port_id" class="border-2 ml-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-black-900 dark:border-gray-700 dark:text-gray-400">
+              <option selected>Select your port</option>
+              <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+            </select>
               </div>
             </div>
-       
+           
         <div class="mx-3 w-24 h-[2em] bg-gray flex-wrap -mt-3">
           <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-1 -mr-60">Sub Region</label>
           <div>
@@ -94,7 +93,7 @@
   <nav class="table-navbar w-full">
     <div class="flex justify-between max-w-sm mx-auto items-center mt-2">
       <div class="p-2 w-[5em] h-[3em] bg-white-900 left-0 -ml-96 mt-2">
-        <button class="text-sm -mt-0 font-medium text-black -mt-2 capitalize dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300" (click)="backPage()">&lt; Back</button>
+        <button class="text-sm ml-2 text-black -mt-2 capitalize dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300" (click)="backPage()">&lt; Back</button>
       </div>
       <h1 class="text-3xl font-medium text-black capitalize -mt-2 dark:text-white mx-auto cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">Forecasting</h1>
      <div class="flex items-center p-1 x-1 bg-white w-0 -mr-60 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
@@ -111,7 +110,7 @@
 
 
 <div class="w-full h-full flex flex-col first:flex-row">  
-<section  class="ml-1">
+<section  class="ml-10 mr-6">
   <div class="flex flex-col">
               <div class="overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 ml-24 mr-0">
                   <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -119,7 +118,7 @@
                           <tr >
                               <th scope="col-4" class="py-3.5 px-4 text-1xl font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                   <div class="flex items-center gap-x-3">
-                                      <button class="flex items-center gap-x-2 ml-2 text-lg">
+                                      <button class="flex items-center gap-x-2 ml-2 text-sm">
                                           <span>PortName</span>
                                           <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
                                               <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
@@ -130,25 +129,25 @@
                                   </div>
                               </th>
 
-                              <th scope="col" class="px-1 py-1  text-lg font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                              <th scope="col" class="px-1 py-1  text-sm font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                   Container_Type
                               </th>
 
-                              <th scope="col" class="px-4 py-3.5  text-lg font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                   Container_Size
                               </th>
 
-                              <th scope="col" class="px-4 py-3.5  text-lg font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                   Available
                               </th>
                              
-                              <th scope="col" class="px-4 py-3.5 text-lg font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                              <th scope="col" class="px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                 <div class="flex items-center justify-between">
                                   <span>Surplus</span>
                                 
                                 </div>
                               </th>
-                              <th scope="col" class="px-4 py-3.5 text-lg font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                              <th scope="col" class="px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-gray-500 dark:text-gray-400 cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
                                 Deficit
                             </th>
                           </tr>
@@ -157,34 +156,34 @@
                         <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm:getPortName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
                           <!-- table row data here -->
                 
-                              <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                              <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                   <div class="inline-flex items-center gap-x-3 ml-6">
                                       
 
                                       <span>  {{getPortName(inv.port_id)}}</span>
                                   </div>
                               </td>
-                              <td class="px-4 py-4 text-sm font-medium text-gray-500 dark:text-gray-300 whitespace-nowrap">{{inv.container_type}}</td>
-                              <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                              <td class="px-4 py-4 text-sm  text-gray-500 dark:text-gray-300 whitespace-nowrap">{{inv.container_type}}</td>
+                              <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
                                 <div class="inline-flex items-center gap-x-3 ml-6">
                                     
 
                                     <span>  {{inv.container_size}}</span>
                                 </div>
                             </td>
-                            <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                            <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
                               <div class="inline-flex items-center gap-x-3 ml-6">
                                   <span> {{inv.available}}</span>
                               </div>
                           </td>
                   
-                          <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
                             <div class="ml-2 inline-flex items-center px-3 py-1 text-green-500 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
                                 <span> {{inv.surplus}}</span>
                             </div>
                           </td>
                           
-                          <td class="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
                             <div class="ml-2 inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
                                 <span> {{inv.deficit}}</span>
                             </div>
