@@ -156,7 +156,7 @@
 
 </td>
   
-<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Draft'" scope="row" class="flex-1 text-center px-6 py-4 mr-2">Proceed</button></td>
+<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Draft'" scope="row" class="flex-1 text-center px-6 py-4 mr-2">Edit</button></td>
 <div style="display: flex; flex-direction: column;">
 <!-- <td>
   <button [disabled]="isButtonDisabled"  mat-raised-button color="primary" (click)="DisplayApproveForm(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="div-tbody-th px-6 py-4">View & Approve</button>
@@ -229,37 +229,6 @@
 
                   
              
-                  <!-- <div class="bg-white p-4 flex items-center flex-wrap  justify-center">
-                    <nav aria-label="Page navigation">
-                        <ul class="inline-flex">
-                            <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()"
-                                    class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                        <path
-                                            d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg></button>
-                            </li>
-                            <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()" *ngIf = "currentPage>1"
-                                    class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-                            </li>
-                            <li><button
-                                    class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
-                            </li>
-                            <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"
-                                    class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-                            </li>
-                            <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"
-                                    class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                        <path
-                                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                            clip-rule="evenodd" fill-rule="evenodd"></path>
-                                    </svg></button>
-                            </li>
-                        </ul>
-                    </nav>
-                </div> -->
                 </div>
             </div>
   </section>
