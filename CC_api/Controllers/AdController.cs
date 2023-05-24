@@ -505,7 +505,8 @@ namespace CC_api.Controllers
     [HttpPut("Approve")]
     public async Task<IActionResult> ActivateAd(int adId)
     {
-      await _AdBusiness.UpdateAdStatus(adId);
+      var ad = await _AdRepository.GetAdById(adId);
+      await _AdBusiness.UpdateAdStatus(ad);
       return Ok();
     }
 
@@ -513,31 +514,35 @@ namespace CC_api.Controllers
     [HttpDelete("DeleteAd")]
     public async Task<IActionResult> DeleteAd(int AdID)
     {
-      try
-      {
-        var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
-                     .CreateScoped(DriveService.ScopeConstants.Drive);
-        var service = new DriveService(new BaseClientService.Initializer
-        {
-          HttpClientInitializer = credential,
-        });
-        var fileId = await _AdRepository.GetFileIDbyAdID(AdID);
-        // Delete the file from Google Drive
-        await service.Files.Delete(fileId).ExecuteAsync();
-        await _AdRepository.DeleteAd(AdID);
 
-        // Return a success response
-        return Ok();
-      }
-      catch
-      {
-        await _AdRepository.DeleteAd(AdID);
+      var ad = await _AdRepository.GetAdById(AdID);
+      await _AdBusiness.DeleteAd(ad);
+      return Ok();
+      /* try
+       {
+         var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
+                      .CreateScoped(DriveService.ScopeConstants.Drive);
+         var service = new DriveService(new BaseClientService.Initializer
+         {
+           HttpClientInitializer = credential,
+         });
+         var fileId = await _AdRepository.GetFileIDbyAdID(AdID);
+         // Delete the file from Google Drive
+         await service.Files.Delete(fileId).ExecuteAsync();
+         await _AdRepository.DeleteAd(AdID);
 
-        // Return a success response
-        return Ok();
-      }
+         // Return a success response
+         return Ok();
+       }
+       catch
+       {
+         await _AdRepository.DeleteAd(AdID);
 
+         // Return a success response
+         return Ok();
+       }
 
+ */
     }
   }
 }

@@ -22,11 +22,11 @@ namespace CC_api.Business
       this.AdRepository = new AdRepository();
     }
 
-    public async Task UpdateAdStatus(int adId)
+    public async Task UpdateAdStatus(Ad ad)
     {
       try
       {
-        var ad = await AdRepository.GetAdById(adId);
+
 
         if (ad != null)
         {
@@ -41,7 +41,24 @@ namespace CC_api.Business
       }
     }
 
+    public async Task DeleteAd(Ad ad)
+    {
+      try
+      {
 
+
+        if (ad != null)
+        {
+          ad.status = "deleted";
+          await AdRepository.UpdateAd(ad);
+
+        }
+      }
+      catch (Exception ex)
+      {
+        // handle the exception here, e.g. log it or throw a custom exception
+      }
+    }
 
     public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
     {

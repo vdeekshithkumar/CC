@@ -76,7 +76,7 @@ return this.http.put(url, formData);
 }
 
 updateAdStatus(adId: number) {
-  
+
   const url = `${this.baseUrl}/Approve?adId=${adId}`;
   return this.http.put(url, null);
 }
