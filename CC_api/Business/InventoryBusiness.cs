@@ -211,5 +211,14 @@ namespace CC_api.Business
       return await inventoryRepository.GetPortDetailsAsync(id);
     }
 
+    public async Task<List<InventoryRepository.PortDetails>> GetSurplusInventoryForMap(int id)
+    {
+      return await inventoryRepository.GetSurplusPortDetailsAsync(id);
+    }
+    public async Task<List<InventoryRepository.PortDetails>> GetDeficitInventoryForMap(int id)
+    {
+      return await inventoryRepository.GetDeficitPortDetailsAsync(id);
+    }
+
   }
 }

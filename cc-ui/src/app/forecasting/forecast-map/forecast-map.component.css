@@ -87,10 +87,10 @@
     @apply min-w-full text-left text-sm font-light;
 }
 .emplist-thead{
-    @apply border-b font-medium dark:border-neutral-50;
+    @apply border-b font-medium ;
 }
 .employee-add{
-    @apply border-b dark:border-neutral-500;
+    @apply border-b ;
 }
 .employee-add-btn{
     @apply whitespace-nowrap px-2 py-4 font-medium;

@@ -10,14 +10,22 @@ import { PortData } from './PortData';
   
   export class ForecastMapService{
     private apiUrl = 'https://localhost:7157/GetInventoryForMap';
+    private apiUrlSurplus = 'https://localhost:7157/GetSurplus';
+
     private IdUrl='https://localhost:7157/GetInventoryById';
     private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
   constructor(private http: HttpClient) {}
 
   getPortData(companyID:number): Observable<PortData[]> {
-    debugger
     return this.http.get<PortData[]>(`${this.apiUrl}/${companyID}`);
   }
+  getSurplus(companyID:number): Observable<PortData[]> {
+    return this.http.get<PortData[]>(`${this.apiUrlSurplus}/${companyID}`);
+  }
+  getDeficit(companyID:number): Observable<PortData[]> {
+    return this.http.get<PortData[]>(`${this.apiUrl}/${companyID}`);
+  }
+  
   getAllPorts(): Observable<any> {
     return this.http.get('https://localhost:7157/GetAllPorts');
   }
