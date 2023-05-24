@@ -505,7 +505,8 @@ namespace CC_api.Controllers
     [HttpPut("Approve")]
     public async Task<IActionResult> ActivateAd(int adId)
     {
-      await _AdBusiness.UpdateAdStatus(adId);
+      var ad = await _AdRepository.GetAdById(adId);
+      await _AdBusiness.UpdateAdStatus(ad);
       return Ok();
     }
 

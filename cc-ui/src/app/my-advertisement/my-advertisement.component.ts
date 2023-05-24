@@ -87,6 +87,7 @@ pickup_charges:any;
  contracts: any;
  adId:any;
 
+ negotiationCounts: { [adId: number]: number } = {}; 
  time:number = 10;
  alluser_list:any;
    public company_id?: number;
@@ -113,6 +114,7 @@ pickup_charges:any;
   negotiationcount: any;
   CurrentPageBtn: number=1;
   adscount: any[] = [];
+  x: any;
   getCompanyId() {
      return this.company_id;
    }
@@ -137,6 +139,8 @@ pickup_charges:any;
       const value = params['value'];
       this.approvalLink=value;
     });
+
+
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -245,21 +249,8 @@ pickup_charges:any;
 //   async onEdit(){
 //     debugger;
  
-getNegotiationCount(adId:number):number {
-  this.myadservice.getNegotiationCount(adId).subscribe(
-   data => {
-     this.negotiationcount = data;
-     
-   },
-   error => {
-    this.negotiationcount=error;
-    return 0;
-   }
- );
- return this.negotiationcount;
 
-}
-  
+
 
    DisplayPostForm(){
     
@@ -340,7 +331,8 @@ getNegotiationCount(adId:number):number {
     
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
-      this.onPendingActive();
+      window.location.reload()
+      // this.onPendingActive();
       
     });
   }
@@ -387,8 +379,40 @@ getNegotiationCount(adId:number):number {
   //  }
 
   // }
-  
+  // Object to store negotiation counts
 
+  getNegotiationCount(adId: number): number {
+    debugger
+    if (this.negotiationCounts.hasOwnProperty(adId)) {
+      // If the count for this adId has already been fetched, use the stored value
+      this.negotiationcount = this.negotiationCounts[adId];
+      return this.negotiationcount;
+    } else {
+      // Fetch the count asynchronously
+      this.myadservice.getNegotiationCount(adId).subscribe(
+        data => {
+          this.negotiationCounts[adId] = data; // Store the count for this adId
+          console.log("The count of negotiations for adId " + adId + " is " + data);
+          this.negotiationcount = data; 
+          if(this.negotiationcount>0){
+            this.x=1;
+            return this.negotiationcount;
+          }
+          else{
+            this.x=0;
+
+          }
+          // Update the negotiationCount variable
+        },
+        error => {
+          console.log(error);
+          return 0;
+        }
+      );
+    }
+    return this.negotiationcount;
+  }
+  
 
 viewAds(){
 

@@ -22,11 +22,11 @@ namespace CC_api.Business
       this.AdRepository = new AdRepository();
     }
 
-    public async Task UpdateAdStatus(int adId)
+    public async Task UpdateAdStatus(Ad ad)
     {
       try
       {
-        var ad = await AdRepository.GetAdById(adId);
+
 
         if (ad != null)
         {

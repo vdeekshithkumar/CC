@@ -186,7 +186,8 @@ namespace CC_api.Repository
     }
     public async Task<Ad> GetAdById(int adId)
     {
-      return await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      var ads= await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      return ads;
     }
 
     public async Task UpdateAd(Ad Ad)

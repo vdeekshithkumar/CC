@@ -20,7 +20,8 @@ namespace CC_api.Controllers
     [HttpGet("GetNegotiationCount/{adid}")]
     public async Task<int> GetNegotiationCount(int adid)
     {
-      return await NegotiationBusiness.GetNegotiationCount(adid);
+      var Ncount= await NegotiationBusiness.GetNegotiationCount(adid);
+      return Ncount;
     }
 
 
