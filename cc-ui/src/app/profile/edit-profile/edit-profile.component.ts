@@ -43,7 +43,7 @@ export class EditProfileComponent implements OnInit{
           company_logo: [''],
           company_location: ['', Validators.required],
           country: ['', Validators.required],
-          rating: ['', Validators.required],
+          rating: ['5', Validators.required], 
           address: ['', Validators.required],
         });
   

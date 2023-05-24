@@ -9,7 +9,8 @@ import { SessionService } from '../session.service';
   styleUrls: ['./forecasting.component.css']
 })
 export class ForecastingComponent implements OnInit{
- 
+  port_name="";
+  port_list:any;
   constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router) { 
   }
   ngOnInit(): void {

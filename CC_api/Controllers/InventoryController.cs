@@ -94,5 +94,15 @@ namespace CC_api.Controllers
     {
       return Json(await inventoryBusiness.GetInventoryForMap(companyId));
     }
+    [HttpGet("GetSurplus/{companyId}")]
+    public async Task<IActionResult> GetSurplusInventoryForMap(int companyId)
+    {
+      return Json(await inventoryBusiness.GetSurplusInventoryForMap(companyId));
+    }
+    [HttpGet("GetDeficit/{companyId}")]
+    public async Task<IActionResult> GetDeficitInventoryForMap(int companyId)
+    {
+      return Json(await inventoryBusiness.GetDeficitInventoryForMap(companyId));
+    }
   }
   }
