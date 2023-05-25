@@ -3,6 +3,7 @@ import { FormComponent } from './form/form.component';
 import { ForecastMapService } from './forecast-map.service';
 import { SessionService } from 'src/app/session.service';
 import { Router } from '@angular/router';
+import { ForecastingTableService } from '../forecasting-table-view/forecasting-table-view.service';
 @Component({
   selector: 'app-forecast-map',
   templateUrl: './forecast-map.component.html',
@@ -12,12 +13,14 @@ export class ForecastMapComponent implements OnInit {
   @ViewChild('mapElement') mapElement!: ElementRef;
   noPorts = false
   map: any
+  port_name="";
+  port_list:any;
   companyId!: number
   portData: any
   markers: google.maps.Marker[] = [];
   constructor(private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef, private appRef: ApplicationRef
-    , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router) {
+    , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) {
 
 
   }
@@ -31,6 +34,15 @@ export class ForecastMapComponent implements OnInit {
       },
       (error: any) => {
         console.error('Error retrieving company ID:', error);
+      }
+    );
+    this.forecastingtableService.getAllPorts().subscribe(
+      data => {   
+        this.port_list = data;
+        console.log("Port list fetched: ", this.port_list); 
+      },
+      error => {
+        console.log("ports loading error:" +error);
       }
     );
 

@@ -21,6 +21,12 @@ interface RegisterResponse {
 })
 export class RegisterComponent implements OnInit 
 {
+  company_id!:string;
+  email!:string;
+  firstName!: string;
+  lastName!: string;
+  address!:string;
+  phone_no!:number;
   public user_id? : number;
   public otp?:number;
   registrationForm!: FormGroup;
@@ -40,7 +46,6 @@ export class RegisterComponent implements OnInit
   }
 
 ngOnInit(): void {
-
   const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
@@ -78,25 +83,30 @@ ngOnInit(): void {
 
 }
 
- onSubmit() {
-    {
-      try {
-        const response = this.registerservice.register(this.registrationForm.value).toPromise();
-        alert("OTP Sent Successfully, Check Your Email")
-        console.log(response);
-        console.log(this.registrationForm.value)
+onSubmit(): void {
+  const formValue = this.registrationForm.value;
 
-        // console.log("This is the fetched user_d",this.fetched_user_id);
-        //       alert("User added success verification pending")
-        // this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
-      } 
-      catch (error) {
-        console.log('Error registering:', error);
-      
-      }
-    }
-   
+  if (
+    !formValue.fname ||
+    !formValue.lname ||
+    !formValue.email ||
+    !formValue.phone_no ||
+    !formValue.company_id ||
+    !formValue.password
+  ) {
+    alert('Fields should not be empty');
+    return;
+  }
+  try {
+    const response = this.registerservice.register(formValue).toPromise();
+    alert('OTP Sent Successfully, Check Your Email');
+    console.log(response);
+    console.log(formValue);
+  } catch (error) {
+    console.log('Error registering:', error);
+  }
 }
+
 
 private redirect(){
 
@@ -164,5 +174,10 @@ onverifyOtp(){
   );
 
 }
-
+// register(): void {
+//   if (!this.firstName || !this.lastName||!this.email||!this.address||!this.phone_no||!this.company_id) {
+//     alert('Fields should not be empty');
+//     return;
+//   }
+// }
 }
