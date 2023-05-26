@@ -21,6 +21,7 @@ interface RegisterResponse {
 })
 export class RegisterComponent implements OnInit 
 {
+  showValidationErrors: boolean = false;
   company_id!:string;
   email!:string;
   firstName!: string;
@@ -88,13 +89,14 @@ onSubmit(): void {
 
   if (
     !formValue.fname ||
-    !formValue.lname ||
+    !formValue.lname||
     !formValue.email ||
-    !formValue.phone_no ||
+    !formValue.address||
+    !formValue.phone_no||
     !formValue.company_id ||
     !formValue.password
   ) {
-    alert('Fields should not be empty');
+    this.showValidationErrors = true;
     return;
   }
   try {

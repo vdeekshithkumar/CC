@@ -24,12 +24,12 @@
     
     <!-- Card Groups -->
     <div class="div-grp">
-      <section class="div-section">     
+      <section class="div-section max-w-1x1">     
         <h1 class="div-section-h1">Upload Inventory</h1>
         <form [formGroup]= "UploadInventoryForm" (ngSubmit)="onSubmit()">
             <div class="div-form">
                  <div>
-                    <label class="div-form-label" for="username">Name of Port</label>
+                    <label class="div-form-label" for="username">Name of Port<span class="text-red-500">*</span></label>
                     <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select">
                       <option selected>Select your port </option>
                       <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
@@ -37,35 +37,31 @@
                   </div>
       
                 <div>
-                    <label class="div-form-label" for="emailAddress">Container Type</label>
+                    <label class="div-form-label" for="emailAddress">Container Type<span class="text-red-500">*</span></label>
                     <select formControlName="container_type" class="uploadinv-select">
                       <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
                     </select>
                 </div>
-      
                 <div>
-                  <label class="div-form-label" for="emailAddress">Container Size</label>
+                  <label class="div-form-label" for="emailAddress">Container Size<span class="text-red-500">*</span></label>
                   <select formControlName="container_size" class="uploadinv-select">
                     <option>1</option>
                     <option>2</option>
                     <option>4</option>
                   </select>
                 </div>
-      
                 <div>
-                    <label class="div-form-label" for="passwordConfirmation">Available</label>
+                    <label class="div-form-label" for="passwordConfirmation">Available<span class="text-red-500">*</span></label>
                     <input type="text" formControlName="available" class="uploadinv-select"/>
                 </div>
                 <div>
-                  <label class="div-form-label" for="passwordConfirmation">Maximum</label>
+                  <label class="div-form-label" for="passwordConfirmation">Maximum<span class="text-red-500">*</span></label>
                   <input type="text" formControlName="maximum" class="uploadinv-select"/>
               </div>
               <div>
-                <label class="div-form-label" for="passwordConfirmation">Minimum</label>
+                <label class="div-form-label" for="passwordConfirmation">Minimum<span class="text-red-500">*</span></label>
                 <input type="text" formControlName="minimum"class="uploadinv-select"/>
             </div>
-      
-                
                   <div class="div-form-div">
                     <div class="space-y-1 text-center">
                       <svg class="mx-auto h-12 w-12 text-black" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
@@ -76,17 +72,18 @@
                           <span class="">Upload Excel Here </span>
                           <input class="sr-only" type="file" (change)="ReadExcel($event)">
                         </label>
-                       
                       </div>
                       <p class="pl-1 text-black">or drag and drop</p>
                       <p class="text-xs text-black">
                         Excel File
                       </p>
-              
                     </div>
-                    
                   </div>
-                
+             
+                </div>
+                <div class="ml-14 mt-5">
+                <label class="text-red-600">Instruction*</label>
+                <p class="text-red-600">You can either upload excel file <br>or do manual entry</p>
                 </div>
                 <div class="flex justify-end">
                   <button type="submit" class="uploadinv-btn"> Save</button>
@@ -94,6 +91,9 @@
               <div class="flex justify-end mt-2">
                 <button type="button" routerLink="/dashboard" class="uploadinv-btn">Back</button>
             </div>
+              
+       
+          
         </form>
       </section>
       <div class="div-table">
@@ -103,8 +103,8 @@
             <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div class="overflow-x-auto">
                 <nav class="table-navbar mb-2 w-full">
-                  <div class="max-w-sm ml-1 flex items-center">	
-                    <label class="mr-1 ml-2 w-full">Search by:</label>
+                  <div class="max-w-sm ml-0 flex items-center">	
+                    <label class="mr-0 ml-0 w-full font-medium text-lg">Currrent Inventory</label>
                     <div class="div-search">
                       <div class="div-search-icon">
                   <!-- search bar icon -->
@@ -124,7 +124,7 @@
               </nav>
             </div>
           <table class="div-table-inv">
-              <thead class="div-thead">
+              <thead class="text-xs font-light text-white uppercase bg-gray-600 border-b border-blue-400 dark:text-black">
                   <tr>
                       <th scope="col" class="px-6 py-3">
                           Port Id
@@ -151,9 +151,9 @@
               </thead>
               <tbody>
                   <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="div-tbody-tr">
-                      <th scope="row" class="div-tbody-th">
+                      <td class="px-6 py-4 ">
                         {{inv.port_id}}
-                      </th>
+                      </td>
                       <td class="px-6 py-4">
                         {{inv.container_type}}
                       </td>
