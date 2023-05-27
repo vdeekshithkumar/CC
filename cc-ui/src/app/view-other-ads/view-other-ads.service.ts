@@ -27,17 +27,15 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class ViewOtherAdsService {
-  private advUrl = 'https://localhost:7157/GetAllAdvertisement'
-  
-  
-
+  private advUrl = 'https://localhost:7157/GetAllAdvertisement';
+  private  coUrl= 'https://localhost:7157/GetOtherCompany';
   constructor(private http:HttpClient) { }
 
-  
   getAdvertisement(company_id: number): Observable<Advertisement[]> {
     const url = `${this.advUrl}?companyId=${company_id}`;
     return this.http.get<Advertisement[]>(url);
   }
- 
-
+  getotherCompany(companyId: string): Observable<any> {
+    return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+  }
 }
