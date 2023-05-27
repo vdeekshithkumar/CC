@@ -60,7 +60,9 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
+   
+
+      public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
 
       if (operation == "Active")

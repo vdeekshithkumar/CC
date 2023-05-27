@@ -7,7 +7,7 @@ namespace CC_api.Models
     {
       public DbSet<User> users { get; set; }
       public DbSet<Inventory> inventory { get; set; }
-      public DbSet<Company> company { get; set; }
+    public DbSet<Company> company { get; set; }
     public DbSet<Contract> contracts { get; set; }
     public DbSet<Ports> ports { get; set; }
     public DbSet<Ad> advertisement { get; set; }
@@ -20,7 +20,7 @@ namespace CC_api.Models
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
         //if (!optionsBuilder.IsConfigured)
-        optionsBuilder.UseSqlServer("Server=DESKTOP-OASQ11G;Database=CC_Models;Encrypt=False;Integrated Security=True;Trusted_Connection=True;");
+        optionsBuilder.UseSqlServer("Server=THEJESH;Database=CC_Models;Encrypt=False;Integrated Security=True;Trusted_Connection=True;");
 
 
       }

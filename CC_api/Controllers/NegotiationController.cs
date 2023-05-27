@@ -10,20 +10,30 @@ namespace CC_api.Controllers
   {
     private readonly ILogger<NegotiationController> _logger;
     private readonly NegotiationBusiness NegotiationBusiness;
+    private readonly NegotiationRepository NegotiationRepository;
 
     public NegotiationController(ILogger<NegotiationController> logger)
     {
       _logger = logger;
       NegotiationBusiness = new NegotiationBusiness();
+
+      NegotiationRepository = new NegotiationRepository();
     }
-   
+
     [HttpGet("GetNegotiationCount/{adid}")]
     public async Task<int> GetNegotiationCount(int adid)
     {
-      var Ncount= await NegotiationBusiness.GetNegotiationCount(adid);
+      var Ncount = await NegotiationBusiness.GetNegotiationCount(adid);
       return Ncount;
     }
+    [HttpGet("GetAllNegotiations")]
+    public async Task<List<Negotiation>> GetAllNegotiations(int ad_id)
+    {
+      var Negotiations = await this.NegotiationRepository.GetNegotiationByAdId(ad_id);
+      return Negotiations;
 
+
+    }
 
   }
 }

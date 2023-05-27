@@ -70,7 +70,7 @@ Approve: any;
   }
 
   addExcel(): void {
-debugger
+
     if(this.y==1){
       this.postAdService.UploadExcelData(this.ExcelData,this.userId,this.companyId)
       .subscribe(

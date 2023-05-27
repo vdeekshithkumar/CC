@@ -48,6 +48,7 @@ import { FormComponent } from './forecasting/forecast-map/form/form.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { EditUserDetailsComponent } from './redundant/header/edit-user-details/edit-user-details.component';
+import { NegotiationListComponent } from './negotiation-list/negotiation-list.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { EditUserDetailsComponent } from './redundant/header/edit-user-details/e
           FormComponent,
           ViewOtherAdsComponent,
           EditUserDetailsComponent,
+          NegotiationListComponent,
           
     
   ],
