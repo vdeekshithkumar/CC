@@ -1,0 +1,90 @@
+
+
+<div class="negotiation-list">  
+  <section>
+    <div class="flex flex-col">
+      <div class="overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 mr-0">
+<!-- Main View Canvas -->
+<div class="w-full mt-2 left-0 overflow-auto mr-2" >
+  <!-- Company Details section  -->
+      <div class="flex justify-between items-center">
+        <h1 class="text-2xl text-black-100 mt-2 flex-1 text-center">Negotiations</h1>
+        </div>
+<hr style="height: 2px;">
+
+<div class="w-full h-full flex flex-col mt-2">
+  <table class="table-auto ml-2 mr-2">
+    <thead class="bg-gray-200 dark:bg-gray-800 ">
+      <tr class="bg-gray-200 dark:bg-gray-800 justify-center">
+        <th class="flex-1 px-6 py-4">Expiry Date</th>
+
+        <th class="flex-1 px-6 py-4">Status</th>
+        <th class="flex-1 px-6 py-4">Price</th>
+        <th class="flex-1 px-6 py-4">Quantity</th>
+        <th class="flex-1 px-6 py-4">container_type</th>
+        <th class="flex-1 px-6 py-4">updated_by</th>
+        <th class="px-6 py-4 separator"></th>
+        <th class="flex-1 px-6 py-4">Actions</th>
+
+      </tr></thead>
+      <tbody class="w-full h-full mt-4">
+        <tr *ngFor="let n of negotiations | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class=" w-full" >
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ getDateOnly(n.expiry_date) }}</td>
+
+  <td class="px-6 py-4 whitespace-no-wrap flex-1">
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ n.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+        {{ n.status }}
+    </span>
+  </td>
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.price }}</td>
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.quantity }}</td>
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.container_type }}</td>
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.updated_by}}</td>
+
+<td>
+  <button  [disabled]="isButtonDisabled" (click)="deleteNegotiation(n.ad_id)" class="w-6 mr-2 transform">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+  </svg>
+  </button>
+</td>
+<td><button [disabled]="isButtonDisabled" mat-raised-button color="primary"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
+</tr></tbody></table>
+<div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.negotiations.length>0">
+  <nav aria-label="Page navigation">
+      <ul class="inline-flex">
+          <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
+                  class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path
+                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                          clip-rule="evenodd" fill-rule="evenodd"></path>
+                  </svg></button>
+          </li>
+          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
+                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
+          </li>
+          <li><button
+                  class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
+          </li>
+          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
+                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
+          </li>
+          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"[hidden]="currentPage>=totalPages"
+                  class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path
+                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                          clip-rule="evenodd" fill-rule="evenodd"></path>
+                  </svg>
+                </button>
+          </li>
+      </ul>
+  </nav>
+</div>
+</div>
+</div> 
+</div>
+</div>
+</section>
+</div>

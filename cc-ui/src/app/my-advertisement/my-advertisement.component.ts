@@ -9,6 +9,7 @@ import { SessionService } from '../session.service';
 import { PostAdComponent } from './post-ad/post-ad.component';
 import * as moment from 'moment';
 import * as XLSX from 'xlsx';
+import { NegotiationListComponent } from '../negotiation-list/negotiation-list.component';
 
 export interface Advertisement {
   ad_id: number;
@@ -55,7 +56,7 @@ PendingadsCount:any;
   title!: any;
   port_name="";
   C_Type="";
-explist:any;
+
 approvalLink:any;
   fileName?: string
   file?: File
@@ -115,6 +116,8 @@ pickup_charges:any;
   CurrentPageBtn: number=1;
   adscount: any[] = [];
   x: any;
+  PList: any[]=[];
+
   getCompanyId() {
      return this.company_id;
    }
@@ -128,7 +131,7 @@ pickup_charges:any;
   data: any;
   public isButtonDisabled: boolean = false;
 
-  PList: any[] = [];
+  
 
   constructor(private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private myadservice: MyAdService){
   }
@@ -185,7 +188,7 @@ pickup_charges:any;
       (permissions: any[]) => {
         this.PList = permissions;
         this.isButtonDisabled = !this.PList.includes(2);
-        console.log("permissions are "+this.PList);
+        console.log("permissions are//////////////////////// "+this.PList);
       
       },
       (error: any) => {
@@ -258,9 +261,11 @@ pickup_charges:any;
     this.dialog.open(PostAdComponent,{
       width:'70%',
       height:'500px',
+      
+  
       data:{
         ContinueDraft:0,
-      Approve:0
+        Approve:0
       }
       
 
@@ -273,7 +278,6 @@ pickup_charges:any;
       height:'500px',
       data:{
         ContinueDraft:1 ,  
-
         adId:adId
       }
     
@@ -382,7 +386,7 @@ pickup_charges:any;
   // Object to store negotiation counts
 
   getNegotiationCount(adId: number): number {
-    debugger
+   
     if (this.negotiationCounts.hasOwnProperty(adId)) {
       // If the count for this adId has already been fetched, use the stored value
       this.negotiationcount = this.negotiationCounts[adId];
@@ -457,18 +461,22 @@ this.operation = 'Pending';
 this.currentPage=1;
 this.viewAds();
 }
-onDraftsActive(){
-  this.pendingActive = false;
+
+onDraftsActive()
+{
+
+this.pendingActive = false;
 this.draftActive = true;
 this.Active=false;
 this.operation = 'Draft';
 this.currentPage=1;
 this.viewAds();
+
 }
 
-  
-   onExport(){
-const worksheetName = 'Advertisements';
+ 
+onExport(){
+      const worksheetName = 'Advertisements';
       const excelFileName = 'advertisements.xlsx';
       const header = ['Date created','From date','Expiry date','Type of Ad','Container type id','Price', 'Status','Quantity','Port id','Contents','Port of Departure','Port of arrival','Free days','Per diem','Pickup Charges'];
       const data = this.Eads.map((ad) => [ad.date_created,ad.from_date,ad.expiry_date,ad.type_of_ad,ad.container_type_id,ad.price,ad.status,ad.quantity,ad.port_id,ad.contents,ad.port_of_departure,ad.port_of_arrival,ad.free_days,ad.per_diem,ad.pickup_charges]);
@@ -480,6 +488,19 @@ const worksheetName = 'Advertisements';
       XLSX.writeFile(workbook, excelFileName);
    }
 
+   OpenNegotiations(ad_id: number) {
+    this.dialog.open(NegotiationListComponent, {
+      width: '70%',
+      height: '500px',
+      maxHeight: '100%',
+      maxWidth: '100%',
+      data: {
+        ad_id: ad_id,
+        testpassing:3443,
+      }
+    });
+  }
+  
 
     onExportClick(): void {
        this.operation = 'Active';
