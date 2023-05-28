@@ -15,17 +15,24 @@ namespace CC_api.Repository
     }
     public async Task<List<Negotiation>> GetNegotiationByAdId(int ad_id)
     {
-      var Negotiations = await dbContext.negotiation
-     .Where(n => n.ad_id == ad_id && n.status == "active").ToListAsync();
-      foreach (var negotiation in Negotiations)
-      {
-        if (negotiation.contract_id == null) // Replace "ColumnName" with the actual name of the nullable column
-        {
-          negotiation.contract_id = -1; // Replace "ColumnName" with the actual name of the nullable column
-        }
-      }
-      return Negotiations;
+      var negotiations = await dbContext.negotiation
+          .Where(n => (n.ad_id == ad_id) && n.status == "active")
+          .ToListAsync();
+
+      return negotiations;
     }
+
+    public async Task UpdateNegotiation(Negotiation N)
+    {
+      dbContext.negotiation.Update(N);
+      await dbContext.SaveChangesAsync();
+    }
+    public async Task<Negotiation> GetNegotiationById(int negotitiation_id)
+    {
+      var negotiation= await dbContext.negotiation.FirstOrDefaultAsync(n => n.negotiation_id == negotitiation_id);
+      return negotiation;
+    }
+
     public async Task<int> GetNegotiationCount(int adid)
     {
       var userCount = await dbContext.negotiation.Where(u => u.ad_id == adid).CountAsync();

@@ -44,9 +44,9 @@ getNegotiationsById(ad_id: number): Observable<any> {
   return this.http.get(`${this.NegotiationUrl}?ad_id=${ad_id}`);
 }
 
-deleteNegotiation(AdId: number): Observable<any> {
+deleteNegotiation(negotiation_id: number): Observable<any> {
 
-  return this.http.delete(`${this.deleteUrl}?AdID=${AdId}`);
+  return this.http.delete(`${this.deleteUrl}?negotiation_id=${negotiation_id}`);
 }
 
 }
