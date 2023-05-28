@@ -32,8 +32,16 @@ namespace CC_api.Controllers
       var Negotiations = await this.NegotiationRepository.GetNegotiationByAdId(ad_id);
       return Negotiations;
 
-
     }
 
-  }
+    [HttpDelete("DeleteNegotiation")]
+    public async Task<IActionResult> DeleteNegotiation(int negotiation_id)
+    {
+
+      var n = await NegotiationRepository.GetNegotiationById(negotiation_id);
+      await NegotiationBusiness.DeleteNegotiation(n);
+      return Ok();
+    }
+
+    }
 }

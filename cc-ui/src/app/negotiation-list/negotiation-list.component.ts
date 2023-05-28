@@ -178,6 +178,7 @@ testpassing:any;
       updated_by: 103
     }
   ];
+  
   date_created: any;
   elementRef: any;
 
@@ -280,8 +281,8 @@ getDateOnly(date: Date): Date {
   return this.date_created;
 }
 
-deleteNegotiation(id: number) {
-  this.negotiationservice.deleteNegotiation(id)
+deleteNegotiation(negotiation_id: number) {
+  this.negotiationservice.deleteNegotiation(negotiation_id)
     .subscribe(
       (        data: any) => {
         console.log(data);
