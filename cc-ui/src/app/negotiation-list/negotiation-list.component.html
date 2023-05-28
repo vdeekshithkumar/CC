@@ -16,13 +16,17 @@
   <table class="table-auto ml-2 mr-2">
     <thead class="bg-gray-200 dark:bg-gray-800 ">
       <tr class="bg-gray-200 dark:bg-gray-800 justify-center">
+        
         <th class="flex-1 px-6 py-4">Expiry Date</th>
-
         <th class="flex-1 px-6 py-4">Status</th>
+        
+        <th class="flex-1 px-6 py-4">Container_type</th>
         <th class="flex-1 px-6 py-4">Price</th>
         <th class="flex-1 px-6 py-4">Quantity</th>
-        <th class="flex-1 px-6 py-4">container_type</th>
-        <th class="flex-1 px-6 py-4">updated_by</th>
+        <th class="flex-1 px-6 py-4">Negotiation Type</th>
+       
+        
+
         <th class="px-6 py-4 separator"></th>
         <th class="flex-1 px-6 py-4">Actions</th>
 
@@ -32,23 +36,29 @@
 <td scope="row" class="flex-1 px-6 py-4 text-center">{{ getDateOnly(n.expiry_date) }}</td>
 
   <td class="px-6 py-4 whitespace-no-wrap flex-1">
-    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ n.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+    {{ n.status === 'accepted' ? 'bg-green-100 text-green-800' : 
+       (n.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
+    
         {{ n.status }}
     </span>
   </td>
+  
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.container_type }}</td>
 <td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.price }}</td>
 <td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.quantity }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.container_type }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.updated_by}}</td>
+
+<td scope="row" class="flex-1 px-6 py-4 text-center">{{ n.negotiation_type }}</td>
+
 
 <td>
-  <button  [disabled]="isButtonDisabled" (click)="deleteNegotiation(n.negotiation_id)" class="w-6 mr-2 transform">
+  <button [hidden]="isButtonDisabled" (click)="deleteNegotiation(n.negotiation_id)" class="w-6 mr-2 transform">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
   </svg>
   </button>
 </td>
-<td><button [disabled]="isButtonDisabled" mat-raised-button color="primary"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
+<td><button  [disabled]="isButtonDisabled" (click)="AcceptNegotiation(n.negotiation_id)"  mat-raised-button color="primary"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Accept</button></td>
 </tr></tbody></table>
 <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.negotiations.length>0">
   <nav aria-label="Page navigation">

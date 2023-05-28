@@ -35,7 +35,26 @@ namespace CC_api.Business
       }
     }
 
-    
+    public async Task AcceptNegotiation(Negotiation n)
+    {
+      try
+      {
+
+
+        if (n != null)
+        {
+          n.status = "accepted";
+          await NegotiationRepository.UpdateNegotiation(n);
+
+        }
+      }
+      catch (Exception ex)
+      {
+        // handle the exception here, e.g. log it or throw a custom exception
+      }
+    }
+
+
     public async Task<int> GetNegotiationCount(int adid)
     {
       return await NegotiationRepository.GetNegotiationCount(adid);

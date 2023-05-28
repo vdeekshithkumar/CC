@@ -254,8 +254,14 @@ namespace CC_api.Controllers
         }
     */
 
+    [HttpGet("GetAd")]
+    public async Task<List<Ad>> GetAd(int ad_id)
+    {
+      var Ads = await this._AdRepository.GetAdByAdID(ad_id);
+      return Ads;
+    }
 
-    [HttpGet("GetAllAds")]
+      [HttpGet("GetAllAds")]
     public async Task<List<Ad>> GetAllFiles(int companyID, string operation)
     {
       var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation);

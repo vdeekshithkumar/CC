@@ -16,7 +16,7 @@ namespace CC_api.Repository
     public async Task<List<Negotiation>> GetNegotiationByAdId(int ad_id)
     {
       var negotiations = await dbContext.negotiation
-          .Where(n => (n.ad_id == ad_id) && n.status == "active")
+          .Where(n => (n.ad_id == ad_id))
           .ToListAsync();
 
       return negotiations;
