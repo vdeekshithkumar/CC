@@ -31,6 +31,12 @@
 .div-bg{
   @apply fixed inset-0 transition-opacity bg-gray-500 opacity-75
 }
+.uploadinv{
+  color: aqua;
+}
+.uploadinv-select option[disabled] {
+  color: #6c6a6a;
+}
 .div-size{
   @apply relative z-50 w-full max-w-md mx-auto mt-8
 }

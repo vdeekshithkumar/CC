@@ -66,7 +66,7 @@ export class PostAdService {
     return this.http.post(`${this.baseUrl}/PostAd`, formData);
 
   }else{
-    
+ 
     const formData = new FormData();
     formData.append('file', file);
 

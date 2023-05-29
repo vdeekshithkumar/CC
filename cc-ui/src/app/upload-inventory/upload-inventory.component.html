@@ -1,14 +1,14 @@
 <app-header></app-header>
 <!-- <app-sidebar class="div-app-sidebar"></app-sidebar> -->
 <div class="div" *ngIf="showModal">
-  <div class="div-card">
+  <div class="div-card mt-40">
     <div class="div-bg">
     </div>
     <div class="div-size">
       <div class="div-details">
         <p>Are you sure you want to add this inventory details ?</p>
         <div class="mt-4 flex justify-end">
-          <button class="div-btn" (click)="showModal = false">No</button>
+          <button class="div-btn" (click)="back()">No</button>
           <button class="div-btn-set" (click)="OnSetY()">Yes</button>
         </div>
       </div>
@@ -30,21 +30,27 @@
             <div class="div-form">
                  <div>
                     <label class="div-form-label" for="username">Name of Port<span class="text-red-500">*</span></label>
-                    <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select">
-                      <option selected>Select your port </option>
-                      <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+                    <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select" required>
+                      <option value="" disabled selected class="uploadinv-select">Select your port></option>
+                      <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
                     </select>
+                    <!-- <div *ngIf="UploadInventoryForm.get('port_name')?.errors && (UploadInventoryForm.get('port_name')?.dirty || UploadInventoryForm.get('port_name')?.touched)" class="text-red-500 text-sm mt-1">
+                      <div *ngIf="UploadInventoryForm.get('port_name')?.errors?.['required']">Port Name is required</div>
+                    </div> -->
                   </div>
       
                 <div>
                     <label class="div-form-label" for="emailAddress">Container Type<span class="text-red-500">*</span></label>
                     <select formControlName="container_type" class="uploadinv-select">
+                      <option value="" disabled selected>Select Container Type</option>
                       <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
                     </select>
+
                 </div>
                 <div>
                   <label class="div-form-label" for="emailAddress">Container Size<span class="text-red-500">*</span></label>
                   <select formControlName="container_size" class="uploadinv-select">
+                    <option value="" disabled selected>Select Container Size in TEU</option>
                     <option>1</option>
                     <option>2</option>
                     <option>4</option>
@@ -52,15 +58,18 @@
                 </div>
                 <div>
                     <label class="div-form-label" for="passwordConfirmation">Available<span class="text-red-500">*</span></label>
-                    <input type="text" formControlName="available" class="uploadinv-select"/>
-                </div>
+                    <input type="number" formControlName="available" class="uploadinv-select" placeholder="Availability in Number"/>
+                    <!-- <div *ngIf="UploadInventoryForm.get('available')?.errors && (UploadInventoryForm.get('available')?.dirty || UploadInventoryForm.get('available')?.touched)" class="text-red-500 text-sm mt-1">
+                      <div *ngIf="UploadInventoryForm.get('available')?.errors?.['required']">please enter the mandatory field</div>
+                    </div> -->
+                  </div>
                 <div>
                   <label class="div-form-label" for="passwordConfirmation">Maximum<span class="text-red-500">*</span></label>
-                  <input type="text" formControlName="maximum" class="uploadinv-select"/>
+                  <input type="number" formControlName="maximum" class="uploadinv-select" placeholder="Maximum" required/>
               </div>
               <div>
-                <label class="div-form-label" for="passwordConfirmation">Minimum<span class="text-red-500">*</span></label>
-                <input type="text" formControlName="minimum"class="uploadinv-select"/>
+                <label class="div-form-label" for="passwordConfirmation">Minimum<span class="text-red-500" >*</span></label>
+                <input type="number" formControlName="minimum"class="uploadinv-select" placeholder="Maximum" required/>
             </div>
                   <div class="div-form-div">
                     <div class="space-y-1 text-center">
@@ -77,14 +86,17 @@
                       <p class="text-xs text-black">
                         Excel File
                       </p>
+                      
                     </div>
+                    
                   </div>
+                  <div class="ml-10">
+                    <label class="text-red-600">Instruction*</label>
+                    <p class="text-red-600">You can either upload excel file <br>or do manual entry</p>
+                    </div>
              
                 </div>
-                <div class="ml-14 mt-5">
-                <label class="text-red-600">Instruction*</label>
-                <p class="text-red-600">You can either upload excel file <br>or do manual entry</p>
-                </div>
+               
                 <div class="flex justify-end">
                   <button type="submit" class="uploadinv-btn"> Save</button>
               </div>
@@ -181,26 +193,38 @@
               </tbody>
          
           </table>
-          <div class="flex items-center justify-between bg-white" >
-            <button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" class="flex font-medium items-center ml-22 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-white-800">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
-                </svg>
-      
-                <span>
-                    previous
-                </span>
-            </button>
-            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" class="flex font-medium items-center ml-22 px-5 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-white-800">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 rtl:-scale-x-100">
-                </svg>
-      
-                <span>
-                    Next
-                    
-                </span>
-            </button>
+          
         </div>
-        </div>
-          </div></div>
+          </div></div><div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.inventory_list_by_companyId.length>0">
+            <nav aria-label="Page navigation">
+                <ul class="inline-flex">
+                    <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                <path
+                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                    clip-rule="evenodd" fill-rule="evenodd"></path>
+                            </svg></button>
+                    </li>
+                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
+                    </li>
+                    <li><button
+                            class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
+                    </li>
+                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
+                    </li>
+                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                <path
+                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                    clip-rule="evenodd" fill-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                    </li>
+                </ul>
+            </nav>
+          </div>
       </div>

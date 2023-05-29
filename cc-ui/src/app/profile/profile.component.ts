@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
+  adscount: any;
   getCompanyId() {
     return this.company_id;
   }
@@ -61,6 +62,8 @@ export class ProfileComponent implements OnInit {
           const id = this.activatedRoute.snapshot.params['id'];
           console.log('ID:', id);
         }
+
+       
     this.sessionService.getCurrentUser().subscribe(user => {
       // if (user.id==null && user.token==null) {  // use this once token is used for a user
       if (user.user_id == null) {
@@ -80,6 +83,18 @@ export class ProfileComponent implements OnInit {
    (companyId: number) => {
 
     this.companyId = companyId;
+    this.profileService.getAdsCount(this.companyId).subscribe(
+      (count: any[]) => {
+        this.adscount = count;
+      
+        console.log("count is are "+this.adscount);
+      
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
+      }
+    );
 
     console.log('company ID is :', companyId);
 
@@ -92,6 +107,7 @@ export class ProfileComponent implements OnInit {
    }
 
   );
+
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
       this.alluser_list = data;
@@ -148,6 +164,7 @@ export class ProfileComponent implements OnInit {
 
    }
 );
+
     this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
       data => {
         

@@ -163,9 +163,18 @@ console.error('Uploaded file is empty');
         this.quantity=this.ads[0].quantity;
         this.per_diem=this.ads[0].per_diem;
         this.pickup_charges=this.ads[0].ad_id;
+        this.type_of_ad=this.ads[0].type_of_ad;
+        this.container_type_id=this.ads[0].container_type_id;
+        this.price=this.ads[0].price;
         this.port_of_departure=this.ads[0].port_of_departure;
         this.from_date=this.getDateOnly(this.ads[0].from_date);
-        
+        this.port_id=this.ads[0].port_id;
+        this.contents=this.ads[0].contents;
+        this.port_of_departure=this.ads[0].port_of_departure;
+        this.port_of_arrival=this.ads[0].port_of_arrival;
+        this.free_days=this.ads[0].free_days;
+     
+        this.expiry_date=this.getWeekDifference(this.ads[0].from_date,this.expiry_date);
        
       },
       (  error: any) => console.log(error)
@@ -242,6 +251,14 @@ console.error('Uploaded file is empty');
     this.onPost();
   }
 
+ getWeekDifference(from_date: Date, expiry_date: Date): number {
+  const millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
+  const differenceInMilliseconds = expiry_date.getTime() - from_date.getTime();
+  const differenceInWeeks = Math.floor(differenceInMilliseconds / millisecondsPerWeek);
+  console.log("expiry date calculated is"+differenceInWeeks);
+  return differenceInWeeks;
+}
+
   
   async onPost() {
   
@@ -307,18 +324,25 @@ console.error('Uploaded file is empty');
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
-  getDateOnly(date: Date): Date {
+  getDateOnly(date: Date): string {
     const newDate = new Date(date);
     newDate.setHours(0);
     newDate.setMinutes(0);
     newDate.setSeconds(0);
     newDate.setMilliseconds(0);
-    const timestamp = newDate.getTime();
-    const dateOnly=new Date(timestamp);
-    const dateString = dateOnly.toLocaleDateString('en-GB');
-    this.from_date=dateString.toString().slice(0, 10);
+  
+    const day = newDate.getDate().toString().padStart(2, '0');
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = newDate.getFullYear().toString().padStart(4, '0');
+  
+    this.from_date = `${year}-${month}-${day}`;
+    console.log(this.from_date+"ordered date");
     return this.from_date;
+  
   }
+  
+  
+  
   
   approve(ad_id: number){
     debugger
