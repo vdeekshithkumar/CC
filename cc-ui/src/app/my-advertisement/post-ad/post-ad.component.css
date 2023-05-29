@@ -17,9 +17,12 @@
     .post-ad-form{
       width: 100%;
       height: 100%;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: hidden;
     }
-    
+    .post-page-data{
+      @apply block border-2 font-light border-gray-300 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
+   }
     @layer utilities {
       .focus\:shadow-outline {
         @apply shadow-outline;
@@ -347,6 +350,11 @@
     margin-bottom: 0.25rem;
     margin-top: 0.25rem;
   }
+  .selected-toggle {
+    background-color:#597ef7;
+    color: white; /* Optionally, set the text color to white for better visibility */
+  }
+  
   .delete-button{
     margin-left: 2rem;
     padding: 0.25rem;

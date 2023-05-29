@@ -37,6 +37,7 @@ constructor(private router: Router,private formBuilder: FormBuilder,private dial
   }
 isUserValid:boolean=false;
   onLoginSubmit() {
+
     const formValue = this.loginForm.value;
   if (
     !formValue.email ||
@@ -71,52 +72,56 @@ isUserValid:boolean=false;
       (response: Object) => {
         const loginResponse = response as LoginResponse;
         console.log(response);
+
         
-        if (loginResponse.message === 'Admin Login Successful') {
-          this.sessionService.setCurrentUser(loginResponse.user);//session
-          console.log("admin login success inside loop")
-          this.router.navigate(['/dashboard']);
-      
-          this.loginForm.reset();
-        } 
-        if (loginResponse.message === 'User Login Successful') {
-          this.sessionService.setCurrentUser(loginResponse.user);//session
-          // redirect to dashboard
-          console.log("printed from loop")
-          this.router.navigate(['/dashboard']);
-        
-          this.loginForm.reset();
-        } 
-        else if (loginResponse.message === 'User Not Found') {
-          this.router.navigate(['/register']);
-          alert(loginResponse.message);
-          this.loginForm.reset();
-        }
-        else if (loginResponse.message === 'Account Not Approved Yet') {
+            this.loginForm.reset();
+          } 
+          if (loginResponse.message === 'User Login Successful') {
+            this.sessionService.setCurrentUser(loginResponse.user);//session
+            // redirect to dashboard
+            console.log("printed from loop")
+            this.router.navigate(['/dashboard']);
+          
+            this.loginForm.reset();
+          } 
+          else if (loginResponse.message === 'User Not Found') {
+            this.router.navigate(['/register']);
             alert(loginResponse.message);
             this.loginForm.reset();
           }
-        else if (loginResponse.message === 'Admin Password Mismatched') {
+          else if (loginResponse.message === 'Account Not Approved Yet') {
+              alert(loginResponse.message);
+              this.loginForm.reset();
+            }
+          else if (loginResponse.message === 'Admin Password Mismatched') {
+              alert(loginResponse.message);
+              this.loginForm.reset();
+          }
+          else if (loginResponse.message === 'User Password Mismatched') {
+              alert(loginResponse.message);
+              this.loginForm.reset();
+          }
+          else if (loginResponse.message === 'Account Not Active') {
+              alert(loginResponse.message);
+              this.loginForm.reset();
+          }
+          else if (loginResponse.message === 'Not Verified') {
+              alert(loginResponse.message);
+              this.loginForm.reset();
+          }
+          else {
+            // display error message
             alert(loginResponse.message);
             this.loginForm.reset();
-        }
-        else if (loginResponse.message === 'User Password Mismatched') {
-            alert(loginResponse.message);
-            this.loginForm.reset();
-        }
-        else if (loginResponse.message === 'Account Not Active') {
-            alert(loginResponse.message);
-            this.loginForm.reset();
-        }
-        else if (loginResponse.message === 'Not Verified') {
-            alert(loginResponse.message);
-            this.loginForm.reset();
-        }
-        else {
+          }
+        },
+        (error) => {
+          console.log('Error logging in:', error);
           // display error message
-          alert(loginResponse.message);
+          alert('Error logging in. Please try again.');
           this.loginForm.reset();
         }
+
       },
       (error) => {
         console.log('Error logging in:', error);
@@ -134,6 +139,7 @@ isUserValid:boolean=false;
       }
     });
   }
+
 
 }
 

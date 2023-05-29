@@ -353,14 +353,14 @@ console.error('Uploaded file is empty');
   }
 
   
-  options = ['Buy', 'Lease', 'Sell','Swap'];
+//   options = ['Buy', 'Lease', 'Sell','Swap'];
  
-   selectedOption = 0;
-   selectOption(index: number) {
-   this.selectedOption = index;
-   this.type_of_ad = this.options[index];
+//    selectedOption = 0;
+//    selectOption(index: number) {
+//    this.selectedOption = index;
+//    this.type_of_ad = this.options[index];
    
-}
+// }
   clear(){
     this.title= null
     this.description = null

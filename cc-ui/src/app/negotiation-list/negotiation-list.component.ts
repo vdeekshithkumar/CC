@@ -34,7 +34,7 @@ export interface Negotiation{
 export class NegotiationListComponent{
   public isButtonDisabled: boolean = false;
   companyId: any;
-  itemsPerPage: number = 6;
+  itemsPerPage: number = 5;
 currentPage: number = 1;
 userId: any;
 adId:any;
@@ -103,7 +103,7 @@ onCancel() {
 
 
 get totalPages(): number {
-  return Math.ceil(this.negotiations.length / 6);
+  return Math.ceil(this.negotiations.length / 5);
 }
 prevPage() {
 
