@@ -259,8 +259,7 @@ pickup_charges:any;
     
     // this.ContinueDraft=0;
     this.dialog.open(PostAdComponent,{
-      width:'70%',
-      height:'500px',
+     
       
   
       data:{
@@ -274,8 +273,7 @@ pickup_charges:any;
    }
    DisplayDraftForm(adId: number){
     this.dialog.open(PostAdComponent,{
-      width:'70%',
-      height:'500px',
+    
       data:{
         ContinueDraft:1 ,  
         adId:adId
