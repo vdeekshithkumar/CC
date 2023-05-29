@@ -49,6 +49,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { EditUserDetailsComponent } from './redundant/header/edit-user-details/edit-user-details.component';
 import { NegotiationListComponent } from './negotiation-list/negotiation-list.component';
+import { NegotiationsComponent } from './negotiations/negotiations.component';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { NegotiationListComponent } from './negotiation-list/negotiation-list.co
           ViewOtherAdsComponent,
           EditUserDetailsComponent,
           NegotiationListComponent,
+          NegotiationsComponent,
           
     
   ],

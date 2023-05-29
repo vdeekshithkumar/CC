@@ -21,6 +21,7 @@ import { ForecastingTableViewComponent } from './forecasting/forecasting-table-v
 import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
+import { NegotiationsComponent } from './negotiations/negotiations.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -144,6 +145,11 @@ const routes: Routes = [
   {
     component:ViewContractsComponent,
     path:'view-contract',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:NegotiationsComponent,
+    path:'negotiations',
     canActivate: [AuthGuard]
   },
 
