@@ -46,6 +46,11 @@ import { FormComponent } from './forecasting/forecast-map/form/form.component';
 
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { EditUserDetailsComponent } from './redundant/header/edit-user-details/edit-user-details.component';
+import { NegotiationListComponent } from './negotiation-list/negotiation-list.component';
+import { NegotiationsComponent } from './negotiations/negotiations.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './register/dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -80,7 +85,9 @@ import { EditUserDetailsComponent } from './redundant/header/edit-user-details/e
           FormComponent,
           ViewOtherAdsComponent,
           EditUserDetailsComponent,
-          
+          NegotiationListComponent,
+          NegotiationsComponent,
+          DialogComponent,
     
   ],
   imports: [
@@ -94,6 +101,7 @@ import { EditUserDetailsComponent } from './redundant/header/edit-user-details/e
     MaterialModule,
     NgxPaginationModule,
     GoogleMapsModule,
+    MatDialogModule,
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]

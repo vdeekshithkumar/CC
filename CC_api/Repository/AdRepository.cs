@@ -30,13 +30,39 @@ namespace CC_api.Repository
 
         }
       }*/
+
+
+    public async Task<List<long>> GetAdsCount(int companyId)
+    {
+
+
+
+      var activeAds = await dbContext.advertisement
+      .Where(a => a.company_id == companyId && a.status == "active").CountAsync();
+      var count = new List<long>();
+      count.Add(activeAds);
+
+      var PendingAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "pending").CountAsync();
+      count.Add(PendingAds);
+
+      var DraftAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "draft").CountAsync();
+      count.Add(DraftAds);
+
+
+      return count;
+    }
+
     public async Task Add(Ad ad)
     {
       await dbContext.advertisement.AddAsync(ad);
       await dbContext.SaveChangesAsync();
     }
 
-    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
+   
+
+      public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
 
       if (operation == "Active")
@@ -162,7 +188,8 @@ namespace CC_api.Repository
     }
     public async Task<Ad> GetAdById(int adId)
     {
-      return await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      var ads= await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      return ads;
     }
 
     public async Task UpdateAd(Ad Ad)
@@ -177,12 +204,12 @@ namespace CC_api.Repository
       var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
       return uploadedFiles;
     }
-    public async Task DeleteAd(int AdID)
+   /* public async Task DeleteAd(int AdID)
     {
       dbContext.advertisement.Remove(
        dbContext.advertisement.FirstOrDefault(c => c.ad_id == AdID));
       await dbContext.SaveChangesAsync();
-    }
+    }*/
   }
 }
 

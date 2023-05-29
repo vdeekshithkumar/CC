@@ -32,6 +32,7 @@ export class MyAdService {
   baseUrl = 'https://localhost:7157';
   private negotiationcountUrl = 'https://localhost:7157/GetNegotiationCount'; 
   private apiUrl = 'https://localhost:7157/UserPermissions';
+  private countUrl = 'https://localhost:7157/AdsCount';
   private Url = 'https://localhost:7157/GetCompanyById';
   private userUrl = 'https://localhost:7157/GetAllUser';
   private adsUrl = 'https://localhost:7157/GetAllAds';
@@ -40,6 +41,10 @@ export class MyAdService {
   getPermissions(userId: number): Observable<any> {
     return this.http.get(`${this.apiUrl}?user_id=${userId}`);
   }
+  getAdsCount(companyId: number): Observable<any> {
+    return this.http.get(`${this.countUrl}?company_id=${companyId}`);
+  }
+
 
   updateAd(id: number, file: File, from_date: Date, expiry_date: number, type_of_ad: string,
     container_type_id: number, price: number, quantity: number, port_id: number,
@@ -71,7 +76,7 @@ return this.http.put(url, formData);
 }
 
 updateAdStatus(adId: number) {
-  
+
   const url = `${this.baseUrl}/Approve?adId=${adId}`;
   return this.http.put(url, null);
 }

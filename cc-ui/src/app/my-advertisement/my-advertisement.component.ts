@@ -9,6 +9,7 @@ import { SessionService } from '../session.service';
 import { PostAdComponent } from './post-ad/post-ad.component';
 import * as moment from 'moment';
 import * as XLSX from 'xlsx';
+import { NegotiationListComponent } from '../negotiation-list/negotiation-list.component';
 
 export interface Advertisement {
   ad_id: number;
@@ -45,7 +46,9 @@ export class MyAdvertisementComponent {
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  
+  itemsPerPage: number = 6;
+currentPage: number = 1;
+
   userId: any;
 ActiveadsCount:any;
 DraftadsCount:any;
@@ -53,7 +56,7 @@ PendingadsCount:any;
   title!: any;
   port_name="";
   C_Type="";
-explist:any;
+
 approvalLink:any;
   fileName?: string
   file?: File
@@ -82,9 +85,10 @@ free_days:any;
 per_diem:any;
 pickup_charges:any;
  ContinueDraft:any;
-
+ contracts: any;
  adId:any;
 
+ negotiationCounts: { [adId: number]: number } = {}; 
  time:number = 10;
  alluser_list:any;
    public company_id?: number;
@@ -109,6 +113,11 @@ pickup_charges:any;
    http: any;
   Active: any;
   negotiationcount: any;
+  CurrentPageBtn: number=1;
+  adscount: any[] = [];
+  x: any;
+  PList: any[]=[];
+
   getCompanyId() {
      return this.company_id;
    }
@@ -122,7 +131,7 @@ pickup_charges:any;
   data: any;
   public isButtonDisabled: boolean = false;
 
-  PList: any[] = [];
+  
 
   constructor(private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private myadservice: MyAdService){
   }
@@ -133,6 +142,8 @@ pickup_charges:any;
       const value = params['value'];
       this.approvalLink=value;
     });
+
+
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -143,6 +154,23 @@ pickup_charges:any;
         console.error('Error retrieving company ID:', error);
       }
     );
+
+  
+     
+     this.myadservice.getAdsCount(this.companyId).subscribe(
+      (count: any[]) => {
+        this.adscount = count;
+      
+        console.log("count is are "+this.adscount);
+      
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
+      }
+    );
+    
+      
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
@@ -160,7 +188,7 @@ pickup_charges:any;
       (permissions: any[]) => {
         this.PList = permissions;
         this.isButtonDisabled = !this.PList.includes(2);
-        console.log("permissions are "+this.PList);
+        console.log("permissions are//////////////////////// "+this.PList);
       
       },
       (error: any) => {
@@ -224,19 +252,8 @@ pickup_charges:any;
 //   async onEdit(){
 //     debugger;
  
-public getNegotiationCount(adId:number):number {
-  this.myadservice.getNegotiationCount(adId).subscribe(
-   data => {
-     this.negotiationcount = data;
 
-   },
-   error => {
-    this.negotiationcount=error;
-   }
- );
- return this.negotiationcount;
-}
-  
+
 
    DisplayPostForm(){
     
@@ -244,9 +261,11 @@ public getNegotiationCount(adId:number):number {
     this.dialog.open(PostAdComponent,{
       width:'70%',
       height:'500px',
+      
+  
       data:{
         ContinueDraft:0,
-      Approve:0
+        Approve:0
       }
       
 
@@ -259,7 +278,6 @@ public getNegotiationCount(adId:number):number {
       height:'500px',
       data:{
         ContinueDraft:1 ,  
-
         adId:adId
       }
     
@@ -273,6 +291,27 @@ public getNegotiationCount(adId:number):number {
 
 
    }
+
+
+   get totalPages(): number {
+    return Math.ceil(this.ads.length / 6);
+  }
+  prevPage() {
+
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+    
+     }
+     nextPage() {
+      if (this.currentPage < Math.ceil(this.ads.length / this.itemsPerPage)) {
+        this.currentPage++;
+      }
+    
+     }
+     backPage(){
+      this.router.navigate(['forecast-map']);
+     }
   //  DisplayApproveForm(adId: number){
 
   //   debugger
@@ -296,7 +335,8 @@ public getNegotiationCount(adId:number):number {
     
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
-      this.onPendingActive();
+      window.location.reload()
+      // this.onPendingActive();
       
     });
   }
@@ -343,8 +383,40 @@ public getNegotiationCount(adId:number):number {
   //  }
 
   // }
-  
+  // Object to store negotiation counts
 
+  getNegotiationCount(adId: number): number {
+   
+    if (this.negotiationCounts.hasOwnProperty(adId)) {
+      // If the count for this adId has already been fetched, use the stored value
+      this.negotiationcount = this.negotiationCounts[adId];
+      return this.negotiationcount;
+    } else {
+      // Fetch the count asynchronously
+      this.myadservice.getNegotiationCount(adId).subscribe(
+        data => {
+          this.negotiationCounts[adId] = data; // Store the count for this adId
+          console.log("The count of negotiations for adId " + adId + " is " + data);
+          this.negotiationcount = data; 
+          if(this.negotiationcount>0){
+            this.x=1;
+            return this.negotiationcount;
+          }
+          else{
+            this.x=0;
+
+          }
+          // Update the negotiationCount variable
+        },
+        error => {
+          console.log(error);
+          return 0;
+        }
+      );
+    }
+    return this.negotiationcount;
+  }
+  
 
 viewAds(){
 
@@ -376,7 +448,9 @@ this.Active=true;
 this.pendingActive = false;
 this.draftActive = false;
 this.operation = 'Active';
+this.currentPage=1;
 this.viewAds();
+
 }
 
 onPendingActive(){
@@ -384,19 +458,25 @@ this.pendingActive = true;
 this.Active=false;
 this.draftActive = false;
 this.operation = 'Pending';
-this.viewAds();
-}
-onDraftsActive(){
-  this.pendingActive = false;
-this.draftActive = true;
-this.Active=false;
-this.operation = 'Draft';
+this.currentPage=1;
 this.viewAds();
 }
 
-  
-   onExport(){
-const worksheetName = 'Advertisements';
+onDraftsActive()
+{
+
+this.pendingActive = false;
+this.draftActive = true;
+this.Active=false;
+this.operation = 'Draft';
+this.currentPage=1;
+this.viewAds();
+
+}
+
+ 
+onExport(){
+      const worksheetName = 'Advertisements';
       const excelFileName = 'advertisements.xlsx';
       const header = ['Date created','From date','Expiry date','Type of Ad','Container type id','Price', 'Status','Quantity','Port id','Contents','Port of Departure','Port of arrival','Free days','Per diem','Pickup Charges'];
       const data = this.Eads.map((ad) => [ad.date_created,ad.from_date,ad.expiry_date,ad.type_of_ad,ad.container_type_id,ad.price,ad.status,ad.quantity,ad.port_id,ad.contents,ad.port_of_departure,ad.port_of_arrival,ad.free_days,ad.per_diem,ad.pickup_charges]);
@@ -408,6 +488,19 @@ const worksheetName = 'Advertisements';
       XLSX.writeFile(workbook, excelFileName);
    }
 
+   OpenNegotiations(ad_id: number) {
+    this.dialog.open(NegotiationListComponent, {
+      width: '70%',
+      height: '500px',
+      maxHeight: '100%',
+      maxWidth: '100%',
+      data: {
+        ad_id: ad_id,
+        testpassing:3443,
+      }
+    });
+  }
+  
 
     onExportClick(): void {
        this.operation = 'Active';
@@ -429,7 +522,6 @@ const worksheetName = 'Advertisements';
   }
 
   deleteAd(id: number) {
-    debugger
     this.myadservice.deleteAd(id)
       .subscribe(
         (        data: any) => {

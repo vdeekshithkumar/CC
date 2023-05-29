@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
 import { FormGroup } from '@angular/forms';
 import { SessionService } from '../session.service';
-
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-contract',
@@ -17,16 +16,14 @@ export class UploadContractComponent implements OnInit {
   userId: any;
   title!: any;
   fileName?: string
-  statusMsg?:string
-  showFile:boolean = false
+  statusMsg?: string
+  showFile: boolean = false
   files!: File[];
 
-  constructor(private uploadService: UploadService, private sessionService: SessionService) {
+  constructor(private snackBar: MatSnackBar, private uploadService: UploadService, private sessionService: SessionService) {
   }
 
-
   ngOnInit(): void {
-
     //get company id from session
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
@@ -49,7 +46,7 @@ export class UploadContractComponent implements OnInit {
       }
     );
   }
-  
+
   async onChange($event: Event) {
     debugger
     const target = $event.target as HTMLInputElement;
@@ -57,27 +54,34 @@ export class UploadContractComponent implements OnInit {
     this.files = Array.from(files);
 
     this.showFile = !this.showFile;
+    if (this.showFile) {
+      for (const file of this.files) {
+        this.snackBar.open(`${file.name} has been selected for upload`, 'Close');
+      }    
+    }
     // await setTimeout(() => { this.showFile = !this.showFile }, 3000);
-}
+  }
 
-   async onUpload() {
+  async onUpload() {
     debugger
-    if (this.files.length>0) {
+    if (this.files.length > 0) {
       debugger
-       this.uploadService.uploadFile(this.files, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
+      this.uploadService.uploadFile(this.files, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
         debugger
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
-          setTimeout(()=> {this.statusMsg = ""},2000)
+          setTimeout(() => { this.statusMsg = "" }, 2000)
+          this.snackBar.open(`Successfully uploaded the file ${this.fileName}`, 'Close');
           this.clear()
         } else {
           this.statusMsg = 'Failed';
-          console.log(response.status) ;
+          console.log(response.status);
+          this.snackBar.open('Holy smokes! Something seriously bad happened.', 'Close');
         }
       });
     }
   }
-  clear(){
+  clear() {
     this.description = null
   }
 }

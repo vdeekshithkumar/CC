@@ -87,7 +87,6 @@ export class ViewOtherAdsComponent {
   ngOnInit(): void {
 
 
-
     this.sessionService.getCompanyId().subscribe(
 
       (companyId: number) => {
@@ -99,6 +98,7 @@ export class ViewOtherAdsComponent {
       },
 
       (error: any) => {
+
 
         console.error('Error retrieving company ID:', error);
 
@@ -202,14 +202,17 @@ export class ViewOtherAdsComponent {
             console.log('Port Match:', isPortMatch);
           }
 
-
           // Return true if both type and ports match, or if only type matches (ports are not selected)
           return isTypeMatch && isPortMatch;
         });
+  
+        // Log the matched advertisements
+        console.log('Matched Advertisements:', this.ads);
       },
       error => console.log(error)
     );
   }
+
   setOptionBackground(option: string, isHovered: boolean): void {
     if (isHovered && this.type !== option) {
       // Set the background color to blue when hovered, if not selected
@@ -247,4 +250,6 @@ export class ViewOtherAdsComponent {
       error => console.log(error)
     );
   } 
+
 }  
+

@@ -1,4 +1,5 @@
 using CC_api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC_api.Repository
 {
@@ -28,6 +29,9 @@ namespace CC_api.Repository
     {
       dbContext.company.Update(company);
       await dbContext.SaveChangesAsync();
+    }
+    public async Task<List<Company>>GetOtherCompanyAsync(int companyID) { 
+      return await dbContext.company.Where(c => c.company_id != companyID).ToListAsync();
     }
   }
 }

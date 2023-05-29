@@ -176,7 +176,7 @@
     
    .buttons-container {
     
-    @apply absolute top-12 right-0 mt-8 mr-8 flex items-center;
+    @apply absolute right-0 mr-8 flex items-center;
     
     }
     
@@ -203,7 +203,7 @@
            }
     
            .buttons-container {
-            @apply absolute top-12 right-0 mt-8 mr-3 flex items-center;
+            @apply absolute right-0 mr-3 flex items-center;
           }
           
           .my-button {
@@ -247,3 +247,5 @@
     .my-button {
       @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
     }
+   
+    

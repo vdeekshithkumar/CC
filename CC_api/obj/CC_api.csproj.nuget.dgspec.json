@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bhavi\\OneDrive\\Desktop\\New folder\\Container-conundrum\\CC_api\\CC_api.csproj": {}
+    "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bhavi\\OneDrive\\Desktop\\New folder\\Container-conundrum\\CC_api\\CC_api.csproj": {
+    "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bhavi\\OneDrive\\Desktop\\New folder\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "projectUniqueName": "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj",
         "projectName": "CC_api",
-        "projectPath": "C:\\Users\\bhavi\\OneDrive\\Desktop\\New folder\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "projectPath": "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj",
         "packagesPath": "C:\\Users\\bhavi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bhavi\\OneDrive\\Desktop\\New folder\\Container-conundrum\\CC_api\\obj\\",
+        "outputPath": "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\bhavi\\AppData\\Roaming\\NuGet\\NuGet.Config",

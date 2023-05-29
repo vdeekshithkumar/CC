@@ -22,7 +22,9 @@
       </div>
       &nbsp;
     </div>
+
     <br />
+
     <div class="div-form">
       <div class="port-container">
         <div class="port-input">
@@ -94,6 +96,7 @@
           <br />
           <div class="advertisement-container" *ngFor="let ad of ads; ">
             <div class="advertisement-heading" >
+
               <!-- Company Info -->
               <div class="company-info">
                 <div class="flex-container">
@@ -121,14 +124,17 @@
                   </div>&nbsp; &nbsp; &nbsp;
                   <div class="company-domain">
                     <span class="icon-container">
+
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
                       </svg>                     
                     </span>&nbsp; 
+
                     {{ companyDomain[ad.company_id] }}
                   </div>&nbsp; &nbsp; &nbsp;
                   <div class="company-address">
                     <span class="icon-container">
+
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
                       </svg>                      
@@ -136,11 +142,13 @@
                     {{ companyAddress[ad.company_id] }}
                   </div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
                   <button class="negotiation-button">Open Negotiation</button>
+
                 </div>
               </div>
 
               <!-- Advertisement Table -->
               <table>
+
                 <thead >
                   <tr>
                     <th>
@@ -191,6 +199,7 @@
                         <div class="quantity-value">{{ ad.quantity }}</div>
                       </div>
                     </td>
+
                     <td class="center-quantity-cell">
                       <div class="center-quantity">
                         <div class="quantity-value">{{ ad.free_days }}</div>
@@ -206,6 +215,7 @@
                         <div class="quantity-value">{{ ad.pickup_charges }}</div>
                       </div>
                     </td>
+
                     
                   </tr>
                 </tbody>
@@ -213,6 +223,7 @@
               
               
               
+
             </div>
           </div>
         </div>

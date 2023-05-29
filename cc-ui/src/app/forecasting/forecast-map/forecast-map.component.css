@@ -87,10 +87,10 @@
     @apply min-w-full text-left text-sm font-light;
 }
 .emplist-thead{
-    @apply border-b font-medium dark:border-neutral-50;
+    @apply border-b font-medium ;
 }
 .employee-add{
-    @apply border-b dark:border-neutral-500;
+    @apply border-b ;
 }
 .employee-add-btn{
     @apply whitespace-nowrap px-2 py-4 font-medium;
@@ -99,7 +99,7 @@
     @apply whitespace-nowrap px-6 py-4;
 }
 .radio-button {
-  @apply px-1 py-1 border-0 text-black border-gray-800  ml-1 w-16 h-8 ;
+  @apply px-1 py-1 text-black border-gray-800 ml-2 w-20 h-8;
  }
  
  .radio-button--selected {

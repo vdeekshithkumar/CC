@@ -27,9 +27,9 @@ namespace CC_api.Models
 
   
     public int company_id { get; set; }
-    public int contract_id { get; set; }
+    public int? contract_id { get; set; }
 
-public DateTime date_created { get; set; }
+    public DateTime date_created { get; set; }
     public DateTime expiry_date { get; set; }
 
 

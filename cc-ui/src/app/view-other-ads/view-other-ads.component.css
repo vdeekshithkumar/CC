@@ -67,7 +67,9 @@
   height: 100vh;
   position: fixed;
   top: 0;
+
   left: 33%;
+
   transform: translateX(-50%);
   z-index: 1;
 }
@@ -104,12 +106,14 @@
 .advertisement-details {
   position: absolute;
   top: 20px;
+
   left: calc(33% + 10px);
   width: calc(47% - 15px);
   font-weight: bold;
   font-size: 10px;
   color: black;
 }
+
 
 
 
@@ -128,6 +132,7 @@
   font-size: 18px;
   margin-bottom: 10px;
 }
+
 .advertisement-details:nth-child(even) {
   background-color: lightblue;
   color: white;
@@ -136,6 +141,7 @@
   background-color: lightblue;
   color: black;
 }
+
 .advertisement-details table {
   width: 100%;
   border-collapse: collapse;
@@ -227,6 +233,7 @@
   color: white;
   background-color: blue;
 }
+
 .advertisement-details table tr:nth-child(even) {
   background-color: blue;
 }
@@ -235,6 +242,7 @@
 .advertisement-details table tr:nth-child(even) td {
   color: black;
 }
+
 
 
 
@@ -296,7 +304,7 @@
   object-position: center center;
   border-radius: 60%;
   filter: blur(3px); 
-  
+
 }
 
 .company-name {
@@ -327,7 +335,9 @@
 }
 
 .company-rating .icon-container {
+
   margin-right: 2px;
+
 }
 
 
@@ -337,6 +347,7 @@
   align-items: center;
   height: 100%;
 }
+
 .center-quantity-cell {
   
   text-align: center;
@@ -349,6 +360,7 @@ th {
   font-weight: bold;
   text-align: center;
 }
+
 .advertisement-row {
   border: 1px solid #ccc;
   width: 500px;
@@ -394,9 +406,11 @@ th {
 
 /*Export Port buttons*/
 .button-container {
+
   position: fixed;
   bottom: 0;
   right: 0;
+
   margin-bottom: 10px;
 }
 
@@ -409,8 +423,10 @@ th {
   font-size: 12px;
 }
 
+
 .button-selected {
   background-color: lightblue;
 }
+
 
 
