@@ -7,7 +7,9 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        'CCblue': '#597ef7'
+        'CCblue': '#597ef7',
+        'CCdarkblue': '#3E7BFA',
+        'cc-gray':'#E9E9E9'
 
       }
     },

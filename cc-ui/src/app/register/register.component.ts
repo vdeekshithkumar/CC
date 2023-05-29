@@ -3,6 +3,9 @@ import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Registerservice } from './register.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './dialog.component';
+
 
 
 
@@ -21,6 +24,13 @@ interface RegisterResponse {
 })
 export class RegisterComponent implements OnInit 
 {
+  showValidationErrors: boolean = false;
+  company_id!:string;
+  email!:string;
+  firstName!: string;
+  lastName!: string;
+  address!:string;
+  phone_no!:number;
   public user_id? : number;
   public otp?:number;
   registrationForm!: FormGroup;
@@ -36,11 +46,10 @@ export class RegisterComponent implements OnInit
    errors:any;
   r: any;
   showPassword=false;
-  constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
   }
 
 ngOnInit(): void {
-
   const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
@@ -78,25 +87,54 @@ ngOnInit(): void {
 
 }
 
- onSubmit() {
-    {
-      try {
-        const response = this.registerservice.register(this.registrationForm.value).toPromise();
-        alert("OTP Sent Successfully, Check Your Email")
-        console.log(response);
-        console.log(this.registrationForm.value)
+onSubmit(): void {
+  const formValue = this.registrationForm.value;
 
-        // console.log("This is the fetched user_d",this.fetched_user_id);
-        //       alert("User added success verification pending")
-        // this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
-      } 
-      catch (error) {
-        console.log('Error registering:', error);
-      
-      }
+  if (
+    !formValue.fname ||
+    !formValue.lname ||
+    !formValue.email ||
+    !formValue.address ||
+    !formValue.phone_no ||
+    !formValue.company_id ||
+    !formValue.password
+  ) {
+    
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.fname) {
+      errorMessage += '- First Name\n';
     }
-   
+    if (!formValue.lname) {
+      errorMessage += '- Last Name\n';
+    }
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.phone_no) {
+      errorMessage += '- Phone Number\n';
+    }
+    if (!formValue.company_id) {
+      errorMessage += '- Company ID\n';
+    }
+    if (!formValue.password) {
+      errorMessage += '- Password\n';
+    }
+    this.openErrorDialog(errorMessage);
+    return;
+  
+  }
+  try {
+    const response = this.registerservice.register(formValue).toPromise();
+    alert('OTP Sent Successfully, Check Your Email');
+    console.log(response);
+    console.log(formValue);
+  } catch (error) {
+    console.log('Error registering:', error);
+  }
 }
+
+
 
 private redirect(){
 
@@ -149,13 +187,7 @@ onverifyOtp(){
               } 
               catch (error) {
                 console.log('Error veryfying:', error);
-              }
-              
-                
-           
-              
-            
-
+              }    
     },
     (error) => {
       console.log("Error while retrieving", error);
@@ -164,5 +196,18 @@ onverifyOtp(){
   );
 
 }
+openErrorDialog(message: string): void {
+  this.dialog.open(DialogComponent, {
+    data: {
+      message: message
+    }
+  });
+}
 
+// register(): void {
+//   if (!this.firstName || !this.lastName||!this.email||!this.address||!this.phone_no||!this.company_id) {
+//     alert('Fields should not be empty');
+//     return;
+//   }
+// }
 }

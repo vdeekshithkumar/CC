@@ -50,6 +50,12 @@ namespace CC_api.Controllers
       await NegotiationBusiness.DeleteNegotiation(n);
       return Ok();
     }
+    //[HttpGet("GetAdDetailsAsync/{companyId}")]
+    //public async Task<IActionResult> GetAdDetails(int companyId)
+    //{
+    //  var adDetails = await NegotiationBusiness.GetAdDetailsAsync(companyId);
+    //  return Ok(adDetails);
+    //}
 
-    }
+  }
 }
