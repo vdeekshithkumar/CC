@@ -15,6 +15,7 @@ import { ForgotPassService } from '../forgot-password/forgot-password.service';
   
 export class ResetPasswordComponent implements OnInit{
   userId : any;
+  showPassword=false;
   companyId : any;
   success = false
   isFailure = false
@@ -128,5 +129,7 @@ export class ResetPasswordComponent implements OnInit{
   );
   this.router.navigate(['']);
   }
-  
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 }

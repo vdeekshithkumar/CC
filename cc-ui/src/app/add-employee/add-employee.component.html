@@ -153,14 +153,14 @@
                                 <tr>
                                   <th scope="col" class="px-12 py-5">
                                     <div class="relative">
-                                      <div class="min-h-[3rem] pl-[2rem] absolute -left-16">
+                                      <div class="min-h-[3rem]  absolute -left-3 -mt-2">
                                         Action
                                       </div>
                                     </div>
                                   </th>
                                   <th scope="col" class="px-12 py-5">
                                     <div class="relative">
-                                      <div class="min-h-[3rem] pl-[2rem] absolute left-10">
+                                      <div class="min-h-[3rem]  absolute left-10 -mt-2">
                                         Type
                                       </div>
                                     </div>
@@ -172,10 +172,10 @@
                                 <ng-container *ngFor="let p of PList; let i = index">
                                   <ng-container *ngIf="i % 2 === 0">
                                     <tr class="row">
-                                        <td class="col-md-6 mb-2">{{ p.type }}</td>
-                                        <td class="col-md-6">
+                                        <td class="col-md-20 mb-6 text-center -right-20" style="padding-left:10px;">{{ p.type }}</td>
+                                        <td class="col-md-20 text-right" style="padding: 0.5em;">
                                           <div class="flex">
-                                            <div class="form-check form-check-inline ml-20">
+                                            <div class="form-check form-check-inline ml-10">
                                               <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-read'">Read&ensp;</label>
                                               <input class="text-sm font-medium text-gray-900 dark:text-gray-300" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
                                             </div>
