@@ -50,6 +50,9 @@ import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component
 import { EditUserDetailsComponent } from './redundant/header/edit-user-details/edit-user-details.component';
 import { NegotiationListComponent } from './negotiation-list/negotiation-list.component';
 import { NegotiationsComponent } from './negotiations/negotiations.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './register/dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -86,7 +89,7 @@ import { NegotiationsComponent } from './negotiations/negotiations.component';
           EditUserDetailsComponent,
           NegotiationListComponent,
           NegotiationsComponent,
-          
+          DialogComponent,
     
   ],
   imports: [
@@ -100,6 +103,7 @@ import { NegotiationsComponent } from './negotiations/negotiations.component';
     MaterialModule,
     NgxPaginationModule,
     GoogleMapsModule,
+    MatDialogModule,
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]

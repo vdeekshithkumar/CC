@@ -3,6 +3,9 @@ import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Registerservice } from './register.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from './dialog.component';
+
 
 
 
@@ -43,7 +46,7 @@ export class RegisterComponent implements OnInit
    errors:any;
   r: any;
   showPassword=false;
-  constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
   }
 
 ngOnInit(): void {
@@ -89,15 +92,37 @@ onSubmit(): void {
 
   if (
     !formValue.fname ||
-    !formValue.lname||
+    !formValue.lname ||
     !formValue.email ||
-    !formValue.address||
-    !formValue.phone_no||
+    !formValue.address ||
+    !formValue.phone_no ||
     !formValue.company_id ||
     !formValue.password
   ) {
+    
     this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.fname) {
+      errorMessage += '- First Name\n';
+    }
+    if (!formValue.lname) {
+      errorMessage += '- Last Name\n';
+    }
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.phone_no) {
+      errorMessage += '- Phone Number\n';
+    }
+    if (!formValue.company_id) {
+      errorMessage += '- Company ID\n';
+    }
+    if (!formValue.password) {
+      errorMessage += '- Password\n';
+    }
+    this.openErrorDialog(errorMessage);
     return;
+  
   }
   try {
     const response = this.registerservice.register(formValue).toPromise();
@@ -108,6 +133,7 @@ onSubmit(): void {
     console.log('Error registering:', error);
   }
 }
+
 
 
 private redirect(){
@@ -161,13 +187,7 @@ onverifyOtp(){
               } 
               catch (error) {
                 console.log('Error veryfying:', error);
-              }
-              
-                
-           
-              
-            
-
+              }    
     },
     (error) => {
       console.log("Error while retrieving", error);
@@ -176,6 +196,14 @@ onverifyOtp(){
   );
 
 }
+openErrorDialog(message: string): void {
+  this.dialog.open(DialogComponent, {
+    data: {
+      message: message
+    }
+  });
+}
+
 // register(): void {
 //   if (!this.firstName || !this.lastName||!this.email||!this.address||!this.phone_no||!this.company_id) {
 //     alert('Fields should not be empty');
