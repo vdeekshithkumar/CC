@@ -1,11 +1,7 @@
-<div id="page-container"
-  class="div"
->
-  <main id="page-content" class="div-main">
+<div id="page-container" class="flex flex-col mx-auto w-full min-h-screen bg-gray-100">
+  <main id="page-content" class="flex flex-auto flex-col max-w-full">
     <!--max-h-screen -> min-h-screen-->
-    <div
-      class="div-register"
-    >
+    <div class="div-register">
       <div class="register-page">
         <div class="mb-8 text-center">
           <h2
@@ -158,9 +154,9 @@
     minlength="8"
     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
   />
-                    <button class="absolute top-2 right-2" (click)="showPassword = !showPassword">
-                     
-                    </button>
+  <a class="absolute top-2 right-2" (click)="togglePasswordVisibility()">
+    <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+  </a>
                   </div>
                   <div *ngIf="showValidationErrors && registrationForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
                     <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
@@ -176,6 +172,10 @@
                   </button>
                 </div>
               </div>
+              <!-- <div class="flex flex-row col-span-2 items-center">
+                <input type="checkbox" class="mr-2" id="terms" [(ngModel)]="agreeToTerms" name="terms" required>
+                <label for="terms" class="font-medium text-sm">I agree to the terms and conditions</label>
+              </div> -->
               <form [formGroup]="verifyotpForm" (ngSubmit)="onverifyOtp()" class = 'flex flex-row col-span-2' >
                 <div class="space-y-1 col-span-1">
                   <label for="otp" class="font-medium text-sm">Enter OTP<span class="text-red-500">*</span>
