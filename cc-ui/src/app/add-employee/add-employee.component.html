@@ -1,13 +1,13 @@
 <app-header></app-header>
 <script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
-<div class="flex justify-center">
+<div class="flex justify-middle">
     <app-sidebar></app-sidebar>
-    <section class="div-section">
+    <section class="ml-44 antialiased max-w-20x2 bg-gray-40 text-black min-h-screen p-20">
         <div class="h-full">
             <!-- Card background -->
             <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()">
                 <!-- Card body -->
-                <div class="div-form" x-data="{ card: true }">
+                <div class="relative px-4 md:px-6 lg:px-8 pb-8 max-w-lg mx-auto" x-data="{ card: true }">
                     <div class="div-form-card">
                         <!-- Card header -->
                         <div class="text-center mb-6">
@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <hr class="div-hr">
-                        <form (ngSubmit)="onAdd()">
+                        <!-- <form (ngSubmit)="onAdd()">
                             <h6 class="section-form-h6">
                                 <div class="text-center mb-6">
                                     <h1 class="form-h1">User Permissions</h1>
@@ -120,7 +120,80 @@
                                     </ng-container>
                                   </tbody>
                             </table>
-                        </form>
+                        </form> -->
+                        
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </section>
+    <section class="antialiased max-w-20x2 bg-gray-40 text-black min-h-screen p-20 top-0">
+        <div class="h-full">
+            <!-- Card background -->
+            <form (ngSubmit)="onAdd()">
+                <!-- Card body -->
+                <div class="relative px-10 md:px-10 lg:px-8 pb-10 max-w-x10 mx-auto" x-data="{ card: true }">
+                    <div class="bg-white px-20 pb-10 rounded-b shadow-2xl -ml-40">
+                        <!-- Card header -->
+                        <div class="text-center mb-6">
+                            <div class="mb-2">
+                                <img class="-mt-8 inline-flex rounded-full" src="assets/images/user.jpg" width="64"
+                                    height="64" alt="User" />
+                            </div>
+                            <h1 class="div-h1">User Permissions</h1>
+                        </div>
+
+                        <!-- Toggle -->
+
+                        <!-- Card form -->
+                        <table class="w-80 h-full text-sm text-left font-medium text-black dark:text-black border-2 border-black">
+                            <thead class="text-xs w-20 text-white uppercase font-medium bg-gray-400 border-black dark:text-white border-2">
+                                <tr>
+                                  <th scope="col" class="px-12 py-5">
+                                    <div class="relative">
+                                      <div class="min-h-[3rem] pl-[2rem] absolute -left-16">
+                                        Action
+                                      </div>
+                                    </div>
+                                  </th>
+                                  <th scope="col" class="px-12 py-5">
+                                    <div class="relative">
+                                      <div class="min-h-[3rem] pl-[2rem] absolute left-10">
+                                        Type
+                                      </div>
+                                    </div>
+                                  </th>
+                                </tr>
+                              </thead>
+                              
+                            <tbody>
+                                <ng-container *ngFor="let p of PList; let i = index">
+                                  <ng-container *ngIf="i % 2 === 0">
+                                    <tr class="row">
+                                        <td class="col-md-6 mb-2">{{ p.type }}</td>
+                                        <td class="col-md-6">
+                                          <div class="flex">
+                                            <div class="form-check form-check-inline ml-20">
+                                              <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-read'">Read&ensp;</label>
+                                              <input class="text-sm font-medium text-gray-900 dark:text-gray-300" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
+                                            </div>
+                                            <div class="form-check form-check-inline ml-4">
+                                              <!-- Add spacing between the checkboxes using ml-4 -->
+                                              <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-write'">Write&ensp;</label>
+                                              <input class="text-sm font-medium text-gray-900 dark:text-gray-300" type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                      
+                                      
+                                  </ng-container>
+                                </ng-container>
+                              </tbody>
+                        </table>
+                   
                         <div class="flex justify-center space-x-2 mt-3">
                             <button type="submit" class="div-submit-btn">
                                 Save
