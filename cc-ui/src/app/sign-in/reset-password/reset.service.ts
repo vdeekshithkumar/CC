@@ -6,6 +6,7 @@ import { ConfirmationResponse, PassWriteRes } from './ConfirmationResponse';
   providedIn: 'root'
 })
 export class ResetService {
+  [x: string]: any;
   baseUrl="https://localhost:7157"
   private showemailinput = false;
   private userID?:number
