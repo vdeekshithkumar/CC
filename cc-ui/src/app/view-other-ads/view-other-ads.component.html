@@ -23,11 +23,6 @@
       &nbsp;
     </div>
 
-
-
-
-
-
     <br />
 
     <div class="div-form">
@@ -95,15 +90,13 @@
 
         <div class="vertical-line"></div>
 
-        <div class="advertisement-details">
-          <div class="button-container">
-            <button class="button-selected">Export AD</button> &nbsp;&nbsp;
-            <button>Post New AD</button>
-          </div>
+        <div class="advertisement-details" >
+         
           <h2>Advertisement Details</h2>
           <br />
-          <div class="advertisement-container" *ngFor="let ad of ads">
-            <div class="advertisement-heading">
+          <div class="advertisement-container" *ngFor="let ad of ads; ">
+            <div class="advertisement-heading" >
+
               <!-- Company Info -->
               <div class="company-info">
                 <div class="flex-container">
@@ -131,60 +124,82 @@
                   </div>&nbsp; &nbsp; &nbsp;
                   <div class="company-domain">
                     <span class="icon-container">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 16 16">
-                        <path
-                          d="M7 0a1 1 0 0 1 .993.883L8 1v1h5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5V1a1 1 0 0 1 1-1zm-.993 2.598L7 3H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H9V3l-.007-.068A.5.5 0 0 0 8.5 2H7.493a.5.5 0 0 0-.496.598z" />
-                      </svg>
-                    </span>
+
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                      </svg>                     
+                    </span>&nbsp; 
+
                     {{ companyDomain[ad.company_id] }}
                   </div>&nbsp; &nbsp; &nbsp;
                   <div class="company-address">
                     <span class="icon-container">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                        <path
-                          d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
-                      </svg>
-                    </span>
+
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                      </svg>                      
+                    </span> &nbsp;
                     {{ companyAddress[ad.company_id] }}
                   </div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
-                  <button class="delete-button">Delete</button>
+                  <button class="negotiation-button">Open Negotiation</button>
+
                 </div>
               </div>
 
               <!-- Advertisement Table -->
               <table>
-                <thead>
+
+                <thead >
                   <tr>
-                    <th>Expiry Date</th>
-                    <th>Ad Type</th>
-                    <th>Price</th>
+                    <th>
+                      <div class="company-address">
+                        <span class="icon-container">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
+                          </svg>
+                        </span>
+                        <span class="heading-text">Departure</span>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="company-address">
+                        <span class="icon-container">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
+                          </svg>
+                        </span>
+                        <span class="heading-text">Arrival</span>
+                      </div>
+                    </th>
+                    <th>Availablity</th>
                     <th>Quantity</th>
-                    <th>Contents</th>
-                    <th>Port of Departure</th>
-                    <th>Port of Arrival</th>
                     <th>Free Days</th>
                     <th>Per Diem</th>
                     <th>Pickup Charges</th>
-                    <th>Action</th>
                   </tr>
                 </thead>
+                
+                
+                
                 <tbody>
                   <tr>
-                    <td>{{ ad.expiry_date | date:'dd/MM/yyyy' }}</td>
-                    <td>{{ ad.type_of_ad }}</td>
-                    <td>{{ ad.price }}</td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">{{ ad.port_of_departure }}</div>
+                      </div>
+                    </td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">{{ ad.port_of_arrival }}</div>
+                      </div>
+                    </td>
+                    <td>{{ ad.expiry_date | date:'dd MMMM yyyy' }}</td>
                     <td class="center-quantity-cell">
                       <div class="center-quantity">
                         <div class="quantity-value">{{ ad.quantity }}</div>
                       </div>
                     </td>
-                    <td class="center-quantity-cell">
-                      <div class="center-quantity">
-                        <div class="quantity-value">{{ ad.contents }}</div>
-                      </div>
-                    </td>
-                    <td>{{ ad.port_of_departure }}</td>
-                    <td>{{ ad.port_of_arrival }}</td>
+
                     <td class="center-quantity-cell">
                       <div class="center-quantity">
                         <div class="quantity-value">{{ ad.free_days }}</div>
@@ -200,11 +215,15 @@
                         <div class="quantity-value">{{ ad.pickup_charges }}</div>
                       </div>
                     </td>
-                    <td><button class="negotiation-button">Start Negotiation</button></td>
+
+                    
                   </tr>
                 </tbody>
-
               </table>
+              
+              
+              
+
             </div>
           </div>
         </div>

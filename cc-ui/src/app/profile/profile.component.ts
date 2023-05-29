@@ -5,6 +5,7 @@ import { NavigationEnd, Router,ActivatedRoute } from '@angular/router';
 import { SignInService } from '../sign-in/sign-in.service';
 import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
+import { findIndex } from 'lodash';
 
 @Component({
   selector: 'app-profile',
@@ -184,19 +185,23 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/add-employee'], { queryParams: { edit: true } });
   }
   deleteUserById(id: number) {
-  debugger
     this.profileService.deleteUserById(id)
       .subscribe(
-        (        data: any) => {
-          console.log(data);
-           this.router.navigateByUrl('/profile', { skipLocationChange: true });
-          this.router.navigate(['/profile']);
-           window.location.reload()
-          // this.getAllInventory()
+        () => {
+          console.log("Employee deleted successfully.");
+          this.removeDeletedEmployeeFromFrontend(id);
         },
-        (        error: any) => console.log(error));
+        (error: any) => console.log(error)
+      );
   }
-
+  
+  removeDeletedEmployeeFromFrontend(id: number) {
+    const index = findIndex(this.alluser_list, { id: id });
+    if (index !== -1) {
+      this.alluser_list.splice(index, 1);
+    }
+  }
+  
   onClick() {
     this.router.navigate(['/my-ad'], { queryParams: { value: 1 } });
   }
