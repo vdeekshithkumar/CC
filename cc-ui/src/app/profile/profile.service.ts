@@ -5,6 +5,7 @@ import { Observable,of } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileService {
+  private countUrl = 'https://localhost:7157/AdsCount';
   private apiUrl = 'https://localhost:7157/GetCompanyById';
    private UIdUrl = 'https://localhost:7157/GetUserById';
   private userUrl = 'https://localhost:7157/GetAllUser';
@@ -19,6 +20,10 @@ export class ProfileService {
 
     return this.http.get('https://localhost:7157/GetAllCompany')
   }
+  getAdsCount(companyId: number): Observable<any> {
+    return this.http.get(`${this.countUrl}?company_id=${companyId}`);
+  }
+  
   getCompanyById(company_id: number): Observable<any> {
     console.log(`${this.apiUrl}?company_id=${company_id}`)
     return this.http.get(`${this.apiUrl}?companyId=${company_id}`);
