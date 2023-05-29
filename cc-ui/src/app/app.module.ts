@@ -51,7 +51,7 @@ import { EditUserDetailsComponent } from './redundant/header/edit-user-details/e
 import { NegotiationListComponent } from './negotiation-list/negotiation-list.component';
 import { NegotiationsComponent } from './negotiations/negotiations.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from './register/dialog.component';
+import { DialogComponent } from './dialog.component';
 
 
 @NgModule({

@@ -67,7 +67,9 @@
   height: 100vh;
   position: fixed;
   top: 0;
-  left: 35%;
+
+  left: 33%;
+
   transform: translateX(-50%);
   z-index: 1;
 }
@@ -104,11 +106,17 @@
 .advertisement-details {
   position: absolute;
   top: 20px;
-  left: calc(36% + 10px);
-  width: calc(60% - 20px);
+
+  left: calc(33% + 10px);
+  width: calc(47% - 15px);
   font-weight: bold;
-  font-size: 13px;
+  font-size: 10px;
+  color: black;
 }
+
+
+
+
 
 .negotiation-button {
   background-color: blue;
@@ -123,6 +131,15 @@
   text-align: center;
   font-size: 18px;
   margin-bottom: 10px;
+}
+
+.advertisement-details:nth-child(even) {
+  background-color: lightblue;
+  color: white;
+}
+.light-blue {
+  background-color: lightblue;
+  color: black;
 }
 
 .advertisement-details table {
@@ -217,6 +234,19 @@
   background-color: blue;
 }
 
+.advertisement-details table tr:nth-child(even) {
+  background-color: blue;
+}
+
+.advertisement-details table tr:nth-child(even) th,
+.advertisement-details table tr:nth-child(even) td {
+  color: black;
+}
+
+
+
+
+
 .search-container div:hover {
   background-color: blue;
   color: white;
@@ -274,6 +304,7 @@
   object-position: center center;
   border-radius: 60%;
   filter: blur(3px); 
+
 }
 
 .company-name {
@@ -298,14 +329,15 @@
 
 
 
-
 .company-rating {
   display: flex;
   align-items: center;
 }
 
 .company-rating .icon-container {
-  margin-right: 5px;
+
+  margin-right: 2px;
+
 }
 
 
@@ -316,6 +348,19 @@
   height: 100%;
 }
 
+.center-quantity-cell {
+  
+  text-align: center;
+}
+th {
+  text-align: center;
+}
+
+.quantity-value {
+  font-weight: bold;
+  text-align: center;
+}
+
 .advertisement-row {
   border: 1px solid #ccc;
   width: 500px;
@@ -324,6 +369,7 @@
 .advertisement-heading {
   flex: 1;
 }
+
 
 .port-input {
   margin-bottom: 9px;
@@ -360,8 +406,11 @@
 
 /*Export Port buttons*/
 .button-container {
-  display: flex;
-  justify-content: flex-end;
+
+  position: fixed;
+  bottom: 0;
+  right: 0;
+
   margin-bottom: 10px;
 }
 
@@ -373,6 +422,10 @@
   border-radius: 3px;
   font-size: 12px;
 }
+
+
 .button-selected {
   background-color: lightblue;
 }
+
+

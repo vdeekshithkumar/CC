@@ -157,26 +157,35 @@ updateReadAccess(permission: any, event: any) {
   const checkbox = event.target as HTMLInputElement;
   const action = checkbox.id.includes('write') ? 'write' : 'read';
 
-  this.correspondingPermission = this.PList.find((p: { type: any; actions: string; }) => p.type === permission.type && p.actions === action);
+  this.correspondingPermission = this.PList.find(
+    (p: { type: any; actions: string }) =>
+      p.type === permission.type && p.actions === action
+  );
 
   if (this.correspondingPermission) {
     console.log('Permission ID:', this.correspondingPermission.permission_id);
     console.log('Action:', this.correspondingPermission.actions);
     console.log('Type:', this.correspondingPermission.type);
-
-    if (action === 'write' && checkbox.checked) {
-      const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-      readCheckbox.checked = true;
-      readCheckbox.disabled = true; // Disable the read checkbox
-    } else if (action === 'write' && !checkbox.checked) {
-      const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-      readCheckbox.checked = false;
-      readCheckbox.disabled = false; // Enable the read checkbox
-    }
-
     this.ppList.push(this.correspondingPermission.permission_id);
   }
+
+  // Get the corresponding read and write checkboxes
+  const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
+  const writeCheckbox = document.getElementById(permission.type + '-write') as HTMLInputElement;
+
+  if (action === 'write' && checkbox.checked) {
+    // Select both read and write checkboxes
+    readCheckbox.checked = true;
+    writeCheckbox.checked = true;
+    readCheckbox.disabled = true;
+  } else if (action === 'write' && !checkbox.checked) {
+    // Unselect both read and write checkboxes
+    readCheckbox.checked = false;
+    writeCheckbox.checked = false;
+    readCheckbox.disabled = false;
+  }
 }
+
 private async addP() {
   if (this.isEdit) {
     try {

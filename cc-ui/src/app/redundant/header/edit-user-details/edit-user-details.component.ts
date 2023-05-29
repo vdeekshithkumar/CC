@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from 'src/app/profile/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { EditUserDetailsService } from './edit-user-details.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -16,8 +17,15 @@ export class EditUserDetailsComponent implements OnInit {
   lname?: string
   address?: string
   phone_no?: string
-
-  constructor(private profileService: ProfileService, private sessionService: SessionService, private editUserDetailsService: EditUserDetailsService) { }
+  regForm: FormGroup;
+  constructor(private profileService: ProfileService, private formBuilder: FormBuilder,private sessionService: SessionService, private editUserDetailsService: EditUserDetailsService) { 
+  this.regForm = this.formBuilder.group({
+    firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
+    lastName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
+    phone_no: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+    address: ['']
+  });
+}
   ngOnInit(): void {
     this.sessionService.getUserId().subscribe(
       (userId: string) => {
@@ -46,6 +54,11 @@ export class EditUserDetailsComponent implements OnInit {
   }
   onSubmit() {
     debugger
+    if (this.regForm.invalid) {
+      // Show error messages for invalid fields
+      this.regForm.markAllAsTouched();
+      return;
+    }
     let user = new User(
       this.fname ?? '',
       this.lname ?? '',

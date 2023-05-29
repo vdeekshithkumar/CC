@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Registerservice } from './register.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from './dialog.component';
+import { DialogComponent } from '../dialog.component';
 
 
 
@@ -55,12 +55,13 @@ ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
     company_id:['',Validators.required],
-    fname: ['', Validators.required],
-    lname: ['', Validators.required],
-    address: ['', Validators.required],
+    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    address: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
     email: ['', [Validators.required, Validators.email]],
     phone_no:['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})')]],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
+
     otp:['12345',Validators.required],
     is_verified:['1',Validators.required],
     is_approved:['1',Validators.required],
@@ -89,7 +90,6 @@ ngOnInit(): void {
 
 onSubmit(): void {
   const formValue = this.registrationForm.value;
-
   if (
     !formValue.fname ||
     !formValue.lname ||
@@ -99,7 +99,6 @@ onSubmit(): void {
     !formValue.company_id ||
     !formValue.password
   ) {
-    
     this.showValidationErrors = true;
     let errorMessage = 'The following fields are required:\n';
     if (!formValue.fname) {
@@ -122,8 +121,44 @@ onSubmit(): void {
     }
     this.openErrorDialog(errorMessage);
     return;
-  
   }
+
+  if (!this.registrationForm.controls['email'].valid) {
+    this.openErrorDialog('Invalid email format');
+    return;
+  }
+
+  if (!this.registrationForm.controls['address'].valid) {
+    this.openErrorDialog('Invalid Country Name');
+    return;
+  }
+
+  if (!this.registrationForm.controls['fname'].valid) {
+    this.openErrorDialog('Invalid First Name Format');
+    return;
+  }
+
+  if (!this.registrationForm.controls['lname'].valid) {
+    this.openErrorDialog('Invalid Last Name Format');
+    return;
+  }
+  const passwordControl = this.registrationForm.get('password');
+  if (passwordControl && passwordControl.invalid) {
+    this.showValidationErrors = true;
+    let passwordErrorMessage = 'Invalid password:\n';
+    if (passwordControl.errors?.['required']) {
+      passwordErrorMessage += '- Password is required\n';
+    }
+    if (passwordControl.errors?.['minlength']) {
+      passwordErrorMessage += '- Password must be at least 8 characters long\n';
+    }
+    if (passwordControl.errors?.['pattern']) {
+      passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
+    }
+    this.openErrorDialog(passwordErrorMessage);
+    return;
+  }
+
   try {
     const response = this.registerservice.register(formValue).toPromise();
     alert('OTP Sent Successfully, Check Your Email');
@@ -133,6 +168,7 @@ onSubmit(): void {
     console.log('Error registering:', error);
   }
 }
+
 
 
 
@@ -172,7 +208,8 @@ onverifyOtp(){
                 this.redirect();
                }
                else{
-                alert("Enter the valid OTP")
+                this.openErrorDialog("Enter the valid OTP");
+
                }
                     // window.location.reload()
                   },

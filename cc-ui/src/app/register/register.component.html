@@ -21,20 +21,26 @@
         <!--base tile-->
 
         <div class="register-page-title">
-          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="p-5 lg:p-6 w-full">
-            <div class="grid grid-cols-2 gap-2">
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
               <div class="relative">
                 <label for="fname" class="font-medium text-sm">First Name<span class="text-red-500">*</span></label>
                 <input
                   type="text"
                   formControlName="fname"
                   class="register-page-data"
+                  type="text"
                   id="fname"
                   placeholder="Ex: Mathews"
                 />
-                <div *ngIf="showValidationErrors && registrationForm.get('fname')?.invalid" class="text-red-500 text-sm mt-1">
-                  <div *ngIf="registrationForm.get('fname')?.errors?.['required']">First Name is required</div>
-                </div>
+                <div
+                *ngIf="showValidationErrors && registrationForm.get('fname')?.invalid"
+                class="text-red-500 text-sm mt-1"
+              >
+              <div *ngIf="registrationForm.get('fname')?.errors?.['required']">First Name is required</div>
+              <div *ngIf="registrationForm.get('fname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+            </div>
+            
               </div>
               <div class="relative">
                 <label for="lname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
@@ -45,17 +51,14 @@
                   id="lname"
                   placeholder="Ex: Mathews"
                 />
-                <div *ngIf="showValidationErrors && registrationForm.get('lname')?.invalid" class="text-red-500 text-sm mt-1">
-                  <div *ngIf="registrationForm.get('lname')?.errors?.['required']">Last Name is required</div>
-                </div>
+                <div
+                *ngIf="showValidationErrors && registrationForm.get('lname')?.invalid"
+                class="text-red-500 text-sm mt-1"
+              >
+              <div *ngIf="registrationForm.get('lname')?.errors?.['required']">Last Name is required</div>
+              <div *ngIf="registrationForm.get('lname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+            </div>
               </div>
-        
-        
-            <!-- Other form fields -->
-        
-         
-        
-        
 
               <div class="col-span-2">
                 <label for="email" class="font-medium text-sm">Email<span class="text-red-500">*</span></label>
@@ -67,15 +70,14 @@
                   placeholder="Ex: mathew123@domain.com"
                 />
                 <div
-                  *ngIf="showValidationErrors && registrationForm.get('email')?.invalid"
-                  class="text-red-500 text-sm mt-1"
-                >
-                  <div *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</div>
+                *ngIf="showValidationErrors && registrationForm.get('email')?.invalid"
+                class="text-red-500 text-sm mt-1"
+              >
+              <div *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</div>
                   <div *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format</div>
                 </div>
               </div>
               
-        
               <div class="space-y-1">
                 <label for="address" class="font-medium text-sm">Country<span class="text-red-500">*</span></label>
                 <input
@@ -90,7 +92,10 @@
                 *ngIf="showValidationErrors && registrationForm.get('address')?.invalid"
                 class="text-red-500 text-sm mt-1"
               >
-              <div *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
+              <div *ngIf="showValidationErrors && registrationForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
+                <div *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
+                <div *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+              </div>
             </div>
               
               </div>
@@ -134,41 +139,39 @@
                 *ngIf="showValidationErrors && registrationForm.get('company_id')?.invalid"
                 class="text-red-500 text-sm mt-1"
               >
-              <div *ngIf="registrationForm.get('company_id')?.errors?.['required']">Country is required</div>
+              <div *ngIf="registrationForm.get('company_id')?.errors?.['required']">Company is required</div>
             </div>
               </div>
 
               
-              <div class="flex flex-row col-span-2">
+              <div class = 'flex flex-row col-span-2' >
                 <div class="space-y-1 col-span-1">
                   <label for="password" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
                   <div class="relative">
                     <input
-                      formControlName="password"
-                      class="register-page-data pr-10"
-                      type="{{ showPassword ? 'text' : 'password' }}"
-                      id="password"
-                      placeholder="Password"
-                    />
+    formControlName="password"
+    class="register-page-data pr-10"
+    type="{{ showPassword ? 'text' : 'password' }}"
+    id="password"
+    placeholder="Password"
+    required
+    minlength="8"
+    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+  />
                     <button class="absolute top-2 right-2" (click)="showPassword = !showPassword">
-                      <span class="text-gray-500">
-                        <i class="far" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-                      </span>
+                     
                     </button>
                   </div>
-                  <div
-              *ngIf="showValidationErrors && registrationForm.get('password')?.invalid"
-              class="text-red-500 text-sm mt-1"
-        >
-       <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
-        <div *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be Strong</div>
-</div>
+                  <div *ngIf="showValidationErrors && registrationForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
+                    <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
+                    <div *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
+                    <div *ngIf="registrationForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
+                  </div>
                 </div>
-            
                 
                 <div class="my-1 mx-8 mt-1">
                  
-                  <button type="submit"class="signin-btn">
+                  <button type="submit" class="signin-btn" >
                     Register
                   </button>
                 </div>
@@ -194,6 +197,10 @@
             </div>
           </form>
         </div>
+        <div class="signin-noact">
+            Already have an account?
+            <a class="signin-noact-a" [routerLink]="['/sign-in']" routerLinkActive="router-link-active"  href="javascript:void(0)">Sign-in</a>
+          </div>
       </div>
     </div>
   </main>

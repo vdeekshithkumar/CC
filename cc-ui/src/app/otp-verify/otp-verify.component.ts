@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 
 import { Observable, catchError, throwError } from 'rxjs';
 import { OtpService } from './otp.service';
+import { DialogComponent } from '../dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 interface RegisterResponse {
   message: string;
   user? : {
@@ -24,10 +26,10 @@ export class OtpVerifyComponent implements OnInit{
   form: any;
   userId:any;
   Otp:any;
+  showValidationErrors: boolean = false;
 
 
-
-  constructor(private router: Router,private formBuilder: FormBuilder,private OtpService:OtpService) { }
+  constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private OtpService:OtpService) { }
   ngOnInit(): void {
     this.otpForm = this.formBuilder.group({
       email: ["",Validators.email], 
@@ -35,6 +37,28 @@ export class OtpVerifyComponent implements OnInit{
     });
   }
   onValidate(){
+    const formValue = this.otpForm.value;
+  if (
+    !formValue.email ||
+    !formValue.otp
+  ) {
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.otp) {
+      errorMessage += '- OTP\n';
+    }
+    this.openErrorDialog(errorMessage);
+    return;
+  }
+    
+  if (!this.otpForm.controls['email'].valid) {
+    this.openErrorDialog('Invalid email format');
+    return;
+  }
+ 
     const emailValue = this.otpForm.value.email;
     console.log('Email value:', emailValue);
     
@@ -55,13 +79,14 @@ export class OtpVerifyComponent implements OnInit{
                   this.OtpService.verify(this.userId,this.Otp)
                   .subscribe(
                     (                    response: { message: string; }) => {
-                      console.log('verified suhhhhhhhhhccessfully:', response.message);
+                      console.log('verified successfully:', response.message);
                  if(response.message=="OTP verified successfully"){
-                  
+                  alert("User Verified Successfully")
               this.router.navigate(['/sign-in']);
                  }
                  else{
-                  alert("Enter the valid OTP")
+                
+                  this.openErrorDialog("Enter the valid OTP");
                  }
                       // window.location.reload()
                     },
@@ -85,5 +110,11 @@ export class OtpVerifyComponent implements OnInit{
             );
           
           }
-        
+          openErrorDialog(message: string): void {
+            this.dialog.open(DialogComponent, {
+              data: {
+                message: message
+              }
+            });
+          }
         }

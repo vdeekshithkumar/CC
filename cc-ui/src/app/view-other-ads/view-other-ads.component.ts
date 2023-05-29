@@ -87,7 +87,6 @@ export class ViewOtherAdsComponent {
   ngOnInit(): void {
 
 
-
     this.sessionService.getCompanyId().subscribe(
 
       (companyId: number) => {
@@ -99,6 +98,7 @@ export class ViewOtherAdsComponent {
       },
 
       (error: any) => {
+
 
         console.error('Error retrieving company ID:', error);
 
@@ -164,6 +164,8 @@ export class ViewOtherAdsComponent {
     }
   }
   
+  
+ 
   searchAdvertisements() {
     if (!this.type && !this.port_of_departure && !this.port_of_arrival) {
       this.showNoSelectionMessage = true;
@@ -178,19 +180,19 @@ export class ViewOtherAdsComponent {
     console.log('Selected Departure:', selectedDeparture);
     console.log('Selected Arrival:', selectedArrival);
     console.log('Selected Type:', selectedType);
-  
+
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data.filter(ad => {
           let isTypeMatch = true;
           let isPortMatch = true;
-  
+
           // Check if type matches the selected option
           if (selectedType) {
             isTypeMatch = ad.type_of_ad.toLowerCase() === selectedType.toLowerCase();
             console.log('Type Match:', isTypeMatch);
           }
-  
+
           // Check if ports match the selected options
           if (selectedDeparture && selectedArrival) {
             isPortMatch =
@@ -199,7 +201,7 @@ export class ViewOtherAdsComponent {
             console.log("dep", selectedDeparture)
             console.log('Port Match:', isPortMatch);
           }
-  
+
           // Return true if both type and ports match, or if only type matches (ports are not selected)
           return isTypeMatch && isPortMatch;
         });
@@ -210,7 +212,7 @@ export class ViewOtherAdsComponent {
       error => console.log(error)
     );
   }
-  
+
   setOptionBackground(option: string, isHovered: boolean): void {
     if (isHovered && this.type !== option) {
       // Set the background color to blue when hovered, if not selected
@@ -248,4 +250,5 @@ export class ViewOtherAdsComponent {
       error => console.log(error)
     );
   } 
+
 }  

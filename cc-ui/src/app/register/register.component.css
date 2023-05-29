@@ -40,8 +40,14 @@
    @apply block border-2 font-light border-gray-300 rounded px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
 }
 .signin-btn{
-    @apply inline-flex mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+    @apply inline-flex mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-indigo-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
   }
 .div-otp-btn{
     @apply rounded-full mx-2inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 caret-CCblue bg-CCblue text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.signin-noact{
+    @apply py-4 px-5 lg:px-6 w-full text-sm text-center bg-white
+}
+.signin-noact-a{
+    @apply font-medium text-blue-600 hover:text-blue-400
 }
