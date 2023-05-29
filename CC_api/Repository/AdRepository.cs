@@ -60,7 +60,12 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
     }
 
-   
+    public async Task<List<Ad>> GetAdByAdID(int ad_id)
+    {
+      var ads = await dbContext.advertisement
+      .Where(c => c.ad_id == ad_id).ToListAsync();
+      return ads;
+    }
 
       public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {

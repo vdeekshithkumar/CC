@@ -34,6 +34,14 @@ namespace CC_api.Controllers
 
     }
 
+    [HttpPut("AcceptNegotiation")]
+    public async Task<IActionResult> AcceptNegotiation(int negotiation_id)
+    {
+      var n = await NegotiationRepository.GetNegotiationById(negotiation_id);
+      await NegotiationBusiness.AcceptNegotiation(n);
+      return Ok();
+    }
+
     [HttpDelete("DeleteNegotiation")]
     public async Task<IActionResult> DeleteNegotiation(int negotiation_id)
     {

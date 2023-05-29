@@ -13,7 +13,7 @@ import { filter, map } from 'rxjs';
 import { NumberSymbol } from '@angular/common';
 
 import { SessionService } from 'src/app/session.service';
-import { PostAdService } from './post-ad.service';
+import { Advertisement, PostAdService } from './post-ad.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 
@@ -36,6 +36,7 @@ export class PostAdComponent implements OnInit{
   title!: any;
   port_name="";
   C_Type="";
+  ads: Advertisement[] = [];
   ExcelData:any;
   fileName?: string
   file?: File
@@ -146,13 +147,32 @@ console.error('Uploaded file is empty');
     this.isButtonDisabled = true;
    this.ContinueDraft=this.data.ContinueDraft; 
    this.Approve=this.data.Approve;
-   this.adId=this.adId;
+   this.adId=this.data.adId;
 
    console.log(this.Approve+"fghjht");
+
+   console.log("the adid for draft continue is"+this.adId);
    
 
-    
-// console.log("proceed value is "+this.adId)
+    if(this.ContinueDraft==1)
+    {
+      this.postAdService.getAdById(this.adId).subscribe(
+      (data: Advertisement[]) => {
+        this.ads = data;
+        console.log("this is view ads"+this.ads);
+        this.quantity=this.ads[0].quantity;
+        this.per_diem=this.ads[0].per_diem;
+        this.pickup_charges=this.ads[0].ad_id;
+        this.port_of_departure=this.ads[0].port_of_departure;
+        this.from_date=this.getDateOnly(this.ads[0].from_date);
+        
+       
+      },
+      (  error: any) => console.log(error)
+      
+    );
+    }
+
     initTE({ Select });
     //get company id from session
     this.sessionService.getCompanyId().subscribe(
@@ -287,7 +307,18 @@ console.error('Uploaded file is empty');
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
-
+  getDateOnly(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    const timestamp = newDate.getTime();
+    const dateOnly=new Date(timestamp);
+    const dateString = dateOnly.toLocaleDateString('en-GB');
+    this.from_date=dateString.toString().slice(0, 10);
+    return this.from_date;
+  }
   
   approve(ad_id: number){
     debugger

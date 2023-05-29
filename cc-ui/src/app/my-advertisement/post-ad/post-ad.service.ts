@@ -4,6 +4,27 @@ import { FormGroup } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
 
 
+export interface Advertisement {
+  ad_id: number;
+  date_created: Date;
+  from_date: Date;
+  expiry_date: Date;
+  type_of_ad: string;
+  container_type_id: number;
+  price: number;
+  status: string;
+  quantity: number;
+  port_id: number;
+  company_id: number;
+  posted_by: number;
+  contents: string;
+  file: string;
+  port_of_departure: string;
+  port_of_arrival: string;
+  free_days: number;
+  per_diem: number;
+  pickup_charges: number;
+}
 export interface Port {
   id: number;
   name: string;
@@ -14,7 +35,7 @@ export interface Port {
 export class PostAdService {
   baseUrl = 'https://localhost:7157'
   private BASE_URL = 'https://localhost:7157/ExcelUploadAd';
-
+  private ad_Url = 'https://localhost:7157/GetAd';
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string) {
@@ -125,7 +146,10 @@ return this.http.put(url, formData);
     return this.http.post(`${this.baseUrl}/ExcelUploadAd`, formData);
 
   }
-
+  getAdById(ad_id: number): Observable<Advertisement[]> {
+    const url = `${this.ad_Url}?ad_id=${ad_id}`;
+    return this.http.get<Advertisement[]>(url);
+  }
 
 
 }

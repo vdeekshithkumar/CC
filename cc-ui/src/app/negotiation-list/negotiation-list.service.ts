@@ -29,6 +29,7 @@ export interface Negotiation{
 })
 export class NegotiationListService {
   private deleteUrl = 'https://localhost:7157/DeleteNegotiation';
+  private acceptUrl = 'https://localhost:7157/AcceptNegotiation';
   baseUrl = 'https://localhost:7157';
   private apiUrl = 'https://localhost:7157/UserPermissions';
   private NegotiationUrl = 'https://localhost:7157/GetAllNegotiations';
@@ -47,6 +48,9 @@ getNegotiationsById(ad_id: number): Observable<any> {
 deleteNegotiation(negotiation_id: number): Observable<any> {
 
   return this.http.delete(`${this.deleteUrl}?negotiation_id=${negotiation_id}`);
+}
+AcceptNegotiation(negotiation_id: number): Observable<any> {
+  return this.http.put(`${this.acceptUrl}?negotiation_id=${negotiation_id}`,null);
 }
 
 }
