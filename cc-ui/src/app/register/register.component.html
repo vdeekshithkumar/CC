@@ -123,7 +123,7 @@
                   class="register-page-data"
                 >
               
-                  <option selected>Select your company</option>
+                  <option value="" disabled selected>Select your company</option>
                   <option
                     *ngFor="let company of company_list"
                     [value]="company.company_id"
@@ -182,7 +182,7 @@
                   <input
                     formControlName="otp"
                     class="register-page-data"
-                    type="text"
+                    type="number"
                     id="otp"
                     placeholder="Password"
                   /></label>
