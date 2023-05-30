@@ -89,18 +89,18 @@ namespace CC_api.Repository
        return userCount;
     }
 
-    //public async Task DeleteUser(int userId)
-    //{
-    //  var upmapping = await dbContext.up_mapping.FirstOrDefaultAsync(x => x.user_id == userId);
-    //  var user = await dbContext.users.FirstOrDefaultAsync(x => x.user_id == userId);
+    public async Task DeleteUser(int userId)
+    {
+      var upmapping = await dbContext.up_mapping.FirstOrDefaultAsync(x => x.user_id == userId);
+      var user = await dbContext.users.FirstOrDefaultAsync(x => x.user_id == userId);
 
-    //  if (upmapping != null)
-    //  {
-    //    user.is_active = 0;
-    //    dbContext.up_mapping.Remove(upmapping);
-    //    await dbContext.SaveChangesAsync();
-    //  }
-    //}
+      if (upmapping != null)
+      {
+        user.is_active = 0;
+        dbContext.up_mapping.Remove(upmapping);
+        await dbContext.SaveChangesAsync();
+      }
+    }
     public async Task EditUserById(User user)
     {
       dbContext.users.Update(user);
@@ -115,14 +115,17 @@ namespace CC_api.Repository
     {
       return await dbContext.users.FirstOrDefaultAsync(x => x.user_id == id);
     }
-    public async Task DeleteUser(int userId)
+    public async Task UpdateUserDetails(int id, User updatedUser)
     {
-      var user = await dbContext.users.FirstOrDefaultAsync(x => x.user_id == userId);
+      var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == id);
 
       if (user != null)
       {
-        user.is_active = 0;
-        dbContext.users.Update(user);
+        user.fname = updatedUser.fname;
+        user.lname = updatedUser.lname;
+        user.phone_no = updatedUser.phone_no;
+        user.address = updatedUser.address;
+
         await dbContext.SaveChangesAsync();
       }
     }
