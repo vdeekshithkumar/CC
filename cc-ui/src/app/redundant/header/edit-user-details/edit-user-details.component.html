@@ -1,10 +1,11 @@
-<<form class="font-poppins grid grid-cols-2 overflow-y-hidden gap-2 p-2" [formGroup]="regForm" (ngSubmit)="onSubmit()">
+<form class="font-poppins grid grid-cols-2 overflow-y-hidden gap-2 p-2" [formGroup]="regForm" (ngSubmit)="onSubmit()">
   <h3 mat-dialog-title class="col-span-2 text-center text-CCblue">Edit Profile</h3>
   <div class="col-span-1">
     <label for="fname" class="font-medium text-sm">First Name<span class="text-red-500">*</span></label>
     <input
       formControlName="firstName"
       class="register-page-data"
+      [(ngModel)]="fname"
       placeholder="Enter your first name"
       name="firstName"
     />
@@ -17,6 +18,7 @@
     <label for="lname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
     <input
       formControlName="lastName"
+      [(ngModel)]="lname"
       class="register-page-data"
       placeholder="Enter your last name"
       name="lastName"
@@ -32,6 +34,7 @@
       <label>Phone Number<span class="text-red-500">*</span></label>
       <input
         formControlName="phone_no"
+        [(ngModel)]="phone_no"
         class="register-page-data"
         placeholder="Enter your phone number"
         name="phone_no"
@@ -44,7 +47,7 @@
   </div>
   <div class="col-span-2">
     <label>Address</label>
-    <textarea formControlName="address" class="register-page-data"></textarea>
+    <textarea formControlName="address" class="register-page-data" [(ngModel)]="address"></textarea>
   </div>
   <button mat-raised-button matDialogClose="" class="w-fit px-4 col-span-1 ml-auto text-red-600">Cancel</button>
   <button mat-raised-button class="w-fit px-4 col-span-1 bg-CCblue text-white" type="submit">Submit</button>
