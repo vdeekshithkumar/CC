@@ -53,12 +53,52 @@ showValidationErrors: boolean = false;
   isEdit:boolean=false;
   Puser_id:any;
   types = [];
+  Pis_verified: any;
+  Plname: any;
+  Pphone: any;
+  Pemail: any;
+  Paddress: any;
+  Ppassword: any;
+  Pis_approved: any;
+  Pis_active: any;
+  Plast_login: any;
+  Pdesignation: any;
   constructor(private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
     this.permissions = []
     ;
   }
   ngOnInit():void{
-
+    const state = history.state;
+    if (state && state.edit) {
+      this.isEdit = true;
+      console.log('Edit mode enabled.');
+  
+      this.Puser_id = state.user_id;
+      console.log("From profile" + this.Puser_id);
+      this.Pfname = state.fname;
+      console.log("From profile" + this.Pfname);
+      this.Plname = state.lname;
+      console.log("From profile" + this.Plname);
+      this.Pphone = state.phone_no;
+      console.log("From profile" + this.Pphone);
+      this.Pemail = state.email;
+      console.log("From profile" + this.Pemail);
+      this.Paddress = state.address;
+      console.log("From profile" + this.Paddress);
+      this.Ppassword = state.password;
+      console.log("From profile" + this.Ppassword);
+      this.Pis_verified = state.is_verified;
+      console.log("From profile" + this.Pis_verified);
+      this.Pis_approved = state.is_approved;
+      console.log("From profile" + this.Pis_approved);
+      this.Pis_active = state.is_active;
+      console.log("From profile" + this.Pis_active);
+      this.Plast_login = state.last_login;
+      console.log("From profile" + this.Plast_login);
+      this.Pdesignation = state.designation;
+      console.log("From profile" + this.Pdesignation);
+     
+    }
     this.addEmployeesService.getAllPermission().subscribe((data: Permissions[]) => {
       this.PList = data;
       console.log("this is permisssions list fetched"+this.PList)
@@ -66,18 +106,9 @@ showValidationErrors: boolean = false;
 
     });
 
-    this.route.queryParams.subscribe(params => {
-      if (params['edit'] === 'true') {
-        this.isEdit = true;
-        console.log('Edit mode enabled and woking bhhhh');
-      //
-      this.Puser_id =1014;
-        this.Pfname = "testingname";
+  
 
-      //
-      }
-
-    });
+  
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -110,18 +141,19 @@ showValidationErrors: boolean = false;
      user_id:167,
      company_id:this.companyId,
      fname:this.Pfname,
-     lname: "K",
-     address: "sdhgd",
-     email: "DeekshithK@ivoyant.com",
-     phone_no:'9875446788',
-     password: 'tfhgff',
-     is_verified:1,
-     is_approved:1,
-     is_active:1,
-     last_login:'2024-07-15',
-     designation: 'user',
+     lname: this.Plname,
+     address: this.Paddress,
+     email:this.Pemail ,
+     phone_no:this.Pphone,
+     password: this.Ppassword,
+     is_verified:this.Pis_verified,
+     is_approved:this.Pis_approved,
+     is_active:this.Pis_active,
+     last_login:this.Plast_login,
+     designation: this.Pdesignation,
    })
   }
+
 
 //session
 this.sessionService.getCurrentUser().subscribe(user => {
