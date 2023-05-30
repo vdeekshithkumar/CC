@@ -51,6 +51,18 @@ export class ForgotPasswordComponent{
       }
     );
   }
+  validateEmail() {
+    if (!this.email) {
+      this.dialog.open(DialogComponent, {
+        data: {
+          title: 'Email Required',
+          message: 'Please enter your email address.',
+          buttonText: 'OK'
+        }
+      });
+      return;
+    }
+  }
   openErrorDialog(message: string): void {
     this.dialog.open(DialogComponent, {
       data: {
