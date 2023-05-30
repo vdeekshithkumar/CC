@@ -29,6 +29,13 @@
                                             class="text-red-500">*</span></label>
                                     <input formControlName="fname" id="card-nr" class="div-input" type="text"
                                         placeholder="" />
+                                        <div
+                                        *ngIf="showValidationErrors && addEmployeeForm.get('fname')?.invalid"
+                                        class="text-red-500 text-sm mt-1"
+                                      >
+                                      <div *ngIf="addEmployeeForm.get('fname')?.errors?.['required']">First Name is required</div>
+                                      <div *ngIf="addEmployeeForm.get('fname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>    
+                                </div>
                                 </div>
 
                                 <div class="flex space-x-4">
@@ -37,12 +44,25 @@
                                                 class="text-red-500">*</span></label>
                                         <input formControlName="lname" id="card-expiry" class="div-input" type="text"
                                             placeholder="" />
+                                            <div
+                                            *ngIf="showValidationErrors && addEmployeeForm.get('lname')?.invalid"
+                                            class="text-red-500 text-sm mt-1"
+                                          >
+                                          <div *ngIf="addEmployeeForm.get('lname')?.errors?.['required']">Last Name is required</div>
+                                          <div *ngIf="addEmployeeForm.get('lname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>    
+                                    </div>
                                     </div>
                                     <div class="flex-1">
                                         <label class="div-card-label" for="card-cvc">Phone Number <span
                                                 class="text-red-500">*</span></label>
                                         <input id="card-cvc" formControlName="phone_no" class="div-input" type="text"
                                             placeholder="" />
+                                            <div
+                                            *ngIf="showValidationErrors && addEmployeeForm.get('phone_no')?.invalid"
+                                            class="text-red-500 text-sm mt-1"
+                                          >
+                                          <div *ngIf="addEmployeeForm.get('phone_no')?.errors?.['required']">Phone Number is required</div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -51,76 +71,55 @@
                                             class="text-red-500">*</span></label>
                                     <input id="card-name" formControlName="email" class="div-input" type="email"
                                         placeholder="" />
+                                        <div
+                                        *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid"
+                                        class="text-red-500 text-sm mt-1"
+                                      >
+                                      <div *ngIf="addEmployeeForm.get('email')?.errors?.['required']">Email is required</div>
+                                          <div *ngIf="addEmployeeForm.get('email')?.errors?.['email']">Invalid email format</div>
+                                        
+                                      </div>
                                 </div>
 
                                 <div>
                                     <label class="div-card-label" for="card-email">Address <span
                                             class="text-red-500">*</span></label>
                                     <input formControlName="address" class="div-input" type="text" placeholder="" />
+                                    <div
+                                    *ngIf="showValidationErrors && addEmployeeForm.get('address')?.invalid"
+                                    class="text-red-500 text-sm mt-1"
+                                  >
+                                  <div *ngIf="showValidationErrors && addEmployeeForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
+                                    <div *ngIf="addEmployeeForm.get('address')?.errors?.['required']">Country is required</div>
+                                    <div *ngIf="addEmployeeForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+                                  </div>
+                                    </div>
                                 </div>
-
                                 <div>
                                     <label class="div-card-label" for="card-email">Password<span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="password" class="div-input" type="text" placeholder="" />
+                                    <input formControlName="password" class="div-input"
+                                    type="{{ showPassword ? 'text' : 'password' }}"
+                                    id="password"
+                                    placeholder="Password"
+                                    required
+                                    minlength="8"
+                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" />
+                                    <a class="absolute bottom-16 right-20" (click)="togglePasswordVisibility()">
+                                        <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                                      </a>
+                                                      </div>
+                                                      <div *ngIf="showValidationErrors && addEmployeeForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
+                                                        <div *ngIf="addEmployeeForm.get('password')?.errors?.['required']">Password is required</div>
+                                                        <div *ngIf="addEmployeeForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
+                                                        <div *ngIf="addEmployeeForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
+                                           
+                                                    
                                 </div>
                             </div>
                         </div>
-                        <hr class="div-hr">
-                        <!-- <form (ngSubmit)="onAdd()">
-                            <h6 class="section-form-h6">
-                                <div class="text-center mb-6">
-                                    <h1 class="form-h1">User Permissions</h1>
-                                </div>
-                            </h6>
-                            <table class="div-table-inv">
-                                <thead class="div-thead">
-                                    <tr>
-                                        <div class="relative">
-                                            <div class="min-h-[1.5rem] pl-[1.5rem] ">
-                                                <th scope="col" class="px-6 py-3 ">
-                                                    Type
-                                                </th>
-                                            </div>
-                                        </div>
-                                        <div class="relative">
-                                            <div class="min-h-[1.5rem] pl-[1.5rem] absolute -bottom-5 right-16">
-                                                <th scope="col" class="px-6 py-3 transform -translate-y-1/2">
-                                                    action
-                                                </th>
-                                            </div>
-                                        </div>
-                                        
-                                    </tr>
-                                    
-                                </thead>
-                                <tbody>
-                                    <ng-container *ngFor="let p of PList; let i = index">
-                                      <ng-container *ngIf="i % 2 === 0">
-                                        <tr class="row">
-                                            <div class="mb-[0.125rem] inline-block min-h-[1.5rem] pl-[1.5rem]"><br>
-                                                <div class="uppercase font-medium">
-                                          <td class="col-md-6">{{p.type}}</td>
-                                                </div>
-                                          <div class="ml-28 -mt-6 mb-2 text-2">
-                                          <td class="col-md-6">
-                                            <div class="form-check form-check-inline ml-20">
-                                              <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-read'">Read&ensp;</label>
-                                              <input class="text-sm font-medium text-gray-900 dark:text-gray-300" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
-                                            </div>
-                                            <div class="form-check form-check-inline ml-20"><br>
-                                              <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-write'">Write&ensp;</label>
-                                              <input class="text-sm font-medium text-gray-900 dark:text-gray-300" type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
-                                            </div>
-                                          </td>
-                                          </div>
-                                            </div>
-                                        </tr>
-                                      </ng-container>
-                                    </ng-container>
-                                  </tbody>
-                            </table>
-                        </form> -->
+                       
+                    
                         
                     </div>
                 </div>
