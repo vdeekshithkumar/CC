@@ -47,9 +47,9 @@
                     required
                     minlength="8"
                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$">
-                    <a class="absolute top-4 right-2" (click)="togglePasswordVisibility()">
+                    <!-- <a class="absolute top-4 right-2" (click)="togglePasswordVisibility()">
                       <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
-                    </a>
+                    </a> -->
                   </div>
                   <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
                     <div *ngIf="loginForm.get('password')?.errors?.['required']">Password required</div>
