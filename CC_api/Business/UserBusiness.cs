@@ -16,6 +16,11 @@ namespace CC_api.Business
       this._emailService = new EmailService();
 
     }
+    public async Task UpdateUserDetails(int id, User user)
+    {
+      await this.userRepository.UpdateUserDetails(id, user);
+    }
+
     public async Task<User> GetUserAsync(int userID)
     {
       var userData = await userRepository.GetUserAsync(userID);
