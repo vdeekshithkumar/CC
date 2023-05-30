@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit
   firstName!: string;
   lastName!: string;
   address!:string;
+  agreeToTerms: boolean = false;  
   phone_no!:number;
   public user_id? : number;
   public otp?:number;
@@ -239,6 +240,9 @@ openErrorDialog(message: string): void {
       message: message
     }
   });
+}
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
 }
 
 // register(): void {

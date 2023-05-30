@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { enableDebugTools } from '@angular/platform-browser';
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { DialogComponent } from '../dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface Permission {
   write: any;
@@ -43,13 +45,15 @@ permission_id: number | undefined;
 type: string | undefined;
 actions: string | undefined;
 companyId:any;
+showPassword=false;
+showValidationErrors: boolean = false;
   currentUser: any;
   cdr: any;
   changeDetectorRef: any;
   isEdit:boolean=false;
   Puser_id:any;
   types = [];
-  constructor(private formBuilder:FormBuilder,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
+  constructor(private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
     this.permissions = []
     ;
   }
@@ -213,6 +217,72 @@ private async addP() {
   }
 }
 async onAdd() {
+  const formValue = this.addEmployeeForm.value;
+  if (
+    !formValue.fname ||
+    !formValue.lname ||
+    !formValue.email ||
+    !formValue.address ||
+    !formValue.phone_no ||
+    !formValue.password
+  ) {
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.fname) {
+      errorMessage += '- First Name\n';
+    }
+    if (!formValue.lname) {
+      errorMessage += '- Last Name\n';
+    }
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.phone_no) {
+      errorMessage += '- Phone Number\n';
+    }
+  
+    if (!formValue.password) {
+      errorMessage += '- Password\n';
+    }
+    this.openErrorDialog(errorMessage);
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['email'].valid) {
+    this.openErrorDialog('Invalid email format');
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['address'].valid) {
+    this.openErrorDialog('Invalid Country Name');
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['fname'].valid) {
+    this.openErrorDialog('Invalid First Name Format');
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['lname'].valid) {
+    this.openErrorDialog('Invalid Last Name Format');
+    return;
+  }
+  const passwordControl = this.addEmployeeForm.get('password');
+  if (passwordControl && passwordControl.invalid) {
+    this.showValidationErrors = true;
+    let passwordErrorMessage = 'Invalid password:\n';
+    if (passwordControl.errors?.['required']) {
+      passwordErrorMessage += '- Password is required\n';
+    }
+    if (passwordControl.errors?.['minlength']) {
+      passwordErrorMessage += '- Password must be at least 8 characters long\n';
+    }
+    if (passwordControl.errors?.['pattern']) {
+      passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
+    }
+    this.openErrorDialog(passwordErrorMessage);
+    return;
+  }
   if (this.isEdit) {
     try {
       const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
@@ -241,5 +311,15 @@ async onAdd() {
         console.log('Could not add:', error);
       }
     }
+  }
+  openErrorDialog(message: string): void {
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: message
+      }
+    });
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }
