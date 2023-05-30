@@ -31,7 +31,7 @@
                  <div>
                     <label class="div-form-label" for="username">Name of Port<span class="text-red-500">*</span></label>
                     <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select" required>
-                      <option value="" disabled selected class="uploadinv-select">Select your port></option>
+                      <option value="" disabled selected class="uploadinv-select">Select your port</option>
                       <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
                     </select>
                     <!-- <div *ngIf="UploadInventoryForm.get('port_name')?.errors && (UploadInventoryForm.get('port_name')?.dirty || UploadInventoryForm.get('port_name')?.touched)" class="text-red-500 text-sm mt-1">
