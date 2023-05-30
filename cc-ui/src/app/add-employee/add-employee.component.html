@@ -69,7 +69,7 @@
                                 <div>
                                     <label class="div-card-label" for="card-name">Email<span
                                             class="text-red-500">*</span></label>
-                                    <input id="card-name" formControlName="email" class="div-input" type="email"
+                                    <input id="card-name" formControlName="email"  autocomplete="off" randomattribute="false" class="div-input" type="email"
                                         placeholder="" />
                                         <div
                                         *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid"
@@ -98,7 +98,7 @@
                                 <div>
                                     <label class="div-card-label" for="card-email">Password<span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="password" class="div-input"
+                                    <input formControlName="password"  autocomplete="off" randomattribute="false" class="div-input"
                                     type="{{ showPassword ? 'text' : 'password' }}"
                                     id="password"
                                     placeholder="Password"

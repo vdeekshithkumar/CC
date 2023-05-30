@@ -89,6 +89,12 @@ namespace CC_api.Business
     {
       await userRepository.DeleteUser(id);
     }
+    public async Task<List<User>> GetAllUser(int companyId)
+    {
+      return await userRepository.GetAllUser(companyId);
+    }
+
+
     public async Task<List<User>> GetAllUserAsync(int companyId)
     {
       return await userRepository.GetAllUserAsync(companyId);

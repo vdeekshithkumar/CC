@@ -28,10 +28,12 @@ export interface Negotiation{
   providedIn: 'root'
 })
 export class NegotiationListService {
+  private  coUrl= 'https://localhost:7157/GetOtherCompany';
   private deleteUrl = 'https://localhost:7157/DeleteNegotiation';
   private acceptUrl = 'https://localhost:7157/AcceptNegotiation';
   baseUrl = 'https://localhost:7157';
   private apiUrl = 'https://localhost:7157/UserPermissions';
+  private userUrl = 'https://localhost:7157/GetAllOtherUser';
   private NegotiationUrl = 'https://localhost:7157/GetAllNegotiations';
   constructor(private http: HttpClient) { }
 
@@ -40,11 +42,16 @@ export class NegotiationListService {
   }
  
 
- 
+  getallUser(companyid:number): Observable<any> {
+    return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
+  }
+  
 getNegotiationsById(ad_id: number): Observable<any> {
   return this.http.get(`${this.NegotiationUrl}?ad_id=${ad_id}`);
 }
-
+getotherCompany(companyId: string): Observable<any> {
+  return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+}
 deleteNegotiation(negotiation_id: number): Observable<any> {
 
   return this.http.delete(`${this.deleteUrl}?negotiation_id=${negotiation_id}`);
