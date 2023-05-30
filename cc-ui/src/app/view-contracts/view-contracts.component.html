@@ -3,7 +3,7 @@
 <app-header></app-header>
 <div class="flex flex-row font-poppins">
     <app-sidebar></app-sidebar>
-    <div class="sm:px-6 w-fit mx-auto">
+    <div class="sm:px-6 w-1000px  mx-auto">
         <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
         <div class="px-4 md:px-10 py-4 md:py-7">
             <div class="flex items-center justify-between">
@@ -49,7 +49,8 @@
                 <table class="w-full whitespace-nowrap ">
                     <tbody>
                         <ng-container *ngFor="let title of titles.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
-                        <tr tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
+                        <tr  
+                         tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                             <!-- column 1 -->
                             <td>
                                 <div class="ml-5">
@@ -75,13 +76,13 @@
                               </td>
                             <td class="pl-5 curosr-auto mx-2">
                                 <button (click)="deleteContract(title.key)"
-                                    class="bg-white text-xs  text-red-600 align-middle p-1 px-3 border  rounded-xl  hover:bg-red-600 hover:text-white ">Delete</button>
+                                    class="bg-white text-xs  text-red-600 align-middle p-1 px-3 border  rounded-xl  hover:bg-red-600 hover:text-white mx-1">Delete</button>
                             </td>
                             
 
                         </tr>
                         <tr class="h-3"></tr>
-                        </ng-container>
+                    </ng-container>
                     </tbody>
                 </table>
                 <div class="bg-white p-4 flex items-center flex-wrap  justify-center">
@@ -98,7 +99,7 @@
                             <li *ngIf=""><button (click)="prevPage()" *ngIf = "currentPage>1"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
                             </li>
-                            <li><button
+                            <li><button *ngIf="titles.length>=5"
                                     class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
                             </li>
                             <li><button *ngIf="!isEndT()"  (click)="nextPage()"
@@ -123,8 +124,8 @@
                 <div class="flex items-center">
                     <a class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
                         href=" javascript:void(0)">
-                        <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                            All
+                        <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full" (click)="revert()">
+                            < Title 
                         </div>
                     </a>
                 </div>
@@ -136,8 +137,8 @@
             <div class="mt-7 overflow-x-auto">
                 <table class="w-full whitespace-nowrap">
                     <tbody>
-                        <ng-container *ngFor="let contract of contracts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
-                        <tr 
+                        
+                        <tr *ngFor="let contract of contracts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index"
                             tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                             <!-- column 1 -->
                             <td>
@@ -181,8 +182,6 @@
                                     class="bg-white text-xs  text-red-600 align-middle p-1 px-3 border  rounded-xl  hover:bg-red-600 hover:text-white ">Delete</button>
                             </td>
                         </tr>
-                        <tr class="h-3"></tr>
-                    </ng-container>
                     </tbody>
                 </table>
                 <div class="bg-white p-4 flex items-center flex-wrap justify-center">
@@ -199,7 +198,7 @@
                             <li><button (click)="prevPage()" *ngIf = "currentPage>1"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
                             </li>
-                            <li><button
+                            <li><button *ngIf="contracts.length<=5"
                                     class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
                             </li>
                             <li><button *ngIf = "!isEnd()" (click)="nextPage()"   
