@@ -34,10 +34,19 @@ export interface Negotiation{
 export class NegotiationListComponent{
   public isButtonDisabled: boolean = false;
   companyId: any;
-  itemsPerPage: number = 5;
+  itemsPerPage: number = 3;
 currentPage: number = 1;
 userId: any;
 adId:any;
+company_list_by_companyId: any[] = [];
+alluser_list: any[] = [];
+userNames: { [userId: number]: string } = {};
+userNo: { [userId: number]: string } = {};
+companyNames: { [companyId: number]: string } = {};
+companyLogos: { [companyId: number]: string } = {};
+companyDomain: { [companyId: number]: string } = {};
+companyRating: { [companyId: number]: string } = {};
+companyAddress: { [companyId: number]: string } = {};
 testpassing:any;
   companyName: any;
   PList: any[] = [];
@@ -67,7 +76,45 @@ console.log("data passed adid is"+this.data.testpassing);
     }
   );
 
+  this.negotiationservice.getotherCompany(this.companyId).subscribe(
+    (data: any) => {
+      this.company_list_by_companyId = data;
+      console.log("Other company by company ID is fetched:", this.company_list_by_companyId);
 
+      // Populate the company names object
+      this.company_list_by_companyId.forEach((company: any) => {
+        this.companyNames[company.company_id] = company.name;
+        this.companyLogos[company.company_id] = company.company_logo;
+        this.companyDomain[company.company_id] = company.domain_address;
+        this.companyRating[company.company_id] = company.rating;
+        this.companyAddress[company.company_id] = company.address;
+
+      });
+    },
+    (error: any) => {
+      console.log("Error loading company details:", error);
+    }
+  );
+ 
+  
+  this.negotiationservice.getallUser(this.companyId).subscribe(
+    (data: any) => {
+      this.alluser_list = data;
+      console.log("Other users by company ID is fetched:", this.alluser_list);
+
+      // Populate the user names object
+      this.alluser_list.forEach((user: any) => {
+        this.userNames[user.user_id] = user.fname;
+        this.userNames[user.user_id] = user.lname;
+        this.userNo[user.user_id] = user.phone_no;
+       
+
+      });
+    },
+    (error: any) => {
+      console.log("Error loading company details:", error);
+    }
+  );
   this.sessionService.getUserId().subscribe(
     (userId: number) => {
       this.userId = userId;
@@ -103,7 +150,7 @@ onCancel() {
 
 
 get totalPages(): number {
-  return Math.ceil(this.negotiations.length / 5);
+  return Math.ceil(this.negotiations.length / 3);
 }
 prevPage() {
 

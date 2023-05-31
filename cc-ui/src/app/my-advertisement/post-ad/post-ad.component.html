@@ -128,6 +128,9 @@
         </div>
         
     </div>
+
+
+    
         <div class="min-h-[200px]   bg-blue border-t border-b border-gray-200 px-5 text-gray-800 shadow-lg">
         
                
@@ -139,7 +142,7 @@
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
                                     <label class="text-gray-600 rounded-lg font-semibold text-sm  ml-1">Port of Departure</label>
                                     <div class="bg-white font-medium rounded-lg">
-                                        <select #port [(ngModel)]="port_of_departure" class="post-page-data">
+                                        <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
                                             <option selected>Select your port </option>
                                             <option  *ngFor ="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
                                           </select>
@@ -149,14 +152,14 @@
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
                                     <label class="text-gray-600 font-semibold rounded-lg text-sm  ml-1">Port of Arrival</label>
                                     <div class="bg-white font-medium rounded-lg">
-                                        <select #port [(ngModel)]="port_of_arrival" class="post-page-data" placeholder="Select here" >
+                                        <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
                                             <option selected>Select your port </option>
                                             <option  *ngFor ="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
                                           </select>
                                       </div>
                                 </div>
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
-                                    <label class="text-gray-600 font-semibold text-sm  ml-1">From Date</label>
+                                    <label class="text-gray-600 font-semibold text-sm  ml-1">From Date<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                     <div>
                                         <input class="post-page-data"  placeholder="Enter your duration here..."
                                         [(ngModel)]="from_date" type="date"/>
@@ -164,7 +167,7 @@
                                   
                                 </div>
                                 <div class="flex-grow px-2 ml-0  lg:max-w-xs">
-                                  <label class="text-gray-600 font-semibold text-sm ml-1">For a period</label>
+                                  <label class="text-gray-600 font-semibold text-sm ml-1">For a period<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                     <div>
                                         <input class="post-page-data" type="number" [(ngModel)]="expiry_date" step="1" min="1" max="100" placeholder="In weeks"/>
                                     </div>
@@ -179,12 +182,12 @@
                             <div class="min-w-[600px] min-h-[100px] flex items-center">
                                
                                 <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-semibold text-sm ml-1">Select your requirement</label>
+                                    <label class="text-gray-600 font-semibold text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                    
                                         <div class="flex text-black-600 left-0 mt-1">
-                                          <mat-button-toggle-group [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style">
-                                            <mat-button-toggle value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">Sell</mat-button-toggle>
-                                            <mat-button-toggle value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">Buy</mat-button-toggle>
+                                          <mat-button-toggle-group [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 220px;">
+                                            <mat-button-toggle value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
+                                            <mat-button-toggle value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
                                             <mat-button-toggle value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'">Swap</mat-button-toggle>
                                             <mat-button-toggle value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
                                           </mat-button-toggle-group>
@@ -205,17 +208,17 @@
                                         <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Type of requirement</label>
                                 </div>
                                 <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-semibold text-sm mb-2 ml-1"  >Quantity</label>
+                                    <label class="text-gray-600 font-semibold text-sm mb-2"  >Quantity</label>
                                     <div>
-                                        <input class="post-page-data" [(ngModel)]="quantity" placeholder="XXXXXX" type="number"/>
+                                        <input class="post-page-data ml-1" [(ngModel)]="quantity" placeholder="XXXXXX" type="number" style="width: 220px;"/>
                                     </div>
                                     <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Number of TEU's</label>
                                 </div>
     
                                 <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Container Type</label>
+                                    <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Container Type<span class="text-red-500"> *</span></label>
                                     <div>
-                                        <select #port [(ngModel)]="container_type_id" class="post-page-data" placeholder="Select here" >
+                                        <select #port [(ngModel)]="container_type_id" class="post-page-data" placeholder="Select here" style="width: 220px; height: 34px;">
                                             <option selected>Select your port </option>
                                             <option  *ngFor ="let CType of CType_list" [value]="CType.container_type_id">{{CType.type}}</option>
                                           </select>
@@ -226,9 +229,9 @@
     
     
                                 <div class="flex-grow px-2 mb-6 lg:max-w-xs">
-                                    <label class="text-gray-600 rounded-lg font-semibold text-sm mb-2 ml-1">Ad for Port</label>
+                                    <label class="text-gray-600 rounded-lg font-semibold text-sm mb-2 ml-1">Ad for Port<span class="text-red-500"> *</span></label>
                                     <div class="bg-white font-medium rounded-lg">
-                                        <select #port [(ngModel)]="port_id" class="post-page-data">
+                                        <select #port [(ngModel)]="port_id" class="post-page-data" style="width: 154px; height: 34px;">
                                             <option selected>Select your port </option>
                                             <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
                                           </select>
@@ -247,9 +250,9 @@
                             <div class="min-w-[600px] min-h-[100px] flex items-center">
 
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs">
-                                    <label class="text-gray-600 font-semibold text-sm  mb-2 ml-1">Price</label>
+                                    <label class="text-gray-600 font-semibold text-sm  mb-2 ml-1">Price<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                     <div>
-                                        <input [(ngModel)]="price" class="post-page-data" placeholder="XXXXXX" type="number"/>
+                                        <input [(ngModel)]="price" class="post-page-data" placeholder="XXXXXX" style="width: 220px; height: 34px;" type="number"/>
                                         
                                     </div>
                                      <label class="text-gray-500 font-semi text-sm ml-1">Price per TEU IN $</label>
@@ -259,7 +262,7 @@
                                     <label class="text-gray-600 font-semibold text-sm  mb-2 ml-1">Free Days</label>
                                     
                                     <div>
-                                        <input [(ngModel)]="free_days" class="post-page-data" placeholder="XXXXXX" type="number"/>
+                                        <input [(ngModel)]="free_days" class="post-page-data" placeholder="XXXXXX" style="width: 224px; height: 34px;" type="number"/>
                                         
                                     </div>
                                     <label class="text-gray-500 font-semi text-sm  ml-1">Days(per container)</label>
@@ -267,14 +270,14 @@
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs">
                                     <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Per Diem</label>
                                     <div>
-                                        <input [(ngModel)]="per_diem" class="post-page-data" placeholder="per day after free days" type="text"/>
+                                        <input [(ngModel)]="per_diem" class="post-page-data" placeholder="per day after free days" style="width: 220px; height: 34px;" type="text"/>
                                     </div>
                                     <label class="text-gray-500 font-semi text-sm ml-1">USD $</label>
                                 </div>
                                 <div class="flex-grow px-2 lg:max-w-xs">
                                     <label class="text-gray-600 font-semibold text-sm mb-2 ml-1">Pick up charges</label>
                                     <div>
-                                        <input [(ngModel)]="pickup_charges" class="post-page-data" placeholder="XXXXXX" type="text"/>
+                                        <input [(ngModel)]="pickup_charges" class="post-page-data" placeholder="XXXXXX"  style="width: 154px; height: 34px;" type="text"/>
                                         
                                     </div>
                                      <label class="text-gray-500 font-semi text-sm  ml-1">USD $(per container)</label>
@@ -285,24 +288,24 @@
                         </div>
 
                          
-                        <div class="flex justify-between items-center">
-                          <div class="w-1/3">
+                        <div class="flex flex-row justify-between items-center">
+                          <div class="flex flex-1">
                             
                                 
                                      
                                       <div class="flex-grow px-2 lg:max-w-xs mt-2">
                                           <label class="w-2/2 text-gray-600 font-semibold text-sm mb-2 ml-1">Comments</label>
                                           <div>
-                                              <textarea [(ngModel)]="contents" class="w-full px-3 py-2 mb-4 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Write your comments here"style="height: 80px; width: 100%;" ></textarea>
+                                              <textarea [(ngModel)]="contents" class="w-full px-3 py-2 mb-4 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Write your comments here"style="height: 80px; width: 120%;" ></textarea>
                                              
                                           </div>
                                       </div>
                           </div>
     
-                          <div class="flex w-2/3 justify-between items-center">
+                          <div class="flex flex-1 justify-between items-center">
                             <div class="w-1/2 mr-2  ml-10 h-20 w-60 mb-10">
                               
-                                <label class=" w-2/2 text-gray-600 font-semibold text-sm ml-14 ">Upload pdf related to Ad</label>
+                                <label class=" w-2/2 text-gray-600 font-semibold text-sm ml-12 ">Upload pdf related to Ad<span class="text-red-500"> *</span></label>
                                 <div class=" bg-gray-400 flex justify-center ml-10 mr-5 px-6 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                    
                                     <div class="space-y-1 text-center h-14 ">
@@ -331,13 +334,13 @@
                           
                             
                            
-                              <div class="w-1/2 ml-2  mx-auto h-20 w-60 mb-10">
+                              <div class="flex flex-1 ml-2  mx-auto h-20 w-60 mb-10">
                               
                                     
                                     
                                       <div class="flex-grow lg:max-w-xs ">
-                                          <label class="w-2/2 text-gray-600 font-semibold text-sm ml-4">Upload multiple requirement</label>
-                                          <div class=" bg-gray-400 flex justify-center ml-5 mr-12 px-6 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                          <label class="w-2/2 text-gray-600 font-semibold text-sm ml-6">Upload multiple requirement</label>
+                                          <div class=" bg-gray-400 flex justify-center ml-5 mr-4 px-6 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             
                                               <div class="space-y-1 text-center h-14">
                                                 <svg class="mx-auto h-8 w-8 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
@@ -367,29 +370,26 @@
                          </div> 
                           </div>
                         </div>
-                        <div class="min-h-[50px] mx-auto text-gray-800 font-light border-b border-gray-500 mr-5">
-                            <div class="flex-row items-center">
-                                <div class="flex px-2 lg:max-w-xs space-x-2">
-                                  <div>
-                                      <button *ngIf="ContinueDraft === 0" class="flex-1 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 text-black-600 mr-8 font-bold  px-4 rounded disabled:opacity-50 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500" type="button" (click)="Draft()">Save as Draft</button>
+
+
+                        <div class="min-h-[30px] mx-auto text-gray-800 font-light  border-gray-500 mb-10 flex flex-row">
+                            
+                                  <div *ngIf="ContinueDraft=== 0"class="flex flex-1">
+                                      <button *ngIf="ContinueDraft === 0" class="flex-1 mt-4 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 text-black-600 font-bold  rounded disabled:opacity-50 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 mr-4 ml-2" type="button" style="height: 40px;" (click)="Draft()">Save as Draft</button>
                                   </div>
-                                  <div>
-                                      <button (click)="PostAd()" *ngIf="ContinueDraft=== 0" class="flex-1 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black bg-blue-500 hover:bg-black-700 text-white mr-8 font-bold px-4 rounded disabled:opacity-50 hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500">Send for approval</button>
+                                  <div *ngIf="ContinueDraft=== 0" class="flex flex-1">
+                                      <button (click)="PostAd()" *ngIf="ContinueDraft=== 0" class="flex-1 mt-4  justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black bg-blue-500 hover:bg-black-700 text-white  font-bold px-4 rounded disabled:opacity-50 hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 ml-4 mr-2" style="height: 40px;">Send for approval</button>
                                   </div>
-                                  <div>
-                                      <button (click)="continueDraft(adId)" *ngIf="ContinueDraft=== 1" class="flex-1 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 text-black-600 mr-8 font-bold  px-4 rounded disabled:opacity-50 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500">Save as Draft</button>
+                                  <div *ngIf="ContinueDraft=== 1" class="flex flex-1">
+                                      <button (click)="continueDraft(adId)" *ngIf="ContinueDraft=== 1" class="flex-1 mt-4  justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 text-black-600  font-bold  px-4 rounded disabled:opacity-50 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 mr-4 ml-2" style="height: 40px;">Save as Draft</button>
                                   </div>
-                                  <div>
-                                      <button (click)="DraftPosting(adId)" *ngIf="ContinueDraft=== 1" class="inline-flex w-1/2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black bg-blue-500 hover:bg-black-700 text-white mr-8 font-bold px-4 rounded disabled:opacity-50 hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500">Post for approval</button>
+                                  <div *ngIf="ContinueDraft=== 1" class="flex flex-1">
+                                      <button (click)="DraftPosting(adId)" *ngIf="ContinueDraft=== 1" class="flex-1 mt-4 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black bg-blue-500 hover:bg-black-700 text-white font-bold px-4 rounded disabled:opacity-50 hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 ml-4 mr-2" style="height: 40px;">Send for approval</button>
                                   </div>
                                   
-                                </div>
-                            </div>
+                                
                       </div>  
-                      
-                        <div mat-dialog-actions class="flex justify-end mr-4">
-                          <button mat-raised-button mat-dialog-close >Close</button>
-                        </div>
+                     
         </div>
     
     

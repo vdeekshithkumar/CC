@@ -120,7 +120,7 @@ const binaryString = e.target.result;
         const newRow: any = {};
         Object.keys(row).forEach((key: string) => {
           const newKey = key.toLowerCase().replace(/ /g, '_');
-          const value = row[key].toString().toLowerCase().replace(/ /g, '_');
+          const value = row[key].toString().toLowerCase();
           newRow[newKey] = value;
         });
         this.ExcelData[this.ExcelData.indexOf(row)] = newRow;

@@ -33,6 +33,13 @@ namespace CC_api.Controllers
       return Negotiations;
 
     }
+    [HttpGet("GetMyNegotiations")]
+    public async Task<List<Negotiation>> GetMyNegotiations(int company_id)
+    {
+      var Negotiations = await this.NegotiationRepository.GetNegotiationByCId(company_id);
+      return Negotiations;
+
+    }
 
     [HttpPut("AcceptNegotiation")]
     public async Task<IActionResult> AcceptNegotiation(int negotiation_id)

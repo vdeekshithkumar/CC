@@ -45,7 +45,7 @@
           </nav>
 <div class="w-full h-full flex flex-col mt-2">
   <table class="table-auto ml-16 mr-2">
-    <thead class="bg-gray-200 dark:bg-gray-800">
+    <thead class="bg-gray-200 dark:bg-gray-800 ">
       <tr class="bg-gray-200 dark:bg-gray-800 justify-center">
         <th class="flex-1 px-6 py-4">Expiry Date</th>
         <th class="flex-1 px-6 py-4">Type of Ad</th>
@@ -57,24 +57,25 @@
         <th class="flex-1 px-6 py-4">Pickup charges</th>
         <th class="flex-1 px-6 py-4">Port of Departure</th>
         <th class="flex-1 px-6 py-4">Port of Arrival</th>
-        <td class="px-6 py-4 separator"></td>
-        <th class="flex-1 px-6 py-4" style="text-align: left;">   {{ operation === 'active' ? 'Negotiation' : 'Actions' }}</th>
-      </tr></thead><tbody class="w-full h-full ml-16 mt-4">
+       
+        <th class="flex-1 px-6 py-4"  colspan="2" style="text-align: left;">{{ operation === 'Active' ? 'Negotiations' : 'Actions' }}</th>
+      </tr></thead>
+      <tbody class="w-full h-full ml-16 mt-4">
         <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class=" w-full" >
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ getDateOnly(ad.expiry_date) }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.type_of_ad }}</td>
+<td scope="row" class="flex-1 px-6 text-center">{{ getDateOnly(ad.expiry_date) }}</td>
+<td scope="row" class="flex-1 px-6  text-center">{{ ad.type_of_ad }}</td>
   <td class="px-6 py-4 whitespace-no-wrap flex-1">
     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ad.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
         {{ ad.status }}
     </span>
   </td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.price }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.quantity }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.free_days }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.per_diem }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.pickup_charges }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.port_of_departure }}</td>
-<td scope="row" class="flex-1 px-6 py-4 text-center">{{ ad.port_of_arrival }}</td>
+<td scope="row" class="flex-1 px-6  text-center">{{ ad.price }}</td>
+<td scope="row" class="flex-1 px-6  text-center">{{ ad.quantity }}</td>
+<td scope="row" class="flex-1 px-6 text-center">{{ ad.free_days }}</td>
+<td scope="row" class="flex-1 px-6 text-center">{{ ad.per_diem }}</td>
+<td scope="row" class="flex-1 px-6  text-center">{{ ad.pickup_charges }}</td>
+<td scope="row" class="flex-1 px-6  text-center">{{ ad.port_of_departure }}</td>
+<td scope="row" class="flex-1 px-6  text-center">{{ ad.port_of_arrival }}</td>
 <td>
   <button  [disabled]="isButtonDisabled" (click)="deleteAd(ad.ad_id)" class="w-6 mr-2 transform">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
@@ -82,15 +83,15 @@
   </svg>
   </button>
 </td>
-<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Draft'" scope="row" class="flex-1 text-center px-6 py-4 mr-2">Edit</button></td>
+<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Draft'" scope="row" class="flex-1 text-center px-6 mr-2" style="font-size: 12px;">Edit</button></td>
 <div style="display: flex; flex-direction: column;">
 <!-- <td>
   <button [disabled]="isButtonDisabled"  mat-raised-button color="primary" (click)="DisplayApproveForm(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="div-tbody-th px-6 py-4">View & Approve</button>
 </td> -->
-<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
+<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
 <td>
-  <button [disabled]="getNegotiationCount(ad.ad_id)<1" (click)="OpenNegotiations(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Active'" scope="row" class="flex-1 text-center px-4 py-4 mr-2 mt-2" style="font-size: 11px;">
-    Open
+  <button [disabled]="getNegotiationCount(ad.ad_id)<1" (click)="OpenNegotiations(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Active'" scope="row" class="flex-1 text-center px-4 mr-2 mt-2" style="font-size: 12px;">
+    &nbsp;&nbsp;Open&nbsp;&nbsp;
     <!-- {{ getNegotiationCount(ad.ad_id) }} --></button></td></div></tr></tbody></table>
 <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
   <nav aria-label="Page navigation">

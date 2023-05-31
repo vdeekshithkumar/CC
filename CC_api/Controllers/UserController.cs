@@ -122,6 +122,11 @@ namespace CC_api.Controllers
       return await userBusiness.EditUserById(id, user);
 
     }
+    [HttpGet("GetAllOtherUser/{companyid}")]
+    public async Task<List<User>> GetAllOtherUser(int companyid)
+    {
+      return await userBusiness.GetAllUser(companyid);
+    }
     [HttpGet("GetAllUser/{companyid}")]
     public async Task<List<User>> GetAllUser(int companyid)
     {

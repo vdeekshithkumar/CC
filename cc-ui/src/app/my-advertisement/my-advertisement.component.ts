@@ -187,7 +187,7 @@ pickup_charges:any;
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
         this.PList = permissions;
-        this.isButtonDisabled = !this.PList.includes(2);
+        this.isButtonDisabled = false;
         console.log("permissions are//////////////////////// "+this.PList);
       
       },
@@ -253,7 +253,20 @@ pickup_charges:any;
 //     debugger;
  
 
-
+AdsCount(){
+  this.myadservice.getAdsCount(this.companyId).subscribe(
+    (count: any[]) => {
+      this.adscount = count;
+    
+      console.log("count is are "+this.adscount);
+    
+    },
+    (error: any) => {
+      console.log(error);
+      alert("error")
+    }
+  );
+}
 
    DisplayPostForm(){
     
@@ -333,7 +346,8 @@ pickup_charges:any;
     
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
-      window.location.reload()
+      this.AdsCount();
+      this.onPendingActive();
       // this.onPendingActive();
       
     });
@@ -524,10 +538,21 @@ onExport(){
       .subscribe(
         (        data: any) => {
           console.log(data);
-           this.router.navigateByUrl('/my-ad', { skipLocationChange: true });
-          this.router.navigate(['/my-ad']);
-           window.location.reload()
-          // this.getAllInventory()
+          if(this.operation === 'Draft')
+          {
+            this.AdsCount();
+            this.onDraftsActive();
+          }
+          else if(this.operation === 'Pending')
+          {
+            this.AdsCount();
+            this.onPendingActive();
+          }
+          else{
+            this.AdsCount();
+            this.onViewActive();
+          }
+         
         },
         (        error: any) => console.log(error));
   }
