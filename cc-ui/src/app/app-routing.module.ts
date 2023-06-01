@@ -19,6 +19,9 @@ import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.co
 import { ViewContractsComponent } from './view-contracts/view-contracts.component';
 import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
 import { ForecastingComponent } from './forecasting/forecasting.component';
+import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
+import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
+import { NegotiationsComponent } from './negotiations/negotiations.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -113,14 +116,40 @@ const routes: Routes = [
 
   },
   {
+    component:MyAdvertisementComponent,
+    path:'my-ad',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:PostAdComponent,
+    path:'post-ad',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:ViewOtherAdsComponent,
+    path:'view-other-ads',
+    canActivate: [AuthGuard]
+  },
+  {
     component:ForecastingTableViewComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
+    component:ForecastMapComponent,
+    path:'forecast-map',
+    canActivate: [AuthGuard]
+
+  },
+  {
     component:ViewContractsComponent,
     path:'view-contract',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:NegotiationsComponent,
+    path:'negotiations',
     canActivate: [AuthGuard]
   },
 

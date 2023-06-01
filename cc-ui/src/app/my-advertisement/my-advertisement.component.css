@@ -82,6 +82,8 @@
 .div-employee{
     @apply m-2 h-fit w-full flex-col;
 }
+
+
 .div-employee-box{
     @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
 }
@@ -148,9 +150,15 @@
     
    }
     
-    
+   .underline-button{
+    @apply menu-tile border-blue-500 hover:border-b-4 Poppins;
+}
    .underline-a{
-    @apply menu-tile hover:border-CCblue border-blue-500 hover:text-CCblue hover:border-b-4 Poppins;
+    @apply menu-tile  hover:text-CCblue  Poppins;
+}
+
+.underline-b{
+  @apply menu-tile hover:border-black border-black  hover:border-b-2 Poppins;
 }
     
    .div-card{
@@ -170,7 +178,7 @@
     
    .buttons-container {
     
-    @apply absolute top-12 right-0 mt-8 mr-8 flex items-center;
+    @apply absolute right-0 mr-8 flex items-center;
     
     }
     
@@ -178,7 +186,7 @@
     
     .my-button {
     
-    @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+    @apply px-2 py-1 text-white bg-CCblue rounded-md ml-2;
     
     }
 
@@ -197,7 +205,7 @@
            }
     
            .buttons-container {
-            @apply absolute top-12 right-0 mt-8 mr-3 flex items-center;
+            @apply absolute right-0 mr-3 flex items-center;
           }
           
           .my-button {
@@ -241,3 +249,5 @@
     .my-button {
       @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
     }
+   
+    

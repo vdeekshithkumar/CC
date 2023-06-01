@@ -61,9 +61,22 @@ export class ViewContractsComponent implements OnInit{
     }
   }
   nextPage() {
-    if (this.currentPage < Math.ceil(this.contracts.length / this.itemsPerPage)) {
+    if (this.currentPage < Math.ceil(this.titles.length / this.itemsPerPage)) {
       this.currentPage++;
     }
+  }
+  // prevPageT() {
+  //   if (this.currentPage > 1) {
+  //     this.currentPage--;
+  //   }
+  // }
+  // nextPageT() {
+  //   if (this.currentPage < Math.ceil(this.titles.length / this.itemsPerPage)) {
+  //     this.currentPage++;
+  //   }
+  // }
+  revert(){
+    this.isTitleScreen=!this.isTitleScreen
   }
   getContracts(title:string)
   {
@@ -82,7 +95,13 @@ export class ViewContractsComponent implements OnInit{
     this.currentPage = 1;
     this.itemsPerPage = 5;
   }
-  
+  isEndT()
+  {
+    return (this.currentPage == Math.ceil(this.titles.length / this.itemsPerPage))? true : false;
+  }
+  isEnd (){//for contracts
+    return (this.currentPage == Math.ceil(this.contracts.length / this.itemsPerPage))? true : false;
+  }
 
   viewContract(contractId:number)
   {

@@ -16,6 +16,11 @@ namespace CC_api.Business
       this._emailService = new EmailService();
 
     }
+    public async Task UpdateUserDetails(int id, User user)
+    {
+      await this.userRepository.UpdateUserDetails(id, user);
+    }
+
     public async Task<User> GetUserAsync(int userID)
     {
       var userData = await userRepository.GetUserAsync(userID);
@@ -84,6 +89,12 @@ namespace CC_api.Business
     {
       await userRepository.DeleteUser(id);
     }
+    public async Task<List<User>> GetAllUser(int companyId)
+    {
+      return await userRepository.GetAllUser(companyId);
+    }
+
+
     public async Task<List<User>> GetAllUserAsync(int companyId)
     {
       return await userRepository.GetAllUserAsync(companyId);

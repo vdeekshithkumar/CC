@@ -5,6 +5,7 @@ import { NavigationEnd, Router,ActivatedRoute } from '@angular/router';
 import { SignInService } from '../sign-in/sign-in.service';
 import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
+import { findIndex } from 'lodash';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
+  adscount: any;
   getCompanyId() {
     return this.company_id;
   }
@@ -60,6 +62,8 @@ export class ProfileComponent implements OnInit {
           const id = this.activatedRoute.snapshot.params['id'];
           console.log('ID:', id);
         }
+
+       
     this.sessionService.getCurrentUser().subscribe(user => {
       // if (user.id==null && user.token==null) {  // use this once token is used for a user
       if (user.user_id == null) {
@@ -79,6 +83,18 @@ export class ProfileComponent implements OnInit {
    (companyId: number) => {
 
     this.companyId = companyId;
+    this.profileService.getAdsCount(this.companyId).subscribe(
+      (count: any[]) => {
+        this.adscount = count;
+      
+        console.log("count is are "+this.adscount);
+      
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
+      }
+    );
 
     console.log('company ID is :', companyId);
 
@@ -91,6 +107,7 @@ export class ProfileComponent implements OnInit {
    }
 
   );
+
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
       this.alluser_list = data;
@@ -147,6 +164,7 @@ export class ProfileComponent implements OnInit {
 
    }
 );
+
     this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
       data => {
         
@@ -169,34 +187,71 @@ export class ProfileComponent implements OnInit {
       this.sessionService.clearSession();
     });
   }
-  getUserByID(user_id:number) {
-
-    this.profileService.getUserDetails(user_id)
-    .subscribe(
-      (           data:any)=> {debugger
+  getUserByID(user_id: number) {
+    this.profileService.getUserDetails(user_id).subscribe(
+      (data: any) => {
         this.user_data = data;
-        console.log("User data fetcged"+this.user_data);
-        
-       
+        console.log("User data fetched:", this.user_data);
+  
+        // Navigate to the add-employee page with user_id and edit flag in the state
+        this.router.navigate(['/add-employee'], {
+          state: {
+            user_id: user_id,
+            fname: this.user_data.fname,
+            lname: this.user_data.lname,
+            phone_no: this.user_data.phone_no,
+            email: this.user_data.email,
+            address: this.user_data.address,
+            password: this.user_data.password,
+            is_verified: this.user_data.is_verified,
+            is_approved: this.user_data.is_approved,
+            is_active: this.user_data.is_active,
+            last_login: this.user_data.last_login,
+            designation: this.user_data.designation,
+            edit: true
+          }
+        });
       },
-      (          error:any) => console.log(error)
+      (error: any) => {
+        console.log(error);
+      }
     );
-    this.router.navigate(['/add-employee'], { queryParams: { edit: true } });
   }
-  deleteUserById(id: number) {
-  debugger
-    this.profileService.deleteUserById(id)
-      .subscribe(
-        (        data: any) => {
-          console.log(data);
-           this.router.navigateByUrl('/profile', { skipLocationChange: true });
-          this.router.navigate(['/profile']);
-           window.location.reload()
-          // this.getAllInventory()
-        },
-        (        error: any) => console.log(error));
+  
+  deleteUserById(userId: number) {
+    this.profileService.deleteUserById(userId).subscribe(
+      () => {
+        console.log("Employee deleted successfully.");
+  
+        // Update the is_active property of the user being deleted
+        const deletedUser = this.alluser_list.find((user: any) => user.user_id === userId);
+        if (deletedUser) {
+          deletedUser.is_active = 0;
+        }
+  
+        // Remove the deleted user from the alluser_list array
+        const index = this.alluser_list.findIndex((user: any) => user.user_id === userId);
+        if (index !== -1) {
+          this.alluser_list.splice(index, 1);
+        }
+  
+        // Check if alluser_list is empty and reset it if necessary
+        if (this.alluser_list.length === 0) {
+          this.alluser_list = null; // or this.alluser_list = [];
+        }
+      },
+      (error: any) => console.log(error)
+    );
   }
-
+  
+  
+  removeDeletedEmployeeFromFrontend(id: number) {
+    const index = findIndex(this.alluser_list, { id: id });
+    if (index !== -1) {
+      this.alluser_list.splice(index, 1);
+    }
+  }
+  
   onClick() {
     this.router.navigate(['/my-ad'], { queryParams: { value: 1 } });
   }

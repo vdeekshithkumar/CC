@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { enableDebugTools } from '@angular/platform-browser';
 import { Component, ChangeDetectorRef } from '@angular/core';
+import { DialogComponent } from '../dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface Permission {
   write: any;
@@ -43,22 +45,60 @@ permission_id: number | undefined;
 type: string | undefined;
 actions: string | undefined;
 companyId:any;
+showPassword=false;
+showValidationErrors: boolean = false;
   currentUser: any;
   cdr: any;
   changeDetectorRef: any;
   isEdit:boolean=false;
   Puser_id:any;
   types = [];
- 
-
-
-
-  constructor(private formBuilder:FormBuilder,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
+  Pis_verified: any;
+  Plname: any;
+  Pphone: any;
+  Pemail: any;
+  Paddress: any;
+  Ppassword: any;
+  Pis_approved: any;
+  Pis_active: any;
+  Plast_login: any;
+  Pdesignation: any;
+  constructor(private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
     this.permissions = []
     ;
   }
   ngOnInit():void{
-
+    const state = history.state;
+    if (state && state.edit) {
+      this.isEdit = true;
+      console.log('Edit mode enabled.');
+  
+      this.Puser_id = state.user_id;
+      console.log("From profile" + this.Puser_id);
+      this.Pfname = state.fname;
+      console.log("From profile" + this.Pfname);
+      this.Plname = state.lname;
+      console.log("From profile" + this.Plname);
+      this.Pphone = state.phone_no;
+      console.log("From profile" + this.Pphone);
+      this.Pemail = state.email;
+      console.log("From profile" + this.Pemail);
+      this.Paddress = state.address;
+      console.log("From profile" + this.Paddress);
+      this.Ppassword = state.password;
+      console.log("From profile" + this.Ppassword);
+      this.Pis_verified = state.is_verified;
+      console.log("From profile" + this.Pis_verified);
+      this.Pis_approved = state.is_approved;
+      console.log("From profile" + this.Pis_approved);
+      this.Pis_active = state.is_active;
+      console.log("From profile" + this.Pis_active);
+      this.Plast_login = state.last_login;
+      console.log("From profile" + this.Plast_login);
+      this.Pdesignation = state.designation;
+      console.log("From profile" + this.Pdesignation);
+     
+    }
     this.addEmployeesService.getAllPermission().subscribe((data: Permissions[]) => {
       this.PList = data;
       console.log("this is permisssions list fetched"+this.PList)
@@ -66,18 +106,9 @@ companyId:any;
 
     });
 
-    this.route.queryParams.subscribe(params => {
-      if (params['edit'] === 'true') {
-        this.isEdit = true;
-        console.log('Edit mode enabled and woking bhhhh');
-      //
-      this.Puser_id =1014;
-        this.Pfname = "testingname";
+  
 
-      //
-      }
-
-    });
+  
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -110,18 +141,19 @@ companyId:any;
      user_id:167,
      company_id:this.companyId,
      fname:this.Pfname,
-     lname: "K",
-     address: "sdhgd",
-     email: "DeekshithK@ivoyant.com",
-     phone_no:'9875446788',
-     password: 'tfhgff',
-     is_verified:1,
-     is_approved:1,
-     is_active:1,
-     last_login:'2024-07-15',
-     designation: 'user',
+     lname: this.Plname,
+     address: this.Paddress,
+     email:this.Pemail ,
+     phone_no:this.Pphone,
+     password: this.Ppassword,
+     is_verified:this.Pis_verified,
+     is_approved:this.Pis_approved,
+     is_active:this.Pis_active,
+     last_login:this.Plast_login,
+     designation: this.Pdesignation,
    })
   }
+
 
 //session
 this.sessionService.getCurrentUser().subscribe(user => {
@@ -135,7 +167,6 @@ this.sessionService.getCurrentUser().subscribe(user => {
   console.log('From session '+this.currentUser.email+'  id here '+this.currentUser.user_id)
   }
   // store the user session information in a property
-
 });
  //when navigate back to sign-in session ends
  this.router.events.pipe(
@@ -149,7 +180,6 @@ logout(): void {
   this.sessionService.clearSession();
 
 }
-
 updateReadCheckbox(event: Event) {
   const writeCheckbox = event.target as HTMLInputElement;
   const readCheckbox = writeCheckbox.parentElement?.previousElementSibling?.querySelector('input[type="checkbox"]') as HTMLInputElement;
@@ -159,37 +189,38 @@ updateReadCheckbox(event: Event) {
     readCheckbox.checked = false;
   }
 }
-
-
 updateReadAccess(permission: any, event: any) {
   const checkbox = event.target as HTMLInputElement;
   const action = checkbox.id.includes('write') ? 'write' : 'read';
 
-  this.correspondingPermission = this.PList.find((p: { type: any; actions: string; }) => p.type === permission.type && p.actions === action);
+  this.correspondingPermission = this.PList.find(
+    (p: { type: any; actions: string }) =>
+      p.type === permission.type && p.actions === action
+  );
 
   if (this.correspondingPermission) {
     console.log('Permission ID:', this.correspondingPermission.permission_id);
     console.log('Action:', this.correspondingPermission.actions);
     console.log('Type:', this.correspondingPermission.type);
-
-    if (action === 'write' && checkbox.checked) {
-      const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-      readCheckbox.checked = true;
-      readCheckbox.disabled = true; // Disable the read checkbox
-    } else if (action === 'write' && !checkbox.checked) {
-      const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-      readCheckbox.checked = false;
-      readCheckbox.disabled = false; // Enable the read checkbox
-    }
-
     this.ppList.push(this.correspondingPermission.permission_id);
   }
+
+  // Get the corresponding read and write checkboxes
+  const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
+  const writeCheckbox = document.getElementById(permission.type + '-write') as HTMLInputElement;
+
+  if (action === 'write' && checkbox.checked) {
+    // Select both read and write checkboxes
+    readCheckbox.checked = true;
+    writeCheckbox.checked = true;
+    readCheckbox.disabled = true;
+  } else if (action === 'write' && !checkbox.checked) {
+    // Unselect both read and write checkboxes
+    readCheckbox.checked = false;
+    writeCheckbox.checked = false;
+    readCheckbox.disabled = false;
+  }
 }
-
-
-
-
-
 
 private async addP() {
   if (this.isEdit) {
@@ -211,8 +242,6 @@ private async addP() {
 
       const response = await this.addEmployeesService.addPermission(this.ppList, emailValue).toPromise();
       console.log(response);
- 
-
       this.router.navigate(['/profile']);
     } catch (error) {
       console.log('Could not add:', error);
@@ -220,6 +249,72 @@ private async addP() {
   }
 }
 async onAdd() {
+  const formValue = this.addEmployeeForm.value;
+  if (
+    !formValue.fname ||
+    !formValue.lname ||
+    !formValue.email ||
+    !formValue.address ||
+    !formValue.phone_no ||
+    !formValue.password
+  ) {
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.fname) {
+      errorMessage += '- First Name\n';
+    }
+    if (!formValue.lname) {
+      errorMessage += '- Last Name\n';
+    }
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.phone_no) {
+      errorMessage += '- Phone Number\n';
+    }
+  
+    if (!formValue.password) {
+      errorMessage += '- Password\n';
+    }
+    this.openErrorDialog(errorMessage);
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['email'].valid) {
+    this.openErrorDialog('Invalid email format');
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['address'].valid) {
+    this.openErrorDialog('Invalid Country Name');
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['fname'].valid) {
+    this.openErrorDialog('Invalid First Name Format');
+    return;
+  }
+
+  if (!this.addEmployeeForm.controls['lname'].valid) {
+    this.openErrorDialog('Invalid Last Name Format');
+    return;
+  }
+  const passwordControl = this.addEmployeeForm.get('password');
+  if (passwordControl && passwordControl.invalid) {
+    this.showValidationErrors = true;
+    let passwordErrorMessage = 'Invalid password:\n';
+    if (passwordControl.errors?.['required']) {
+      passwordErrorMessage += '- Password is required\n';
+    }
+    if (passwordControl.errors?.['minlength']) {
+      passwordErrorMessage += '- Password must be at least 8 characters long\n';
+    }
+    if (passwordControl.errors?.['pattern']) {
+      passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
+    }
+    this.openErrorDialog(passwordErrorMessage);
+    return;
+  }
   if (this.isEdit) {
     try {
       const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
@@ -248,5 +343,15 @@ async onAdd() {
         console.log('Could not add:', error);
       }
     }
+  }
+  openErrorDialog(message: string): void {
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: message
+      }
+    });
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

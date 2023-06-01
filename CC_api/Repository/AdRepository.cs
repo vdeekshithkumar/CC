@@ -30,11 +30,52 @@ namespace CC_api.Repository
 
         }
       }*/
+
+
+    public async Task<List<long>> GetAdsCount(int companyId)
+    {
+
+
+
+      var activeAds = await dbContext.advertisement
+      .Where(a => a.company_id == companyId && a.status == "active").CountAsync();
+      var count = new List<long>();
+      count.Add(activeAds);
+
+      var PendingAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "pending").CountAsync();
+      count.Add(PendingAds);
+
+      var DraftAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "draft").CountAsync();
+      count.Add(DraftAds);
+
+
+      return count;
+    }
+
     public async Task Add(Ad ad)
     {
       await dbContext.advertisement.AddAsync(ad);
       await dbContext.SaveChangesAsync();
     }
+
+    public async Task<List<Ad>> GetAdByAdID(int ad_id)
+    {
+      var ads = await dbContext.advertisement
+      .Where(c => c.ad_id == ad_id).ToListAsync();
+      return ads;
+    }
+    public async Task<string> getContainerType(int containerTypeID)
+    {
+      var containerType = await dbContext.container_type
+          .Where(c => c.container_type_id == containerTypeID)
+          .Select(c => c.type)
+          .FirstOrDefaultAsync();
+
+      return containerType;
+    }
+
 
     public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
@@ -63,12 +104,12 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-  
+
        })
        .ToListAsync();
 
         return ads;
-       
+
       }
       else if (operation == "Pending")
       {
@@ -131,7 +172,12 @@ namespace CC_api.Repository
         return ads;
       }
     }
- 
+    public async Task<List<Ad>> GetAllAdvertisement(int companyID)
+    {
+
+      return await dbContext.advertisement.Where(c => c.company_id != companyID).ToListAsync();
+
+    }
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);
@@ -157,7 +203,8 @@ namespace CC_api.Repository
     }
     public async Task<Ad> GetAdById(int adId)
     {
-      return await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      var ads= await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      return ads;
     }
 
     public async Task UpdateAd(Ad Ad)
@@ -172,13 +219,12 @@ namespace CC_api.Repository
       var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
       return uploadedFiles;
     }
-    public async Task DeleteAd(int AdID)
+   /* public async Task DeleteAd(int AdID)
     {
       dbContext.advertisement.Remove(
        dbContext.advertisement.FirstOrDefault(c => c.ad_id == AdID));
       await dbContext.SaveChangesAsync();
-    }
+    }*/
   }
 }
-
 

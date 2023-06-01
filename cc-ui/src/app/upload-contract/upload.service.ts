@@ -13,7 +13,7 @@ export class UploadService {
   constructor(private http: HttpClient) { }
 
   uploadFile(files: File[], userId: number, companyId: number, contentDesc:string, title:string) {
-    debugger
+ 
     const formData = new FormData();
     for (let i = 0; i < files.length; i++) {
       formData.append('files', files[i], files[i].name);

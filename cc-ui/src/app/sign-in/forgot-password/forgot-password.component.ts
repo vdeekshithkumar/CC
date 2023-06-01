@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ResetService } from '../reset-password/reset.service';
 import { ConfirmationResponse } from '../reset-password/ConfirmationResponse';
 import { ForgotPassService } from './forgot-password.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DialogComponent } from 'src/app/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -10,19 +13,23 @@ import { Router } from '@angular/router';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent {
+export class ForgotPasswordComponent{
   /**
    *
    */
+  showValidationErrors: boolean = false;
   email: string= ''
   otp?: any
   validCode = false
 
-  constructor(private resetService: ResetService, private forgotService: ForgotPassService,private router:Router) {
-   }
-   
+  constructor(private resetService: ResetService,private dialog: MatDialog,private formBuilder: FormBuilder, private forgotService: ForgotPassService,private router:Router) {
+  
+  }
+
+
   IfExistsThenSendOTP() {
     debugger
+
     this.resetService.confirmation(this.email).subscribe(
       (response: ConfirmationResponse) => {
         if (response.message === "User found") {
@@ -44,7 +51,25 @@ export class ForgotPasswordComponent {
       }
     );
   }
-
+  validateEmail() {
+    if (!this.email) {
+      this.dialog.open(DialogComponent, {
+        data: {
+          title: 'Email Required',
+          message: 'Please enter your email address.',
+          buttonText: 'OK'
+        }
+      });
+      return;
+    }
+  }
+  openErrorDialog(message: string): void {
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: message
+      }
+    });
+  }
 
 
 

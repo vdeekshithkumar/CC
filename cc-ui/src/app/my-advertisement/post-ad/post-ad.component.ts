@@ -13,7 +13,7 @@ import { filter, map } from 'rxjs';
 import { NumberSymbol } from '@angular/common';
 
 import { SessionService } from 'src/app/session.service';
-import { PostAdService } from './post-ad.service';
+import { Advertisement, PostAdService } from './post-ad.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 
@@ -36,6 +36,7 @@ export class PostAdComponent implements OnInit{
   title!: any;
   port_name="";
   C_Type="";
+  ads: Advertisement[] = [];
   ExcelData:any;
   fileName?: string
   file?: File
@@ -70,7 +71,7 @@ Approve: any;
   }
 
   addExcel(): void {
-debugger
+
     if(this.y==1){
       this.postAdService.UploadExcelData(this.ExcelData,this.userId,this.companyId)
       .subscribe(
@@ -119,7 +120,7 @@ const binaryString = e.target.result;
         const newRow: any = {};
         Object.keys(row).forEach((key: string) => {
           const newKey = key.toLowerCase().replace(/ /g, '_');
-          const value = row[key].toString().toLowerCase().replace(/ /g, '_');
+          const value = row[key].toString().toLowerCase();
           newRow[newKey] = value;
         });
         this.ExcelData[this.ExcelData.indexOf(row)] = newRow;
@@ -146,13 +147,41 @@ console.error('Uploaded file is empty');
     this.isButtonDisabled = true;
    this.ContinueDraft=this.data.ContinueDraft; 
    this.Approve=this.data.Approve;
-   this.adId=this.adId;
+   this.adId=this.data.adId;
 
    console.log(this.Approve+"fghjht");
+
+   console.log("the adid for draft continue is"+this.adId);
    
 
-    
-// console.log("proceed value is "+this.adId)
+    if(this.ContinueDraft==1)
+    {
+      this.postAdService.getAdById(this.adId).subscribe(
+      (data: Advertisement[]) => {
+        this.ads = data;
+        console.log("this is view ads"+this.ads);
+        this.quantity=this.ads[0].quantity;
+        this.per_diem=this.ads[0].per_diem;
+        this.pickup_charges=this.ads[0].ad_id;
+        this.type_of_ad=this.ads[0].type_of_ad;
+        this.container_type_id=this.ads[0].container_type_id;
+        this.price=this.ads[0].price;
+        this.port_of_departure=this.ads[0].port_of_departure;
+        this.from_date=this.getDateOnly(this.ads[0].from_date);
+        this.port_id=this.ads[0].port_id;
+        this.contents=this.ads[0].contents;
+        this.port_of_departure=this.ads[0].port_of_departure;
+        this.port_of_arrival=this.ads[0].port_of_arrival;
+        this.free_days=this.ads[0].free_days;
+     
+        this.expiry_date=this.getWeekDifference(this.ads[0].from_date,this.expiry_date);
+       
+      },
+      (  error: any) => console.log(error)
+      
+    );
+    }
+
     initTE({ Select });
     //get company id from session
     this.sessionService.getCompanyId().subscribe(
@@ -222,6 +251,14 @@ console.error('Uploaded file is empty');
     this.onPost();
   }
 
+ getWeekDifference(from_date: Date, expiry_date: Date): number {
+  const millisecondsPerWeek = 1000 * 60 * 60 * 24 * 7;
+  const differenceInMilliseconds = expiry_date.getTime() - from_date.getTime();
+  const differenceInWeeks = Math.floor(differenceInMilliseconds / millisecondsPerWeek);
+  console.log("expiry date calculated is"+differenceInWeeks);
+  return differenceInWeeks;
+}
+
   
   async onPost() {
   
@@ -282,12 +319,30 @@ console.error('Uploaded file is empty');
     console.log("ad id id "+ ad_id)
   }
   DraftPosting(ad_id: number){
-    this.operation="Pending";
+    this.operation="PostAd";
 
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
   }
-
+  getDateOnly(date: Date): string {
+    const newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+  
+    const day = newDate.getDate().toString().padStart(2, '0');
+    const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+    const year = newDate.getFullYear().toString().padStart(4, '0');
+  
+    this.from_date = `${year}-${month}-${day}`;
+    console.log(this.from_date+"ordered date");
+    return this.from_date;
+  
+  }
+  
+  
+  
   
   approve(ad_id: number){
     debugger
@@ -298,6 +353,33 @@ console.error('Uploaded file is empty');
   }
 
   Edit(ad_id: number){
+    if(this.operation=="PostAd"){
+      if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) 
+      {
+
+                  this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+                
+                  
+                  if (response.message === 'Success') {
+                    this.statusMsg = 'Success';
+                    setTimeout(()=> {this.statusMsg = ""},2000)
+                    this.clear()
+                    window.location.reload()
+                  }
+                   else {
+                    this.statusMsg = 'Failed';
+                    console.log(response.status) ;
+                  }
+                });
+   }
+   else{
+     alert("Please Fill the Mandatory Fields")
+     }
+
+  }
+  else{
+
+    debugger
     if (this.port_id && this.container_type_id && this.file) {
     
 
@@ -319,23 +401,23 @@ console.error('Uploaded file is empty');
      alert("Please Fill the Mandatory Fields")
    }
 
+    
   }
-
+  }
   
-  options = ['Buy', 'Lease', 'Sell','Swap'];
+//   options = ['Buy', 'Lease', 'Sell','Swap'];
  
-   selectedOption = 0;
-   selectOption(index: number) {
-   this.selectedOption = index;
-   this.type_of_ad = this.options[index];
+//    selectedOption = 0;
+//    selectOption(index: number) {
+//    this.selectedOption = index;
+//    this.type_of_ad = this.options[index];
    
-}
+// }
   clear(){
     this.title= null
     this.description = null
   }
 }
-
 
 
 

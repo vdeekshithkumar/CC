@@ -1,0 +1,236 @@
+<app-header class="header"></app-header>
+<div class="div">
+
+  <!-- Sidebar -->
+  <div class="sidebar-container">
+    <app-sidebar class="div-app-sidebar"></app-sidebar>
+  </div>
+
+  <div class="text-after-sidebar">
+    <p>Filter as per your Requirements</p>
+    <div class="search-container">
+      <div [ngClass]="{'selected': selectedOptions['search'] === 'Buy'}" (click)="toggleOption('search', 'Buy')">
+        Buy
+      </div>
+      &nbsp;
+      <div [ngClass]="{'selected': selectedOptions['search'] === 'Lease'}" (click)="toggleOption('search', 'Lease')">
+        Lease
+      </div>
+      &nbsp;
+      <div [ngClass]="{'selected': selectedOptions['search'] === 'Swap'}" (click)="toggleOption('search', 'Swap')">
+        Swap
+      </div>
+      &nbsp;
+    </div>
+
+    <br />
+
+    <div class="div-form">
+      <div class="port-container">
+        <div class="port-input">
+          <p>Port of Departure</p>
+          <label class="div-form-label">Name on Port</label>
+          <select class="uploadinv-select" [(ngModel)]="port_of_departure">
+
+            <option *ngFor="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
+          </select>
+        </div>
+        <br />
+        <div class="port-input">
+          <p>Port of Arrival</p>
+          <label class="div-form-label">Name on Port</label>
+          <select class="uploadinv-select" [(ngModel)]="port_of_arrival">
+            <option *ngFor="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="text-after-sidebar">
+      <p>Select View</p>
+      <div class="search-container">
+        <div [ngClass]="{'selected': selectedOptions['view'] === 'MAP'}" (click)="toggleOption('view', 'MAP')">
+          MAP
+        </div>
+        &nbsp;
+        <div [ngClass]="{'selected': selectedOptions['view'] === 'LIST'}" (click)="toggleOption('view', 'LIST')">
+          LIST
+        </div>
+      </div>
+
+      <br />
+      <div class="text-after-sidebar">
+        <p>Select Type</p>
+        <div class="search-container">
+          <div [ngClass]="{'selected': selectedOptions['type'] === '20DC'}" (click)="toggleOption('type', '20DC')">
+            20DC
+          </div>
+          &nbsp;
+          <div [ngClass]="{'selected': selectedOptions['type'] === '40DC'}" (click)="toggleOption('type', '40DC')">
+            40DC
+          </div>
+          &nbsp;
+          <div [ngClass]="{'selected': selectedOptions['type'] === '45HQ'}" (click)="toggleOption('type', '45HQ')">
+            45HQ
+          </div>
+          &nbsp;
+          <div [ngClass]="{'selected': selectedOptions['type'] === '40HQ'}" (click)="toggleOption('type', '40HQ')">
+            40HQ
+          </div>
+        </div>
+
+        <br />
+        <br />
+        <div class="buttons-container">
+          <button (click)="clearOptions()">Clear</button>
+          <button (click)="searchAdvertisements()">Search</button>
+          <br />
+          <p class="no-selection-message" *ngIf="showNoSelectionMessage">Select your requirement</p>
+
+        </div>
+
+        <div class="vertical-line"></div>
+
+        <div class="advertisement-details" >
+         
+          <h2>Advertisement Details</h2>
+          <br />
+          <div class="advertisement-container" *ngFor="let ad of ads; ">
+            <div class="advertisement-heading" >
+
+              <!-- Company Info -->
+              <div class="company-info">
+                <div class="flex-container">
+                  <div class="div-tag">
+                    <img class="company-logo" [src]="companyLogos[ad.company_id]" alt="Company Logo" />
+                  </div> &nbsp; &nbsp; &nbsp;
+                  <div class="company-rating">
+                    <span class="rating-symbol">
+                      <svg width="20" height="20" viewBox="0 0 24 24">
+                        <polygon fill="#000"
+                          points="12 2 14.83 8.3 22 9.22 17 14.3 18.18 21.3 12 17.77 5.82 21.3 7 14.3 2 9.22 9.17 8.3" />
+                      </svg>
+                    </span>
+                    <span class="rating-value">{{ companyRating[ad.company_id] }}</span>
+                  </div>&nbsp; &nbsp; &nbsp;
+
+                  <div class="company-name">
+                    <span class="icon-container">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 16 16">
+                        <path
+                          d="M7 0a1 1 0 0 1 .993.883L8 1v1h5a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h5V1a1 1 0 0 1 1-1zm-.993 2.598L7 3H3a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H9V3l-.007-.068A.5.5 0 0 0 8.5 2H7.493a.5.5 0 0 0-.496.598z" />
+                      </svg>
+                    </span>
+                    {{ companyNames[ad.company_id] }}
+                  </div>&nbsp; &nbsp; &nbsp;
+                  <div class="company-domain">
+                    <span class="icon-container">
+
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                      </svg>                     
+                    </span>&nbsp; 
+
+                    {{ companyDomain[ad.company_id] }}
+                  </div>&nbsp; &nbsp; &nbsp;
+                  <div class="company-address">
+                    <span class="icon-container">
+
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+                      </svg>                      
+                    </span> &nbsp;
+                    {{ companyAddress[ad.company_id] }}
+                  </div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
+                  <button class="negotiation-button"  [disabled]="DisableStartNegoBtn(ad.ad_id)" [disabled]="NButtonDisabled" (click)="StartNegotiation(ad.ad_id)" mat-raised-button color="primary">Start Negotiation</button>
+
+                </div>
+              </div>
+
+              <!-- Advertisement Table -->
+              <table>
+
+                <thead >
+                  <tr>
+                    <th>
+                      <div class="company-address">
+                        <span class="icon-container">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
+                          </svg>
+                        </span>
+                        <span class="heading-text">Departure</span>
+                      </div>
+                    </th>
+                    <th>
+                      <div class="company-address">
+                        <span class="icon-container">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                            <path d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
+                          </svg>
+                        </span>
+                        <span class="heading-text">Arrival</span>
+                      </div>
+                    </th>
+                    <th>Availablity</th>
+                    <th>Quantity</th>
+                    <th>Type</th>
+                    <th>Free Days</th>
+                    <th>Per Diem</th>
+                    <th>Pickup Charges</th>
+                  </tr>
+                </thead>
+                
+                
+                
+                <tbody>
+                  <tr>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">{{ ad.port_of_departure }}</div>
+                      </div>
+                    </td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">{{ ad.port_of_arrival }}</div>
+                      </div>
+                    </td>
+                    <td>{{ ad.expiry_date | date:'dd MMMM yyyy' }}</td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">ad-id  {{ ad.ad_id }}</div>
+                      </div>
+                    </td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">company_id   {{ ad.company_id }}</div>
+                      </div>
+                    </td>
+
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">ctype{{ ad.container_type_id}}</div>
+                      </div>
+                    </td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">{{ ad.per_diem }}</div>
+                      </div>
+                    </td>
+                    <td class="center-quantity-cell">
+                      <div class="center-quantity">
+                        <div class="quantity-value">{{ ad.pickup_charges }}</div>
+                      </div>
+                    </td>
+
+                    
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+              
+
+            </div>
+          </div>
+        </div>
+       

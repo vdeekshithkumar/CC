@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { GoogleMapsModule } from '@angular/google-maps';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -11,8 +11,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './redundant/sidebar/sidebar.component';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { HeaderComponent } from './redundant/header/header.component';
@@ -43,6 +41,16 @@ import { MaterialModule } from 'src/material.module';
 import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastingTableViewComponent } from './forecasting/forecasting-table-view/forecasting-table-view.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
+import { FormComponent } from './forecasting/forecast-map/form/form.component';
+
+import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
+import { EditUserDetailsComponent } from './redundant/header/edit-user-details/edit-user-details.component';
+import { NegotiationListComponent } from './negotiation-list/negotiation-list.component';
+import { NegotiationsComponent } from './negotiations/negotiations.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DialogComponent } from './dialog.component';
+
 
 @NgModule({
   declarations: [
@@ -73,7 +81,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
           ViewContractsComponent,
           ForecastingComponent,
           ForecastingTableViewComponent,
-    
+          ForecastMapComponent,
+          FormComponent,
+          ViewOtherAdsComponent,
+          EditUserDetailsComponent,
+          NegotiationListComponent,
+          NegotiationsComponent,
+          DialogComponent,
     
   ],
   imports: [
@@ -86,6 +100,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     BrowserAnimationsModule,
     MaterialModule,
     NgxPaginationModule,
+    GoogleMapsModule,
+    MatDialogModule,
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]

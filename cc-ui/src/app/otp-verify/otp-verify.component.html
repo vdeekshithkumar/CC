@@ -25,18 +25,26 @@
                 <!-- Just for testing purposes change ng submit-->
                 <form [formGroup]= "otpForm" (ngSubmit)="onValidate()">
                     
-                  <div class="space-y-1">
-                    <label for="email" class="font-medium">Email</label>
-                    <input formControlName="email" class="div-input" type="email" id="email" name="email" placeholder="Enter your email">
-               
-                  </div>
-                  <div class="space-y-1">
-                    <label for="password" class="font-medium">OTP</label>
-                    <input formControlName="otp" class="div-input" type="password" id="password" name="password" placeholder="Enter your password">
-                    
-                  </div>
-                  <div>
-                    <button type="submit"  class="div-btn">
+                  
+                    <div class="space-y-1">
+                      <label for="email" class="font-medium">Email<span class="text-red-500">*</span></label>
+                      <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email">
+                      <div
+                    *ngIf="showValidationErrors && otpForm.get('email')?.invalid"
+                    class="text-red-500 text-sm mt-1"
+                  >
+                  <div *ngIf="otpForm.get('email')?.errors?.['required']">Email is required</div>
+                      <div *ngIf="otpForm.get('email')?.errors?.['email']">Invalid email format</div>
+                    </div>
+                  
+                    </div>
+                    <div class="space-y-1 mt-5">
+                      <label for="password" class="font-medium">OTP<span class="text-red-500">*</span></label>
+                      <input formControlName="otp" class="signin-form-input" type="password" id="password" name="password" placeholder="Enter OTP">
+                     
+                    </div>
+                    <div>
+                    <button type="submit"  class="signin-btn mt-4">
                       Validate
                     </button>
                     <div class="div-btn-val">

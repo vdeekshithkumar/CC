@@ -9,7 +9,8 @@ import { SessionService } from '../session.service';
   styleUrls: ['./forecasting.component.css']
 })
 export class ForecastingComponent implements OnInit{
- 
+  port_name="";
+  port_list:any;
   constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router) { 
   }
   ngOnInit(): void {
@@ -21,6 +22,9 @@ export class ForecastingComponent implements OnInit{
     this.selectedOption = index;
     if (this.options[index] === 'Table') {
       this.router.navigate(['/forecasting-table-view']);
+    }
+    if (this.options[index] === 'Map') {
+      this.router.navigate(['/forecast-map']);
     }
   }
 }

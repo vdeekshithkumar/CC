@@ -3,6 +3,9 @@ import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Registerservice } from './register.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogComponent } from '../dialog.component';
+
 
 
 
@@ -21,6 +24,14 @@ interface RegisterResponse {
 })
 export class RegisterComponent implements OnInit 
 {
+  showValidationErrors: boolean = false;
+  company_id!:string;
+  email!:string;
+  firstName!: string;
+  lastName!: string;
+  address!:string;
+  agreeToTerms: boolean = false;  
+  phone_no!:number;
   public user_id? : number;
   public otp?:number;
   registrationForm!: FormGroup;
@@ -33,26 +44,27 @@ export class RegisterComponent implements OnInit
   Otp:any;
    company_name= "";
    company_list : any;
+   errors:any;
   r: any;
-
-  constructor(private formBuilder: FormBuilder,private router:Router,private registerservice:Registerservice) {
+  showPassword=false;
+  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
   }
 
 ngOnInit(): void {
-
   const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
     company_id:['',Validators.required],
-    fname: ['fanbns', Validators.required],
-    lname: ['oo', Validators.required],
-    address: ['fgc', Validators.required],
-    email: ['', Validators.required],
-    phone_no:['9875446788', Validators.required],
-    password: ['tfhgff', Validators.required],
+    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    address: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    email: ['', [Validators.required, Validators.email]],
+    phone_no:['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
+
     otp:['12345',Validators.required],
-    is_verified:['1',Validators.required],
+    is_verified:['0',Validators.required],
     is_approved:['1',Validators.required],
     is_active:['1',Validators.required],
     last_login:formattedDate,
@@ -77,25 +89,89 @@ ngOnInit(): void {
 
 }
 
- onSubmit() {
-    {
-      try {
-        const response = this.registerservice.register(this.registrationForm.value).toPromise();
-        alert("OTP Sent Successfully, Check Your Email")
-        console.log(response);
-        console.log(this.registrationForm.value)
-
-        // console.log("This is the fetched user_d",this.fetched_user_id);
-        //       alert("User added success verification pending")
-        // this.router.navigate(['/sign-in'], { queryParams: { registered: true }});
-      } 
-      catch (error) {
-        console.log('Error registering:', error);
-      
-      }
+onSubmit(): void {
+  const formValue = this.registrationForm.value;
+  if (
+    !formValue.fname ||
+    !formValue.lname ||
+    !formValue.email ||
+    !formValue.address ||
+    !formValue.phone_no ||
+    !formValue.company_id ||
+    !formValue.password
+  ) {
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.fname) {
+      errorMessage += '- First Name\n';
     }
-   
+    if (!formValue.lname) {
+      errorMessage += '- Last Name\n';
+    }
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.phone_no) {
+      errorMessage += '- Phone Number\n';
+    }
+    if (!formValue.company_id) {
+      errorMessage += '- Company ID\n';
+    }
+    if (!formValue.password) {
+      errorMessage += '- Password\n';
+    }
+    this.openErrorDialog(errorMessage);
+    return;
+  }
+
+  if (!this.registrationForm.controls['email'].valid) {
+    this.openErrorDialog('Invalid email format');
+    return;
+  }
+
+  if (!this.registrationForm.controls['address'].valid) {
+    this.openErrorDialog('Invalid Country Name');
+    return;
+  }
+
+  if (!this.registrationForm.controls['fname'].valid) {
+    this.openErrorDialog('Invalid First Name Format');
+    return;
+  }
+
+  if (!this.registrationForm.controls['lname'].valid) {
+    this.openErrorDialog('Invalid Last Name Format');
+    return;
+  }
+  const passwordControl = this.registrationForm.get('password');
+  if (passwordControl && passwordControl.invalid) {
+    this.showValidationErrors = true;
+    let passwordErrorMessage = 'Invalid password:\n';
+    if (passwordControl.errors?.['required']) {
+      passwordErrorMessage += '- Password is required\n';
+    }
+    if (passwordControl.errors?.['minlength']) {
+      passwordErrorMessage += '- Password must be at least 8 characters long\n';
+    }
+    if (passwordControl.errors?.['pattern']) {
+      passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
+    }
+    this.openErrorDialog(passwordErrorMessage);
+    return;
+  }
+
+  try {
+    const response = this.registerservice.register(formValue).toPromise();
+    alert('OTP Sent Successfully, Check Your Email');
+    console.log(response);
+    console.log(formValue);
+  } catch (error) {
+    console.log('Error registering:', error);
+  }
 }
+
+
+
 
 private redirect(){
 
@@ -133,7 +209,8 @@ onverifyOtp(){
                 this.redirect();
                }
                else{
-                alert("Enter the valid OTP")
+                this.openErrorDialog("Enter the valid OTP");
+
                }
                     // window.location.reload()
                   },
@@ -148,13 +225,7 @@ onverifyOtp(){
               } 
               catch (error) {
                 console.log('Error veryfying:', error);
-              }
-              
-                
-           
-              
-            
-
+              }    
     },
     (error) => {
       console.log("Error while retrieving", error);
@@ -163,4 +234,21 @@ onverifyOtp(){
   );
 
 }
+openErrorDialog(message: string): void {
+  this.dialog.open(DialogComponent, {
+    data: {
+      message: message
+    }
+  });
+}
+togglePasswordVisibility() {
+  this.showPassword = !this.showPassword;
+}
+
+// register(): void {
+//   if (!this.firstName || !this.lastName||!this.email||!this.address||!this.phone_no||!this.company_id) {
+//     alert('Fields should not be empty');
+//     return;
+//   }
+// }
 }

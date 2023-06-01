@@ -3,7 +3,7 @@
 <app-header></app-header>
 <div class="flex flex-row font-poppins">
     <app-sidebar></app-sidebar>
-    <div class="sm:px-6 w-fit mx-auto">
+    <div class="sm:px-6 w-1000px  mx-auto">
         <!--- more free and premium Tailwind CSS components at https://tailwinduikit.com/ --->
         <div class="px-4 md:px-10 py-4 md:py-7">
             <div class="flex items-center justify-between">
@@ -12,7 +12,7 @@
                     Contracts</p>
                 <!-- below dropdown gives you the sorting dropdown -->
 
-                <!-- <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300 cursor-pointer rounded">
+                <!-- <div class="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-gray-200 hover:bg-gray-300  rounded">
                             <p>Sort By:</p>
                             <select aria-label="select" class="focus:text-indigo-600 focus:outline-none bg-transparent ml-1">
                                 <option class="text-sm text-indigo-800">Latest</option>
@@ -36,21 +36,21 @@
                     <a class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
                         href=" javascript:void(0)">
                         <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                            <p>All</p>
+                            All
                         </div>
                     </a>
                 </div>
                 <button routerLink="../upload-contract"
-                    class="focus:ring-2 cursor-pointer focus:ring-offset-2 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-CCblue hover:bg-blue-600 hover:text-xs rounded">
-                    <p class="text-sm font-medium leading-none text-white">Upload Contracts</p>
+                class="bg-CCblue  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Upload Contracts
                 </button>
             </div>
-            <div class="mt-7 overflow-x-auto">
-                <table class="w-full whitespace-nowrap">
+            <div class="mt-6 overflow-x-auto">
+                <table class="w-full whitespace-nowrap ">
                     <tbody>
-
-                        <tr *ngFor="let title of titles.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index"
-                            tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
+                        <ng-container *ngFor="let title of titles.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index">
+                        <tr  
+                         tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                             <!-- column 1 -->
                             <td>
                                 <div class="ml-5">
@@ -61,39 +61,34 @@
 
                             <!-- column 2 -->
                             <td title={{title.value[1]}}>
-                                <div class="flex items-center pl-5">
-                                    <p (click) ="getContracts(title.value[1])" class="text-base font-medium leading-none text-gray-700 mr-2 cursor-pointer">{{ title.value[1] | slice:0:20 }}{{title.value.length > 20 ? '...' : ''}}
-                                        
+                                <div class="flex items-center pl-5 mt-3">
+                                    <p (click) ="getContracts(title.value[1])" class="cursor-pointer text-base font-medium leading-none text-gray-700 mr-2 ">{{ title.value[1] | slice:0:20 }}{{title.value.length > 20 ? '...' : ''}}
                                     </p>
                                 </div>
                             </td>
                             <!-- column 3 -->
                             <td class="pl-5">
                                 <div class="flex items-center">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                        fill="none">
-                                        <path
-                                            d="M12.5 5.83339L7.08333 11.2501C6.75181 11.5816 6.56556 12.0312 6.56556 12.5001C6.56556 12.9689 6.75181 13.4185 7.08333 13.7501C7.41485 14.0816 7.86449 14.2678 8.33333 14.2678C8.80217 14.2678 9.25181 14.0816 9.58333 13.7501L15 8.33339C15.663 7.67034 16.0355 6.77107 16.0355 5.83339C16.0355 4.8957 15.663 3.99643 15 3.33339C14.337 2.67034 13.4377 2.29785 12.5 2.29785C11.5623 2.29785 10.663 2.67034 10 3.33339L4.58333 8.75005C3.58877 9.74461 3.03003 11.0935 3.03003 12.5001C3.03003 13.9066 3.58877 15.2555 4.58333 16.2501C5.57789 17.2446 6.92681 17.8034 8.33333 17.8034C9.73985 17.8034 11.0888 17.2446 12.0833 16.2501L17.5 10.8334"
-                                            stroke="#52525B" stroke-width="1.25" stroke-linecap="round"
-                                            stroke-linejoin="round"></path>
-                                    </svg>
-                                    <p class="text-sm leading-none text-gray-600 ml-2">.pdf</p>
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <path d="M2.5 5C2.5 4.44772 2.94772 4 3.5 4H8.08579C8.21839 4 8.34557 4.05268 8.43934 4.14645L9.56066 5.35355C9.65443 5.44732 9.78161 5.5 9.91421 5.5H16.5C17.0523 5.5 17.5 5.94772 17.5 6.5V15C17.5 15.5523 17.0523 16 16.5 16H3.5C2.94772 16 2.5 15.5523 2.5 15V5Z" stroke="#52525B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
                                 </div>
-                            </td>
-                            <td class="pl-5 curosr-auto">
+                              </td>
+                            <td class="pl-5 curosr-auto mx-2">
                                 <button (click)="deleteContract(title.key)"
-                                    class="py-3 px-3 text-sm cursor-pointer focus:outline-none leading-none text-red-700 bg-red-100 rounded">Delete</button>
+                                    class="bg-white text-xs  text-red-600 align-middle p-1 px-3 border  rounded-xl  hover:bg-red-600 hover:text-white mx-1">Delete</button>
                             </td>
                             
 
                         </tr>
                         <tr class="h-3"></tr>
+                    </ng-container>
                     </tbody>
                 </table>
                 <div class="bg-white p-4 flex items-center flex-wrap  justify-center">
                     <nav aria-label="Page navigation">
                         <ul class="inline-flex">
-                            <li><button (click)="prevPage()"
+                            <li *ngIf="!(currentPage==1)"><button (click)="prevPage()"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                         <path
@@ -101,16 +96,16 @@
                                             clip-rule="evenodd" fill-rule="evenodd"></path>
                                     </svg></button>
                             </li>
-                            <li><button (click)="prevPage()" *ngIf = "currentPage>1"
+                            <li *ngIf=""><button (click)="prevPage()" *ngIf = "currentPage>1"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
                             </li>
-                            <li><button
+                            <li><button *ngIf="titles.length>=5"
                                     class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
                             </li>
-                            <li><button (click)="nextPage()"
+                            <li><button *ngIf="!isEndT()"  (click)="nextPage()"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
                             </li>
-                            <li><button (click)="nextPage()"
+                            <li><button *ngIf="!isEndT()" (click)="nextPage()"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                         <path
@@ -124,25 +119,25 @@
             </div>
         </div>
         <!-- the contracts view div -->
-        <div *ngIf="!isLoading && !isTitleScreen" class="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+        <div *ngIf="!isLoading && !isTitleScreen" class="bg-white w-max py-4 md:py-7 px-4 md:px-8 xl:px-10">
             <div class="sm:flex items-center justify-between">
                 <div class="flex items-center">
                     <a class="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800"
                         href=" javascript:void(0)">
-                        <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full">
-                            <p>All</p>
+                        <div class="py-2 px-8 bg-indigo-100 text-indigo-700 rounded-full" (click)="revert()">
+                            < Title 
                         </div>
                     </a>
                 </div>
                 <button routerLink="../upload-contract"
-                    class="focus:ring-2 cursor-pointer focus:ring-offset-2 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-CCblue hover:bg-blue-600 hover:text-xs rounded">
-                    <p class="text-sm font-medium leading-none text-white">Upload Contracts</p>
+                class="bg-CCblue  hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Upload Contracts
                 </button>
             </div>
             <div class="mt-7 overflow-x-auto">
                 <table class="w-full whitespace-nowrap">
                     <tbody>
-
+                        
                         <tr *ngFor="let contract of contracts.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index"
                             tabindex="0" class="focus:outline-none h-16 border border-gray-100 rounded">
                             <!-- column 1 -->
@@ -155,8 +150,8 @@
 
                             <!-- column 2 -->
                             <td title={{contract.value.content}}>
-                                <div class="flex items-center pl-5">
-                                    <p  class="text-base font-medium leading-none text-gray-700 mr-2 cursor-pointer">{{ contract.value.content | slice:0:20 }}{{contract.value.content.length > 20 ? '...' : ''}}
+                                <div class="flex items-center pl-5 mt-3">
+                                    <p  class="cursor-pointer text-base font-medium leading-none text-gray-700 mr-2 ">{{ contract.value.content | slice:0:20 }}{{contract.value.content.length > 20 ? '...' : ''}}
                                         
                                     </p>
                                 </div>
@@ -174,23 +169,25 @@
                                     <p class="text-sm leading-none text-gray-600 ml-2">.pdf</p>
                                 </div>
                             </td>
-                            <td class="pl-5 curosr-auto">
-                                <button (click)="deleteContract(contract.key)"
-                                    class="py-3 px-3 text-sm cursor-pointer focus:outline-none leading-none text-red-700 bg-red-100 rounded">Delete</button>
-                            </td>
+                            
                             <td class="pl-4 pr-2">
-                                <button (click)="viewContract(contract.key)"
-                                    class="focus:ring-2 focus:ring-offset-2 focus:ring-red-300 text-sm leading-none text-gray-600 py-3 px-5 bg-gray-100 rounded hover:bg-gray-200 focus:outline-none">View</button>
+                                <button (click)="viewContract(contract.key)" class="bg-white text-xs text-red-600 align-middle p-1 px-3 border border-gray rounded-full  hover:border-CCblue">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 20 20" fill="none">
+                                    <path d="M14.1667 8.33337H11.6667V3.33337H8.33333V8.33337H5.83333L10 12.5L14.1667 8.33337ZM3.33333 15V16.6667H16.6667V15H3.33333Z" stroke="#52525B" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+                                  </svg>
+                                </button>
                             </td>
-
+                            <td class="px-2 curosr-auto mx-3">
+                                <button (click)="deleteContract(contract.key)"
+                                    class="bg-white text-xs  text-red-600 align-middle p-1 px-3 border  rounded-xl  hover:bg-red-600 hover:text-white ">Delete</button>
+                            </td>
                         </tr>
-                        <tr class="h-3"></tr>
                     </tbody>
                 </table>
                 <div class="bg-white p-4 flex items-center flex-wrap justify-center">
                     <nav aria-label="Page navigation">
                         <ul class="inline-flex">
-                            <li><button (click)="prevPage()"
+                            <li><button (click)="prevPage()" *ngIf = "currentPage>1"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                         <path
@@ -201,13 +198,13 @@
                             <li><button (click)="prevPage()" *ngIf = "currentPage>1"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
                             </li>
-                            <li><button
+                            <li><button *ngIf="contracts.length<=5"
                                     class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
                             </li>
-                            <li><button (click)="nextPage()"
-                                    class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage}}</button>
+                            <li><button *ngIf = "!isEnd()" (click)="nextPage()"   
+                                    class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
                             </li>
-                            <li><button (click)="nextPage()"
+                            <li><button *ngIf = "!isEnd()" (click)="nextPage()"
                                     class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                         <path

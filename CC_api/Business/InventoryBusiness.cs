@@ -206,9 +206,19 @@ namespace CC_api.Business
       await inventoryRepository.DeleteAllInventory();
     }
 
-    internal Task AddExcelData(List<AddExcel> excelImportedData, int user_id, int company_id)
+    public async Task<List<InventoryRepository.PortDetails>> GetInventoryForMap(int id)
     {
-      throw new NotImplementedException();
+      return await inventoryRepository.GetPortDetailsAsync(id);
     }
+
+    public async Task<List<InventoryRepository.PortDetails>> GetSurplusInventoryForMap(int id)
+    {
+      return await inventoryRepository.GetSurplusPortDetailsAsync(id);
+    }
+    public async Task<List<InventoryRepository.PortDetails>> GetDeficitInventoryForMap(int id)
+    {
+      return await inventoryRepository.GetDeficitPortDetailsAsync(id);
+    }
+
   }
 }

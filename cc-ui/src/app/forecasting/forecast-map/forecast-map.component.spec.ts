@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostAdComponent } from './post-ad.component';
+import { ForecastMapComponent } from './forecast-map.component';
 
-describe('PostAdComponent', () => {
-  let component: PostAdComponent;
-  let fixture: ComponentFixture<PostAdComponent>;
+describe('ForecastMapComponent', () => {
+  let component: ForecastMapComponent;
+  let fixture: ComponentFixture<ForecastMapComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PostAdComponent ]
+      declarations: [ ForecastMapComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PostAdComponent);
+    fixture = TestBed.createComponent(ForecastMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

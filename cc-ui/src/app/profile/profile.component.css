@@ -11,6 +11,17 @@
       width: 2;
     }
   }
+  .employee-details-heading {
+    font-size: 20px;
+    font-color:rgb(40, 39, 39);
+  
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    color: black;
+  
+  }
   @layer components {
     .aspect-h-1 {
       height: 1;
@@ -69,10 +80,10 @@
     @apply text-xs px-2 first-letter:uppercase;
 }
 .div-action-button{
-    @apply bg-gray-300 h-[3rem] w-fit px-[1rem]  mx-4 my-3 md:text-sm flex-shrink-0;
+    @apply bg-gray-300 h-[2rem] w-fit px-[1rem] text-xs mx-4 my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
-    @apply relative flex items-center w-40 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+    @apply relative flex items-center w-80 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
