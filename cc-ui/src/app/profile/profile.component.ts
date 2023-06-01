@@ -118,6 +118,7 @@ export class ProfileComponent implements OnInit {
       console.log("employee loading error:" +error);
     }
   );
+  
   this.profileService.getallUserCount(this.companyId).subscribe(
     data => {
       this.usercount_list = data;
