@@ -24,7 +24,7 @@ namespace CC_api.Business
       return await portsRepository.GetAllPortsAsync();
     }
 
-    public async Task<List<Container>> GetAllCTypesAsync()
+    public async Task<List<ContainerType>> GetAllCTypesAsync()
     {
       return await portsRepository.GetAllCTypesAsync();
     }

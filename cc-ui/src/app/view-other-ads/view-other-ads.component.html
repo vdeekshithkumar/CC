@@ -7,7 +7,7 @@
   </div>
 
   <div class="text-after-sidebar">
-    <p>Search Containers as per your Requirement</p>
+    <p>Filter as per your Requirements</p>
     <div class="search-container">
       <div [ngClass]="{'selected': selectedOptions['search'] === 'Buy'}" (click)="toggleOption('search', 'Buy')">
         Buy
@@ -141,7 +141,7 @@
                     </span> &nbsp;
                     {{ companyAddress[ad.company_id] }}
                   </div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
-                  <button class="negotiation-button">Start Negotiation</button>
+                  <button class="negotiation-button"  [disabled]="DisableStartNegoBtn(ad.ad_id)" [disabled]="NButtonDisabled" (click)="StartNegotiation(ad.ad_id)" mat-raised-button color="primary">Start Negotiation</button>
 
                 </div>
               </div>
@@ -197,18 +197,18 @@
                     <td>{{ ad.expiry_date | date:'dd MMMM yyyy' }}</td>
                     <td class="center-quantity-cell">
                       <div class="center-quantity">
-                        <div class="quantity-value">{{ ad.quantity }}</div>
+                        <div class="quantity-value">ad-id  {{ ad.ad_id }}</div>
                       </div>
                     </td>
                     <td class="center-quantity-cell">
                       <div class="center-quantity">
-                        <div class="quantity-value">{{ ad.type_of_ad }}</div>
+                        <div class="quantity-value">company_id   {{ ad.company_id }}</div>
                       </div>
                     </td>
 
                     <td class="center-quantity-cell">
                       <div class="center-quantity">
-                        <div class="quantity-value">{{ ad.free_days }}</div>
+                        <div class="quantity-value">ctype{{ ad.container_type_id}}</div>
                       </div>
                     </td>
                     <td class="center-quantity-cell">

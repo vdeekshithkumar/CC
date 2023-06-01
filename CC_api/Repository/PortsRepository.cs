@@ -16,7 +16,7 @@ namespace CC_api.Repository
     {
       return dbContext.ports.ToList();
     }
-    public async Task<List<Container>> GetAllCTypesAsync()
+    public async Task<List<ContainerType>> GetAllCTypesAsync()
     {
       return dbContext.container_type.ToList();
     }

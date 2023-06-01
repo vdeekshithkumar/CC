@@ -58,6 +58,8 @@ export class ViewOtherAdsComponent {
   ads: Advertisement[] = [];
   adv: Advertisement[] = [];
   pod: string[] = [];
+  negotiation_list: any[] = [];
+  negotiationCompany: { [negotiation_id: number]: string } = {};
   company_list_by_companyId: any[] = [];
   companyNames: { [companyId: number]: string } = {};
   companyLogos: { [companyId: number]: string } = {};
@@ -66,7 +68,7 @@ export class ViewOtherAdsComponent {
   companyAddress: { [companyId: number]: string } = {};
   type: any;
   port_list: any;
-
+  NButtonDisabled: boolean = false;
   showNoSelectionMessage: boolean = false;
   date_created: any;
   advertisements: any;
@@ -78,6 +80,7 @@ export class ViewOtherAdsComponent {
     view: '',
     type: ''
   };
+  userId: any;
   getCompanyId() {
     return this.company_id;
   }
@@ -86,7 +89,30 @@ export class ViewOtherAdsComponent {
   }
   ngOnInit(): void {
 
+    this.viewotherAds.getallnegotiation(this.companyId).subscribe(
+      (data: any) => {
+        this.negotiation_list = data;
+        console.log("negotiation of companies fetched for diabling btn:", this.negotiation_list);
+  
+        // Populate the company names object
+        this.negotiation_list.forEach((negotiation: any) => {
+            this.negotiationCompany[negotiation.ad_id] = negotiation.company_id;
+        });
+      },
+      (error: any) => {
+        console.log("Error loading negotiationdetails:", error);
+      }
+    );
 
+    this.sessionService.getUserId().subscribe(
+      (userId: number) => {
+        this.userId = userId;
+        console.log('User ID is :', userId);
+      },
+      (error: any) => {
+        console.error('Error retrieving user ID:', error);
+      }
+    );
     this.sessionService.getCompanyId().subscribe(
 
       (companyId: number) => {
@@ -111,7 +137,7 @@ export class ViewOtherAdsComponent {
         this.ads = data;
 
 
-        console.log(this.ads); // for testing purposes only
+        console.log("ads are these//////////////"+this.ads.length); // for testing purposes only
       },
       error => console.log(error)
     );
@@ -163,8 +189,37 @@ export class ViewOtherAdsComponent {
       };
     }
   }
+  checkNegotiation(company_id: number, ad_id: number): boolean {
+    let x = false;
+  debugger
+    for (const negotiation of this.negotiation_list) {
+      if (negotiation.ad_id === ad_id && negotiation.company_id === company_id) {
+        x = true;
+        break;
+      }
+    }
+    return x;
+  }
+  StartNegotiation(ad_id:number){
+    this.viewotherAds.StartNegotiation(ad_id,this.companyId,this.userId)
+    .subscribe(
+      response => {
+        console.log('Negotiation started successfully.', response);
+        window.location.reload()
+        // Handle the response as needed
+      },
+      error => {
+        console.error('Error starting negotiation.', error);
+        // Handle the error as needed
+      }
+    );
+  }
+
+  DisableStartNegoBtn(ad_id:number){
+  debugger
+    this.NButtonDisabled = this.checkNegotiation(this.companyId, ad_id);
   
-  
+  }
  
   searchAdvertisements() {
     if (!this.type && !this.port_of_departure && !this.port_of_arrival) {

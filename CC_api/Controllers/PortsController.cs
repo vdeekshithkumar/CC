@@ -25,7 +25,7 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("GetAllCTypes")]
-    public async Task<List<Container>> GetAllCTypes()
+    public async Task<List<ContainerType>> GetAllCTypes()
     {
       return await portsBusiness.GetAllCTypesAsync();
     }

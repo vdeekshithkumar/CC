@@ -319,7 +319,7 @@ console.error('Uploaded file is empty');
     console.log("ad id id "+ ad_id)
   }
   DraftPosting(ad_id: number){
-    this.operation="Pending";
+    this.operation="PostAd";
 
     this.Edit(ad_id);
     console.log("ad id id "+ ad_id)
@@ -353,6 +353,33 @@ console.error('Uploaded file is empty');
   }
 
   Edit(ad_id: number){
+    if(this.operation=="PostAd"){
+      if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) 
+      {
+
+                  this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+                
+                  
+                  if (response.message === 'Success') {
+                    this.statusMsg = 'Success';
+                    setTimeout(()=> {this.statusMsg = ""},2000)
+                    this.clear()
+                    window.location.reload()
+                  }
+                   else {
+                    this.statusMsg = 'Failed';
+                    console.log(response.status) ;
+                  }
+                });
+   }
+   else{
+     alert("Please Fill the Mandatory Fields")
+     }
+
+  }
+  else{
+
+    debugger
     if (this.port_id && this.container_type_id && this.file) {
     
 
@@ -374,8 +401,9 @@ console.error('Uploaded file is empty');
      alert("Please Fill the Mandatory Fields")
    }
 
+    
   }
-
+  }
   
 //   options = ['Buy', 'Lease', 'Sell','Swap'];
  
