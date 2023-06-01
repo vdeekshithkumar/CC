@@ -19,6 +19,23 @@ namespace CC_api.Controllers
 
       NegotiationRepository = new NegotiationRepository();
     }
+    [HttpGet("GetAllNegotiation")]
+    public async Task<List<Negotiation>> GetAllNegotiation(int companyID)
+    {
+      return await NegotiationRepository.GetAllNegotiation(companyID);
+
+    }
+
+    [HttpPost("StartNegotiation")]
+
+    public async Task<IActionResult> StartNegotiation(int ad_id,int company_id,int user_id)
+    {
+      {
+        return await NegotiationBusiness.StartNegotiation(ad_id,company_id,user_id);
+
+      }
+
+    }
 
     [HttpGet("GetNegotiationCount/{adid}")]
     public async Task<int> GetNegotiationCount(int adid)

@@ -187,7 +187,7 @@ pickup_charges:any;
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
         this.PList = permissions;
-        this.isButtonDisabled = false;
+        this.isButtonDisabled = !this.PList.includes(2);;
         console.log("permissions are//////////////////////// "+this.PList);
       
       },
@@ -503,9 +503,7 @@ onExport(){
    OpenNegotiations(ad_id: number) {
     this.dialog.open(NegotiationListComponent, {
       width: '70%',
-      height: '500px',
-      maxHeight: '100%',
-      maxWidth: '100%',
+    
       data: {
         ad_id: ad_id,
         testpassing:3443,

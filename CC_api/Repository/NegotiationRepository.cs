@@ -21,11 +21,20 @@ namespace CC_api.Repository
 
       return negotiations;
     }
-
+    public async Task Add(Negotiation n)
+    {
+      await dbContext.negotiation.AddAsync(n);
+      await dbContext.SaveChangesAsync();
+    }
     public async Task UpdateNegotiation(Negotiation N)
     {
       dbContext.negotiation.Update(N);
       await dbContext.SaveChangesAsync();
+    }
+    public async Task<List<Negotiation>> GetAllNegotiation(int companyID)
+    {
+      return await dbContext.negotiation.ToListAsync();
+      /*  return await dbContext.company.Where(c => c.company_id != companyID).ToListAsync();*/
     }
     public async Task<Negotiation> GetNegotiationById(int negotitiation_id)
     {

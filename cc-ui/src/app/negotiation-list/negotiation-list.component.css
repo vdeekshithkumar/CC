@@ -9,6 +9,7 @@
   height: 100%;
   overflow: hidden;
 }
+
 .button-blue-bg {
   @apply bg-CCdarkblue text-white border p-1 px-10  text-xs font-thin border-blue-500;
 }

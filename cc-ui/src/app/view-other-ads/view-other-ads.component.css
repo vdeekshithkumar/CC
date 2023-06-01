@@ -68,7 +68,7 @@
   position: fixed;
   top: 0;
 
-  left: 33%;
+  left: 30%;
 
   transform: translateX(-50%);
   z-index: 1;
@@ -107,8 +107,10 @@
   position: absolute;
   top: 20px;
 
-  left: calc(33% + 10px);
-  width: calc(47% - 15px);
+  left: calc(31% + 14px);
+ margin-left: 4px;
+ max-width: max-content;
+ width: 100%;
   font-weight: bold;
   font-size: 10px;
   color: black;
@@ -258,7 +260,7 @@
 
 .advertisement-container {
   display: flex;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   padding: 10px;
   flex-direction: row;
   width: 900px;

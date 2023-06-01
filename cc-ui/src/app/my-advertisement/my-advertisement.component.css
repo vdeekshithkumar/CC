@@ -186,7 +186,7 @@
     
     .my-button {
     
-    @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+    @apply px-2 py-1 text-white bg-CCblue rounded-md ml-2;
     
     }
 

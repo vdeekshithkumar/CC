@@ -40,9 +40,16 @@ userId: any;
 adId:any;
 company_list_by_companyId: any[] = [];
 alluser_list: any[] = [];
+ads_list: any[] = [];
+AdsArrivalPort: { [ad_id: number]: string } = {};
+AdsDeparturePort: { [ad_id: number]: string } = {};
+
 userNames: { [userId: number]: string } = {};
+userLNames: { [userId: number]: string } = {};
 userNo: { [userId: number]: string } = {};
 companyNames: { [companyId: number]: string } = {};
+
+companyLicenceId: { [companyId: number]: string } = {};
 companyLogos: { [companyId: number]: string } = {};
 companyDomain: { [companyId: number]: string } = {};
 companyRating: { [companyId: number]: string } = {};
@@ -76,6 +83,32 @@ console.log("data passed adid is"+this.data.testpassing);
     }
   );
 
+  this.negotiationservice.getAdvertisement(this.companyId,"Active").subscribe(
+    (data: any) => {
+      this.ads_list = data;
+      console.log("Other ads by company ID is fetched:", this.ads_list);
+
+      // Populate the company names object
+      this.ads_list.forEach((ad: any) => {
+        this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
+        this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
+    
+
+      });
+    },
+    (error: any) => {
+      console.log("Error loading company details:", error);
+    }
+  );
+
+
+
+
+
+
+
+
+
   this.negotiationservice.getotherCompany(this.companyId).subscribe(
     (data: any) => {
       this.company_list_by_companyId = data;
@@ -88,6 +121,7 @@ console.log("data passed adid is"+this.data.testpassing);
         this.companyDomain[company.company_id] = company.domain_address;
         this.companyRating[company.company_id] = company.rating;
         this.companyAddress[company.company_id] = company.address;
+        this.companyLicenceId[company.company_id] = company.licence_id;
 
       });
     },
@@ -105,7 +139,7 @@ console.log("data passed adid is"+this.data.testpassing);
       // Populate the user names object
       this.alluser_list.forEach((user: any) => {
         this.userNames[user.user_id] = user.fname;
-        this.userNames[user.user_id] = user.lname;
+        this.userLNames[user.user_id] = user.lname;
         this.userNo[user.user_id] = user.phone_no;
        
 
