@@ -1,8 +1,8 @@
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CC_api.Repository
 {
@@ -87,38 +87,55 @@ namespace CC_api.Repository
       return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == 1).ToListAsync();
 
     }
-    public async Task<int>GetAllUserCount(int companyId)
+    public async Task<int> GetAllUserCount(int companyId)
     {
-       var userCount = await dbContext.users.Where(u =>u.company_id == companyId&&u.is_active == 1).CountAsync();
-       return userCount;
+      var userCount = await dbContext.users.Where(u => u.company_id == companyId && u.is_active == 1).CountAsync();
+      return userCount;
     }
 
     public async Task DeleteUser(int userId)
     {
-      var upmapping = await dbContext.up_mapping.FirstOrDefaultAsync(x => x.user_id == userId);
       var user = await dbContext.users.FirstOrDefaultAsync(x => x.user_id == userId);
 
-      if (upmapping != null)
+      if (user != null)
       {
         user.is_active = 0;
-        dbContext.up_mapping.Remove(upmapping);
+        dbContext.users.Update(user);
         await dbContext.SaveChangesAsync();
       }
     }
+
+
     public async Task EditUserById(User user)
     {
       dbContext.users.Update(user);
       //dbContext.Entry(user).State = EntityState.Modified;
       await dbContext.SaveChangesAsync();
     }
-    public async Task<User> GetUserByEmailAndPassword(string email, string password)
-    {
-      return await dbContext.users.Where(u => u.email == email).FirstOrDefaultAsync();
-    }
+    //public async Task<User> GetUserByEmailAndPassword(string email, string password)
+    //{
+    //  return await dbContext.users.Where(u => u.email == email).FirstOrDefaultAsync();
+    //}
     public async Task<User> GetUserById(int id)
     {
       return await dbContext.users.FirstOrDefaultAsync(x => x.user_id == id);
     }
+
+
+
+    public async Task<User> GetUserByEmailAndPassword(string email, string password)
+    {
+      var user = await GetUserByEmail(email);
+      if (user != null && user.VerifyPassword(password))
+      {
+        return user;
+      }
+      return null;
+    }
+
+
+   
+  }
     public async Task UpdateUserDetails(int id, User updatedUser)
     {
       var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == id);
@@ -134,5 +151,5 @@ namespace CC_api.Repository
       }
     }
 
+
   }
-}

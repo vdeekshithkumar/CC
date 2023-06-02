@@ -7,6 +7,8 @@ import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
 import { findIndex } from 'lodash';
 
+
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -37,12 +39,17 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
+
+  password: any;
+
   adscount: any;
+
   getCompanyId() {
     return this.company_id;
   }
   constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
+    
     this.sessionService.getUserId().subscribe(
         (userId: number) => {
         this.userId = userId;
@@ -110,14 +117,14 @@ export class ProfileComponent implements OnInit {
 
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
-      this.alluser_list = data;
+      this.alluser_list = data; // Assign response data to alluser_list
       console.log("employee list fetched: ", this.alluser_list); 
-     
     },
     error => {
-      console.log("employee loading error:" +error);
+      console.log("employee loading error:" + error);
     }
   );
+  
   this.profileService.getallUserCount(this.companyId).subscribe(
     data => {
       this.usercount_list = data;
@@ -174,6 +181,7 @@ export class ProfileComponent implements OnInit {
         this.email = data.email
         this.company_id = data.company_id
         this.phone = data.phone_no
+        this.password = data.password;
       },
       error => {
         // Handle any errors that occur
@@ -211,11 +219,15 @@ export class ProfileComponent implements OnInit {
             edit: true
           }
         });
+
+        console.log("in profile" + this.user_data.password);
+
       },
       (error: any) => {
         console.log(error);
       }
     );
+
   }
   
   deleteUserById(userId: number) {
@@ -242,15 +254,15 @@ export class ProfileComponent implements OnInit {
       },
       (error: any) => console.log(error)
     );
+
   }
   
   
-  removeDeletedEmployeeFromFrontend(id: number) {
-    const index = findIndex(this.alluser_list, { id: id });
-    if (index !== -1) {
-      this.alluser_list.splice(index, 1);
-    }
-  }
+  
+  
+  
+  
+ 
   
   onClick() {
     this.router.navigate(['/my-ad'], { queryParams: { value: 1 } });
