@@ -1,0 +1,23 @@
+<!-- <div class="container">
+    <app-conversationslist (conversationSelected)="onConversationSelected($event)"></app-conversationslist>
+    <app-messagecontent></app-messagecontent>
+    <app-profiledetails [selectedConversation]="selectedConversation"></app-profiledetails>
+</div> -->
+<div class="header"><app-header></app-header></div>
+
+
+<div class="container">
+    <div class="sidebar">
+        <!-- Sidebar content goes here -->
+        <app-conversationslist (conversationSelected)="onConversationSelected($event)"></app-conversationslist>
+    </div>
+    <div class="content">
+         <!--  content goes here -->
+        <app-messagecontent></app-messagecontent>
+    </div>
+    <div class="profile">
+        <!-- profile goes here -->
+        <app-profiledetails [selectedConversation]="selectedConversation"></app-profiledetails>
+       
+    </div>
+</div>

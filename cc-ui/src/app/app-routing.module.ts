@@ -22,6 +22,7 @@ import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { NegotiationsComponent } from './negotiations/negotiations.component';
+import { MessageComponent } from './message/message.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -78,6 +79,10 @@ const routes: Routes = [
   {
     component:OtpVerifyComponent,
     path:'otp-validation',
+  },
+  {
+    component:MessageComponent,
+    path:'message'
   },
   {
     component:ForgotPasswordComponent,

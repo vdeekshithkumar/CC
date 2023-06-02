@@ -1,0 +1,71 @@
+.conversationlist{
+    overflow-y: scroll;
+}
+
+.conversation-details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+  }
+  
+  .search-box {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .tab-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .tab-button {
+    background-color: #dddddd;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tab-button.active {
+    background-color: #999999;
+    color: #ffffff;
+  }
+  
+  .user-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .user {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-details h4 {
+    margin: 0;
+  }
+  
+  .user-details p {
+    margin: 0;
+    color: #888888;
+  }
+  

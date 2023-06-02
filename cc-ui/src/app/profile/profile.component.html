@@ -257,8 +257,8 @@
                   <th scope="col" class="px-6 py-4">Last Name</th>
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
-                  <th scope="col" class="px-6 py-4">Password</th>
-                  <th colspan="4" scope="col" class="px-6 py-4">&ensp;Actions</th>
+             
+                  <th colspan="2" scope="col" class="px-6 py-4 justify-center">&ensp;Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -271,16 +271,19 @@
                
                   <td class="whitespace-nowrap px-6 py-4">
                    <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4">
+                  </td>
+               
+                     <td>
                       <div *ngIf="alluser_list">
                         <div *ngIf="alluser_list.length === 0">
                           <p>No users added.</p>
                         </div>
-                        <div *ngIf="alluser_list.length > 0">
-                          <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
-                        </div>
-                      </div>
+                      <div *ngIf="alluser_list.length > 0">
+                      <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
+                    </div>
+                    
+                  </div>
+                     </td>
                 </tr>
               </tbody>
             </table>
