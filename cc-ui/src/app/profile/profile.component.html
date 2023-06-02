@@ -199,8 +199,10 @@
          Upload Inventory
         </button>
 
+
         
     </div>
+
     
     <!-- <br>&nbsp;&nbsp;&nbsp; -->
     <div>
@@ -209,8 +211,10 @@
 
     </div>
     
-    <br>
+    <br/>
+    
     <hr class="mx-2" />
+
  
     <div class="employee-details-heading bg-gray-200 dark:bg-gray-800 flex justify-between items-center">
       <h1 class="ml-10">Employee Details</h1>
@@ -252,37 +256,45 @@
             <table class="employee-table">
               <thead class="emplist-thead">
                 <tr>
-              
                   <th scope="col" class="px-6 py-4 ml-20">First Name</th>
                   <th scope="col" class="px-6 py-4">Last Name</th>
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
-                  <th scope="col" class="px-6 py-4">Password</th>
-                  <th colspan="4" scope="col" class="px-6 py-4">&ensp;Actions</th>
+                  <th colspan="4" scope="col" class="px-3 py-4 text-center">
+                    Actions
+                  </th>
                 </tr>
               </thead>
+              
+              
+              <br/>
               <tbody>
                 <tr *ngFor="let u of alluser_list | search: searchTerm" class="employee-add">
-                 
                   <td class="emplist ml-20">{{u.fname}}</td>
                   <td class="emplist">{{u.lname}}</td>
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
-               
-                  <td class="whitespace-nowrap px-6 py-4">
-                   <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
-                    </td>
-                    <td class="whitespace-nowrap px-6 py-4">
-                      <div *ngIf="alluser_list">
-                        <div *ngIf="alluser_list.length === 0">
-                          <p>No users added.</p>
-                        </div>
-                        <div *ngIf="alluser_list.length > 0">
-                          <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
-                        </div>
+
+
+
+                  <td class="whitespace-nowrap px-6 py-4 text-center">
+                    <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a>
+                  </td>
+                  <td class="whitespace-nowrap px-6 py-4 text-center">
+                    <div *ngIf="alluser_list">
+                      <div *ngIf="alluser_list.length === 0">
+                        <p>No users added.</p>
+
                       </div>
+                      <div *ngIf="alluser_list.length > 0">
+                        <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
+                      </div>
+                    </div>
+                  </td>
+
                 </tr>
               </tbody>
+              
             </table>
           </div>
         </div>

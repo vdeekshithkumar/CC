@@ -5,7 +5,7 @@
     <section class="ml-44 antialiased max-w-20x2 bg-gray-40 text-black min-h-screen p-20">
         <div class="h-full">
             <!-- Card background -->
-            <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()">
+            <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()"  autocomplete="new-password">
                 <!-- Card body -->
                 <div class="relative px-4 md:px-6 lg:px-8 pb-8 max-w-lg mx-auto" x-data="{ card: true }">
                     <div class="div-form-card">
@@ -27,7 +27,7 @@
                                 <div>
                                     <label class="div-card-label" for="card-nr">First Name<span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="fname" id="card-nr" class="div-input" type="text"
+                                    <input formControlName="fname" id="card-nr" class="div-input" type="text"  autocomplete="new-password"
                                         placeholder="" />
                                         <div
                                         *ngIf="showValidationErrors && addEmployeeForm.get('fname')?.invalid"
@@ -42,8 +42,11 @@
                                     <div class="flex-1">
                                         <label class="div-card-label" for="card-expiry">Last Name<span
                                                 class="text-red-500">*</span></label>
-                                        <input formControlName="lname" id="card-expiry" class="div-input" type="text"
-                                            placeholder="" />
+
+                                        <input formControlName="lname" id="card-expiry" class="div-input" type="text"  
+                                            placeholder="" autocomplete="off" />
+
+                                       
                                             <div
                                             *ngIf="showValidationErrors && addEmployeeForm.get('lname')?.invalid"
                                             class="text-red-500 text-sm mt-1"
@@ -55,7 +58,7 @@
                                     <div class="flex-1">
                                         <label class="div-card-label" for="card-cvc">Phone Number <span
                                                 class="text-red-500">*</span></label>
-                                        <input id="card-cvc" formControlName="phone_no" class="div-input" type="text"
+                                        <input id="card-cvc" formControlName="phone_no" class="div-input" type="text"  autocomplete="new-password"
                                             placeholder="" />
                                             <div
                                             *ngIf="showValidationErrors && addEmployeeForm.get('phone_no')?.invalid"
@@ -69,7 +72,10 @@
                                 <div>
                                     <label class="div-card-label" for="card-name">Email<span
                                             class="text-red-500">*</span></label>
-                                    <input id="card-name" formControlName="email"  autocomplete="off" randomattribute="false" class="div-input" type="email"
+
+                                    <input id="card-name" formControlName="email" class="div-input" type="email"  autocomplete="new-password"
+
+                               
                                         placeholder="" />
                                         <div
                                         *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid"
@@ -84,7 +90,9 @@
                                 <div>
                                     <label class="div-card-label" for="card-email">Address <span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="address" class="div-input" type="text" placeholder="" />
+
+                                    <input formControlName="address" class="div-input" type="text" placeholder=""  autocomplete="new-password" />
+
                                     <div
                                     *ngIf="showValidationErrors && addEmployeeForm.get('address')?.invalid"
                                     class="text-red-500 text-sm mt-1"
@@ -98,9 +106,12 @@
                                 <div>
                                     <label class="div-card-label" for="card-email">Password<span
                                             class="text-red-500">*</span></label>
+
+    
                                     <input formControlName="password"  autocomplete="off" randomattribute="false" class="div-input"
                                     type="{{ showPassword ? 'text' : 'password' }}"
                                     id="password"
+                                             autocomplete="new-password"
                                     placeholder="Password"
                                     required
                                     minlength="8"
@@ -115,6 +126,7 @@
                                                         <div *ngIf="addEmployeeForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
                                            
                                                     
+
                                 </div>
                             </div>
                         </div>
