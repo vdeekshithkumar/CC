@@ -11,7 +11,7 @@ namespace CC_api
     {
       try
       {
-        var fromAddress = new MailAddress("vishruthaacharya23@gmail.com", "Vishrutha");
+        var fromAddress = new MailAddress("vishruthaacharya23@gmail.com", "Ivoyant Systems PVT LTD");
         var toAddress = new MailAddress(email);
         const string fromPassword = "exqyonulvbzfdduv";
         const string subject = "One Time Password (OTP) for registration";

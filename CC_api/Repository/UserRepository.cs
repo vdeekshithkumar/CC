@@ -82,6 +82,11 @@ namespace CC_api.Repository
       var u=await dbContext.users.Where(u => u.company_id != companyId).ToListAsync();
       return u;
     }
+    public async Task<List<User>> GetAllCompanyUser(int companyId)
+    {
+      return await dbContext.users.Where(u => u.company_id == companyId).ToListAsync();
+
+    }
     public async Task<List<User>> GetAllUserAsync(int companyId)
     {
       return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == 1).ToListAsync();

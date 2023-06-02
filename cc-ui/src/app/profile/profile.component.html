@@ -275,6 +275,8 @@
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
 
+
+
                   <td class="whitespace-nowrap px-6 py-4 text-center">
                     <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a>
                   </td>
@@ -282,6 +284,7 @@
                     <div *ngIf="alluser_list">
                       <div *ngIf="alluser_list.length === 0">
                         <p>No users added.</p>
+
                       </div>
                       <div *ngIf="alluser_list.length > 0">
                         <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>

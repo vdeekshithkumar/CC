@@ -97,7 +97,10 @@ namespace CC_api.Business
       return await userRepository.GetAllUser(companyId);
     }
 
-
+    public async Task<List<User>> GetAllCompanyUser(int companyId)
+    {
+      return await userRepository.GetAllCompanyUser(companyId);
+    }
     public async Task<List<User>> GetAllUserAsync(int companyId)
     {
       return await userRepository.GetAllUserAsync(companyId);

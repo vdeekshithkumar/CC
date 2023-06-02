@@ -292,8 +292,6 @@ AdsCount(){
         adId:adId
       }
     
-      
-      
 
     })
 

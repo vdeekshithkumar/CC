@@ -92,6 +92,8 @@ export class OtpVerifyComponent implements OnInit{
                     },
                     (error: any) => {
                       console.error('An error occurred while verifying:', error);
+                      alert(" Error verifying: ")
+                      window.location.reload();
                     }
                   );
                 
@@ -101,11 +103,14 @@ export class OtpVerifyComponent implements OnInit{
                 } 
                 catch (error) {
                   console.log('Error veryfying:', error);
+                  alert(" Error verifying: ")
+                  window.location.reload();
                 }
               },
               (error: any) => {
                 console.log("Error while retrieving", error);
-                
+                alert(" Error verifying: ")
+                window.location.reload();
               }
             );
           

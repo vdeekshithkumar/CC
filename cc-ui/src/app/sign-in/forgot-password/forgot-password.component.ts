@@ -44,6 +44,8 @@ export class ForgotPasswordComponent{
           // Do something with user_id and company_id
         } else {
           console.log("User not found");
+          alert("User Not found, Please Enter the Registered Email Id");
+          window.location.reload()
         }
       },
       error => {
@@ -52,6 +54,7 @@ export class ForgotPasswordComponent{
     );
   }
   validateEmail() {
+    debugger
     if (!this.email) {
       this.dialog.open(DialogComponent, {
         data: {
@@ -61,6 +64,8 @@ export class ForgotPasswordComponent{
         }
       });
       return;
+    }else{
+      this.IfExistsThenSendOTP();
     }
   }
   openErrorDialog(message: string): void {
