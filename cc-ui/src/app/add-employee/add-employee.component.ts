@@ -58,7 +58,7 @@ showValidationErrors: boolean = false;
   types = [];
 
   Pis_verified: any;
-  Plname: any;
+  
   Pphone: any;
   Pemail: any;
   Paddress: any;
@@ -112,7 +112,7 @@ showValidationErrors: boolean = false;
     });
 
 
-    const state = history.state;
+    
   if (state && state.edit) {
     this.isEdit = true;
     console.log('Edit mode enabled.');
@@ -496,17 +496,20 @@ async onAdd() {
       console.log('Could not add:', error);
     }
   }
-  openErrorDialog(message: string): void {
+
+  
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  openErrorDialog(message: string):void {
     this.dialog.open(DialogComponent, {
       data: {
         message: message
       }
     });
   }
-  togglePasswordVisibility() {
-    this.showPassword = !this.showPassword;
-  }
-}
 
 
 }
