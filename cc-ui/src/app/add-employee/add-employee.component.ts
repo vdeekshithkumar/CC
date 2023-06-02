@@ -233,25 +233,91 @@ updateReadCheckbox(event: Event) {
     readCheckbox.checked = false;
   }
 }
+// updateReadAccess(permission: any, event: any) {
+//   const checkbox = event.target as HTMLInputElement;
+//   const action = checkbox.id.includes('write') ? 'write' : 'read';
+
+//   this.correspondingPermission = this.PList.find(
+//     (p: { type: any; actions: string }) =>
+//       p.type === permission.type && p.actions === action
+//   );
+
+//   if (this.correspondingPermission) {
+//     console.log('Permission ID:', this.correspondingPermission.permission_id);
+//     console.log('Action:', this.correspondingPermission.actions);
+//     console.log('Type:', this.correspondingPermission.type);
+//     this.ppList.push(this.correspondingPermission.permission_id);
+//   }
+
+//   // Get the corresponding read and write checkboxes
+//   const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
+//   const writeCheckbox = document.getElementById(permission.type + '-write') as HTMLInputElement;
+
+//   if (action === 'write' && checkbox.checked) {
+//     // Select both read and write checkboxes
+//     readCheckbox.checked = true;
+//     writeCheckbox.checked = true;
+//     readCheckbox.disabled = true;
+//   } else if (action === 'write' && !checkbox.checked) {
+//     // Unselect both read and write checkboxes
+//     readCheckbox.checked = false;
+//     writeCheckbox.checked = false;
+//     readCheckbox.disabled = false;
+//   }
+// }
 updateReadAccess(permission: any, event: any) {
   const checkbox = event.target as HTMLInputElement;
   const action = checkbox.id.includes('write') ? 'write' : 'read';
 
-  this.correspondingPermission = this.PList.find(
-    (p: { type: any; actions: string }) =>
-      p.type === permission.type && p.actions === action
-  );
+  if (checkbox.checked) {
+    const correspondingPermission = this.PList.find(
+      (p: { type: any; actions: string }) =>
+        p.type === permission.type && p.actions === action
+    );
 
-  if (this.correspondingPermission) {
-    console.log('Permission ID:', this.correspondingPermission.permission_id);
-    console.log('Action:', this.correspondingPermission.actions);
-    console.log('Type:', this.correspondingPermission.type);
-    this.ppList.push(this.correspondingPermission.permission_id);
+    if (correspondingPermission) {
+      console.log('Permission ID:', correspondingPermission.permission_id);
+      console.log('Action:', correspondingPermission.actions);
+      console.log('Type:', correspondingPermission.type);
+
+      // Check if the permission already exists in selectedPermissions
+      const existingIndex = this.ppList.findIndex(
+        (p: any) => p.permission_id === correspondingPermission.permission_id
+      );
+
+      if (existingIndex === -1) {
+        // Permission doesn't exist, add it to selectedPermissions
+        this.ppList.push(correspondingPermission);
+      }
+    }
+  } else {
+    const correspondingPermission = this.PList.find(
+      (p: { type: any; actions: string }) =>
+        p.type === permission.type && p.actions === action
+    );
+
+    if (correspondingPermission) {
+      const index = this.ppList.findIndex(
+        (p: any) => p.permission_id === correspondingPermission.permission_id
+      );
+
+      if (index !== -1) {
+        // Remove the permission from selectedPermissions
+        this.ppList.splice(index, 1);
+      }
+    }
   }
 
+  // Print the selected permissions in the console
+  console.log('Selected Permissions:', this.ppList);
+
   // Get the corresponding read and write checkboxes
-  const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-  const writeCheckbox = document.getElementById(permission.type + '-write') as HTMLInputElement;
+  const readCheckbox = document.getElementById(
+    permission.type + '-read'
+  ) as HTMLInputElement;
+  const writeCheckbox = document.getElementById(
+    permission.type + '-write'
+  ) as HTMLInputElement;
 
   if (action === 'write' && checkbox.checked) {
     // Select both read and write checkboxes
@@ -265,6 +331,7 @@ updateReadAccess(permission: any, event: any) {
     readCheckbox.disabled = false;
   }
 }
+
 
 async addP() {
   debugger;
