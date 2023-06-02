@@ -1,0 +1,38 @@
+<div class="conversation-details">
+    <div class="search-box">
+      <input type="text" placeholder="Search">
+    </div>
+    <div class="tab-buttons">
+        <mat-tab-group>
+            <mat-tab label="First" [ngClass]="{ 'active': activeTab === 1 }" (click)="selectTab(1)">
+                <div *ngIf="activeTab === 1">
+        
+                <div class="user" *ngFor="let user of usersWithProfile">
+                    <img [src]="user.profilePhoto" alt="Profile Photo">
+                    <div class="user-details">
+                      <h4>{{ user.name }}</h4>
+                      <p>{{ user.message.substr(0, 5) }}</p>
+                    </div>
+                  </div>
+              </div>  
+             </mat-tab>
+            <mat-tab label="Second" [ngClass]="{ 'active': activeTab === 2 }" (click)="selectTab(2)">  
+                <div *ngIf="activeTab === 2">
+        
+                    <div class="user" *ngFor="let user of usersWithProfile">
+                        <img [src]="user.profilePhoto" alt="Profile Photo">
+                        <div class="user-details">
+                          <h4>{{ user.name }}</h4>
+                          <p>{{ user.message.substr(0, 5) }}</p>
+                        </div>
+                      </div>
+                  </div>
+                 
+            </mat-tab>
+         
+          </mat-tab-group>
+      
+    </div>
+   
+  </div>
+  

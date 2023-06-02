@@ -210,6 +210,7 @@ export class ViewOtherAdsComponent {
      backPage(){
       this.router.navigate(['forecast-map']);
      }
+     
   checkNegotiation(company_id: number, ad_id: number): boolean {
     let x = false;
   debugger

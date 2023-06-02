@@ -45,7 +45,7 @@
         <div class="flex flex-col border-4">
           <div class="p-1 flex flex-row items-center  justify-around">
             <div class="flex flex-row items-center">
-              <img [src]="getCompanylogo(n.ad_id)" [ngClass]="{'company-name': n.status != 'accepted'}" class="w-16 h-8">
+              <img [src]="getCompanylogo(n.ad_id)" [ngClass]="{'company-name': n.status != 'accepted'}" class="w-16 h-8 object-contain">
             
             <div [ngClass]="{'company-name':  n.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8">{{ getCompanyName(n.ad_id) }}</div>
             <div class="gray-highlights ml-4" [ngClass]="{'company-name':  n.status != 'accepted'}">

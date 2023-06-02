@@ -137,10 +137,6 @@ namespace CC_api.Repository
       }
       return null;
     }
-
-
-   
-  }
     public async Task UpdateUserDetails(int id, User updatedUser)
     {
       var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == id);
@@ -155,6 +151,10 @@ namespace CC_api.Repository
         await dbContext.SaveChangesAsync();
       }
     }
+
+
+  }
+    
 
 
   }
