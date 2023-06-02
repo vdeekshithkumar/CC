@@ -147,7 +147,7 @@
             class="div-employee-box"
           >
           
-            <div class="flex-1 px-2">&emsp;Admin</div>
+            <div class="flex-1 px-2">&emsp;Name</div>
           </div>
           <div class="div-employee-name">&emsp;{{fname}} {{lname}}</div>
         </div>
@@ -181,7 +181,7 @@
       </div>
       <div class="flex flex-row ml-2 ">
         <button class="div-action-button" (click)="onClick()">
-          Approve Ads (6)
+          Approve Ads ({{adscount[1]}})
         </button>
         <button class="div-action-button">
           Sync Data
@@ -199,7 +199,10 @@
          Upload Inventory
         </button>
 
-       
+
+        
+    </div>
+
     
     <!-- <br>&nbsp;&nbsp;&nbsp; -->
     <div>
@@ -211,37 +214,40 @@
     <br/>
     
     <hr class="mx-2" />
-    <br/>
-    <div class="employee-details-heading">
-      <h1>Employee Details</h1>
-    </div>
-    <div class="div-search mx-4 my-3">
-      <div class="div-search-icon">
-        <!-- search bar icon -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="gray"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
-        </svg>
-      </div>
+
+ 
+    <div class="employee-details-heading bg-gray-200 dark:bg-gray-800 flex justify-between items-center">
+      <h1 class="ml-10">Employee Details</h1>
+      <div class="div-search mx-4 my-3">
+        <div class="div-search-icon">
+          <!-- search bar icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="gray"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
     
-      <input
-        class="input-search"
-        type="text"
-        [(ngModel)]="searchTerm"
-        id="search"
-        placeholder="First Name | Last Name | Email"
-      />
+        <input
+          class="input-search"
+          type="text"
+          [(ngModel)]="searchTerm"
+          id="search"
+          placeholder="First Name | Last Name | Email"
+        />
+      </div>
     </div>
+    
+       
     <!-- Table start -->
     <div class="flex flex-col overflow-x-hidden ml-8">
       <div class="sm:-mx-6 lg:-mx-8">
@@ -268,6 +274,7 @@
                   <td class="emplist">{{u.lname}}</td>
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
+
                   <td class="whitespace-nowrap px-6 py-4 text-center">
                     <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a>
                   </td>
@@ -281,6 +288,7 @@
                       </div>
                     </div>
                   </td>
+
                 </tr>
               </tbody>
               

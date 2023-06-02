@@ -77,7 +77,11 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
       return user.user_id;
     }
-
+    public async Task<List<User>> GetAllUser(int companyId)
+    {
+      var u=await dbContext.users.Where(u => u.company_id != companyId).ToListAsync();
+      return u;
+    }
     public async Task<List<User>> GetAllUserAsync(int companyId)
     {
       return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == 1).ToListAsync();
@@ -118,6 +122,7 @@ namespace CC_api.Repository
     }
 
 
+
     public async Task<User> GetUserByEmailAndPassword(string email, string password)
     {
       var user = await GetUserByEmail(email);
@@ -131,4 +136,20 @@ namespace CC_api.Repository
 
    
   }
+    public async Task UpdateUserDetails(int id, User updatedUser)
+    {
+      var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == id);
+
+      if (user != null)
+      {
+        user.fname = updatedUser.fname;
+        user.lname = updatedUser.lname;
+        user.phone_no = updatedUser.phone_no;
+        user.address = updatedUser.address;
+
+        await dbContext.SaveChangesAsync();
+      }
+    }
+
+
   }

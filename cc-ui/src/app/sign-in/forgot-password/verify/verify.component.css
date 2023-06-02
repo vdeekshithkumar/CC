@@ -3,11 +3,14 @@
 @tailwind utilities;
 .boxes{
 
- @apply border-gray-200 border rounded-md py-2 px-3 col-span-2 text-center;
+ @apply border-black border-2 rounded-md py-2 px-3 col-span-2 text-center;
 
 }
 .div{
    @apply flex justify-center items-center h-screen bg-gray-100
+}
+.signin-btn{
+  @apply inline-flex mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
 }
 .div-box{
     @apply bg-white rounded-md shadow-md p-8 w-full max-w-md
@@ -16,5 +19,5 @@
     @apply text-2xl font-bold mb-4 text-center
 }
 .div-btn{
-    @apply bg-CCblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 col-span-12
-}
+    @apply font-semibold px-4 py-3 rounded mt-4 col-span-12 rounded border-blue-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
+}   

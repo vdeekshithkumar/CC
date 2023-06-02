@@ -1,9 +1,9 @@
 
 <app-header></app-header>
-<div class="flex">
+<div class="flex sticky">
     <app-sidebar class="w-1/12 ">
     </app-sidebar>
-    <div id="main-neg-component" class="w-11/12 font-poppins min-h-screen">
+    <div id="main-neg-component" class="w-11/12 font-poppins min-h-screen sticky">
       <div id="title" class="w-full mx-2 p-2 h-fit flex flex-col">
         <div class="flex justify-between">
           <div class="text-2xl">My Negotiations</div>
@@ -39,33 +39,45 @@
           </div>
         </div>
       </div>
-      <ng-container class="flex justify-center items-center">
-        <div class="flex flex-col max-w-screen-xl min-w-screen-lg">
+      <div class="bg-gray-100 ml-0 mr-0" style="height: 4px;">
+      </div>
+      <ng-container *ngFor="let n of filteredNlist | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="flex justify-center items-center border">
+        <div class="flex flex-col border-4">
           <div class="p-1 flex flex-row items-center  justify-around">
             <div class="flex flex-row items-center">
-              <img src="../../assets/images/green-dot.png" class="w-10 h-10 ">
-              <div class="font-bold whitespace-nowrap">Company Name</div>
-            </div>
-            <div class="gray-highlights">
+              <img [src]="getCompanylogo(n.ad_id)" [ngClass]="{'company-name': n.status != 'accepted'}" class="w-16 h-8">
+            
+            <div [ngClass]="{'company-name':  n.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8">{{ getCompanyName(n.ad_id) }}</div>
+            <div class="gray-highlights ml-4" [ngClass]="{'company-name':  n.status != 'accepted'}">
               <i class="material-icons text-sm text-yellow-400">star</i>
-              4.7
+              {{ getCompanyrating(n.ad_id) }}
             </div>
-            <div class="gray-highlights">
-              <i class="material-icons text-xs mr-1">computer</i>
-              Domain address
-            </div>
-            <div class="gray-highlights">
-              <i class="material-icons text-xs mr-1">computer</i>
-              Licence id whole 
-            </div>
-            <div class="gray-highlights">
-              <i class="material-icons text-xs mr-1">place</i>
-              Location in detail
-            </div>
+          </div>
+         
+       
+
+          <div class="gray-highlights" [ngClass]="{'company-name': n.status != 'accepted'}">
+            <i class="material-icons text-xs mr-1">computer</i>
+            {{ getCompanydomain(n.ad_id) }}
+          </div>
+          
+          <div class="gray-highlights" [ngClass]="{'company-name': n.status != 'accepted'}">
+            <i class="material-icons text-xs mr-1">place</i>
+            {{ getCompanyaddress(n.ad_id) }}
+          </div>
+
+          <div class="gray-highlights ml-4">
+            <i class="material-icons text-sm text-yellow-400">person</i>
+            <label>
+              Negotiatior
+            </label>
+            <div class="font-bold whitespace-nowrap ml-4 text-sm">{{userNames[n.updated_by]}}</div>
+          </div>
+
             <div class="flex flex-row gap-1">
-              <button class="button-red-bg-list whitespace-nowrap">Decline</button>
-              <button class="button-gray-bg-list whitespace-nowrap">Edit Terms</button>
-              <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button>
+              <button [disabled]="n.status != 'accepted'"  [ngClass]="{'button-red-bg-list': n.status === 'accepted', 'button-gray-bg-list': n.status !== 'accepted'}" class="whitespace-nowrap">Message</button>
+           
+              <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
             </div>
           </div>
           <hr class="mx-2">
@@ -79,7 +91,7 @@
                     <i class="material-icons mr-1 text-xs">place</i>Departure
                   </div>
                   <div class="gray-highlights">
-                    Departure place
+                    {{AdsDeparturePort[n.ad_id]}}
                   </div>
                 </div>
                 <div class="flex flex-col">
@@ -88,8 +100,8 @@
                   </div>
                   <div>
                     <div class="flex flex-row gap-1">
-                      <div class="gray-highlights">Arrival-1</div>
-                      <div class="gray-highlights">Arrival-2</div>
+                      <div class="gray-highlights">{{AdsArrivalPort[n.ad_id]}}</div>
+                    
                     </div>
                   </div>
                 </div>
@@ -99,43 +111,102 @@
             <div class="flex flex-col items-center">
               <div class="items-center justify-center">
                 <i class="material-icons mr-1 text-xs">description</i>
-                <span class="text-[0.6rem]">Certificates</span></div>
-              <div class="text-xs font-bold">Available</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">payments</i>
-                <span class="text-[0.6rem]">Adn. Charges</span></div>
-              <div class="text-xs font-bold">Available</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">inventory_2</i>
-                <span class="text-[0.6rem]">Equipment</span></div>
-              <div class="text-xs font-bold">Freight, Transport</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">event_available</i>
-                <span class="text-[0.6rem]">Availability</span></div>
-              <div class="text-xs font-bold">11 Mar 22</div>
+                <span class="text-[0.6rem]">Expiry Date</span></div>
+              <div class="text-xs font-bold">{{ getDateOnly(n.expiry_date) }}</div>
             </div>
             <div class="flex flex-col">
               <div>
                 <i class="material-icons mr-1 text-xs">compare_arrows</i>
-                <span class="text-[0.6rem]">Arrival</span>
+                <span class="text-[0.6rem]">Type</span>
               </div>
               <div>
                 <div class="flex flex-row gap-1">
-                  <button class="button-in-list">Lease</button>
-                  <button class="button-in-list">Buy</button>
+                  <div class="button-in-list">{{n.negotiation_type}}</div>
                 </div>
               </div>
             </div>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">payments</i>
+                <span class="text-[0.6rem]">Container Type</span></div>
+              <div class="text-xs font-bold">{{n.container_type}}</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">payments</i>
+                <span class="text-[0.6rem]">Price</span></div>
+              <div class="text-xs font-bold">{{n.price}}</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">inventory_2</i>
+                <span class="text-[0.6rem]">Quantity</span></div>
+              <div class="text-xs font-bold">{{n.quantity}}</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">event_available</i>
+                <span class="text-[0.6rem]">Price</span></div>
+              <div class="text-xs font-bold">{{n.price}}</div>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">event_available</i>
+                <span class="text-[0.6rem]">Status</span></div>
+              <div class="text-xs font-bold"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
+                {{ n.status === 'accepted' ? 'bg-green-100 text-green-800' : 
+                   (n.status === 'rejected' ? 'bg-red-100 text-red-800' : 'bg-yellow-100 text-yellow-800') }}">
+                    {{ n.status }}
+                </span></div>
+            </div>
+            
           </div>
         </div>
-        <div>&nbsp;</div>
-      </ng-container>  
+        <div>
+
+          <div class="bg-gray-100 ml-0 mr-0">&nbsp;&nbsp;
+          </div>
+
+        </div>
+        
+      </ng-container> 
+
+      <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.filteredNlist.length>0">
+        <nav aria-label="Page navigation">
+            <ul class="inline-flex">
+                <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
+                        class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg></button>
+                </li>
+                <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
+                        class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
+                </li>
+                <li><button
+                        class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
+                </li>
+                <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
+                        class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
+                </li>
+                <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"[hidden]="currentPage>=totalPages"
+                        class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                            <path
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                        </svg>
+                      </button>
+                </li>
+            </ul>
+        </nav>
+      </div> 
+      
     </div>
+    
+    
     
   

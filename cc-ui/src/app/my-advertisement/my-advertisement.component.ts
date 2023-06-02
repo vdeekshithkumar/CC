@@ -187,7 +187,7 @@ pickup_charges:any;
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
         this.PList = permissions;
-        this.isButtonDisabled = !this.PList.includes(2);
+        this.isButtonDisabled = !this.PList.includes(2);;
         console.log("permissions are//////////////////////// "+this.PList);
       
       },
@@ -253,14 +253,26 @@ pickup_charges:any;
 //     debugger;
  
 
-
+AdsCount(){
+  this.myadservice.getAdsCount(this.companyId).subscribe(
+    (count: any[]) => {
+      this.adscount = count;
+    
+      console.log("count is are "+this.adscount);
+    
+    },
+    (error: any) => {
+      console.log(error);
+      alert("error")
+    }
+  );
+}
 
    DisplayPostForm(){
     
     // this.ContinueDraft=0;
     this.dialog.open(PostAdComponent,{
-      width:'70%',
-      height:'500px',
+     
       
   
       data:{
@@ -274,8 +286,7 @@ pickup_charges:any;
    }
    DisplayDraftForm(adId: number){
     this.dialog.open(PostAdComponent,{
-      width:'70%',
-      height:'500px',
+    
       data:{
         ContinueDraft:1 ,  
         adId:adId
@@ -335,7 +346,8 @@ pickup_charges:any;
     
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
-      window.location.reload()
+      this.AdsCount();
+      this.onPendingActive();
       // this.onPendingActive();
       
     });
@@ -491,9 +503,7 @@ onExport(){
    OpenNegotiations(ad_id: number) {
     this.dialog.open(NegotiationListComponent, {
       width: '70%',
-      height: '500px',
-      maxHeight: '100%',
-      maxWidth: '100%',
+    
       data: {
         ad_id: ad_id,
         testpassing:3443,
@@ -526,10 +536,21 @@ onExport(){
       .subscribe(
         (        data: any) => {
           console.log(data);
-           this.router.navigateByUrl('/my-ad', { skipLocationChange: true });
-          this.router.navigate(['/my-ad']);
-           window.location.reload()
-          // this.getAllInventory()
+          if(this.operation === 'Draft')
+          {
+            this.AdsCount();
+            this.onDraftsActive();
+          }
+          else if(this.operation === 'Pending')
+          {
+            this.AdsCount();
+            this.onPendingActive();
+          }
+          else{
+            this.AdsCount();
+            this.onViewActive();
+          }
+         
         },
         (        error: any) => console.log(error));
   }

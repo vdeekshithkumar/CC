@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
 import { SessionService } from '../session.service';
-
+import { DialogComponent } from '../dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 interface LoginResponse {
   message: string;
@@ -24,8 +25,10 @@ export class SignInComponent implements OnInit{
   Invalid: Boolean = false;
   showPassword=false;
   show=false;
+  email: string= '';
+  showValidationErrors: boolean = false;
   errorMessage: string | undefined;
-constructor(private router: Router,private formBuilder: FormBuilder,private sessionService: SessionService, private signInService: SignInService) { }
+constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -33,40 +36,38 @@ constructor(private router: Router,private formBuilder: FormBuilder,private sess
     });
     
   }
-// loginForm=new FormGroup({
-
-// email:new FormControl('',Validators.email),
-// password:new FormControl('',Validators.required)
-// });
-    // debugger
-  
-//  getdetails(){
-// // const data=registrationForm.value;
-//  }
 isUserValid:boolean=false;
-// async onLoginSubmit() {
-  
- 
- 
-//       const response = await this.signInService.login(this.loginForm.value).subscribe(
-     
-//         (response)=>{
-//               console.log(response);
-//              this.router.navigate(['/dashboard'])
-//              this.loginForm.reset();
-
-//              },  
-//              (error)=>{
-//                   console.log('error',error);
-//                    alert('Invalid User')
-//                    this.loginForm.reset();
-//                 }
-//                 );
-             
-             
-// }
-
   onLoginSubmit() {
+    const formValue = this.loginForm.value;
+  if (
+    !formValue.email ||
+    !formValue.password
+  ) {
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.email) {
+      errorMessage += '- Email\n';
+    }
+    if (!formValue.password) {
+      errorMessage += '- Password\n';
+    }
+    this.openErrorDialog(errorMessage);
+    return;
+  }
+  if (!this.loginForm.controls['email'].valid) {
+    this.openErrorDialog('Invalid email format');
+    return;
+  }
+  // const passwordControl = this.loginForm.get('password');
+  // if (passwordControl && passwordControl.invalid) {
+  //   this.showValidationErrors = true;
+  //   let passwordErrorMessage = 'Invalid password:\n';
+  //   if (passwordControl.errors?.['required']) {
+  //     passwordErrorMessage += '- Password is required\n';
+  //   }
+  //   this.openErrorDialog(passwordErrorMessage);
+  //   return;
+  
     this.signInService.login(this.loginForm.value).subscribe(
       (response: Object) => {
         const loginResponse = response as LoginResponse;
@@ -127,6 +128,15 @@ isUserValid:boolean=false;
     );
   }
   
-
-
+  openErrorDialog(message: string): void {
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: message
+      }
+    });
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 }
+

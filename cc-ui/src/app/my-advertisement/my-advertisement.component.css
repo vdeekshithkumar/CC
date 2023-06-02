@@ -82,6 +82,8 @@
 .div-employee{
     @apply m-2 h-fit w-full flex-col;
 }
+
+
 .div-employee-box{
     @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
 }
@@ -184,7 +186,7 @@
     
     .my-button {
     
-    @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
+    @apply px-2 py-1 text-white bg-CCblue rounded-md ml-2;
     
     }
 

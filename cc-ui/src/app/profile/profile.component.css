@@ -11,6 +11,17 @@
       width: 2;
     }
   }
+  .employee-details-heading {
+    font-size: 20px;
+    font-color:rgb(40, 39, 39);
+  
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    color: black;
+  
+  }
   @layer components {
     .aspect-h-1 {
       height: 1;

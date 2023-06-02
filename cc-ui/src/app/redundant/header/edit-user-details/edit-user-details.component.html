@@ -1,41 +1,54 @@
-<form class="font-poppins grid grid-cols-2 overflow-y-hidden gap-2 p-2" (ngSubmit)="onSubmit()">
-    <h3 mat-dialog-title class="col-span-2 text-center text-CCblue">Edit Profile</h3>
-    <div class="col-span-1">
-        <label>First Name</label>
-        <input
-          class="input-tag"
-          placeholder="Enter your first name"
-          name="firstName"
-          [(ngModel)]="fname"
-          #firstName="ngModel"
-          pattern="[A-Za-z]{1,32}"
-        />
-        <!-- <span
-          class="mt-2 text-sm text-red-500"
-        >
-          Invalid entry
-        </span> -->
+<form class="font-poppins grid grid-cols-2 overflow-y-hidden gap-2 p-2" [formGroup]="regForm" (ngSubmit)="onSubmit()">
+  <h3 mat-dialog-title class="col-span-2 text-center text-CCblue">Edit Profile</h3>
+  <div class="col-span-1">
+    <label for="fname" class="font-medium text-sm">First Name<span class="text-red-500">*</span></label>
+    <input
+      formControlName="firstName"
+      class="register-page-data"
+      [(ngModel)]="fname"
+      placeholder="Enter your first name"
+      name="firstName"
+    />
+    <div *ngIf="regForm.get('firstName')?.invalid && regForm.get('firstName')?.touched" class="text-red-500 text-sm mt-1">
+      <div *ngIf="regForm.get('firstName')?.errors?.['required']">First Name is required</div>
+      <div *ngIf="regForm.get('firstName')?.errors?.['pattern']">Invalid format for First Name</div>
+    </div>
+  </div>
+  <div class="col-span-1">
+    <label for="lname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
+    <input
+      formControlName="lastName"
+      [(ngModel)]="lname"
+      class="register-page-data"
+      placeholder="Enter your last name"
+      name="lastName"
+    />
+    <div *ngIf="regForm.get('lastName')?.invalid && regForm.get('lastName')?.touched" class="text-red-500 text-sm mt-1">
+
+      <div *ngIf="regForm.get('lastName')?.errors?.['required']">Last Name is required</div>
+      <div *ngIf="regForm.get('lastName')?.errors?.['pattern']">Invalid format for Last Name</div>
+    </div>
+  </div>
+  <div class="col-span-2">
+    <div class="w-[12cw] ml-0">
+      <label>Phone Number<span class="text-red-500">*</span></label>
+      <input
+        formControlName="phone_no"
+        [(ngModel)]="phone_no"
+        class="register-page-data"
+        placeholder="Enter your phone number"
+        name="phone_no"
+      />
+      <div *ngIf="regForm.get('phone_no')?.invalid && regForm.get('phone_no')?.touched" class="text-red-500 text-sm mt-1">
+        <div *ngIf="regForm.get('phone_no')?.errors?.['required']">Phone Number is required</div>
+        <div *ngIf="regForm.get('phone_no')?.errors?.['pattern']">Invalid format for Phone Number</div>
       </div>
-        <div class="col-span-1">
-            <label>Last Name</label>
-            <input class="input-tag" placeholder="Enter your last name" [(ngModel)]="lname" name="lname"  pattern="[A-Za-z]{1,32}">
-            <!-- <span
-          class="mt-2 text-sm text-red-500"
-        >Invalid entry</span> -->
-        </div>
-        <div class="col-span-2 flex justify-center">
-            <div class="w-[12cw]">
-                <label>Phone Number</label>
-                <input class="input-tag" placeholder="Enter your phone number" [(ngModel)]="phone_no" name = "phone_no"  pattern="[0-9]{1,}">
-                <!-- <span
-              class="mt-2 text-sm text-red-500"
-            >Invalid entry</span> -->
-            </div>
-        </div>
-        <div class="col-span-2">
-            <label>Address</label>
-            <textarea class="input-tag" [(ngModel)] = "address" name = "address"> </textarea>
-        </div>
-        <button mat-raised-button matDialogClose="" class="w-fit px-4 col-span-1 ml-auto text-red-600">Cancel</button>
-        <button mat-raised-button class="w-fit px-4 col-span-1 bg-CCblue text-white" type = "submit" (submit)="onSubmit()">Submit</button>
-  </form>
+    </div>
+  </div>
+  <div class="col-span-2">
+    <label>Address</label>
+    <textarea formControlName="address" class="register-page-data" [(ngModel)]="address"></textarea>
+  </div>
+  <button mat-raised-button matDialogClose="" class="w-fit px-4 col-span-1 ml-auto text-red-600">Cancel</button>
+  <button mat-raised-button class="w-fit px-4 col-span-1 bg-CCblue text-white" type="submit">Submit</button>
+</form>

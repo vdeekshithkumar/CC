@@ -1,6 +1,30 @@
+ @tailwind base;
+@tailwind components;
+@tailwind utilities;
+.button-no-bg {
+  @apply bg-white text-blue-500 border p-1 px-10  text-xs font-thin border-blue-500;
+}
 .negotiation-list {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.button-blue-bg {
+  @apply bg-CCdarkblue text-white border p-1 px-10  text-xs font-thin border-blue-500;
+}
+.gray-highlights {
+  @apply flex items-center justify-center text-[0.6rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
+}
+.button-no-bg-list {
+  @apply bg-white text-blue-500 border px-10  text-[0.6rem] font-thin border-blue-500;
+}
+.button-gray-bg-list {
+  @apply bg-gray-200  border  px-10  text-[0.6rem] font-thin;
+}
+.button-red-bg-list {
+  @apply bg-red-300  border px-10  text-[0.6rem] font-thin border-red-300;
+}
+.button-in-list{
+  @apply bg-blue-50 text-blue-500 text-xs px-1 items-center justify-center flex;
+}

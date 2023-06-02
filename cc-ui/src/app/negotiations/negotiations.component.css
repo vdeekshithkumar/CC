@@ -13,6 +13,12 @@
 .button-no-bg-list {
   @apply bg-white text-blue-500 border px-10  text-[0.6rem] font-thin border-blue-500;
 }
+.btn-gray{
+  @apply bg-gray-300;
+}
+.company-name {
+  /* filter: blur(3px);  */
+}
 .button-gray-bg-list {
   @apply bg-gray-200  border  px-10  text-[0.6rem] font-thin;
 }

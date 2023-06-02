@@ -47,7 +47,7 @@
   }
 
 .div-section{
-@apply antialiased max-w-20x2 bg-gray-40 text-black min-h-screen p-20
+@apply antialiased max-w-20x2 bg-white text-black min-h-screen p-20
 }
 .section-div-bg{
     @apply relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0
@@ -57,6 +57,9 @@
 }
 .section-form-h6{
     @apply text-black text-sm mt-3 mb-6 font-bold uppercase
+}
+.signin-btn{
+  @apply inline-flex  mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
 }
 .div-label{
     @apply block uppercase text-blueGray-600 text-xs font-bold mb-2
@@ -84,7 +87,7 @@
     @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 Poppins  text-xs;
 }
 .div-form{
-  @apply relative px-4 md:px-6 lg:px-8 pb-8 max-w-lg mx-auto
+  @apply relative px-10 md:px-10 lg:px-8 pb-10 max-w-lg mx-auto
 }
 .div-h1{
   @apply text-xl leading-snug text-gray-800 font-semibold mb-2
@@ -100,6 +103,9 @@
 }
 .div-form-card{
   @apply bg-white-1000 px-8 pb-6 rounded-b shadow-2xl
+}
+.div-form-card1{
+  @apply bg-white-1000 px-10 pb-10 rounded-b shadow-2xl
 }
 .form-h2{
   @apply block text-sm font-medium mb-1

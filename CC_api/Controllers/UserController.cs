@@ -1,6 +1,7 @@
 using CC_api.Business;
 using CC_api.Models;
 using CC_api.Repository;
+
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
@@ -122,6 +123,11 @@ namespace CC_api.Controllers
       return await userBusiness.EditUserById(id, user);
 
     }
+    [HttpGet("GetAllOtherUser/{companyid}")]
+    public async Task<List<User>> GetAllOtherUser(int companyid)
+    {
+      return await userBusiness.GetAllUser(companyid);
+    }
     [HttpGet("GetAllUser/{companyid}")]
     public async Task<List<User>> GetAllUser(int companyid)
     {
@@ -140,6 +146,20 @@ namespace CC_api.Controllers
       await userBusiness.DeleteUser(id);
 
       return new OkResult();
+    }
+    [HttpPut("UpdateUserAsync/{id}")]
+    public async Task<IActionResult> UpdateUser(int id, [FromBody] CC_api.Models.User updatedUser)
+    {
+      try
+      {
+        await userBusiness.UpdateUserDetails(id, updatedUser);
+        return Ok();
+      }
+      catch (Exception ex)
+      {
+        // Handle exception or return appropriate error response
+        return StatusCode(500, $"An error occurred: {ex.Message}");
+      }
     }
   }
 }

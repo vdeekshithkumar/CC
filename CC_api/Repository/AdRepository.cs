@@ -60,9 +60,24 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
     }
 
-   
+    public async Task<List<Ad>> GetAdByAdID(int ad_id)
+    {
+      var ads = await dbContext.advertisement
+      .Where(c => c.ad_id == ad_id).ToListAsync();
+      return ads;
+    }
+    public async Task<string> getContainerType(int containerTypeID)
+    {
+      var containerType = await dbContext.container_type
+          .Where(c => c.container_type_id == containerTypeID)
+          .Select(c => c.type)
+          .FirstOrDefaultAsync();
 
-      public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
+      return containerType;
+    }
+
+
+    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
     {
 
       if (operation == "Active")

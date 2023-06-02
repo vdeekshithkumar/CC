@@ -28,33 +28,45 @@
               <form [formGroup]= "loginForm"  (ngSubmit)="onLoginSubmit()">
                 <div class="space-y-1">
                   <label for="email" class="font-medium">Email<span class="text-red-500">*</span></label>
-                  <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email"   autocomplete="new-email" >
-                  <div *ngIf="loginForm.get('email')?.errors && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="text-red-500 text-sm mt-1">
-                
-                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
-  
-                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
-  
-                  </div>
+
+                  <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email" autocomplete="new-email">
+                  <div
+                *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
+                class="text-red-500 text-sm mt-1"
+              >
+              <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                  <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
+                </div>
+              
                 </div>
                 <div class="space-y-1 mt-5">
                   <label for="password" class="font-medium">Password<span class="text-red-500">*</span></label>
-                  <input formControlName="password" class="signin-form-input" type="password" id="password" name="password" placeholder="Enter your password"  autocomplete="off">
+                  <div class="relative">
+                    <input formControlName="password" class="signin-form-input"  name="password" placeholder="Enter your password" autocomplete="off"> type="{{ showPassword ? 'text' : 'password' }}"
+                    id="password"
+                    placeholder="Password"
+                    required
+                    minlength="8"
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$">
+                    <!-- <a class="absolute top-4 right-2" (click)="togglePasswordVisibility()">
+                      <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                    </a> -->
+                  </div>
                   <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
                     <div *ngIf="loginForm.get('password')?.errors?.['required']">Password required</div>
                     <div *ngIf="loginForm.get('password')?.errors?.['minlength']"></div>
                   </div>
-                </div>
+                 </div>
                 <div>
+                
+                  
                   <button type="submit"class="signin-btn mt-4">
                     Sign In
                   </button>
                   <div class="signin-rememberme">
                     <label class="flex items-center">
                       <a class="signin-fp"routerLink="../forgot-password">Forgot Password?</a>
-                     
                     </label>
-                 
                   </div>
                 </div>
                 <a href="#" class="a-otp-val" routerLink="/otp-validation">Validate your OTP</a>

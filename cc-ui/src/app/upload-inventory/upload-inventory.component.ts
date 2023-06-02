@@ -21,6 +21,7 @@ import { NumberSymbol } from '@angular/common';
 export class UploadInventoryComponent {
   UploadInventoryForm!: FormGroup;
     form: any;
+ 
     port_name="";
     searchPortId: any;
     port_list:any;
@@ -30,7 +31,7 @@ export class UploadInventoryComponent {
     inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
-    itemsPerPage: number = 10;
+    itemsPerPage: number = 8;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -222,6 +223,10 @@ ReadExcel(event: any) {
     });
 
   }
+  back()
+  {
+    window.location.reload()
+  }
 
 
   logout(): void {
@@ -252,6 +257,27 @@ ReadExcel(event: any) {
   // }
 
   
+get totalPages(): number {
+  return Math.ceil(this.inventory_list_by_companyId.length / 8);
+}
+prevPage() {
+
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+  
+   }
+   nextPage() {
+    if (this.currentPage < Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage)) {
+      this.currentPage++;
+    }
+  
+   }
+   backPage(){
+    this.router.navigate(['forecast-map']);
+   }
+
+
 
   getInventoryById(inv_id: number) {
   
@@ -346,9 +372,6 @@ ReadExcel(event: any) {
 //   }
 // }
     
-get totalPages(): number {
-  return Math.ceil(this.records.length / 5);
-}
 
   deleteInventory(id: number) {
     this.uploadInventoryservice.deleteInventory(id)
@@ -365,33 +388,46 @@ get totalPages(): number {
 
 async onSubmit() {
   if(this.isEdit==1){
-    const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
-    console.log('edit'+response)
-    this.isEdit=0
-    this.UploadInventoryForm.reset();
-    await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-    await this.router.navigate(['/upload-inventory']);
-    await window.location.reload()
-  }
-  else{
-    try {
-      const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
-      console.log(response);
-      console.log(this.UploadInventoryForm.value);
-      // reset the form after successful upload
+    if(this.UploadInventoryForm.validator){
+      const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
+      console.log('edit'+response)
+      this.isEdit=0
       this.UploadInventoryForm.reset();
-      
-      // reload the component
       await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
       await this.router.navigate(['/upload-inventory']);
       await window.location.reload()
-    } 
-    catch (error) {
-      console.log('Error uploading inventory:', error);
-      console.log(this.UploadInventoryForm.value);
-      }
     }
-  
+    else{
+      alert("please fill the mandatory field");
+    }
+    
+  }
+  else{
+    if(this.UploadInventoryForm.valid){
+      try {
+        const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
+        console.log(response);
+        console.log(this.UploadInventoryForm.value);
+        // reset the form after successful upload
+        this.UploadInventoryForm.reset();
+        
+        // reload the component
+        await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+        await this.router.navigate(['/upload-inventory']);
+        await window.location.reload()
+      } 
+      catch (error) {
+        console.log('Error uploading inventory:', error);
+        console.log(this.UploadInventoryForm.value);
+        }
+      }  
+      else{
+        alert("please fill the mandatory field");
+      }
+    
+    }
+    
+   
   }
 
 }

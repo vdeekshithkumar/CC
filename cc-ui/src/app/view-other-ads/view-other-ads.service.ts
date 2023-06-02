@@ -29,13 +29,24 @@ export interface Advertisement {
 export class ViewOtherAdsService {
   private advUrl = 'https://localhost:7157/GetAllAdvertisement';
   private  coUrl= 'https://localhost:7157/GetOtherCompany';
+  private  nUrl= 'https://localhost:7157/GetAllNegotiation';
+  private  startNUrl= 'https://localhost:7157/StartNegotiation';
   constructor(private http:HttpClient) { }
 
+  getallnegotiation(companyId: string): Observable<any> {
+    return this.http.get(`${this.nUrl}?companyID=${companyId}`, { responseType: 'json' });
+  }
+  
   getAdvertisement(company_id: number): Observable<Advertisement[]> {
     const url = `${this.advUrl}?companyId=${company_id}`;
     return this.http.get<Advertisement[]>(url);
   }
   getotherCompany(companyId: string): Observable<any> {
     return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+  }
+
+  StartNegotiation(ad_id: number,company_id: number, user_id: number): Observable<any> {
+    const url = `${this.startNUrl}?ad_id=${ad_id}&company_id=${company_id}&user_id=${user_id}`;
+    return this.http.post(url,null);
   }
 }
