@@ -2,6 +2,8 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
+import { User } from '../redundant/header/edit-user-details/edit-user-details.component';
+import { Permission } from './add-employee.component';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class AddEmployeeServiceService {
   addPermissionForm: any;
   private editUrl = 'https://localhost:7157/EditUserById'
   private baseEditUrl = 'https://localhost:7157/EditPermission'
-
+  private UIdUrl = 'https://localhost:7157/GetUserById';
   constructor(private http:HttpClient) { }
   addPermission(ppList: any,emailValue:string): Observable<any> {
     const httpOptions = {
@@ -23,7 +25,7 @@ export class AddEmployeeServiceService {
 
 const payload = {
       ppList: ppList,
-      emailvalue: emailValue
+      emailValue: emailValue
     };
 
     const url = `${this.baseUrl}`;
@@ -69,5 +71,15 @@ const payload = {
   getAllPermission(): Observable<Permissions[]> {
     return this.http.get<Permissions[]>('https://localhost:7157/GetAllPermission');
   }
+  getUserPermissions(user_id: number): Observable<Permissions[]> {
+    return this.http.get<Permissions[]>('https://localhost:7157/UserPermissions', {
+      params: { user_id: user_id.toString() }
+    });
+  }
   
+  
+  
+  getUserById(id: number): Observable<any> {
+    return this.http.get(`${this.UIdUrl}/${id}`, { responseType: 'json' });
+  }
 }

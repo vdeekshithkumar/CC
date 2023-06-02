@@ -69,7 +69,7 @@ ngOnInit(): void {
     designation: ['admin',Validators.required],
     
   });
-
+  this.disableFormAutocomplete();
   this.verifyotpForm = this.formBuilder.group({
     UserId: ['23'],
     otp:['',Validators.required],
@@ -85,6 +85,24 @@ ngOnInit(): void {
     }
   );
 
+}
+disableFormAutocomplete(): void {
+  const formElement = document.getElementById('registrationForm') as HTMLFormElement;
+  if (formElement) {
+    const inputFields = formElement.getElementsByTagName('input');
+    for (let i = 0; i < inputFields.length; i++) {
+      inputFields[i].setAttribute('name', 'input_' + this.generateRandomString());
+    }
+  }
+}
+
+generateRandomString(): string {
+  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let result = '';
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
 }
 
 onSubmit(): void {
@@ -116,6 +134,7 @@ onSubmit(): void {
     }
     if (!formValue.company_id) {
       errorMessage += '- Company ID\n';
+      
     }
     if (!formValue.password) {
       errorMessage += '- Password\n';

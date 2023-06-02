@@ -5,7 +5,7 @@
     <section class="div-section">
         <div class="h-full">
             <!-- Card background -->
-            <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()">
+            <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()"  autocomplete="new-password">
                 <!-- Card body -->
                 <div class="div-form" x-data="{ card: true }">
                     <div class="div-form-card">
@@ -27,7 +27,7 @@
                                 <div>
                                     <label class="div-card-label" for="card-nr">First Name<span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="fname" id="card-nr" class="div-input" type="text"
+                                    <input formControlName="fname" id="card-nr" class="div-input" type="text"  autocomplete="new-password"
                                         placeholder="" />
                                 </div>
 
@@ -35,13 +35,13 @@
                                     <div class="flex-1">
                                         <label class="div-card-label" for="card-expiry">Last Name<span
                                                 class="text-red-500">*</span></label>
-                                        <input formControlName="lname" id="card-expiry" class="div-input" type="text"
-                                            placeholder="" />
+                                        <input formControlName="lname" id="card-expiry" class="div-input" type="text"  
+                                            placeholder="" autocomplete="off" />
                                     </div>
                                     <div class="flex-1">
                                         <label class="div-card-label" for="card-cvc">Phone Number <span
                                                 class="text-red-500">*</span></label>
-                                        <input id="card-cvc" formControlName="phone_no" class="div-input" type="text"
+                                        <input id="card-cvc" formControlName="phone_no" class="div-input" type="text"  autocomplete="new-password"
                                             placeholder="" />
                                     </div>
                                 </div>
@@ -49,20 +49,20 @@
                                 <div>
                                     <label class="div-card-label" for="card-name">Email<span
                                             class="text-red-500">*</span></label>
-                                    <input id="card-name" formControlName="email" class="div-input" type="email"
+                                    <input id="card-name" formControlName="email" class="div-input" type="email"  autocomplete="new-password"
                                         placeholder="" />
                                 </div>
 
                                 <div>
                                     <label class="div-card-label" for="card-email">Address <span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="address" class="div-input" type="text" placeholder="" />
+                                    <input formControlName="address" class="div-input" type="text" placeholder=""  autocomplete="new-password" />
                                 </div>
 
                                 <div>
                                     <label class="div-card-label" for="card-email">Password<span
                                             class="text-red-500">*</span></label>
-                                    <input formControlName="password" class="div-input" type="text" placeholder="" />
+                                    <input formControlName="password" class="div-input" type="text" placeholder=""   autocomplete="new-password"/>
                                 </div>
                             </div>
                         </div>

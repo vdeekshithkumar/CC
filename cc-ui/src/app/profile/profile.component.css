@@ -105,3 +105,16 @@
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 5px;
    }
+   
+   .employee-details-heading {
+    font-size: 28px;
+    font-color:black;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    background-color: lightgrey;
+    color: black;
+    padding: 10px;
+  }
+  
