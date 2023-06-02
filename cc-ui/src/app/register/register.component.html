@@ -17,8 +17,10 @@
         <!--base tile-->
 
         <div class="register-page-title">
-          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-            <div class="p-5 lg:p-6 grow w-full grid grid-cols-2 gap-2">
+
+          <form [formGroup]="registrationForm"id="registrationForm" (ngSubmit)="onSubmit()" class="p-5 lg:p-6 w-full" >
+            <div class="grid grid-cols-2 gap-2">
+
               <div class="relative">
                 <label for="fname" class="font-medium text-sm">First Name<span class="text-red-500">*</span></label>
                 <input
@@ -28,6 +30,7 @@
                   type="text"
                   id="fname"
                   placeholder="Ex: Mathews"
+                  autocomplete="new-password"
                 />
                 <div
                 *ngIf="showValidationErrors && registrationForm.get('fname')?.invalid"
@@ -46,6 +49,7 @@
                   type="text"
                   id="lname"
                   placeholder="Ex: Mathews"
+                  autocomplete="new-password"
                 />
                 <div
                 *ngIf="showValidationErrors && registrationForm.get('lname')?.invalid"
@@ -64,6 +68,7 @@
                   type="email"
                   id="email"
                   placeholder="Ex: mathew123@domain.com"
+                  autocomplete="new-password"
                 />
                 <div
                 *ngIf="showValidationErrors && registrationForm.get('email')?.invalid"
@@ -83,6 +88,7 @@
                   id="address"
                   formControlName="address"
                   placeholder="Ex: Inodnesia"
+                  autocomplete="new-password"
                 />
                 <div
                 *ngIf="showValidationErrors && registrationForm.get('address')?.invalid"
@@ -104,6 +110,7 @@
                   type="text"
                   id="ph-no"
                   placeholder="Ex: 9999999999"
+                  autocomplete="new-password"
                 />
                 <div
                 *ngIf="showValidationErrors && registrationForm.get('phone_no')?.invalid"
@@ -145,10 +152,12 @@
                   <label for="password" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
                   <div class="relative">
                     <input
+
     formControlName="password"
     class="register-page-data pr-10"
     type="{{ showPassword ? 'text' : 'password' }}"
     id="password"
+                     autocomplete="new-password"
     placeholder="Password"
     required
     minlength="8"
@@ -162,6 +171,7 @@
                     <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
                     <div *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
                     <div *ngIf="registrationForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
+
                   </div>
                 </div>
                 
