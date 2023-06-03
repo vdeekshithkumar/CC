@@ -9,7 +9,10 @@
     background-color: #ffffff;
     padding: 20px;
   }
-  
+  .user.selected {
+    background-color: rgba(233, 235, 228, 0.79);
+    border-left: 4px solid #303F9F ;
+  }
   .search-box {
     width: 100%;
     margin-bottom: 10px;
@@ -46,10 +49,13 @@
     overflow-y: auto;
   }
   
+ 
   .user {
     display: flex;
     align-items: center;
     padding: 10px;
+    position: relative;
+    cursor: pointer;
     border-bottom: 1px solid #ccc;
   }
   
@@ -59,6 +65,54 @@
     border-radius: 50%;
     margin-right: 10px;
   }
+  
+  .user-details {
+    flex-grow: 1;
+  }
+  
+  .user h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .user p {
+    margin: 0;
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .time {
+    font-size: 10px;
+    color: gray;
+    margin-left: auto;
+  }
+  
+  .user-status-dot {
+  
+   z-index: 1;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-bottom: -25px;
+  margin-left: -14px;
+  }
+  
+  .user-status-dot.online {
+    background-color: green;
+  }
+  
+  .user-status-dot.offline {
+    background-color: red;
+  }
+  
+  .selected {
+    border-left: 4px solid blue;
+  }
+  
+
   
   .user-details h4 {
     margin: 0;
