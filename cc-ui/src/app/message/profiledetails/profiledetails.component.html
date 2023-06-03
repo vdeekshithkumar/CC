@@ -17,6 +17,7 @@
                 <div class="profile-icon">
                     <!-- Display the profile photo here -->
                     <img src="../assets/images/IMG_20230213_135109.jpg" alt="Profile Photo">
+                              <div class="user-status-dot" [ngClass]="{ 'online': true, 'offline': false }"></div>
                 </div>
                 <div class="profile-name">
                     <!-- Display the person's name here -->
@@ -31,24 +32,7 @@
     </div>
 
     <hr>
-    <div class="profile-header">
-        <div class="profile-header-inner">
-            <div class="profile-icon">
-                <!-- Display the profile photo here -->
-                <img src="../assets/images/IMG_20230213_135109.jpg" alt="Profile Photo">
-            </div>
-            <div class="profile-name">
-                <!-- Display the person's name here -->
-                John Doe
-            </div>
-        </div>
-        <div class="mr-4">
-            <span class="material-symbols-outlined">
-                navigate_next
-                </span>
-        </div>
-    </div>
-    <hr>
+   
     <div class="profile-header">
         <div class="profile-header-inner">
             <div class="profile-icon">
@@ -91,7 +75,7 @@
             <span class="material-symbols-outlined">
                 person_add
                 </span>
-                <span>
+                <span class="mb-4">
 Add a CoWorker
                 </span>
              

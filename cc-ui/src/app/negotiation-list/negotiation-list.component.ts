@@ -164,7 +164,7 @@ console.log("data passed adid is"+this.data.testpassing);
 this.negotiationservice.getPermissions(this.userId).subscribe(
   (permissions: any[]) => {
     this.PList = permissions;
-    this.isButtonDisabled = !this.PList.includes(2);
+    this.isButtonDisabled = !this.PList.includes(4);
 
   
   },

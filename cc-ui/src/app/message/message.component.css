@@ -1,38 +1,4 @@
-/* 
-.container {
-    flex: 3;
-    display: flex;
-    width: 100%;
 
- 
-
-}
-.content {
-    flex: 1;
-    background: #f2f2f2;
-    padding-left: 20px;
-  
- 
-    background-color: #befd97;
-
-}
-.profile {
-    flex: 1;
-    background: #f2f2f2;
-    padding-left: 20px;
-    padding-right: 20px;
-
-    background-color: #fd9ae8;
-
-}
-.sidebar {
-    flex: 1;
-    background: #f2f2f2;
-    padding-left: 20px;
-
-    background-color: #97cffd;
-
-} */
 .header {
     width: 100%;
     max-width: 100%;
@@ -42,21 +8,32 @@
 .container {
     display: flex;
     overflow-x: hidden;
-    height: 92vh;
+    height: 93vh;
+   
 }
 .sidebar {
     flex: 0 0 30%;
-    background-color: #ddcbcb;
-    padding: 20px;
+    background-color: rgba(224, 221, 221, 0.871);
+    padding-left: 20px;
+
+    padding-right: 10px;
+    border-right: 4px solid rgba(201, 197, 197, 0.564);
+    
 }
 .content {
     flex: 0 0 45%;
     background-color: #f1ebeb;
-    padding: 20px;
+  
+   
+    padding-bottom: 20px;
+    padding-top: 20px;
+    
+
 }
 .profile {
     flex: 0 0 25%;
     background-color: #dedcdc;
     padding: 20px;
+    height: 100%;
 }
 
