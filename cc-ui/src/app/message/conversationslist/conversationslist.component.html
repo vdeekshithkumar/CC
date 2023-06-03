@@ -1,33 +1,65 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
 <div class="conversation-details">
     <div class="search-box">
-      <input type="text" placeholder="Search">
+      <div class="flex items-center px-4 py-2">
+        <!-- search bar icon -->
+        <div class="search-bar-icon">
+          <!-- search bar icon -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="gray"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+        </div>
+        <!-- icon end -->
+        <!-- input for the search bar -->
+        <input
+          class="ml-2 w-full bg-transparent placeholder-gray-400 focus:outline-none"
+          type="text"
+          id="search"
+          placeholder="Search something...">
+  
+      </div>
+    
     </div>
     <div class="tab-buttons">
-        <mat-tab-group>
-            <mat-tab label="First" [ngClass]="{ 'active': activeTab === 1 }" (click)="selectTab(1)">
-                <div *ngIf="activeTab === 1">
+        <mat-tab-group class="w-full">
+            <mat-tab label="People">
+                
         
                 <div class="user" *ngFor="let user of usersWithProfile">
                     <img [src]="user.profilePhoto" alt="Profile Photo">
-                    <div class="user-details">
+                    <div class="user-details py-2">
                       <h4>{{ user.name }}</h4>
-                      <p>{{ user.message.substr(0, 5) }}</p>
+                      <p>{{ user.company }}</p>
                     </div>
                   </div>
-              </div>  
+           
              </mat-tab>
-            <mat-tab label="Second" [ngClass]="{ 'active': activeTab === 2 }" (click)="selectTab(2)">  
-                <div *ngIf="activeTab === 2">
-        
-                    <div class="user" *ngFor="let user of usersWithProfile">
-                        <img [src]="user.profilePhoto" alt="Profile Photo">
-                        <div class="user-details">
+            <mat-tab label="Messages">  
+                
+                    <div class="user flex flex-row" *ngFor="let user of usersWithProfile">
+                        
+                        <div class="user-details flex flex-row py-4">
                           <h4>{{ user.name }}</h4>
-                          <p>{{ user.message.substr(0, 5) }}</p>
                         </div>
+                          &nbsp;      
+                          <div class="ml-6 mt-2">
+                            <p>{{ user.message.substr(0, 35) }}........</p>
+                          </div>
+                        
+                     
                       </div>
-                  </div>
-                 
+               
             </mat-tab>
          
           </mat-tab-group>
