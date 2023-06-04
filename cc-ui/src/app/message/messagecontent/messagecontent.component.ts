@@ -18,4 +18,18 @@ export class MessagecontentComponent {
           this.newMessage = '';
       }
   }
+  handleFileChange(event: Event) {
+    const fileInput = event.target as HTMLInputElement;
+    const files = fileInput.files;
+
+    if (files && files.length > 0) {
+      // Process the selected file(s) here
+      const selectedFile = files[0];
+      console.log('Selected file:', selectedFile);
+      
+      // You can perform further operations with the file, such as uploading it to a server.
+      // You may need to use a separate service or API for that purpose.
+      // Example: this.fileUploadService.uploadFile(selectedFile);
+    }
+  }
 }
