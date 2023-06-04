@@ -7,12 +7,12 @@
 }
 .container {
     display: flex;
-    overflow-x: hidden;
+  
     height: 93vh;
-   
-}
+  }
 .sidebar {
-    flex: 0 0 30%;
+    
+    flex: 0 0 33%;
     background-color: rgba(224, 221, 221, 0.871);
     padding-left: 20px;
 
@@ -21,7 +21,7 @@
     
 }
 .content {
-    flex: 0 0 45%;
+    flex: 0 0 50%;
     background-color: #f1ebeb;
   
    
@@ -31,7 +31,7 @@
 
 }
 .profile {
-    flex: 0 0 25%;
+    flex: 0 0 28%;
     background-color: #dedcdc;
     padding: 20px;
     height: 100%;
