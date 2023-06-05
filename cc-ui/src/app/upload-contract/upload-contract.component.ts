@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
 import { FormGroup } from '@angular/forms';
 import { SessionService } from '../session.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-contract',
@@ -70,9 +70,14 @@ export class UploadContractComponent implements OnInit {
         debugger
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
-          setTimeout(() => { this.statusMsg = "" }, 2000)
-          this.snackBar.open(`Successfully uploaded the file ${this.fileName}`, 'Close');
-          this.clear()
+          setTimeout(() => { 
+            this.statusMsg = "";
+            this.snackBar.dismiss();
+          }, 2000);
+          const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(`Successfully uploaded the file.`, 'Close', {
+            duration: 2000
+          });
+          this.clear();
         } else {
           this.statusMsg = 'Failed';
           console.log(response.status);
