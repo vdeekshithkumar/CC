@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 20px;
+  
 }
 
 .flex-container {
@@ -116,6 +117,10 @@
   color: black;
 }
 
+.advertisement-details:nth-child(even) {
+  background-color: lightblue;
+  color: white;
+}
 
 
 

@@ -79,7 +79,7 @@ namespace CC_api.Repository
     }
     public async Task<List<User>> GetAllUser(int companyId)
     {
-      var u=await dbContext.users.Where(u => u.company_id != companyId).ToListAsync();
+      var u = await dbContext.users.Where(u => u.company_id != companyId).ToListAsync();
       return u;
     }
     public async Task<List<User>> GetAllUserAsync(int companyId)
@@ -134,8 +134,8 @@ namespace CC_api.Repository
     }
 
 
-   
-  }
+
+
     public async Task UpdateUserDetails(int id, User updatedUser)
     {
       var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == id);
@@ -150,6 +150,7 @@ namespace CC_api.Repository
         await dbContext.SaveChangesAsync();
       }
     }
-
-
   }
+}
+
+  
