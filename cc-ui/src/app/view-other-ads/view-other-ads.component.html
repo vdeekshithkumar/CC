@@ -90,7 +90,7 @@
 
         <div class="vertical-line"></div>
 
-        <div class="advertisement-details" >
+        <div class="advertisement-details h-[45rem] overflow-y-scroll" >
          
           <h2>Advertisement Details</h2>
           <br />
@@ -101,7 +101,7 @@
               <div class="company-info">
                 <div class="flex-container">
                   <div class="div-tag">
-                    <img class="company-logo" [src]="companyLogos[ad.company_id]" alt="Company Logo" />
+                    <img class="company-logo object-contain" [src]="companyLogos[ad.company_id]" alt="Company Logo" />
                   </div> &nbsp; &nbsp; &nbsp;
                   <div class="company-rating">
                     <span class="rating-symbol">
@@ -141,9 +141,10 @@
                     </span> &nbsp;
                     {{ companyAddress[ad.company_id] }}
                   </div>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp;
-                  <button class="negotiation-button"  [disabled]="DisableStartNegoBtn(ad.ad_id)" [disabled]="NButtonDisabled" (click)="StartNegotiation(ad.ad_id)" mat-raised-button color="primary">Start Negotiation</button>
+                 
 
                 </div>
+                <button class="negotiation-button"  [disabled]="DisableStartNegoBtn(ad.ad_id)" [disabled]="NButtonDisabled" (click)="StartNegotiation(ad.ad_id)" mat-raised-button color="primary">Start Negotiation</button>
               </div>
 
               <!-- Advertisement Table -->
@@ -230,10 +231,10 @@
               
               
               
-            </div>
             
+            
+            </div>
           </div>
-          
           <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
             <nav aria-label="Page navigation">
                 <ul class="inline-flex">
@@ -254,7 +255,7 @@
                     <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
                             class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
                     </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"[hidden]="currentPage>=totalPages"
+                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
                             class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
                             <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
                                 <path
@@ -265,7 +266,7 @@
                     </li>
                 </ul>
             </nav>
-          </div>
-
+          </div> 
+          
         </div>
        

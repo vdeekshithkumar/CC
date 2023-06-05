@@ -5,7 +5,7 @@
   <nav class="table-navbar w-full">
     <div class="flex justify-between max-w-sm mx-auto items-center mt-2">
       <div class="p-2 w-[5em] h-[3em] bg-white-900 left-0 -ml-96 mt-2">
-        <button class="text-sm ml-2 text-black -mt-2 capitalize dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">&lt; Back</button>
+        <button class="text-sm ml-2 text-black -mt-2 capitalize dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300"(click)="backPage()">&lt; Back</button>
       </div>
       <h1 class="text-3xl font-medium text-black capitalize -mt-2 dark:text-white mx-auto cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">View Contracts</h1>
      <div class="flex items-center p-1 x-1 bg-white w-0 -mr-60 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
@@ -27,11 +27,11 @@
                                 Sl.No
                             </th>
 
-                            <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
+                            <th scope="col" class="px-8 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
                                 Date
                             </th>
 
-                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
+                              <th scope="col" class="px-11 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
                                   Title
                               </th>
 
@@ -39,7 +39,7 @@
                                  Description
                               </th>
                               <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                               Attachment
+                               Attachment(s)
                             </th>
                             <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
                                Action
@@ -51,22 +51,22 @@
                       <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                         <tr *ngFor="let inv of contract_list_by_companyId | search: searchTerm:getContractName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
                             <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                <div class="inline-flex items-center gap-x-3">
+                                <div class="inline-flex items-center gap-x-3 ml-2">
                                   <span>{{getIndex(i)}}</span>
                                 </div>
                             <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                              <div class="inline-flex items-center gap-x-3">
+                              <div class="inline-flex items-center gap-x-3 ">
                                 <span>{{ getDateOnly(inv.updated_date_time) }}</span>
                               </div>
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                              <div class="inline-flex items-center gap-x-3">
+                              <div class="inline-flex items-center gap-x-3 ">
                                 <span >{{ inv.title }}</span>
                               </div>
                             </td>
                      
                           <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            <div class="inline-flex items-center gap-x-3 ml-2">
+                            <div class="inline-flex items-center gap-x-3 ">
                                 <span [innerHTML]="replaceNewlines(inv.content)"></span>
                             </div>
                           </td>
@@ -76,22 +76,21 @@
                             </div>
                           </td>
                            -->
-                           <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            
+                           <td class="px-8 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
                             <ng-container *ngFor="let file of inv.uploaded_file.split('<br>'); let i = index">
-                              <button (click)="viewContract(inv.contract_id)" class="bg-white text-xs text-red-600 align-middle p-1 px-3 border border-gray rounded-full hover:border-CCblue" style="display: block; margin-top: 5px;">
-                                {{ i + 1 }}
+                              <button (click)="viewContract(inv.contract_id)" class="bg-white text-xs text-black align-middle p-1 px-3 border border-black hover:border-CCblue" style="display: block; margin-top: 5px;">
+                                #{{ i + 1 }}
                               </button>
                             </ng-container>
-                           
                           </td>
+                          
                           <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
                            
                             <ng-container *ngFor="let file of inv.uploaded_file.split('<br>'); let i = index">
-                                <button (click)="deleteContract(inv.contract_id)" class="delete-button flex items-center justify-center bg-white text-xs text-black align-middle p-1 px-3 border border-gray rounded-lg hover:border-CCblue">
-                                  <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path d="M16.667 3.333h-2.5l-.834-.835H7.5L6.667 3.333H4.167V5h12.5V3.333zm-3.333 0V2.5c0-.92-.747-1.667-1.667-1.667H8.333C7.413.833 6.667 1.58 6.667 2.5v.833H3.333v1.667h10zm1.666 1.667H1.667V16.667c0 .92.747 1.667 1.667 1.667h10c.92 0 1.667-.747 1.667-1.667V5h-.834zM7.5 15H6.667v-6.667h.833V15zm3.333 0h-.833v-6.667h.833V15zm3.334 0h-.834v-6.667h.834V15z"/>
-                                  </svg>
+                                <button (click)="deleteContract(inv.contract_id)" class="w-6 mr-2 transform flex items-center justify-center text-xs text-black align-middle">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
                                 </button>
                               </ng-container>
                           </td>
@@ -101,35 +100,36 @@
                       </tbody>
                   </table>
            
-                <div class="bg-white p-4 flex items-center flex-wrap  justify-center">
+                <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.contract_list_by_companyId.length>0">
                   <nav aria-label="Page navigation">
-                      <ul class="inline-flex">
-                          <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                      <path
-                                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                          clip-rule="evenodd" fill-rule="evenodd"></path>
-                                  </svg></button>
-                          </li>
-                          <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()" *ngIf = "currentPage>1"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-                          </li>
-                          <li><button
-                                  class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
-                          </li>
-                          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-                          </li>
-                          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                      <path
-                                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                          clip-rule="evenodd" fill-rule="evenodd"></path>
-                                  </svg></button>
-                          </li>
-                      </ul>
+                    <ul class="inline-flex">
+                      <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
+                              class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
+                              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                  <path
+                                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                      clip-rule="evenodd" fill-rule="evenodd"></path>
+                              </svg></button>
+                      </li>
+                      <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
+                              class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
+                      </li>
+                      <li><button
+                              class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
+                      </li>
+                      <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
+                              class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
+                      </li>
+                      <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
+                              class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
+                              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                                  <path
+                                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                      clip-rule="evenodd" fill-rule="evenodd"></path>
+                              </svg>
+                            </button>
+                      </li>
+                  </ul>
                   </nav>
               </div>
               </div>

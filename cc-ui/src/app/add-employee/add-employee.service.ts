@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { User } from '../redundant/header/edit-user-details/edit-user-details.component';
-import { Permission } from './add-employee.component';
+
 
 @Injectable({
   providedIn: 'root'
