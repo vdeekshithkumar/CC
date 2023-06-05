@@ -56,13 +56,21 @@ export class UploadContractComponent implements OnInit {
     this.showFile = !this.showFile;
     if (this.showFile) {
       for (const file of this.files) {
-        this.snackBar.open(`${file.name} has been selected for upload`, 'Close');
+        this.snackBar.open(`${file.name} has been selected for upload`, 'Close', {
+          duration: 3000 // Set the duration to 3000 milliseconds (3 seconds)
+        });
       }    
     }
     // await setTimeout(() => { this.showFile = !this.showFile }, 3000);
   }
 
   async onUpload() {
+    if (this.title == null || this.description ==null || this.files ==null )
+    {
+      this.snackBar.open(`All the fields are mandatory!!`, 'Close', {
+        duration: 3000 // Set the duration to 3000 milliseconds (3 seconds)
+      });
+    }
     debugger
     if (this.files.length > 0) {
       debugger
