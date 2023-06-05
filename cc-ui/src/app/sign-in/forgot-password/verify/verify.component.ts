@@ -52,7 +52,7 @@ export class VerifyComponent {
 
     }
     else {
-      alert(this.result + " Invalid OTP")
+      alert(" Invalid OTP, Please enter a valid OTP")
     }
   }
 }

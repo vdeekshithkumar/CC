@@ -6,8 +6,10 @@ import { SignInService } from '../sign-in/sign-in.service';
 import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
 import { findIndex } from 'lodash';
-
-
+import { MatDialog } from '@angular/material/dialog';
+import { PostAdComponent } from '../my-advertisement/post-ad/post-ad.component';
+import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-profile',
@@ -39,17 +41,27 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
-
-  password: any;
-
   adscount: any;
+  //for the employees table 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+  //for pagination
+  getTotalPages() {
+    return Math.ceil(this.alluser_list.length / this.itemsPerPage);
+  }
+  getPages() {
+    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+  }
+  
+  
+    
 
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
+  constructor(private dialog:MatDialog,private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
-    
     this.sessionService.getUserId().subscribe(
         (userId: number) => {
         this.userId = userId;
@@ -117,14 +129,14 @@ export class ProfileComponent implements OnInit {
 
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
-      this.alluser_list = data; // Assign response data to alluser_list
+      this.alluser_list = data;
       console.log("employee list fetched: ", this.alluser_list); 
+     
     },
     error => {
-      console.log("employee loading error:" + error);
+      console.log("employee loading error:" +error);
     }
   );
-  
   this.profileService.getallUserCount(this.companyId).subscribe(
     data => {
       this.usercount_list = data;
@@ -181,7 +193,6 @@ export class ProfileComponent implements OnInit {
         this.email = data.email
         this.company_id = data.company_id
         this.phone = data.phone_no
-        this.password = data.password;
       },
       error => {
         // Handle any errors that occur
@@ -195,15 +206,31 @@ export class ProfileComponent implements OnInit {
       this.sessionService.clearSession();
     });
   }
-  getUserByID(user_id: number) {
+  DisplayPostForm(){
+    
+    // this.ContinueDraft=0;
+    this.dialog.open(AddEmployeeComponent,{
+     
+      
+  
+      data:{
+        ContinueDraft:0,
+        Approve:0
+      }
+      
+
+    })
+   
+   }
+  
+   getUserByID(user_id: number) {
     this.profileService.getUserDetails(user_id).subscribe(
       (data: any) => {
         this.user_data = data;
         console.log("User data fetched:", this.user_data);
   
-        // Navigate to the add-employee page with user_id and edit flag in the state
-        this.router.navigate(['/add-employee'], {
-          state: {
+        const dialogRef = this.dialog.open(AddEmployeeComponent, {
+          data: {
             user_id: user_id,
             fname: this.user_data.fname,
             lname: this.user_data.lname,
@@ -219,15 +246,16 @@ export class ProfileComponent implements OnInit {
             edit: true
           }
         });
-
-        console.log("in profile" + this.user_data.password);
-
+  
+        dialogRef.afterClosed().subscribe(result => {
+          // Handle the dialog close event if needed
+          console.log("Dialog closed with result:", result);
+        });
       },
       (error: any) => {
         console.log(error);
       }
     );
-
   }
   
   deleteUserById(userId: number) {
@@ -254,15 +282,15 @@ export class ProfileComponent implements OnInit {
       },
       (error: any) => console.log(error)
     );
-
   }
   
   
-  
-  
-  
-  
- 
+  removeDeletedEmployeeFromFrontend(id: number) {
+    const index = findIndex(this.alluser_list, { id: id });
+    if (index !== -1) {
+      this.alluser_list.splice(index, 1);
+    }
+  }
   
   onClick() {
     this.router.navigate(['/my-ad'], { queryParams: { value: 1 } });

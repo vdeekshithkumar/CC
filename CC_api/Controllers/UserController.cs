@@ -34,20 +34,28 @@ namespace CC_api.Controllers
     [HttpPost("VerifyOTP")]
     public async Task<IActionResult> VerifyOTPAsync([FromBody] VerifyOTPRequest payload)
     {
-      try
-      {
-        var result = await userBusiness.VerifyOTPAsync(payload.UserId, payload.otp);
-
-
-
-        if (result)
-          return Ok(new { message = "OTP verified successfully" });
-        else
-          return Ok(new { message = "OTP verification failed" });
-      }
-      catch (Exception ex)
+      if (payload == null)
       {
         return BadRequest();
+
+      }
+      else
+      {
+        try
+        {
+          var result = await userBusiness.VerifyOTPAsync(payload.UserId, payload.otp);
+
+
+
+          if (result)
+            return Ok(new { message = "OTP verified successfully" });
+          else
+            return Ok(new { message = "OTP verification failed" });
+        }
+        catch (Exception ex)
+        {
+          return BadRequest();
+        }
       }
     }
 
@@ -132,6 +140,11 @@ namespace CC_api.Controllers
     public async Task<List<User>> GetAllUser(int companyid)
     {
       return await userBusiness.GetAllUserAsync(companyid);
+    }
+    [HttpGet("GetAllCompanyUser/{companyid}")]
+    public async Task<List<User>> GetAllCompanyUser(int companyid)
+    {
+      return await userBusiness.GetAllCompanyUser(companyid);
     }
     [HttpGet("GetAllUserCount/{companyid}")]
     public async Task<int> GetAllUserCount(int companyid)

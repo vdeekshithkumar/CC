@@ -31,6 +31,11 @@ public getUserId(): Observable<any> {
   return of(user.user_id);
 }
 
+public getUserDesignation(): Observable<any> {
+  const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+  return of(user.designation);
+}
+
 public getCompanyId(): Observable<any> {
   const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
   return of(user.company_id);

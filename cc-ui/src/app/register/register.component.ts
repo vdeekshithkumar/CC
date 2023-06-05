@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit
   public user_id? : number;
   public otp?:number;
   registrationForm!: FormGroup;
-  verifyotpForm! :FormGroup;
+  verifyotpForm :FormGroup;
   emailFormControl! :FormGroup;
   user_data:any;
   form: any;
@@ -46,9 +46,12 @@ export class RegisterComponent implements OnInit
    company_list : any;
    errors:any;
   r: any;
+  
   showPassword=false;
   constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
-  }
+    this.verifyotpForm = this.formBuilder.group({
+      otp: ['', [Validators.required, Validators.pattern(/^\d+$/)]]
+    });}
 
 ngOnInit(): void {
   const now = new Date();
@@ -71,7 +74,7 @@ ngOnInit(): void {
     designation: ['admin',Validators.required],
     
   });
-  this.disableFormAutocomplete();
+
   this.verifyotpForm = this.formBuilder.group({
     UserId: ['23'],
     otp:['',Validators.required],
@@ -87,24 +90,6 @@ ngOnInit(): void {
     }
   );
 
-}
-disableFormAutocomplete(): void {
-  const formElement = document.getElementById('registrationForm') as HTMLFormElement;
-  if (formElement) {
-    const inputFields = formElement.getElementsByTagName('input');
-    for (let i = 0; i < inputFields.length; i++) {
-      inputFields[i].setAttribute('name', 'input_' + this.generateRandomString());
-    }
-  }
-}
-
-generateRandomString(): string {
-  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
-  for (let i = 0; i < 10; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
 }
 
 onSubmit(): void {
@@ -134,12 +119,12 @@ onSubmit(): void {
     }
     if (!formValue.company_id) {
       errorMessage += '- Company ID\n';
-      
     }
     if (!formValue.password) {
       errorMessage += '- Password\n';
     }
     this.openErrorDialog(errorMessage);
+    
     return;
   }
 
@@ -187,6 +172,7 @@ onSubmit(): void {
   } catch (error) {
     console.log('Error registering:', error);
   }
+
 }
 
 
@@ -200,7 +186,23 @@ private redirect(){
 
 }
 
-onverifyOtp(){
+
+onverifyOtp() {
+  if (!this.registrationForm) {
+    // Open the error dialog  
+    this.openErrorDialog('Registration should be done first');
+    return; // Stop further execution
+  }
+  const numericValidator = Validators.pattern('^[0-9]*$');
+this.verifyotpForm.get('otp')?.setValidators([numericValidator]);
+  if (this.verifyotpForm.invalid) {
+    if (this.verifyotpForm.controls['otp'].errors?.['pattern']) {
+      this.openErrorDialog('Please enter a valid OTP');
+    } else {
+      this.openErrorDialog('Please Do Registration First');
+    }
+    return;
+  }
   const emailValue = this.registrationForm.value.email;
   console.log('Email value:', emailValue);
   
@@ -210,8 +212,6 @@ onverifyOtp(){
   this.registerservice.getEmail(emailValue).subscribe(
     (response: Object) => {
       const RegisterResponse = response as RegisterResponse;
-  
- 
       this.user_data= RegisterResponse;
       const parseData = JSON.parse(this.user_data);
       console.log('parsed user user id' +  parseData.user.user_id)
@@ -228,7 +228,7 @@ onverifyOtp(){
                 this.redirect();
                }
                else{
-                this.openErrorDialog("Enter the valid OTP");
+                this.openErrorDialog("Please enter a valid OTP");
 
                }
                     // window.location.reload()

@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<div class="profile-header bg-white py-2">
+    <div class="profile-header-inner ml-4 bg-white">
+        <div class="profile-icon">
+            <!-- Display the profile photo here -->
+            <img src="../assets/images/IMG_20230213_135109.jpg" alt="Profile Photo">
+                      <div class="user-status-dot" [ngClass]="{ 'online': true, 'offline': false }"></div>
+        </div>
+        <div class="profile-name">
+            <!-- Display the person's name here -->
+        Thejesh
+        </div>
+    </div>
+    
+    
+    <div class="mr-4 bg-white" >
+        <span class="material-symbols-rounded mr-4">
+            call
+            </span>
+        <span class="material-symbols-rounded mr-6">
+            info
+            </span>
+       
+    </div>
+</div>
+<hr>
+
+
+<div class="messages">
+    <div id="message-list">
+        <div *ngFor="let message of messages" class="message">
+            <div class="message-sender">{{ message.sender }}</div>
+            <div class="message-content">{{ message.content }}</div>
+        </div>
+    </div>
+    <div class="flex flex-col w-full bg-white">
+        <div>
+            <textarea class="message-input mt-4" rows="3" [(ngModel)]="newMessage" placeholder="&nbsp;&nbsp;Type your message..." (keyup.enter)="sendMessage()"></textarea>
+         </div>
+       
+        <div class="flex flex-row w-full mb-10 justify-between">
+            <div>
+                <mat-icon class="ml-4">format_bold</mat-icon>
+                <mat-icon class="ml-4">format_italic</mat-icon>
+            </div>
+         
+            <div>
+                <span class="material-symbols-outlined mr-4">
+                    mood
+                    </span>
+                    <label for="fileInput" class="file-input-label">
+                        <mat-icon class="mr-4">attach_file</mat-icon>
+                        <input type="file" id="fileInput" style="display: none"  (change)="handleFileChange($event)">
+                      </label>
+                <mat-icon class="mr-4">settings</mat-icon>
+                <span class="material-symbols-outlined mr-4" (click)="sendMessage()">
+                    send
+                    </span>
+            </div>
+            
+            
+     
+        </div>
+       
+      </div>
+    <!-- <div class="message-input">
+        <input type="text" [(ngModel)]="newMessage" placeholder="&nbsp;&nbsp;Type your message..." (keyup.enter)="sendMessage()">
+        <button (click)="sendMessage()">Send</button>
+      </div> -->
+</div>

@@ -4,20 +4,21 @@ import { AddEmployeeServiceService } from './add-employee.service';
 import { SessionService } from '../session.service';
 import { filter } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef,MatDialog } from '@angular/material/dialog';
+import { inject } from '@angular/core/testing';
 import { enableDebugTools } from '@angular/platform-browser';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Inject } from '@angular/core';
 import { DialogComponent } from '../dialog.component';
-import { MatDialog } from '@angular/material/dialog';
 
 
-export interface Permission {
+interface Permission {
   write: any;
   read: any;
   permission_id: number;
   type: string;
   actions: string;
+  
 }
-
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -25,7 +26,7 @@ export interface Permission {
 })
 export class AddEmployeeComponent {
   Pfname:any;
-  Plname: any;
+  activeTab = 'details';
   statusMsg?:string
   addEmployeeForm!: FormGroup;
   permissionsByType = {};
@@ -41,7 +42,6 @@ export class AddEmployeeComponent {
   ppList: any[] = []; // Initialize ppList as an empty array
 permissions: any[] = [] ;
 PList:any;
-
 read: boolean|undefined;
 write: boolean|undefined;
 permission_id: number | undefined;
@@ -56,7 +56,6 @@ showValidationErrors: boolean = false;
   isEdit:boolean=false;
   Puser_id:any;
   types = [];
-
   Pis_verified: any;
   Plname: any;
   Pphone: any;
@@ -67,13 +66,12 @@ showValidationErrors: boolean = false;
   Pis_active: any;
   Plast_login: any;
   Pdesignation: any;
-  constructor(private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
-
+  constructor(@Inject(MAT_DIALOG_DATA)public data:any,private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
     this.permissions = []
     ;
   }
   ngOnInit():void{
-    const state = history.state;
+    const state = this.data;
     if (state && state.edit) {
       this.isEdit = true;
       console.log('Edit mode enabled.');
@@ -111,40 +109,9 @@ showValidationErrors: boolean = false;
 
     });
 
+  
 
-    const state = history.state;
-  if (state && state.edit) {
-    this.isEdit = true;
-    console.log('Edit mode enabled.');
-
-    this.Puser_id = state.user_id;
-    console.log("From profile" + this.Puser_id);
-    this.Pfname = state.fname;
-    console.log("From profile" + this.Pfname);
-    this.Plname = state.lname;
-    console.log("From profile" + this.Plname);
-    this.Pphone = state.phone_no;
-    console.log("From profile" + this.Pphone);
-    this.Pemail = state.email;
-    console.log("From profile" + this.Pemail);
-    this.Paddress = state.address;
-    console.log("From profile" + this.Paddress);
-    this.Ppassword = state.password;
-    console.log("From profile" + this.Ppassword);
-    this.Pis_verified = state.is_verified;
-    console.log("From profile" + this.Pis_verified);
-    this.Pis_approved = state.is_approved;
-    console.log("From profile" + this.Pis_approved);
-    this.Pis_active = state.is_active;
-    console.log("From profile" + this.Pis_active);
-    this.Plast_login = state.last_login;
-    console.log("From profile" + this.Plast_login);
-    this.Pdesignation = state.designation;
-    console.log("From profile" + this.Pdesignation);
-   
-  }
-
-
+  
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
@@ -155,48 +122,22 @@ showValidationErrors: boolean = false;
       }
     );
 
-  
-      if (this.isEdit) {
-        this.addEmployeeForm = this.formBuilder.group({
-          user_id: [this.Puser_id,Validators.required],
-          company_id:this.companyId,
-          fname: [this.Pfname, Validators.required],
-          lname: [this.Plname, Validators.required],
-          address: [this.Paddress, Validators.required],
-          email: [this.Pemail, Validators.required],
-          phone_no: [this.Pphone, Validators.required],
-          password: ['', Validators.required],
-          is_verified:[ this.Pis_verified,Validators.required],
-          is_approved:[ this.Pis_approved,Validators.required],
-          is_active:[ this.Pis_active,Validators.required],
-          last_login:[this.Plast_login,Validators.required],
-          designation: [ this.Pdesignation],
-         
-        });
-      } else {
-        this.addEmployeeForm = this.formBuilder.group({
-          user_id: ['2',Validators.required],
-          company_id:this.companyId,
-          fname: ['', Validators.required],
-          lname: ['', Validators.required],
-          address: ['', Validators.required],
-          email: ['', Validators.required],
-          phone_no: ['', Validators.required],
-          password: ['', Validators.required],
-          is_verified:['1',Validators.required],
-          is_approved:['1',Validators.required],
-          is_active:['1',Validators.required],
-          last_login:['2024-07-15',Validators.required],
-          designation: ['user'],
-        
-          
-        });
-        this.disableFormAutocomplete();
-      }
-    
-
-  
-    if(this.isEdit)
+    this.addEmployeeForm = this.formBuilder.group({
+      user_id: ['2',Validators.required],
+    company_id:this.companyId,
+    fname: ['', Validators.required],
+    lname: ['', Validators.required],
+    address: ['', Validators.required],
+    email: ['', Validators.required],
+    phone_no:['', Validators.required],
+    password: ['', Validators.required],
+    is_verified:['1',Validators.required],
+    is_approved:['1',Validators.required],
+    is_active:['1',Validators.required],
+    last_login:['2024-07-15',Validators.required],
+    designation: ['user'],
+    });
+    if(this.isEdit == true)
     {
 
    this.addEmployeeForm.setValue({
@@ -207,10 +148,13 @@ showValidationErrors: boolean = false;
      address: this.Paddress,
      email:this.Pemail ,
      phone_no:this.Pphone,
-
+     password: this.Ppassword,
+     is_verified:this.Pis_verified,
+     is_approved:this.Pis_approved,
+     is_active:this.Pis_active,
+     last_login:this.Plast_login,
+     designation: this.Pdesignation,
    })
-   const { password, ...formValuesWithoutPassword } = this.addEmployeeForm.value;
-    this.addEmployeeForm.patchValue(formValuesWithoutPassword);
   }
 
 
@@ -234,34 +178,11 @@ this.sessionService.getCurrentUser().subscribe(user => {
   this.sessionService.clearSession();
 });
 }
-disableFormAutocomplete(): void {
-  const formElement = document.getElementById('registrationForm') as HTMLFormElement;
-  if (formElement) {
-    const inputFields = formElement.getElementsByTagName('input');
-    for (let i = 0; i < inputFields.length; i++) {
-      inputFields[i].setAttribute('name', 'input_' + this.generateRandomString());
-    }
-  }
-}
-
-generateRandomString(): string {
-  const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  let result = '';
-  for (let i = 0; i < 10; i++) {
-    result += characters.charAt(Math.floor(Math.random() * characters.length));
-  }
-  return result;
-}
 logout(): void {
   // clear session data and redirect to login page
   this.sessionService.clearSession();
 
 }
-
-
-
-
-
 updateReadCheckbox(event: Event) {
   const writeCheckbox = event.target as HTMLInputElement;
   const readCheckbox = writeCheckbox.parentElement?.previousElementSibling?.querySelector('input[type="checkbox"]') as HTMLInputElement;
@@ -271,119 +192,179 @@ updateReadCheckbox(event: Event) {
     readCheckbox.checked = false;
   }
 }
-// updateReadAccess(permission: any, event: any) {
-//   const checkbox = event.target as HTMLInputElement;
-//   const action = checkbox.id.includes('write') ? 'write' : 'read';
-
-//   this.correspondingPermission = this.PList.find(
-//     (p: { type: any; actions: string }) =>
-//       p.type === permission.type && p.actions === action
-//   );
-
-//   if (this.correspondingPermission) {
-//     console.log('Permission ID:', this.correspondingPermission.permission_id);
-//     console.log('Action:', this.correspondingPermission.actions);
-//     console.log('Type:', this.correspondingPermission.type);
-//     this.ppList.push(this.correspondingPermission.permission_id);
-//   }
-
-//   // Get the corresponding read and write checkboxes
-//   const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-//   const writeCheckbox = document.getElementById(permission.type + '-write') as HTMLInputElement;
-
-//   if (action === 'write' && checkbox.checked) {
-//     // Select both read and write checkboxes
-//     readCheckbox.checked = true;
-//     writeCheckbox.checked = true;
-//     readCheckbox.disabled = true;
-//   } else if (action === 'write' && !checkbox.checked) {
-//     // Unselect both read and write checkboxes
-//     readCheckbox.checked = false;
-//     writeCheckbox.checked = false;
-//     readCheckbox.disabled = false;
-//   }
-// }
 updateReadAccess(permission: any, event: any) {
+
   const checkbox = event.target as HTMLInputElement;
+
   const action = checkbox.id.includes('write') ? 'write' : 'read';
 
 
+
+
   if (checkbox.checked) {
+
     const correspondingPermission = this.PList.find(
+
       (p: { type: any; actions: string }) =>
+
         p.type === permission.type && p.actions === action
+
     );
 
+
+
+
     if (correspondingPermission) {
+
       console.log('Permission ID:', correspondingPermission.permission_id);
+
       console.log('Action:', correspondingPermission.actions);
+
       console.log('Type:', correspondingPermission.type);
 
-      // Check if the permission already exists in selectedPermissions
-      const existingIndex = this.ppList.findIndex(
-        (p: any) => p.permission_id === correspondingPermission.permission_id
-      );
 
-      if (existingIndex === -1) {
-        // Permission doesn't exist, add it to selectedPermissions
-        this.ppList.push(correspondingPermission);
+
+
+      if (action === 'read') {
+
+        // Add the permission ID to selectedPermissions
+
+        this.ppList.push(correspondingPermission.permission_id);
+
+      } else if (action === 'write') {
+
+        // Remove the corresponding read permission from selectedPermissions
+
+        const readPermissionIndex = this.ppList.findIndex(
+
+          (p: any) =>
+
+            p === correspondingPermission.type + '-read' &&
+
+            this.PList.find(
+
+              (r: any) =>
+
+                r.type === correspondingPermission.type && r.actions === 'read'
+
+            )
+
+        );
+
+
+
+
+        if (readPermissionIndex !== -1) {
+
+          this.ppList.splice(readPermissionIndex, 1);
+
+        }
+
+
+
+
+        // Add the permission ID to selectedPermissions
+
+        this.ppList.push(correspondingPermission.permission_id);
+
       }
+
     }
+
   } else {
+
     const correspondingPermission = this.PList.find(
+
       (p: { type: any; actions: string }) =>
+
         p.type === permission.type && p.actions === action
+
     );
 
+
+
+
     if (correspondingPermission) {
+
       const index = this.ppList.findIndex(
-        (p: any) => p.permission_id === correspondingPermission.permission_id
+
+        (p: any) => p === correspondingPermission.permission_id
+
       );
 
+
+
+
       if (index !== -1) {
+
         // Remove the permission from selectedPermissions
+
         this.ppList.splice(index, 1);
+
       }
+
     }
+
+
+
+
+    if (action === 'write') {
+
+      // Check if the corresponding read checkbox exists and is checked
+
+      const readCheckbox = document.getElementById(
+
+        permission.type + '-read'
+
+      ) as HTMLInputElement;
+
+
+
+
+      if (readCheckbox && readCheckbox.checked) {
+
+        const readPermissionIndex = this.ppList.findIndex(
+
+          (p: any) => p === permission.type + '-read'
+
+        );
+
+
+
+
+        if (readPermissionIndex !== -1) {
+
+          // Remove the corresponding read permission from selectedPermissions
+
+          this.ppList.splice(readPermissionIndex, 1);
+
+        }
+
+      }
+
+    }
+
   }
+
+
+
 
   // Print the selected permissions in the console
+
   console.log('Selected Permissions:', this.ppList);
 
-  // Get the corresponding read and write checkboxes
-  const readCheckbox = document.getElementById(
-    permission.type + '-read'
-  ) as HTMLInputElement;
-  const writeCheckbox = document.getElementById(
-    permission.type + '-write'
-  ) as HTMLInputElement;
-
-
-  if (action === 'write' && checkbox.checked) {
-    // Select both read and write checkboxes
-    readCheckbox.checked = true;
-    writeCheckbox.checked = true;
-    readCheckbox.disabled = true;
-  } else if (action === 'write' && !checkbox.checked) {
-    // Unselect both read and write checkboxes
-    readCheckbox.checked = false;
-    writeCheckbox.checked = false;
-    readCheckbox.disabled = false;
-  }
 }
 
-
-
-async addP() {
-  debugger;
-
+private async addP() {
   if (this.isEdit) {
     try {
+      
       console.log('User ID in addP:', this.Puser_id);
       const response = await this.addEmployeesService.EditPermission(this.ppList, this.Puser_id).toPromise();
       console.log(response);
       console.log(this.addPermissionForm.value);
       this.router.navigate(['/profile']);
+    
     } catch (error) {
       console.log('Could not edit:', error);
     }
@@ -391,9 +372,8 @@ async addP() {
     try {
       const emailValue = this.addEmployeeForm.value.email;
       console.log('Email value:', emailValue);
+
       const response = await this.addEmployeesService.addPermission(this.ppList, emailValue).toPromise();
-      console.log("list permission"+ this.ppList);
-      console.log("ddhgdemail"+emailValue);
       console.log(response);
       this.router.navigate(['/profile']);
     } catch (error) {
@@ -401,15 +381,13 @@ async addP() {
     }
   }
 }
-
 async onAdd() {
-
   const formValue = this.addEmployeeForm.value;
   if (
     !formValue.fname ||
     !formValue.lname ||
     !formValue.email ||
-    !formValue.address ||
+   
     !formValue.phone_no ||
     !formValue.password
   ) {
@@ -440,10 +418,6 @@ async onAdd() {
     return;
   }
 
-  if (!this.addEmployeeForm.controls['address'].valid) {
-    this.openErrorDialog('Invalid Country Name');
-    return;
-  }
 
   if (!this.addEmployeeForm.controls['fname'].valid) {
     this.openErrorDialog('Invalid First Name Format');
@@ -470,30 +444,34 @@ async onAdd() {
     this.openErrorDialog(passwordErrorMessage);
     return;
   }
-
   if (this.isEdit) {
+    debugger
     try {
       const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
+debugger
       await this.addP();
       alert('User Edited Successfully');
-      this.router.navigate(['/profile']);
+      location.reload();
       this.isEdit = false;
-      this.addEmployeeForm.reset(); // Move this line to after the call to addP()
+      this.addEmployeeForm.reset();
+     
     } catch (error) {
       console.log('Could not edit:', error);
-    }
-  } else {
-    try {
-      const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
-      console.log("from add component" + response);
-     
-      await this.addP(); // Wait for permissions to be added
-      // this.ppList = this.addPermissionForm.value.permissions;
-      alert('User Added Successfully');
-      
-      this.addEmployeeForm.reset(); // Move this line here
-    } catch (error) {
-      console.log('Could not add:', error);
+      }
+    } else {
+      debugger
+      try {
+        const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
+        debugger
+        alert('User Added Successfully');
+        location.reload();
+        await this.addP(); // Wait for permissions to be added
+        console.log(this.addPermissionForm.value);
+        // Reload the component
+        await this.router.navigate(['/dashboard']);
+      } catch (error) {
+        console.log('Could not add:', error);
+      }
     }
   }
   openErrorDialog(message: string): void {
@@ -506,7 +484,4 @@ async onAdd() {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
-}
-
-
 }

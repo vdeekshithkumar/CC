@@ -1,220 +1,198 @@
-<app-header></app-header>
-<script src="https://unpkg.com/tailwindcss-jit-cdn"></script>
-<div class="flex justify-middle">
-    <app-sidebar></app-sidebar>
-    <section class="ml-44 antialiased max-w-20x2 bg-gray-40 text-black min-h-screen p-20">
-        <div class="h-full">
-            <!-- Card background -->
-            <form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()"  autocomplete="new-password">
-                <!-- Card body -->
-                <div class="relative px-4 md:px-6 lg:px-8 pb-8 max-w-lg mx-auto" x-data="{ card: true }">
-                    <div class="div-form-card">
-                        <!-- Card header -->
-                        <div class="text-center mb-6">
-                            <div class="mb-2">
-                                <img class="-mt-8 inline-flex rounded-full" src="assets/images/user.jpg" width="64"
-                                    height="64" alt="User" />
-                            </div>
-                            <h1 class="div-h1">User Information</h1>
-                        </div>
+<form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()" class="font-poppins grid overflow-y-hidden gap-2 p-2 flex min-h-[500px] min-w-[800px]">
+  <h3 class="col-span-2 -mt-2 text-black h-16 bg-blue-50 flex items-center justify-between -ml-20">
+    <span class="ml-24 font-medium -mt-1 text-lg">Add New User</span>
+    <i class="fas fa-times -mt-1 mr-3 cursor-pointer" mat-button matDialogClose=""></i>
+  </h3>
+  
+  <div class="col-span-2 flex h-10 justify-between -mt-4 bg-gray-100">
+ <nav class="header-links contents font-semibold text-base lg:text-lg">
+    <ul class="flex items-center ml-20 xl:ml-20 ">
+      <li class="nav-item" [routerLinkActive]="['details']">
+        <a>
+          <button class="underline-button" (click)="activeTab = 'details'">
+            <div class="flex items-center">
+              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
+                <span [class.hover:text-black]="true"></span> </div>
+              <span class="underline-a font-light text-sm">Details</span>
+              
+             </div></button></a></li>&nbsp; &nbsp; &nbsp;
+      <li class="nav-item" [routerLinkActive]="['permissions']"  >
+        <a>
+          <button class="underline-button " (click)="activeTab = 'permissions'">
+            <div class="flex items-center ml-80">
+              <div class="bg-gray-200 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
+                <span [class.hover:text-black]="true"></span>
+              </div>
+              <span class="underline-a font-light text-sm">Permissions</span>
+              </div></button></a>
+            </li></ul>
+          </nav>
+      &nbsp; &nbsp; &nbsp;
+  </div>
 
-                        <!-- Toggle -->
+<!-- Details form -->
 
-                        <!-- Card form -->
-                        <div x-show="card">
-                            <div class="space-y-4">
-
-                                <div>
-                                    <label class="div-card-label" for="card-nr">First Name<span
-                                            class="text-red-500">*</span></label>
-                                    <input formControlName="fname" id="card-nr" class="div-input" type="text"  autocomplete="new-password"
-                                        placeholder="" />
-                                        <div
-                                        *ngIf="showValidationErrors && addEmployeeForm.get('fname')?.invalid"
-                                        class="text-red-500 text-sm mt-1"
-                                      >
-                                      <div *ngIf="addEmployeeForm.get('fname')?.errors?.['required']">First Name is required</div>
-                                      <div *ngIf="addEmployeeForm.get('fname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>    
-                                </div>
-                                </div>
-
-                                <div class="flex space-x-4">
-                                    <div class="flex-1">
-                                        <label class="div-card-label" for="card-expiry">Last Name<span
-                                                class="text-red-500">*</span></label>
-
-                                        <input formControlName="lname" id="card-expiry" class="div-input" type="text"  
-                                            placeholder="" autocomplete="off" />
-
-                                       
-                                            <div
-                                            *ngIf="showValidationErrors && addEmployeeForm.get('lname')?.invalid"
-                                            class="text-red-500 text-sm mt-1"
-                                          >
-                                          <div *ngIf="addEmployeeForm.get('lname')?.errors?.['required']">Last Name is required</div>
-                                          <div *ngIf="addEmployeeForm.get('lname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>    
-                                    </div>
-                                    </div>
-                                    <div class="flex-1">
-                                        <label class="div-card-label" for="card-cvc">Phone Number <span
-                                                class="text-red-500">*</span></label>
-                                        <input id="card-cvc" formControlName="phone_no" class="div-input" type="text"  autocomplete="new-password"
-                                            placeholder="" />
-                                            <div
-                                            *ngIf="showValidationErrors && addEmployeeForm.get('phone_no')?.invalid"
-                                            class="text-red-500 text-sm mt-1"
-                                          >
-                                          <div *ngIf="addEmployeeForm.get('phone_no')?.errors?.['required']">Phone Number is required</div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="div-card-label" for="card-name">Email<span
-                                            class="text-red-500">*</span></label>
-
-                                    <input id="card-name" formControlName="email" class="div-input" type="email"  autocomplete="new-password"
-
-                               
-                                        placeholder="" />
-                                        <div
-                                        *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid"
-                                        class="text-red-500 text-sm mt-1"
-                                      >
-                                      <div *ngIf="addEmployeeForm.get('email')?.errors?.['required']">Email is required</div>
-                                          <div *ngIf="addEmployeeForm.get('email')?.errors?.['email']">Invalid email format</div>
-                                        
-                                      </div>
-                                </div>
-
-                                <div>
-                                    <label class="div-card-label" for="card-email">Address <span
-                                            class="text-red-500">*</span></label>
-
-                                    <input formControlName="address" class="div-input" type="text" placeholder=""  autocomplete="new-password" />
-
-                                    <div
-                                    *ngIf="showValidationErrors && addEmployeeForm.get('address')?.invalid"
-                                    class="text-red-500 text-sm mt-1"
-                                  >
-                                  <div *ngIf="showValidationErrors && addEmployeeForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
-                                    <div *ngIf="addEmployeeForm.get('address')?.errors?.['required']">Country is required</div>
-                                    <div *ngIf="addEmployeeForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
-                                  </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="div-card-label" for="card-email">Password<span
-                                            class="text-red-500">*</span></label>
-
-    
-                                    <input formControlName="password"  autocomplete="off" randomattribute="false" class="div-input"
-                                    type="{{ showPassword ? 'text' : 'password' }}"
-                                    id="password"
-                                             autocomplete="new-password"
-                                    placeholder="Password"
-                                    required
-                                    minlength="8"
-                                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$" />
-                                    <a class="absolute bottom-16 right-20" (click)="togglePasswordVisibility()">
-                                        <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
-                                      </a>
-                                                      </div>
-                                                      <div *ngIf="showValidationErrors && addEmployeeForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
-                                                        <div *ngIf="addEmployeeForm.get('password')?.errors?.['required']">Password is required</div>
-                                                        <div *ngIf="addEmployeeForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
-                                                        <div *ngIf="addEmployeeForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
-                                           
-                                                    
-
-                                </div>
-                            </div>
-                        </div>
-                       
-                    
-                        
-                    </div>
-                </div>
-            </form>
-
-        </div>
-
-    </section>
-    <section class="antialiased max-w-20x2 bg-gray-40 text-black min-h-screen p-20 top-0">
-        <div class="h-full">
-            <!-- Card background -->
-            <form (ngSubmit)="onAdd()">
-                <!-- Card body -->
-                <div class="relative px-10 md:px-10 lg:px-8 pb-10 max-w-x10 mx-auto" x-data="{ card: true }">
-                    <div class="bg-white px-20 pb-10 rounded-b shadow-2xl -ml-40">
-                        <!-- Card header -->
-                        <div class="text-center mb-6">
-                            <div class="mb-2">
-                                <img class="-mt-8 inline-flex rounded-full" src="assets/images/user.jpg" width="64"
-                                    height="64" alt="User" />
-                            </div>
-                            <h1 class="div-h1">User Permissions</h1>
-                        </div>
-
-                        <!-- Toggle -->
-
-                        <!-- Card form -->
-                        <table class="w-80 h-full text-sm text-left font-medium text-black dark:text-black border-2 border-black">
-                            <thead class="text-xs w-20 text-white uppercase font-medium bg-gray-400 border-black dark:text-white border-2">
-                                <tr>
-                                  <th scope="col" class="px-12 py-5">
-                                    <div class="relative">
-                                      <div class="min-h-[3rem]  absolute -left-3 -mt-2">
-                                        Action
-                                      </div>
-                                    </div>
-                                  </th>
-                                  <th scope="col" class="px-12 py-5">
-                                    <div class="relative">
-                                      <div class="min-h-[3rem]  absolute left-10 -mt-2">
-                                        Type
-                                      </div>
-                                    </div>
-                                  </th>
-                                </tr>
-                              </thead>
-                              
-                            <tbody>
-                                <ng-container *ngFor="let p of PList; let i = index">
-                                  <ng-container *ngIf="i % 2 === 0">
-                                    <tr class="row">
-                                        <td class="col-md-20 mb-6 text-center -right-20" style="padding-left:10px;">{{ p.type }}</td>
-                                        <td class="col-md-20 text-right" style="padding: 0.5em;">
-                                          <div class="flex">
-                                            <div class="form-check form-check-inline ml-10">
-                                              <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-read'">Read&ensp;</label>
-                                              <input class="text-sm font-medium text-gray-900 dark:text-gray-300" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
-                                            </div>
-                                            <div class="form-check form-check-inline ml-4">
-                                              <!-- Add spacing between the checkboxes using ml-4 -->
-                                              <label class="w-4 h-4 mt-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-write'">Write&ensp;</label>
-                                              <input class="text-sm font-medium text-gray-900 dark:text-gray-300" type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
-                                            </div>
-                                          </div>
-                                        </td>
-                                      </tr>
-                                      
-                                      
-                                  </ng-container>
-                                </ng-container>
-                              </tbody>
-                        </table>
-                   
-                        <div class="flex justify-center space-x-2 mt-3">
-                            <button type="submit" class="signin-btn mt-4">
-                                Save
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-        </div>
-
-    </section>
+<div *ngIf="activeTab === 'details'" class="ml-3 mt-2">
+  <h2 class=" font-medium mb-2">Add User Details</h2>
+    <label for="fname" class="font-medium text-sm ">First Name<span class="text-red-500">*</span></label>
+  <input
+  formControlName="fname"
+class="register-page-data"
+placeholder="Eg. John"
+name="firstName"
+/>
 </div>
+<div *ngIf="activeTab === 'details'" class="mt-12 mr-3">
+  
+  <label for="fname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
+  <input
+    formControlName="lname"
+    class="register-page-data"
+    placeholder="Eg. Wick"
+    name="firstName"
+  />
+  
+</div>
+<div *ngIf="activeTab === 'details'"class="ml-3">
+  
+  <label for="fname" class="font-medium text-sm">Phone Number<span class="text-red-500">*</span></label>
+  <input
+    formControlName="phone_no"
+    class="register-page-data"
+    
+    placeholder="Enter your first name"
+    name="firstName"
+  />
+  
+</div>
+<div *ngIf="activeTab === 'details'"class="mr-3">
+  
+  <label for="email" class="font-medium text-sm">Email<span class="text-red-500">*</span></label>
+  <input
+    formControlName="email"
+    class="register-page-data"
+    
+    placeholder="yourname@gmail.com"
+    name="firstName"
+  />
+  
+</div>
+<div *ngIf="activeTab === 'details'" class="col-span-2 ml-3 mr-3">  
+  <label for="fname" class="font-medium text-sm">Address</label>
+  <input
+    formControlName="address"
+    class="register-page-data"
+    
+    placeholder="Enter your Address"
+    name="firstName"
+  />
+
+</div>
+<div *ngIf="activeTab === 'details'" class=" ml-3 mb-1">
+  <h2 class="font-medium mb-2">Create Password</h2>
+  <label for="fname" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
+  <input
+    formControlName="password"
+    class="register-page-data"
+    required
+minlength="8"
+pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+type="{{ showPassword ? 'text' : 'password' }}"
+    placeholder="Password"
+    name="firstName"
+  />
+</div>
+<!-- <div *ngIf="activeTab === 'details'" class="mt-10 mr-3">
+  <label for="fname" class="font-medium text-sm mt-20">Confirm Password<span class="text-red-500">*</span></label>
+  <input
+    formControlName=""
+    class="register-page-data"
+    
+    placeholder="Confirm Password"
+    name="firstName"
+  />
+</div>  -->
+
+<!-- Permissions form -->
+<div *ngIf="activeTab === 'permissions'">
+  <h2 class="font-medium mb-4 ml-3">Add User Permissions</h2>
+  <table class="min-w-[770px] min-h-full border-2 ml-2 mb-2">
+    <thead >
+      <tr >
+        <th class="py-2 justify-start  bg-gray-100">Action</th>
+        <th class="py-2 justify-end  bg-gray-100">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let p of PList; let i = index">
+        <ng-container *ngIf="i % 2 === 0">
+          <tr class="row border-2">
+              <td class="col-md-20 mb-6 ml-4" style="padding-left:14px;">{{ p.type }}</td>
+              <td class="col-md-20 text-right" style="padding: 0.5em;">
+                <div class="flex">
+                  <div class="form-check form-check-inline ml-40">
+                    <input class="text-sm font-medium text-gray-900 dark:text-gray-300" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
+                    <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-read'">Read&ensp;</label>
+                    
+                  </div>
+                  <div class="form-check form-check-inline ml-10">
+                    <input class="text-sm  font-medium text-gray-900 dark:text-gray-300"  type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
+                    <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-write'">Write&ensp;</label>
+                    
+                  </div>
+                </div>
+              </td>
+            </tr>
+        </ng-container>
+      </ng-container>
+    </tbody>
+  </table>
+
+</div>
+
+
+
+</form>
+
+<div *ngIf="activeTab === 'details'" class="flex w-full justify-between bg-gray-100 mb-2 ">
+<button mat-button matDialogClose="" type="submit" class="mb-3 mx-2  justify-center items-center space-0 font-light flex-1 focus:outline-none  px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+  Cancel
+</button>
+<button (click)="activeTab = 'permissions'" type="submit" class="mb-3 mx-2 justify-center items-center space-0 font-light flex-1 focus:outline-none px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
+ Next
+</button>
+</div>
+<div *ngIf="activeTab === 'permissions'" class="flex justify-between bg-gray-100 space-x-2 mb-2">
+<button (click)="activeTab = 'details'"  type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+  Cancel
+</button>
+<button  type="submit" (click)="onAdd()" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
+  Submit
+</button>
+</div>
+
+
+<!-- <div class="flex justify-center space-x-2 mt-3">
+<button type="submit" class="signin-btn mt-4">
+    Save
+</button>
+</div> -->
+<!-- <div *ngIf="activeTab === 'details'" class="flex justify-between bg-gray-100 space-x-2 mb-2">
+<button type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+  Cancel
+</button>
+<button (click)="activeTab = 'permissions'" type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
+  Next
+</button>
+</div> -->
+<!-- <div class="flex justify-between bg-gray-100 space-x-2 mb-4">
+<button type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+  Cancel
+</button>
+<button (click)="activeTab = 'permissions'" type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
+  Next
+</button>
+</div> -->
+
+
+  

@@ -8,6 +8,9 @@
 
 .flex-container {
   display: flex;
+  flex-direction: row;
+  width: 100%;
+ justify-content: space-between;
   align-items: center;
 }
 
@@ -265,10 +268,10 @@
 
 .advertisement-container {
   display: flex;
-  border: 2px solid #ccc;
+  border: 3px solid #ccc;
   padding: 10px;
   flex-direction: row;
-  width: 900px;
+  width: 940px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;

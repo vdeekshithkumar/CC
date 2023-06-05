@@ -12,7 +12,7 @@
     }
   }
   .employee-details-heading {
-    font-size: 20px;
+    font-size: 16px;
     font-color:rgb(40, 39, 39);
   
     text-align: center;
@@ -35,7 +35,7 @@
   @apply flex flex-row font-poppins;
 }
 .div-app-sidebar{
-    @apply sticky w-[8vw] ;
+    @apply  w-[8vw] ;
   }
 /* .div-company-details{
     @apply w-full flex flex-col sm:w-fit first:flex-row;
@@ -43,15 +43,20 @@
 .div-editcompany{
     @apply absolute right-0 w-4 h-4 rounded-full top-8;
 }
+.my-button {
+    
+    @apply text-white bg-CCblue ml-2;
+    
+    }
 .div-company{
-    @apply px-2 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
+    @apply px-2 w-fit text-2xl mb-[0.625rem] font-bold font-poppins flex ;
 }
 .div-company-name{
     @apply text-xs font-thin pt-2 px-2;
 }
-.div-tag{
-    @apply bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px];
-}
+.gray-highlights {
+    @apply flex items-center justify-center text-[0.9rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
+  }
 .div-detail{
     @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
 }
@@ -74,7 +79,7 @@
     @apply m-2 h-fit w-full flex-col;
 }
 .div-employee-box{
-    @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
+    @apply flex-1 text-xs p-2 text-gray-500 flex justify-start w-fit;
 }
 .div-employee-name{
     @apply text-xs px-2 first-letter:uppercase;
@@ -83,13 +88,14 @@
     @apply bg-gray-300 h-[2rem] w-fit px-[1rem] text-xs mx-4 my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
-    @apply relative flex items-center w-80 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+    @apply relative flex items-center w-96 h-9 focus-within:shadow-lg  bg-white overflow-hidden;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
 }
+
 .input-search{
-    @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2;
+    @apply  outline-none text-sm bg-white w-full  text-black;
 }
 .employee-list{
     @apply inline-block min-w-full py-2 sm:px-6 lg:px-8;
@@ -98,10 +104,10 @@
     @apply min-w-full text-left text-sm font-light;
 }
 .emplist-thead{
-    @apply border-b font-medium dark:border-neutral-50;
+    @apply border-b font-medium ;
 }
 .employee-add{
-    @apply border-b dark:border-neutral-500;
+    @apply border-b ;
 }
 .employee-add-btn{
     @apply whitespace-nowrap px-2 py-4 font-medium;
@@ -116,16 +122,9 @@
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 5px;
    }
-   
-   .employee-details-heading {
-    font-size: 28px;
-    font-color:black;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    background-color: lightgrey;
-    color: black;
-    padding: 10px;
-  }
-  
+.page-link{
+    @apply  text-xs w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
+}
+.page-link-active{
+    @apply  text-xs text-white font-bold bg-CCblue w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
+}
