@@ -42,6 +42,21 @@ export class ProfileComponent implements OnInit {
   companyId: any;
   userId:any;
   adscount: any;
+  //for the employees table 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+  //for pagination
+  getTotalPages() {
+    return Math.ceil(this.alluser_list.length / this.itemsPerPage);
+  }
+  getPages() {
+    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+  }
+  
+  
+    
+
   getCompanyId() {
     return this.company_id;
   }
