@@ -2,117 +2,396 @@
 @tailwind components;
 @tailwind utilities;
 @layer components {
-    .bg-blueGray-100 {
-        --tw-bg-opacity: 1;
-        background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
+    .max-w-2x1 {
       
+    }
   }
-  .text-blueGray-600 {
-    --tw-text-opacity: 1;
-    color: rgba(107, 114, 128, var(--tw-text-opacity));
-  }
-  .placeholder-blueGray-300::placeholder {
-    --tw-placeholder-opacity: 1;
-    color: black;
-  }
-  
+  @layer base {
     .Poppins {
       font-family: Poppins;
     }
+  }
+  @layer utility{
     .menu-tile{
         @apply text-left py-2 px-1 cursor-pointer  ;
     }
 }
-@layer utilities {
-  .max-w-20x2 {
-    max-width: 40rem; /* adjust the value as per your requirement */
-  }
-  .bg-gray-40 {
-    background-color: #f5f5f5; /* adjust the color as per your requirement */
-  }
-  .bg-white-1000 {
-    background-color: #ffffff; /* adjust the color as per your requirement */
-  }
-}
-.border-b-1 {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-  }
-.border-blueGray-300 {
-    border-color: #CBD5E1;
-  }
-  
-  .div-app-sidebar{
-    @apply sticky w-[110px] border-r-2 z-50;
-  }
+    @layer utilities {
+      .ml-50 {
+        margin-left: 50px;
+      }
+    }
+    .shadow-outline {
+      box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    }
+    .post-ad-form{
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: hidden;
+    }
+    .post-page-data{
+      @apply block border-2 font-light border-gray-300 rounded px-6 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
+   }
+    @layer utilities {
+      .focus\:shadow-outline {
+        @apply shadow-outline;
+      }
+    }
+    
+    .radio-button {
+       @apply px-2 py-1 border-2 text-black border-gray-800  ml-1 w-20 h-8 ;
+      }
+      
+      .radio-button--selected {
+       @apply bg-blue-500 text-white border-blue-500;
+      }
+      .my-custom-select {
+        /* add your styles here */
+        font-size: 16px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
 
-.div-section{
-@apply antialiased max-w-20x2 bg-white text-black min-h-screen p-20
+
+@layer components {
+    .w-13 {
+      width: 8%;
+    }
+  }
+  @layer components {
+    .aspect-w-2 {
+      width: 2;
+    }
+  }
+  @layer components {
+    .aspect-h-1 {
+      height: 1;
+    }
+  }
+  /* .div-img{
+    @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
+  }
+   */
+.div{
+  @apply flex flex-row font-poppins;
 }
-.section-div-bg{
-    @apply relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0
-}
-.section-form{
-    @apply flex-auto px-4 lg:px-5 py-10 pt-0
-}
-.section-form-h6{
-    @apply text-black text-sm mt-3 mb-6 font-bold uppercase
+.div-app-sidebar{
+    @apply sticky w-[8vw] border-r-2;
+  }
+.div-company-details{
+    @apply w-full flex flex-col sm:w-fit first:flex-row;
 }
 .signin-btn{
   @apply inline-flex  mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
 }
-.div-label{
-    @apply block uppercase text-blueGray-600 text-xs font-bold mb-2
+
+.div-editcompany{
+    @apply absolute right-0 w-4 h-4 rounded-full top-8;
 }
-.div-label-input{
-    @apply border-0 px-3 py-3 placeholder-blueGray-300 font-bold mb-2 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150
+.div-company{
+    @apply px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
 }
-.div-hr{
-    @apply mt-6 border-b-1 border-blueGray-300
+.div-company-name{
+    @apply text-xs font-thin pt-2 px-2;
 }
-.div-submit-btn{
-    @apply bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded 
+.div-tag{
+    @apply bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px];
 }
-.section {
-    font-family: 'Inter', sans-serif;
-  }
-  .sidebar-d {
-    @apply block h-screen shadow-md font-poppins fixed w-[110px] border-r-2 z-50 left-0;
+.div-detail{
+    @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
+}
+.div-sub-box{
+    @apply mx-[1rem] flex-shrink-0
+}
+.div-box{
+    @apply mx-2 w-[10em] h-[3.5em] bg-gray-100 flex;
+}
+.div-box-numbers{
+    @apply flex-1 text-3xl font-bold flex items-center justify-center;
+}
+.div-box-data{
+    @apply flex-1 text-sm flex items-center justify-center;
+}
+.div-box-number{
+    @apply flex-1 text-2xl flex-col font-bold flex items-center justify-center;
+}
+.div-employee{
+    @apply m-2 h-fit w-full flex-col;
+}
+.div-employee-box{
+    @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
+}
+.div-employee-name{
+    @apply text-xs px-2 first-letter:uppercase;
+}
+.div-action-button{
+    @apply bg-gray-300 h-[3rem] w-fit px-[1rem]  mx-4 my-3 md:text-sm flex-shrink-0;
+}
+.div-search{
+    @apply relative flex items-center w-40 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+}
+.div-search-icon{
+    @apply grid place-items-center h-full w-12 text-black;
+}
+.input-search{
+    @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2;
+}
+.employee-list{
+    @apply inline-block min-w-full py-2 sm:px-6 lg:px-8;
+}
+.employee-table{
+    @apply min-w-full text-left text-sm font-light;
+}
+.emplist-thead{
+    @apply border-b font-medium dark:border-neutral-50;
+}
+.employee-add{
+    @apply border-b dark:border-neutral-500;
+}
+.employee-add-btn{
+    @apply whitespace-nowrap px-2 py-4 font-medium;
+}
+.emplist{
+    @apply whitespace-nowrap px-6 py-4;
+}
+
+.label-contain {
+    display: grid;
+    align-items: center; 
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5px;
+   }
+   .form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
   }
   
-.sidebar-nav{
-    @apply flex flex-col w-fit;
+
+
+@layer components {
+  .max-w-2x1 {
+    
+  }
 }
-.sidebar-a{
-    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 Poppins  text-xs;
+  @layer utilities {
+    .ml-50 {
+      margin-left: 50px;
+    }
+  }
+  .shadow-outline {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+  
+  @layer utilities {
+    .focus\:shadow-outline {
+      @apply shadow-outline;
+    }
+  }
+  
+
+.div{
+    @apply fixed z-10 inset-0 overflow-y-auto;
+}
+.div-card{
+    @apply fixed z-10 inset-0 overflow-y-auto
+}
+.div-bg{
+  @apply fixed inset-0 transition-opacity bg-gray-500 opacity-75
+}
+.div-size{
+  @apply relative z-50 w-full max-w-md mx-auto mt-8
+}
+.underline-button{
+  @apply menu-tile border-blue-500 Poppins;
+}
+.underline-a{
+  @apply menu-tile Poppins;
+}
+.input-tag{
+  @apply w-full px-4 py-2 border rounded-md focus:outline-none focus:ring
+}
+.register-page-data{
+  @apply block border-2 font-light border-gray-300  px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
+}
+
+.div-details{
+  @apply bg-white rounded-lg shadow-lg p-6
+}
+.div-btn{
+  @apply px-4 py-2 bg-gray-300 text-gray-700 rounded-lg mr-4
+}
+.div-btn-set{
+  @apply px-4 py-2 bg-blue-500 text-white rounded-lg
 }
 .div-form{
-  @apply relative px-10 md:px-10 lg:px-8 pb-10 max-w-lg mx-auto
+  @apply flex flex-col items-center md:flex-row
 }
-.div-h1{
-  @apply text-xl leading-snug text-gray-800 font-semibold mb-2
+
+.div-form-size{
+  @apply mr-4 ml-4 mt-10 w-full md:w-1/2 mb-4
 }
-.div-card-label{
-  @apply block text-sm font-medium mb-1
+.uploadinv-grp{
+  @apply col-span-1 lg:col-span-6
 }
-.div-input{
-  @apply text-sm text-gray-800 bg-white border-2 rounded leading-5 py-2 px-3 border-gray-200 hover:border-gray-300 focus:border-indigo-300 shadow-sm placeholder-gray-400 focus:ring-0 w-full
+.uploadinv-h1{
+  @apply text-base text-gray-700 mb-5 text-center text-3xl
 }
-.form-h1{
-  @apply text-xl leading-snug text-gray-800 font-semibold mb-2
+.uploadinv-label{
+  @apply block mb-3 text-gray-600
 }
-.div-form-card{
-  @apply bg-white-1000 px-8 pb-6 rounded-b shadow-2xl
+.uploadinv-select{
+  @apply border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider
 }
-.div-form-card1{
-  @apply bg-white-1000 px-10 pb-10 rounded-b shadow-2xl
+.uploadinv-btn{
+  @apply w-20 px-2 py-3 mr-0 ml-20 bg-blue-500 rounded-md shadow-md text-blue-600 font-semibold border font-semibold focus:outline-none w-fit px-10 py-3 leading-6 rounded border-blue-700 bg-white text-blue-600 hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
 }
-.form-h2{
-  @apply block text-sm font-medium mb-1
+.upload-btn{
+  @apply flex justify-center w-20 px-2 py-3 mr-10 ml-10 bg-blue-500 rounded-md shadow-md text-blue-600 font-semibold border font-semibold focus:outline-none w-fit px-5 py-3 leading-6 rounded border-blue-700 bg-white text-blue-600 hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.uploadinv-input{
+  @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2
+}
+.uploadinv-table{
+  @apply min-w-full text-left text-sm font-light
+}
+.uploadinv-thead{
+  @apply border-b font-medium dark:border-neutral-500
+}
+.uploadinv-th{
+  @apply border px-4 py-2 text-center
+}
+.uploadinv-div{
+  @apply w-full md:w-1/2 mt-4 ml-4 mr-4 border
+}
+.uploadinv-card{
+  @apply flex flex-col overflow-x-auto
+}
+.uploadinv-card-div{
+  @apply inline-block min-w-full py-2 sm:px-6 lg:px-8
+}
+.uploadinv-search{
+  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
+}
+.uploadinv-icon{
+  @apply grid place-items-center h-full w-10 text-black
+}
+.uploadinv-size{
+  @apply max-w-sm ml-10 flex items-center
+}
+.uploadinv-nav{
+  @apply mb-2 w-full
+}
+.uploadinv-bt{
+  @apply border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.div-app-sidebar{
+  @apply sticky w-[8vw] border-r-2 z-50;
+}
+.div-grp{
+  @apply flex flex-col sm:flex-row top-0 mb-0 ml-5
+}
+.div-section{
+  @apply antialiased min-h-screen p-9 max-w-2x1 mx-auto bg-cyan-700 bg-blend-saturation rounded-md shadow-2xl dark:bg-gray-800 ml-24 mt-10 mb-96 bottom-0
+}
+.div-section-h1{
+  @apply text-xl font-bold text-white capitalize dark:text-white
+}
+.div-form{
+  @apply grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2
+}
+.div-form-label{
+  @apply text-white dark:text-gray-200
+}
+.div-form-div{
+  @apply mt-1 flex justify-center ml-50 mr-5 px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md
+}
+.div-upload{
+  @apply relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500
+}
+.div-table{
+  @apply w-full md:w-10 mt-2 ml-2 mr-1 border flex-1 text-sm bg-white p-6 rounded-sm m-3 h-[900px] overflow-y-auto
+}
+.div-search{
+  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
+}
+.div-search-icon{
+  @apply grid place-items-center h-full w-10 text-black
 }
 .div-table-inv{
-  @apply w-full h-full text-sm text-left font-medium text-black dark:text-black border-2 border-black
+  @apply w-full text-sm text-left bg-white text-blue-100 dark:text-blue-100
 }
 .div-thead{
-  @apply text-xs text-white uppercase font-medium bg-gray-400 border-black dark:text-white border-2
+  @apply text-xs text-white uppercase bg-gray-600 border-b border-blue-400 dark:text-white
 }
+.div-tbody-th{
+  @apply px-6 py-4 font-medium text-blue-50 whitespace-nowrap dark:text-blue-100
+}
+.div-tbody-tr{
+  @apply bg-gray-500 border-b border-blue-400 hover:bg-gray-400
+}
+.div-edit-btn{
+  @apply mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none 
+}
+.div-delete-btn{
+  @apply text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none
+}
+
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table thead th {
+    font-weight: 500;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .table th {
+    text-align: center;
+  }
+  
+  /* Styles for the buttons */
+  .edit-button{
+    margin-left: 2rem;
+    padding: 0.5rem;
+    border: none;
+    background-color: #0af3509d;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+  }
+  .selected-toggle {
+    background-color:#597ef7;
+    color: white; /* Optionally, set the text color to white for better visibility */
+  }
+  
+  .delete-button{
+    margin-left: 2rem;
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    border: none;
+    background-color: #ff0000c3;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 0.25rem;
+  }
+  
+  .edit-button:hover,
+  .delete-button:hover {
+    background-color: #b5f5e1;
+  }
+  

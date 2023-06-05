@@ -12,7 +12,7 @@
     }
   }
   .employee-details-heading {
-    font-size: 20px;
+    font-size: 16px;
     font-color:rgb(40, 39, 39);
   
     text-align: center;
@@ -43,6 +43,11 @@
 .div-editcompany{
     @apply absolute right-0 w-4 h-4 rounded-full top-8;
 }
+.my-button {
+    
+    @apply text-white bg-CCblue ml-2;
+    
+    }
 .div-company{
     @apply px-2 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
 }
@@ -83,13 +88,14 @@
     @apply bg-gray-300 h-[2rem] w-fit px-[1rem] text-xs mx-4 my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
-    @apply relative flex items-center w-80 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+    @apply relative flex items-center w-40 h-9 focus-within:shadow-lg dark:bg-white bg-white overflow-hidden;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
 }
+
 .input-search{
-    @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2;
+    @apply  outline-none text-sm bg-white dark:bg-white text-black;
 }
 .employee-list{
     @apply inline-block min-w-full py-2 sm:px-6 lg:px-8;
@@ -116,16 +122,3 @@
     grid-template-columns: 1fr 1fr 1fr;
     column-gap: 5px;
    }
-   
-   .employee-details-heading {
-    font-size: 28px;
-    font-color:black;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    background-color: lightgrey;
-    color: black;
-    padding: 10px;
-  }
-  

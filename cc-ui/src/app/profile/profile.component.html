@@ -192,17 +192,13 @@
         <button class="div-action-button" routerLink="/view-contract">
           View Contracts
         </button>
-        <button class="div-action-button" routerLink="/add-employee">
-          Add New Member
-        </button>
+        
         <button class="div-action-button" routerLink="/upload-inventory">
          Upload Inventory
         </button>
 
-
         
     </div>
-
     
     <!-- <br>&nbsp;&nbsp;&nbsp; -->
     <div>
@@ -211,17 +207,15 @@
 
     </div>
     
-    <br/>
+    <br>
     
-    <hr class="mx-2" />
-
  
-    <div class="employee-details-heading bg-gray-200 dark:bg-gray-800 flex justify-between items-center">
+    <div class="font-medium bg-gray-50 dark:bg-gray-50 border-2 flex justify-between items-center">
       <h1 class="ml-10">Employee Details</h1>
-      <div class="div-search mx-4 my-3">
+      <div class="div-search my-2 -left-96 border-2 ">
         <div class="div-search-icon">
           <!-- search bar icon -->
-          <svg
+          <svg  
             xmlns="http://www.w3.org/2000/svg"
             class="h-5 w-5"
             fill="none"
@@ -238,13 +232,14 @@
         </div>
     
         <input
-          class="input-search"
+          class="input-search ml-3 "
           type="text"
           [(ngModel)]="searchTerm"
           id="search"
-          placeholder="First Name | Last Name | Email"
+          placeholder="Search"
         />
       </div>
+      <button mat-raised-button color="primary" class="bg-CCblue hover:bg-black-700 text-white font-bold py-3 mt-0 px-2 mr-4 h-1 font-light rounded-none"(click)="DisplayPostForm()">+ Add User</button>
     </div>
     
        
@@ -256,44 +251,37 @@
             <table class="employee-table">
               <thead class="emplist-thead">
                 <tr>
+              
                   <th scope="col" class="px-6 py-4 ml-20">First Name</th>
                   <th scope="col" class="px-6 py-4">Last Name</th>
                   <th scope="col" class="px-6 py-4">Email</th>
                   <th scope="col" class="px-6 py-4">Phone Number</th>
-             
-                  <th colspan="2" scope="col" class="px-6 py-4 justify-center">&ensp;Actions</th>
+                
+                  <th colspan="2" scope="col" class="px-6 py-4">&ensp;Actions</th>
                 </tr>
               </thead>
-              
-              
-              <br/>
               <tbody>
                 <tr *ngFor="let u of alluser_list | search: searchTerm" class="employee-add">
+                 
                   <td class="emplist ml-20">{{u.fname}}</td>
                   <td class="emplist">{{u.lname}}</td>
                   <td class="emplist">{{u.email}}</td>
                   <td class="emplist">{{u.phone_no}}</td>
-
-
-
-                  <td class="whitespace-nowrap px-6 py-4 text-center">
-                    <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a>
-                  </td>
-                  <td class="whitespace-nowrap px-6 py-4 text-center">
-                    <div *ngIf="alluser_list">
-                      <div *ngIf="alluser_list.length === 0">
-                        <p>No users added.</p>
-
+                 
+                  <td class="whitespace-nowrap px-6 py-4">
+                   <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a >
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4">
+                      <div *ngIf="alluser_list">
+                        <div *ngIf="alluser_list.length === 0">
+                          <p>No users added.</p>
+                        </div>
+                        <div *ngIf="alluser_list.length > 0">
+                          <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
+                        </div>
                       </div>
-                      <div *ngIf="alluser_list.length > 0">
-                        <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue">Delete</a>
-                      </div>
-                    </div>
-                  </td>
-
                 </tr>
               </tbody>
-              
             </table>
           </div>
         </div>

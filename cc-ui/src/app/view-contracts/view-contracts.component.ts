@@ -90,9 +90,9 @@ export class ViewContractsComponent implements OnInit{
     }
     
       
-      get totalPages(): number {
-        return Math.ceil(this.records.length / 5);
-      }
+  get totalPages(): number {
+      return Math.ceil(this.contract_list_by_companyId.length / 5);
+  }
     
   
   getIndex(index: number) {
@@ -110,16 +110,22 @@ getDateOnly(date: Date): Date {
   this.updated_date_time=dateString.toString().slice(0, 10);
   return this.updated_date_time;
 }
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+prevPage() {
+
+  if (this.currentPage > 1) {
+    this.currentPage--;
   }
-  nextPage() {
-    if (this.currentPage < Math.ceil(this.titles.length / this.itemsPerPage)) {
+  
+   }
+   nextPage() {
+    if (this.currentPage < Math.ceil(this.contract_list_by_companyId.length / this.itemsPerPage)) {
       this.currentPage++;
     }
-  }
+  
+   }
+   backPage(){
+    this.router.navigate(['profile']);
+   }
   revert(){
     this.isTitleScreen=!this.isTitleScreen
   }
