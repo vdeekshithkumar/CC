@@ -28,10 +28,10 @@ namespace CC_api.Controllers
 
     [HttpPost("StartNegotiation")]
 
-    public async Task<IActionResult> StartNegotiation(int ad_id,int company_id,int user_id)
+    public async Task<IActionResult> StartNegotiation(int ad_id, int company_id, int user_id)
     {
       {
-        return await NegotiationBusiness.StartNegotiation(ad_id,company_id,user_id);
+        return await NegotiationBusiness.StartNegotiation(ad_id, company_id, user_id);
 
       }
 

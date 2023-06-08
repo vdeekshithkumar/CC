@@ -54,6 +54,7 @@ import { MessageComponent } from './message/message.component';
 import { ProfiledetailsComponent } from './message/profiledetails/profiledetails.component';
 import { MessagecontentComponent } from './message/messagecontent/messagecontent.component';
 import { ConversationslistComponent } from './message/conversationslist/conversationslist.component';
+import { HomeTemplateComponent } from './home-template/home-template.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { ConversationslistComponent } from './message/conversationslist/conversa
           ProfiledetailsComponent,
           MessagecontentComponent,
           ConversationslistComponent,
+          HomeTemplateComponent,
     
   ],
   imports: [

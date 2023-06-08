@@ -237,7 +237,7 @@ export class ProfileComponent implements OnInit {
             phone_no: this.user_data.phone_no,
             email: this.user_data.email,
             address: this.user_data.address,
-            password: this.user_data.password,
+            password: '',
             is_verified: this.user_data.is_verified,
             is_approved: this.user_data.is_approved,
             is_active: this.user_data.is_active,

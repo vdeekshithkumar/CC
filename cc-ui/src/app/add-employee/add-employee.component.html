@@ -1,198 +1,156 @@
-<form [formGroup]="addEmployeeForm" (ngSubmit)="onAdd()" class="font-poppins grid overflow-y-hidden gap-2 p-2 flex min-h-[500px] min-w-[800px]">
+<form [formGroup]="addEmployeeForm"  class="font-poppins grid overflow-y-hidden gap-2 p-2 flex min-h-[100px] min-w-[400px]">
   <h3 class="col-span-2 -mt-2 text-black h-16 bg-blue-50 flex items-center justify-between -ml-20">
     <span class="ml-24 font-medium -mt-1 text-lg">Add New User</span>
     <i class="fas fa-times -mt-1 mr-3 cursor-pointer" mat-button matDialogClose=""></i>
   </h3>
-  
-  <div class="col-span-2 flex h-10 justify-between -mt-4 bg-gray-100">
- <nav class="header-links contents font-semibold text-base lg:text-lg">
-    <ul class="flex items-center ml-20 xl:ml-20 ">
-      <li class="nav-item" [routerLinkActive]="['details']">
-        <a>
-          <button class="underline-button" (click)="activeTab = 'details'">
-            <div class="flex items-center">
-              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-                <span [class.hover:text-black]="true"></span> </div>
-              <span class="underline-a font-light text-sm">Details</span>
-              
-             </div></button></a></li>&nbsp; &nbsp; &nbsp;
-      <li class="nav-item" [routerLinkActive]="['permissions']"  >
-        <a>
-          <button class="underline-button " (click)="activeTab = 'permissions'">
-            <div class="flex items-center ml-80">
-              <div class="bg-gray-200 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-                <span [class.hover:text-black]="true"></span>
-              </div>
-              <span class="underline-a font-light text-sm">Permissions</span>
-              </div></button></a>
-            </li></ul>
-          </nav>
-      &nbsp; &nbsp; &nbsp;
-  </div>
-
 <!-- Details form -->
+<mat-horizontal-stepper #stepper>
+  <mat-step label="Details" [editable]="false" class="gray-line">
+    <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6">
+      <div class="col-span-1">
+        <h2 class=" font-medium mb-2">Add User Details</h2>
+          <label for="fname" class="font-medium text-sm ">First Name<span class="text-red-500">*</span></label>
+        <input
+        formControlName="fname"
+      class="register-page-data"
+      placeholder="Eg. John"
+      name="firstName"
+      />
+      </div>
+      <div  class="mt-10">
+  
+        <label for="fname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
+        <input
+          formControlName="lname"
+          class="register-page-data"
+          placeholder="Eg. Wick"
+          name="firstName"
+        />
+        
+      </div>
+      <div class="col-span-1 mt-4">
+  
+        <label for="fname" class="font-medium text-sm">Phone Number</label>
+        <input
+          formControlName="phone_no"
+          class="register-page-data"
+          
+          placeholder="Enter your first name"
+          name="firstName"
+        />
+        
+      </div>
+      <div class="col-span-1 mt-4">
+  
+        <label for="email" class="font-medium text-sm">Email<span class="text-red-500">*</span></label>
+        <input
+          formControlName="email"
+          class="register-page-data"
+          
+          placeholder="yourname@gmail.com"
+          name="firstName"
+        />
+        
+      </div>
+      <div class="col-span-2 mt-4">  
+        <label for="fname" class="font-medium text-sm">Address</label>
+        <input
+          formControlName="address"
+          class="register-page-data"
+          
+          placeholder="Enter your Address"
+          name="firstName"
+        />
+      
+      </div>
+      <div class="mb-1 mt-4">
+        <h2 class="font-medium mb-2">Create Password</h2>
+        <label for="fname" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
+        <div class="relative">
+          <input
+            formControlName="password"
+            class="register-page-data pr-10"
+            required
+            minlength="8"
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+            type="{{ showPassword ? 'text' : 'password' }}"
+            placeholder="Password"
+            name="password"
+          />
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </span>
+        </div>
+      </div>
+      <div class="mt-14">
+        <label for="fname" class="font-medium text-sm mt-20">Confirm Password<span class="text-red-500">*</span></label>
+        <div class="relative">
+          <input
+            formControlName="confirm_password"
+            class="register-page-data pr-10"
+            placeholder="Confirm Password"
+            name="firstName"
+            type="{{ showPassword ? 'text' : 'password' }}"
+          />
+          <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </span>
+        </div>
+      </div>
+    </form>
+    <div class="flex flex-grow">
+      <button mat-button matStepperPrevious class="mb-3 inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+        Cancel
+      </button>
+      <button mat-button (click)="openDialog(stepper)" type="button" class="mb-3 ml-2 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">
+        Next
+       </button>
+</div>  
+  </mat-step>
 
-<div *ngIf="activeTab === 'details'" class="ml-3 mt-2">
-  <h2 class=" font-medium mb-2">Add User Details</h2>
-    <label for="fname" class="font-medium text-sm ">First Name<span class="text-red-500">*</span></label>
-  <input
-  formControlName="fname"
-class="register-page-data"
-placeholder="Eg. John"
-name="firstName"
-/>
-</div>
-<div *ngIf="activeTab === 'details'" class="mt-12 mr-3">
-  
-  <label for="fname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
-  <input
-    formControlName="lname"
-    class="register-page-data"
-    placeholder="Eg. Wick"
-    name="firstName"
-  />
-  
-</div>
-<div *ngIf="activeTab === 'details'"class="ml-3">
-  
-  <label for="fname" class="font-medium text-sm">Phone Number<span class="text-red-500">*</span></label>
-  <input
-    formControlName="phone_no"
-    class="register-page-data"
-    
-    placeholder="Enter your first name"
-    name="firstName"
-  />
-  
-</div>
-<div *ngIf="activeTab === 'details'"class="mr-3">
-  
-  <label for="email" class="font-medium text-sm">Email<span class="text-red-500">*</span></label>
-  <input
-    formControlName="email"
-    class="register-page-data"
-    
-    placeholder="yourname@gmail.com"
-    name="firstName"
-  />
-  
-</div>
-<div *ngIf="activeTab === 'details'" class="col-span-2 ml-3 mr-3">  
-  <label for="fname" class="font-medium text-sm">Address</label>
-  <input
-    formControlName="address"
-    class="register-page-data"
-    
-    placeholder="Enter your Address"
-    name="firstName"
-  />
-
-</div>
-<div *ngIf="activeTab === 'details'" class=" ml-3 mb-1">
-  <h2 class="font-medium mb-2">Create Password</h2>
-  <label for="fname" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
-  <input
-    formControlName="password"
-    class="register-page-data"
-    required
-minlength="8"
-pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
-type="{{ showPassword ? 'text' : 'password' }}"
-    placeholder="Password"
-    name="firstName"
-  />
-</div>
-<!-- <div *ngIf="activeTab === 'details'" class="mt-10 mr-3">
-  <label for="fname" class="font-medium text-sm mt-20">Confirm Password<span class="text-red-500">*</span></label>
-  <input
-    formControlName=""
-    class="register-page-data"
-    
-    placeholder="Confirm Password"
-    name="firstName"
-  />
-</div>  -->
-
-<!-- Permissions form -->
-<div *ngIf="activeTab === 'permissions'">
-  <h2 class="font-medium mb-4 ml-3">Add User Permissions</h2>
-  <table class="min-w-[770px] min-h-full border-2 ml-2 mb-2">
-    <thead >
-      <tr >
-        <th class="py-2 justify-start  bg-gray-100">Action</th>
-        <th class="py-2 justify-end  bg-gray-100">Type</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let p of PList; let i = index">
-        <ng-container *ngIf="i % 2 === 0">
-          <tr class="row border-2">
-              <td class="col-md-20 mb-6 ml-4" style="padding-left:14px;">{{ p.type }}</td>
-              <td class="col-md-20 text-right" style="padding: 0.5em;">
-                <div class="flex">
-                  <div class="form-check form-check-inline ml-40">
-                    <input class="text-sm font-medium text-gray-900 dark:text-gray-300" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
-                    <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-read'">Read&ensp;</label>
-                    
-                  </div>
-                  <div class="form-check form-check-inline ml-10">
-                    <input class="text-sm  font-medium text-gray-900 dark:text-gray-300"  type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
-                    <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" [for]="p.type + '-write'">Write&ensp;</label>
-                    
-                  </div>
-                </div>
-              </td>
+  <mat-step label="Permissions" class="blue-line"[editable]="false">
+    <form [formGroup]="addEmployeeForm" class="mt-6">
+      <div>
+        <h2 class="font-medium mb-4 ml-3">Add User Permissions</h2>
+        <table class="min-w-[770px] min-h-full border-2 ml-2 mb-2">
+          <thead >
+            <tr >
+              <th class="py-2 justify-start  bg-gray-100">Action</th>
+              <th class="py-2 justify-end  bg-gray-100">Type</th>
             </tr>
-        </ng-container>
-      </ng-container>
-    </tbody>
-  </table>
-
-</div>
-
-
-
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let p of PList; let i = index">
+              <ng-container *ngIf="i % 2 === 0">
+                <tr class="row border-2">
+                    <td class="col-md-20 mb-6 ml-4" style="padding-left:14px;">{{ p.type }}</td>
+                    <td class="col-md-20 text-right" style="padding: 0.5em;">
+                      <div class="flex">
+                        <div class="form-check form-check-inline ml-40">
+                          <input class="text-sm font-medium text-gray-900 " checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
+                          <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 " [for]="p.type + '-read'">Read&ensp;</label>
+                        </div>
+                        <div class="form-check form-check-inline ml-10">
+                          <input class="text-sm  font-medium text-gray-900 "  type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
+                          <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 " [for]="p.type + '-write'">Write&ensp;</label>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+              </ng-container>
+            </ng-container>
+          </tbody>
+        </table>
+      
+      </div>
+      <div class="flex">
+        <button mat-button matStepperPrevious class="mb-3 ml-6 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+          Cancel
+        </button>
+        <button mat-button matStepperNext (click)="onAdd()" type="submit" class="mb-3 ml-2 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">Submit</button>
+      </div>  
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>
 </form>
-
-<div *ngIf="activeTab === 'details'" class="flex w-full justify-between bg-gray-100 mb-2 ">
-<button mat-button matDialogClose="" type="submit" class="mb-3 mx-2  justify-center items-center space-0 font-light flex-1 focus:outline-none  px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
-  Cancel
-</button>
-<button (click)="activeTab = 'permissions'" type="submit" class="mb-3 mx-2 justify-center items-center space-0 font-light flex-1 focus:outline-none px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
- Next
-</button>
-</div>
-<div *ngIf="activeTab === 'permissions'" class="flex justify-between bg-gray-100 space-x-2 mb-2">
-<button (click)="activeTab = 'details'"  type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
-  Cancel
-</button>
-<button  type="submit" (click)="onAdd()" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
-  Submit
-</button>
-</div>
-
-
-<!-- <div class="flex justify-center space-x-2 mt-3">
-<button type="submit" class="signin-btn mt-4">
-    Save
-</button>
-</div> -->
-<!-- <div *ngIf="activeTab === 'details'" class="flex justify-between bg-gray-100 space-x-2 mb-2">
-<button type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
-  Cancel
-</button>
-<button (click)="activeTab = 'permissions'" type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
-  Next
-</button>
-</div> -->
-<!-- <div class="flex justify-between bg-gray-100 space-x-2 mb-4">
-<button type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
-  Cancel
-</button>
-<button (click)="activeTab = 'permissions'" type="submit" class="mb-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white  mt-4">
-  Next
-</button>
-</div> -->
-
-
   

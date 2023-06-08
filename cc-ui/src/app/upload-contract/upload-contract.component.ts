@@ -74,6 +74,7 @@ export class UploadContractComponent implements OnInit {
     debugger
     if (this.files.length > 0) {
       debugger
+      this.title = this.title.trim().toLowerCase();
       this.uploadService.uploadFile(this.files, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
         debugger
         if (response.message === 'Success') {

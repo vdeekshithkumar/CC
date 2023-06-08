@@ -235,7 +235,7 @@ namespace CC_api.Controllers
       return Ads;
     }
 
-      [HttpGet("GetAllAds")]
+    [HttpGet("GetAllAds")]
     public async Task<List<Ad>> GetAllFiles(int companyID, string operation)
     {
       var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation);
@@ -526,4 +526,3 @@ namespace CC_api.Controllers
     }
   }
 }
-

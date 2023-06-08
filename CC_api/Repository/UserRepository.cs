@@ -24,6 +24,7 @@ namespace CC_api.Repository
       var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == user_id && u.company_id == company_id);
       if (user != null)
       {
+
         user.password = password;
         await dbContext.SaveChangesAsync();
       }
@@ -131,13 +132,16 @@ namespace CC_api.Repository
     public async Task<User> GetUserByEmailAndPassword(string email, string password)
     {
       var user = await GetUserByEmail(email);
-      if (user != null && user.VerifyPassword(password))
+      if (user != null)
       {
         return user;
       }
-      return null;
-    }
+      else
+      {
+        return null;
+      }
 
+    }
     public async Task UpdateUserDetails(int id, User updatedUser)
     {
       var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == id);
@@ -152,8 +156,10 @@ namespace CC_api.Repository
         await dbContext.SaveChangesAsync();
       }
     }
+
+
   }
 
+
+
 }
-
-

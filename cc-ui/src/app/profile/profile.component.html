@@ -5,15 +5,15 @@
   <!-- Main View Canvas -->
   <div class="div-company-details w-full max-w-screen-2xl min-w-[780px]">
     <!-- Company Details section  -->
-    <div class=" m-2 shadow-md h-fit bg-white p-2">
+    <div class=" my-2 mx-1 h-fit bg-white p-2">
       <div class="flex">
         <!-- first box which contains the company details -->
         <form [formGroup]="profileForm" class="w-full">
 
           <div class="flex justify-between items-center w-full">
-            <div class="justify-start flex flex-row items-center">
-              <div class="relative px-2 p-2" id="company-logo">
-                <img class="object-contain overflow-hidden w-14 h-14 rounded-full bg-angel-blue" src={{company_logo}} />
+            <div class=" flex flex-row items-center w-full">
+              <div class="relative px-1 py-2" id="company-logo">
+                <img class="object-contain overflow-hidden w-14 h-14 rounded-full" src={{company_logo}} />
                 <button (click)="showDiv = !showDiv" class="absolute bottom-0 right-0 cursor-pointer">
                   <i class="material-symbols-outlined text-sm text-CCblue pr-2 pb-1">border_color</i>
                 </button>
@@ -25,14 +25,13 @@
                 </div>
               </div>
               <!-- Sub box 1 -->
-              <div class="flex flex-col" id="sub-box2">
-                <div class="div-company whitespace-nowrap">
+              <div class="flex flex-col w-full" id="sub-box2">
+                <div class="font-bold whitespace-nowrap ml-4" style="font-size: 18px;">
                   {{name}}
-                  <span class="div-company-name"></span>
                 </div>
-                <div class="flex flex-row">
+                <div class="flex flex-row justify-around w-full mt-4">
                   <div class="gray-highlights">
-                    <i class="material-symbols-outlined font-bold mr-2 text-sm">
+                    <i class="material-symbols-outlined font-bold mr-1 text-sm">
                       location_on</i>
                     {{address}}
                   </div>
@@ -52,17 +51,11 @@
                       {{domain_address}}
                     </div>
                   </div>
-                  <div class="div-sub-box">
-                    <div class="gray-highlights">
-                      <i class="material-symbols-outlined font-bold mr-2 text-sm">
-                        flag</i>
-                      {{country}}
-                    </div>
-                  </div>
+                 
 
 
                   <!-- Ratings -->
-                  <div class=" mx-[1rem] flex">
+                  <div class=" flex">
                     <div class="gray-highlights">
                       <i class="material-symbols-outlined font-bold mr-2 text-sm">
                         star</i>
@@ -80,12 +73,12 @@
 
                 <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
-                    <span class="text-angel-blue-2 font-bold text-xl flex-col">{{usercount_list}}</span>
-                    <p class="whitespace-nowrap flex-col">Active Members</p>
+                    <span class="text-angel-blue-2 font-bold text-md flex-col">{{usercount_list}}</span>
+                    <p class="whitespace-nowrap flex-col text-[0.6rem]">Active Members</p>
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-10 h-10">
-                      <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
+                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
+                      <i class="material-symbols-outlined text-angel-blue-2 text-xl">
                         group
                       </i>
                     </div>
@@ -94,11 +87,13 @@
 
                 <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
-                    <span class="text-angel-blue-2 font-bold text-xl flex-col">100</span>
-                    <p class="whitespace-nowrap flex-col">Available slots</p>
+                    <span class="text-angel-blue-2 font-bold text-md flex-col">100
+                      <span class="text-black font-thin text-[0.6rem]">TEU</span></span>
+                    
+                    <p class="whitespace-nowrap flex-col text-[0.6rem]">Available slots</p>
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-10 h-10">
+                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
                       <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
                         workspaces
                       </i>
@@ -108,11 +103,13 @@
 
                 <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
-                    <span class="text-angel-blue-2 font-bold text-xl flex-col">100</span>
-                    <p class="whitespace-nowrap flex-col">Available for lease</p>
+                    <span class="text-angel-blue-2 font-bold text-md flex-col">100
+                      <span class="text-black font-thin text-[0.6rem]">TEU</span>
+                    </span>
+                    <p class="whitespace-nowrap flex-col text-[0.6rem]">Available for lease</p>
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-10 h-10">
+                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
                       <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
                         event_available
                       </i>
@@ -122,11 +119,13 @@
 
                 <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
-                    <span class="text-angel-blue-2 font-bold text-xl flex-col">100</span>
-                    <p class="whitespace-nowrap flex-col">Available for sale</p>
+                    <span class="text-angel-blue-2 font-bold text-md flex-col">100
+                      <span class="text-black font-thin text-[0.6rem]">TEU</span>
+                    </span>
+                    <p class="whitespace-nowrap flex-col text-[0.6rem]">Available for sale</p>
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-10 h-10">
+                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
                       <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
                         new_releases
                       </i>
@@ -147,29 +146,29 @@
       <!--Change height to fit-->
       <div class="flex flex-row justify-start ml-2 gap-20">
         <div class="flex flex-col">
-          <div class="text-xs">
-            <i class="material-symbols-outlined text-xs text-black mt-2">person</i>
-            Name
+          <div class="flex items-center py-2">
+            <i class="material-symbols-outlined text-xs text-black  mr-2">person</i>
+            <div class="text-xs">Name</div>
           </div>
-          <div class="font-bold">{{fname}} {{lname}}</div>
+          <div class="font-semibold text-sm">{{fname}} {{lname}}</div>
         </div>
         <div class="flex flex-col">
-          <div class="text-xs">
-            <i class="material-symbols-outlined text-xs text-black mt-2">mail</i>
-            Email-address
+          <div class="flex items-center py-2">
+            <i class="material-symbols-outlined text-xs text-black mr-2">mail</i>
+            <div class="text-xs">Email-Address</div>
           </div>
-          <div class="font-bold">{{email}}</div>
+          <div class="font-semibold text-sm">{{email}}</div>
         </div>
         <div class="flex flex-col">
-          <div class="text-xs">
-            <i class="material-symbols-outlined text-xs text-black mt-2">person</i>
-            Name
+          <div class="flex items-center py-2">
+            <i class="material-symbols-outlined text-xs text-black mr-2">phone</i>
+            <div class="text-xs">Phone Number</div>
           </div>
-          <div class="font-bold">{{phone}}</div>
+          <div class="font-semibold text-sm">{{phone}}</div>
         </div>
         
       </div>
-      <div class="flex flex-row ml-2 ">
+      <div class="flex flex-row ">
         <button class="div-action-button" (click)="onClick()">
           Approve Ads ({{adscount[1]}})
         </button>
@@ -200,9 +199,9 @@
     <br>
 
 
-    <div class="font-medium bg-gray-50 dark:bg-gray-50 border-2 flex justify-between items-center">
-      <div class="ml-10 text-xl font-light">User Details</div>
-      <div class="div-search my-2 -left-96 border-2 ">
+    <div class="font-medium bg-gray-50 flex items-center px-10">
+      <div class=" text-lg font-light justify-start">User Details</div>
+      <div class="div-search my-2 border-2 justify-start mx-4">
         <div class="div-search-icon">
           <!-- search bar icon -->
           <svg xmlns="http://www.w3.org/2000/svg" class="pl-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="gray">
@@ -211,38 +210,36 @@
           </svg>
         </div>
 
-        <input class="input-search ml-3 " type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. Name, Email, Mobile)" />
+        <input class="input-search ml-3 " type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. Name, Email, Mobile)" autocomplete="off"/>
       </div>
       <button mat-raised-button color="primary"
-        class="bg-CCblue hover:bg-black-700 text-white py-3 mt-0 px-2 mr-4 h-1 font-light rounded-none"
+        class="bg-CCblue hover:bg-black-700 text-white py-3 rounded-none px-2 mr-4 h-1 font-light  ml-auto  justify-end w-fit "
         (click)="DisplayPostForm()">+ Add User</button>
     </div>
+    <hr class="m-2" />
 
 
     <!-- Table start -->
     <div class="flex flex-col overflow-x-hidden ml-8">
-      <div class="sm:-mx-6 lg:-mx-8">
         <div class="employee-list">
           <div class="overflow-x-auto">
-            <table class="employee-table">
+            <table class="employee-table border-2">
               <thead class="emplist-thead">
                 <tr>
-
-                  <th scope="col" class="px-6 py-4 ml-20">First Name</th>
-                  <th scope="col" class="px-6 py-4">Last Name</th>
-                  <th scope="col" class="px-6 py-4">Email</th>
-                  <th scope="col" class="px-6 py-4">Phone Number</th>
-
-                  <th colspan="2" scope="col" class="px-6 py-4">&ensp;Actions</th>
+                  <th scope="col" class="px-6 py-4 ml-20 border-r-2">First Name</th>
+                  <th scope="col" class="px-6 py-4 border-r-2">Last Name</th>
+                  <th scope="col" class="px-6 py-4 border-r-2">Email</th>
+                  <th scope="col" class="px-6 py-4 border-r-2">Phone Number</th>
+                  <th colspan="2" scope="col" class="px-6 py-4 border-r-2">&ensp;Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr *ngFor="let u of alluser_list.slice((currentPage-1)*itemsPerPage, currentPage*itemsPerPage) | search: searchTerm" class="employee-add bg-white">
-                  <td class="emplist ml-20">{{u.fname}}</td>
-                  <td class="emplist">{{u.lname}}</td>
-                  <td class="emplist">{{u.email}}</td>
-                  <td class="emplist">{{u.phone_no}}</td>
-                  <td class="whitespace-nowrap px-6 py-4">
+                  <td class="emplist ml-20 border-r-2">{{u.fname}}</td>
+                  <td class="emplist border-r-2">{{u.lname}}</td>
+                  <td class="emplist border-r-2">{{u.email}}</td>
+                  <td class="emplist border-r-2">{{u.phone_no}}</td>
+                  <td class="whitespace-nowrap px-6 py-4 border-r-2">
                     <a (click)="getUserByID(u.user_id)" class="text-CCblue">Edit</a>
                   </td>
                   <td class="whitespace-nowrap px-6 py-4">
@@ -258,9 +255,9 @@
                 </tr>
               </tbody>
             </table>
+            
           </div>
         </div>
-      </div>
     </div>
     <div class="flex gap-2 w-full justify-end">
       <button  (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">

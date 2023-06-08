@@ -3,7 +3,7 @@
 <div class="flex sticky">
     <app-sidebar class="w-1/12 ">
     </app-sidebar>
-    <div id="main-neg-component" class="w-11/12 font-poppins min-h-screen sticky">
+    <div id="main-neg-component" class="w-full bg-gray-50 font-poppins min-h-screen sticky">
       <div id="title" class="w-full mx-2 p-2 h-fit flex flex-col">
         <div class="flex justify-between">
           <div class="text-2xl">My Negotiations</div>
@@ -14,7 +14,7 @@
         </div>
       </div>
       <hr class=" w-full" />
-      <div class="w-full m-2 h-fit px-1 py-1  flex-row flex items-center">
+      <div class="w-full mb-4 h-fit px-1 py-1 bg-white flex-row flex items-center">
         <div class="flex p-1">
           <span class="rounded-full flex bg-blue-500 text-white w-4 h-4 text-[0.5rem] items-center justify-center">99+</span>
           <span class="text-xs mx-2">Active ads</span>
@@ -33,16 +33,16 @@
             <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
           </svg>
           
-          <div class="flex bg-gray-100 p-1 px-2 w-[300px] border-2 ">
-            <i class="material-icons md-15 text-gray-400 mr-2">search</i>
+          <div class="flex bg-gray-50 p-1 px-2 w-[300px] border-2 ">
+            <i class="material-icons md-15 text-gray-400 ">search</i>
             <input type="text" placeholder="Search" class="outline-none bg-transparent w-full text-xs" />
           </div>
         </div>
       </div>
-      <div class="bg-gray-100 ml-0 mr-0" style="height: 4px;">
+      <div class="bg-gray-50 ml-0 mr-0" style="height: 4px;">
       </div>
       <ng-container *ngFor="let n of filteredNlist | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="flex justify-center items-center border">
-        <div class="flex flex-col border-4">
+        <div class="flex flex-col border-4 mx-2">
           <div class="p-1 flex flex-row items-center  justify-around">
             <div class="flex flex-row items-center">
               <img [src]="getCompanylogo(n.ad_id)" [ngClass]="{'company-name': n.status != 'accepted'}" class="w-16 h-8 object-contain">
@@ -165,14 +165,14 @@
         </div>
         <div>
 
-          <div class="bg-gray-100 ml-0 mr-0">&nbsp;&nbsp;
+          <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;
           </div>
 
         </div>
         
       </ng-container> 
 
-      <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.filteredNlist.length>0">
+      <div class="bg-gray-50 p-4 flex items-center flex-wrap  justify-center" *ngIf="this.filteredNlist.length>0">
         <nav aria-label="Page navigation">
             <ul class="inline-flex">
                 <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"

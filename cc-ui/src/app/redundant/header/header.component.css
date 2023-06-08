@@ -9,7 +9,7 @@
     @apply flex  font-medium items-center text-gray-900 mb-4 md:mb-0
 }
 .header-box{
-  @apply text-gray-600  sticky bg-white  top-0 z-50 font-poppins shadow-md p-1;
+  @apply text-gray-600  sticky bg-white  top-0 z-50 font-poppins p-1;
 }
 .header-box-svg{
   @apply w-10 h-10 text-white p-2 bg-indigo-500 rounded-full
@@ -47,4 +47,3 @@ a:hover {
 .hidden {
   display: none;
 }
-

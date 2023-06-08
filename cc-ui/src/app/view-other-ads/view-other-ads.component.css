@@ -552,7 +552,7 @@ th {
 .port-input {
   margin-bottom: 9px;
   margin-bottom: 5px;
-  width: calc(170% - 15px); /* Adjust the width calculation based on your desired spacing */
+  width: calc(130% - 15px); /* Adjust the width calculation based on your desired spacing */
 }
 
 

@@ -20,7 +20,7 @@ namespace CC_api.Business
 
     }
 
-    public async Task<IActionResult> StartNegotiation(int ad_id,int company_id,int user_id)
+    public async Task<IActionResult> StartNegotiation(int ad_id, int company_id, int user_id)
     {
       var Ads = await this.AdRepository.GetAdByAdID(ad_id);
       foreach (var item in Ads)
@@ -30,18 +30,18 @@ namespace CC_api.Business
 
         DateTime currentDate = DateTime.Now;
 
-        n.user_id= user_id;
-        n.ad_id= ad_id;
+        n.user_id = user_id;
+        n.ad_id = ad_id;
         n.price = item.price;
         n.negotiation_type = item.type_of_ad;
         var container_type = await this.AdRepository.getContainerType(item.container_type_id);
         n.container_type = container_type;
         n.quantity = item.quantity;
         n.status = "pending";
-        n.company_id= company_id;
+        n.company_id = company_id;
         n.contract_id = null;
         n.date_created = currentDate;
-        n.expiry_date=item.expiry_date;
+        n.expiry_date = item.expiry_date;
         n.updated_by = user_id;
         await NegotiationRepository.Add(n);
 
@@ -50,7 +50,7 @@ namespace CC_api.Business
     }
 
 
-      public async Task DeleteNegotiation(Negotiation n)
+    public async Task DeleteNegotiation(Negotiation n)
     {
       try
       {
@@ -93,6 +93,6 @@ namespace CC_api.Business
     {
       return await NegotiationRepository.GetNegotiationCount(adid);
     }
-   
+
   }
 }

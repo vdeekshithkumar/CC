@@ -11,8 +11,8 @@
   <!-- Company Details section  -->
       <div class="flex justify-between items-center ml-20">
         <h1 class="text-2xl text-black-100 mt-2 flex-1">My Advertisement</h1>
-        <div><button mat-raised-button color="primary" class="bg-CCblue hover:bg-black-700 text-white font-bold py-2 mt-2 my-button px-4 mr-4 rounded disabled:opacity-50" (click)="onExportClick()">Export</button>
-          <button mat-raised-button color="primary" class="bg-CCblue hover:bg-black-700 text-white font-bold py-2 mt-2 my-button px-4 mr-4  rounded disabled:opacity-50" [disabled]="isButtonDisabled" (click)="DisplayPostForm()">Post Ad</button>
+        <div><button mat-raised-button color="primary" class="bg-CCblue text-white font-bold py-2 mt-2 px-4 mr-4 rounded" (click)="onExportClick()">Export</button>
+          <button mat-raised-button color="primary" class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4  rounded " [disabled]="isButtonDisabled" (click)="DisplayPostForm()">Post Ad</button>
         </div></div><br/>
 <hr style="height: 2px;">
 <nav class="header-links contents font-semibold text-base lg:text-lg">
@@ -44,7 +44,7 @@
             </div></div></button></a></li></ul>
           </nav>
 <div class="w-full h-full flex flex-col mt-2">
-  <table class="table-auto ml-16 mr-2">
+  <table class="table-auto ml-16 ">
     <thead class="bg-gray-200 dark:bg-gray-800 ">
       <tr class="bg-gray-200 dark:bg-gray-800 justify-center">
         <th class="flex-1 px-6 py-4">Expiry Date</th>

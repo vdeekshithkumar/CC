@@ -100,6 +100,10 @@
 
          
           <h2>Advertisement Details</h2>
+          <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+       
+
+          
           <br />
           <div class="advertisement-container" *ngFor="let ad of ads; ">
             <div class="advertisement-heading" >

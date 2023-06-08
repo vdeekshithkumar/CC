@@ -49,19 +49,19 @@
     
     }
 .div-company{
-    @apply px-2 w-fit text-2xl mb-[0.625rem] font-bold font-poppins flex ;
+    @apply w-fit text-2xl mb-[0.625rem] font-bold font-poppins flex ;
 }
 .div-company-name{
     @apply text-xs font-thin pt-2 px-2;
 }
 .gray-highlights {
-    @apply flex items-center justify-center text-[0.9rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
+    @apply flex items-center justify-center text-[0.7rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
   }
 .div-detail{
     @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
 }
 .div-sub-box{
-    @apply mx-[1rem] flex-shrink-0
+    @apply  flex-shrink-0
 }
 .div-box{
     @apply mx-3 w-[10em] h-[3.5em] bg-gray-100 flex;
@@ -85,10 +85,10 @@
     @apply text-xs px-2 first-letter:uppercase;
 }
 .div-action-button{
-    @apply bg-gray-300 h-[2rem] w-fit px-[1rem] text-xs mx-4 my-3 md:text-sm flex-shrink-0;
+    @apply bg-white border-2 h-[2rem] w-fit px-[1rem] text-xs mx-4 my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
-    @apply relative flex items-center w-96 h-9 focus-within:shadow-lg  bg-white overflow-hidden;
+    @apply relative flex items-center w-96 h-9  bg-white overflow-hidden;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
@@ -98,7 +98,7 @@
     @apply  outline-none text-sm bg-white w-full  text-black;
 }
 .employee-list{
-    @apply inline-block min-w-full py-2 sm:px-6 lg:px-8;
+    @apply inline-block min-w-full py-2 ;
 }
 .employee-table{
     @apply min-w-full text-left text-sm font-light;

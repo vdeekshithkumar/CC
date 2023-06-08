@@ -92,7 +92,7 @@ namespace CC_api.Controllers
     {
       try
       {
-        var loginUser = await userBusiness.GetUserByEmailAndPassword(user.email,user.password);
+        var loginUser = await userBusiness.GetUserByEmailAndPassword(user.email, user.password);
 
         if (loginUser == null)
         {
@@ -101,7 +101,7 @@ namespace CC_api.Controllers
 
 
 
-        return Ok(loginUser); 
+        return Ok(loginUser);
       }
       catch (Exception ex)
       {
@@ -149,7 +149,7 @@ namespace CC_api.Controllers
     [HttpGet("GetAllUserCount/{companyid}")]
     public async Task<int> GetAllUserCount(int companyid)
     {
-       return await userBusiness.GetAllUserCount(companyid);
+      return await userBusiness.GetAllUserCount(companyid);
     }
 
     [HttpDelete("DeleteUser/{id}")]

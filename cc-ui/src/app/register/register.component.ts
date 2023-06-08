@@ -1,11 +1,10 @@
 
 import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Registerservice } from './register.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog.component';
-
 
 
 
@@ -20,7 +19,7 @@ interface RegisterResponse {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css','../app.component.css']
 })
 export class RegisterComponent implements OnInit 
 {
@@ -48,7 +47,7 @@ export class RegisterComponent implements OnInit
   r: any;
   
   showPassword=false;
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
+  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
     this.verifyotpForm = this.formBuilder.group({
       otp: ['', [Validators.required, Validators.pattern(/^\d+$/)]]
     });}
@@ -65,7 +64,7 @@ ngOnInit(): void {
     email: ['', [Validators.required, Validators.email]],
     phone_no:['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
-
+    city:['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
     otp:['12345',Validators.required],
     is_verified:['0',Validators.required],
     is_approved:['1',Validators.required],
@@ -99,7 +98,7 @@ onSubmit(): void {
     !formValue.lname ||
     !formValue.email ||
     !formValue.address ||
-    !formValue.phone_no ||
+   
     !formValue.company_id ||
     !formValue.password
   ) {
@@ -114,11 +113,9 @@ onSubmit(): void {
     if (!formValue.email) {
       errorMessage += '- Email\n';
     }
-    if (!formValue.phone_no) {
-      errorMessage += '- Phone Number\n';
-    }
+   
     if (!formValue.company_id) {
-      errorMessage += '- Company ID\n';
+      errorMessage += '- Company Name\n';
     }
     if (!formValue.password) {
       errorMessage += '- Password\n';

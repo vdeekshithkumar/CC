@@ -16,7 +16,7 @@ interface RegisterResponse {
 @Component({
   selector: 'app-otp-verify',
   templateUrl: './otp-verify.component.html',
-  styleUrls: ['./otp-verify.component.css']
+  styleUrls: ['./otp-verify.component.css','../app.component.css']
 })
 export class OtpVerifyComponent implements OnInit{
   otpForm!: FormGroup;

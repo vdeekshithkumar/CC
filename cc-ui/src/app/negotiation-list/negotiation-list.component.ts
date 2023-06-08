@@ -62,6 +62,7 @@ testpassing:any;
 
   date_created: any;
   elementRef: any;
+  userDesignation: any;
 
   
 constructor(@Inject(MAT_DIALOG_DATA)public data:any,private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private negotiationservice: NegotiationListService){
@@ -159,12 +160,22 @@ console.log("data passed adid is"+this.data.testpassing);
     }
   );
 
+  this.sessionService.getUserDesignation().subscribe(
+    (userDesignation: string) => {
+      this.userDesignation = userDesignation;
+      console.log('User ID is :', userDesignation);
+    },
+    (error: any) => {
+      console.error('Error retrieving user des:', error);
+    }
+  );
+
 /////permission for negotiation
 
 this.negotiationservice.getPermissions(this.userId).subscribe(
   (permissions: any[]) => {
     this.PList = permissions;
-    this.isButtonDisabled = !this.PList.includes(4);
+    this.isButtonDisabled = !(this.PList.includes(4) || this.userDesignation ==='admin');
 
   
   },
@@ -272,7 +283,6 @@ AcceptNegotiation(negotiation_id: number) {
 
   
     
-
 
 
 

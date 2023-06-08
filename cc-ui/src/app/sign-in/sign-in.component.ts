@@ -16,11 +16,12 @@ interface LoginResponse {
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.css','../app.component.css']
 })
 
 export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
+  hide = true;
   submitted: Boolean = false;
   Invalid: Boolean = false;
   showPassword=false;
@@ -34,7 +35,6 @@ constructor(private router: Router,private formBuilder: FormBuilder,private dial
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})')]],
     });
-    
   }
 isUserValid:boolean=false;
   onLoginSubmit() {
@@ -139,4 +139,3 @@ isUserValid:boolean=false;
     this.showPassword = !this.showPassword;
   }
 }
-

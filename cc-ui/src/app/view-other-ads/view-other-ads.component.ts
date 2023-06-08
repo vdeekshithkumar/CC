@@ -54,6 +54,8 @@ export class ViewOtherAdsComponent {
   company_location?: string
   country?: string
   companyId: any;
+  isLoading:any;
+
   profileForm!: FormGroup;
   activeAdsClicked = false;
   pendingAdsClicked = false;
@@ -90,7 +92,7 @@ export class ViewOtherAdsComponent {
    
   }
   ngOnInit(): void {
-
+this.isLoading=true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
       (data: any) => {
         this.negotiation_list = data;
@@ -172,7 +174,7 @@ export class ViewOtherAdsComponent {
         console.log("Error loading company details:", error);
       }
     );
-
+this.isLoading=false;
 
   }
  
@@ -329,5 +331,4 @@ export class ViewOtherAdsComponent {
   } 
 
 }  
-
 

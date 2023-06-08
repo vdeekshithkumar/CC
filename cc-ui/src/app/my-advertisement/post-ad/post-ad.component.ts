@@ -36,6 +36,7 @@ export class PostAdComponent implements OnInit{
   title!: any;
   port_name="";
   C_Type="";
+  isLoading:any;
   ads: Advertisement[] = [];
   ExcelData:any;
   fileName?: string
@@ -144,6 +145,7 @@ console.error('Uploaded file is empty');
   
 
   ngOnInit(): void {
+   
     this.isButtonDisabled = true;
    this.ContinueDraft=this.data.ContinueDraft; 
    this.Approve=this.data.Approve;
@@ -261,32 +263,37 @@ console.error('Uploaded file is empty');
 
   
   async onPost() {
-  
+    this.isLoading=true;
   if(this.operation=="PostAd"){
     if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) {
 
     
       this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
      
-      
+        
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
           setTimeout(()=> {this.statusMsg = ""},2000)
           this.clear()
+
           window.location.reload()
+          this.isLoading=false;
+
         } else {
           this.statusMsg = 'Failed';
-          console.log(response.status) ;
+          console.log(response.status);
+          this.isLoading=false;
         }
       });
     }
     else{
       alert("Please Fill the Mandatory Fields")
+      this.isLoading=false;
     }
   }
 
   else{
-
+    this.isLoading=true;
     if (this.port_id && this.container_type_id && this.file) {
 
 
@@ -303,9 +310,11 @@ console.error('Uploaded file is empty');
          console.log(response.status) ;
        }
      });
+     this.isLoading=false;
    }
    else{
      alert("Please Fill the Mandatory Fields")
+     this.isLoading=false;
    }
 
   }
@@ -379,7 +388,7 @@ console.error('Uploaded file is empty');
   }
   else{
 
-    debugger
+
     if (this.port_id && this.container_type_id && this.file) {
     
 
@@ -418,7 +427,6 @@ console.error('Uploaded file is empty');
     this.description = null
   }
 }
-
 
 
 

@@ -30,6 +30,8 @@ namespace CC_api.Business
     {
       try
       {
+        string hashedPassword = HashPassword(password);
+        password = hashedPassword;
         await userRepository.UpdatePasswordAsync(user_id, company_id, password);
         return new OkObjectResult(new { message = "Success" });
       }
@@ -71,7 +73,7 @@ namespace CC_api.Business
       string hashedPassword = HashPassword(user.password);
 
       // Set the hashed password to the PasswordHash property
-      us.password= hashedPassword;
+      us.password = hashedPassword;
       us.is_verified = user.is_verified;
       us.is_approved = user.is_approved;
       us.is_active = user.is_active;
