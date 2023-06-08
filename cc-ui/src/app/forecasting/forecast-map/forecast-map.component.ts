@@ -74,7 +74,7 @@ export class ForecastMapComponent implements OnInit {
       if (this.portData && this.portData.length > 0) {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
           center: { lat: +this.portData[0].latitude, lng: +this.portData[0].longitude },
-          zoom: 6,
+          zoom: 3,
           mapId: '2b03aff8b2fb72a3'
         });
       } else {
@@ -125,7 +125,7 @@ export class ForecastMapComponent implements OnInit {
         if (this.portData && this.portData.length > 0) {
           this.map = new google.maps.Map(this.mapElement.nativeElement, {
             center: { lat: +this.portData[0].latitude, lng: +this.portData[0].longitude },
-            zoom: 6,
+            zoom: 3,
             mapId: '2b03aff8b2fb72a3'
           });
         } else {
@@ -178,7 +178,7 @@ export class ForecastMapComponent implements OnInit {
       if (this.portData && this.portData.length > 0 && this.portData[0].latitude && this.portData[0].longitude) {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
           center: { lat: +this.portData[0].latitude, lng: +this.portData[0].longitude },
-          zoom: 6,
+          zoom: 3,
           mapId: '2b03aff8b2fb72a3'
         });
       } else {

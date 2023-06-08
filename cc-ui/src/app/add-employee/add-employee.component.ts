@@ -4,11 +4,12 @@ import { AddEmployeeServiceService } from './add-employee.service';
 import { SessionService } from '../session.service';
 import { filter } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { MAT_DIALOG_DATA, MatDialogRef,MatDialog } from '@angular/material/dialog';
+import { inject } from '@angular/core/testing';
 import { enableDebugTools } from '@angular/platform-browser';
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectorRef, Inject } from '@angular/core';
 import { DialogComponent } from '../dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+
 
 interface Permission {
   write: any;
@@ -16,6 +17,7 @@ interface Permission {
   permission_id: number;
   type: string;
   actions: string;
+  
 }
 @Component({
   selector: 'app-add-employee',
@@ -24,6 +26,7 @@ interface Permission {
 })
 export class AddEmployeeComponent {
   Pfname:any;
+  activeTab = 'details';
   statusMsg?:string
   addEmployeeForm!: FormGroup;
   permissionsByType = {};
@@ -63,12 +66,12 @@ showValidationErrors: boolean = false;
   Pis_active: any;
   Plast_login: any;
   Pdesignation: any;
-  constructor(private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
+  constructor(@Inject(MAT_DIALOG_DATA)public data:any,private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
     this.permissions = []
     ;
   }
   ngOnInit():void{
-    const state = history.state;
+    const state = this.data;
     if (state && state.edit) {
       this.isEdit = true;
       console.log('Edit mode enabled.');
@@ -190,36 +193,166 @@ updateReadCheckbox(event: Event) {
   }
 }
 updateReadAccess(permission: any, event: any) {
+
   const checkbox = event.target as HTMLInputElement;
+
   const action = checkbox.id.includes('write') ? 'write' : 'read';
 
-  this.correspondingPermission = this.PList.find(
-    (p: { type: any; actions: string }) =>
-      p.type === permission.type && p.actions === action
-  );
 
-  if (this.correspondingPermission) {
-    console.log('Permission ID:', this.correspondingPermission.permission_id);
-    console.log('Action:', this.correspondingPermission.actions);
-    console.log('Type:', this.correspondingPermission.type);
-    this.ppList.push(this.correspondingPermission.permission_id);
+
+
+  if (checkbox.checked) {
+
+    const correspondingPermission = this.PList.find(
+
+      (p: { type: any; actions: string }) =>
+
+        p.type === permission.type && p.actions === action
+
+    );
+
+
+
+
+    if (correspondingPermission) {
+
+      console.log('Permission ID:', correspondingPermission.permission_id);
+
+      console.log('Action:', correspondingPermission.actions);
+
+      console.log('Type:', correspondingPermission.type);
+
+
+
+
+      if (action === 'read') {
+
+        // Add the permission ID to selectedPermissions
+
+        this.ppList.push(correspondingPermission.permission_id);
+
+      } else if (action === 'write') {
+
+        // Remove the corresponding read permission from selectedPermissions
+
+        const readPermissionIndex = this.ppList.findIndex(
+
+          (p: any) =>
+
+            p === correspondingPermission.type + '-read' &&
+
+            this.PList.find(
+
+              (r: any) =>
+
+                r.type === correspondingPermission.type && r.actions === 'read'
+
+            )
+
+        );
+
+
+
+
+        if (readPermissionIndex !== -1) {
+
+          this.ppList.splice(readPermissionIndex, 1);
+
+        }
+
+
+
+
+        // Add the permission ID to selectedPermissions
+
+        this.ppList.push(correspondingPermission.permission_id);
+
+      }
+
+    }
+
+  } else {
+
+    const correspondingPermission = this.PList.find(
+
+      (p: { type: any; actions: string }) =>
+
+        p.type === permission.type && p.actions === action
+
+    );
+
+
+
+
+    if (correspondingPermission) {
+
+      const index = this.ppList.findIndex(
+
+        (p: any) => p === correspondingPermission.permission_id
+
+      );
+
+
+
+
+      if (index !== -1) {
+
+        // Remove the permission from selectedPermissions
+
+        this.ppList.splice(index, 1);
+
+      }
+
+    }
+
+
+
+
+    if (action === 'write') {
+
+      // Check if the corresponding read checkbox exists and is checked
+
+      const readCheckbox = document.getElementById(
+
+        permission.type + '-read'
+
+      ) as HTMLInputElement;
+
+
+
+
+      if (readCheckbox && readCheckbox.checked) {
+
+        const readPermissionIndex = this.ppList.findIndex(
+
+          (p: any) => p === permission.type + '-read'
+
+        );
+
+
+
+
+        if (readPermissionIndex !== -1) {
+
+          // Remove the corresponding read permission from selectedPermissions
+
+          this.ppList.splice(readPermissionIndex, 1);
+
+        }
+
+      }
+
+    }
+
   }
 
-  // Get the corresponding read and write checkboxes
-  const readCheckbox = document.getElementById(permission.type + '-read') as HTMLInputElement;
-  const writeCheckbox = document.getElementById(permission.type + '-write') as HTMLInputElement;
 
-  if (action === 'write' && checkbox.checked) {
-    // Select both read and write checkboxes
-    readCheckbox.checked = true;
-    writeCheckbox.checked = true;
-    readCheckbox.disabled = true;
-  } else if (action === 'write' && !checkbox.checked) {
-    // Unselect both read and write checkboxes
-    readCheckbox.checked = false;
-    writeCheckbox.checked = false;
-    readCheckbox.disabled = false;
-  }
+
+
+  // Print the selected permissions in the console
+
+  console.log('Selected Permissions:', this.ppList);
+
 }
 
 private async addP() {
@@ -254,7 +387,7 @@ async onAdd() {
     !formValue.fname ||
     !formValue.lname ||
     !formValue.email ||
-    !formValue.address ||
+   
     !formValue.phone_no ||
     !formValue.password
   ) {
@@ -285,10 +418,6 @@ async onAdd() {
     return;
   }
 
-  if (!this.addEmployeeForm.controls['address'].valid) {
-    this.openErrorDialog('Invalid Country Name');
-    return;
-  }
 
   if (!this.addEmployeeForm.controls['fname'].valid) {
     this.openErrorDialog('Invalid First Name Format');
@@ -316,27 +445,28 @@ async onAdd() {
     return;
   }
   if (this.isEdit) {
+    debugger
     try {
       const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
-
+debugger
       await this.addP();
       alert('User Edited Successfully');
-      await this.router.navigate(['/profile']);
+      location.reload();
       this.isEdit = false;
       this.addEmployeeForm.reset();
+     
     } catch (error) {
       console.log('Could not edit:', error);
       }
     } else {
+      debugger
       try {
         const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
+        debugger
         alert('User Added Successfully');
-        await this.router.navigate(['/profile']);
-
+        location.reload();
         await this.addP(); // Wait for permissions to be added
-
         console.log(this.addPermissionForm.value);
-
         // Reload the component
         await this.router.navigate(['/dashboard']);
       } catch (error) {

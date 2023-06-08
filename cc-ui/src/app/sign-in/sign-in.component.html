@@ -25,10 +25,11 @@
           <div class="p-5 lg:p-6 grow w-full">
             <div class="sm:p-5 lg:px-10 lg:py-8">
               <!-- Just for testing purposes change ng submit-->
-              <form [formGroup]= "loginForm" (ngSubmit)="onLoginSubmit()">
+              <form [formGroup]= "loginForm"  (ngSubmit)="onLoginSubmit()">
                 <div class="space-y-1">
                   <label for="email" class="font-medium">Email<span class="text-red-500">*</span></label>
-                  <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email">
+
+                  <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email" autocomplete="new-email">
                   <div
                 *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
                 class="text-red-500 text-sm mt-1"
@@ -41,7 +42,7 @@
                 <div class="space-y-1 mt-5">
                   <label for="password" class="font-medium">Password<span class="text-red-500">*</span></label>
                   <div class="relative">
-                    <input formControlName="password" class="signin-form-input"  name="password" placeholder="Enter your password" type="{{ showPassword ? 'text' : 'password' }}"
+                    <input formControlName="password" class="signin-form-input"  name="password" placeholder="Enter your password" autocomplete="off" type="{{ showPassword ? 'text' : 'password' }}"
                     id="password"
                     placeholder="Password"
                     required
@@ -88,4 +89,3 @@
   </main>
   <!-- END Page Content -->
 </div>
-<!-- END Page Container -->

@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+<div class="conversation-details">
+  <div class="search-box">
+    <div class="flex items-center mr-2 py-2">
+      <div class="search-bar-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="gray">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <input class="ml-2 mr-2 w-full bg-transparent placeholder-gray-400 border-none" type="text" style="border: none;" id="search" placeholder="Search">
+      <span class="material-symbols-rounded">
+        more_horiz
+      </span>
+    </div>
+  </div>
+
+  <div class="tab-buttons">
+    <mat-tab-group class="w-full">
+      <mat-tab label="People">
+        <div class="user" *ngFor="let user of usersWithProfile" [ngClass]="{ 'selected': selectedUser === user }" (click)="selectUser(user)">
+
+          <img [src]="user.profilePhoto" alt="Profile Photo">
+          <div class="user-status-dot" [ngClass]="{ 'online': user.online, 'offline': !user.online }"></div>
+          <div class="user-details py-2 ml-4">
+            <h4>{{ user.name }}</h4>
+            <p>{{ user.company }}</p>
+          </div>
+          <div class="time">{{ getCurrentTime() }}</div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Messages">
+        <div class="user" *ngFor="let user of usersWithProfile" [ngClass]="{ 'selected': selectedUser === user }" (click)="selectUser(user)">
+          <!-- <div class="user-status-dot" [ngClass]="{ 'online': user.online, 'offline': !user.online }"></div> -->
+          <div class="user-details flex flex-row py-4">
+            <h4 class="font-bold"><strong>{{ user.name }}</strong></h4>
+          </div>
+          <div class="ml-6 mt-2">
+            <p>{{ user.message.substr(0, 35) }}........</p>
+          </div>
+          <div class="time">{{ getCurrentTime() }}</div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

@@ -182,10 +182,11 @@
                   <input
                     formControlName="otp"
                     class="register-page-data"
-                    type="text"
+                    type="{{ showPassword ? 'text' : 'password' }}"
                     id="otp"
                     placeholder="Enter OTP"
-                  /></label>
+                  />
+                 </label>
                 </div>
                 <div class="signin-rememberme ml-10">
                   <label class="flex items-center">

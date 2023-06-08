@@ -50,6 +50,10 @@ import { NegotiationListComponent } from './negotiation-list/negotiation-list.co
 import { NegotiationsComponent } from './negotiations/negotiations.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog.component';
+import { MessageComponent } from './message/message.component';
+import { ProfiledetailsComponent } from './message/profiledetails/profiledetails.component';
+import { MessagecontentComponent } from './message/messagecontent/messagecontent.component';
+import { ConversationslistComponent } from './message/conversationslist/conversationslist.component';
 
 
 @NgModule({
@@ -88,6 +92,10 @@ import { DialogComponent } from './dialog.component';
           NegotiationListComponent,
           NegotiationsComponent,
           DialogComponent,
+          MessageComponent,
+          ProfiledetailsComponent,
+          MessagecontentComponent,
+          ConversationslistComponent,
     
   ],
   imports: [

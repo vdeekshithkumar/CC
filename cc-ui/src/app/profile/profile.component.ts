@@ -6,6 +6,10 @@ import { SignInService } from '../sign-in/sign-in.service';
 import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
 import { findIndex } from 'lodash';
+import { MatDialog } from '@angular/material/dialog';
+import { PostAdComponent } from '../my-advertisement/post-ad/post-ad.component';
+import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-profile',
@@ -38,10 +42,25 @@ export class ProfileComponent implements OnInit {
   companyId: any;
   userId:any;
   adscount: any;
+  //for the employees table 
+  currentPage = 1;
+  itemsPerPage = 5;
+
+  //for pagination
+  getTotalPages() {
+    return Math.ceil(this.alluser_list.length / this.itemsPerPage);
+  }
+  getPages() {
+    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+  }
+  
+  
+    
+
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
+  constructor(private dialog:MatDialog,private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
     this.sessionService.getUserId().subscribe(
         (userId: number) => {
@@ -187,15 +206,31 @@ export class ProfileComponent implements OnInit {
       this.sessionService.clearSession();
     });
   }
-  getUserByID(user_id: number) {
+  DisplayPostForm(){
+    
+    // this.ContinueDraft=0;
+    this.dialog.open(AddEmployeeComponent,{
+     
+      
+  
+      data:{
+        ContinueDraft:0,
+        Approve:0
+      }
+      
+
+    })
+   
+   }
+  
+   getUserByID(user_id: number) {
     this.profileService.getUserDetails(user_id).subscribe(
       (data: any) => {
         this.user_data = data;
         console.log("User data fetched:", this.user_data);
   
-        // Navigate to the add-employee page with user_id and edit flag in the state
-        this.router.navigate(['/add-employee'], {
-          state: {
+        const dialogRef = this.dialog.open(AddEmployeeComponent, {
+          data: {
             user_id: user_id,
             fname: this.user_data.fname,
             lname: this.user_data.lname,
@@ -210,6 +245,11 @@ export class ProfileComponent implements OnInit {
             designation: this.user_data.designation,
             edit: true
           }
+        });
+  
+        dialogRef.afterClosed().subscribe(result => {
+          // Handle the dialog close event if needed
+          console.log("Dialog closed with result:", result);
         });
       },
       (error: any) => {
