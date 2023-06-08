@@ -1,3 +1,4 @@
+
 <div class="otp-section">
   <div>
     <h1 class="otp-h1">
@@ -5,10 +6,9 @@
       <span>Verify your email</span>
     </h1>
     <p class="p">
-      <span class="text-blue-500 mr-2">
-        <i class="fas fa-info-circle"></i>
-      </span>
-      <span class="otp font-light">Verification code sent on your email</span>
+  
+      
+      <span class="otp font-light"><i class="fas fa-info-circle text-blue-500"></i><span class="ml-2">Verification code sent on your email</span></span>
     </p>
   </div>
   <!-- Otp verify form here -->
@@ -30,7 +30,7 @@
         <label>Did not receive the email?<a class="otp-a">Resend OTP</a></label>
       </div>
     </div>
-    <div class="center-position mt-10 ">
+    <div class="ml-24 center-position mt-10 flex ">
       <button type="submit" class="btn-primary btn">
         <div>
           Verify
@@ -38,7 +38,7 @@
       </button>
     </div>
   </form>
-  <div class="otp-noact text-gray-500 text-[0.7rem]">
+  <div class="otp-noact text-gray-500 text-[0.7rem] ml-12">
     Already have an account?
     <a class="otp-noact-a" [routerLink]="['/sign-in']" routerLinkActive="router-link-active"
       href="javascript:void(0)"><span class="underline">Sign in</span></a>
