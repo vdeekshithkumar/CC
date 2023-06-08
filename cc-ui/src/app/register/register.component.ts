@@ -1,11 +1,10 @@
 
 import { Component,Inject, OnInit  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Registerservice } from './register.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog.component';
-
 
 
 
@@ -20,7 +19,7 @@ interface RegisterResponse {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css','../app.component.css']
 })
 export class RegisterComponent implements OnInit 
 {
@@ -35,7 +34,7 @@ export class RegisterComponent implements OnInit
   public user_id? : number;
   public otp?:number;
   registrationForm!: FormGroup;
-  verifyotpForm! :FormGroup;
+  verifyotpForm :FormGroup;
   emailFormControl! :FormGroup;
   user_data:any;
   form: any;
@@ -46,9 +45,12 @@ export class RegisterComponent implements OnInit
    company_list : any;
    errors:any;
   r: any;
+  
   showPassword=false;
-  constructor(private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
-  }
+  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
+    this.verifyotpForm = this.formBuilder.group({
+      otp: ['', [Validators.required, Validators.pattern(/^\d+$/)]]
+    });}
 
 ngOnInit(): void {
   const now = new Date();
@@ -62,7 +64,7 @@ ngOnInit(): void {
     email: ['', [Validators.required, Validators.email]],
     phone_no:['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
-
+    city:['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
     otp:['12345',Validators.required],
     is_verified:['0',Validators.required],
     is_approved:['1',Validators.required],
@@ -96,7 +98,7 @@ onSubmit(): void {
     !formValue.lname ||
     !formValue.email ||
     !formValue.address ||
-    !formValue.phone_no ||
+   
     !formValue.company_id ||
     !formValue.password
   ) {
@@ -111,16 +113,15 @@ onSubmit(): void {
     if (!formValue.email) {
       errorMessage += '- Email\n';
     }
-    if (!formValue.phone_no) {
-      errorMessage += '- Phone Number\n';
-    }
+   
     if (!formValue.company_id) {
-      errorMessage += '- Company ID\n';
+      errorMessage += '- Company Name\n';
     }
     if (!formValue.password) {
       errorMessage += '- Password\n';
     }
     this.openErrorDialog(errorMessage);
+    
     return;
   }
 
@@ -168,6 +169,7 @@ onSubmit(): void {
   } catch (error) {
     console.log('Error registering:', error);
   }
+
 }
 
 
@@ -181,7 +183,23 @@ private redirect(){
 
 }
 
-onverifyOtp(){
+
+onverifyOtp() {
+  if (!this.registrationForm) {
+    // Open the error dialog  
+    this.openErrorDialog('Registration should be done first');
+    return; // Stop further execution
+  }
+  const numericValidator = Validators.pattern('^[0-9]*$');
+this.verifyotpForm.get('otp')?.setValidators([numericValidator]);
+  if (this.verifyotpForm.invalid) {
+    if (this.verifyotpForm.controls['otp'].errors?.['pattern']) {
+      this.openErrorDialog('Please enter a valid OTP');
+    } else {
+      this.openErrorDialog('Please Do Registration First');
+    }
+    return;
+  }
   const emailValue = this.registrationForm.value.email;
   console.log('Email value:', emailValue);
   
@@ -191,8 +209,6 @@ onverifyOtp(){
   this.registerservice.getEmail(emailValue).subscribe(
     (response: Object) => {
       const RegisterResponse = response as RegisterResponse;
-  
- 
       this.user_data= RegisterResponse;
       const parseData = JSON.parse(this.user_data);
       console.log('parsed user user id' +  parseData.user.user_id)
@@ -209,7 +225,7 @@ onverifyOtp(){
                 this.redirect();
                }
                else{
-                this.openErrorDialog("Enter the valid OTP");
+                this.openErrorDialog("Please enter a valid OTP");
 
                }
                     // window.location.reload()

@@ -16,11 +16,12 @@ interface LoginResponse {
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.css','../app.component.css']
 })
 
 export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
+  hide = true;
   submitted: Boolean = false;
   Invalid: Boolean = false;
   showPassword=false;
@@ -138,4 +139,3 @@ isUserValid:boolean=false;
     this.showPassword = !this.showPassword;
   }
 }
-

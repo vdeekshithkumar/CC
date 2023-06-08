@@ -16,7 +16,7 @@ interface RegisterResponse {
 @Component({
   selector: 'app-otp-verify',
   templateUrl: './otp-verify.component.html',
-  styleUrls: ['./otp-verify.component.css']
+  styleUrls: ['./otp-verify.component.css','../app.component.css']
 })
 export class OtpVerifyComponent implements OnInit{
   otpForm!: FormGroup;
@@ -27,37 +27,50 @@ export class OtpVerifyComponent implements OnInit{
   userId:any;
   Otp:any;
   showValidationErrors: boolean = false;
-
+  verifyotpForm! :FormGroup;
 
   constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private OtpService:OtpService) { }
   ngOnInit(): void {
     this.otpForm = this.formBuilder.group({
       email: ["",Validators.email], 
-      otp: ["",Validators.required],
+      otp: ["", [Validators.required, Validators.pattern(/^\d+$/)]],
     });
   }
   onValidate(){
+ 
     const formValue = this.otpForm.value;
-  if (
-    !formValue.email ||
-    !formValue.otp
-  ) {
-    this.showValidationErrors = true;
-    let errorMessage = 'The following fields are required:\n';
-    if (!formValue.email) {
-      errorMessage += '- Email\n';
+    if (
+      !formValue.email ||
+      !formValue.otp
+    ) {
+      this.showValidationErrors = true;
+      let errorMessage = 'The following fields are required:\n';
+      if (!formValue.email) {
+        errorMessage += '- Email\n';
+      }
+      if (!formValue.password) {
+        errorMessage += '- OTP\n';
+      }
+      this.openErrorDialog(errorMessage);
+      return;
     }
-    if (!formValue.otp) {
-      errorMessage += '- OTP\n';
+    if (!this.otpForm.controls['email'].valid) {
+      this.openErrorDialog('Invalid email format');
+      return;
     }
-    this.openErrorDialog(errorMessage);
-    return;
-  }
-    
+   
   if (!this.otpForm.controls['email'].valid) {
     this.openErrorDialog('Invalid email format');
     return;
   }
+  const numericValidator = Validators.pattern('^[0-9]*$');
+  this.otpForm.get('otp')?.setValidators([numericValidator]);
+    if (this.otpForm.invalid) {
+      if (this.otpForm.controls['otp'].errors?.['pattern']) {
+        this.openErrorDialog('Please enter a valid OTP');
+      } 
+      return;
+    }
  
     const emailValue = this.otpForm.value.email;
     console.log('Email value:', emailValue);
@@ -86,7 +99,7 @@ export class OtpVerifyComponent implements OnInit{
                  }
                  else{
                 
-                  this.openErrorDialog("Enter the valid OTP");
+                  this.openErrorDialog("Pleasse Enter the valid OTP");
                  }
                       // window.location.reload()
                     },

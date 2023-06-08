@@ -1,0 +1,125 @@
+.conversationlist{
+    overflow-y: scroll;
+}
+
+.conversation-details {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+  }
+  .user.selected {
+    background-color: rgba(233, 235, 228, 0.79);
+    border-left: 4px solid #303F9F ;
+  }
+  .search-box {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .search-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .tab-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .tab-button {
+    background-color: #dddddd;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .tab-button.active {
+    background-color: #999999;
+    color: #ffffff;
+  }
+  
+  .user-list {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+ 
+  .user {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    position: relative;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .user img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .user-details {
+    flex-grow: 1;
+  }
+  
+  .user h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .user p {
+    margin: 0;
+    font-size: 14px;
+    color: gray;
+  }
+  
+  .time {
+    font-size: 10px;
+    color: gray;
+    margin-left: auto;
+  }
+  
+  .user-status-dot {
+  
+   z-index: 1;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-bottom: -25px;
+  margin-left: -14px;
+  }
+  
+  .user-status-dot.online {
+    background-color: green;
+  }
+  
+  .user-status-dot.offline {
+    background-color: red;
+  }
+  
+  .selected {
+    border-left: 4px solid blue;
+  }
+  
+
+  
+  .user-details h4 {
+    margin: 0;
+  }
+  
+  .user-details p {
+    margin: 0;
+    color: #888888;
+  }
+  

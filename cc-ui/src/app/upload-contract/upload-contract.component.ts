@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UploadService } from './upload.service';
 import { FormGroup } from '@angular/forms';
 import { SessionService } from '../session.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-upload-contract',
@@ -56,23 +56,37 @@ export class UploadContractComponent implements OnInit {
     this.showFile = !this.showFile;
     if (this.showFile) {
       for (const file of this.files) {
-        this.snackBar.open(`${file.name} has been selected for upload`, 'Close');
+        this.snackBar.open(`${file.name} has been selected for upload`, 'Close', {
+          duration: 3000 // Set the duration to 3000 milliseconds (3 seconds)
+        });
       }    
     }
     // await setTimeout(() => { this.showFile = !this.showFile }, 3000);
   }
 
   async onUpload() {
+    if (this.title == null || this.description ==null || this.files ==null )
+    {
+      this.snackBar.open(`All the fields are mandatory!!`, 'Close', {
+        duration: 3000 // Set the duration to 3000 milliseconds (3 seconds)
+      });
+    }
     debugger
     if (this.files.length > 0) {
       debugger
+      this.title = this.title.trim().toLowerCase();
       this.uploadService.uploadFile(this.files, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
         debugger
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
-          setTimeout(() => { this.statusMsg = "" }, 2000)
-          this.snackBar.open(`Successfully uploaded the file ${this.fileName}`, 'Close');
-          this.clear()
+          setTimeout(() => { 
+            this.statusMsg = "";
+            this.snackBar.dismiss();
+          }, 2000);
+          const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(`Successfully uploaded the file.`, 'Close', {
+            duration: 2000
+          });
+          this.clear();
         } else {
           this.statusMsg = 'Failed';
           console.log(response.status);

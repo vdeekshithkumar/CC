@@ -19,7 +19,7 @@
       <div class="flex flex-col max-w-screen-xl min-w-screen-lg border-4">
         <div class="p-1 flex flex-row items-center  justify-around">
           <div class="flex flex-row items-center">
-            <img [src]="companyLogos[n.company_id]" class="w-14 h-10">
+            <img [src]="companyLogos[n.company_id]" class="w-16 h-10 object-contain">
             
             <div class="font-bold whitespace-nowrap ml-4">{{companyNames[n.company_id]}}</div>
             <div class="gray-highlights ml-4">
@@ -122,12 +122,12 @@
           <div class="flex flex-row">
             <div class="flex flex-row">
          
-              <button [hidden]="isButtonDisabled" (click)="deleteNegotiation(n.negotiation_id)" class="w-6 mr-2 justify-center mt-2">
+              <button [hidden]="isButtonDisabled || n.status === 'accepted' || n.status === 'rejected'"  (click)="deleteNegotiation(n.negotiation_id)" class="w-6 mr-6 justify-center mt-2">
                 <mat-icon class="justify-center"> cancel_presentation</mat-icon>
               </button>
        
               
-              <button  [disabled]="isButtonDisabled" (click)="AcceptNegotiation(n.negotiation_id)"  mat-raised-button color="primary"  scope="row" class="flex-1 text-center px-6 py-4 mr-2 mt-2" style="font-size: 12px;">Accept</button>
+              <button  [disabled]="isButtonDisabled || n.status === 'accepted' || n.status === 'rejected'"   (click)="AcceptNegotiation(n.negotiation_id)"  mat-raised-button color="primary"  scope="row" class="flex-1 text-center px-6 py-2 mt-2" style="font-size: 12px;">Accept</button>
               
             </div>
             

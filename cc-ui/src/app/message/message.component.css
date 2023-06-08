@@ -1,0 +1,39 @@
+
+.header {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    /* Add any other necessary styles for the header */
+}
+.container {
+    display: flex;
+  
+    height: 93vh;
+  }
+.sidebar {
+    
+    flex: 0 0 33%;
+    background-color: rgba(224, 221, 221, 0.871);
+    padding-left: 20px;
+
+    padding-right: 10px;
+    border-right: 4px solid rgba(201, 197, 197, 0.564);
+    
+}
+.content {
+    flex: 0 0 50%;
+    background-color: #f1ebeb;
+  
+   
+    padding-bottom: 20px;
+    padding-top: 20px;
+    
+
+}
+.profile {
+    flex: 0 0 28%;
+    background-color: #dedcdc;
+    padding: 20px;
+    height: 100%;
+}
+

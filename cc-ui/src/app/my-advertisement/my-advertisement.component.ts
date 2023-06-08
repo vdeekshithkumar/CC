@@ -117,6 +117,7 @@ pickup_charges:any;
   adscount: any[] = [];
   x: any;
   PList: any[]=[];
+  userDesignation: any;
 
   getCompanyId() {
      return this.company_id;
@@ -180,14 +181,23 @@ pickup_charges:any;
         console.error('Error retrieving user ID:', error);
       }
     );
-
-
+    /// for permission
+    this.sessionService.getUserDesignation().subscribe(
+      (userDesignation: string) => {
+        this.userDesignation = userDesignation;
+        console.log('User ID is :', userDesignation);
+      },
+      (error: any) => {
+        console.error('Error retrieving user des:', error);
+      }
+    );
 
     
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
         this.PList = permissions;
-        this.isButtonDisabled = !this.PList.includes(2);;
+        this.isButtonDisabled = !(this.PList.includes(2) || this.userDesignation ==='admin');
+        
         console.log("permissions are//////////////////////// "+this.PList);
       
       },
@@ -292,8 +302,6 @@ AdsCount(){
         adId:adId
       }
     
-      
-      
 
     })
 

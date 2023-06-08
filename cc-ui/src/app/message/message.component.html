@@ -1,0 +1,20 @@
+
+<div class="header"><app-header></app-header></div>
+
+<!-- <app-sidebar></app-sidebar> -->
+<!-- <div class="container ml-20"> -->
+    <div class="container">
+    <div class="sidebar">
+        <!-- Sidebar content goes here -->
+        <app-conversationslist (conversationSelected)="onConversationSelected($event)"></app-conversationslist>
+    </div>
+    <div class="content">
+         <!--  content goes here -->
+        <app-messagecontent></app-messagecontent>
+    </div>
+    <div class="profile">
+        <!-- profile goes here -->
+        <app-profiledetails [selectedConversation]="selectedConversation"></app-profiledetails>
+       
+    </div>
+</div>

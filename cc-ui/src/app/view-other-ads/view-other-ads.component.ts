@@ -42,6 +42,8 @@ export class ViewOtherAdsComponent {
   public company_id?: number;
   public ad_id?: number;
   public name?: string;
+  itemsPerPage: number = 3;
+  currentPage: number = 1;
   domain_address?: string;
   licence_id?: number;
   rating?: number;
@@ -52,6 +54,8 @@ export class ViewOtherAdsComponent {
   company_location?: string
   country?: string
   companyId: any;
+  isLoading:any;
+
   profileForm!: FormGroup;
   activeAdsClicked = false;
   pendingAdsClicked = false;
@@ -88,7 +92,7 @@ export class ViewOtherAdsComponent {
    
   }
   ngOnInit(): void {
-
+this.isLoading=true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
       (data: any) => {
         this.negotiation_list = data;
@@ -170,7 +174,7 @@ export class ViewOtherAdsComponent {
         console.log("Error loading company details:", error);
       }
     );
-
+this.isLoading=false;
 
   }
  
@@ -189,6 +193,26 @@ export class ViewOtherAdsComponent {
       };
     }
   }
+  get totalPages(): number {
+    return Math.ceil(this.ads.length / 3);
+  }
+  prevPage() {
+  
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+    
+     }
+     nextPage() {
+      if (this.currentPage < Math.ceil(this.ads.length / this.itemsPerPage)) {
+        this.currentPage++;
+      }
+    
+     }
+     backPage(){
+      this.router.navigate(['forecast-map']);
+     }
+     
   checkNegotiation(company_id: number, ad_id: number): boolean {
     let x = false;
   debugger
@@ -307,5 +331,4 @@ export class ViewOtherAdsComponent {
   } 
 
 }  
-
 

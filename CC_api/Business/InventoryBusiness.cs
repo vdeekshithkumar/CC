@@ -7,20 +7,20 @@ using System.Net;
 using System.Text;
 using System.ComponentModel.Design;
 
- 
+
 
 namespace CC_api.Business
 
- 
+
 
 {
-  public class InventoryBusiness
-  {
-      private readonly InventoryRepository inventoryRepository;
-      public InventoryBusiness()
-      {
-        this.inventoryRepository = new InventoryRepository();
-      }
+  public class InventoryBusiness
+  {
+    private readonly InventoryRepository inventoryRepository;
+    public InventoryBusiness()
+    {
+      this.inventoryRepository = new InventoryRepository();
+    }
 
 
 
@@ -66,25 +66,25 @@ namespace CC_api.Business
 
 
     public async Task<IActionResult> DeleteInventory(int id)
-    {
-      var inv = await inventoryRepository.GetInventoryById(id);
-      if (inv == null)
-      {
-        return new NotFoundResult();
-      }
+    {
+      var inv = await inventoryRepository.GetInventoryById(id);
+      if (inv == null)
+      {
+        return new NotFoundResult();
+      }
 
- 
 
-      await inventoryRepository.DeleteI(inv.inventory_id);
-      return new OkResult();
-    }
+
+      await inventoryRepository.DeleteI(inv.inventory_id);
+      return new OkResult();
+    }
 
 
 
 
     public async Task<IActionResult> AddExcelData(List<Inventory> excelData, int user_id, int company_id)
     {
-      await inventoryRepository.DeleteAllInventory();
+      await inventoryRepository.DeleteAllInventory(company_id);
 
 
       if (excelData == null || excelData.Count == 0)
@@ -146,7 +146,7 @@ namespace CC_api.Business
     public async Task<Inventory> GetInventoryById(int id)
     {
       return await inventoryRepository.GetInventoryById(id);
-      
+
     }
 
     public async Task<List<Inventory>> GetInventoryByIdCID(int companyId)
@@ -197,13 +197,13 @@ namespace CC_api.Business
       return new OkResult();
     }
     public async Task<List<Inventory>> GetAllInventoryAsync()
-    {
-      return await inventoryRepository.GetAllInventoryAsync();
-    }
-  
-    public async Task DeleteAllInventory()
     {
-      await inventoryRepository.DeleteAllInventory();
+      return await inventoryRepository.GetAllInventoryAsync();
+    }
+
+    public async Task DeleteAllInventory(int companyId)
+    {
+      await inventoryRepository.DeleteAllInventory(companyId);
     }
 
     public async Task<List<InventoryRepository.PortDetails>> GetInventoryForMap(int id)

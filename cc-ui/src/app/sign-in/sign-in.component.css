@@ -2,45 +2,111 @@
 @tailwind components;
 @tailwind utilities;
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
-.div{
-    @apply flex flex-col mx-auto w-full min-h-screen bg-gray-100;
+
+
+.signin-page-input{
+    width: 100%;
+    height: 28px;
+    border: 1px solid #D9D9D9;
+    padding: 10px;
+
 }
-.div-main{
-    @apply flex flex-auto flex-col max-w-full;
+.blw-btn-text{
+    margin-top: 20px;
+    font-size: 10.5px;
+  }
+
+.btn{
+    width: 169.3333282470703px;
+    margin-top: 14px;
+    top: 631px;
+   
+   
 }
-.div-signin{
-   @apply min-h-screen flex items-center justify-center relative overflow-hidden mx-auto p-4 lg:p-8 w-full;
+.label{
+
+    width: 65px;
+    height: 16px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    
+    
+    /* Gray / gray-8 */
+    
+    color: #595959;
+  }
+  .heading{
+    font-size: 18px;
+  }
+  .sub-text{
+      
+    margin-bottom: 20px;
+      
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 40px;
+      /* identical to box height, or 167% */
+      
+      
+      /* Golden Purple / purple-10 */
+      
+      color: #120338;
+    }
+.title{
+font-family: 'Poppins';
+font-size: 22px;
+font-weight: 500;
+line-height: 54px;
+letter-spacing: 0em;
+text-align: left;
+
 }
-.signin-section{
-    @apply py-6 lg:py-0 w-full md:w-8/12 lg:w-6/12 xl:w-4/12 relative
+.term{
+    font-size: 11px;
+  }
+.password-container {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .password-input {
+    padding-right: 25px;
+  }
+  
+.sub-title{
+  width: 304px;
+height: 40px;
+justify-items: center;
+text-align: center;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 40px;
+
+
+color: #120338;
+
+
+flex: none;
+order: 0;
+flex-grow: 0;
 }
-.signin-section-header{
-    @apply text-4xl font-bold inline-flex items-center mb-1 space-x-3
-}
-.signin-form{
-    @apply flex flex-col rounded shadow-sm bg-white overflow-hidden;
-}
-.signin-form-input{
-    @apply block border-2 border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50;
-}
-.signin-btn{
-  @apply inline-flex  mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
-}
-.signin-rememberme{
-    @apply space-y-2 sm:flex sm:items-center sm:justify-between sm:space-x-2 sm:space-y-0 mt-4
-}
-.signin-rememberme-input{
-    @apply border border-gray-200 rounded h-4 w-4 text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
-}
-.signin-fp{
-    @apply inline-block text-blue-600 hover:text-blue-400
-}
-.signin-noact{
-    @apply py-4 px-5 lg:px-6 w-full text-sm text-center bg-gray-50
-}
-.signin-noact-a{
-    @apply font-medium text-blue-600 hover:text-blue-400
-}
-.a-otp-val{
-    @apply inline-block text-blue-600 hover:text-blue-400
-}
+

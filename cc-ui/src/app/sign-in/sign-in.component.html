@@ -1,91 +1,101 @@
-<!-- Page Container -->
-<div id="page-container" class="div">
-  <!-- Page Content -->
-  <main id="page-content" class="div-main">
-    <div class="div-signin">
 
 
-      <!-- Sign In Section -->
-      <div class="signin-section">
-        <!-- Header -->
-        <div class="mb-8 text-center">
-          <h1 class="signin-section-header">
+<div class="w-full">
+  <!-- Header -->
+        <div class="mb-4 w-full">
+          <span class="heading">
             <!-- company's svg -->
-              <span>Sign In</span>
-          </h1>
+           Enter your login details
+          </span>
 
-          <p class="text-gray-500">
-            Welcome, please sign in to your dashboard
-          </p>
         </div>
-        <!-- END Header -->
+        
+       
 
-        <!-- Sign In Form -->
-        <div class="signin-form">
-          <div class="p-5 lg:p-6 grow w-full">
-            <div class="sm:p-5 lg:px-10 lg:py-8">
+
+       
               <!-- Just for testing purposes change ng submit-->
-              <form [formGroup]= "loginForm" (ngSubmit)="onLoginSubmit()">
-                <div class="space-y-1">
-                  <label for="email" class="font-medium">Email<span class="text-red-500">*</span></label>
-                  <input formControlName="email" class="signin-form-input" type="email" id="email" name="email" placeholder="Enter your email">
+              <form [formGroup]= "loginForm" (ngSubmit)="onLoginSubmit()" >
+               <label for="email" class="label">Email</label>
+                  <input formControlName="email" class="page-input signin-page-input"
+                   type="email" 
+                   id="email"
+                   name="email" 
+               >
                   <div
-                *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
-                class="text-red-500 text-sm mt-1"
-              >
-              <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
-                  <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
-                </div>
-              
-                </div>
-                <div class="space-y-1 mt-5">
-                  <label for="password" class="font-medium">Password<span class="text-red-500">*</span></label>
-                  <div class="relative">
-                    <input formControlName="password" class="signin-form-input"  name="password" placeholder="Enter your password" type="{{ showPassword ? 'text' : 'password' }}"
-                    id="password"
-                    placeholder="Password"
-                    required
-                    minlength="8"
-                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$">
-                    <!-- <a class="absolute top-4 right-2" (click)="togglePasswordVisibility()">
-                      <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
-                    </a> -->
+                      *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
+                      class="text-red-500 text-sm mt-1"
+                    >
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
                   </div>
+            
+                
+                  <div >
+                    <label for="password" class="label">Password</label>
+                    <div class="password-container">
+                      <input
+                        formControlName="password"
+                        class="register-page-data page-input"
+                        type="{{ showPassword ? 'text' : 'password' }}"
+                        id="password"
+                        required
+                        minlength="8"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
+                      />
+                      <i style="color: #262626a6;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+                
                   <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
                     <div *ngIf="loginForm.get('password')?.errors?.['required']">Password required</div>
                     <div *ngIf="loginForm.get('password')?.errors?.['minlength']"></div>
                   </div>
                  </div>
                 <div>
-                
-                  
-                  <button type="submit"class="signin-btn mt-4">
-                    Sign In
-                  </button>
-                  <div class="signin-rememberme">
-                    <label class="flex items-center">
-                      <a class="signin-fp"routerLink="../forgot-password">Forgot Password?</a>
-                    </label>
-                  </div>
                 </div>
-                <a href="#" class="a-otp-val" routerLink="/otp-validation">Validate your OTP</a>
-              </form>          
-            </div>
-          </div>        
-          <div class="signin-noact">
-            Don't have an account yet?
-            <a class="signin-noact-a" [routerLink]="['/register']" routerLinkActive="router-link-active"  href="javascript:void(0)">Join us today</a>
-          </div>
-        </div>
-        
-        <!-- END Sign In Form -->
+                  <!-- <mat-form-field>
+                    <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <mat-hint *ngIf="!loginForm.value">Enter your password</mat-hint>
+                </mat-form-field> -->
+                <div class="checkbox-container mt-4 mb-2 term  flex flex-row">
+                  <input type="checkbox" id="agreeCheckbox" />
+                  <div class="rowbtn">
+                    <div class="ml-2">
+                      <label for="agreeCheckbox  ">
+                        Remember me 
+                       </label>
+                    </div>
+                     <a class="signin-fp"routerLink="/forgot-password" style="color: blue;">Forgot Password</a>
+                  </div>
+                 
+                </div>
+                </div>
+                <div class="center-position"> 
 
-        <!-- Footer -->
-        <!-- END Footer -->
-      </div>
-      <!-- END Sign In Section -->
-    </div>
-  </main>
-  <!-- END Page Content -->
-</div>
-<!-- END Page Container -->
+              
+                  <button type="submit" class="btn-primary btn" style="height: 26px;font-size: 12px;" >
+                    <div>
+                      Sign In 
+                    </div>
+            
+                  </button>
+                </div>
+
+                  <label class="center-position blw-btn-text">
+                    Don't have an account yet ? 
+                    <a href="/sign-in" style="color: blue;"> SignUp</a> 
+                 
+                  </label>
+
+                  <!-- <a href="#" class="a-otp-val" routerLink="/otp-validation">Validate your OTP</a> -->
+
+
+               
+               
+           
+              </form>          
+   
+                 
+            </div>
+        
+    

@@ -1,0 +1,33 @@
+<!-- app.component.html -->
+<div class="container-d w-full">
+    <div class="left-section flex flex-col">
+        <div class="items-center r justify-center gap-2 py-2 flex flex-row w-full ">
+          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 30px; height: 30px;">
+            <span [class.hover:text-black]="true"> <img src = "assets/images/Icon.png" style="width: 16px; height: 16px;" /> </span>
+          </div>
+          <div class="header title">
+              Container Conundrum
+          </div>
+        </div>
+        <div *ngIf="isActive('/sign-in')">
+            <h2 class="sub-title">Login to your account</h2>
+        </div>
+        <h2 *ngIf="isActive('/register')" class="sub-title">Create account</h2>
+    </div>
+  
+  
+            <div class="right-section" *ngIf="isActive('/register')">
+            <app-register></app-register>
+            </div>
+            <div class="right-section" *ngIf="isActive('/sign-in')">
+            <app-sign-in></app-sign-in>
+            </div>
+            <div class="right-section" *ngIf="isActive('/otp-validation')">
+                <app-otp-verify></app-otp-verify>
+            </div>
+  </div>
+  
+  
+  
+  
+  

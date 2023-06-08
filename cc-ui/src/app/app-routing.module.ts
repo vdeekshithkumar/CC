@@ -22,17 +22,19 @@ import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { NegotiationsComponent } from './negotiations/negotiations.component';
+import { MessageComponent } from './message/message.component';
+import { HomeTemplateComponent } from './home-template/home-template.component';
 const routes: Routes = [
   {
     component:HomeComponent,
     path:''
   },
   {
-    component:RegisterComponent,
+    component:HomeTemplateComponent,
     path:'register'
   },
   {
-    component:SignInComponent,
+    component:HomeTemplateComponent,
     path:'sign-in'
   },
   {
@@ -76,8 +78,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:OtpVerifyComponent,
+    component:HomeTemplateComponent,
     path:'otp-validation',
+  },
+  {
+    component:MessageComponent,
+    path:'message'
   },
   {
     component:ForgotPasswordComponent,
@@ -160,7 +166,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
