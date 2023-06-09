@@ -20,11 +20,8 @@
     <div class="grow w-full  bg-white">
       <div class="col-span-2">
 
-        <input formControlName="email" class="otp-page-data border-2" type="email" id="email" />
-        <div *ngIf="showValidationErrors && otpForm.get('email')?.invalid" class="text-red-500 text-sm mt-1">
-          <div *ngIf="otpForm.get('email')?.errors?.['required']">Email is required</div>
-          <div *ngIf="otpForm.get('email')?.errors?.['email']">Invalid email format</div>
-        </div>
+        <input formControlName="otp" class="otp-page-data border-2" type="email" id="email" />
+        
       </div>
       <div class="otp text-[0.7rem] ml-44 font-normal">
         <label>Did not receive the email?<a class="otp-a">Resend OTP</a></label>
@@ -44,3 +41,24 @@
       href="javascript:void(0)"><span class="underline">Sign in</span></a>
   </div>
 </div>
+
+
+<!-- <form [formGroup]="verifyotpForm" (ngSubmit)="onverifyOtp()" class = 'flex flex-row col-span-2' >
+        <div class="space-y-1 col-span-1">
+          <label for="otp" class="font-medium text-sm">Enter OTP<span class="text-red-500">*</span>
+          <input
+            formControlName="otp"
+            class="register-page-data"
+            type="{{ showPassword ? 'text' : 'password' }}"
+            id="otp"
+            
+          />
+         </label>
+        </div>
+        <div class="signin-rememberme ml-10">
+          <label class="flex items-center">
+            <button class="signin-fp" type="submit">Verify OTP</button>
+          </label>
+       
+        </div>
+      </form> -->
