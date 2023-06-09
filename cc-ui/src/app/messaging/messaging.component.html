@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<div id="messaging-canvas" class="min-h-screen bg-gray-50 flex font-poppins">
+    <app-sidebar></app-sidebar>
+    <div id="main-view-pane" class="ml-32 bg-gray-50 flex flex-row">
+
+        <div class="min-h-screen bg-white w-[300px] overflow-y-auto">
+            <div class="flex bg-gray-100 p-1 px-2 w-[300px] rounded-2xl border-2 ">
+                <i class="material-icons md-15 text-gray-400 mr-2">search</i>
+                <input type="text" placeholder="Search" class="outline-none bg-transparent w-full text-xs" />
+            </div>
+            <hr class="m-2" />
+            <div *ngFor="let convo of conversations" class="h-fit w-full my-2 p-2 bg-angel-blue cursor-pointer"
+            (click)="getMessages(convo.conversationId)">
+                <img class="rounded-full w-10 h-10 bg-blue-500 cursor-pointer inline">
+                <div class="container text-sm inline">
+                    {{convo.conversationName}} - {{convo.convoDesc}}
+                </div>
+            </div>
+        </div>
+        <div class="w-[500px] bg-white h-screen mx-2">
+            <div class="h-fit w-full my-2 p-2 bg-angel-blue">
+                <img class="rounded-full w-10 h-10 bg-blue-500 cursor-pointer inline">
+                <div class="container text-sm inline">
+                    Selected conversation topic - topic descri
+                </div>
+            </div>
+
+            <div id="conversations" class="h-[500px] w-full bg-blue-50 ">
+                <div *ngFor="let message of messages">
+                    <div *ngIf="userId == message.senderId else otherSender" class="float-right">
+                      {{ message.content }}
+                    </div>
+                    <ng-template #otherSender>
+                      <div class="float-left">
+                        {{ message.content }}
+                      </div>
+                    </ng-template>
+                    <br/>
+                  </div>
+                  
+            </div>
+            <hr class="m-1" />
+            <div class="flex bg-gray-100 p-1 px-2 w-full rounded-2xl border-2 ">
+                <input type="text" placeholder="Search" class="resize-none outline-none bg-transparent w-full text-xs" [(ngModel)]="content"/>
+                <i class="material-icons md-15 text-gray-400 mr-2 cursor-pointer" (click)="sendMessage(content)">send</i>
+            </div>
+        </div>
+        <div class="w-[300px] h-screen">
+            <h1>People</h1>
+            <div class="p-3 w-full" *ngFor="let participant of participants">
+                {{participant.fname}}-{{participant.company_name}}
+            </div>
+        </div>
+    </div>
+</div>

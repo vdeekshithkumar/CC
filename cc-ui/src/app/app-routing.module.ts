@@ -22,8 +22,8 @@ import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { NegotiationsComponent } from './negotiations/negotiations.component';
-import { MessageComponent } from './message/message.component';
 import { HomeTemplateComponent } from './home-template/home-template.component';
+import { MessagingComponent } from './messaging/messaging.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -80,10 +80,6 @@ const routes: Routes = [
   {
     component:HomeTemplateComponent,
     path:'otp-validation',
-  },
-  {
-    component:MessageComponent,
-    path:'message'
   },
   {
     component:ForgotPasswordComponent,
@@ -147,6 +143,11 @@ const routes: Routes = [
     path:'forecast-map',
     canActivate: [AuthGuard]
 
+  },
+  {
+    component:MessagingComponent,
+    path:'messaging',
+    canActivate:[AuthGuard]
   },
   {
     component:ViewContractsComponent,
