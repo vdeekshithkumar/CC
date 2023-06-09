@@ -16,6 +16,9 @@ namespace CC_api.Models
 
     public DbSet<Negotiation> negotiation { get; set; }
     public DbSet<ContainerType> container_type { get; set; }
+    public DbSet<Conversation> conversation { get; set; }
+    public DbSet<Message> message { get; set; }
+    public DbSet<Participant> participant { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
