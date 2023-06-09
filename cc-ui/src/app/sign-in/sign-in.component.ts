@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
@@ -22,6 +22,7 @@ interface LoginResponse {
 export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
   hide = true;
+  showModal=false;
   submitted: Boolean = false;
   Invalid: Boolean = false;
   showPassword=false;
@@ -29,6 +30,9 @@ export class SignInComponent implements OnInit{
   email: string= '';
   showValidationErrors: boolean = false;
   errorMessage: string | undefined;
+
+
+  @Output() emailSent = new EventEmitter<any>();
   
 constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService) { }
   ngOnInit(): void {
@@ -75,8 +79,10 @@ isUserValid:boolean=false;
         console.log(response);
         
         if (loginResponse.message === 'Admin Login Successful') {
+          debugger
           this.sessionService.setCurrentUser(loginResponse.user);//session
           console.log("admin login success inside loop")
+          // this.showModal=true;
           this.router.navigate(['/dashboard']);
       
           this.loginForm.reset();
@@ -89,30 +95,40 @@ isUserValid:boolean=false;
         
           this.loginForm.reset();
         } 
+        
         else if (loginResponse.message === 'User Not Found') {
-          this.router.navigate(['/register']);
           alert(loginResponse.message);
+          this.router.navigate(['/register']);
+     
           this.loginForm.reset();
         }
+
         else if (loginResponse.message === 'Account Not Approved Yet') {
             alert(loginResponse.message);
             this.loginForm.reset();
           }
+
         else if (loginResponse.message === 'Admin Password Mismatched') {
             alert(loginResponse.message);
             this.loginForm.reset();
         }
+
+
         else if (loginResponse.message === 'User Password Mismatched') {
             alert(loginResponse.message);
             this.loginForm.reset();
         }
+
         else if (loginResponse.message === 'Account Not Active') {
             alert(loginResponse.message);
             this.loginForm.reset();
         }
         else if (loginResponse.message === 'Not Verified') {
-            alert(loginResponse.message);
-            this.loginForm.reset();
+          this.email = this.loginForm.value.email;
+          this.emailSent.emit(this.email);
+          console.log(this.email+"email emiting from sign in page");
+            alert("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue");
+            this.router.navigate(['/otp-validation']);
         }
         else {
           // display error message
