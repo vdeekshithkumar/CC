@@ -9,6 +9,9 @@
     border-radius: 0px;
     padding: 10px 18px 10px 18px;
 }
+.underline {
+  text-decoration: underline;
+}
 .rowbtn{
   display: flex;
   flex-direction: row;

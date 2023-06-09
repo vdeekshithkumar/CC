@@ -9,7 +9,7 @@ import { findIndex } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { PostAdComponent } from '../my-advertisement/post-ad/post-ad.component';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
-import { RegisterComponent } from '../register/register.component';
+import { RegisterComponent } from '../home-template/register/register.component';
 
 @Component({
   selector: 'app-profile',

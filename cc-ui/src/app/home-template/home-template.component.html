@@ -13,11 +13,12 @@
             <h2 class="sub-title">Login to your account</h2>
         </div>
         <h2 *ngIf="isActive('/register')" class="sub-title">Create account</h2>
+        <h2 *ngIf="isActive('/otp-validation')" class="sub-title">Create account</h2>
     </div>
   
   
             <div class="right-section" *ngIf="isActive('/register')">
-            <app-register></app-register>
+            <app-register (emailSent)="updateRegisteredEmail($event)"></app-register>
             </div>
             <div class="right-section" *ngIf="isActive('/sign-in')">
             <app-sign-in></app-sign-in>

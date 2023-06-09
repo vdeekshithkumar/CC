@@ -1,10 +1,10 @@
 
-import { Component,Inject, OnInit  } from '@angular/core';
+import { Component,Inject, OnInit, Output,EventEmitter  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Registerservice } from './register.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogComponent } from '../dialog.component';
+import { DialogComponent } from '../../dialog.component';
 
 
 
@@ -19,13 +19,16 @@ interface RegisterResponse {
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css','../app.component.css']
+  styleUrls: ['./register.component.css','../../app.component.css']
 })
 export class RegisterComponent implements OnInit 
 {
+  email!:string;
+
+  @Output() emailSent = new EventEmitter<any>();
   showValidationErrors: boolean = false;
   company_id!:string;
-  email!:string;
+
   firstName!: string;
   lastName!: string;
   address!:string;
@@ -34,7 +37,7 @@ export class RegisterComponent implements OnInit
   public user_id? : number;
   public otp?:number;
   registrationForm!: FormGroup;
-  verifyotpForm :FormGroup;
+
   emailFormControl! :FormGroup;
   user_data:any;
   form: any;
@@ -48,9 +51,7 @@ export class RegisterComponent implements OnInit
   
   showPassword=false;
   constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
-    this.verifyotpForm = this.formBuilder.group({
-      otp: ['', [Validators.required, Validators.pattern(/^\d+$/)]]
-    });}
+   }
 
 ngOnInit(): void {
   const now = new Date();
@@ -74,10 +75,6 @@ ngOnInit(): void {
     
   });
 
-  this.verifyotpForm = this.formBuilder.group({
-    UserId: ['23'],
-    otp:['',Validators.required],
-  });
 
   this.registerservice.getAllCompanies().subscribe(
     data => {
@@ -91,8 +88,11 @@ ngOnInit(): void {
 
 }
 
+
+
 onSubmit(): void {
   const formValue = this.registrationForm.value;
+  
   if (
     !formValue.fname ||
     !formValue.lname ||
@@ -163,9 +163,16 @@ onSubmit(): void {
 
   try {
     const response = this.registerservice.register(formValue).toPromise();
-    alert('OTP Sent Successfully, Check Your Email');
+    alert('OTP Sent Successfully, Please verify your Email');
+    this.email = this.registrationForm.value.email;
+
+    
+    this.emailSent.emit(this.email);
+    console.log(this.email+"email emiting");
+ 
     console.log(response);
     console.log(formValue);
+    this.router.navigate(['/otp-validation'])
   } catch (error) {
     console.log('Error registering:', error);
   }
@@ -184,72 +191,7 @@ private redirect(){
 }
 
 
-onverifyOtp() {
-  if (!this.registrationForm) {
-    // Open the error dialog  
-    this.openErrorDialog('Registration should be done first');
-    return; // Stop further execution
-  }
-  const numericValidator = Validators.pattern('^[0-9]*$');
-this.verifyotpForm.get('otp')?.setValidators([numericValidator]);
-  if (this.verifyotpForm.invalid) {
-    if (this.verifyotpForm.controls['otp'].errors?.['pattern']) {
-      this.openErrorDialog('Please enter a valid OTP');
-    } else {
-      this.openErrorDialog('Please Do Registration First');
-    }
-    return;
-  }
-  const emailValue = this.registrationForm.value.email;
-  console.log('Email value:', emailValue);
-  
-  const otp = this.verifyotpForm.value.otp;
-  console.log('otp value:', otp);
 
-  this.registerservice.getEmail(emailValue).subscribe(
-    (response: Object) => {
-      const RegisterResponse = response as RegisterResponse;
-      this.user_data= RegisterResponse;
-      const parseData = JSON.parse(this.user_data);
-      console.log('parsed user user id' +  parseData.user.user_id)
-      this.userId=parseData.user.user_id;
-     this.Otp=otp;
-              try {
-                this.registerservice.verify(this.userId,this.Otp)
-                .subscribe(
-                  response => {
-                    console.log('verified suhhhhhhhhhccessfully:', response.message);
-               if(response.message=="OTP verified successfully"){
-              debugger
-                alert("Registration Successfull")
-                this.redirect();
-               }
-               else{
-                this.openErrorDialog("Please enter a valid OTP");
-
-               }
-                    // window.location.reload()
-                  },
-                  error => {
-                    console.error('An error occurred while verifying:', error);
-                  }
-                );
-              
-                // const response = this.registerservice.verify(this.userId,this.Otp).toPromise();
-                // console.log(response);
-                // alert(" success verification ")
-              } 
-              catch (error) {
-                console.log('Error veryfying:', error);
-              }    
-    },
-    (error) => {
-      console.log("Error while retrieving", error);
-      
-    }
-  );
-
-}
 openErrorDialog(message: string): void {
   this.dialog.open(DialogComponent, {
     data: {

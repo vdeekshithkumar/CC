@@ -15,6 +15,7 @@ namespace CC_api.Models
     public string fname { get; set; }
     public string lname { get; set; }
     public string address { get; set; }
+    public string city { get; set; }
     public string email { get; set; }
     public string phone_no { get; set; }
 

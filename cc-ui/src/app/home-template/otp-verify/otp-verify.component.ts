@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit,Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { SharedServiceService } from '../../shared-service.service';
 import { Observable, catchError, throwError } from 'rxjs';
 import { OtpService } from './otp.service';
-import { DialogComponent } from '../dialog.component';
+import { DialogComponent } from '../../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+
 interface RegisterResponse {
   message: string;
   user? : {
@@ -16,9 +17,10 @@ interface RegisterResponse {
 @Component({
   selector: 'app-otp-verify',
   templateUrl: './otp-verify.component.html',
-  styleUrls: ['./otp-verify.component.css','../app.component.css']
+  styleUrls: ['./otp-verify.component.css','../../app.component.css']
 })
 export class OtpVerifyComponent implements OnInit{
+
   otpForm!: FormGroup;
   user_data:any;
   public user_id? : number;
@@ -28,41 +30,46 @@ export class OtpVerifyComponent implements OnInit{
   Otp:any;
   showValidationErrors: boolean = false;
   verifyotpForm! :FormGroup;
+registeredEmail:any;
+ 
 
-  constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private OtpService:OtpService) { }
+ 
+
+ 
+  constructor(private router: Router,private formBuilder: FormBuilder,private sharedservice: SharedServiceService,private dialog: MatDialog,private OtpService:OtpService) { }
   ngOnInit(): void {
+    
+    this.sharedservice.registeredEmail$.subscribe((email: any) => {
+      this.registeredEmail = email;
+    });
+
     this.otpForm = this.formBuilder.group({
       email: ["",Validators.email], 
       otp: ["", [Validators.required, Validators.pattern(/^\d+$/)]],
     });
+
   }
+
   onValidate(){
- 
+    console.log("this is otp compoent email caputered"+this.registeredEmail)
+
     const formValue = this.otpForm.value;
     if (
-      !formValue.email ||
+   
       !formValue.otp
     ) {
       this.showValidationErrors = true;
       let errorMessage = 'The following fields are required:\n';
-      if (!formValue.email) {
-        errorMessage += '- Email\n';
-      }
+     
       if (!formValue.password) {
         errorMessage += '- OTP\n';
       }
       this.openErrorDialog(errorMessage);
       return;
     }
-    if (!this.otpForm.controls['email'].valid) {
-      this.openErrorDialog('Invalid email format');
-      return;
-    }
+
    
-  if (!this.otpForm.controls['email'].valid) {
-    this.openErrorDialog('Invalid email format');
-    return;
-  }
+
   const numericValidator = Validators.pattern('^[0-9]*$');
   this.otpForm.get('otp')?.setValidators([numericValidator]);
     if (this.otpForm.invalid) {
@@ -72,8 +79,8 @@ export class OtpVerifyComponent implements OnInit{
       return;
     }
  
-    const emailValue = this.otpForm.value.email;
-    console.log('Email value:', emailValue);
+    const emailValue = this.registeredEmail;
+    console.log('Email value input value:', emailValue);
     
     const otp = this.otpForm.value.otp;
     console.log('otp value:', otp);
@@ -87,7 +94,7 @@ export class OtpVerifyComponent implements OnInit{
         const parseData = JSON.parse(this.user_data);
         console.log('parsed user user id' +  parseData.user.user_id)
         this.userId=parseData.user.user_id;
-       this.Otp=otp;
+        this.Otp=otp;
                 try {
                   this.OtpService.verify(this.userId,this.Otp)
                   .subscribe(
@@ -118,7 +125,6 @@ export class OtpVerifyComponent implements OnInit{
               },
               (error: any) => {
                 console.log("Error while retrieving", error);
-                
               }
             );
           

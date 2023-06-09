@@ -23,8 +23,8 @@
                   *ngIf="showValidationErrors && registrationForm.get('fname')?.invalid"
                   class="text-red-500 text-sm mt-1"
                 >
-                    <div *ngIf="registrationForm.get('fname')?.errors?.['required']">First Name is required</div>
-                    <div *ngIf="registrationForm.get('fname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+                    <div class="warnings" *ngIf="registrationForm.get('fname')?.errors?.['required']">First Name is required</div>
+                    <div class="warnings" *ngIf="registrationForm.get('fname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
                   </div>
         
             </div>
@@ -43,8 +43,8 @@
                   *ngIf="showValidationErrors && registrationForm.get('lname')?.invalid"
                   class="text-red-500 text-sm mt-1"
                 >
-                <div *ngIf="registrationForm.get('lname')?.errors?.['required']">Last Name is required</div>
-                <div *ngIf="registrationForm.get('lname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+                <div class="warnings" *ngIf="registrationForm.get('lname')?.errors?.['required']">Last Name is required</div>
+                <div class="warnings" *ngIf="registrationForm.get('lname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
                 </div>
           </div>
       </div>
@@ -52,6 +52,7 @@
       <div class="col-span-2 mt-1">
         <label for="email" class="label">Email</label>
         <input
+          [(ngModel)]="email"
           formControlName="email"
           class="register-page-data page-input"
           type="email"
@@ -63,8 +64,8 @@
         *ngIf="showValidationErrors && registrationForm.get('email')?.invalid"
         class="text-red-500 text-sm mt-1"
       >
-      <div *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</div>
-          <div *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format</div>
+      <div class="warnings" *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</div>
+          <div  class="warnings" *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format</div>
         </div>
       </div>
       <div class="rowbtn mt-1">
@@ -84,8 +85,8 @@
         class="text-red-500 text-sm mt-1"
       >
       <div *ngIf="showValidationErrors && registrationForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
-        <div *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
-        <div *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+        <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
+        <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
       </div>
     </div>
       
@@ -206,29 +207,11 @@ Continue
       
       </div>
       <label class="center-position blw-btn-text">
-        Already have an account ? 
-        <a href="/sign-in" style="color: blue;"> Sign In</a> 
+        Already have an account ?
+        <a href="/sign-in" style="color: blue;" class="underline">Sign In</a> 
      
       </label>
-      <!-- <form [formGroup]="verifyotpForm" (ngSubmit)="onverifyOtp()" class = 'flex flex-row col-span-2' >
-        <div class="space-y-1 col-span-1">
-          <label for="otp" class="font-medium text-sm">Enter OTP<span class="text-red-500">*</span>
-          <input
-            formControlName="otp"
-            class="register-page-data"
-            type="{{ showPassword ? 'text' : 'password' }}"
-            id="otp"
-            
-          />
-         </label>
-        </div>
-        <div class="signin-rememberme ml-10">
-          <label class="flex items-center">
-            <button class="signin-fp" type="submit">Verify OTP</button>
-          </label>
-       
-        </div>
-      </form> -->
+      
 
 
     </div>
