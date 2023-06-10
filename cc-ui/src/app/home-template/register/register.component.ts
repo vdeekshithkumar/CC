@@ -165,8 +165,6 @@ onSubmit(): void {
     const response = this.registerservice.register(formValue).toPromise();
     alert('OTP Sent Successfully, Please verify your Email');
     this.email = this.registrationForm.value.email;
-
-    
     this.emailSent.emit(this.email);
     console.log(this.email+"email emiting");
  

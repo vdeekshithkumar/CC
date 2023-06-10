@@ -16,11 +16,7 @@ export class HomeTemplateComponent {
     this.sharedservice.setRegisteredEmail(email);
   }
 
-  receiveRegisteredEmail(email: any) {
-    this.registeredEmail = email;
-
-    console.log("this is home register email caputered"+this.registeredEmail)
-  }
+ 
  
 
   isActive(route: string): boolean {

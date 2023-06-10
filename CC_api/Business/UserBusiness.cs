@@ -120,17 +120,13 @@ namespace CC_api.Business
 
       await _emailService.SendOTPAsync(user.email, otp);
 
-
-
-
       var us = new User();
-
-
 
       us.company_id = user.company_id;
       us.fname = user.fname;
       us.lname = user.lname;
       us.address = user.city + ", "+ user.address ;
+      us.city = user.city;
       us.email = user.email;
       us.phone_no = user.phone_no;
       string hashedPassword = HashPassword(user.password);
@@ -147,10 +143,6 @@ namespace CC_api.Business
       await userRepository.Create(us);
 
       return new OkResult();
-
-
-
-
 
     }
 
@@ -177,8 +169,6 @@ namespace CC_api.Business
     public async Task<AuthResponse> GetUserByEmail(string email)
     {
 
-
-
       var emailValue = await userRepository.GetUserByEmail(email);
       if (emailValue != null)
       {
@@ -189,10 +179,8 @@ namespace CC_api.Business
         return new AuthResponse { User = null, Message = "User not found" };
       }
 
-
-
-
     }
+
 
 
     public async Task<AuthResponse> GetUserByEmailAndPassword(string email, string password)

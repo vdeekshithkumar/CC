@@ -42,6 +42,7 @@ registeredEmail:any;
     this.sharedservice.registeredEmail$.subscribe((email: any) => {
       this.registeredEmail = email;
     });
+    
 
     this.otpForm = this.formBuilder.group({
       email: ["",Validators.email], 
@@ -51,7 +52,7 @@ registeredEmail:any;
   }
 
   onValidate(){
-    console.log("this is otp compoent email caputered"+this.registeredEmail)
+    console.log("this is otp compoent email caputered"+ this.registeredEmail)
 
     const formValue = this.otpForm.value;
     if (
@@ -79,13 +80,11 @@ registeredEmail:any;
       return;
     }
  
-    const emailValue = this.registeredEmail;
-    console.log('Email value input value:', emailValue);
     
     const otp = this.otpForm.value.otp;
     console.log('otp value:', otp);
   
-    this.OtpService.getEmail(emailValue).subscribe(
+    this.OtpService.getEmail(this.registeredEmail).subscribe(
       (response: Object) => {
         const RegisterResponse = response as RegisterResponse;
     

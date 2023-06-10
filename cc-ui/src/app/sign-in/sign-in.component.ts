@@ -27,12 +27,12 @@ export class SignInComponent implements OnInit{
   Invalid: Boolean = false;
   showPassword=false;
   show=false;
-  email: string= '';
+  email!: string;
   showValidationErrors: boolean = false;
   errorMessage: string | undefined;
 
 
-  @Output() emailSent = new EventEmitter<any>();
+@Output() emailSent = new EventEmitter<any>();
   
 constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService) { }
   ngOnInit(): void {
@@ -95,7 +95,7 @@ isUserValid:boolean=false;
         
           this.loginForm.reset();
         } 
-        
+
         else if (loginResponse.message === 'User Not Found') {
           alert(loginResponse.message);
           this.router.navigate(['/register']);
@@ -128,6 +128,7 @@ isUserValid:boolean=false;
           this.emailSent.emit(this.email);
           console.log(this.email+"email emiting from sign in page");
             alert("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue");
+            
             this.router.navigate(['/otp-validation']);
         }
         else {
