@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/session.service';
 
 import { ForecastingTableService } from './forecasting-table-view.service';
 
+
 @Component({
   selector: 'app-forecasting-table-view',
   templateUrl: './forecasting-table-view.component.html',
@@ -12,6 +13,7 @@ import { ForecastingTableService } from './forecasting-table-view.service';
 })
 export class ForecastingTableViewComponent implements OnInit{
   
+  showForm: boolean = false;
   showModal=false;
   searchTerm:any;
   data:any;
@@ -26,16 +28,25 @@ export class ForecastingTableViewComponent implements OnInit{
   inventory_list=null;
 inventory_data: any;
 port_id: any;
+containerTypeFilter: string = '';
+containerSizeFilter: string = '';
+availableFilter: string = '';
+deficitFilter: string = '';
+surplusFilter: string = '';
 inventory_list_by_companyId=[];
+filteredInventoryList=[];
 // sortedData: Inventory[] = [];
 port_list:any;
 port_name="";
-itemsPerPage: number = 10;
+itemsPerPage: number = 5;
 currentPage: number = 1;
 records:any[]=[];
 // inventory_list_by_companyId: any[] = [];
   contracts: any;
-
+  containerType: string = '';
+  containerSize: number = 0;
+  available: number = 0;
+ 
  
 constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) { 
 }
@@ -98,7 +109,8 @@ ngOnInit(): void {
     this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
       data => {
         this.inventory_list_by_companyId = data;
-        console.log("inv list by company id is fetched: ", this.inventory_list_by_companyId); 
+        console.log("inv list by company id is fetched: ", this.inventory_list_by_companyId);
+        this.filteredInventoryList = this.inventory_list_by_companyId; 
         // this.sortedData = this.inventory_list_by_companyId;
       },
       error => {
@@ -130,7 +142,7 @@ ngOnInit(): void {
   //   } 
   // }
   
-    getPortName(portId: number): string {
+getPortName(portId: number): string {
       const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
       return port ? port.port_name : '';
   }
@@ -162,17 +174,20 @@ ngOnInit(): void {
           },
           (        error: any) => console.log(error));
     }
-    get totalPages(): number {
-      return Math.ceil(this.records.length / 5);
-    }
-    prevPage() {
   
+    get totalPages(): number {
+      return Math.ceil(this.inventory_list_by_companyId.length / 8);
+    }
+   
+    prevPage() {
+    
       if (this.currentPage > 1) {
         this.currentPage--;
       }
+      
        }
        nextPage() {
-        if (this.currentPage < Math.ceil(this.contracts.length / this.itemsPerPage)) {
+        if (this.currentPage < Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage)) {
           this.currentPage++;
         }
       
@@ -183,7 +198,78 @@ ngOnInit(): void {
   onSubmit(){
   
   }
+  clearSearch(): void {
+    this.searchTerm = '';
+  }
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+  getTotalPages() {
+    return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
+  }
+  getPages() {
+    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+  }
   
+  filterData(): void {
+    debugger
+    this.filteredInventoryList = this.inventory_list_by_companyId.filter((inv: any) => {
+      const containerType = inv.container_type.toLowerCase();
+    const containerSize = inv.container_size.toString().toLowerCase();
+    const available = inv.available.toString().toLowerCase();
+    const surplus = inv.surplus.toString().toLowerCase();
+    const deficit = inv.deficit.toString().toLowerCase();
+    // Check if the filter criteria match the corresponding properties of the inventory item
+    const containerTypeMatches = containerType.includes(this.containerTypeFilter.toLowerCase());
+    const containerSizeMatches = containerSize.includes(this.containerSizeFilter.toLowerCase());
+    const availableMatches = available.includes(this.availableFilter.toLowerCase());
+    const surplusMatches = surplus.includes(this.surplusFilter.toLowerCase());
+    const deficitMatches = deficit.includes(this.deficitFilter.toLowerCase());
+
+    // Return true only if all filter criteria match
+    return containerTypeMatches && containerSizeMatches && availableMatches && surplusMatches && deficitMatches;
+    });
+    console.log('Filters applied! Filtered inventory:', this.filteredInventoryList);
+  }
+  applyFilter(): void {
+    debugger
+    this.filterData(); // Apply the filters and update the filteredInventoryList
+    
+    // Perform additional actions based on the filtered data
+    // For example, you can display a message or trigger another function
+    console.log('Filters applied! Filtered inventory:', this.filteredInventoryList);
+  }
+  filterInventory() {
+    debugger
+    this.filteredInventoryList = this.inventory_data.filter((inv: { container_type: string; container_size: number; available: number; surplus: any; deficit: any; }) => {
+      let isMatch = true;
+      if (this.containerType && inv.container_type !== this.containerType) {
+        isMatch = false;
+      }
+      if (this.containerSize && inv.container_size !== this.containerSize) {
+        isMatch = false;
+      }
+      if (this.available && inv.available !== this.available) {
+        isMatch = false;
+      }
+      if (this.surplus && inv.surplus !== this.surplus) {
+        isMatch = false;
+      }
+      if (this.deficit && inv.deficit !== this.deficit) {
+        isMatch = false;
+      }
+      return isMatch;
+    });
+  }
+  
+}
+interface Inventory {
+  container_type: string;
+  container_size: number;
+  available: number;
+  surplus: number;
+  deficit: number;
+  // Add other properties if necessary
 }
   
 
