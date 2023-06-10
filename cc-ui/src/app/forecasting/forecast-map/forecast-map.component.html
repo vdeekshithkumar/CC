@@ -1,117 +1,118 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
-   <div class="flex flex-col first:flex-row bg-gray ml-24 shadow-lg">
-    <div class="p-2 m-3 -ml-2 h-fit w-[1300px] mt-4">
-        <form> 
-          <div class="flex flex-row">  
-            <div class="mx-3 w-24 h-[4em] bg-gray flex-wrap -mt-3">
-              <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-4">Port</label>
-              <div>
-              <select #port [(ngModel)]="port_name" formControlName="port_id" class="border-2 ml-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-black-900 dark:border-gray-700 dark:text-gray-400">
-                <option selected>Select your port</option>
-                <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
-              </select>
-                </div>
-              </div>
-              <div class="mx-3 w-24 h-[2em] bg-gray flex-wrap -mt-3">
-                <label class="text-gray-600  text-sm mb-2 ml-1 -mr-60">Sub Region</label>
-                <div>
-                <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500">
-                  <option>IDS</option>
-                  <option>IND</option>
-                  <option>UK</option>
-                </select>
-                </div>
-              </div>
+<div class="flex flex-col first:flex-row div-bg div-bg-line ml-24">
+  <label class="forecast font-semibold text-dark ml-8 mt-3">Forecasting</label>
+  <div class="p-2 m-3 -ml-2 h-16 w-full mt-4">
 
-              <div class="mx-3 w-24 h-[2em] bg-gray flex-wrap -mt-3">
-                <label class="text-gray-600 text-sm mb-2 ml-1">Area</label>
-                <div>
-                <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500">
-                  <option>NGAE</option>
-                  <option>NGAE</option>
-                  <option>NGAE</option>
-                </select>
-                </div>
-              </div>
-              <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap -mt-3">
-                <label class="text-gray-600  text-sm mb-2 ml-1">Year and Week</label>
-                <div>
-                <input class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 " type="date">
-                </div>
-              </div>
-              <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap -mt-3">
-                <label class="text-gray-600 text-sm mb-2 ml-1">Week of Stock</label>
-                <div>
-                <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 ">
-                  <option>1 week</option>
-                  <option>2 week</option>
-                  <option>3 week</option>
-                </select>
-                </div>
-              </div>
-            
-              <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap -mt-3">
-                <label class="text-gray-600 text-sm mb-0">Equipment Type</label>
-                <div>
-                <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 ">
-                  <option>40 HC</option>
-                  <option>45 HC</option>
-                </select>
-                </div>
-              </div>
-              <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap ml-2">
-                <div>
-                  <button class="ml-2 inline-flex justify-center items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Carrier Services</button>
-                </div>
-              </div>
-              <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap ml-2">
-                <div>
-                  <button class="ml-2 inline-flex justify-center items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Sync Data</button>
-                </div>
-              </div>
-              <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap">
-                <div>
-                  <button class="inline-flex justify-center items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 rounded border-blue-700 bg-white-500 text-blue hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Export Data</button>
-                </div>
-              </div>
-        
-        </div>
-          </form>
-        </div>
-      </div>
-      
-      <div class="relative">
-        <div #mapElement style="height: 700px; position: relative">
-        </div>
-        <div class="absolute top-4 inset-x-0 text-center  pointer-events-none">
-          <div class="p-2 w-[15em] h-[8em] bg-white shadow-lg rounded-md ml-32 mb-96">
-            <label class="text-gray-600 text-sm -ml-28 ">Select View</label>
-            <div class="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-1">
-              <button
-                *ngFor="let option of options; let i = index"
-                class="pointer-events-auto cursor-pointer border-2 py-1 px-1 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 "
-                [ngClass]="{ 'radio-button--selected shadow-lg': selectedOption === i }"
-                (click)="selectOption(i)">
-                {{option}}
-              </button>
-            </div>
+    <form>
+
+      <div class="flex flex-row">
+        <div class="-mt-3">
+          <label class="top mb-2 ml-8 font-normal">Port</label>
+          <div>
+            <select #port [(ngModel)]="port_name" formControlName="port_id" class="ml-8 top-selct1 div-bg">
+              <option selected>Select your port</option>
+              <option *ngFor="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+            </select>
           </div>
-            <!-- <button type="button"
-                    (click)="previousMarker()"
-                      class="pointer-events-auto cursor-pointer text-white m-4 bg-CCblue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2">
-                <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"></path>
+        </div>
+        <div class="-mt-3">
+          <label class="top mb-2 ml-2 font-normal">Sub Region</label>
+          <div>
+            <select class="top-selct2 font-normal  text-sm ml-2 div-bg">
+              <option>IDS</option>
+              <option>IND</option>
+              <option>UK</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="-mt-3">
+          <label class=" mb-2 ml-2 top font-normal">Area</label>
+          <div>
+            <select class="ml-2 top-selct2 div-bg">
+              <option>NGAE</option>
+              <option>NGAE</option>
+              <option>NGAE</option>
+            </select>
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Year and Week</label>
+          <div>
+            <input class="ml-2 top-selct2 div-bg" type="date">
+          </div>
+        </div>
+        <div class=" flex-wrap -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Week of Stock</label>
+          <div>
+            <select class="top-selct2 ml-2 div-bg">
+              <option>1 week</option>
+              <option>2 week</option>
+              <option>3 week</option>
+            </select>
+          </div>
+        </div>
+
+        <div class=" flex-wrap -mt-3">
+          <label class="top mb-0 ml-2 font-normal">Equipment Type</label>
+          <div>
+            <select class="top-selct2 ml-2 div-bg">
+              <option>40 HC</option>
+              <option>45 HC</option>
+            </select>
+          </div>
+        </div>
+        <div class="mx-3 -mt-10 w-[10em] h-[2em] div-box-bg flex-wrap justify-start ml-10">
+          <div>
+            <button
+              class="inline-flex justify-center items-center btn-primary3 space-x-2 border font-semibold focus:outline-none w-36 py-2 px-2 pr-2 leading-6 font-poppins">Carrier
+              Services</button>
+          </div>
+        </div>
+
+        <div class="mx-3 -mt-10 w-[14em] h-[0.5em] bg-gray flex-wrap ml-0">
+          <div>
+            <button
+              class="ml-2 inline-flex justify-center items-center btn-primary2 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z" fill="#2F54EB"/>
+                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB"/>
                 </svg>
-                <span class="sr-only">Previous</span>
+                <span class="ml-1">Export data</span>
+
             </button>
-            <button type="button"
-                    (click)="nextMarker()"
-                    class="pointer-events-auto text-white m-4 bg-CCblue hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2 ">
-                <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-                <span class="sr-only">Next</span>
-            </button>     -->
+          </div>
+        </div>
+        <div class="mx-3 -mt-10 w-[12em] h-[2em] bg-red flex-wrap ml-1">
+          <div>
+            <button
+              class="ml-2 inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">Sync
+              data</button>
+          </div>
+        </div>
+
+      </div>
+
+
+    </form>
+
+  </div>
+</div>
+
+<div class="relative">
+  <div #mapElement style="height: 700px; position: relative">
+  </div>
+  <div class="absolute top-4 inset-x-0 text-center  pointer-events-none">
+    <div class="p-2 w-[15em] h-[7em] bg-white rounded shadow-lg ml-32 mb-96">
+      <label class="select font-medium -ml-28">Select View</label>
+      <div class="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-1">
+        <button *ngFor="let option of options; let i = index"
+          class="pointer-events-auto cursor-pointer py-1 px-1 pr-2 block w-full select-box font-medium focus:border-blue-500 focus:ring-blue-500 "
+          [ngClass]="{ 'radio-button--selected shadow-lg': selectedOption === i }" (click)="selectOption(i)">
+          {{option}}
+        </button>
+      </div>
     </div>
+  </div>
 </div>
