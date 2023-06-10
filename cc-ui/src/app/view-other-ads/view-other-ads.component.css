@@ -90,7 +90,7 @@
 
 .vertical-line {
   width: 0.5px;
-  background-color: #000;
+
   height: 100vh;
   position: fixed;
   top: 0;
@@ -132,11 +132,12 @@
 
 .advertisement-details {
   position: absolute;
-  top: 20px;
-
+  top: 0px;
   left: calc(29.5% + 14px);
  margin-left: 4px;
  max-width: max-content;
+ padding-right: 30px;
+ padding-left: 20px;
  width: 100%;
   font-weight: bold;
   font-size: 10px;
@@ -183,7 +184,7 @@
 .advertisement-details th,
 .advertisement-details td {
   padding: 8px;
-  text-align: left;
+  text-align: center;
 }
 
 .advertisement-details th {
@@ -262,10 +263,12 @@
 }
 
 .company-address {
-  margin: 0;
-  display: flex;
+
+
   align-items: center;
-  margin-left: 10px;
+  text-align: center;
+  
+  
 }
 
 .search-container div.selected {
@@ -357,6 +360,7 @@
   display: flex;
   align-items: center;
   gap: 10px; 
+  background-color: #fff;
 }
 
 .delete-button {
@@ -410,7 +414,7 @@
 .advertisement-table td {
   display: flex;
   padding: 7px;
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

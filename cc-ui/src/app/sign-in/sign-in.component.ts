@@ -5,6 +5,7 @@ import { SignInService } from './sign-in.service';
 import { SessionService } from '../session.service';
 import { DialogComponent } from '../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SharedServiceService } from '../shared-service.service';
 
 interface LoginResponse {
   message: string;
@@ -34,7 +35,7 @@ export class SignInComponent implements OnInit{
 
 @Output() emailSent = new EventEmitter<any>();
   
-constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService) { }
+constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService,private sharedservice: SharedServiceService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -124,8 +125,9 @@ isUserValid:boolean=false;
             this.loginForm.reset();
         }
         else if (loginResponse.message === 'Not Verified') {
+          debugger
           this.email = this.loginForm.value.email;
-          this.emailSent.emit(this.email);
+          this.sharedservice.setRegisteredEmail(this.email);
           console.log(this.email+"email emiting from sign in page");
             alert("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue");
             

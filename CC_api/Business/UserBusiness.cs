@@ -125,7 +125,7 @@ namespace CC_api.Business
       us.company_id = user.company_id;
       us.fname = user.fname;
       us.lname = user.lname;
-      us.address = user.city + ", "+ user.address ;
+      us.address = user.city + " "+ user.address ;
       us.city = user.city;
       us.email = user.email;
       us.phone_no = user.phone_no;

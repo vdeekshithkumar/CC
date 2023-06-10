@@ -6,8 +6,8 @@
     <app-sidebar class="div-app-sidebar"></app-sidebar>
   </div>
  
-  <div class="text-after-sidebar">
-    <p class = "size">Filter as per your Requirements</p>
+  <div class="text-after-sidebar ">
+    <p class = "size mt-4">Filter as per your Requirements</p>
     <div class="search-container-filter">
       <div [ngClass]="{'selected': selectedOptions['search'] === 'Buy'}" (click)="toggleOption('search', 'Buy')">
         Buy
@@ -96,16 +96,16 @@
         <div class="vertical-line"></div>
 
 
-        <div class="advertisement-details h-[45rem] overflow-y-scroll" >
+        <div class="advertisement-details h-[45rem] overflow-y-scroll bg-gray-50" >
 
          
-          <h2>Advertisement Details</h2>
+          <h2 class="mt-2">Advertisement Details</h2>
           <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
        
 
           
           <br />
-          <div class="advertisement-container" *ngFor="let ad of ads; ">
+          <div class="advertisement-container items-center" *ngFor="let ad of ads; ">
             <div class="advertisement-heading" >
 
               <!-- Company Info -->
@@ -163,32 +163,32 @@
 
                 <thead >
                   <tr>
-                    <th>
+                    <th class="text-center">
                       <div class="company-address">
                         <span class="icon-container">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                             <path d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
                           </svg>
                         </span>
-                        <span class="heading-text">Departure</span>
+                        <span class="heading-text text-center">Departure</span>
                       </div>
                     </th>
-                    <th>
+                    <th class="text-center">
                       <div class="company-address">
                         <span class="icon-container">
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
                             <path d="M12 2C8.14 2 5 5.14 5 9c0 3.09 2.33 7.55 6.67 13.46l.33.38.34-.38C16.67 16.55 19 12.09 19 9c0-3.86-3.14-7-7-7zm0 10.2c-1.41 0-2.55-1.14-2.55-2.55 0-1.42 1.14-2.56 2.55-2.56 1.41 0 2.55 1.14 2.55 2.56 0 1.41-1.14 2.55-2.55 2.55z" />
                           </svg>
                         </span>
-                        <span class="heading-text">Arrival</span>
+                        <span class="heading-text text-center">Arrival</span>
                       </div>
                     </th>
-                    <th>Availablity</th>
-                    <th>Quantity</th>
-                    <th>Type</th>
-                    <th>Free Days</th>
-                    <th>Per Diem</th>
-                    <th>Pickup Charges</th>
+                    <th class="text-center">Availablity</th>
+                    <th class="text-center">Quantity</th>
+                    <th class="text-center">Type</th>
+                    <th class="text-center">Free Days</th>
+                    <th class="text-center">Per Diem</th>
+                    <th class="text-center">Pickup Charges</th>
                   </tr>
                 </thead>
                 
@@ -196,18 +196,18 @@
                 
                 <tbody>
                   <tr>
-                    <td class="center-quantity-cell">
-                      <div class="center-quantity">
-                        <div class="quantity-value">{{ ad.port_of_departure }}</div>
+                    <td class="center-quantity-cell items-center center-position text-center">
+                      <div class="center-quantity text-center">
+                        <div class="quantity-value text-center ml-4">{{ ad.port_of_departure }}</div>
                       </div>
                     </td>
-                    <td class="center-quantity-cell">
+                    <td class="center-quantity-cell text-center">
                       <div class="center-quantity">
-                        <div class="quantity-value">{{ ad.port_of_arrival }}</div>
+                        <div class="quantity-value text-center ml-4">{{ ad.port_of_arrival }}</div>
                       </div>
                     </td>
                     <td>{{ ad.expiry_date | date:'dd MMMM yyyy' }}</td>
-                    <td class="center-quantity-cell">
+                    <td class="center-quantity-cell text-center">
                       <div class="center-quantity">
 
                         <div class="quantity-value">{{ad.quantity}}</div>
@@ -248,38 +248,7 @@
             
             </div>
           </div>
-          <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
-            <nav aria-label="Page navigation">
-                <ul class="inline-flex">
-                    <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg></button>
-                    </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-                    </li>
-                    <li><button
-                            class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
-                    </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-                    </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                    </li>
-                </ul>
-            </nav>
-          </div> 
+         
           
         </div>
        
