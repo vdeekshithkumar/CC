@@ -66,8 +66,24 @@ namespace CC_api.Repository
 
     public async Task<User> GetUserByEmail(string email)
     {
-      return await dbContext.users.FirstOrDefaultAsync(x => x.email == email);
+      var user = await dbContext.users.FirstOrDefaultAsync(x => x.email == email);
+
+      if (user != null)
+      {
+        if (string.IsNullOrEmpty(user.city))
+        {
+          user.city = null;
+        }
+
+        if (string.IsNullOrEmpty(user.phone_no))
+        {
+          user.phone_no = null;
+        }
+      }
+
+      return user;
     }
+
 
     public async Task<int> Create(User user)
 

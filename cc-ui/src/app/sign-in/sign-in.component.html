@@ -42,7 +42,7 @@
                   </div>
             
                 
-                  <div >
+                  <div>
                     <label for="password" class="label">Password</label>
                     <div class="password-container">
                       <input
@@ -56,12 +56,13 @@
                       />
                       <i style="color: #262626a6;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
                 
+                 
+                    </div>
+                <div>
                   <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
                     <div *ngIf="loginForm.get('password')?.errors?.['required']">Password required</div>
                     <div *ngIf="loginForm.get('password')?.errors?.['minlength']"></div>
                   </div>
-                 </div>
-                <div>
                 </div>
                   <!-- <mat-form-field>
                     <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>

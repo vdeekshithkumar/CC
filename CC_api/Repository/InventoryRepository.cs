@@ -55,11 +55,11 @@ namespace CC_api.Repository
       /*return await dbContext.inventory.FirstOrDefaultAsync(x => x.company_id == companyId);*/
     }
 
-
     public async Task DeleteAllInventory(int companyId)
     {
-      await dbContext.Database.ExecuteSqlRawAsync("DELETE FROM inventory WHERE company_id = {0}", companyId);
+      await dbContext.Database.ExecuteSqlInterpolatedAsync($"DELETE FROM inventory WHERE company_id = {companyId}");
     }
+
 
 
 
