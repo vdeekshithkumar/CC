@@ -30,11 +30,13 @@ export interface Advertisement {
 @Component({
   selector: 'app-view-other-ads',
   templateUrl: './view-other-ads.component.html',
-  styleUrls: ['./view-other-ads.component.css'],
+  styleUrls: ['./view-other-ads.component.css','../app.component.css'],
   providers: [DatePipe]
 })
 export class ViewOtherAdsComponent {
-  
+
+
+  adsPerPage = 3; // Number of ads to display per page
   selectedDeparturePorts: string[] = [];
   selectedArrivalPorts: string[] = [];
   alluser_list: any;
@@ -42,7 +44,7 @@ export class ViewOtherAdsComponent {
   public company_id?: number;
   public ad_id?: number;
   public name?: string;
-  itemsPerPage: number = 3;
+
   currentPage: number = 1;
   domain_address?: string;
   licence_id?: number;
@@ -85,6 +87,60 @@ export class ViewOtherAdsComponent {
     type: ''
   };
   userId: any;
+  get totalPages(): number {
+
+    return Math.ceil(this.ads.length / this.adsPerPage);
+
+  }
+
+ 
+
+
+
+
+  get currentAds(): Advertisement[] {
+
+    const startIndex = (this.currentPage - 1) * this.adsPerPage;
+
+    const endIndex = startIndex + this.adsPerPage;
+
+    return this.ads.slice(startIndex, endIndex);
+
+  }
+
+ 
+
+ 
+
+
+
+
+  // Function to go to the previous page
+
+  prevPage(): void {
+
+    if (this.currentPage > 1) {
+
+      this.currentPage--;
+
+    }
+
+  }
+
+
+
+
+  // Function to go to the next page
+
+  nextPage(): void {
+
+    if (this.currentPage < this.totalPages) {
+
+      this.currentPage++;
+
+    }
+
+  }
   getCompanyId() {
     return this.company_id;
   }
@@ -193,22 +249,7 @@ this.isLoading=false;
       };
     }
   }
-  get totalPages(): number {
-    return Math.ceil(this.ads.length / 3);
-  }
-  prevPage() {
-  
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
-    
-     }
-     nextPage() {
-      if (this.currentPage < Math.ceil(this.ads.length / this.itemsPerPage)) {
-        this.currentPage++;
-      }
-    
-     }
+ 
      backPage(){
       this.router.navigate(['forecast-map']);
      }

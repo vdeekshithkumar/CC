@@ -127,7 +127,7 @@
               </button>
        
               
-              <button  [disabled]="isButtonDisabled || n.status === 'accepted' || n.status === 'rejected'"   (click)="AcceptNegotiation(n.negotiation_id)"  mat-raised-button color="primary"  scope="row" class="flex-1 text-center px-6 py-2 mt-2" style="font-size: 12px;">Accept</button>
+              <button  [disabled]="isButtonDisabled || n.status === 'accepted' || n.status === 'rejected'"   (click)="AcceptNegotiation(n.negotiation_id)"  scope="row" class="flex-1 bg-CCblue text-white rounded-md text-center px-6 disable py-2 mt-2" style="font-size: 12px;">Accept</button>
               
             </div>
             

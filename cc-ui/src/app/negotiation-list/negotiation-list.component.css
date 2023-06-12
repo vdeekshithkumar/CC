@@ -10,6 +10,16 @@
   overflow: hidden;
 }
 
+.disable:disabled {
+
+
+    background: rgba(0, 0, 0, 0.04);
+    color: rgb(120, 119, 119);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    
+  
+}
+
 .button-blue-bg {
   @apply bg-CCdarkblue text-white border p-1 px-10  text-xs font-thin border-blue-500;
 }

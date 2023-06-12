@@ -11,8 +11,8 @@
   <!-- Company Details section  -->
       <div class="flex justify-between items-center ml-20">
         <h1 class="text-2xl text-black-100 mt-2 flex-1">My Advertisement</h1>
-        <div><button mat-raised-button color="primary" class="bg-CCblue text-white font-bold py-2 mt-2 px-4 mr-4 rounded" (click)="onExportClick()">Export</button>
-          <button mat-raised-button color="primary" class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4  rounded " [disabled]="isButtonDisabled" (click)="DisplayPostForm()">Post Ad</button>
+        <div><button  class="bg-CCblue text-white font-bold py-2 mt-2 px-4 mr-4 rounded " (click)="onExportClick()">Export</button>
+          <button  class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4  rounded disable " [disabled]="isButtonDisabled" (click)="DisplayPostForm()">Post Ad</button>
         </div></div><br/>
 <hr style="height: 2px;">
 <nav class="header-links contents font-semibold text-base lg:text-lg">
@@ -77,20 +77,20 @@
 <td scope="row" class="flex-1 px-6  text-center">{{ ad.port_of_departure }}</td>
 <td scope="row" class="flex-1 px-6  text-center">{{ ad.port_of_arrival }}</td>
 <td>
-  <button  [disabled]="isButtonDisabled" (click)="deleteAd(ad.ad_id)" class="w-6 mr-2 transform">
+  <button  [disabled]="isButtonDisabled" (click)="deleteAd(ad.ad_id)" class="w-6 mr-2 transform disable">
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
   </svg>
   </button>
 </td>
-<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Draft'" scope="row" class="flex-1 text-center px-6 mr-2" style="font-size: 12px;">Edit</button></td>
+<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" *ngIf="operation === 'Draft'" scope="row" class="flex-1 rounded-md text-center bg-CCblue rounded-lg px-6 mr-2 text-white disable py-1" style="font-size: 12px;">Edit</button></td>
 <div style="display: flex; flex-direction: column;">
 <!-- <td>
   <button [disabled]="isButtonDisabled"  mat-raised-button color="primary" (click)="DisplayApproveForm(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="div-tbody-th px-6 py-4">View & Approve</button>
 </td> -->
-<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" mat-raised-button color="primary" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 text-center px-6 mr-2 mt-2" style="font-size: 12px;">Approve</button></td>
+<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 rounded-md rounded-lg  py-1 text-center px-6 text-white mr-2 bg-CCblue disable mt-2" style="font-size: 12px;">Approve</button></td>
 <td>
-  <button [disabled]="getNegotiationCount(ad.ad_id)<1" (click)="OpenNegotiations(ad.ad_id)" mat-raised-button color="primary" *ngIf="operation === 'Active'" scope="row" class="flex-1 text-center px-4 mr-2 mt-2" style="font-size: 12px;">
+  <button [disabled]="getNegotiationCount(ad.ad_id)<1" (click)="OpenNegotiations(ad.ad_id)" *ngIf="operation === 'Active'" scope="row" class="flex-1 rounded-md disable text-white rounded-lg text-center px-4 py-1 mr-2 mt-2 disable bg-CCblue " style="font-size: 12px;">
     &nbsp;&nbsp;Open&nbsp;&nbsp;
     <!-- {{ getNegotiationCount(ad.ad_id) }} --></button></td></div></tr></tbody></table>
 <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
