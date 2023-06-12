@@ -139,11 +139,14 @@
 
         <div class="advertisement-details h-[45rem] overflow-y-scroll bg-gray-50" >
 
-         
-          <h2 class="mt-2">Advertisement Details</h2>
-          <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-       
+         <div class="flex flex-row">
+          <h2 class="mt-2 mx-auto flex-1 ">Advertisement Details</h2>
+        
+          <button  class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4 rounded disable ml-auto" [disabled]="false">Post Ad</button>
 
+         </div>
+         <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+         
           
           <br />
           <ng-container *ngFor="let ad of currentAds" class="flex justify-center items-center border">

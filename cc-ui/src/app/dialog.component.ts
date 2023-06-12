@@ -29,7 +29,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       }
 
       .error-dialog-button {
-        background-color: #f44336;
+        background-color: #2F54EB;
         color: #f8f8f8;
         border: none;
         padding: 10px 20px;
