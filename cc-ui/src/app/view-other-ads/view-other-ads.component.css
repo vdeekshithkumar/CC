@@ -143,10 +143,6 @@
   color: black;
 }
 
-.advertisement-details:nth-child(even) {
-  background-color: lightblue;
-  color: white;
-}
 
 
 
@@ -166,14 +162,7 @@
   margin-bottom: 10px;
 }
 
-.advertisement-details:nth-child(even) {
-  background-color: lightblue;
-  color: white;
-}
-.light-blue {
-  background-color: lightblue;
-  color: black;
-}
+
 
 .advertisement-details table {
   width: 100%;
@@ -328,14 +317,8 @@
   background-color: #2F54EB;
 }
 
-.advertisement-details table tr:nth-child(even) {
-  background-color: #2F54EB;
-}
 
-.advertisement-details table tr:nth-child(even) th,
-.advertisement-details table tr:nth-child(even) td {
-  color: black;
-}
+
 
 
 

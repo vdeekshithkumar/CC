@@ -6,11 +6,16 @@
 
   <!--main view-->
   <div class="container-d">
-      <!--left sidebar view-->
+    <!--left sidebar view-->
     <div class="left-section">
-     <app-sidebar class="w-full"></app-sidebar>
+      <app-sidebar class="w-full"></app-sidebar>
     </div>
- <!--right view-->
-    <div class="right-section" *ngIf="isActive('/dashboard')"></div>
+    <!--right view-->
+    <div class="right-section" *ngIf="isActive('/dashboard')">
+        <app-dashboard></app-dashboard>
     </div>
+    <div class="right-section" *ngIf="isActive('/profile')">
+        <app-profile></app-profile>
+    </div>
+  </div>
 </div>
