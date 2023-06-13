@@ -139,39 +139,69 @@
 
         <div class="advertisement-details h-[45rem] overflow-y-scroll bg-gray-50" >
 
-         
-          <h2 class="mt-2">Advertisement Details</h2>
-          <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-       
+         <div class="flex flex-row">
+          <h2 class="mt-2 mx-auto flex-1 ">Advertisement Details</h2>
+        
+          <button routerLink="/my-ad" class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4 rounded disable ml-auto" [disabled]="false">View My Ads</button>
 
+         </div>
+         <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+         
           
           <br />
-          <ng-container *ngFor="let ad of currentAds" class="flex justify-center items-center border">
+          <ng-container *ngFor="let ad of currentAds" class="flex justify-center w-full items-center border">
             <div class="flex flex-col border-4 mx-2">
               <div class="p-1 flex flex-row items-center  justify-around">
                 <div class="flex flex-row items-center">
-                  <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain">
+                  <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
+
+                  
+                  <ng-container *ngIf="ad.status === 'accepted'; else defaultLogo">
+                    <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain">
+                  </ng-container>
+                  
+                  <ng-template #defaultLogo>
+                    <img src="../../assets/images/black.png" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain">
+                  </ng-template>
                 
-                <div [ngClass]="{'company-name':  ad.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8"> {{ companyNames[ad.company_id] }}</div>
-                <div class="gray-highlights ml-4" [ngClass]="{'company-name':  ad.status != 'accepted'}">
+
+                <div *ngIf="ad.status === 'accepted'" [ngClass]="{'company-name':  ad.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8"> {{ companyNames[ad.company_id] }}</div>
+                <div *ngIf="ad.status != 'accepted'" [ngClass]="{'company-name':  ad.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8"> ABCDXYZ </div>
+                
+                <div *ngIf="ad.status === 'accepted'"  class="gray-highlights ml-4" [ngClass]="{'company-name':  ad.status != 'accepted'}">
                   <i class="material-icons text-sm text-yellow-400">star</i>
                    {{ companyRating[ad.company_id] }}
                 </div>
+
+                <div *ngIf="ad.status != 'accepted'" class="gray-highlights ml-4" [ngClass]="{'company-name':  ad.status != 'accepted'}">
+                  <i class="material-icons text-sm text-yellow-400">star</i>
+                000
+                </div>
+
               </div>
              
            
     
-              <div class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
+              <div  *ngIf="ad.status === 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
                 <i class="material-icons text-xs mr-1">computer</i>
                 {{ companyDomain[ad.company_id] }}
               </div>
+              <div  *ngIf="ad.status != 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
+                <i class="material-icons text-xs mr-1">computer</i>
+              www.example.com
+              </div>
               
-              <div class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
+              <div  *ngIf="ad.status === 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
                 <i class="material-icons text-xs mr-1">place</i>
                 {{ companyAddress[ad.company_id]}}
               </div>
+
+              <div  *ngIf="ad.status != 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
+                <i class="material-icons text-xs mr-1">place</i>
+             XYZ XYZ XYZ
+              </div>
                 <div class="flex flex-row gap-1">
-                  <button [disabled]="ad.status != 'accepted'"  [ngClass]="{'button-red-bg-list': ad.status === 'accepted', 'button-gray-bg-list': ad.status !== 'accepted'}" class="whitespace-nowrap">Message</button>
+
                
                   <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
                 </div>
@@ -206,12 +236,15 @@
                   </div>
                 </div>
                 </div>
+
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">description</i>
                     <span class="text-[0.6rem]">Expiry Date</span></div>
                   <div class="text-xs font-bold">{{ ad.expiry_date | date:'dd MMMM yyyy' }}</div>
                 </div>
+
+
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">inventory_2</i>
