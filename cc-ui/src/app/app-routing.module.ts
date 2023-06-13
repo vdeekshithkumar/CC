@@ -97,7 +97,7 @@ const routes: Routes = [
 
   },
   {
-    component:ForecastingTableViewComponent,
+    component:TemplateComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
@@ -141,13 +141,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ForecastingTableViewComponent,
+    component:TemplateComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
-    component:ForecastMapComponent,
+    component:TemplateComponent,
     path:'forecast-map',
     canActivate: [AuthGuard]
 
