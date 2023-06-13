@@ -1,0 +1,16 @@
+<div class="flex flex-col main-container">
+  <!-- header  -->
+  <div class="header-container bg-CCblue">
+    <app-header></app-header>
+  </div>
+
+  <!--main view-->
+  <div class="container-d">
+      <!--left sidebar view-->
+    <div class="left-section">
+     <app-sidebar class="w-full"></app-sidebar>
+    </div>
+ <!--right view-->
+    <div class="right-section" *ngIf="isActive('/dashboard')"></div>
+    </div>
+</div>

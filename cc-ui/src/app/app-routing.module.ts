@@ -25,6 +25,7 @@ import { NegotiationsComponent } from './negotiations/negotiations.component';
 import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
+import { TemplateComponent } from './template/template.component';
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -39,7 +40,8 @@ const routes: Routes = [
     path:'sign-in'
   },
   {
-    component:DashboardComponent,
+    // component:DashboardComponent,
+    component:TemplateComponent,
     path:'dashboard',
     canActivate: [AuthGuard]
   },

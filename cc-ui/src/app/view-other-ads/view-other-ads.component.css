@@ -283,20 +283,12 @@
   position: absolute;
 
   top: 0px;
-
-  left: calc(31% + 14px);
-
+  left: calc(29% + 16px);
  margin-left: 3px;
 
-
-
-
- padding-right: 30px;
-
- padding-left: 20px;
-
- width: 69.2%;
-
+ padding-right: 10px;
+ padding-left: 10px;
+ width: 71.2%;
   font-weight: bold;
 
   font-size: 10px;
@@ -511,9 +503,9 @@
 
 .negotiation-button:disabled {
 
-  background-color: gray;
-
-  /* Additional styles for the disabled button */
+  background: rgba(0, 0, 0, 0.04);
+  color: rgb(120, 119, 119);
+  border: 1px solid rgba(0, 0, 0, 0.15);
 
 }
 
