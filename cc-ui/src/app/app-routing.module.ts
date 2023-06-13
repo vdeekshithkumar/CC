@@ -66,7 +66,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ProfileComponent,
+    component:TemplateComponent,
     path:'profile',
     canActivate: [AuthGuard]
   },
@@ -131,7 +131,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ViewOtherAdsComponent,
+    component:TemplateComponent,
     path:'view-other-ads',
     canActivate: [AuthGuard]
   },
@@ -163,7 +163,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:NegotiationsComponent,
+    component:TemplateComponent,
     path:'negotiations',
     canActivate: [AuthGuard]
   },

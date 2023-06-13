@@ -6,12 +6,10 @@
    
     
   }
-  .main-container{
-    
-  }
+
   
   .left-section {
-    width: 12%;
+    width: 10%;
     background-color: #F0F5FF;
     display: flex;
     justify-content: center;
@@ -21,11 +19,10 @@
   }
   
   .right-section {
-    flex-grow: 1;
-
-    display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
+    background-color: #fafafa;
   }
   .left-section h1 {
     text-align: center;
