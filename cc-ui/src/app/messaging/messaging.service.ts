@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { conversation } from '../DTO/conversation';
 import { Message } from '../DTO/Message';
-import { participant } from '../DTO/Participant';
+import { participant,Candidate } from '../DTO/Participant';
 
 
 @Injectable({
@@ -25,6 +25,15 @@ export class MessagingService {
   GetParticipants(convoID:number)
   {
     return this.http.get<participant[]>(`https://localhost:7157/GetParticipantsByConversationId?convoid=${convoID}`)
+  }
+  GetUsersAsync(convoID:number , companyId:number)
+  {
+    return this.http.get<Candidate[]> (`https://localhost:7157/GetUsers?convoid=${convoID}&companyId=${companyId}`)
+  }
+   AddParticipant (participant:participant)
+  {
+    debugger
+    return  this.http.post(`https://localhost:7157/AddParticipant`, participant)
   }
 
 }

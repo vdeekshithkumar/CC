@@ -1,11 +1,18 @@
 using CC_api.Models;
-using Google.Apis.Drive.v3.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using System.ComponentModel.Design;
+
 
 namespace CC_api.Repository
 {
+  public class UserDTO
+  {
+    public int user_id { get; set; }
+    public int company_id { get; set; }
+    public string fname { get; set; }
+    public string lname { get; set; }
+    public string designation { get; set; }
+    public string? company_name { get; set; }
+  }
   public class ConversationRepository
   {
     private readonly DatabaseContext dbContext;
@@ -55,9 +62,9 @@ namespace CC_api.Repository
       return await dbContext.participant.Where(c => c.ConversationId == convoid).ToListAsync();
     }
 
-    public async Task< List<Message>> GetMessagesByConversationId(int conversationId)
+    public async Task<List<Message>> GetMessagesByConversationId(int conversationId)
     {
-      return await  dbContext.message.Where(m => m.ConversationId == conversationId).ToListAsync();
+      return await dbContext.message.Where(m => m.ConversationId == conversationId).ToListAsync();
     }
 
     public async Task<Message> SendMessage(Message message)
@@ -66,12 +73,36 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
       return message;
     }
-    public async Task <List<Conversation>> GetConversationByCompanyId(int companyId)
+    public async Task<List<Conversation>> GetConversationByCompanyId(int companyId)
     {
       return await dbContext.conversation.Where(c => c.company_id == companyId).ToListAsync();
     }
+    public async Task<List<UserDTO>> GetUsers(int conversationId, int companyId)
+    {
+      //the company name is same for all the users here since an admin can only add his own employees
+      var participantUserIds = dbContext.participant
+          .Where(p => p.ConversationId == conversationId)
+          .Select(p => p.UserId);
+      var companyName = await dbContext.company
+        .Where(c => c.company_id == companyId)
+        .Select(c => c.name)
+        .FirstOrDefaultAsync();
 
-    // Other conversation-related methods
+
+      return await dbContext.users
+          .Where(u => u.company_id == companyId && !participantUserIds.Contains(u.user_id))
+          .Select(u => new UserDTO
+          {
+            user_id = u.user_id,
+            company_id = u.company_id,
+            fname = u.fname,
+            lname = u.lname,
+            designation = u.designation,
+            company_name = companyName
+          })
+          .ToListAsync();
+    }
+
   }
 
 }

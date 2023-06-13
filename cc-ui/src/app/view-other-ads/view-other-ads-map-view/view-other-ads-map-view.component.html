@@ -1,0 +1,12 @@
+<div id="map">
+    <google-map [options]="{ mapId: mapId, center: getMapCenter() }">
+      <map-marker *ngIf="selectedDeparturePort"
+        [position]="{ lat: latitude, lng: longitude }"
+        [options]="{ draggable: false, icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png' }">
+      </map-marker>
+      <map-marker *ngIf="selectedArrivalPort"
+        [position]="{ lat: latitude, lng: longitude }"
+        [options]="{ draggable: false, icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png' }">
+      </map-marker>
+    </google-map>
+  </div>    

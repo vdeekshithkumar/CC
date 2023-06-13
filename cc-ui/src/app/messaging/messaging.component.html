@@ -52,5 +52,14 @@
                 {{participant.fname}}-{{participant.company_name}}
             </div>
         </div>
+        <div>
+            <button (click)="getUsers()">getusers</button>
+            <ul>
+                <li *ngFor="let user of users">
+                  <input type="checkbox" [(ngModel)]="user.selected">{{user.fname}} {{user.lname}}
+                </li>
+              </ul>
+              <button (click)="addParticipants()">Add</button>
+        </div>
     </div>
 </div>

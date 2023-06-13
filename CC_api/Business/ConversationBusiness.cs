@@ -3,6 +3,7 @@ using CC_api.Repository;
 
 namespace CC_api.Business
 {
+
   public class ConversationBusiness
   {
     private readonly ConversationRepository conversationRepository;
@@ -49,6 +50,10 @@ namespace CC_api.Business
     {
       return await conversationRepository.GetParticipants(convoid);
     }
-    // Other conversation-related methods
+
+    public async Task<List<UserDTO>> GetUsersAsync(int conversationId, int companyId)
+    {
+      return await conversationRepository.GetUsers(conversationId, companyId);
+    }
   }
 }

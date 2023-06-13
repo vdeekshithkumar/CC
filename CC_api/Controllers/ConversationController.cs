@@ -6,12 +6,10 @@ namespace CC_api.Controllers
 {
   public class ConversationController : Controller
   {
-    private readonly ILogger<ConversationController> _logger;
     private readonly ConversationBusiness conversationBusiness;
 
     public ConversationController(ILogger<ConversationController> logger)
     {
-      _logger = logger;
       conversationBusiness = new ConversationBusiness();
     }
 
@@ -52,7 +50,6 @@ namespace CC_api.Controllers
       {
         return BadRequest("Invalid message data");
       }
-
       var sentMessage = await conversationBusiness.SendMessage(message);
       return Ok(sentMessage);
     }
@@ -65,9 +62,15 @@ namespace CC_api.Controllers
     [HttpGet("GetParticipantsByConversationId")]
     public async Task<IActionResult> GetParticipants(int convoid)
     {
+
       return Ok(await conversationBusiness.GetParticipant(convoid));
     }
     // Other conversation-related endpoints
+    [HttpGet("GetUsers")]
+    public async Task<IActionResult> GetUsers(int convoid, int companyId)
+    {
+      return Ok(await conversationBusiness.GetUsersAsync(convoid, companyId));
+    }
   }
 
 }
