@@ -29,7 +29,7 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-stepper-horizontal-line{border-color: blue; position: relative;}
+/* .mat-stepper-horizontal-line{border-color: blue; position: relative;} */
 
     /* .mat-step-icon-selected {
 

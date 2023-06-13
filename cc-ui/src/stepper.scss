@@ -1,0 +1,33 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+@mixin styleStepLine($index) {
+    .mat-horizontal-stepper-header {
+        &+.mat-stepper-horizontal-line:nth-child(#{$index}) {
+            height: 2px;
+            background-color: blue;
+        }
+    }
+}
+
+.last-edited-step-1 {
+    @include styleStepLine(2);
+}
+
+.last-edited-step-2 {
+    @include styleStepLine(2);
+    @include styleStepLine(4);
+}
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::before, .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::after, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:first-child)::after, [dir=rtl] .mat-stepper-label-position-bottom .mat-horizontal-stepper-header:not(:last-child)::before {width: 0!important;}
+
+
+.mat-step-header .mat-step-header-ripple {display: none;}
+.mat-step-header.cdk-keyboard-focused, .mat-step-header.cdk-program-focused, .mat-step-header:hover {
+    background-color: #fff;
+}
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+    padding: 8px 0 8px 0 !important;
+    width: 35px !important;
+}
+.mat-stepper-label-position-bottom .mat-stepper-horizontal-line {
+  top: 20px !important;
+}
