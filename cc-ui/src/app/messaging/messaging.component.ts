@@ -3,7 +3,7 @@ import { SessionService } from '../session.service';
 import { MessagingService } from './messaging.service';
 import { conversation } from '../DTO/conversation';
 import { Message } from '../DTO/Message';
-import { participant } from '../DTO/Participant';
+import { Candidate, participant } from '../DTO/Participant';
 
 @Component({
   selector: 'app-messaging',
@@ -19,6 +19,7 @@ export class MessagingComponent implements OnInit {
   participants: participant[] = []
   conversationID!:number
   content!:string
+  users: Candidate[] = []
   constructor(private sessionService: SessionService, private messageService: MessagingService) { }
 
   ngOnInit(): void {
@@ -106,7 +107,44 @@ export class MessagingComponent implements OnInit {
       }
     });
   }
-  // async sendMessage(senderId:number, content:string , )  
+  getUsers(){
+    this.messageService.GetUsersAsync(this.conversationID, this.companyId).subscribe({
+      next:data=>{
+        this.users = data
+      },
+      error :error=>{
+        console.error(error)
+      }
+    })
+  }
+  async addParticipant(candidate: Candidate) {
+    const participant: participant = {
+      conversationId: this.conversationID,
+      userId: candidate.user_id,
+      companyId: this.companyId,
+      fname: candidate.fname,
+      lname: candidate.lname,
+      company_name: candidate.company_name
+    };
+    this.messageService.AddParticipant(participant).subscribe({
+      next: data => {
+        // Handle the response
+      },
+      error: error => {
+        // Handle the error
+      }
+    });
+    
+  }
   
-
+  // async sendMessage(senderId:number, content:string , )  
+  addParticipants() {
+    this.users.forEach(user => {
+      if (user.selected) {
+        this.addParticipant(user);
+      }
+    });
+    this.getParticipants()
+    this.getUsers()
+  }
 }
