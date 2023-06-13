@@ -58,6 +58,7 @@ import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-ma
 import { TemplateComponent } from './template/template.component';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,6 +99,7 @@ import { TemplateComponent } from './template/template.component';
           MessagingComponent,
           ViewOtherAdsMapViewComponent,
           TemplateComponent,
+          ViewOtherAdsMapViewComponent,
     
   ],
   imports: [
