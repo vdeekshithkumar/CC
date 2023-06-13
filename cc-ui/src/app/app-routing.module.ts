@@ -24,8 +24,9 @@ import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component
 import { NegotiationsComponent } from './negotiations/negotiations.component';
 import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
-import { TemplateComponent } from './template/template.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
+import { TemplateComponent } from './template/template.component';
+
 const routes: Routes = [
   {
     component:HomeComponent,
@@ -136,9 +137,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ViewOtherAdsMapViewComponent,
+    component:ViewOtherAdsMapViewComponent ,
     path:'view-other-ads-map-view',
-    canActivate:[AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
     component:ForecastingTableViewComponent,

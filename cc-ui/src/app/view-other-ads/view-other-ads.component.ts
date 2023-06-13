@@ -15,7 +15,7 @@ export interface Port {
   port_name: string;
   latitutde: number;
   longitude: number;
-
+ 
 }
 export interface Advertisement {
   ad_id: number;
@@ -47,9 +47,7 @@ export interface Advertisement {
 export class ViewOtherAdsComponent {
   selectedView: string = 'MAP';
 
- 
-
-showMapView: boolean = false;
+ showMapView: boolean = false;
 isLoading:any;
   selectedDeparturePorts: string[] = [];
   selectedArrivalPorts: string[] = [];
@@ -91,7 +89,7 @@ isLoading:any;
   http: any;
   port_of_departure: any;
   port_of_arrival: any;
-
+  
   selectedOptions: { [key: string]: string } = {
     search: '',
     view: '',
@@ -105,19 +103,15 @@ isLoading:any;
 get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
-
-
- 
+  
 
   get currentAds(): Advertisement[] {
     const startIndex = (this.currentPage - 1) * this.adsPerPage;
     const endIndex = startIndex + this.adsPerPage;
     return this.ads.slice(startIndex, endIndex);
   }
-
-
-
- 
+  
+  
 
   // Function to go to the previous page
   prevPage(): void {
@@ -126,8 +120,6 @@ get totalPages(): number {
     }
   }
 
- 
-
   // Function to go to the next page
   nextPage(): void {
     if (this.currentPage < this.totalPages) {
@@ -135,14 +127,12 @@ get totalPages(): number {
     }
   }
 
- 
-
   userId: any;
   getCompanyId() {
     return this.company_id;
   }
   constructor(private sessionService: SessionService,private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice,private forecastService:ForecastMapService) { 
-
+   
   }
   ngOnInit(): void {
 this.isLoading = true;
@@ -214,14 +204,10 @@ this.isLoading = true;
         this.ads = data;
         this.currentPage = 1;
 
- 
-
         console.log("ads are these//////////////"+this.ads.length); // for testing purposes only
       },
       error => console.log(error)
     );
-
- 
 
 
     this.uploadInventoryservice.getAllPorts().subscribe(
@@ -275,7 +261,7 @@ this.isLoading = false;
         ...this.selectedOptions,
         [section]: option
       };
-
+  
       if (section === 'search') {
         this.type = this.selectedOptions[section] || '';
       } else if (section === 'view') {
@@ -283,17 +269,15 @@ this.isLoading = false;
       }
     }
   }
-
-
-
- 
+  
+  
 
 
      backPage(){
       this.router.navigate(['forecast-map']);
      }
-
-
+  
+  
   checkNegotiation(company_id: number, ad_id: number): boolean {
     let x = false;
   debugger
@@ -339,19 +323,19 @@ this.isLoading = false;
     const selectedType = this.type;
     const selectedDeparture = this.port_of_departure;
     const selectedArrival = this.port_of_arrival;
-
-
+    
+  
     console.log('Selected Departure:', selectedDeparture);
     console.log('Selected Arrival:', selectedArrival);
     console.log('Selected Type:', selectedType);
-
-
+    
+  
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data.filter(ad => {
           let isTypeMatch = true;
           let isPortMatch = true;
-
+  
           // Check if type matches the selected option
           if (selectedType) {
             debugger;
@@ -360,7 +344,7 @@ this.isLoading = false;
             console.log('Selected Type:', selectedType);
             console.log('Advertisement Type:', ad.type_of_ad);
           }
-
+  
           // Check if ports match the selected options
           if (selectedDeparture && selectedArrival) {
             isPortMatch =
@@ -369,14 +353,14 @@ this.isLoading = false;
             console.log("dep", selectedDeparture)
             console.log('Port Match:', isPortMatch);
           }
-
+  
           // Return true if both type and ports match, or if only type matches (ports are not selected)
           return isTypeMatch && isPortMatch;
         });
 
         // Log the matched advertisements
         console.log('Matched Advertisements:', this.ads);
-
+  
         // Pass the selectedDeparture and selectedArrival values to the map view component
         if (this.selectedView === 'MAP') {
           // Render the map view component
@@ -391,7 +375,7 @@ this.isLoading = false;
       error => console.log(error)
     );
   }
-
+  
   onDeparturePortSelected(port: Port) {
     debugger
     this.selectedDeparturePort = port.port_id;
@@ -399,13 +383,13 @@ this.isLoading = false;
     this.port_of_departure = port.port_id;
     console.log("from view", this.port_of_departure);
   }
-
+  
   onArrivalPortSelected(port: Port) {
     this.selectedArrivalPort = port.port_id;
     this.port_of_arrival = port.port_id;
   }
-
-
+  
+  
   setOptionBackground(option: string, isHovered: boolean): void {
     if (isHovered && this.type !== option) {
       // Set the background color to blue when hovered, if not selected
@@ -424,8 +408,6 @@ this.isLoading = false;
       selectedPorts.push(port);
     }
   }
-
- 
 
   isPortSelected(port: string, type: 'departure' | 'arrival') {
     const selectedPorts = type === 'departure' ? this.selectedDeparturePorts : this.selectedArrivalPorts;
@@ -446,7 +428,5 @@ this.isLoading = false;
       error => console.log(error)
     );
   }
-
- 
 
 }  
