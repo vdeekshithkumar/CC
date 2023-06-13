@@ -26,6 +26,7 @@ import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
 import { TemplateComponent } from './template/template.component';
+
 const routes: Routes = [
   {
     component:HomeComponent,

@@ -90,6 +90,17 @@
       </div>
 
       <br />
+      <div class="map-view">
+        <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
+        <app-view-other-ads-map-view
+                    [selectedDeparturePort]="selectedDeparturePort"
+                    [selectedArrivalPort]="selectedArrivalPort">
+        </app-view-other-ads-map-view>
+        </div>
+        
+         
+        
+              </div>
       <div class="text-after-type-sidebar">
         <p class="port-text">Select Type</p>
 

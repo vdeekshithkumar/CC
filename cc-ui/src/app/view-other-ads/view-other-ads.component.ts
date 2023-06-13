@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { DatePipe } from '@angular/common';
 
+ 
+
 import { ViewOtherAdsService } from './view-other-ads.service';
 import { UploadInventoryservice } from '../upload-inventory/upload-inventory.service';
 import { ForecastMapService } from '../forecasting/forecast-map/forecast-map.service';
@@ -94,7 +96,7 @@ isLoading:any;
     type: ''
   };
   currentPage = 1; // Current page number
-  adsPerPage = 5; // Number of ads to display per page
+  adsPerPage = 3; // Number of ads to display per page
   mapView: any;
   selectedDeparturePort: any;  // Update the property name
   selectedArrivalPort: any;
@@ -138,7 +140,7 @@ this.isLoading = true;
       (data: any) => {
         this.negotiation_list = data;
         console.log("negotiation of companies fetched for diabling btn:", this.negotiation_list);
-  
+
         // Populate the company names object
         this.negotiation_list.forEach((negotiation: any) => {
             this.negotiationCompany[negotiation.ad_id] = negotiation.company_id;
@@ -148,6 +150,8 @@ this.isLoading = true;
         console.log("Error loading negotiationdetails:", error);
       }
     );
+
+ 
 
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
@@ -160,22 +164,40 @@ this.isLoading = true;
     );
     this.sessionService.getCompanyId().subscribe(
 
+ 
+
       (companyId: number) => {
+
+ 
 
         this.companyId = companyId;
 
+ 
+
         console.log('company ID is :', companyId);
+
+ 
 
       },
 
+ 
+
       (error: any) => {
+
+ 
 
 
         console.error('Error retrieving company ID:', error);
 
+ 
+
       }
 
+ 
+
     );
+
+ 
 
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
@@ -202,6 +224,8 @@ this.isLoading = true;
         this.company_list_by_companyId = data;
         console.log("Other company by company ID is fetched:", this.company_list_by_companyId);
 
+ 
+
         // Populate the company names object
         this.company_list_by_companyId.forEach((company: any) => {
           this.companyNames[company.company_id] = company.name;
@@ -210,6 +234,8 @@ this.isLoading = true;
           this.companyRating[company.company_id] = company.rating;
           this.companyAddress[company.company_id] = company.address;
 
+ 
+
         });
       },
       (error: any) => {
@@ -217,9 +243,11 @@ this.isLoading = true;
       }
     );
 
+ 
+
 this.isLoading = false;
   }
- 
+
   toggleOption(section: string, option: string) {
     if (this.selectedOptions[section] === option) {
       // If the clicked option is already selected, deselect it
@@ -276,12 +304,14 @@ this.isLoading = false;
     );
   }
 
+ 
+
   DisableStartNegoBtn(ad_id:number){
   debugger
     this.NButtonDisabled = this.checkNegotiation(this.companyId, ad_id);
-  
+
   }
- 
+
   searchAdvertisements() {
     if (!this.type && !this.port_of_departure && !this.port_of_arrival) {
       this.showNoSelectionMessage = true;
@@ -327,7 +357,7 @@ this.isLoading = false;
           // Return true if both type and ports match, or if only type matches (ports are not selected)
           return isTypeMatch && isPortMatch;
         });
-  
+
         // Log the matched advertisements
         console.log('Matched Advertisements:', this.ads);
   
@@ -397,6 +427,6 @@ this.isLoading = false;
       },
       error => console.log(error)
     );
-  } 
+  }
 
 }  
