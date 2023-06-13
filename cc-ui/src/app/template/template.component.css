@@ -9,13 +9,12 @@
 
   
   .left-section {
-    width: 10%;
+    width: 12%;
     background-color: #F0F5FF;
     display: flex;
     justify-content: center;
     align-items: center;  
     background:fixed;
-    
   }
   
   .right-section {

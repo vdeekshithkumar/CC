@@ -122,12 +122,12 @@
 .advertisement-details {
   position: absolute;
   top: 0px;
-  left: calc(29% + 16px);
+  left: calc(31% + 16px);
 border-style: solid black;
 
 
 
- width: 69.5%;
+ width: 67.8%;
   font-weight: bold;
   font-size: 10px;
   color: black;
