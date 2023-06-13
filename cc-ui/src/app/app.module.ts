@@ -55,6 +55,7 @@ import { DialogComponent } from './dialog.component';
 import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { TemplateComponent } from './template/template.component';
+import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
 
 
 @NgModule({
@@ -96,6 +97,7 @@ import { TemplateComponent } from './template/template.component';
           HomeTemplateComponent,
           MessagingComponent,
           TemplateComponent,
+          ViewOtherAdsMapViewComponent,
     
   ],
   imports: [
