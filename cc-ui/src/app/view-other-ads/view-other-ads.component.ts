@@ -230,7 +230,7 @@ this.isLoading=true;
         console.log("Error loading company details:", error);
       }
     );
-this.isLoading=true;
+this.isLoading=false;
 
   }
  
