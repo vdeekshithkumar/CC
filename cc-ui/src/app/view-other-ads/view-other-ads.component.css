@@ -4,14 +4,14 @@
   align-items: flex-start;
   margin-top: 20px;
   font-size:10px;
-  margin-left:-9px;
+  
   
 }
 .text-after-sidebar-searchview{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: -13px;
+ 
   font-size:10px;
 }
 .size{
@@ -21,7 +21,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: -10px;
+
   font-size:10px;
   font-style:bold;
 }
@@ -51,11 +51,7 @@
   width:2500px;
 }
 
-.div-app-sidebar {
-  position: sticky;
-  width: 8vw;
-  border-right: 3px solid;
-}
+
 
 
 
@@ -72,19 +68,13 @@
   color: #fff;
 }
 
-.sidebar-container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 20px;
-}
+
 
 .div {
-  display: flex;
-  flex-direction: row;
+ 
   font-family: 'Poppins';
-  position: relative;
-  margin-right: 20px;
+
+
 }
 
 .vertical-line {
@@ -133,18 +123,15 @@
   position: absolute;
   top: 0px;
   left: calc(29% + 16px);
- margin-left: 3px;
+border-style: solid black;
 
- padding-right: 10px;
- padding-left: 10px;
- width: 71.2%;
+
+
+ width: 69.5%;
   font-weight: bold;
   font-size: 10px;
   color: black;
 }
-
-
-
 
 
 .negotiation-button {
@@ -458,7 +445,7 @@ th {
 
 .view-map-box{
 
-  margin-left:-13px;
+
   
   border-width: 1px 1px 1px 1px;
   
@@ -582,14 +569,11 @@ th {
 
 .clear-search-container {
   display: flex;
+  margin-bottom: 20px;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   position: fixed;
   bottom: 0;
-  left: 0;
-  padding: 10px;
-  width: 30%;
-
 }
 
 
@@ -598,10 +582,11 @@ th {
   
   color: white;
   border: none;
-  padding: 5px 58px; 
+
   border-radius: 2px;
   font-size: 10px;
 }
+
 .dropdown-container {
   display: flex;
   flex-direction: column;
@@ -612,7 +597,7 @@ th {
   margin-bottom: 9px;
   margin-bottom: 5px;
   width: calc(130% - 15px); /* Adjust the width calculation based on your desired spacing */
-  margin-left: -11px;
+
 }
 
 
@@ -624,9 +609,13 @@ th {
 }
 .clear-color{
   background-color: lightgray;
+  width: 140px;
+  height: 30px;
 }
 .seacrh-color{
   background-color: #2F54EB;
+  width: 140px;
+  height: 30px;
 }
 .search-icon {
   position: absolute;
@@ -653,7 +642,7 @@ th {
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.15);
   border-radius: 6px 0px 0px 6px;
-  margin-left:-13px;
+
   flex: none;
   order: 0;
   flex-grow: 1;
@@ -661,7 +650,7 @@ th {
   }
   .search-q1-container{
     font-size: 12px;
-    margin-left:-13px;
+ 
   
   display: flex;
   
@@ -695,18 +684,12 @@ th {
   
   flex-grow: 1;
   
-  
-  
-  
   }
-  
-  
-  
-  
+
   .search-q2-container{
   
-    display: flex;
-    font-size: 12px;
+  display: flex;
+  font-size: 12px;
   flex-direction: column;
   
   justify-content: center;
@@ -729,7 +712,7 @@ th {
   
   border-color: rgba(0, 0, 0, 0.15);
   
-  margin-left:-4px;
+
   
   flex: none;
   
@@ -767,7 +750,7 @@ th {
   
     border-radius: 0px 6px 6px 0px;
   
-    margin-left:-4px;
+
   
     flex: none;
   
@@ -827,7 +810,7 @@ th {
   
   border-color: rgba(0, 0, 0, 0.15);
   
-  margin-left:-4px;
+
   
   flex: none;
   
@@ -863,7 +846,7 @@ th {
   
     border-radius: 0px 6px 6px 0px;
   
-    margin-left:-4px;
+
   
     flex: none;
   
@@ -889,7 +872,7 @@ th {
   
     color:#595959;
   
-    margin-left:-13px;
+ 
   
   }
   
@@ -958,7 +941,7 @@ th {
   
     font-style: normal;
   
-    margin-left: -13px;
+
   
     margin-top:1px;
   

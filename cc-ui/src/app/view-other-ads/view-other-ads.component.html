@@ -1,365 +1,451 @@
-<app-header class="header"></app-header>
-<div class="div">
-
-  <!-- Sidebar -->
-  <div class="sidebar-container">
-    <app-sidebar class="div-app-sidebar"></app-sidebar>
-  </div>
- 
-  <div class="text-after-type-sidebar py-4">
-    <p class = "search-text">Filter as per your Requirements</p>
+<div class="div flex flex-row">
+  <div class="text-after-type-sidebar  py-10 px-2">
+    <p class="search-text">Filter as per your Requirements</p>
     <div class="search-type-container">
-      <div  class="search-buy-container" [ngClass]="{'selected': selectedOptions['search'] === 'Buy'}" (click)="toggleOption('search', 'Buy')">
+      <div
+        class="search-buy-container"
+        [ngClass]="{ selected: selectedOptions['search'] === 'Buy' }"
+        (click)="toggleOption('search', 'Buy')"
+      >
         Buy
       </div>
-      <div class="search-lease-container" [ngClass]="{'selected': selectedOptions['search'] === 'Sell'}" (click)="toggleOption('search', 'Sell')">
+      <div
+        class="search-lease-container"
+        [ngClass]="{ selected: selectedOptions['search'] === 'Sell' }"
+        (click)="toggleOption('search', 'Sell')"
+      >
         Sell
       </div>
-      &nbsp;
-      <div class="search-lease-container" [ngClass]="{'selected': selectedOptions['search'] === 'Lease'}" (click)="toggleOption('search', 'Lease')">
+   
+      <div
+        class="search-lease-container"
+        [ngClass]="{ selected: selectedOptions['search'] === 'Lease' }"
+        (click)="toggleOption('search', 'Lease')"
+      >
         Lease
       </div>
-      &nbsp;
-      <div class="search-swap-container"[ngClass]="{'selected': selectedOptions['search'] === 'Swap'}" (click)="toggleOption('search', 'Swap')">
+    
+      <div
+        class="search-swap-container"
+        [ngClass]="{ selected: selectedOptions['search'] === 'Swap' }"
+        (click)="toggleOption('search', 'Swap')"
+      >
         Swap
       </div>
       &nbsp;
     </div>
 
-  <br/>
+    <br />
 
     <div class="flex flex-col">
-
-
       <p class="port-text">Port of Departure</p>
-          <div class="port-input">
-
-           
-
-            <select class="page-input" style="height: 30px; width: 275px; padding: 0px;" [(ngModel)]="port_of_departure">
-
- 
-
-              <option *ngFor="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
-
-            </select>
-
-          </div>
-
-          <p class="port-text">Port of Arrival</p>
-
-          <div class="port-input ">
-
-          
-
-            <select class="page-input" style="height: 30px; width: 275px;padding: 0px;" [(ngModel)]="port_of_arrival">
-
-              <option *ngFor="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
-
-            </select>
-
-          </div>
-
-       
-
-     
-
+      <div class="port-input">
+        <select
+          class="page-input"
+          style="height: 30px; width: 275px; padding: 0px"
+          [(ngModel)]="port_of_departure"
+        >
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ port.port_name }}
+          </option>
+        </select>
       </div>
-<br/>
-<div >
 
-  <div class="text-after-type-sidebar">
+      <p class="port-text">Port of Arrival</p>
 
-  <p class="port-text">Select View</p>
-
-  <div class="search-type-container">
-
-    <div class="view-map-box" [ngClass]="{'selected': selectedOptions['view'] === 'MAP'}" (click)="toggleOption('view', 'MAP')">
-
-      MAP
-
+      <div class="port-input">
+        <select
+          class="page-input"
+          style="height: 30px; width: 275px; padding: 0px"
+          [(ngModel)]="port_of_arrival"
+        >
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ port.port_name }}
+          </option>
+        </select>
+      </div>
     </div>
+    <br />
+    <div>
+      <div class="text-after-type-sidebar">
+        <p class="port-text">Select View</p>
 
-    <div class="view-list-box" [ngClass]="{'selected': selectedOptions['view'] === 'LIST'}" (click)="toggleOption('view', 'LIST')">
+        <div class="search-type-container">
+          <div
+            class="view-map-box"
+            [ngClass]="{ selected: selectedOptions['view'] === 'MAP' }"
+            (click)="toggleOption('view', 'MAP')"
+          >
+            MAP
+          </div>
 
-      LIST
-
-    </div>
-
-  </div>
-
-</div>
-    
+          <div
+            class="view-list-box"
+            [ngClass]="{ selected: selectedOptions['view'] === 'LIST' }"
+            (click)="toggleOption('view', 'LIST')"
+          >
+            LIST
+          </div>
+        </div>
+      </div>
 
       <br />
       <div class="text-after-type-sidebar">
         <p class="port-text">Select Type</p>
 
         <div class="search-type-container">
-    
-          <div class="search-q1-container" [ngClass]="{'selected': selectedOptions['type'] === '20DC'}" (click)="toggleOption('type', '20DC')">
-    
+          <div
+            class="search-q1-container"
+            [ngClass]="{ selected: selectedOptions['type'] === '20DC' }"
+            (click)="toggleOption('type', '20DC')"
+          >
             20DC
-    
           </div>
-    
-          <div  class="search-q2-container" [ngClass]="{'selected': selectedOptions['type'] === '40DC'}" (click)="toggleOption('type', '40DC')">
-    
+
+          <div
+            class="search-q2-container"
+            [ngClass]="{ selected: selectedOptions['type'] === '40DC' }"
+            (click)="toggleOption('type', '40DC')"
+          >
             40DC
-    
           </div>
-    
-          <div  class="search-q2-container" [ngClass]="{'selected': selectedOptions['type'] === '45HQ'}" (click)="toggleOption('type', '45HQ')">
-    
+
+          <div
+            class="search-q2-container"
+            [ngClass]="{ selected: selectedOptions['type'] === '45HQ' }"
+            (click)="toggleOption('type', '45HQ')"
+          >
             45HQ
-    
           </div>
-    
-          <div class="search-q-container" [ngClass]="{'selected': selectedOptions['type'] === '40HQ'}" (click)="toggleOption('type', '40HQ')">
-    
+
+          <div
+            class="search-q-container"
+            [ngClass]="{ selected: selectedOptions['type'] === '40HQ' }"
+            (click)="toggleOption('type', '40HQ')"
+          >
             40HQ
-    
           </div>
-    
+        
+
+          <div class="clear-search-container">
+            <button (click)="clearOptions()" class="clear-color">
+              Clear
+            </button>
+          &nbsp;
+            <button (click)="searchAdvertisements()" class="seacrh-color">
+              Search
+            </button>
+           <!-- <p class="no-selection-message" *ngIf="showNoSelectionMessage">
+            Select your requirement
+          </p> -->
+            
+          </div>
+
         </div>
 
         <br />
         <br />
+
         
-        <div class="clear-search-container" >
-          <button (click)="clearOptions()" class="clear-color">Clear</button>&nbsp;
-          <button (click)="searchAdvertisements()" class="seacrh-color">Search</button>
-          <br />
-          <p class="no-selection-message" *ngIf="showNoSelectionMessage">Select your requirement</p>
 
-        </div>
+        <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col">
+          <div class="flex flex-row">
+            <h2 class="mt-2 mx-auto flex-1">Advertisement Details</h2>
 
- 
+            <button
+              routerLink="/my-ad"
+              class="bg-CCblue text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
+              [disabled]="false"
+            >
+              View My Ads
+            </button>
+          </div>
+          <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
 
-
-        <div class="advertisement-details h-[45rem] overflow-y-scroll bg-gray-50" >
-
-         <div class="flex flex-row">
-          <h2 class="mt-2 mx-auto flex-1 ">Advertisement Details</h2>
-        
-          <button routerLink="/my-ad" class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4 rounded disable ml-auto" [disabled]="false">View My Ads</button>
-
-         </div>
-         <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-         
-          
-          <br />
-          <ng-container *ngFor="let ad of currentAds" class="flex justify-center w-full items-center border">
-            <div class="flex flex-col border-4 mx-2">
-              <div class="p-1 flex flex-row items-center  justify-around">
+          <ng-container
+            *ngFor="let ad of currentAds"
+            class="flex justify-center w-full items-center  border"
+          >
+            <div class="flex flex-col border-2 mt-4">
+              <div class="p-1 flex flex-row items-center justify-around">
                 <div class="flex flex-row items-center">
                   <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
 
-                  
-                  <ng-container *ngIf="ad.status === 'accepted'; else defaultLogo">
-                    <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain">
+                  <ng-container
+                    *ngIf="ad.status === 'accepted'; else defaultLogo"
+                  >
+                    <img
+                      [src]="companyLogos[ad.company_id]"
+                      [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                      class="w-16 h-8 object-contain"
+                    />
                   </ng-container>
-                  
+
                   <ng-template #defaultLogo>
-                    <img src="../../assets/images/black.png" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain">
+                    <img
+                      src="../../assets/images/black.png"
+                      [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                      class="w-16 h-8 object-contain"
+                    />
                   </ng-template>
-                
 
-                <div *ngIf="ad.status === 'accepted'" [ngClass]="{'company-name':  ad.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8"> {{ companyNames[ad.company_id] }}</div>
-                <div *ngIf="ad.status != 'accepted'" [ngClass]="{'company-name':  ad.status != 'accepted'}" class="font-bold whitespace-nowrap ml-8"> ABCDXYZ </div>
-                
-                <div *ngIf="ad.status === 'accepted'"  class="gray-highlights ml-4" [ngClass]="{'company-name':  ad.status != 'accepted'}">
-                  <i class="material-icons text-sm text-yellow-400">star</i>
-                   {{ companyRating[ad.company_id] }}
+                  <div
+                    *ngIf="ad.status === 'accepted'"
+                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                    class="font-bold whitespace-nowrap ml-8"
+                  >
+                    {{ companyNames[ad.company_id] }}
+                  </div>
+                  <div
+                    *ngIf="ad.status != 'accepted'"
+                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                    class="font-bold whitespace-nowrap ml-8"
+                  >
+                    ABCDXYZ
+                  </div>
+
+                  <div
+                    *ngIf="ad.status === 'accepted'"
+                    class="gray-highlights ml-4"
+                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                  >
+                    <i class="material-icons text-sm text-yellow-400">star</i>
+                    {{ companyRating[ad.company_id] }}
+                  </div>
+
+                  <div
+                    *ngIf="ad.status != 'accepted'"
+                    class="gray-highlights ml-4"
+                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                  >
+                    <i class="material-icons text-sm text-yellow-400">star</i>
+                    000
+                  </div>
                 </div>
 
-                <div *ngIf="ad.status != 'accepted'" class="gray-highlights ml-4" [ngClass]="{'company-name':  ad.status != 'accepted'}">
-                  <i class="material-icons text-sm text-yellow-400">star</i>
-                000
+                <div
+                  *ngIf="ad.status === 'accepted'"
+                  class="gray-highlights"
+                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                >
+                  <i class="material-icons text-xs mr-1">computer</i>
+                  {{ companyDomain[ad.company_id] }}
+                </div>
+                <div
+                  *ngIf="ad.status != 'accepted'"
+                  class="gray-highlights"
+                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                >
+                  <i class="material-icons text-xs mr-1">computer</i>
+                  www.example.com
                 </div>
 
-              </div>
-             
-           
-    
-              <div  *ngIf="ad.status === 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
-                <i class="material-icons text-xs mr-1">computer</i>
-                {{ companyDomain[ad.company_id] }}
-              </div>
-              <div  *ngIf="ad.status != 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
-                <i class="material-icons text-xs mr-1">computer</i>
-              www.example.com
-              </div>
-              
-              <div  *ngIf="ad.status === 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
-                <i class="material-icons text-xs mr-1">place</i>
-                {{ companyAddress[ad.company_id]}}
-              </div>
+                <div
+                  *ngIf="ad.status === 'accepted'"
+                  class="gray-highlights"
+                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                >
+                  <i class="material-icons text-xs mr-1">place</i>
+                  {{ companyAddress[ad.company_id] }}
+                </div>
 
-              <div  *ngIf="ad.status != 'accepted'" class="gray-highlights" [ngClass]="{'company-name': ad.status != 'accepted'}">
-                <i class="material-icons text-xs mr-1">place</i>
-             XYZ XYZ XYZ
-              </div>
+                <div
+                  *ngIf="ad.status != 'accepted'"
+                  class="gray-highlights"
+                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                >
+                  <i class="material-icons text-xs mr-1">place</i>
+                  XYZ XYZ XYZ
+                </div>
                 <div class="flex flex-row gap-1">
-
-               
                   <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
                 </div>
-                <button class="negotiation-button"  [disabled]="DisableStartNegoBtn(ad.ad_id)" [disabled]="NButtonDisabled" (click)="StartNegotiation(ad.ad_id)" >Start Negotiation</button>
-
+                <button
+                  class="negotiation-button"
+                  [disabled]="DisableStartNegoBtn(ad.ad_id)"
+                  [disabled]="NButtonDisabled"
+                  (click)="StartNegotiation(ad.ad_id)"
+                >
+                  Start Negotiation
+                </button>
               </div>
-              <hr class="mx-2">
+              <hr class="mx-2" />
               <div class="p-1 flex flex-row items-center gap-1 justify-around">
                 <div class="flex justify-start">
-                  <img src="../../assets/images/Container.png" class="bg-gray-50 p-1 w-10 h-10">
-                <div class="flex flex-col text-[0.6rem]">
-                  <div class="flex flex-row gap-2">
-                    <div class="flex flex-col">
-                      <div>
-                        <i class="material-icons mr-1 text-xs">place</i>Departure
+                  <img
+                    src="../../assets/images/Container.png"
+                    class="bg-gray-50 p-1 w-10 h-10"
+                  />
+                  <div class="flex flex-col text-[0.6rem]">
+                    <div class="flex flex-row gap-2">
+                      <div class="flex flex-col">
+                        <div>
+                          <i class="material-icons mr-1 text-xs">place</i
+                          >Departure
+                        </div>
+                        <div class="gray-highlights">
+                          {{ ad.port_of_departure }}
+                        </div>
                       </div>
-                      <div class="gray-highlights">
-                        {{ad.port_of_departure}}
-                      </div>
-                    </div>
-                    <div class="flex flex-col">
-                      <div>
-                        <i class="material-icons mr-1 text-xs">place</i>Arrival
-                      </div>
-                      <div>
-                        <div class="flex flex-row gap-1">
-                          <div class="gray-highlights">{{ad.port_of_arrival}}</div>
-                        
+                      <div class="flex flex-col">
+                        <div>
+                          <i class="material-icons mr-1 text-xs">place</i
+                          >Arrival
+                        </div>
+                        <div>
+                          <div class="flex flex-row gap-1">
+                            <div class="gray-highlights">
+                              {{ ad.port_of_arrival }}
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                </div>
 
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">description</i>
-                    <span class="text-[0.6rem]">Expiry Date</span></div>
-                  <div class="text-xs font-bold">{{ ad.expiry_date | date:'dd MMMM yyyy' }}</div>
-                </div>
-
-
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">inventory_2</i>
-                    <span class="text-[0.6rem]">Quantity</span></div>
-                  <div class="text-xs font-bold">{{ad.quantity}}</div>
+                    <span class="text-[0.6rem]">Expiry Date</span>
+                  </div>
+                  <div class="text-xs font-bold">
+                    {{ ad.expiry_date | date : "dd MMMM yyyy" }}
+                  </div>
                 </div>
 
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">inventory_2</i>
-                    <span class="text-[0.6rem]">Type of Ad</span></div>
-                  <div class="text-xs font-bold">{{ad.type_of_ad}}</div>
+                    <span class="text-[0.6rem]">Quantity</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.quantity }}</div>
+                </div>
+
+                <div class="flex flex-col items-center">
+                  <div class="items-center justify-center">
+                    <i class="material-icons mr-1 text-xs">inventory_2</i>
+                    <span class="text-[0.6rem]">Type of Ad</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.type_of_ad }}</div>
                 </div>
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">payments</i>
-                    <span class="text-[0.6rem]">Price</span></div>
-                  <div class="text-xs font-bold">{{ad.price}}</div>
+                    <span class="text-[0.6rem]">Price</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.price }}</div>
                 </div>
-                
-              
+
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">event_available</i>
-                    <span class="text-[0.6rem]">Free Days</span></div>
-                  <div class="text-xs font-bold">{{ad.free_days}}</div>
-                </div>
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">event_available</i>
-                    <span class="text-[0.6rem]">Per Diem</span></div>
-                  <div class="text-xs font-bold">{{ad.per_diem}}</div>
+                    <span class="text-[0.6rem]">Free Days</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.free_days }}</div>
                 </div>
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">event_available</i>
-                    <span class="text-[0.6rem]">Pickup Charges</span></div>
-                  <div class="text-xs font-bold">{{ad.pickup_charges}}</div>
+                    <span class="text-[0.6rem]">Per Diem</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.per_diem }}</div>
                 </div>
-               
-                
+                <div class="flex flex-col items-center">
+                  <div class="items-center justify-center">
+                    <i class="material-icons mr-1 text-xs">event_available</i>
+                    <span class="text-[0.6rem]">Pickup Charges</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.pickup_charges }}</div>
+                </div>
               </div>
             </div>
             <div>
-    
-              <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;
-              </div>
-    
+              <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
             </div>
-            
-          </ng-container> 
-         
-          <div class="bg-gray-50 p-2 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
+          </ng-container>
 
+          <div
+            class="bg-gray-50 p-2 flex items-center flex-wrap justify-center"
+            *ngIf="this.ads.length > 0"
+          >
             <nav aria-label="Page navigation">
+              <ul class="inline-flex">
+                <li>
+                  <button
+                    [class.opacity-50]="currentPage === totalPages"
+                    (click)="(currentPage === 1)"
+                    (click)="prevPage()"
+                    [hidden]="currentPage < 2"
+                    class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100"
+                  >
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path
+                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </li>
 
-                <ul class="inline-flex">
+                <li>
+                  <button
+                    [class.opacity-50]="currentPage === totalPages"
+                    (click)="currentPage = currentPage"
+                    (click)="prevPage()"
+                    *ngIf="currentPage > 1"
+                    [hidden]="currentPage < 2"
+                    class="h-10 px-5 text-black transition-colors duration-150 focus:shadow-outline hover:bg-CCblue"
+                  >
+                    {{ currentPage - 1 }}
+                  </button>
+                </li>
 
-                    <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
+                <li>
+                  <button
+                    class="h-10 px-5 text-blue transition-colors duration-150 border-2 border-r-2 order-blue-400 focus:shadow-outline"
+                    *ngIf="totalPages != 1"
+                  >
+                    {{ currentPage }}
+                  </button>
+                </li>
 
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
+                <li>
+                  <button
+                    [class.opacity-50]="currentPage === totalPages"
+                    (click)="currentPage = currentPage"
+                    (click)="nextPage()"
+                    [hidden]="currentPage >= totalPages"
+                    class="h-10 px-5 text-blue-600 transition-colors rounded-r-lg duration-150 focus:shadow-outline hover:bg-blue-100"
+                  >
+                    {{ currentPage + 1 }}
+                  </button>
+                </li>
 
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-
-                                <path
-
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-
-                            </svg></button>
-
-                    </li>
-
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
-
-                            class="h-10 px-5 text-black  transition-colors duration-150 focus:shadow-outline hover:bg-CCblue">{{currentPage - 1}}</button>
-
-                    </li>
-
-                    <li><button
-
-                            class="h-10 px-5 text-blue transition-colors duration-150 border-2 border-r-2 order-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
-
-                    </li>
-
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
-
-                            class="h-10 px-5 text-blue-600 transition-colors  rounded-r-lg duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-
-                    </li>
-
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
-
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-
-                                <path
-
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-
-                            </svg>
-
-                          </button>
-
-                    </li>
-
-                </ul>
-
+                <li>
+                  <button
+                    [class.opacity-50]="currentPage === totalPages"
+                    (click)="currentPage = currentPage"
+                    (click)="nextPage()"
+                    [hidden]="currentPage >= totalPages"
+                    class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100"
+                  >
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                      <path
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd"
+                        fill-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
+                </li>
+              </ul>
             </nav>
-
           </div>
-          
+
         </div>
-       
+      </div>
+    </div>
+  </div>
+</div>
