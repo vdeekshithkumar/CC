@@ -1,9 +1,18 @@
 export interface participant{
-    participantId:number,
+    participantId?:number,
     conversationId:number,
     userId:number,
     companyId:number,
     fname: string,
     lname:string,
     company_name:string
+}
+export interface Candidate{
+    user_id:number,
+    company_id:number,
+    fname:string,
+    lname:string,
+    designation:string
+    selected:boolean
+    company_name: string
 }
