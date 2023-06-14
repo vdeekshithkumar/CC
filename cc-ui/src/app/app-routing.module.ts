@@ -46,11 +46,7 @@ const routes: Routes = [
     path:'dashboard',
     canActivate: [AuthGuard]
   },
-  {
-    component:MyAdvertisementComponent,
-    path:'my-ad',
-    canActivate: [AuthGuard]
-  },
+ 
   {
     component:PostAdComponent,
     path:'post-ad',
@@ -91,14 +87,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
 
   },
-  {
-    component:ForecastingComponent,
-    path:'forecasting',
-    canActivate: [AuthGuard]
 
-  },
   {
-    component:ForecastingTableViewComponent,
+    component:TemplateComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
@@ -116,13 +107,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ForecastingComponent,
+    component:TemplateComponent,
     path:'forecasting',
     canActivate: [AuthGuard]
 
   },
   {
-    component:MyAdvertisementComponent,
+    component:TemplateComponent,
     path:'my-ad',
     canActivate: [AuthGuard]
   },
@@ -142,13 +133,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ForecastingTableViewComponent,
+    component:TemplateComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
-    component:ForecastMapComponent,
+    component:TemplateComponent,
     path:'forecast-map',
     canActivate: [AuthGuard]
 

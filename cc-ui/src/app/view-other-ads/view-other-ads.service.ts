@@ -33,6 +33,7 @@ export class ViewOtherAdsService {
   private  coUrl= 'https://localhost:7157/GetOtherCompany';
   private  nUrl= 'https://localhost:7157/GetAllNegotiation';
   private  startNUrl= 'https://localhost:7157/StartNegotiation';
+ 
   constructor(private http:HttpClient) { }
 
  
@@ -50,6 +51,9 @@ export class ViewOtherAdsService {
   }
 
  
+  getAllContainers(): Observable<any> {
+    return this.http.get('https://localhost:7157/GetAllContainers');
+  }
 
   StartNegotiation(ad_id: number,company_id: number, user_id: number): Observable<any> {
     const url = `${this.startNUrl}?ad_id=${ad_id}&company_id=${company_id}&user_id=${user_id}`;

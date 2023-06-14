@@ -15,7 +15,11 @@ declare const google: any;
   styleUrls: ['./view-other-ads-map-view.component.css']
 })
 export class ViewOtherAdsMapViewComponent implements OnInit {
-  
+  departureLat: number = 0;
+departureLng: number = 0;
+arrivalLat: number = 0;
+arrivalLng: number = 0;
+
   port: Port[] = [];
   
   @Input() selectedDeparturePort: any;
@@ -29,10 +33,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   stepDisplay: google.maps.InfoWindow | undefined;
   latitude: any;
   longitude: any;
-  arrivalLat: any;
-  arrivalLng: any;
-  departureLat: any;
-  departureLng: any;
+ 
 
   constructor(private forecastService: ForecastingService) {}
 
@@ -51,7 +52,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
           const departurePort = this.ports.find(port => port.port_name === this.selectedDeparturePort);
           console.log("departurePort: " + JSON.stringify(departurePort));
           if (departurePort) {
-            const { latitude, longitude } = departurePort.port_name;
+            const { latitude, longitude } = departurePort;
             console.log("Dfd"+departurePort.port_name);
             this.departureLat = departurePort.latitude;
             console.log("dfd"+this.departureLat)
@@ -63,7 +64,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
           const arrivalPort = this.ports.find(port => port.port_name === this.selectedArrivalPort);
           console.log("arrivalPort: " + JSON.stringify(arrivalPort));
           if (arrivalPort) {
-            const { latitude, longitude } = arrivalPort.port_name;
+            const { latitude, longitude } = arrivalPort;
             console.log("Dfd"+arrivalPort.port_name);
             this.arrivalLat = arrivalPort.latitude;
             this.arrivalLng = arrivalPort.longitude;

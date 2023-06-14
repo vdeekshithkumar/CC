@@ -129,6 +129,7 @@ showValidationErrors: boolean = false;
     address: ['', Validators.required],
     email: ['', Validators.email],
     phone_no:['', Validators.required],
+    city:['',Validators.required],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
     confirm_password: ['', Validators.required],
     is_verified:['1',Validators.required],
@@ -158,6 +159,11 @@ showValidationErrors: boolean = false;
    })
   }
 //session
+
+
+
+
+
 this.sessionService.getCurrentUser().subscribe(user => {
   // if (user.id==null && user.token==null) {  // use this once token is used for a user
   if (user.user_id==null) {
