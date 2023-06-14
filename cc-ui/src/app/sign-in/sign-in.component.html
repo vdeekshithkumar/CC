@@ -26,9 +26,9 @@
 
        
               <!-- Just for testing purposes change ng submit-->
-              <form [formGroup]= "loginForm" (ngSubmit)="onLoginSubmit()" class="form" >
-               <label for="email" class="label">Email</label>
-                  <input formControlName="email" class="page-input signin-page-input"
+              <form [formGroup]= "loginForm"autocomplete="off" (ngSubmit)="onLoginSubmit()" class="form" >
+               <label for="email" class="label" >Email</label>
+                  <input formControlName="email" autocomplete="hidden" class="page-input signin-page-input"
                    type="email" 
                    id="email"
                    name="email" 
@@ -46,7 +46,7 @@
                     <label for="password" class="label">Password</label>
                     <div class="password-container">
                       <input
-                        formControlName="password"
+                        formControlName="password" autocomplete="off"
                         class="register-page-data page-input"
                         type="{{ showPassword ? 'text' : 'password' }}"
                         id="password"

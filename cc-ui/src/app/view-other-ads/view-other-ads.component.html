@@ -4,31 +4,31 @@
     <div class="search-type-container">
       <div
         class="search-buy-container"
-        [ngClass]="{ selected: selectedOptions['search'] === 'Buy' }"
-        (click)="toggleOption('search', 'Buy')"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }"
+        (click)="toggleOption('type', 'Buy')"
       >
         Buy
       </div>
       <div
         class="search-lease-container"
-        [ngClass]="{ selected: selectedOptions['search'] === 'Sell' }"
-        (click)="toggleOption('search', 'Sell')"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Sell' }"
+        (click)="toggleOption('type', 'Sell')"
       >
         Sell
       </div>
    
       <div
         class="search-lease-container"
-        [ngClass]="{ selected: selectedOptions['search'] === 'Lease' }"
-        (click)="toggleOption('search', 'Lease')"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
+        (click)="toggleOption('type', 'Lease')"
       >
         Lease
       </div>
     
       <div
         class="search-swap-container"
-        [ngClass]="{ selected: selectedOptions['search'] === 'Swap' }"
-        (click)="toggleOption('search', 'Swap')"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
+        (click)="toggleOption('type', 'Swap')"
       >
         Swap
       </div>
@@ -107,34 +107,32 @@
         <div class="search-type-container">
           <div
             class="search-q1-container"
-            [ngClass]="{ selected: selectedOptions['type'] === '20DC' }"
-            (click)="toggleOption('type', '20DC')"
+            [ngClass]="{ selected: selectedOptions['size'] === 'R 1TEU' }"
+            (click)="toggleOption('size', 'R 1TEU')"
           >
-            20DC
+          R 1TEU
           </div>
 
           <div
             class="search-q2-container"
-            [ngClass]="{ selected: selectedOptions['type'] === '40DC' }"
-            (click)="toggleOption('type', '40DC')"
+            [ngClass]="{ selected: selectedOptions['size'] === 'NR 1TEU' }"
+            (click)="toggleOption('size', 'NR 1TEU')"
           >
-            40DC
+          NR 1TEU
           </div>
-
           <div
             class="search-q2-container"
-            [ngClass]="{ selected: selectedOptions['type'] === '45HQ' }"
-            (click)="toggleOption('type', '45HQ')"
+            [ngClass]="{ selected: selectedOptions['size'] === 'R 2TEU' }"
+            (click)="toggleOption('size', 'R 2TEU')"
           >
-            45HQ
+          R 2TEU
           </div>
-
           <div
             class="search-q-container"
-            [ngClass]="{ selected: selectedOptions['type'] === '40HQ' }"
-            (click)="toggleOption('type', '40HQ')"
+            [ngClass]="{ selected: selectedOptions['size'] === 'NR 2 TEU' }"
+            (click)="toggleOption('size', 'NR 2TEU')"
           >
-            40HQ
+          NR 2TEU
           </div>
         
 
@@ -339,6 +337,13 @@
                     <span class="text-[0.6rem]">Type of Ad</span>
                   </div>
                   <div class="text-xs font-bold">{{ ad.type_of_ad }}</div>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="items-center justify-center">
+                    <i class="material-icons mr-1 text-xs">inventory_2</i>
+                    <span class="text-[0.6rem]">Container_type</span>
+                  </div>
+                  <div class="text-xs font-bold">{{ ad.container_type_id }}</div>
                 </div>
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
