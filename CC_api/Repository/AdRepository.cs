@@ -31,6 +31,11 @@ namespace CC_api.Repository
         }
       }*/
 
+ public async Task<List<ContainerType>> GetcontainersAsync()
+{
+    var containerData = await dbContext.container_type.ToListAsync();
+    return containerData;
+}
 
     public async Task<List<long>> GetAdsCount(int companyId)
     {

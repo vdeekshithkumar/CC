@@ -17,6 +17,13 @@ export interface Port {
   longitude: number;
 
 }
+export interface Containers {
+  container_type_id: number;
+  type: string;
+  capacity: number;
+ 
+
+}
 export interface Advertisement {
   ad_id: number;
   date_created: Date;
@@ -70,6 +77,7 @@ export class ViewOtherAdsComponent {
   activeAdsClicked = false;
   pendingAdsClicked = false;
   ads: Advertisement[] = [];
+  container_size: Containers[] = [];
   adv: Advertisement[] = [];
   pod: string[] = [];
   negotiation_list: any[] = [];
@@ -91,15 +99,17 @@ export class ViewOtherAdsComponent {
   port_of_arrival: any;
 
   selectedOptions: { [key: string]: string } = {
-    search: '',
+    type: '',
     view: '',
-    type: ''
+    size: ''
   };
   currentPage = 1; // Current page number
   adsPerPage = 3; // Number of ads to display per page
   mapView: any;
   selectedDeparturePort: any;  // Update the property name
   selectedArrivalPort: any;
+  size: any;
+  selectedSize: any;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -197,7 +207,40 @@ export class ViewOtherAdsComponent {
 
     );
 
-
+    this.viewotherAds.getAllContainers().subscribe(
+      (condata: Containers[]) => {
+        this.container_size = condata;
+        console.log(JSON.stringify(this.container_size));
+    
+        // Map container names based on container_type_id
+        this.container_size.forEach((container: Containers) => {
+          switch (container.container_type_id) {
+            case 1:
+              container.type = 'R 1TEU';
+              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
+              break;
+            case 2:
+              container.type = 'NR 1TEU';
+              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
+              break;
+            case 3:
+              container.type = 'R 2TEU';
+              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
+              break;
+            case 4:
+              container.type = 'NR 2TEU';
+              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
+              break;
+            default:
+              container.type = 'Unknown';
+              console.log('Unknown container_type_id:', container.container_type_id);
+              break;
+          }
+        });
+        
+      }
+    );
+    
 
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
@@ -261,14 +304,24 @@ export class ViewOtherAdsComponent {
         ...this.selectedOptions,
         [section]: option
       };
-
-      if (section === 'search') {
+  
+      if (section === 'type') {
         this.type = this.selectedOptions[section] || '';
       } else if (section === 'view') {
         this.selectedView = this.selectedOptions[section] || '';
+      } else if (section === 'size') {
+        this.selectedSize = this.selectedOptions[section] || '';
+  
+        // Print the container_type_id assigned to the selected size
+        this.container_size.forEach((container: Containers) => {
+          if (container.type === this.selectedSize) {
+            console.log('Container Type ID:', container.container_type_id);
+          }
+        });
       }
     }
   }
+  
 
 
 
@@ -311,124 +364,73 @@ export class ViewOtherAdsComponent {
     this.NButtonDisabled = this.checkNegotiation(this.companyId, ad_id);
 
   }
-
   searchAdvertisements() {
-
-    if (!this.type && !this.port_of_departure && !this.port_of_arrival) {
-
+    if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
       this.showNoSelectionMessage = true;
-
-      return;
-
-    }
-
-    this.showNoSelectionMessage = false;
-
-
-
-    if (this.selectedView === 'MAP') {
-
-      // Render the map view component
-
-      this.showMapView = true;
-
-      this.selectedDeparturePort = this.port_of_departure;
-
-      this.selectedArrivalPort = this.port_of_arrival;
-
-    } else {
-
-      // Render the list view component
-
       this.showMapView = false;
-
-
-
-      // Perform filtering if list view is selected
-
-      this.noResultsMatched = false;
-
-      const selectedType = this.type;
-
-      const selectedDeparture = this.port_of_departure;
-
-      const selectedArrival = this.port_of_arrival;
-
-
-
-      console.log('Selected Departure:', selectedDeparture);
-
-      console.log('Selected Arrival:', selectedArrival);
-
-      console.log('Selected Type:', selectedType);
-
-
-
-      this.viewotherAds.getAdvertisement(this.companyId).subscribe(
-
-        (data: Advertisement[]) => {
-
-          this.ads = data.filter(ad => {
-
-            let isTypeMatch = true;
-
-            let isPortMatch = true;
-
-
-
-            // Check if type matches the selected option
-
-            if (selectedType) {
-
-              isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
-
-              console.log('Type Match:', isTypeMatch);
-
-              console.log('Selected Type:', selectedType);
-
-              console.log('Advertisement Type:', ad.type_of_ad);
-
-            }
-
-
-
-            // Check if ports match the selected options
-
-            if (selectedDeparture && selectedArrival) {
-
-              isPortMatch =
-
-                ad.port_of_departure === selectedDeparture &&
-
-                ad.port_of_arrival === selectedArrival;
-
-              console.log("Departure Port Match:", isPortMatch);
-
-            }
-
-
-
-            // Return true if both type and ports match, or if only type matches (ports are not selected)
-
-            return isTypeMatch && isPortMatch;
-
-          });
-
-
-
-          // Log the matched advertisements
-
-          console.log('Matched Advertisements:', this.ads);
-
-        },
-
-        error => console.log(error)
-
-      );
-
+    
+      return;
     }
-
+  
+    this.showNoSelectionMessage = false;
+  
+    if (this.selectedView === 'MAP') {
+      // Render the map view component
+      this.showMapView = true;
+      this.selectedDeparturePort = this.port_of_departure;
+      this.selectedArrivalPort = this.port_of_arrival;
+     
+    } else {
+      // Render the list view component
+      this.showMapView = false;
+  
+      // Perform filtering
+      this.noResultsMatched = false;
+      const selectedType = this.type;
+      const selectedDeparture = this.port_of_departure;
+      const selectedArrival = this.port_of_arrival;
+  
+      console.log('Selected Departure:', selectedDeparture);
+      console.log('Selected Arrival:', selectedArrival);
+      console.log('Selected Type:', selectedType);
+  
+      this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+        (data: Advertisement[]) => {
+          this.ads = data;
+  
+          if (selectedDeparture && selectedArrival) {
+            this.ads = this.ads.filter(ad => {
+              let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
+              let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
+  
+              return isTypeMatch && isPortMatch;
+            });
+          }
+  
+          // Filter and display the advertisements based on the selected size and its corresponding container_type_id
+          if (this.selectedSize) {
+            const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
+            if (selectedContainerTypeId) {
+              this.ads = this.ads.filter(ad => ad.container_type_id === selectedContainerTypeId);
+            }
+          }
+  
+          // Log the filtered advertisements
+          console.log('Filtered Advertisements:', this.ads);
+        },
+        error => console.log(error)
+      );
+    }
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   onDeparturePortSelected(port: Port) {
     debugger
@@ -485,6 +487,7 @@ export class ViewOtherAdsComponent {
 
   }
   displayAllAdvertisements() {
+    this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
@@ -492,5 +495,6 @@ export class ViewOtherAdsComponent {
       error => console.log(error)
     );
   }
+  
 
 }  

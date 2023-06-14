@@ -276,6 +276,12 @@ namespace CC_api.Controllers
 
     }
 
+    [HttpGet("GetAllContainers")]
+    public async Task<IActionResult> GetcontainersAsync()
+    {
+      return Ok(await _AdRepository.GetcontainersAsync());
+    }
+
     [HttpGet("AdsCount")]
     public async Task<IActionResult> GetAdsCount(int company_id)
     {
