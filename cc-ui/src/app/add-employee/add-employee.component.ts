@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavigationEnd, Router,ActivatedRoute } from '@angular/router';
+import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { AddEmployeeServiceService } from './add-employee.service';
 import { SessionService } from '../session.service';
 import { filter } from 'rxjs';
@@ -18,50 +18,50 @@ interface Permission {
   permission_id: number;
   type: string;
   actions: string;
-  
+
 }
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css','../../stepper.scss','../../styles.css']
+  styleUrls: ['./add-employee.component.css', '../../stepper.scss', '../../styles.css']
 })
 export class AddEmployeeComponent {
   @ViewChild('stepper') stepper!: MatStepper;
   get isBlue(): boolean {
-  return this.stepper.selectedIndex > 0;
-}
-  Pfname:any;
-  password1! :string
-  password2! :string
+    return this.stepper.selectedIndex > 0;
+  }
+  Pfname: any;
+  password1!: string
+  password2!: string
   activeTab = 'details';
-  statusMsg?:string
+  statusMsg?: string
   addEmployeeForm!: FormGroup;
   permissionsByType = {};
-  selectedPermissions: Permission[] = [];
-  addPermissionForm!:FormGroup;
-  form:any;
+  selectedPermissions: any[] = [];
+  addPermissionForm!: FormGroup;
+  form: any;
   permissionList: Permission[] = [];
-  correspondingPermission:any;
+  correspondingPermission: any;
   advertisementRead: boolean = false;
   advertisementWrite: boolean = false;
-  NegotiationRead:boolean = false;
-  NegotiationWrite:boolean = false;
+  NegotiationRead: boolean = false;
+  NegotiationWrite: boolean = false;
   ppList: any[] = []; // Initialize ppList as an empty array
-permissions: any[] = [] ;
-PList:any;
-read: boolean|undefined;
-write: boolean|undefined;
-permission_id: number | undefined;
-type: string | undefined;
-actions: string | undefined;
-companyId:any;
-showPassword=false;
-showValidationErrors: boolean = false;
+  permissions: any[] = [];
+  PList: any;
+  read: boolean | undefined;
+  write: boolean | undefined;
+  permission_id: number | undefined;
+  type: string | undefined;
+  actions: string | undefined;
+  companyId: any;
+  showPassword = false;
+  showValidationErrors: boolean = false;
   currentUser: any;
   cdr: any;
   changeDetectorRef: any;
-  isEdit:boolean=false;
-  Puser_id:any;
+  isEdit: boolean = false;
+  Puser_id: any;
   types = [];
   Pis_verified: any;
   Plname: any;
@@ -73,11 +73,11 @@ showValidationErrors: boolean = false;
   Pis_active: any;
   Plast_login: any;
   Pdesignation: any;
-  constructor(private formBuilder:FormBuilder,private dialog: MatDialog,private router:Router,private addEmployeesService:AddEmployeeServiceService,private sessionService:SessionService,private route:ActivatedRoute){
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private addEmployeesService: AddEmployeeServiceService, private sessionService: SessionService, private route: ActivatedRoute) {
     this.permissions = []
-    ;
+      ;
   }
-  ngOnInit():void{
+  ngOnInit(): void {
     const state = history.state;
     if (state && state.edit) {
       this.isEdit = true;
@@ -110,7 +110,7 @@ showValidationErrors: boolean = false;
     debugger
     this.addEmployeesService.getAllPermission().subscribe((data: Permissions[]) => {
       this.PList = data;
-      console.log("this is permisssions list fetched"+this.PList)
+      console.log("this is permisssions list fetched" + this.PList)
     });
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
@@ -122,196 +122,221 @@ showValidationErrors: boolean = false;
       }
     );
     this.addEmployeeForm = this.formBuilder.group({
-    user_id: ['2',Validators.required],
-    company_id:this.companyId,
-    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    address: ['', Validators.required],
-    email: ['', Validators.email],
-    phone_no:['', Validators.required],
-    city:['',Validators.required],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
-    confirm_password: ['', Validators.required],
-    is_verified:['1',Validators.required],
-    is_approved:['1',Validators.required],
-    is_active:['1',Validators.required],
-    last_login:['2024-07-15',Validators.required],
-    designation: ['user'],
+      user_id: ['2', Validators.required],
+      company_id: this.companyId,
+      fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      address: ['', Validators.required],
+      email: ['', Validators.email],
+      phone_no: ['', Validators.required],
+      city: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
+      confirm_password: ['', Validators.required],
+      is_verified: ['1', Validators.required],
+      is_approved: ['1', Validators.required],
+      is_active: ['1', Validators.required],
+      last_login: ['2024-07-15', Validators.required],
+      designation: ['user'],
     }
     );
-  
-    if(this.isEdit == true)
-    {
-   this.addEmployeeForm.setValue({
-     user_id:167,
-     company_id:this.companyId,
-     fname:this.Pfname,
-     lname: this.Plname,
-     address: this.Paddress,
-     email:this.Pemail ,
-     phone_no:this.Pphone,
-     password: this.Ppassword,
-     is_verified:this.Pis_verified,
-     is_approved:this.Pis_approved,
-     is_active:this.Pis_active,
-     last_login:this.Plast_login,
-     designation: this.Pdesignation,
-   })
-  }
-//session
+
+    if (this.isEdit == true) {
+      this.addEmployeeForm.setValue({
+        user_id: 167,
+        company_id: this.companyId,
+        fname: this.Pfname,
+        lname: this.Plname,
+        address: this.Paddress,
+        email: this.Pemail,
+        phone_no: this.Pphone,
+        password: this.Ppassword,
+        is_verified: this.Pis_verified,
+        is_approved: this.Pis_approved,
+        is_active: this.Pis_active,
+        last_login: this.Plast_login,
+        designation: this.Pdesignation,
+      })
+    }
+    //session
 
 
 
 
 
-this.sessionService.getCurrentUser().subscribe(user => {
-  // if (user.id==null && user.token==null) {  // use this once token is used for a user
-  if (user.user_id==null) {
-    // if user session is null, redirect to login page
-    this.router.navigate(['/sign-in']);
-  }
-  else{
-    this.currentUser = user;
-  console.log('From session '+this.currentUser.email+'  id here '+this.currentUser.user_id)
-  }
-  // store the user session information in a property
-});
- //when navigate back to sign-in session ends
- this.router.events.pipe(
-  filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
-).subscribe(() => {
-  this.sessionService.clearSession();
-});
-}
-logout(): void {
-  // clear session data and redirect to login page
-  this.sessionService.clearSession();
-}
-compare(){
-  debugger
-  if (this.password1 === this.password2)
-  return true 
-  else return false
-}
-
-
-
-updateReadCheckbox(event: Event) {
-  debugger
-  const writeCheckbox = event.target as HTMLInputElement;
-  const readCheckbox = writeCheckbox.parentElement?.previousElementSibling?.querySelector('input[type="checkbox"]') as HTMLInputElement;
-  if (writeCheckbox.checked) {
-    readCheckbox.checked = true;
-  } else {
-    readCheckbox.checked = false;
-  }
-}
-updateReadAccess(permission: any, event: any) {
-  debugger
-  const checkbox = event.target as HTMLInputElement;
-  const action = checkbox.id.includes('write') ? 'write' : 'read';
-  if (checkbox.checked) {
-    const correspondingPermission = this.PList.find(
-      (p: { type: any; actions: string }) =>
-        p.type === permission.type && p.actions === action
-    );
-    if (correspondingPermission) {
-      console.log('Permission ID:', correspondingPermission.permission_id);
-      console.log('Action:', correspondingPermission.actions);
-      console.log('Type:', correspondingPermission.type);
-      if (action === 'read') {
-      // Add the permission ID to selectedPermissions
-        this.ppList.push(correspondingPermission.permission_id);
-      } else if (action === 'write') {
-        // Remove the corresponding read permission from selectedPermissions
-        const readPermissionIndex = this.ppList.findIndex(
-          (p: any) =>
-            p === correspondingPermission.type + '-read' &&
-            this.PList.find(
-              (r: any) =>
-                r.type === correspondingPermission.type && r.actions === 'read'
-            )
-        );
-        if (readPermissionIndex !== -1) {
-          this.ppList.splice(readPermissionIndex, 1);
-        }
-        // Add the permission ID to selectedPermissions
-      this.ppList.push(correspondingPermission.permission_id);
+    this.sessionService.getCurrentUser().subscribe(user => {
+      // if (user.id==null && user.token==null) {  // use this once token is used for a user
+      if (user.user_id == null) {
+        // if user session is null, redirect to login page
+        this.router.navigate(['/sign-in']);
       }
-    }
-  } else {
-    const correspondingPermission = this.PList.find(
-      (p: { type: any; actions: string }) =>
-        p.type === permission.type && p.actions === action
-    );
-    if (correspondingPermission) {
-      const index = this.ppList.findIndex(
-        (p: any) => p === correspondingPermission.permission_id
-      );
-      if (index !== -1) {
-        // Remove the permission from selectedPermissions
-        this.ppList.splice(index, 1);
+      else {
+        this.currentUser = user;
+        console.log('From session ' + this.currentUser.email + '  id here ' + this.currentUser.user_id)
       }
-    }
-    if (action === 'write') {
-      // Check if the corresponding read checkbox exists and is checked
-      const readCheckbox = document.getElementById(
-        permission.type + '-read'
-      ) as HTMLInputElement;
-      if (readCheckbox && readCheckbox.checked) {
-        const readPermissionIndex = this.ppList.findIndex(
-          (p: any) => p === permission.type + '-read'
-        );
-        if (readPermissionIndex !== -1) {
-        // Remove the corresponding read permission from selectedPermissions
-          this.ppList.splice(readPermissionIndex, 1);
-        }
-      }
-    }
+      // store the user session information in a property
+    });
+    //when navigate back to sign-in session ends
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd && event.url === '/sign-in')
+    ).subscribe(() => {
+      this.sessionService.clearSession();
+    });
   }
-// Print the selected permissions in the console
-  console.log('Selected Permissions:', this.ppList);
-}
-private async addP() {
-  debugger
-  if (this.isEdit) {
-    try {
-      debugger
-      console.log('User ID in addP:', this.Puser_id);
-      const response = await this.addEmployeesService.EditPermission(this.ppList, this.Puser_id).toPromise();
-      console.log(response);
-      console.log(this.addPermissionForm.value);
-      this.router.navigate(['/profile']);
-    
-    } catch (error) {
-      console.log('Could not edit:', error);
-    }
-  } else {
-    try {debugger
-      const emailValue = this.addEmployeeForm.value.email;
-      console.log('Email value:', emailValue);
-      const response = await this.addEmployeesService.addPermission(this.ppList, emailValue).toPromise();
-      console.log(response);
-      this.router.navigate(['/profile']);
-    } catch (error) {
-      console.log('Could not add:', error);
-    }
+  logout(): void {
+    // clear session data and redirect to login page
+    this.sessionService.clearSession();
   }
-}
-async onAdd() {                    
-  if (this.isEdit) {
+  compare() {
     debugger
-    try {
-      const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
+    if (this.password1 === this.password2)
+      return true
+    else return false
+  }
+
+
+
+  updateReadCheckbox(event: Event) {
+    const writeCheckbox = event.target as HTMLInputElement;
+    const readCheckbox = writeCheckbox.parentElement?.previousElementSibling?.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    if (writeCheckbox.checked) {
+      readCheckbox.checked = true;
+    } else {
+      readCheckbox.checked = false;
+    }
+  }
+  updateReadAccess(permission: any, event: any) {
+    const checkbox = event.target as HTMLInputElement;
+    const action = checkbox.id.includes('write') ? 'write' : 'read';
+
+    if (checkbox.checked) {
+      // Checkbox is checked
+      // ...
+
+      if (action === 'read') {
+        // Add the permission ID to selectedPermissions if it doesn't already exist
+        if (!this.selectedPermissions.includes(permission.permission_id)) {
+          this.selectedPermissions.push(permission.permission_id);
+        }
+      } else if (action === 'write') {
+        // Find the corresponding read permission
+        const readPermission = this.PList.find(
+          (p: { type: any; actions: string }) =>
+            p.type === permission.type && p.actions === 'read'
+        );
+
+        if (readPermission) {
+          // Remove the read permission ID from selectedPermissions if it exists
+          const readIndex = this.selectedPermissions.indexOf(
+            readPermission.permission_id
+          );
+          if (readIndex !== -1) {
+            this.selectedPermissions.splice(readIndex, 1);
+          }
+
+          // Check the corresponding read checkbox
+          const readCheckbox = document.getElementById(
+            permission.type + '-read'
+          ) as HTMLInputElement;
+          if (readCheckbox) {
+            readCheckbox.checked = true;
+          }
+        }
+
+        // Add the write permission ID to selectedPermissions if it doesn't already exist
+        if (!this.selectedPermissions.includes(permission.permission_id)) {
+          this.selectedPermissions.push(permission.permission_id);
+        }
+      }
+    } else {
+      // Checkbox is unchecked
+      // ...
+      if (action === 'write') {
+        // Find the corresponding read permission
+        const readPermission = this.PList.find(
+          (p: { type: any; actions: string }) =>
+            p.type === permission.type && p.actions === 'read'
+        );
+
+        if (readPermission) {
+          // Remove the read permission ID from selectedPermissions if it exists
+          const readIndex = this.selectedPermissions.indexOf(
+            readPermission.permission_id
+          );
+          if (readIndex !== -1) {
+            this.selectedPermissions.splice(readIndex, 1);
+          }
+
+          // Uncheck the corresponding read checkbox
+          const readCheckbox = document.getElementById(
+            permission.type + '-read'
+          ) as HTMLInputElement;
+          if (readCheckbox) {
+            readCheckbox.checked = false;
+          }
+        }
+      }
+
+      // Remove the permission ID from selectedPermissions if it exists
+      const permissionIndex = this.selectedPermissions.indexOf(
+        permission.permission_id
+      );
+      if (permissionIndex !== -1) {
+        this.selectedPermissions.splice(permissionIndex, 1);
+      }
+    }
+
+    // Check if selectedPermissions is empty
+    if (this.selectedPermissions.length === 0) {
+      // Clear the selectedPermissions array
+      this.selectedPermissions = [];
+    }
+
+    // Print the selected permissions in the console
+    console.log('Selected Permissions:', this.selectedPermissions);
+  }
+
+
+  private async addP() {
+    debugger
+    if (this.isEdit) {
+      try {
+        debugger
+        console.log('User ID in addP:', this.Puser_id);
+        const response = await this.addEmployeesService.EditPermission(this.selectedPermissions, this.Puser_id).toPromise();
+        console.log(response);
+        console.log(this.addPermissionForm.value);
+        this.router.navigate(['/profile']);
+
+      } catch (error) {
+        console.log('Could not edit:', error);
+      }
+    } else {
+      try {
+        debugger
+        const emailValue = this.addEmployeeForm.value.email;
+        console.log('Email value:', emailValue);
+        const response = await this.addEmployeesService.addPermission(this.selectedPermissions, emailValue).toPromise();
+        console.log(response);
+        this.router.navigate(['/profile']);
+      } catch (error) {
+        console.log('Could not add:', error);
+      }
+    }
+  }
+  async onAdd() {
+    if (this.isEdit) {
       debugger
-      await this.addP();
-      alert('User Edited Successfully');
-      location.reload();
-      this.isEdit = false;
-      this.addEmployeeForm.reset();
-     
-    } catch (error) {
-      console.log('Could not edit:', error);
+      try {
+        const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
+        debugger
+        await this.addP();
+        alert('User Edited Successfully');
+        location.reload();
+        this.isEdit = false;
+        this.addEmployeeForm.reset();
+
+      } catch (error) {
+        console.log('Could not edit:', error);
       }
     } else {
       debugger
@@ -326,7 +351,7 @@ async onAdd() {
         console.log('Could not add:', error);
       }
     }
-}
+  }
   openErrorDialog(message: string): void {
     this.dialog.open(DialogComponent, {
       data: {
@@ -343,74 +368,73 @@ async onAdd() {
       this.stepper.next();
     }
   }
- 
-next(stepper: MatStepper) {
-  if (this.addEmployeeForm.valid) {
-    stepper.next();
-  }
-}
 
-async openDialog(stepper: MatStepper) {
-  // Check if all required fields are filled
-  const formValue = this.addEmployeeForm.value;
-  if (
-    !formValue.fname ||
-    !formValue.lname ||
-    !formValue.email ||
-    !formValue.password
-  ) 
-  {
-    // If not, display the dialog box
-    this.showValidationErrors = true;
-    let errorMessage = 'The following fields are required:\n';
-    if (!formValue.fname) {
-      errorMessage += '- First Name\n';
+  next(stepper: MatStepper) {
+    if (this.addEmployeeForm.valid) {
+      stepper.next();
     }
-    if (!formValue.lname) {
-      errorMessage += '- Last Name\n';
-    }
-    if (!formValue.email) {
-      errorMessage += '- Email\n';
-    }
-    if (!formValue.password) {
-      errorMessage += '- Password\n';
-    }
-    this.openErrorDialog(errorMessage);
-    return
-  } 
-  if (!this.addEmployeeForm.controls['email'].valid) {
-    this.openErrorDialog('Invalid email format');
-    return;
-  }
-  if (!this.addEmployeeForm.controls['fname'].valid) {
-    this.openErrorDialog('Invalid First Name Format');
-    return;
   }
 
-  if (!this.addEmployeeForm.controls['lname'].valid) {
-    this.openErrorDialog('Invalid Last Name Format');
-    return;
-  }
-  const passwordControl = this.addEmployeeForm.get('password');
-  if (passwordControl && passwordControl.invalid) {
-    this.showValidationErrors = true;
-    let passwordErrorMessage = 'Invalid password:\n';
-    if (passwordControl.errors?.['required']) {
-      passwordErrorMessage += '- Password is required\n';
+  async openDialog(stepper: MatStepper) {
+    // Check if all required fields are filled
+    const formValue = this.addEmployeeForm.value;
+    if (
+      !formValue.fname ||
+      !formValue.lname ||
+      !formValue.email ||
+      !formValue.password
+    ) {
+      // If not, display the dialog box
+      this.showValidationErrors = true;
+      let errorMessage = 'The following fields are required:\n';
+      if (!formValue.fname) {
+        errorMessage += '- First Name\n';
+      }
+      if (!formValue.lname) {
+        errorMessage += '- Last Name\n';
+      }
+      if (!formValue.email) {
+        errorMessage += '- Email\n';
+      }
+      if (!formValue.password) {
+        errorMessage += '- Password\n';
+      }
+      this.openErrorDialog(errorMessage);
+      return
     }
-    if (passwordControl.errors?.['minlength']) {
-      passwordErrorMessage += '- Password must be at least 8 characters long\n';
+    if (!this.addEmployeeForm.controls['email'].valid) {
+      this.openErrorDialog('Invalid email format');
+      return;
     }
-    if (passwordControl.errors?.['pattern']) {
-      passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
+    if (!this.addEmployeeForm.controls['fname'].valid) {
+      this.openErrorDialog('Invalid First Name Format');
+      return;
     }
-    this.openErrorDialog(passwordErrorMessage);
+
+    if (!this.addEmployeeForm.controls['lname'].valid) {
+      this.openErrorDialog('Invalid Last Name Format');
+      return;
+    }
+    const passwordControl = this.addEmployeeForm.get('password');
+    if (passwordControl && passwordControl.invalid) {
+      this.showValidationErrors = true;
+      let passwordErrorMessage = 'Invalid password:\n';
+      if (passwordControl.errors?.['required']) {
+        passwordErrorMessage += '- Password is required\n';
+      }
+      if (passwordControl.errors?.['minlength']) {
+        passwordErrorMessage += '- Password must be at least 8 characters long\n';
+      }
+      if (passwordControl.errors?.['pattern']) {
+        passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
+      }
+      this.openErrorDialog(passwordErrorMessage);
+    }
+    else {
+      // If all required fields are filled, call next()
+      stepper.next();
+    }
   }
-  else {
-    // If all required fields are filled, call next()
-    stepper.next();
-  }
-}
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

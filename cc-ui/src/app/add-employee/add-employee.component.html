@@ -6,7 +6,7 @@
 <!-- Details form -->
 <mat-horizontal-stepper #stepper  linear ngClass="{{ 'last-edited-step-' + stepper.selectedIndex }}">
   <mat-step label="Details" [editable]="false" class="gray-line">
-    <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6">
+    <form [formGroup]="addEmployeeForm" autocomplete="off" class="grid grid-cols-2 gap-x-4 mt-6">
       <div class="col-span-1">
         <h2 class=" font-medium mb-2">Add User Details</h2>
           <label for="fname" class="font-medium text-sm ">First Name<span class="text-red-500">*</span></label>
@@ -15,6 +15,7 @@
       class="register-page-data"
       placeholder="Eg. John"
       name="firstName"
+      autocomplete="false"
       />
       </div>
       <div  class="mt-10">

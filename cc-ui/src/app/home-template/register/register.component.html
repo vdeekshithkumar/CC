@@ -2,7 +2,7 @@
   <!-- User registration form here -->
   <div class="sub-text">Your details</div>
 
-  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="registrationForm"  autocomplete="off" role="presentation"(ngSubmit)="onSubmit()">
     <div class="grow w-full bg-white mb-8">
       <div class="rowbtn">
 
@@ -17,6 +17,7 @@
               id="fname"
               style="width: 145px;"
               placeholder="e.g. John" 
+              autocomplete="hidden"
             
             />
                   <div
@@ -37,6 +38,7 @@
               id="lname"
               style="width: 145px;"
               placeholder="e.g. Mark"
+              autocomplete="hidden"
             
             />
                   <div
@@ -58,6 +60,7 @@
           type="email"
           id="email"
           placeholder="e.g. someone@gmail.com"
+          autocomplete="hidden"
         
         />
         <div
@@ -78,6 +81,7 @@
           id="address"
           style="width: 145px;"
           formControlName="address"
+          autocomplete="hidden"
    
         />
         <div
@@ -99,6 +103,7 @@
           type="text"
           id="city"
           formControlName="city"
+          autocomplete="hidden"
         style="width: 145px;"
         />
         <div
@@ -120,6 +125,9 @@
           formControlName="phone_no"
           class="register-page-data page-input"
           type="text"
+          autocomplete="none"
+          readonly onfocus="this.removeAttribute('readonly');"
+          
           id="ph-no"
          
         />
