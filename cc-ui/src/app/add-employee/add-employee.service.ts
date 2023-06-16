@@ -17,7 +17,7 @@ export class AddEmployeeServiceService {
   private baseEditUrl = 'https://localhost:7157/EditPermission'
   private UIdUrl = 'https://localhost:7157/GetUserById';
   constructor(private http:HttpClient) { }
-  addPermission(selectedPermissions: any,emailValue:string): Observable<any> {
+  addPermission(ppList: any,emailValue:string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ export class AddEmployeeServiceService {
     };
 
 const payload = {
-      ppList: selectedPermissions,
+      ppList: ppList,
       emailValue: emailValue
     };
 

@@ -205,95 +205,106 @@ export class AddEmployeeComponent {
     }
   }
   updateReadAccess(permission: any, event: any) {
+    debugger;
+  
     const checkbox = event.target as HTMLInputElement;
     const action = checkbox.id.includes('write') ? 'write' : 'read';
-
+    let hasReadPermission = false;
+    let hasWritePermission = false;
+  
     if (checkbox.checked) {
-      // Checkbox is checked
-      // ...
-
-      if (action === 'read') {
-        // Add the permission ID to selectedPermissions if it doesn't already exist
-        if (!this.selectedPermissions.includes(permission.permission_id)) {
-          this.selectedPermissions.push(permission.permission_id);
-        }
-      } else if (action === 'write') {
-        // Find the corresponding read permission
-        const readPermission = this.PList.find(
-          (p: { type: any; actions: string }) =>
-            p.type === permission.type && p.actions === 'read'
-        );
-
-        if (readPermission) {
-          // Remove the read permission ID from selectedPermissions if it exists
-          const readIndex = this.selectedPermissions.indexOf(
-            readPermission.permission_id
+      const correspondingPermission = this.PList.find(
+        (p: { type: any; actions: string }) =>
+          p.type === permission.type && p.actions === action
+      );
+  
+      if (correspondingPermission) {
+        console.log('Permission ID:', correspondingPermission.permission_id);
+        console.log('Action:', correspondingPermission.actions);
+        console.log('Type:', correspondingPermission.type);
+  
+        if (action === 'read') {
+          if (!this.ppList.includes(correspondingPermission.permission_id)) {
+            this.ppList.push(correspondingPermission.permission_id);
+          }
+          hasReadPermission = true;
+        } else if (action === 'write') {
+          const readPermission = this.PList.find(
+            (p: { type: any; actions: string }) =>
+              p.type === permission.type && p.actions === 'read'
           );
-          if (readIndex !== -1) {
-            this.selectedPermissions.splice(readIndex, 1);
+  
+          if (readPermission) {
+            console.log('Permission ID:', readPermission.permission_id);
+            console.log('Action:', readPermission.actions);
+            console.log('Type:', readPermission.type);
+  
+            const readCheckbox = document.getElementById(
+              permission.type + '-read'
+            ) as HTMLInputElement;
+  
+            if (readCheckbox) {
+              readCheckbox.checked = true;
+            }
+  
+            if (!this.ppList.includes(readPermission.permission_id)) {
+              this.ppList.push(readPermission.permission_id);
+            }
+            if (!this.ppList.includes(correspondingPermission.permission_id)) {
+              this.ppList.push(correspondingPermission.permission_id);
+            }
+  
+            hasReadPermission = true;
+            hasWritePermission = true;
           }
-
-          // Check the corresponding read checkbox
-          const readCheckbox = document.getElementById(
-            permission.type + '-read'
-          ) as HTMLInputElement;
-          if (readCheckbox) {
-            readCheckbox.checked = true;
-          }
-        }
-
-        // Add the write permission ID to selectedPermissions if it doesn't already exist
-        if (!this.selectedPermissions.includes(permission.permission_id)) {
-          this.selectedPermissions.push(permission.permission_id);
         }
       }
     } else {
-      // Checkbox is unchecked
-      // ...
-      if (action === 'write') {
-        // Find the corresponding read permission
-        const readPermission = this.PList.find(
-          (p: { type: any; actions: string }) =>
-            p.type === permission.type && p.actions === 'read'
+      const correspondingPermission = this.PList.find(
+        (p: { type: any; actions: string }) =>
+          p.type === permission.type && p.actions === action
+      );
+  
+      if (correspondingPermission) {
+        const index = this.ppList.findIndex(
+          (p: any) => p === correspondingPermission.permission_id
         );
-
-        if (readPermission) {
-          // Remove the read permission ID from selectedPermissions if it exists
-          const readIndex = this.selectedPermissions.indexOf(
-            readPermission.permission_id
+  
+        if (index !== -1) {
+          this.ppList.splice(index, 1);
+        }
+      }
+  
+      if (action === 'write') {
+        const readCheckbox = document.getElementById(
+          permission.type + '-read'
+        ) as HTMLInputElement;
+  
+        if (readCheckbox) {
+          readCheckbox.checked = false;
+          const readPermissionIndex = this.ppList.findIndex(
+            (p: any) => p === permission.type + '-read'
           );
-          if (readIndex !== -1) {
-            this.selectedPermissions.splice(readIndex, 1);
-          }
-
-          // Uncheck the corresponding read checkbox
-          const readCheckbox = document.getElementById(
-            permission.type + '-read'
-          ) as HTMLInputElement;
-          if (readCheckbox) {
-            readCheckbox.checked = false;
+  
+          if (readPermissionIndex !== -1) {
+            this.ppList.splice(readPermissionIndex, 1);
           }
         }
       }
-
-      // Remove the permission ID from selectedPermissions if it exists
-      const permissionIndex = this.selectedPermissions.indexOf(
-        permission.permission_id
-      );
-      if (permissionIndex !== -1) {
-        this.selectedPermissions.splice(permissionIndex, 1);
-      }
     }
-
-    // Check if selectedPermissions is empty
-    if (this.selectedPermissions.length === 0) {
-      // Clear the selectedPermissions array
-      this.selectedPermissions = [];
+  
+    // Check if no permission is selected and reset ppList to an empty array
+    if (!hasReadPermission && !hasWritePermission) {
+      this.ppList = [];
     }
-
-    // Print the selected permissions in the console
-    console.log('Selected Permissions:', this.selectedPermissions);
+  
+    console.log('Selected Permissions:', this.ppList);
   }
+  
+  
+  
+  
+  
 
 
   private async addP() {
@@ -302,7 +313,7 @@ export class AddEmployeeComponent {
       try {
         debugger
         console.log('User ID in addP:', this.Puser_id);
-        const response = await this.addEmployeesService.EditPermission(this.selectedPermissions, this.Puser_id).toPromise();
+        const response = await this.addEmployeesService.EditPermission(this.ppList, this.Puser_id).toPromise();
         console.log(response);
         console.log(this.addPermissionForm.value);
         this.router.navigate(['/profile']);
@@ -315,7 +326,7 @@ export class AddEmployeeComponent {
         debugger
         const emailValue = this.addEmployeeForm.value.email;
         console.log('Email value:', emailValue);
-        const response = await this.addEmployeesService.addPermission(this.selectedPermissions, emailValue).toPromise();
+        const response = await this.addEmployeesService.addPermission(this.ppList, emailValue).toPromise();
         console.log(response);
         this.router.navigate(['/profile']);
       } catch (error) {
@@ -352,6 +363,7 @@ export class AddEmployeeComponent {
       }
     }
   }
+ 
   openErrorDialog(message: string): void {
     this.dialog.open(DialogComponent, {
       data: {
