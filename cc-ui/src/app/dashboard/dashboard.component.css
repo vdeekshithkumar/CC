@@ -1,0 +1,6 @@
+.div-card{
+    @apply w-full flex flex-col first:flex-row
+   }
+   .div-card-div{
+    @apply text-2xl font-bold font-poppins mt-8 mb-4 p-3
+   }

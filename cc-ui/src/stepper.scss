@@ -3,8 +3,8 @@
 @mixin styleStepLine($index) {
     .mat-horizontal-stepper-header {
         &+.mat-stepper-horizontal-line:nth-child(#{$index}) {
-            height: 2px;
-            background-color: blue;
+          height: 1px;
+            background-color: #2F54EB;
         }
     }
 }

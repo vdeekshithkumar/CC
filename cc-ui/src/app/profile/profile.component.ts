@@ -14,7 +14,7 @@ import { RegisterComponent } from '../home-template/register/register.component'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css','../app.component.css']
 })
 export class ProfileComponent implements OnInit {
   public company_id?: number;
@@ -207,20 +207,12 @@ export class ProfileComponent implements OnInit {
     });
   }
   DisplayPostForm(){
-    
-    // this.ContinueDraft=0;
     this.dialog.open(AddEmployeeComponent,{
-     
-      
-  
-      data:{
+         data:{
         ContinueDraft:0,
         Approve:0
       }
-      
-
     })
-   
    }
   
    getUserByID(user_id: number) {

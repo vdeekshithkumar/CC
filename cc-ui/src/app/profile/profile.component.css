@@ -85,7 +85,7 @@
     @apply text-xs px-2 first-letter:uppercase;
 }
 .div-action-button{
-    @apply bg-white border-2 h-[2rem] w-fit px-[1rem] text-xs mx-4 my-3 md:text-sm flex-shrink-0;
+    @apply bg-white border-2 h-[2rem] w-fit px-[1rem] text-xs mx-1  my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
     @apply relative flex items-center w-96 h-9  bg-white overflow-hidden;
@@ -93,7 +93,10 @@
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
 }
-
+.div-bg-line{
+    border-bottom: 2px solid  #E9E9E9;
+    
+  }
 .input-search{
     @apply  outline-none text-sm bg-white w-full  text-black;
 }
@@ -105,6 +108,9 @@
 }
 .emplist-thead{
     @apply border-b font-medium ;
+}
+.mat-mdc-raised-button.mat-primary {
+    --mdc-protected-button-container-color:#3E7BFA;
 }
 .employee-add{
     @apply border-b ;
@@ -127,4 +133,15 @@
 }
 .page-link-active{
     @apply  text-xs text-white font-bold bg-CCblue w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
+}
+.btn-primary1{
+    color: #ffffff;
+    background-color: #2F54EB;
+    height: 30px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px;
+    padding: 14px 15px;
 }

@@ -1,8 +1,6 @@
-<app-header></app-header>
-<!-- <app-sidebar class="div-app-sidebar"></app-sidebar> -->
 <div class="div" *ngIf="showModal">
-  <div class="div-card mt-40">
-    <div class="div-bg">
+  <div class="div-card">
+    <div class="div-bg ">
     </div>
     <div class="div-size">
       <div class="div-details">
@@ -17,214 +15,266 @@
 </div>
 <!-- Viewpane -->
 
-  <!-- Sidebar -->
-  <app-sidebar class="sticky w-[8vw] border-r-2 z-30"></app-sidebar>
-  <!-- Main View -->
-  <div class="w-full flex flex-col first:flex-row">
-    
-    <!-- Card Groups -->
-    <div class="div-grp bottom-0">
-      <section class="div-section max-w-1x1">     
-        <h1 class="div-section-h1">Upload Inventory</h1>
-        <form [formGroup]= "UploadInventoryForm" (ngSubmit)="onSubmit()">
-            <div class="div-form">
-                 <div>
-                    <label class="div-form-label" for="username">Name of Port<span class="text-red-500">*</span></label>
-                    <select #port [(ngModel)]="port_name" formControlName="port_id" class="uploadinv-select" required>
-                      <option value="" disabled selected class="uploadinv-select">Select your port</option>
-                      <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
-                    </select>
-                    <!-- <div *ngIf="UploadInventoryForm.get('port_name')?.errors && (UploadInventoryForm.get('port_name')?.dirty || UploadInventoryForm.get('port_name')?.touched)" class="text-red-500 text-sm mt-1">
-                      <div *ngIf="UploadInventoryForm.get('port_name')?.errors?.['required']">Port Name is required</div>
-                    </div> -->
-                  </div>
-      
-                <div>
-                    <label class="div-form-label" for="emailAddress">Container Type<span class="text-red-500">*</span></label>
-                    <select formControlName="container_type" class="uploadinv-select">
-                      <option value="" disabled selected>Select Container Type</option>
-                      <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
-                    </select>
+<!-- Sidebar -->
 
+<!-- Main View -->
+<div class="inline-block min-w-full py-2 flex div-bg div-bg-line items-center">            
+    <label class="forecast font-semibold ml-2 whitespace-nowrap">Current Inventory</label>
+  <div class="div-search my-2 search justify-start mx-10  mt-2">
+    <div class="div-search-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+    <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. PortName, Container_Type)" autocomplete="off" (focus)="showClearButton()"/>
+  <button class="text-red-500 font-poppins ml-2 mr-2" (click)="clearSearch()" (blur)="hideClearButton()" id="clearButton">
+  Clear
+  </button>
+
+  </div>
+  <div class="mx-3 mb-8 w-[6em] h-[0.5em] bg-gray flex-wrap ml-0">
+    <div>
+      <button (click)="toggleForm()"
+        class="ml-2 inline-flex justify-end items-center btn-primary5 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.25 17.5H8.75C8.41848 17.5 8.10054 17.3683 7.86612 17.1339C7.6317 16.8995 7.5 16.5815 7.5 16.25V11.5063L2.86875 6.875C2.63401 6.64166 2.5014 6.32474 2.5 5.99375V3.75C2.5 3.41848 2.6317 3.10054 2.86612 2.86612C3.10054 2.6317 3.41848 2.5 3.75 2.5H16.25C16.5815 2.5 16.8995 2.6317 17.1339 2.86612C17.3683 3.10054 17.5 3.41848 17.5 3.75V5.99375C17.4986 6.32474 17.366 6.64166 17.1313 6.875L12.5 11.5063V16.25C12.5 16.5815 12.3683 16.8995 12.1339 17.1339C11.8995 17.3683 11.5815 17.5 11.25 17.5ZM3.75 3.75V5.99375L8.75 10.9937V16.25H11.25V10.9937L16.25 5.99375V3.75H3.75Z" fill="#597EF7"/>
+          </svg>
+          <span class="btn-primary4">Filter</span>
+      </button>
+    </div>
+  </div>
+  <div class="ml-28 mb-2 w-[9em] h-[2em] bg-white flex-wrap float-right">
+    <div>
+      <button
+        class="inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z" fill="#262626"/>
+          <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#262626"/>
+          </svg>          
+        <span class="ml-1">Export</span>
+      </button>
+    </div>
+  </div>
+  <div class="ml-4 w-[10em] mb-2 h-[2em] bg-gray flex-wrap float-right">
+    <div>
+      <label class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.5 12V14H3.5V12H2.5V14C2.5 14.2652 2.60536 14.5196 2.79289 14.7071C2.98043 14.8946 3.23478 15 3.5 15H13.5C13.7652 15 14.0196 14.8946 14.2071 14.7071C14.3946 14.5196 14.5 14.2652 14.5 14V12H13.5Z" fill="#2F54EB"/>
+          <path d="M13.5 7L12.795 6.295L9 10.085V1H8V10.085L4.205 6.295L3.5 7L8.5 12L13.5 7Z" fill="#2F54EB"/>
+        </svg>
+        <span class="ml-1">Bulk Import</span>
+        <input class="sr-only" type="file" (change)="ReadExcel($event)">
+      </label>
+      
+    </div>
+  </div>
+
+
+  <div class=" w-[10em] mb-2 h-[2em] bg-red flex-wrap ml-4">
+    <div>
+      <button (click)="toggleForm()"
+        class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply"/>
+          <path d="M10.625 9.375V5H9.375V9.375H5V10.625H9.375V15H10.625V10.625H15V9.375H10.625Z" fill="white"/>
+          </svg>
+          Add Inventory</button>
+    </div>
+  </div>
+</div>
+<div class="w-full flex flex-col first:flex-row min-h-screen bg-white">
+  <section class="ml-4 mr-6 rounded-sm">
+    <div class="flex flex-col">
+      <div class="overflow-hidden rounded-lg  border-1  mr-0 mt-4">
+        <table class="rounded-lg min-w-full divide-y">
+          <thead class="bg-gray-100 dark:bg-gray-100">
+            <tr>
+              <th scope="col-4"
+                class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
+                <div class="flex items-center gap-x-3">
+                  <button class="flex items-center gap-x-1  text-sm">
+                    <span>PortName</span>
+                  </button>
                 </div>
-                <div>
-                  <label class="div-form-label" for="emailAddress">Container Size<span class="text-red-500">*</span></label>
-                  <select formControlName="container_size" class="uploadinv-select">
-                    <option value="" disabled selected>Select Container Size in TEU</option>
+              </th>
+
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Container_Type
+              </th>
+
+              <th scope="col border-2"
+                class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Container_Size
+              </th>
+
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Available
+              </th>
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Maximum
+              </th>
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Minimum
+              </th>
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
+            <tr
+              *ngFor="let inv of inventory_list_by_companyId | search: searchTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+              <!-- table row data here -->
+
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <div class="inline-flex items-center gap-x-3 ">
+
+                  <span> {{(inv.port_id)}}</span>
+                </div>
+              </td>
+              <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
+                {{inv.container_type}}
+              </td>
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <div class="inline-flex items-center gap-x-3 ">
+
+
+                  <span> {{inv.container_size}}</span>
+                </div>
+              </td>
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <div class="inline-flex items-center gap-x-3 ">
+                  <span> {{inv.available}}</span>
+                </div>
+              </td>
+
+
+              <td class="px-8 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <button
+                  class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60"
+                  style="display: block;">
+                  <span> {{inv.maximum}}</span>
+                </button>
+              </td>
+              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60"
+                  style="display: block;border-color: #FFA39E;">
+                  <span> {{inv.minimum}}</span>
+                </button>
+              </td>
+              <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <button type="button" (click)="getInventoryById(inv.inventory_id)" class="div-edit-btn">Edit</button>
+                <button type="button" (click)="deleteInventory(inv.inventory_id)" class="div-delete-btn">Delete</button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+      <div class="flex gap-2 w-full justify-end mt-2">
+        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+          <i class="material-symbols-outlined cursor-pointer">
+            navigate_before
+          </i>
+        </button>
+
+        <button class="page-link" *ngFor="let page of getPages()" (click)="currentPage = page" [ngClass]="{
+              'page-link-active hover:border-CCblue ': currentPage === page
+            }">
+
+          {{page}}
+        </button>
+
+        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages()">
+          <i class="material-symbols-outlined cursor-pointer">
+            navigate_next
+          </i>
+        </button>
+      </div>
+
+
+    </div>
+  </section>
+</div>
+
+<div *ngIf="showForm" class="fixed inset-0 flex items-center justify-center rounded-lg">
+  <div class="fixed inset-0 bg-black opacity-60 z-10"></div>
+  <div class="mt-4 mx-auto font-poppins relative z-20">
+    <div class="mt-10 justify-center h1 w-[52.5rem] h-[3rem]">
+      <div>
+        <div class="flex items-center justify-between ">
+          <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1">
+            Add New Inventory</h1>
+          <div>
+            <button (click)="closeForm()" class="mr-4 text-black hover:text-gray-700 focus:outline-none">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="min-h-[200px] bg-white border-t border-b border-gray-200 px-5 text-gray-800">
+        <form class="grid grid-cols-3 gap-x-4 mt-6 font-poppins" [formGroup]= "UploadInventoryForm" (ngSubmit)="onSubmit()">
+          <div class="col-span-1 mt-0">
+            <label class="top mb-2 font-normal">Name of Port</label>
+            <div>
+              <select class="upload-input-data border" style="font-size: 10px;" #port [(ngModel)]="port_name" formControlName="port_id">
+                  <option value="" disabled selected >Select your Port</option>
+                  <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
+                </select>
+            </div>
+          </div>
+          <div class="col-span-1 mt-0">
+              <label class="top mb-2 font-normal">Container Type</label>
+              <div>
+                <select class="upload-input-data border" style="font-size: 10px;" formControlName="container_type" >
+                    <option value="" class="text-xs" disabled selected>Select Container Type</option>
+                    <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
+                  </select>
+              </div>
+            </div>
+          <div class="col-span-1 mt-0">
+            <label class="top mb-2 font-normal">Container Size</label>
+              <div>
+                <select class="upload-input-data border placeholder" style="font-size: 10px;" formControlName="container_size">
+                    <option value="" class="text-xs"  class="placeholder"disabled selected>Select Container Size in TEU</option>
                     <option>1</option>
                     <option>2</option>
-                    <option>4</option>
+                    <option>4</option>  
                   </select>
-                </div>
-                <div>
-                    <label class="div-form-label" for="passwordConfirmation">Available<span class="text-red-500">*</span></label>
-                    <input type="number" formControlName="available" class="uploadinv-select" placeholder="Availability in Number"/>
-                    <!-- <div *ngIf="UploadInventoryForm.get('available')?.errors && (UploadInventoryForm.get('available')?.dirty || UploadInventoryForm.get('available')?.touched)" class="text-red-500 text-sm mt-1">
-                      <div *ngIf="UploadInventoryForm.get('available')?.errors?.['required']">please enter the mandatory field</div>
-                    </div> -->
-                  </div>
-                <div>
-                  <label class="div-form-label" for="passwordConfirmation">Maximum<span class="text-red-500">*</span></label>
-                  <input type="number" formControlName="maximum" class="uploadinv-select" placeholder="Maximum" required/>
               </div>
-              <div>
-                <label class="div-form-label" for="passwordConfirmation">Minimum<span class="text-red-500" >*</span></label>
-                <input type="number" formControlName="minimum"class="uploadinv-select" placeholder="Maximum" required/>
-            </div>
-                  <div class="div-form-div">
-                    <div class="space-y-1 text-center">
-                      <svg class="mx-auto h-12 w-12 text-black" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                      </svg>
-                      <div class="flex text-sm text-gray-600">
-                        <label class="div-upload">
-                          <span class="">Upload Excel Here </span>
-                          <input class="sr-only" type="file" (change)="ReadExcel($event)">
-                        </label>
-                      </div>
-                      <p class="pl-1 text-black">or drag and drop</p>
-                      <p class="text-xs text-black">
-                        Excel File
-                      </p>
-                      
-                    </div>
-                    
-                  </div>
-                  <div class="ml-10">
-                    <label class="text-red-600">Instruction*</label>
-                    <p class="text-red-600">You can either upload excel file <br>or do manual entry</p>
-                    </div>
-             
-                </div>
-               
-                <div class="flex justify-end">
-                  <button type="submit" class="uploadinv-btn"> Save</button>
-              </div>
-              <div class="flex justify-end mt-2">
-                <button type="button" routerLink="/dashboard" class="uploadinv-btn">Back</button>
-            </div>
-              
-       
-          
-        </form>
-      </section>
-      <div class="div-table">
-        <!-- Table code goes here -->
-        <div class="flex flex-col overflow-x-auto mr-15 ml-2">
-          <div class="sm:-mx-6 lg:-mx-8">
-            <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-              <div class="overflow-x-auto">
-                <nav class="table-navbar mb-2 w-full">
-                  <div class="max-w-sm ml-0 flex items-center">	
-                    <label class="mr-0 ml-0 w-full font-medium text-lg">Currrent Inventory</label>
-                    <div class="div-search">
-                      <div class="div-search-icon">
-                  <!-- search bar icon -->
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="gray">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                  </svg>
-                </div>
-                <input name="port_id" [(ngModel)]="searchTerm" 
-                       class="uploadinv-input"
-                       type="text"
-                       id="search"
-                       placeholder="Port Id | Container Type"
-                />
-              </div>
-                </div>
-    
-              </nav>
-            </div>
-          <table class="div-table-inv">
-              <thead class="text-xs font-light text-white uppercase bg-gray-600 border-b border-blue-400 dark:text-black">
-                  <tr>
-                      <th scope="col" class="px-6 py-3">
-                          Port Id
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Container Type
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Container Size
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                          Available
-                      </th>
-                      <th scope="col" class="px-6 py-3">
-                        Maximum
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                      Minimum
-                  </th>
-                    <th scope="col" class="px-6 py-3">
-                        &nbsp;&nbsp;  Action
-                      </th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="div-tbody-tr">
-                      <td class="px-6 py-4 ">
-                        {{inv.port_id}}
-                      </td>
-                      <td class="px-6 py-4">
-                        {{inv.container_type}}
-                      </td>
-                      <td class="px-6 py-4 inline-flex items-center gap-x-3 ml-6">
-                        {{inv.container_size}}
-                      </td>
-                      <td class="px-6 py-4 items-center gap-x-3 ml-6">
-                        {{inv.available}}
-                      </td>
-                      <td class="px-6 py-4 items-center items-center gap-x-3 ml-6">
-                        {{inv.maximum}}
-                      </td>
-                      <td class="px-6 py-4 items-center gap-x-3 ml-6">
-                        {{inv.minimum}}
-                      </td>
-                      
-                        <div class="d-flex flex-row">
-                          <td class="p-3 px-5 flex justify-end">
-                            <button type="button" (click)="getInventoryById(inv.inventory_id)" class="div-edit-btn">Edit</button>
-                            <button type="button" (click)="deleteInventory(inv.inventory_id)" class="div-delete-btn">Delete</button></td>
-                        
-                        </div>
-                  </tr>
-                  
-              </tbody>
-         
-          </table>
-          
-        </div>
-          </div></div><div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.inventory_list_by_companyId.length>0">
-            <nav aria-label="Page navigation">
-                <ul class="inline-flex">
-                    <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg></button>
-                    </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-                    </li>
-                    <li><button
-                            class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
-                    </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-                    </li>
-                    <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
-                            class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                <path
-                                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                    clip-rule="evenodd" fill-rule="evenodd"></path>
-                            </svg>
-                          </button>
-                    </li>
-                </ul>
-            </nav>
           </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Available</label>
+            <input type="number" formControlName="available" class="upload-input-data border h-8 placeholder"
+              placeholder="Availability in Number" />
+          </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Maximum</label>
+            <input type="number" formControlName="maximum" class="upload-input-data border h-8 placeholder"
+              placeholder="Maximum" />
+          </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Minimum</label>
+            <input type="number" formControlName="minimum" class="upload-input-data border h-8 placeholder"
+              placeholder="Minimum" />
+          </div>
+          <div class="col-span-3 flex justify-between mt-16 mb-4">
+            <button (click)="resetForm(UploadInventoryForm)"  class="font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none py-1 leading-6 border-2 btn-primary3">
+              Reset
+            </button>
+            <button type="submit" class="font-poppins inline-flex mr-4 justify-center items-center space-0 focus:outline-none py-1 leading-6 border-CCblue btn-primary1">
+              Add Inventory
+            </button>
+          </div>
+        </form>
+        
       </div>
+    </div>
+
+</div>
