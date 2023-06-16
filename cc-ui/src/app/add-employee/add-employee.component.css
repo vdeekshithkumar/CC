@@ -94,8 +94,42 @@
 }
 
 :host ::ng-deep .mat-horizontal-stepper-header-container {
-    @apply bg-gray-50 h-10;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 40px;
+  gap: 8px;
+  
+  width: 1024px;
+  height: 40px;
+  
+  /* Gray / gray-2
+
+  Table Header
+  */
+  background: #FAFAFA;
+  
+  /* Inside auto layout */
+  
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
+:host ::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+  background-color:  #2F54EB;
+  color: #fff;
+}
+:host ::ng-deep .mat-horizontal-stepper-header-container {
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  width: 100.5%;
+}
+.h1{
+  background-color: #F0F5FF;
+}
+
 /* :host ::ng-deep .mat-step-header:nth-child(1) {
   @apply ml-10 !important;
 } */
@@ -267,10 +301,18 @@
   @apply menu-tile Poppins;
 }
 .input-tag{
-  @apply w-full px-4 py-2 border rounded-md focus:outline-none focus:ring
+  @apply w-full px-4 py-2 border  focus:outline-none 
 }
 .register-page-data{
-  @apply block border-2 font-light border-gray-300  px-5 py-1 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
+  @apply block border-2  border-gray-300  px-3  text-sm py-1 leading-6 w-full
+}
+.submit-btn{
+  box-sizing: border-box;
+  background: #2F54EB;
+  border: 1px solid #3E7BFA;
+}
+.address{
+  @apply block border-2  border-gray-300  px-3  text-sm py-1 leading-6 min-w-[500px]
 }
 
 .div-details{
@@ -449,4 +491,30 @@
   .delete-button:hover {
     background-color: #b5f5e1;
   }
-  
+  .bg-text{
+font-family: 'Poppins';
+font-style: medium;
+font-weight: 500;
+font-size: 14px;
+line-height: 20px;
+color: #595959;
+  }
+  .italic-placeholder::placeholder {
+    font-style: italic;
+  }
+  .optional {
+    font-style: italic;
+    font-family: 'Poppins';
+
+font-weight: 500;
+font-size: 12px;
+line-height: 20px;
+/* identical to box height, or 167% */
+
+
+/* Gray / gray-7 */
+
+color: #8C8C8C;
+
+
+  }

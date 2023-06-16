@@ -1,4 +1,3 @@
-
 <div class="div bg-gray-50 min-h-screen">
 
   <!-- Main View Canvas -->
@@ -139,7 +138,7 @@
       </div>
     </div>
     <!-- Employee details section -->
-    <hr class="m-2" />
+    <hr class="m-2 div-bg-line" />
     <div class="div-employee">
       
       <!--Change height to fit-->
@@ -167,7 +166,7 @@
         </div>
         
       </div>
-      <div class="flex flex-row ">
+      <div class="flex flex-row mt-4 div-bg-line">
         <button class="div-action-button" (click)="onClick()">
           Approve Ads ({{adscount[1]}})
         </button>
@@ -211,15 +210,17 @@
 
         <input class="input-search ml-3 " type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. Name, Email, Mobile)" autocomplete="off"/>
       </div>
-      <button mat-raised-button color="primary"
-        class="bg-CCblue hover:bg-black-700 text-white py-3 rounded-none px-2 mr-4 h-1 font-light  ml-auto  justify-end w-fit "
+     
+        <button mat-raised-button color="primary"
+        class="btn-primary1 text-white h-[14em]  py-3 rounded-none px-2 mr-4  font-light  ml-auto  justify-end w-fit"
         (click)="DisplayPostForm()">+ Add User</button>
+
     </div>
     <hr class="m-2" />
 
 
     <!-- Table start -->
-    <div class="flex flex-col overflow-x-hidden ml-8">
+    <div class="flex flex-col overflow-x-hidden ml-2">
         <div class="employee-list">
           <div class="overflow-x-auto">
             <table class="employee-table border-2">

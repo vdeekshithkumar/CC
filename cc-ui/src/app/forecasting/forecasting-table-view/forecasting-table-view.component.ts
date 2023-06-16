@@ -12,7 +12,7 @@ import { ForecastingTableService } from './forecasting-table-view.service';
   styleUrls: ['./forecasting-table-view.component.css']
 })
 export class ForecastingTableViewComponent implements OnInit{
-  
+  isSearchIconClicked!: boolean ;
   showForm: boolean = false;
   showModal=false;
   searchTerm:any;
@@ -198,8 +198,12 @@ getPortName(portId: number): string {
   onSubmit(){
   
   }
-  clearSearch(): void {
+  clearSearch() {
     this.searchTerm = '';
+  }
+
+  setSearchIconClicked() {
+    this.isSearchIconClicked = true;
   }
   toggleForm() {
     this.showForm = !this.showForm;
@@ -239,6 +243,19 @@ getPortName(portId: number): string {
     // For example, you can display a message or trigger another function
     console.log('Filters applied! Filtered inventory:', this.filteredInventoryList);
   }
+  showClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "inline-block";
+    }
+  }
+  hideClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "none";
+    }
+  }
+  
   filterInventory() {
     debugger
     this.filteredInventoryList = this.inventory_data.filter((inv: { container_type: string; container_size: number; available: number; surplus: any; deficit: any; }) => {

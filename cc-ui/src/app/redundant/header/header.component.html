@@ -13,9 +13,9 @@
     </div>
 
 
- <div class="flex-1" (click)="showFilterOptions = true">
+ <div class="flex-1" >
   <div class="relative">
-    <div class="flex items-center border border-gray-200 px-4 py-2">
+    <div class="flex items-center border bg-gray-50 border-gray-200 px-4 ml-40 w-60 py-2">
       <!-- search bar icon -->
       <div class="search-bar-icon">
         <!-- search bar icon -->
@@ -40,10 +40,21 @@
         class="ml-0 w-full bg-transparent placeholder-gray-400 focus:outline-none"
         type="text"
         id="search"
-        placeholder="Search something..."
+        placeholder="Search"
         [(ngModel)]="searchTerm"
         (blur)="showFilterOptions = false"
       />
+      <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="24" height="24" rx="2" fill="#F5F5F5"/>
+        <path d="M5.92606 6.89093V9.11432H4.95071C3.87572 9.11432 3 9.96382 3 11.044C3 12.1243 3.87048 13 4.95071 13C6.02045 13 6.89617 12.1243 6.89617 11.044V10.0792H9.10383V11.044C9.10383 12.1243 9.97955 13 11.0493 13C12.1295 13 13 12.1243 13 11.044C13 9.96382 12.1243 9.11432 11.0493 9.11432H10.0739V6.89093H11.0493C12.1243 6.88568 13 6.03618 13 4.95595C13 3.88096 12.1295 3 11.0493 3C9.97955 3 9.10383 3.88096 9.10383 4.95595V5.92606H6.89617V4.95595C6.89617 3.88096 6.02045 3 4.95071 3C3.87048 3 3 3.88096 3 4.95595C3 6.03618 3.87572 6.88568 4.95071 6.89093H5.92606ZM4.96644 5.93655C4.42108 5.93655 3.9806 5.49607 3.9806 4.95595C3.9806 4.42108 4.42108 3.9806 4.95071 3.9806C5.48034 3.9806 5.92082 4.42108 5.92082 4.97168V5.93655H4.96644ZM11.0388 5.93655H10.0792V4.97168C10.0792 4.42108 10.5197 3.9806 11.0493 3.9806C11.5842 3.9806 12.0194 4.42108 12.0194 4.95595C12.0194 5.49607 11.5789 5.93655 11.0388 5.93655ZM6.90142 9.11956V6.88044H9.10383V9.11956H6.90142ZM4.96644 10.0635H5.92082V11.0283C5.92082 11.5737 5.48034 12.0142 4.95071 12.0142C4.42108 12.0142 3.9806 11.5789 3.9806 11.0388C3.9806 10.5039 4.42108 10.0635 4.96644 10.0635ZM11.0388 10.0635C11.5789 10.0635 12.0194 10.5039 12.0194 11.0388C12.0194 11.5789 11.5842 12.0142 11.0493 12.0142C10.5197 12.0142 10.0792 11.5737 10.0792 11.0283V10.0635H11.0388Z" fill="black" fill-opacity="0.45"/>
+        <rect x="0.2" y="0.2" width="15.6" height="15.6" rx="1.8" stroke="black" stroke-opacity="0.06" stroke-width="0.4"/>
+        </svg>
+        <svg width="24" class="ml-2" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="24" height="24" rx="2" fill="#F5F5F5"/>
+          <path d="M6.352 4.278V7.54H9.908V8.59H6.352V11.95H10.328V13H5.078V3.228H10.328V4.278H6.352Z" fill="black" fill-opacity="0.45"/>
+          <rect x="0.2" y="0.2" width="15.6" height="15.6" rx="1.8" stroke="black" stroke-opacity="0.06" stroke-width="0.4"/>
+          </svg>
+          
       <!-- display selected filters -->
       <span *ngIf="selectedFilters.length > 0" class="ml-2 text-gray-500">
         {{ selectedFilters.join(', ') }}
