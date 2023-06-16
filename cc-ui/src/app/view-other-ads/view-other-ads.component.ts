@@ -1,14 +1,17 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { DatePipe } from '@angular/common';
+import { Location } from '@angular/common';
+
 
 
 
 import { ViewOtherAdsService } from './view-other-ads.service';
 import { UploadInventoryservice } from '../upload-inventory/upload-inventory.service';
 import { ForecastMapService } from '../forecasting/forecast-map/forecast-map.service';
+import { ViewOtherAdsMapViewComponent } from './view-other-ads-map-view/view-other-ads-map-view.component';
 export interface Port {
   port_id: number;
   company_id: number;
@@ -52,6 +55,7 @@ export interface Advertisement {
   providers: [DatePipe]
 })
 export class ViewOtherAdsComponent {
+  @ViewChild(ViewOtherAdsMapViewComponent) mapViewComponent!: ViewOtherAdsMapViewComponent;
   selectedView: string = 'MAP';
 
   showMapView: boolean = false;
@@ -78,11 +82,14 @@ export class ViewOtherAdsComponent {
   pendingAdsClicked = false;
   ads: Advertisement[] = [];
   container_size: Containers[] = [];
+  con_type:any[] = [];
   adv: Advertisement[] = [];
   pod: string[] = [];
   negotiation_list: any[] = [];
   negotiationCompany: { [negotiation_id: number]: string } = {};
   company_list_by_companyId: any[] = [];
+  container_type_by_container:any[] =[];
+  container_list:any[]=[];
   companyNames: { [companyId: number]: string } = {};
   companyLogos: { [companyId: number]: string } = {};
   companyDomain: { [companyId: number]: string } = {};
@@ -141,7 +148,7 @@ export class ViewOtherAdsComponent {
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
+  constructor(private sessionService: SessionService,private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
 
   }
   ngOnInit(): void {
@@ -207,9 +214,11 @@ export class ViewOtherAdsComponent {
 
     );
 
-    this.viewotherAds.getAllContainers().subscribe(
+    this.viewotherAds.getAllContainers().subscribe(//for matching container size to container_type_id
       (condata: Containers[]) => {
         this.container_size = condata;
+       
+        
         console.log(JSON.stringify(this.container_size));
     
         // Map container names based on container_type_id
@@ -240,8 +249,7 @@ export class ViewOtherAdsComponent {
         
       }
     );
-    
-
+ 
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
@@ -262,6 +270,9 @@ export class ViewOtherAdsComponent {
         console.log("ports loading error:" + error);
       }
     );
+
+
+
     this.viewotherAds.getotherCompany(this.companyId).subscribe(
       (data: any) => {
         this.company_list_by_companyId = data;
@@ -368,70 +379,67 @@ export class ViewOtherAdsComponent {
     if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
       this.showNoSelectionMessage = true;
       this.showMapView = false;
-    
       return;
     }
   
     this.showNoSelectionMessage = false;
+    this.showMapView = false; // Reset the flag
   
     if (this.selectedView === 'MAP') {
       // Render the map view component
       this.showMapView = true;
+      const selectedType = this.type;
       this.selectedDeparturePort = this.port_of_departure;
       this.selectedArrivalPort = this.port_of_arrival;
-     
-    } else {
-      // Render the list view component
-      this.showMapView = false;
   
-      // Perform filtering
-      this.noResultsMatched = false;
-      const selectedType = this.type;
-      const selectedDeparture = this.port_of_departure;
-      const selectedArrival = this.port_of_arrival;
+      // Call markPortsOnMap() of the map view component
+      if (this.mapViewComponent) {
+        this.mapViewComponent.clearMarkers();
+        this.mapViewComponent.markPortsOnMap();
+        setTimeout(() => {
+          this.mapViewComponent.markPortsOnMap();
+        }, 0);
+      }
   
-      console.log('Selected Departure:', selectedDeparture);
-      console.log('Selected Arrival:', selectedArrival);
-      console.log('Selected Type:', selectedType);
-  
-      this.viewotherAds.getAdvertisement(this.companyId).subscribe(
-        (data: Advertisement[]) => {
-          this.ads = data;
-  
-          if (selectedDeparture && selectedArrival) {
-            this.ads = this.ads.filter(ad => {
-              let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
-              let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
-  
-              return isTypeMatch && isPortMatch;
-            });
-          }
-  
-          // Filter and display the advertisements based on the selected size and its corresponding container_type_id
-          if (this.selectedSize) {
-            const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
-            if (selectedContainerTypeId) {
-              this.ads = this.ads.filter(ad => ad.container_type_id === selectedContainerTypeId);
-            }
-          }
-  
-          // Log the filtered advertisements
-          console.log('Filtered Advertisements:', this.ads);
-        },
-        error => console.log(error)
-      );
+      return; // Exit the method to prevent further processing
     }
+  
+    // Remaining code for the list view component...
+    
+    // Render the list view component
+    this.showMapView = false;
+    this.noResultsMatched = false;
+    const selectedType = this.type;
+    const selectedDeparture = this.port_of_departure;
+    const selectedArrival = this.port_of_arrival;
+  
+    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+      (data: Advertisement[]) => {
+        this.ads = data;
+  
+        if (selectedDeparture && selectedArrival) {
+          this.ads = this.ads.filter(ad => {
+            let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
+            let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
+            return isTypeMatch && isPortMatch;
+          });
+        }
+  
+        // Filter and display the advertisements based on the selected size and its corresponding container_type_id
+        if (this.selectedSize) {
+          const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
+          if (selectedContainerTypeId) {
+            this.ads = this.ads.filter(ad => ad.container_type_id === selectedContainerTypeId);
+          }
+        }
+  
+        // Log the filtered advertisements
+        console.log('Filtered Advertisements:', this.ads);
+      },
+      error => console.log(error)
+    );
   }
   
-  
-  
-  
-  
-  
-  
-  
-  
-
   onDeparturePortSelected(port: Port) {
     debugger
     this.selectedDeparturePort = port.port_id;
@@ -469,24 +477,26 @@ export class ViewOtherAdsComponent {
     const selectedPorts = type === 'departure' ? this.selectedDeparturePorts : this.selectedArrivalPorts;
     return selectedPorts.includes(port);
   }
-  clearOptions() {
-
+  clearOptions(): void {
     this.selectedOptions = {};
-
     this.port_of_departure = '';
-
     this.port_of_arrival = '';
-
     this.showNoSelectionMessage = false;
-
+    this.selectedDeparturePort = '';
+    this.selectedArrivalPort = '';
+    this.showMapView = false;
+    window.location.reload();
+    this.mapViewComponent.markPortsOnMap();
     this.displayAllAdvertisements();
 
-    // Call a separate method to display all advertisements
-
-    this.showMapView = false;
-
+   
+  
+    // Reload the ViewOtherAdsComponent
+   
   }
+  
   displayAllAdvertisements() {
+    this.showMapView = false;
     this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {

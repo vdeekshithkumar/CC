@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ForecastingService } from 'src/app/forecasting/forecasting.service';
 export interface Port {
   port_id: number;
@@ -15,6 +15,7 @@ declare const google: any;
   styleUrls: ['./view-other-ads-map-view.component.css']
 })
 export class ViewOtherAdsMapViewComponent implements OnInit {
+  @ViewChild('mapContainer') mapContainer!: ElementRef;
   departureLat: number = 0;
 departureLng: number = 0;
 arrivalLat: number = 0;
@@ -33,6 +34,7 @@ arrivalLng: number = 0;
   stepDisplay: google.maps.InfoWindow | undefined;
   latitude: any;
   longitude: any;
+  polyline: google.maps.Polyline | null = null;
  
 
   constructor(private forecastService: ForecastingService) {}
@@ -82,27 +84,29 @@ arrivalLng: number = 0;
   
 
   loadMap() {
-    debugger;
+    if (!this.mapContainer || !this.mapContainer.nativeElement) {
+      return;
+    }
+  
     const mapOptions: google.maps.MapOptions = {
       mapId: this.mapId,
-      
       center: this.getMapCenter(),
       zoom: 3,
     };
   
     this.map = new google.maps.Map(
-      document.getElementById('map') as HTMLElement,
+      this.mapContainer.nativeElement,
       mapOptions
     );
   
     this.markPortsOnMap();
   }
-
   
   
-  getMapCenter(): google.maps.LatLngLiteral {
-    debugger
-    if (this.selectedDeparturePort && this.selectedArrivalPort) {
+  
+  
+  getMapCenter(): google.maps.LatLngLiteral | null {
+    if (this.selectedDeparturePort && this.selectedArrivalPort && this.departureLat && this.departureLng && this.arrivalLat && this.arrivalLng) {
       const centerLat = (this.departureLat + this.arrivalLat) / 2;
       const centerLng = (this.departureLng + this.arrivalLng) / 2;
   
@@ -112,11 +116,8 @@ arrivalLng: number = 0;
       };
     }
   
-    // Return a default center if either the departure or arrival location is not available
-    return {
-      lat: 0,
-      lng: 0
-    };
+    // Return null if either the departure or arrival location is not available
+    return null;
   }
   
   
@@ -125,67 +126,119 @@ arrivalLng: number = 0;
   
   
   
-  
-  markPortsOnMap() {
-    this.clearMarkers();
-    const bounds = new google.maps.LatLngBounds();
-  
-    if (this.selectedDeparturePort && this.departureLat && this.departureLng && this.selectedArrivalPort && this.arrivalLat && this.arrivalLng && this.map) {
-      const departureLatLng = new google.maps.LatLng(this.departureLat, this.departureLng);
-      const arrivalLatLng = new google.maps.LatLng(this.arrivalLat, this.arrivalLng);
-  
-      const departureMarker = new google.maps.Marker({
-        position: departureLatLng,
-        title: this.selectedDeparturePort,
-        map: this.map,
-        icon: {
-          url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        },
-      });
-  
-      const arrivalMarker = new google.maps.Marker({
-        position: arrivalLatLng,
-        title: this.selectedArrivalPort,
-        map: this.map,
-        icon: {
-          url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        },
-      });
-  
-      this.markers.push(departureMarker);
-      this.markers.push(arrivalMarker);
-      bounds.extend(departureMarker.getPosition()!);
-      bounds.extend(arrivalMarker.getPosition()!);
-  
-      const polyline = new google.maps.Polyline({
-        path: [departureLatLng, arrivalLatLng],
-        geodesic: true,
-        strokeColor: 'red',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-      });
-  
-      polyline.setMap(this.map);
-  
-      this.map.fitBounds(bounds);
-    }
-  }
-  
+markPortsOnMap() {
+  this.clearMarkers();
 
+  if (!this.map || !this.selectedDeparturePort || !this.selectedArrivalPort) {
+    return;
+  }
+
+  const departurePort = this.ports.find(port => port.port_name === this.selectedDeparturePort);
+  const arrivalPort = this.ports.find(port => port.port_name === this.selectedArrivalPort);
+
+  if (!departurePort || !arrivalPort) {
+    return;
+  }
+
+  const departureLatLng = new google.maps.LatLng(departurePort.latitude, departurePort.longitude);
+  const arrivalLatLng = new google.maps.LatLng(arrivalPort.latitude, arrivalPort.longitude);
+
+  const departureMarker = new google.maps.Marker({
+    position: departureLatLng,
+    title: this.selectedDeparturePort,
+    map: this.map,
+    icon: {
+      url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+    },
+  });
+
+  const arrivalMarker = new google.maps.Marker({
+    position: arrivalLatLng,
+    title: this.selectedArrivalPort,
+    map: this.map,
+    icon: {
+      url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png',
+    },
+  });
+
+  this.markers.push(departureMarker);
+  this.markers.push(arrivalMarker);
+
+  const bounds = new google.maps.LatLngBounds();
+  bounds.extend(departureMarker.getPosition()!);
+  bounds.extend(arrivalMarker.getPosition()!);
+  this.map.fitBounds(bounds);
+
+  if (this.polyline) {
+    this.polyline.setMap(null); // Remove the previous polyline if it exists
+  }
+
+  const polylineOptions = {
+    path: [departureLatLng, arrivalLatLng],
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2,
+  };
+
+  this.polyline = new google.maps.Polyline(polylineOptions);
+  if (this.polyline) {
+    this.polyline.setMap(this.map!);
+  }
+}
+
+   
+  
   clearMarkers() {
     this.markers.forEach(marker => {
       marker.setMap(null);
     });
     this.markers = [];
+  
+    if (this.directionsRenderer) {
+      this.directionsRenderer.setMap(null);
+    }
+  
+    if (this.polyline) {
+      this.polyline.setMap(null); // Clear the polyline if it exists
+    }
+    this.polyline = null; // Set the polyline to null
   }
-
+  
+  
+  
+ 
   onDeparturePortSelected(port: any) {
     this.selectedDeparturePort = port;
+   
+    this.updateDepartureCoordinates();
+   
     this.markPortsOnMap();
   }
-
+  
   onArrivalPortSelected(port: any) {
     this.selectedArrivalPort = port;
+    
+    this.updateArrivalCoordinates();
+    
     this.markPortsOnMap();
   }
+  
+
+  updateDepartureCoordinates() {
+    
+    const departurePort = this.ports.find(port => port.port_name === this.selectedDeparturePort);
+    if (departurePort) {
+      this.departureLat = departurePort.latitude;
+      this.departureLng = departurePort.longitude;
+    }
+  }
+
+  updateArrivalCoordinates() {
+    const arrivalPort = this.ports.find(port => port.port_name === this.selectedArrivalPort);
+    if (arrivalPort) {
+      this.arrivalLat = arrivalPort.latitude;
+      this.arrivalLng = arrivalPort.longitude;
+    }
+}
 }
