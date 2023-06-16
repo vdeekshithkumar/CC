@@ -135,7 +135,7 @@
           NR 2TEU
           </div>
         
-
+        </div>
           <div class="clear-search-container">
             <button (click)="clearOptions()" class="clear-color">
               Clear
@@ -144,13 +144,11 @@
             <button (click)="searchAdvertisements()" class="seacrh-color">
               Search
             </button>
-           <!-- <p class="no-selection-message" *ngIf="showNoSelectionMessage">
-            Select your requirement
-          </p> -->
+        
             
           </div>
 
-        </div>
+       
 
         <br />
         <br />
@@ -163,7 +161,7 @@
 
             <button
               routerLink="/my-ad"
-              class="bg-CCblue text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
+              class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
               [disabled]="false"
             >
               View My Ads
@@ -175,7 +173,7 @@
             *ngFor="let ad of currentAds"
             class="flex justify-center w-full items-center  border"
           >
-            <div class="flex flex-col border-2 mt-4">
+            <div class="flex flex-col border-4 mt-4">
               <div class="p-1 flex flex-row items-center justify-around">
                 <div class="flex flex-row items-center">
                   <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
@@ -341,10 +339,17 @@
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">inventory_2</i>
-                    <span class="text-[0.6rem]">Container_type</span>
+                    <span class="text-[0.6rem]">Container Type</span>
                   </div>
-                  <div class="text-xs font-bold">{{ ad.container_type_id }}</div>
+                  <div class="text-xs font-bold">
+                    <ng-container *ngFor="let container of container_size">
+                      <span *ngIf="container.container_type_id === ad.container_type_id">
+                        {{ container.type }}
+                      </span>
+                    </ng-container>
+                  </div>
                 </div>
+                
                 <div class="flex flex-col items-center">
                   <div class="items-center justify-center">
                     <i class="material-icons mr-1 text-xs">payments</i>

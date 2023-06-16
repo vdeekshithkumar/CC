@@ -6,7 +6,7 @@
 <!-- Details form -->
 <mat-horizontal-stepper #stepper  linear ngClass="{{ 'last-edited-step-' + stepper.selectedIndex }}">
   <mat-step label="Details" [editable]="false" class="gray-line">
-    <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6">
+    <form [formGroup]="addEmployeeForm" autocomplete="off" class="grid grid-cols-2 gap-x-4 mt-6">
       <div class="col-span-1">
         <h2 class=" font-medium mb-2">Add User Details</h2>
           <label for="fname" class="font-medium text-sm ">First Name<span class="text-red-500">*</span></label>
@@ -15,6 +15,7 @@
       class="register-page-data"
       placeholder="Eg. John"
       name="firstName"
+      autocomplete="false"
       />
       </div>
       <div  class="mt-10">
@@ -35,7 +36,7 @@
           formControlName="phone_no"
           class="register-page-data"
           
-          placeholder="Enter your first name"
+          placeholder="Enter your Phone no"
           name="firstName"
         />
         
@@ -144,7 +145,7 @@
       
       </div>
       <div class="flex">
-        <button mat-button matStepperPrevious class="mb-3 ml-6 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+        <button mat-button matStepperPrevious  class="mb-3 ml-6 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
           Cancel
         </button>
         <button mat-button matStepperNext (click)="onAdd()" type="submit" class="mb-3 ml-2 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">Submit</button>

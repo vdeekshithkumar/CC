@@ -445,9 +445,9 @@
   }
 
   
-  #map {
+  .map-container {
     height: 200px;
-    width: 284px;
+    width: 260px;
     
   }
    
