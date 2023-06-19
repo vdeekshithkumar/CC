@@ -47,6 +47,7 @@ export class AddEmployeeComponent {
   advertisementRead: boolean = false;
   advertisementWrite: boolean = false;
   NegotiationRead: boolean = false;
+  isPasswordDisabled: boolean = false;
   NegotiationWrite: boolean = false;
   ppList: any[] = []; // Initialize ppList as an empty array
   permissions: any[] = [];
@@ -59,11 +60,13 @@ export class AddEmployeeComponent {
   companyId: any;
   showPassword = false;
   showValidationErrors: boolean = false;
+  isEdit:boolean = false;
   currentUser: any;
   cdr: any;
   changeDetectorRef: any;
-  isEdit: boolean = false;
+  
   Puser_id: any;
+ 
   types = [];
   Pis_verified: any;
   Plname: any;
@@ -81,7 +84,9 @@ export class AddEmployeeComponent {
       ;
   }
   ngOnInit(): void {
+   
     this.isEdit =this.data.isEdit;
+  
     if(this.isEdit == true){
     this.Puser_id = this.data.user_data.user_id;
     console.log("From profile" + this.Puser_id);
@@ -93,6 +98,7 @@ export class AddEmployeeComponent {
     this.Pphone = this.data.user_data.phone_no;
     this.Pemail = this.data.user_data.email;
     this.Paddress = this.data.user_data.address;
+    this.isPasswordDisabled = this.isEdit;
     this.Ppassword = this.data.user_data.password;
     this.Pis_verified = this.data.user_data.is_verified;
     this.Pis_approved = this.data.user_data.is_approved;
@@ -100,6 +106,7 @@ export class AddEmployeeComponent {
     this.Plast_login = this.data.user_data.last_login;
     this.Pdesignation = this.data.user_data.designation;
     this.isEdit = this.data.isEdit;
+    
     console.log("this is edit user true"+this.isEdit);
     
 
@@ -130,8 +137,8 @@ export class AddEmployeeComponent {
       email: ['', Validators.email],
       phone_no: ['', Validators.required],
       city: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
-      confirm_password: ['', Validators.required],
+      password: ['',  [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
+      confirm_password: ['',  Validators.required],
       is_verified: ['1', Validators.required],
       is_approved: ['1', Validators.required],
       is_active: ['1', Validators.required],
@@ -141,6 +148,7 @@ export class AddEmployeeComponent {
     );
 
     if (this.isEdit) {
+      
    console.log("edit mode is here"+this.isEdit)
       this.addEmployeeForm.setValue({
         user_id: this.Puser_id,
@@ -152,8 +160,8 @@ export class AddEmployeeComponent {
         email: this.Pemail,
         phone_no: this.Pphone,
         city:'',
-        password: '',
-        confirm_password: '',
+        password: this.Ppassword,
+        confirm_password: this.Ppassword,
         is_verified: this.Pis_verified,
         is_approved: this.Pis_approved,
         is_active: this.Pis_active,
@@ -208,6 +216,7 @@ export class AddEmployeeComponent {
       readCheckbox.checked = false;
     }
   }
+ 
   updateReadAccess(permission: any, event: any) {
     debugger;
   

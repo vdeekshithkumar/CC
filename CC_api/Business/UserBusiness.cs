@@ -84,10 +84,10 @@ namespace CC_api.Business
       us.address = user.address;
       us.email = user.email;
       us.phone_no = user.phone_no;
-      string hashedPassword = HashPassword(user.password);
+   
 
       // Set the hashed password to the PasswordHash property
-      us.password = hashedPassword;
+    
       us.is_verified = user.is_verified;
       us.is_approved = user.is_approved;
       us.is_active = user.is_active;
