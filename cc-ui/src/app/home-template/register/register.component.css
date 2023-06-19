@@ -204,8 +204,16 @@ border-radius: 2px;
 
 
 
+.continue-button{
+  color:CCblue;
+}
+.continue-button:disabled {
+  background: rgba(0, 0, 0, 0.04);
 
+  color: rgb(120, 119, 119);
 
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
 .container {
     display: flex;
     height: 100vh;

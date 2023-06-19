@@ -65,6 +65,7 @@
         <div class="relative">
           <input
             formControlName="password"
+            [readOnly]="isEdit"
             class="register-page-data -ml-2 italic-placeholder pr-10"
             required
             minlength="8"
@@ -73,9 +74,7 @@
             placeholder=""
             name="password"
           />
-          <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
-            <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-          </span>
+          
         </div>
       </div>
       <div class="mt-14">
@@ -83,14 +82,13 @@
         <div class="relative">
           <input
             formControlName="confirm_password"
+            [readOnly]="isEdit"
             class="register-page-data italic-placeholder pr-10 ml-2"
             placeholder=""
             name="firstName"
             type="{{ showPassword ? 'text' : 'password' }}"
           />
-          <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
-            <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-          </span>
+        
         </div>
       </div>
     </form>
