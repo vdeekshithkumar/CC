@@ -1,4 +1,3 @@
-
 import { Component,Inject, OnInit, Output,EventEmitter  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -39,7 +38,7 @@ export class RegisterComponent implements OnInit
   @Output() emailSent = new EventEmitter<any>();
   showValidationErrors: boolean = false;
   company_id!:string;
-
+ checkEnabled:boolean = false;
   firstName!: string;
   lastName!: string;
   address!:string;
@@ -214,6 +213,10 @@ openErrorDialog(message: string): void {
       message: message
     }
   });
+}
+toggleCheckEnabled():void{
+  this.checkEnabled = !this.checkEnabled;
+  console.log("dfd"+ this.checkEnabled);
 }
 togglePasswordVisibility() {
   this.showPassword = !this.showPassword;
