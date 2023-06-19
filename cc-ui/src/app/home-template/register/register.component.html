@@ -191,7 +191,7 @@ class="fas password-toggle"
 
       <div class="checkbox-container mt-4 mb-2 term flex flex-row items-center gap-2">
         <div>
-          <input type="checkbox" id="agreeCheckbox" formControlName="iagree" />
+          <input type="checkbox" id="agreeCheckbox" [checked]="checkEnabled" (change)="toggleCheckEnabled()" formControlName="iagree" />
           <label for="agreeCheckbox">
             I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and
             <a href="#" style="color: blue;">privacy policy</a>
@@ -209,7 +209,7 @@ class="fas password-toggle"
 
       <div class="center-position mt-2 ">
          
-        <button type="submit" class="btn-primary btn" style="height: 28px;" >
+        <button type="submit" class="btn-primary btn  continue-button"  [disabled]="!checkEnabled" style="height: 28px;" >
      
 Continue
        

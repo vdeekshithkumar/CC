@@ -1,4 +1,3 @@
-
 import { Component,Inject, OnInit, Output,EventEmitter  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -23,18 +22,23 @@ interface RegisterResponse {
 export class RegisterComponent implements OnInit 
 {
   email!:string;
-  countryList: { value: string; name: string; }[] = Object.keys(countries)
-  .sort((a, b) => (countries as any)[a].name.localeCompare((countries as any)[b].name))
-  .map((code: string) => ({
-    value: code,
-    name: (countries as any)[code].name
+  countryList: { value: string; name: string; }[] = Object.values(countries)
+
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+  .map((country: Country) => ({
+
+    value: country.name,
+
+    name: country.name
+
   }));
   
 
   @Output() emailSent = new EventEmitter<any>();
   showValidationErrors: boolean = false;
   company_id!:string;
-
+ checkEnabled:boolean = false;
   firstName!: string;
   lastName!: string;
   address!:string;
@@ -209,6 +213,10 @@ openErrorDialog(message: string): void {
       message: message
     }
   });
+}
+toggleCheckEnabled():void{
+  this.checkEnabled = !this.checkEnabled;
+  console.log("dfd"+ this.checkEnabled);
 }
 togglePasswordVisibility() {
   this.showPassword = !this.showPassword;
