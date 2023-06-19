@@ -5,8 +5,8 @@ namespace CC_api.Models
  
     public class DatabaseContext : DbContext
     {
-      public DbSet<User> users { get; set; }
-      public DbSet<Inventory> inventory { get; set; }
+    public DbSet<User> users { get; set; }
+    public DbSet<Inventory> inventory { get; set; }
     public DbSet<Company> company { get; set; }
     public DbSet<Contract> contracts { get; set; }
     public DbSet<Ports> ports { get; set; }
