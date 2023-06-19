@@ -23,11 +23,16 @@ interface RegisterResponse {
 export class RegisterComponent implements OnInit 
 {
   email!:string;
-  countryList: { value: string; name: string; }[] = Object.keys(countries)
-  .sort((a, b) => (countries as any)[a].name.localeCompare((countries as any)[b].name))
-  .map((code: string) => ({
-    value: code,
-    name: (countries as any)[code].name
+  countryList: { value: string; name: string; }[] = Object.values(countries)
+
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+  .map((country: Country) => ({
+
+    value: country.name,
+
+    name: country.name
+
   }));
   
 
