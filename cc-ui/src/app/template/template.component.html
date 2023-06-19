@@ -7,7 +7,7 @@
   <!--main view-->
   <div class="container-d">
     <!--left sidebar view-->
-    <div class="left-section">
+    <div class="left-section min-h-screen">
       <app-sidebar class="w-[150px]"></app-sidebar>
     </div>
     <!--right view-->
@@ -31,6 +31,18 @@
     </div>
     <div class="right-section" *ngIf="isActive('/my-ad')">
       <app-my-advertisement></app-my-advertisement>
+    </div>
+    <div class="right-section" *ngIf="isActive('/upload-inventory')">
+      <app-upload-inventory></app-upload-inventory>
+    </div>
+    <div class="right-section" *ngIf="isActive('/upload-contract')">
+      <app-upload-contract></app-upload-contract>
+    </div>
+    <div class="right-section" *ngIf="isActive('/view-contract')">
+      <app-view-contracts></app-view-contracts>
+    </div>
+    <div class="right-section" *ngIf="isActive('/messaging')">
+      <app-messaging></app-messaging>
     </div>
     <!-- <div class="right-section" *ngIf="isActive('/forecasting')">
     <app-forecasting></app-forecasting>

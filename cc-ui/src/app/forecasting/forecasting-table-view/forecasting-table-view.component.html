@@ -107,10 +107,11 @@
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </div>
-    <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. PortName, Container_Type)" autocomplete="off"/>
-    <button class="text-red-500 font-poppins ml-2 mr-2" (click)="clearSearch()">
-      Clear
-    </button>
+    <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. PortName, Container_Type)" autocomplete="off" (focus)="showClearButton()"/>
+<button class="text-red-500 font-poppins ml-2 mr-2" (click)="clearSearch()" (blur)="hideClearButton()" id="clearButton">
+  Clear
+</button>
+
   </div>
   <div class="mx-3 -mt-10 w-[6em] h-[0.5em] bg-gray flex-wrap ml-0">
     <div>
@@ -125,12 +126,12 @@
   </div>
   
 </div>
-<div class="flex flex-col first:flex-row div-bg" *ngIf="showForm">
+<div class="flex flex-col first:flex-row div-bg " *ngIf="showForm">
   <div class="p-2 h-24 w-full mt-2">
     <form>
       <div class="flex flex-row">
         <div class="-mt-3">
-          <label class="top mb-2  font-normal">Container Type</label>
+          <label class="top mb-2 font-normal">Container Type</label>
           <div>
             <select class="top-select2  div-bg" [(ngModel)]="containerType" formControlName="container_type" >
                 <option value="" disabled selected>Select Container Type</option>
@@ -191,7 +192,7 @@
     </div>
 </div>
 
-<div class="w-full h-full flex flex-col first:flex-row">
+<div class="w-full flex flex-col first:flex-row min-h-screen">
   <section class="ml-4 mr-6 rounded-sm">
     <div class="flex flex-col">
       <div class="overflow-hidden rounded-lg  border-2  mr-0">
@@ -199,7 +200,7 @@
           <thead class="bg-gray-100 dark:bg-gray-100">
             <tr>
               <th scope="col-4"
-                class="px-4 py-3.5 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
+                class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
                 <div class="flex items-center gap-x-3">
                   <button class="flex items-center gap-x-1  text-sm">
                     <span>PortName</span>
@@ -235,7 +236,7 @@
               </th>
             </tr>
           </thead>
-          <tbody class="bg-gray-50 border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
+          <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
             <tr
               *ngFor="let inv of filteredInventoryList | search: searchTerm:getPortName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
               <!-- table row data here -->

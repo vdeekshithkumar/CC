@@ -20,6 +20,7 @@ export class MessagingComponent implements OnInit {
   conversationID!:number
   content!:string
   users: Candidate[] = []
+  loadUsers = true
   constructor(private sessionService: SessionService, private messageService: MessagingService) { }
 
   ngOnInit(): void {
@@ -59,6 +60,7 @@ export class MessagingComponent implements OnInit {
   }
 
   getMessages(convoID: number) {
+    this.loadUsers=false
     this.conversationID = convoID
     this.messageService.getMessges(convoID).subscribe({
       next: data => {

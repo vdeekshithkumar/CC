@@ -1,8 +1,6 @@
-<app-header></app-header>
-
 <div id="messaging-canvas" class="min-h-screen bg-gray-50 flex font-poppins">
-    <app-sidebar></app-sidebar>
-    <div id="main-view-pane" class="ml-32 bg-gray-50 flex flex-row">
+ 
+    <div id="main-view-pane" class="ml-6 bg-gray-50 flex flex-row">
 
         <div class="min-h-screen bg-white w-[300px] overflow-y-auto">
             <div class="flex bg-gray-100 p-1 px-2 w-[300px] rounded-2xl border-2 ">
@@ -53,7 +51,7 @@
             </div>
         </div>
         <div>
-            <button (click)="getUsers()">getusers</button>
+            <button (click)="getUsers()" [disabled]="loadUsers">getusers</button>
             <ul>
                 <li *ngFor="let user of users">
                   <input type="checkbox" [(ngModel)]="user.selected">{{user.fname}} {{user.lname}}

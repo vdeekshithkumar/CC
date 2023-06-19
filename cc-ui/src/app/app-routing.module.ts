@@ -53,12 +53,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:UploadContractComponent,
+    component:TemplateComponent,
     path:'upload-contract',
     canActivate: [AuthGuard]
   },
   {
-    component:UploadInventoryComponent,
+    component:TemplateComponent,
     path:'upload-inventory',
     canActivate: [AuthGuard]
   },
@@ -145,12 +145,12 @@ const routes: Routes = [
 
   },
   {
-    component:MessagingComponent,
+    component:TemplateComponent,
     path:'messaging',
     canActivate:[AuthGuard]
   },
   {
-    component:ViewContractsComponent,
+    component:TemplateComponent,
     path:'view-contract',
     canActivate: [AuthGuard]
   },

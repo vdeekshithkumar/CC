@@ -1,138 +1,77 @@
-<!-- component -->
-<app-header></app-header>
-<app-sidebar></app-sidebar>   
-<div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-  <nav class="table-navbar w-full">
-    <div class="flex justify-between max-w-sm mx-auto items-center mt-2">
-      <div class="p-2 w-[5em] h-[3em] bg-white-900 left-0 -ml-96 mt-2">
-        <button class="text-sm ml-2 text-black -mt-2 capitalize dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300"(click)="backPage()">&lt; Back</button>
+<div class="flex flex-col">
+  <div class="flex items-center">
+    <button (click)="backPage()" class="items-center flex gap-2 text-lg my-3">
+      <i class="material-symbols-outlined">
+        arrow_back
+      </i>
+      Back
+    </button>
+    <button class="btn-primary ml-auto mx-3" (click)="uploadContracts()">
+      upload contracts
+    </button>
+  </div>
+  <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+      <div class="overflow-hidden">
+        <table class="min-w-full text-left text-sm font-light border-y-2">
+          <thead class="border-b font-medium ">
+            <tr>
+              <th scope="col" class="px-6 py-4">#</th>
+              <th scope="col" class="px-6 py-4">Title</th>
+              <th scope="col" class="px-6 py-4">Descriptions</th>
+              <th scope="col" class="px-6 py-4">Contract IDs</th>
+              <th scope="col" class="px-6 py-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let contract of contracts?.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage); let i = index;"
+              class="border-b transition duration-300 ease-in-out hover:bg-neutral-100">
+              <td class="whitespace-nowrap px-6 font-medium border-r">{{ getIndex(i) }}</td>
+              <td class="whitespace-nowrap px-6 border-r">{{ contract.title }}</td>
+              <td class="whitespace-nowrap px-6 border-r">
+                <ul>
+                  <li *ngFor="let description of contract.descriptions" class="py-2">{{ description }}</li>
+                </ul>
+              </td>
+              <td class="whitespace-nowrap px-6 border-r">
+                <ul>
+                  <li *ngFor="let contractId of contract.contractIds" class="py-2">{{ contractId }}</li>
+                </ul>
+              </td>
+              <td class="whitespace-nowrap px-6">
+                <div *ngFor="let contractId of contract.contractIds; let j = index" class="flex flex-row items-center">
+                  <button class="border-black border-2 p-2 m-1 w-10 text-center" (click)="viewContract(contractId)">
+                    #{{ getButtonNo(j) }}
+                  </button>
+                  <button class="px-4 " (click)="deleteContract(contractId)"><i
+                      class="material-symbols-outlined text-red-600">
+                      delete
+                    </i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <h1 class="text-3xl font-medium text-black capitalize -mt-2 dark:text-white mx-auto cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">View Contracts</h1>
-     <div class="flex items-center p-1 x-1 bg-white w-0 -mr-60 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
-      
-      </div>  
     </div>
-  </nav>
-</div>
-
-
-<div class="w-full h-full flex flex-col first:flex-row">  
-<section  class="ml-10 mr-6">
-  <div class="flex flex-col">
-              <div class="overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 ml-24 mr-0">
-                  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                      <thead class="bg-gray-200 dark:bg-gray-800">
-                          <tr >
-                            <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                Sl.No
-                            </th>
-
-                            <th scope="col" class="px-8 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                Date
-                            </th>
-
-                              <th scope="col" class="px-11 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                  Title
-                              </th>
-
-                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                 Description
-                              </th>
-                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                               Attachment(s)
-                            </th>
-                            <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                               Action
-                             </th>
-                             
-                              
-                          </tr>
-                      </thead>
-                      <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                        <tr *ngFor="let inv of contract_list_by_companyId | search: searchTerm:getContractName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
-                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                <div class="inline-flex items-center gap-x-3 ml-2">
-                                  <span>{{getIndex(i)}}</span>
-                                </div>
-                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                              <div class="inline-flex items-center gap-x-3 ">
-                                <span>{{ getDateOnly(inv.updated_date_time) }}</span>
-                              </div>
-                            </td>
-                            <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                              <div class="inline-flex items-center gap-x-3 ">
-                                <span >{{ inv.title }}</span>
-                              </div>
-                            </td>
-                     
-                          <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            <div class="inline-flex items-center gap-x-3 ">
-                                <span [innerHTML]="replaceNewlines(inv.content)"></span>
-                            </div>
-                          </td>
-                          <!-- <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            <div class="bg-white text-xs text-red-600 align-middle p-1 px-3 border border-gray rounded-full hover:border-CCblue">
-                                <button (click)="viewContract(inv.contract_id)"></button>
-                            </div>
-                          </td>
-                           -->
-                           <td class="px-8 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            <ng-container *ngFor="let file of inv.uploaded_file.split('<br>'); let i = index">
-                              <button (click)="viewContract(inv.contract_id)" class="bg-white text-xs text-black align-middle p-1 px-3 border border-black hover:border-CCblue" style="display: block; margin-top: 5px;">
-                                #{{ i + 1 }}
-                              </button>
-                            </ng-container>
-                          </td>
-                          
-                          <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                           
-                            <ng-container *ngFor="let file of inv.uploaded_file.split('<br>'); let i = index">
-                                <button (click)="deleteContract(inv.contract_id)" class="w-6 mr-2 transform flex items-center justify-center text-xs text-black align-middle">
-                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                </svg>
-                                </button>
-                              </ng-container>
-                          </td>
-                          
-                         
-                        </tr>
-                      </tbody>
-                  </table>
-           
-                <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.contract_list_by_companyId.length>0">
-                  <nav aria-label="Page navigation">
-                    <ul class="inline-flex">
-                      <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
-                              class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                  <path
-                                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                      clip-rule="evenodd" fill-rule="evenodd"></path>
-                              </svg></button>
-                      </li>
-                      <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
-                              class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-                      </li>
-                      <li><button
-                              class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
-                      </li>
-                      <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
-                              class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-                      </li>
-                      <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()" [hidden]="currentPage>=totalPages"
-                              class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                              <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                  <path
-                                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                      clip-rule="evenodd" fill-rule="evenodd"></path>
-                              </svg>
-                            </button>
-                      </li>
-                  </ul>
-                  </nav>
-              </div>
-              </div>
-          </div>
-</section>
+  </div>
+  <div>
+    <div class="flex gap-2 w-full justify-end">
+      <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+        <i class="material-symbols-outlined cursor-pointer">
+          navigate_before
+        </i>
+      </button>
+      <button class="page-link" *ngFor="let page of getPages()" (click)="currentPage = page" [ngClass]="{
+        'page-link-active': currentPage === page
+      }">{{page}}
+      </button>
+      <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages()">
+        <i class="material-symbols-outlined cursor-pointer">
+          navigate_next
+        </i>
+      </button>
+    </div>
+  </div>
 </div>

@@ -1,81 +1,76 @@
-<form [formGroup]="addEmployeeForm"  class="font-poppins grid overflow-y-hidden gap-2 p-2 flex min-h-[100px] min-w-[400px]">
-  <h3 class="col-span-2 -mt-2 text-black h-16 bg-blue-50 flex items-center justify-between -ml-20">
-    <span class="ml-24 font-medium -mt-1 text-lg">Add New User</span>
+<form [formGroup]="addEmployeeForm"  class="font-poppins grid overflow-y-hidden gap-2 p-2 flex min-h-[100px]">
+  <h3 class="col-span-2 -mt-2 text-black h-16 h1 flex items-center justify-between -ml-20">
+    <span class="ml-24 font-semibold -mt-1 text-lg font-poppins">Add New User</span>
     <i class="fas fa-times -mt-1 mr-3 cursor-pointer" mat-button matDialogClose=""></i>
   </h3>
 <!-- Details form -->
 <mat-horizontal-stepper #stepper  linear ngClass="{{ 'last-edited-step-' + stepper.selectedIndex }}">
-  <mat-step label="Details" [editable]="false" class="gray-line">
-    <form [formGroup]="addEmployeeForm" autocomplete="off" class="grid grid-cols-2 gap-x-4 mt-6">
+  <mat-step label="Details" [editable]="true" class="gray-line font-poppins">
+    <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6 font-poppins">
       <div class="col-span-1">
-        <h2 class=" font-medium mb-2">Add User Details</h2>
-          <label for="fname" class="font-medium text-sm ">First Name<span class="text-red-500">*</span></label>
+        <h2 class="font-semibold mb-2 font-poppins -ml-2">Add User Details</h2>
+          <label for="fname" class="bg-text -ml-2">First Name</label>
         <input
         formControlName="fname"
-      class="register-page-data"
-      placeholder="Eg. John"
+        class="register-page-data italic-placeholder -ml-2"
+      placeholder="E.g. John"
       name="firstName"
-      autocomplete="false"
       />
       </div>
-      <div  class="mt-10">
+      <div class="mt-10">
   
-        <label for="fname" class="font-medium text-sm">Last Name<span class="text-red-500">*</span></label>
+        <label for="fname" class="bg-text ml-2">Last Name</label>
         <input
           formControlName="lname"
-          class="register-page-data"
-          placeholder="Eg. Wick"
+          class="register-page-data italic-placeholder ml-2"
+          placeholder="E.g. Wick"
           name="firstName"
         />
         
       </div>
       <div class="col-span-1 mt-4">
   
-        <label for="fname" class="font-medium text-sm">Phone Number</label>
+        <label for="fname" class="bg-text -ml-2">Phone Number</label>
         <input
           formControlName="phone_no"
-          class="register-page-data"
-          
-          placeholder="Enter your Phone no"
+          class="register-page-data italic-placeholder -ml-2"
+          placeholder="E.g. +918707312194"
           name="firstName"
         />
         
       </div>
-      <div class="col-span-1 mt-4">
-  
-        <label for="email" class="font-medium text-sm">Email<span class="text-red-500">*</span></label>
+      <div class="col-span-1 mt-4 ">
+        <label for="email" class="bg-text ml-2">Email</label>
         <input
           formControlName="email"
-          class="register-page-data"
-          
+          class="register-page-data italic-placeholder ml-2"
           placeholder="yourname@gmail.com"
           name="firstName"
         />
         
       </div>
       <div class="col-span-2 mt-4">  
-        <label for="fname" class="font-medium text-sm">Address</label>
+        <label for="fname" class="bg-text -ml-2">Address<span class="optional"> (optional)</span></label>
         <input
           formControlName="address"
-          class="register-page-data"
-          
-          placeholder="Enter your Address"
+          class="register-page-data italic-placeholder -ml-2"
+          placeholder="E.g. Marenahalli, Bangalore, India"
           name="firstName"
         />
       
       </div>
       <div class="mb-1 mt-4">
-        <h2 class="font-medium mb-2">Create Password</h2>
-        <label for="fname" class="font-medium text-sm">Password<span class="text-red-500">*</span></label>
+        <h2 class="font-semibold mb-2 font-poppins -ml-2">Create Password</h2>
+        <label for="fname" class="bg-text -ml-2">Password</label>
         <div class="relative">
           <input
             formControlName="password"
-            class="register-page-data pr-10"
+            class="register-page-data -ml-2 italic-placeholder pr-10"
             required
             minlength="8"
             pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
             type="{{ showPassword ? 'text' : 'password' }}"
-            placeholder="Password"
+            placeholder=""
             name="password"
           />
           <span class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
@@ -84,12 +79,12 @@
         </div>
       </div>
       <div class="mt-14">
-        <label for="fname" class="font-medium text-sm mt-20">Confirm Password<span class="text-red-500">*</span></label>
+        <label for="fname" class=" mt-20 bg-text ml-2">Confirm Password</label>
         <div class="relative">
           <input
             formControlName="confirm_password"
-            class="register-page-data pr-10"
-            placeholder="Confirm Password"
+            class="register-page-data italic-placeholder pr-10 ml-2"
+            placeholder=""
             name="firstName"
             type="{{ showPassword ? 'text' : 'password' }}"
           />
@@ -100,39 +95,39 @@
       </div>
     </form>
     <div class="flex flex-grow">
-      <button mat-button matStepperPrevious class="mb-3 inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+      <button mat-button matDialogClose="" class=" font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
         Cancel
       </button>
-      <button mat-button (click)="openDialog(stepper)" type="button" class="mb-3 ml-2 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">
+      <button mat-button (click)="openDialog(stepper)" type="button" class=" font-poppins ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">
         Next
-       </button>
-</div>  
+      </button>
+    </div>  
   </mat-step>
 
   <mat-step label="Permissions" class="blue-line"[editable]="false">
     <form [formGroup]="addEmployeeForm" class="mt-6">
       <div>
-        <h2 class="font-medium mb-4 ml-3">Add User Permissions</h2>
-        <table class="min-w-[770px] min-h-full border-2 ml-2 mb-2">
+        <h2 class="font-medium mb-4 ml-3 font-poppins">Add User Permissions</h2>
+        <table class="min-w-[770px] min-h-full border-2 ml-2 mb-2 font-poppins">
           <thead >
             <tr >
-              <th class="py-2 justify-start  bg-gray-100">Action</th>
-              <th class="py-2 justify-end  bg-gray-100">Type</th>
+              <th class="py-2 justify-start font-poppins bg-gray-100">Action</th>
+              <th class="py-2 justify-end font-poppins bg-gray-100">Type</th>
             </tr>
           </thead>
           <tbody>
             <ng-container *ngFor="let p of PList; let i = index">
               <ng-container *ngIf="i % 2 === 0">
-                <tr class="row border-2">
+                <tr class="row border-2 font-poppins">
                     <td class="col-md-20 mb-6 ml-4" style="padding-left:14px;">{{ p.type }}</td>
                     <td class="col-md-20 text-right" style="padding: 0.5em;">
                       <div class="flex">
-                        <div class="form-check form-check-inline ml-40">
-                          <input class="text-sm font-medium text-gray-900 " checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
+                        <div class="form-check form-check-inline ml-40 font-poppins">
+                          <input class="text-sm font-medium text-gray-900 font-poppins" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
                           <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 " [for]="p.type + '-read'">Read&ensp;</label>
                         </div>
-                        <div class="form-check form-check-inline ml-10">
-                          <input class="text-sm  font-medium text-gray-900 "  type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
+                        <div class="form-check form-check-inline ml-10 font-poppins">
+                          <input class="text-sm  font-medium text-gray-900 font-poppins "  type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
                           <label class="w-4 h-4 ml-3 text-black-600 border-gray-300 rounded focus:ring-blue-500 " [for]="p.type + '-write'">Write&ensp;</label>
                         </div>
                       </div>
@@ -145,10 +140,10 @@
       
       </div>
       <div class="flex">
-        <button mat-button matStepperPrevious  class="mb-3 ml-6 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+        <button mat-button matDialogClose="" class="mb-3 ml-6 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
           Cancel
         </button>
-        <button mat-button matStepperNext (click)="onAdd()" type="submit" class="mb-3 ml-2 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">Submit</button>
+        <button mat-button matStepperNext (click)="onAdd()" type="submit" class="mb-3 ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">Submit</button>
       </div>  
     </form>
   </mat-step>

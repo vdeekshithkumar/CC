@@ -5,11 +5,11 @@ import { SessionService } from '../session.service';
 import { filter } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatStepper } from '@angular/material/stepper';
-import { ViewChild } from '@angular/core';
+import { Inject, ViewChild } from '@angular/core';
 import { enableDebugTools } from '@angular/platform-browser';
 import { Component, ChangeDetectorRef } from '@angular/core';
 import { DialogComponent } from '../dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NumberInput } from '@angular/cdk/coercion';
 
 interface Permission {
@@ -23,10 +23,12 @@ interface Permission {
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css', '../../stepper.scss', '../../styles.css']
+  styleUrls: ['./add-employee.component.css', '../../stepper.scss', '../../styles.css','../app.component.css']
 })
 export class AddEmployeeComponent {
   @ViewChild('stepper') stepper!: MatStepper;
+  edit: any;
+  Pcompany_id: any;
   get isBlue(): boolean {
     return this.stepper.selectedIndex > 0;
   }
@@ -73,39 +75,37 @@ export class AddEmployeeComponent {
   Pis_active: any;
   Plast_login: any;
   Pdesignation: any;
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private addEmployeesService: AddEmployeeServiceService, private sessionService: SessionService, private route: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private addEmployeesService: AddEmployeeServiceService, private sessionService: SessionService, public dialogRef: MatDialogRef<AddEmployeeComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, private route: ActivatedRoute) {
     this.permissions = []
       ;
   }
   ngOnInit(): void {
-    const state = history.state;
-    if (state && state.edit) {
-      this.isEdit = true;
-      console.log('Edit mode enabled.');
-      this.Puser_id = state.user_id;
-      console.log("From profile" + this.Puser_id);
-      this.Pfname = state.fname;
-      console.log("From profile" + this.Pfname);
-      this.Plname = state.lname;
-      console.log("From profile" + this.Plname);
-      this.Pphone = state.phone_no;
-      console.log("From profile" + this.Pphone);
-      this.Pemail = state.email;
-      console.log("From profile" + this.Pemail);
-      this.Paddress = state.address;
-      console.log("From profile" + this.Paddress);
-      this.Ppassword = state.password;
-      console.log("From profile" + this.Ppassword);
-      this.Pis_verified = state.is_verified;
-      console.log("From profile" + this.Pis_verified);
-      this.Pis_approved = state.is_approved;
-      console.log("From profile" + this.Pis_approved);
-      this.Pis_active = state.is_active;
-      console.log("From profile" + this.Pis_active);
-      this.Plast_login = state.last_login;
-      console.log("From profile" + this.Plast_login);
-      this.Pdesignation = state.designation;
-      console.log("From profile" + this.Pdesignation);
+    this.isEdit =this.data.isEdit;
+    if(this.isEdit == true){
+    this.Puser_id = this.data.user_data.user_id;
+    console.log("From profile" + this.Puser_id);
+    this.Pcompany_id = this.data.user_data.company_id;
+    console.log("From profile" + this.Pcompany_id);
+    this.Pfname = this.data.user_data.fname;
+    console.log("From profile its is dataggggg" + this.Pfname);
+    this.Plname = this.data.user_data.lname;
+    this.Pphone = this.data.user_data.phone_no;
+    this.Pemail = this.data.user_data.email;
+    this.Paddress = this.data.user_data.address;
+    this.Ppassword = this.data.user_data.password;
+    this.Pis_verified = this.data.user_data.is_verified;
+    this.Pis_approved = this.data.user_data.is_approved;
+    this.Pis_active = this.data.user_data.is_active;
+    this.Plast_login = this.data.user_data.last_login;
+    this.Pdesignation = this.data.user_data.designation;
+    this.isEdit = this.data.isEdit;
+    console.log("this is edit user true"+this.isEdit);
+    
+
+    console.log('Received data:', this.data);
+    console.log('fname:', this.Pfname);
+    // Access other properties as neede
     }
     debugger
     this.addEmployeesService.getAllPermission().subscribe((data: Permissions[]) => {
@@ -140,25 +140,29 @@ export class AddEmployeeComponent {
     }
     );
 
-    if (this.isEdit == true) {
+    if (this.isEdit) {
+   console.log("edit mode is here"+this.isEdit)
       this.addEmployeeForm.setValue({
-        user_id: 167,
-        company_id: this.companyId,
-        fname: this.Pfname,
+        user_id: this.Puser_id,
+         // Set the received user_id
+        company_id: this.Pcompany_id,
+        fname:  this.Pfname,
         lname: this.Plname,
         address: this.Paddress,
         email: this.Pemail,
         phone_no: this.Pphone,
-        password: this.Ppassword,
+        city:'',
+        password: '',
+        confirm_password: '',
         is_verified: this.Pis_verified,
         is_approved: this.Pis_approved,
         is_active: this.Pis_active,
         last_login: this.Plast_login,
         designation: this.Pdesignation,
-      })
+      });
+    
     }
-    //session
-
+       //session
 
 
 
@@ -336,34 +340,28 @@ export class AddEmployeeComponent {
   }
   async onAdd() {
     if (this.isEdit) {
-      debugger
       try {
         const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
-        debugger
         await this.addP();
         alert('User Edited Successfully');
-        location.reload();
-        this.isEdit = false;
+        window.location.reload();
         this.addEmployeeForm.reset();
-
       } catch (error) {
         console.log('Could not edit:', error);
       }
     } else {
-      debugger
       try {
         const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
-        debugger
         await this.addP();
         alert('User Added Successfully');
-        location.reload();
+        window.location.reload();
         await this.router.navigate(['/profile']);
       } catch (error) {
         console.log('Could not add:', error);
       }
     }
   }
- 
+  
   openErrorDialog(message: string): void {
     this.dialog.open(DialogComponent, {
       data: {

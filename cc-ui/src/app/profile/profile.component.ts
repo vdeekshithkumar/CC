@@ -14,7 +14,7 @@ import { RegisterComponent } from '../home-template/register/register.component'
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css','../app.component.css']
 })
 export class ProfileComponent implements OnInit {
   public company_id?: number;
@@ -207,23 +207,17 @@ export class ProfileComponent implements OnInit {
     });
   }
   DisplayPostForm(){
-    
-    // this.ContinueDraft=0;
     this.dialog.open(AddEmployeeComponent,{
-     
-      
-  
-      data:{
+         data:{
+          isEdit:false,
         ContinueDraft:0,
         Approve:0
       }
-      
-
     })
-   
    }
   
    getUserByID(user_id: number) {
+    debugger
     this.profileService.getUserDetails(user_id).subscribe(
       (data: any) => {
         this.user_data = data;
@@ -232,21 +226,12 @@ export class ProfileComponent implements OnInit {
         const dialogRef = this.dialog.open(AddEmployeeComponent, {
           data: {
             user_id: user_id,
-            fname: this.user_data.fname,
-            lname: this.user_data.lname,
-            phone_no: this.user_data.phone_no,
-            email: this.user_data.email,
-            address: this.user_data.address,
-            password: '',
-            is_verified: this.user_data.is_verified,
-            is_approved: this.user_data.is_approved,
-            is_active: this.user_data.is_active,
-            last_login: this.user_data.last_login,
-            designation: this.user_data.designation,
-            edit: true
+            isEdit:true,
+            user_data: this.user_data, // Pass the user_data object
+          
           }
         });
-  
+  console.log("from profile to add employee"+this.fname);
         dialogRef.afterClosed().subscribe(result => {
           // Handle the dialog close event if needed
           console.log("Dialog closed with result:", result);
