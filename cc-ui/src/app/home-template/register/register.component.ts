@@ -50,10 +50,12 @@ export class RegisterComponent implements OnInit
   r: any;
   
   showPassword=false;
+  countryList: any[] | undefined;
   constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
    }
 
 ngOnInit(): void {
+
   const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
@@ -188,6 +190,11 @@ private redirect(){
 
 }
 
+ changeInputType(input: { setAttribute: (arg0: string, arg1: any) => void; }, type: any) {
+  setTimeout(function() {
+    input.setAttribute('type', type);
+  }, 100);
+}
 
 
 openErrorDialog(message: string): void {
