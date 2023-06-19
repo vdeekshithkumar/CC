@@ -20,6 +20,7 @@
               <th scope="col" class="px-6 py-4">Title</th>
               <th scope="col" class="px-6 py-4">Descriptions</th>
               <th scope="col" class="px-6 py-4">Last Modified</th>
+              <th scope="col" class="px-6 py-4">Attachments</th>
               <th scope="col" class="px-6 py-4">Actions</th>
             </tr>
           </thead>
@@ -39,11 +40,15 @@
                   <li *ngFor="let date of contract.dates" class="py-2">{{ date | date:'yyyy-MM-dd'  }}</li>
                 </ul>
               </td>
-              <td class="whitespace-nowrap px-6">
+              <td class="whitespace-nowrap px-6 border-r">
                 <div *ngFor="let contractId of contract.contractIds; let j = index" class="flex flex-row items-center">
                   <button class="border-black border-2 p-2 m-1 w-10 text-center" (click)="viewContract(contractId)">
                     #{{ getButtonNo(j) }}
                   </button>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-6">
+                <div *ngFor="let contractId of contract.contractIds; let j = index" class="flex flex-row items-center">
                   <button class="px-4 " (click)="deleteContract(contractId)"><i
                       class="material-symbols-outlined text-red-600">
                       delete

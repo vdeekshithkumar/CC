@@ -63,6 +63,21 @@ namespace CC_api.Repository
       }
     }
 
+    public async Task UpdateOtp(string email, int otp)
+    {
+      var Emailuser = await dbContext.users.FirstOrDefaultAsync(x => x.email == email);
+
+      if (Emailuser != null)
+      {
+        Emailuser.otp = otp;
+        dbContext.users.Update(Emailuser);
+        await dbContext.SaveChangesAsync();
+    
+      }
+ 
+    }
+
+
 
     public async Task<User> GetUserByEmail(string email)
     {
