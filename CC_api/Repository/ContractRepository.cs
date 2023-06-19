@@ -18,6 +18,7 @@ namespace CC_api.Repository
       public string title { get; set; }
       public string[] descriptions { get; set; }
       public int[] contractIds { get; set; }
+      public DateTime[] dates { get; set; }
     }
     public async Task<List<ContractsDto>> GetAllContracts(int companyId)
     {
@@ -34,12 +35,14 @@ namespace CC_api.Repository
         {
           var contractIds = group.Select(c => c.contract_id).ToArray();
           var descriptions = group.Select(c => c.content).ToArray();
+          var dates = group.Select(c=> c.updated_date_time).ToArray();
 
           ContractsDto contractDto = new ContractsDto
           {
             title = group.Key,
             contractIds = contractIds,
-            descriptions = descriptions
+            descriptions = descriptions,
+            dates = dates
           };
 
           contractDtos.Add(contractDto);
