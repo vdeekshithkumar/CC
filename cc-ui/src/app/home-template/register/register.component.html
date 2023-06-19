@@ -73,19 +73,10 @@
       <div class="rowbtn mt-1">
       <div class="space-y-1">
         <label for="address" class="label">Select country</label>
-        <input
-          list="countries"
-          class="register-page-data page-input"
-          type="text"
-          id="address"
-          style="width: 145px;"
-          formControlName="address"
-          
-   
-        />
-        <datalist id="countries">
-          <option *ngFor="let country of countryList" [value]="country"></option>
-        </datalist>
+        <select class="register-page-data border-2 page-input1  text-xs " id="address" formControlName="address">
+          <option  class = "text-xs"*ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
+        </select>
+    
         <div
         *ngIf="showValidationErrors && registrationForm.get('address')?.invalid"
         class="text-red-500 text-sm mt-1"
@@ -97,7 +88,7 @@
       </div>
     </div>
       
-      </div>
+      </div> &nbsp;
       <div class="space-y-1">
         <label for="address" class="label">City<span class="optional"> (Optional)</span></label>
         <input
