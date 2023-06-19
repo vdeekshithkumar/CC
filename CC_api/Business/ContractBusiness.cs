@@ -10,11 +10,6 @@ namespace CC_api.Business
 {
   public class ContractBusiness
   {
-    private string PathToServiceAccountKeyFile = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "client_secret.json");
-    private const string ServiceAccountEmail = "cc-436@cc-repository.iam.gserviceaccount.com";
-    private const string DirectoryId = "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS";
-
-
     private readonly ContractRepository contractRepository;
     public ContractBusiness()
     {

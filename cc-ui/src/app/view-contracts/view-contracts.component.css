@@ -1,1 +1,26 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+.div{
+    @apply  font-poppins;
+}
+.button{
+    @apply cursor-pointer;
+}
+.page-link{
+    @apply  text-xs w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
+}
+.page-link-active{
+    @apply  text-xs text-white font-bold bg-CCblue w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
+}
+.btn-primary{
+    color: #ffffff;
+    background-color: #2F54EB;
+    height: 30px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0px;
+    padding: 14px 15px;
+}

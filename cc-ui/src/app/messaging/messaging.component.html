@@ -51,7 +51,7 @@
             </div>
         </div>
         <div>
-            <button (click)="getUsers()">getusers</button>
+            <button (click)="getUsers()" [disabled]="loadUsers">getusers</button>
             <ul>
                 <li *ngFor="let user of users">
                   <input type="checkbox" [(ngModel)]="user.selected">{{user.fname}} {{user.lname}}
