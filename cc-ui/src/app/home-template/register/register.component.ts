@@ -74,7 +74,7 @@ ngOnInit(): void {
     is_active:['1',Validators.required],
     last_login:formattedDate,
     designation: ['admin',Validators.required],
-    
+    iagree: [false, Validators.requiredTrue]
   });
 
 
@@ -100,7 +100,7 @@ onSubmit(): void {
     !formValue.lname ||
     !formValue.email ||
     !formValue.address ||
-   
+    !formValue.iagree||
     !formValue.company_id ||
     !formValue.password
   ) {

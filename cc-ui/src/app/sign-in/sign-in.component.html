@@ -20,11 +20,6 @@
           </span>
 
         </div>
-        
-       
-
-
-       
               <!-- Just for testing purposes change ng submit-->
               <form [formGroup]= "loginForm"autocomplete="off" (ngSubmit)="onLoginSubmit()" class="form" >
                <label for="email" class="label" >Email</label>
@@ -37,12 +32,11 @@
                       *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
                       class="text-red-500 text-sm mt-1"
                     >
-                    <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
-                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
+                    
                   </div>
             
                 
-                  <div>
+                  <div class="mt-4">
                     <label for="password" class="label">Password</label>
                     <div class="password-container">
                       <input
@@ -60,23 +54,20 @@
                     </div>
                 <div>
                   <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
-                    <div *ngIf="loginForm.get('password')?.errors?.['required']">Password required</div>
+                    
                     <div *ngIf="loginForm.get('password')?.errors?.['minlength']"></div>
                   </div>
                 </div>
-                  <!-- <mat-form-field>
-                    <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
-                    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    <mat-hint *ngIf="!loginForm.value">Enter your password</mat-hint>
-                </mat-form-field> -->
+                 
                 <div class="checkbox-container mt-4 mb-2 term  flex flex-row">
-                  <input type="checkbox" id="agreeCheckbox" />
+                  <input type="checkbox" id="agreeCheckbox"/>
                   <div class="rowbtn">
                     <div class="ml-2">
                       <label for="agreeCheckbox  ">
                         Remember me 
                        </label>
                     </div>
+                  
                      <a class="signin-fp"routerLink="/forgot-password" style="color: blue;">Forgot Password</a>
                   </div>
                  
@@ -99,13 +90,6 @@
                     <a href="/register" style="color: blue;" class="underline px-1">Sign Up</a> 
                  
                   </label>
-
-                  <!-- <a href="#" class="a-otp-val" routerLink="/otp-validation">Validate your OTP</a> -->
-
-
-               
-               
-           
               </form>          
    
                  

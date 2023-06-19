@@ -285,6 +285,22 @@ export class ProfileComponent implements OnInit {
     // clear session data and redirect to login page
     this.sessionService.clearSession();
   }
+  clearSearch() {
+    this.searchTerm = '';
+  }
+  hideClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "none";
+    }
+  }
+    
+  showClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "inline-block";
+    }
+  }
   onSubmit() {
     (company_id: number) => {
       // this.profileService.subscribe(data=>{

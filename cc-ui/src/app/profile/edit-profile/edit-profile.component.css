@@ -1,34 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.div{
-  @apply min-h-full min-w-max p-6 bg-gray-100 flex items-center justify-center;
-}
-.div-input{
- @apply h-10 border mt-1 rounded px-4 w-full bg-gray-50
-}
-.editcompany{
-    @apply container max-w-screen-lg mx-auto;
-}
-.editcompany-h1{
-    @apply font-semibold text-xl text-gray-600;
-}
-.editcompany-bg{
-    @apply bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6;
-}
-
-.editcompany-p{
-    @apply font-medium text-lg;
-}
-.editcompany-form{
-    @apply grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-3;
-}
-.btn{
-    md:col-span-5 text-right;
-}
-.btn-editcompany{
-    @apply inline-block rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal transition duration-150 ease-in-out focus:outline-none focus:ring-0;
-}
-.submit-btn{
-    @apply bg-CCblue hover:bg-blue-700 text-white font-bold py-2 px-4 rounded;
-}
+.top{
+    font-family: 'Poppins';
+  font-size: 12px;
+  
+  color: #595959;
+  }
+  .upload-input-data{
+    @apply block px-1 py-1 leading-6 w-full 
+  }
+  .border{
+    border: 1px solid #D9D9D9;
+  }
+  .h1{
+    background-color: #F0F5FF;
+  
+  }
+  .btn-primary1{
+    color: #ffffff;
+    box-sizing: border-box;
+  
+    /* Auto layout */
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width:450px;
+    height: 25px;
+    
+    /* Geek Blue / geekblue-6 */
+    
+    background: #2F54EB;
+    border: 1px solid #3E7BFA;
+    
+  }
+  .btn-primary3{
+    background-color: #F0F0F0;
+     color:#595959;
+     box-sizing: border-box;
+  
+     /* Auto layout */
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+     align-items: center;
+     width: 450px;
+     height: 25px;
+     
+  }

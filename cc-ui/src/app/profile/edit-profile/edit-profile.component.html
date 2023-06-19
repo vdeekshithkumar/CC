@@ -1,72 +1,73 @@
-<div class="div" [class.hidden]="!showform">
-  <div class="editcompany">
-    <div>
-      <h2 class="editcompany-h1">Edit Company Profile</h2>
-      <div class="editcompany-bg">
-        <div class="editcompany-form">
-          <div class="text-gray-600">
-            <p class="editcompany-p">Company Details</p>
-            <p>Please fill out all the fields.</p>
-          </div>
-        <div class="lg:col-span-2">
-              <form [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
-            <div class="editcompany-form">
-              <div class="md:col-span-5">
-                <label for="name">Company Name</label>
-                <input type="text" formControlName="name" id="full_name" class="div-input" value="" />
-              </div>
-              <div class="md:col-span-5">
-                <label for="domain">Licence ID</label>
-                <input type="text" formControlName="licence_id" id="licenceid" class="div-input" value="" placeholder="" />
-              </div>
-              <div class="md:col-span-5">
-                <label for="domain">Domain Address</label>
-                <input type="text" formControlName="domain_address" id="domain" class="div-input" value="" placeholder="www.domain.com" />
-              </div>
-              <div class="md:col-span-3">
-                <label for="address">Company Location</label>
-                <input type="text" formControlName="company_location" id="company_location" class="div-input" value="" placeholder="" />
-              </div> 
-               <div class="md:col-span-3">
-                <label for="address">Country</label>
-                <input type="text" formControlName="country" id="country" class="div-input" value="" placeholder="" />
-              </div>
-              <!-- <div class="md:col-span-1">
-                <label for="city">rating</label>
-                <input type="text"  pattern="^\d*(\.\d{0,2})?$" formControlName="rating" id="rating" class="div-input" value="" placeholder="" />
-              </div> -->
-              <div class="md:col-span-3">
-                <label for="address">Address / Street</label>
-                <input type="text" formControlName="address" id="address" class="div-input" value="" placeholder="" />
-              </div>
-              <div class="md:col-span-3">
-                <label for="address">CompanyLogo</label>&nbsp;
-              <input formControlName="company_logo" type="file" (change)="onChange($event)"/>
-              <div *ngIf="myimage">
-              <img src="{{'data:image/jpg;base64,'+myimage}}"/>
-              <img [src]="myimage" width="100px" height="100px" alt="" />
-              <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
-              </div>
-              </div> 
-              <div class="btn">
-                <button
-                    type="button"
-                    class="btn-editcompany"
-                    data-te-modal-dismiss
-                    data-te-ripple-init
-                    data-te-ripple-color="light"
-                    (click)="onCancel()">
-                    Close
-              </button>
-                <div class="inline-flex items-end">
-                  <button class="submit-btn">Submit</button>
-                </div>
-              </div>
-             </div>
-            </form>
+<div [class.hidden]="!showform" class="fixed inset-0 flex items-center justify-center rounded-lg">
+  <div class="fixed inset-0 bg-black opacity-60 z-10"></div>
+  <div class="mt-4 mx-auto font-poppins relative z-20">
+    <div class="mt-10 justify-center h1 w-[62.5rem] h-[3rem]">
+      <div>
+        <div class="flex items-center justify-between ">
+          <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1">
+            Edit Company Profile</h1>
+          <div>
+            <button (click)="onCancel()" class="mr-4 text-black hover:text-gray-700 focus:outline-none">
+              <i class="fas fa-times"></i>
+            </button>
           </div>
         </div>
       </div>
     </div>
-  </div>
+      <div class="min-h-[200px] bg-white border-t border-b border-gray-200 px-5 text-gray-800">
+        <form class="grid grid-cols-3 gap-x-4 mt-6 font-poppins" [formGroup]= "editprofileForm" (ngSubmit)="onEdit()">
+          <div class="col-span-1 mt-0">
+            <label class="top mb-2 font-normal">Company Name</label>
+            <input type="text" formControlName="name" class="upload-input-data border h-8 placeholder"
+              placeholder="Company Name" />
+       
+          </div>
+          <div class="col-span-1 mt-0">
+              <label class="top mb-2 font-normal">Licence ID</label>
+              <input type="number" formControlName="licence_id" class="upload-input-data border h-8 placeholder"
+              placeholder="Licence ID" />
+           </div>
+          <div class="col-span-1 mt-0">
+            <label class="top mb-2 font-normal">Domain Address</label>
+            <input type="text" formControlName="domain_address" class="upload-input-data border h-8 placeholder"
+            placeholder="www.yourcompany.com" />
+          </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Company Location</label>
+            <input type="text" formControlName="company_location" class="upload-input-data border h-8 placeholder"
+              placeholder="E.g Bangalore" />
+          </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Country</label>
+            <input type="text" formControlName="country" class="upload-input-data border h-8 placeholder"
+              placeholder="E.g India" />
+          </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Address / Street</label>
+            <input type="text" formControlName="address" class="upload-input-data border h-8 placeholder"
+              placeholder="Your Address" />
+          </div>
+          <div class="col-span-1 mt-4 ">
+            <label class="top mb-2 font-normal">Company Logo</label>
+            <input formControlName="company_logo" type="file" (change)="onChange($event)" class="upload-input-data  h-8 placeholder"
+              placeholder="Minimum" />
+              <div *ngIf="myimage">
+                <img src="{{'data:image/jpg;base64,'+myimage}}"/>
+                <img [src]="myimage" width="100px" height="100px" alt="" />
+                <textarea rows="" cols="" [(ngModel)]="base64code"></textarea>
+                </div>
+          </div>
+          <div class="col-span-3 flex justify-between mt-16 mb-4">
+            <button  (click)="onCancel()"  class="font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none py-1 leading-6 border-2 btn-primary3">
+              Cancel
+            </button>
+            <button type="submit" class="font-poppins inline-flex mr-4 justify-center items-center space-0 focus:outline-none py-1 leading-6 border-CCblue btn-primary1">
+              Save
+            </button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+
 </div>
