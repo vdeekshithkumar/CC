@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Registerservice } from './register.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../dialog.component';
-
-
+import { countries, Country } from 'countries-list';
 
 interface RegisterResponse {
   message: string;
@@ -24,6 +23,18 @@ interface RegisterResponse {
 export class RegisterComponent implements OnInit 
 {
   email!:string;
+  countryList: { value: string; name: string; }[] = Object.values(countries)
+
+  .sort((a, b) => a.name.localeCompare(b.name))
+
+  .map((country: Country) => ({
+
+    value: country.name,
+
+    name: country.name
+
+  }));
+  
 
   @Output() emailSent = new EventEmitter<any>();
   showValidationErrors: boolean = false;
@@ -50,12 +61,12 @@ export class RegisterComponent implements OnInit
   r: any;
   
   showPassword=false;
-  countryList: any[] | undefined;
+  
   constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
    }
 
 ngOnInit(): void {
-
+ 
   const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
@@ -74,7 +85,7 @@ ngOnInit(): void {
     is_active:['1',Validators.required],
     last_login:formattedDate,
     designation: ['admin',Validators.required],
-    
+    iagree: [false, Validators.requiredTrue]
   });
 
 
@@ -100,7 +111,7 @@ onSubmit(): void {
     !formValue.lname ||
     !formValue.email ||
     !formValue.address ||
-   
+    !formValue.iagree||
     !formValue.company_id ||
     !formValue.password
   ) {
@@ -208,10 +219,5 @@ togglePasswordVisibility() {
   this.showPassword = !this.showPassword;
 }
 
-// register(): void {
-//   if (!this.firstName || !this.lastName||!this.email||!this.address||!this.phone_no||!this.company_id) {
-//     alert('Fields should not be empty');
-//     return;
-//   }
-// }
+
 }

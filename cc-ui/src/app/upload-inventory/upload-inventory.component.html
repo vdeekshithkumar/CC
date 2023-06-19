@@ -100,12 +100,12 @@
 
               <th scope="col border-2"
                 class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                Container_Type
+                Container Type
               </th>
 
               <th scope="col border-2"
                 class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                Container_Size
+                Container Size
               </th>
 
               <th scope="col border-2"
@@ -223,7 +223,7 @@
           <div class="col-span-1 mt-0">
             <label class="top mb-2 font-normal">Name of Port</label>
             <div>
-              <select class="upload-input-data border" style="font-size: 10px;" #port [(ngModel)]="port_name" formControlName="port_id">
+              <select class="upload-input-data border" style="font-size: 11px;" #port [(ngModel)]="port_name" formControlName="port_id">
                   <option value="" disabled selected >Select your Port</option>
                   <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
                 </select>
@@ -232,7 +232,7 @@
           <div class="col-span-1 mt-0">
               <label class="top mb-2 font-normal">Container Type</label>
               <div>
-                <select class="upload-input-data border" style="font-size: 10px;" formControlName="container_type" >
+                <select class="upload-input-data border" style="font-size: 11px;" formControlName="container_type" >
                     <option value="" class="text-xs" disabled selected>Select Container Type</option>
                     <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
                   </select>
@@ -241,7 +241,7 @@
           <div class="col-span-1 mt-0">
             <label class="top mb-2 font-normal">Container Size</label>
               <div>
-                <select class="upload-input-data border placeholder" style="font-size: 10px;" formControlName="container_size">
+                <select class="upload-input-data border placeholder" style="font-size: 11px;" formControlName="container_size">
                     <option value="" class="text-xs"  class="placeholder"disabled selected>Select Container Size in TEU</option>
                     <option>1</option>
                     <option>2</option>
@@ -264,7 +264,7 @@
             <input type="number" formControlName="minimum" class="upload-input-data border h-8 placeholder"
               placeholder="Minimum" />
           </div>
-          <div class="col-span-3 flex justify-between mt-16 mb-4">
+          <div class="col-span-3 flex text-xs justify-between mt-16 mb-4">
             <button (click)="resetForm(UploadInventoryForm)"  class="font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none py-1 leading-6 border-2 btn-primary3">
               Reset
             </button>
