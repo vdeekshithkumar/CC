@@ -19,7 +19,7 @@
               <th scope="col" class="px-6 py-4">#</th>
               <th scope="col" class="px-6 py-4">Title</th>
               <th scope="col" class="px-6 py-4">Descriptions</th>
-              <th scope="col" class="px-6 py-4">Contract IDs</th>
+              <th scope="col" class="px-6 py-4">Last Modified</th>
               <th scope="col" class="px-6 py-4">Actions</th>
             </tr>
           </thead>
@@ -36,7 +36,7 @@
               </td>
               <td class="whitespace-nowrap px-6 border-r">
                 <ul>
-                  <li *ngFor="let contractId of contract.contractIds" class="py-2">{{ contractId }}</li>
+                  <li *ngFor="let date of contract.dates" class="py-2">{{ date | date:'yyyy-MM-dd'  }}</li>
                 </ul>
               </td>
               <td class="whitespace-nowrap px-6">
