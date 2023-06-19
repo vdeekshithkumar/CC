@@ -130,8 +130,8 @@ isUserValid:boolean=false;
           this.sharedservice.setRegisteredEmail(this.email);
           console.log(this.email+"email emiting from sign in page");
             alert("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue");
-            
-            this.router.navigate(['/otp-validation']);
+            this.sendOtp(this.email);
+         
         }
         else {
           // display error message
@@ -148,6 +148,23 @@ isUserValid:boolean=false;
     );
   }
   
+  
+
+  sendOtp(email:string){
+
+    this.signInService.sendOtp(email).subscribe(
+      (response) => {
+        console.log('OTP sent successfully: send otp fntn', response);
+        // Handle success, e.g., display a success message to the user
+      },
+      (error) => {
+        console.error('Failed to send OTP:', error);
+        // Handle error, e.g., display an error message to the user
+      }
+    );
+    this.router.navigate(['/otp-validation']);
+  }
+
   openErrorDialog(message: string): void {
     this.dialog.open(DialogComponent, {
       data: {

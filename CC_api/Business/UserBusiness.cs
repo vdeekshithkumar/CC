@@ -21,6 +21,20 @@ namespace CC_api.Business
       await this.userRepository.UpdateUserDetails(id, user);
     }
 
+    public async Task SendOtp(String email)
+    {
+
+
+      var random = new Random();
+      DateTime expirationTime = DateTime.Now.AddMinutes(5);
+      var otp = random.Next(100000, 999999);
+
+
+      await userRepository.UpdateOtp(email, otp);
+    }
+
+
+
     public async Task<User> GetUserAsync(int userID)
     {
       var userData = await userRepository.GetUserAsync(userID);

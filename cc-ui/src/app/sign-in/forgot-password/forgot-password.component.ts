@@ -28,12 +28,12 @@ export class ForgotPasswordComponent{
 
 
   IfExistsThenSendOTP() {
-    debugger
+ 
 
     this.resetService.confirmation(this.email).subscribe(
       (response: ConfirmationResponse) => {
         if (response.message === "User found") {
-          debugger
+         
           this.forgotService.setEmail(this.email)//sets the email value to refer from other components
           this.forgotService.getOTP(this.email).subscribe(response => {
             this.otp = response

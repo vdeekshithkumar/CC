@@ -29,6 +29,11 @@ namespace CC_api.Controllers
     //  return await userBusiness.GetAllUserAsync(companyid);
     //}
 
+    [HttpPost("SendOtp")]
+    public async Task SendOtpToEmail([FromBody] VerifyOTPRequest payload)
+    {
+       await userBusiness.SendOtp(payload.email);
+    }
 
 
     [HttpPost("VerifyOTP")]
