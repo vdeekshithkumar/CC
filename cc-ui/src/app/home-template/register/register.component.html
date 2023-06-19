@@ -12,12 +12,14 @@
             <input
               type="text"
               formControlName="fname"
+              onfocus="changeInputType(this, 'first name')"
               class="register-page-data page-input"
               type="text"
               id="fname"
               style="width: 145px;"
               placeholder="e.g. John" 
-              autocomplete="hidden"
+             
+             
             
             />
                   <div
@@ -33,6 +35,7 @@
             <label for="lname" class="label">Last Name</label>
             <input
               formControlName="lname"
+              onfocus="changeInputType(this, 'last name')"
               class="register-page-data page-input"
               type="text"
               id="lname"
@@ -56,6 +59,7 @@
         <input
           [(ngModel)]="email"
           formControlName="email"
+          onfocus="changeInputType(this, 'email')"
           class="register-page-data page-input"
           type="email"
           id="email"
@@ -81,9 +85,12 @@
           id="address"
           style="width: 145px;"
           formControlName="address"
-          autocomplete="hidden"
+          
    
         />
+        <datalist id="countries">
+          <option *ngFor="let country of countryList" [value]="country"></option>
+        </datalist>
         <div
         *ngIf="showValidationErrors && registrationForm.get('address')?.invalid"
         class="text-red-500 text-sm mt-1"
@@ -91,6 +98,7 @@
       <div *ngIf="showValidationErrors && registrationForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
         <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
         <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+        
       </div>
     </div>
       
