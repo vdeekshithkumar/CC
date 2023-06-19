@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ContractDto } from '../DTO/ContractDto';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class ViewContractsService {
   }
   
   
-  getContracts(title:string,companyId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/GetAllContractsByTitle?title=${title}&companyId=${companyId}`, { responseType: 'json' });
+  getAllContracts(companyId: number): Observable<any> {
+    return this.http.get<ContractDto[]>(`${this.baseUrl}/GetAllContracts?companyId=${companyId}`);
   }
   getAllTitles(companyId:number):Observable<any>{
     debugger
@@ -33,10 +34,10 @@ export class ViewContractsService {
     return this.http.delete<any>(url);
   }
   
-  ViewContract(contractID: number, userID: number, companyID: number): Observable<Blob> {
-    debugger
+  async ViewContract(contractID: number, userID: number, companyID: number): Promise<Blob> {
     const url = `${this.baseUrl}/DownloadContracts?userId=${userID}&companyId=${companyID}&contractID=${contractID}`;
-    return this.http.get(url, { responseType: 'blob' });
+    const response = await this.http.get(url, { responseType: 'blob' }).toPromise();
+    return response as Blob;
   }
   // getContractByIdCID(companyId:number): Observable<any> {
   //   return this.http.get(`${this.CIdUrl}/${companyId}`, { responseType: 'json' });

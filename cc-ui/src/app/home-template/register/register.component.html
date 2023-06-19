@@ -26,9 +26,7 @@
                   *ngIf="showValidationErrors && registrationForm.get('fname')?.invalid"
                   class="text-red-500 text-sm mt-1"
                 >
-                    <div class="warnings" *ngIf="registrationForm.get('fname')?.errors?.['required']">First Name is required</div>
-                    <div class="warnings" *ngIf="registrationForm.get('fname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
-                  </div>
+                    </div>
         
             </div>
           <div class="relative">
@@ -48,9 +46,7 @@
                   *ngIf="showValidationErrors && registrationForm.get('lname')?.invalid"
                   class="text-red-500 text-sm mt-1"
                 >
-                <div class="warnings" *ngIf="registrationForm.get('lname')?.errors?.['required']">Last Name is required</div>
-                <div class="warnings" *ngIf="registrationForm.get('lname')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
-                </div>
+               </div>
           </div>
       </div>
 
@@ -71,8 +67,7 @@
         *ngIf="showValidationErrors && registrationForm.get('email')?.invalid"
         class="text-red-500 text-sm mt-1"
       >
-      <div class="warnings" *ngIf="registrationForm.get('email')?.errors?.['required']">Email is required</div>
-          <div  class="warnings" *ngIf="registrationForm.get('email')?.errors?.['email']">Invalid email format</div>
+      
         </div>
       </div>
       <div class="rowbtn mt-1">
@@ -87,8 +82,8 @@
         class="text-red-500 text-sm mt-1"
       >
       <div *ngIf="showValidationErrors && registrationForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
-        <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
-        <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+        <!-- <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
+        <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div> -->
         
       </div>
     </div>
@@ -110,8 +105,8 @@
         class="text-red-500 text-sm mt-1"
       >
       <div *ngIf="showValidationErrors && registrationForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
-        <div *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
-        <div *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div>
+        <!-- <div *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
+        <div *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div> -->
       </div>
     </div>
       
@@ -156,7 +151,7 @@
         *ngIf="showValidationErrors && registrationForm.get('company_id')?.invalid"
         class="text-red-500 text-sm mt-1"
       >
-      <div *ngIf="registrationForm.get('company_id')?.errors?.['required']">Company is required</div>
+      <!-- <div *ngIf="registrationForm.get('company_id')?.errors?.['required']">Company is required</div> -->
     </div>
       </div>
 
@@ -185,22 +180,31 @@ class="fas password-toggle"
           </div>
           
                 <div *ngIf="showValidationErrors && registrationForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
-                  <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
+                  <!-- <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
                   <div *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div>
+                  <div *ngIf="registrationForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div> -->
                 </div>
         </div>
         
       
       </div>
 
-      <div class="checkbox-container mt-4 mb-2 term  flex flex-row items-center gap-2">
-        <input type="checkbox" id="agreeCheckbox" />
-        <label for="agreeCheckbox  ">
-          I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and
-          <a href="#" style="color: blue;">privacy policy</a>
-        </label>
+      <div class="checkbox-container mt-4 mb-2 term flex flex-row items-center gap-2">
+        <div>
+          <input type="checkbox" id="agreeCheckbox" formControlName="iagree" />
+          <label for="agreeCheckbox">
+            I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and
+            <a href="#" style="color: blue;">privacy policy</a>
+          </label>
+        </div>
+       
       </div>
+      <div *ngIf="showValidationErrors && registrationForm.get('iagree')?.invalid" class="text-red-500 text-xs mt-1">
+        <div *ngIf="registrationForm.get('iagree')?.errors?.['required']" class="text-xs">
+          You need to agree to our Terms & Services
+        </div>
+      </div>
+  
       
 
       <div class="center-position mt-2 ">

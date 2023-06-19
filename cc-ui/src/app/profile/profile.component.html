@@ -199,16 +199,14 @@
 
     <div class="font-medium bg-gray-50 flex items-center px-10">
       <div class=" text-lg font-light justify-start">User Details</div>
-      <div class="div-search my-2 border-2 justify-start mx-4">
+      <div class="div-search my-2 search justify-start mx-10 -mt-0">
         <div class="div-search-icon">
-          <!-- search bar icon -->
-          <svg xmlns="http://www.w3.org/2000/svg" class="pl-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="gray">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-
-        <input class="input-search ml-3 " type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. Name, Email, Mobile)" autocomplete="off"/>
+        <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (E.g. Name, Email)" autocomplete="off" (focus)="showClearButton()"/>
+    
       </div>
      
         <button mat-raised-button color="primary"

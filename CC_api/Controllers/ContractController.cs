@@ -148,10 +148,10 @@ namespace CC_api.Controllers
       });
       return Ok(contracts);
     }
-    [HttpGet("GetAllContractsByCompanyID")]
+    [HttpGet("GetAllContracts")]
     public async Task<IActionResult> GetContractsByCompanyID(int companyId)
     {
-      var list = await this._contractRepository.GetContractsByCompanyID(companyId);
+      var list = await this._contractRepository.GetAllContracts(companyId);
 
       return Ok(list);
     }

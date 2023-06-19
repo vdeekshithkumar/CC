@@ -42,7 +42,7 @@ a:hover {
   @apply absolute top-full right-0 rounded-md 
 }
 .profile-box{
-  @apply text-xs w-fit items-center leading-6 p-2 flex flex-col shadow-lg bg-white 
+  @apply text-xs w-fit items-center font-poppins leading-6 p-2 flex flex-col shadow-lg bg-white 
 }
 .hidden {
   display: none;
