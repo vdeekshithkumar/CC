@@ -211,31 +211,31 @@ prevPage() {
    }
 
    getCompanyName(adId: number): string {
-    debugger
+ 
      this.AdscompanyId = this.AdscompanyNames[adId];
    
     return this.companyNames[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanylogo(adId: number): string {
-    debugger
+
      this.AdscompanyId = this.AdscompanyNames[adId];
    
     return this.companyLogos[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanyrating(adId: number): string {
-    debugger
+
      this.AdscompanyId = this.AdscompanyNames[adId];
    
     return this.companyRating[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanydomain(adId: number): string {
-    debugger
+ 
      this.AdscompanyId = this.AdscompanyNames[adId];
    
     return this.companyDomain[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanyaddress(adId: number): string {
-    debugger
+  
      this.AdscompanyId = this.AdscompanyNames[adId];
    
     return this.companyAddress[this.AdscompanyId] || 'Unknown Company';
