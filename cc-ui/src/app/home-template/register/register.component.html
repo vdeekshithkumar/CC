@@ -86,8 +86,8 @@
       <div class="rowbtn mt-1">
       <div class="space-y-1">
         <label for="address" class="label">Select country</label>
-        <select class="register-page-data border-2 page-input1  text-xs " id="address" formControlName="address">
-          <option  class = "text-xs"*ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
+        <select class="register-page-data border-2 page-input  text-xs " style="padding: 0px;" id="address" formControlName="address">
+          <option  class = "text-xs" *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
         </select>
     
         <div
@@ -201,15 +201,14 @@
       </div>
 
       <div class="checkbox-container mt-4 mb-2 term flex flex-row items-center gap-2">
-        <div>
+   
           <input type="checkbox" id="agreeCheckbox" [checked]="checkEnabled" (change)="toggleCheckEnabled()" formControlName="iagree" />
           <label for="agreeCheckbox">
             I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and
             <a href="#" style="color: blue;">privacy policy</a>
           </label>
-        </div>
-       
       </div>
+
       <div *ngIf="showValidationErrors && registrationForm.get('iagree')?.invalid" class="text-red-500 text-xs mt-1">
         <div *ngIf="registrationForm.get('iagree')?.errors?.['required']" class="text-xs">
           You need to agree to our Terms & Services
