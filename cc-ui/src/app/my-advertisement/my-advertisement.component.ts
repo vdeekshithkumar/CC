@@ -539,8 +539,6 @@ onExport(){
     this.description = null
   }
   
-  
-  
   deleteAd(id: number) {
     this.myadservice.deleteAd(id)
       .subscribe(

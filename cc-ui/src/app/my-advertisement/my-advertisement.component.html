@@ -239,6 +239,7 @@
                         <li><button
                             class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"
                             *ngIf="totalPages!=1">{{currentPage}}</button>
+                            
                         </li>
                         <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
                             (click)="nextPage()" [hidden]="currentPage>=totalPages"
