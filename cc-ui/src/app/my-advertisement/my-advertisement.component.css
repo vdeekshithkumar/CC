@@ -160,7 +160,7 @@
    }
     
    .underline-button{
-    @apply menu-tile border-blue-500 hover:border-b-4 Poppins;
+    @apply menu-tile border-blue-500 hover:border-b-2 Poppins;
 }
    .underline-a{
     @apply menu-tile  hover:text-CCblue  Poppins;
@@ -258,5 +258,34 @@
     .my-button {
       @apply px-2 py-1 text-white bg-blue-500 rounded-md ml-2;
     }
-   
+
+  .div-bg{
+      background: #FAFAFA;
+    }
+    .forecast {
+      font-family: Poppins;
+      font-size: 16px;
+      line-height: 28px;
+  }
+  .forecast1 {
+    font-family: Poppins;
+    font-size: 12px;
+    line-height: 28px;
+}
+  .btn-primary2{
+    color: #FAFAFA;
+    height: 38px;
+    background-color:#2F54EB ;
+}
+  .btn-primary9{
+    color: #262626;
+    height: 38px;
+  }
+  .border{
+    border: 2px solid #D9D9D9;
+  }
+  .div-bg-line{
+    border-bottom: 2px solid  #E9E9E9;
+    
+  }
     

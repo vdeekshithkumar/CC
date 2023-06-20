@@ -1,129 +1,267 @@
-<div class="w-full h-full flex flex-col first:flex-row">  
-  <section  class="ml-1">
-    <div class="flex flex-col">
-      <div class="overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700  mr-0">
-<!-- Main View Canvas -->
-<div class="w-full mt-2 left-0 overflow-auto mr-2" >
-  <!-- Company Details section  -->
-      <div class="flex justify-between items-center">
-        <h1 class="text-2xl text-black-100 mt-2 flex-1">My Advertisement</h1>
-        <div><button  class="bg-CCblue text-white font-bold py-2 mt-2 px-4 mr-4 rounded " (click)="onExportClick()">Export</button>
-          <button  class="bg-CCblue text-white font-bold py-2 mt-2  px-4 mr-4  rounded disable " [disabled]="isButtonDisabled" (click)="DisplayPostForm()">Post Ad</button>
-        </div></div><br/>
-<hr style="height: 2px;">
-<nav class="header-links contents font-semibold text-base lg:text-lg">
-<ul class="flex items-center ">
-  <li class="nav-item" [routerLinkActive]="['active']">
-    <a>
-      <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-button">
-        <div class="flex items-center">
-          <span class="underline-a">Active Ads</span>
-          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-            <span [class.hover:text-black]="true">{{this.adscount[0]}}</span>
-          </div></div></button></a></li>&nbsp; &nbsp; &nbsp;
-  <li class="nav-item" [routerLinkActive]="['pending']"  >
-    <a>
-       <button  [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()"  class="underline-button">
-        <div class="flex items-center">
-          <span class="underline-a">Pending Ads</span>
-          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-            <span [class.hover:text-black]="true">{{this.adscount[1]}}</span>
-          </div></div></button></a></li>
-  &nbsp; &nbsp; &nbsp;
-  <li class="nav-item" [routerLinkActive]="['pending']">
-    <a>
-    <button [ngClass]="{'border-b-2': draftActive}"  (click)="onDraftsActive()"  class="underline-button">
-        <div class="flex items-center">
-          <span class="underline-a">Draft Ads</span>
-          <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2" style="width: 20px; height: 20px; font-size: 12px;">
-            <span [class.hover:text-black]="true">{{this.adscount[2]}}</span>
-            </div></div></button></a></li></ul>
-          </nav>
-<div class="w-full h-full flex flex-col mt-2">
-  <table class="table-auto">
-    <thead class="bg-gray-200 dark:bg-gray-800 ">
-      <tr class="bg-gray-200 dark:bg-gray-800 justify-center">
-        <th class="flex-1 px-6 py-4">Expiry Date</th>
-        <th class="flex-1 px-6 py-4">Type of Ad</th>
-        <th class="flex-1 px-6 py-4">Status</th>
-        <th class="flex-1 px-6 py-4">Price</th>
-        <th class="flex-1 px-6 py-4">Quantity</th>
-        <th class="flex-1 px-6 py-4">Free days</th>
-        <th class="flex-1 px-6 py-4">Per Diem</th>
-        <th class="flex-1 px-6 py-4">Pickup charges</th>
-        <th class="flex-1 px-6 py-4">Port of Departure</th>
-        <th class="flex-1 px-6 py-4">Port of Arrival</th>
+
+      <!-- Main View Canvas -->
+      <div class="w-full mt-2 left-0 overflow-auto mr-2 div-bg-line">
+        <!-- Company Details section  -->
+        <div class="inline-block min-w-full py-2 flex div-bg  items-center"> 
+          <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
+          <div class=" ml-80 justify-end flex">
+            <div class="mb-2  justify-end w-[10em] h-[2em]  flex-wrap">
+              <button >
+                
+              </button>
+            </div>
+            <div class="mb-2 ml-96 justify-end w-[10em] h-[2em]  flex-wrap">
+              <button (click)="onExportClick()"
+                class="ml-4 float-right inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
+                    fill="#262626" />
+                  <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#262626" />
+                </svg>
+                <span class="ml-2">Export</span>
+              </button>
+            </div>
+            <div class="ml-4 justify-end w-[8em] mb-2 h-[2em] flex-wrap">
+              <button [disabled]="isButtonDisabled" (click)="DisplayPostForm()"
+                class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+                <span class="ml-1">Post Ad</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
        
-        <th class="flex-1 px-6 py-4"  colspan="2" style="text-align: left;">{{ operation === 'Active' ? 'Negotiations' : 'Actions' }}</th>
-      </tr></thead>
-      <tbody class="w-full h-full ml-16 mt-4">
-        <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class=" w-full" >
-<td scope="row" class="flex-1 px-6 text-center">{{ getDateOnly(ad.expiry_date) }}</td>
-<td scope="row" class="flex-1 px-6  text-center">{{ ad.type_of_ad }}</td>
-  <td class="px-6 py-4 whitespace-no-wrap flex-1">
-    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ad.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-        {{ ad.status }}
-    </span>
-  </td>
-<td scope="row" class="flex-1 px-6  text-center">{{ ad.price }}</td>
-<td scope="row" class="flex-1 px-6  text-center">{{ ad.quantity }}</td>
-<td scope="row" class="flex-1 px-6 text-center">{{ ad.free_days }}</td>
-<td scope="row" class="flex-1 px-6 text-center">{{ ad.per_diem }}</td>
-<td scope="row" class="flex-1 px-6  text-center">{{ ad.pickup_charges }}</td>
-<td scope="row" class="flex-1 px-6  text-center">{{ ad.port_of_departure }}</td>
-<td scope="row" class="flex-1 px-6  text-center">{{ ad.port_of_arrival }}</td>
-<td>
-  <button  [disabled]="isButtonDisabled" (click)="deleteAd(ad.ad_id)" class="w-6 mr-2 transform disable">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-  </svg>
-  </button>
-</td>
-<td *ngIf="operation === 'Draft'"><button (click)="DisplayDraftForm(ad.ad_id)" *ngIf="operation === 'Draft'" scope="row" class="flex-1 rounded-md text-center bg-CCblue rounded-lg px-6 mr-2 text-white disable py-1" style="font-size: 12px;">Edit</button></td>
-<div style="display: flex; flex-direction: column;">
-<!-- <td>
-  <button [disabled]="isButtonDisabled"  mat-raised-button color="primary" (click)="DisplayApproveForm(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="div-tbody-th px-6 py-4">View & Approve</button>
-</td> -->
-<td *ngIf="operation === 'Pending'"><button [disabled]="isButtonDisabled" (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row" class="flex-1 rounded-md rounded-lg  py-1 text-center px-6 text-white mr-2 bg-CCblue disable mt-2" style="font-size: 12px;">Approve</button></td>
-<td>
-  <button [disabled]="getNegotiationCount(ad.ad_id)<1" (click)="OpenNegotiations(ad.ad_id)" *ngIf="operation === 'Active'" scope="row" class="flex-1 rounded-md disable text-white rounded-lg text-center px-4 py-1 mr-2 mt-2 disable bg-CCblue " style="font-size: 12px;">
-    &nbsp;&nbsp;Open&nbsp;&nbsp;
-    <!-- {{ getNegotiationCount(ad.ad_id) }} --></button></td></div></tr></tbody></table>
-<div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
-  <nav aria-label="Page navigation">
-      <ul class="inline-flex">
-          <li><button [class.opacity-50]="currentPage === totalPages"  (click)="currentPage ===1" (click)="prevPage() " [hidden]="currentPage<2"
-                  class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                      <path
-                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                          clip-rule="evenodd" fill-rule="evenodd"></path>
-                  </svg></button>
-          </li>
-          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="prevPage()" *ngIf = "currentPage>1" [hidden]="currentPage<2"
-                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-          </li>
-          <li><button
-                  class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"  *ngIf = "totalPages!=1">{{currentPage}}</button>
-          </li>
-          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"  [hidden]="currentPage>=totalPages"
-                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-          </li>
-          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage" (click)="nextPage()"[hidden]="currentPage>=totalPages"
-                  class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                      <path
-                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                          clip-rule="evenodd" fill-rule="evenodd"></path>
-                  </svg>
-                </button>
-          </li>
-      </ul>
-  </nav>
-</div>
-</div>
-</div> 
-</div>
-</div>
-</section>
-</div>
+        <hr style="height: 2px;">
+        <nav class="bg-white div-bg-line font-semibold text-base lg:text-lg">
+          <ul class="flex items-center ">
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a>
+                <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-button">
+                  <div class="flex items-center">
+                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
+                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                      style="width: 16px; height: 16px; font-size: 10px;">
+                      <span [class.hover:text-black]="true">{{this.adscount[0]}}</span>
+                    </div>
+                  </div>
+                </button></a>
+            </li>&nbsp; &nbsp; &nbsp;
+            <li class="nav-item" [routerLinkActive]="['pending']">
+              <a>
+                <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" class="underline-button">
+                  <div class="flex items-center">
+                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
+                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                      style="width: 16px; height: 16px; font-size: 10px;">
+                      <span [class.hover:text-black]="true">{{this.adscount[1]}}</span>
+                    </div>
+                  </div>
+                </button></a>
+            </li>
+            &nbsp; &nbsp; &nbsp;
+            <li class="nav-item" [routerLinkActive]="['pending']">
+              <a>
+                <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" class="underline-button">
+                  <div class="flex items-center">
+                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
+                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                      style="width: 16px; height: 16px; font-size: 10px;">
+                      <span [class.hover:text-black]="true">{{this.adscount[2]}}</span>
+                    </div>
+                  </div>
+                </button></a>
+            </li>
+          </ul>
+        </nav>
+        <div class="w-full flex flex-col first:flex-row max-h-screen bg-gray-50">
+          <section class="ml-4 mr-6 rounded-sm">
+            <div class="flex flex-col">
+              <div class="overflow-hidden rounded-lg  border-1  mr-0 mt-4">
+                <table class="rounded-lg min-w-full divide-y">
+                    <thead class="bg-gray-100 dark:bg-gray-100">
+                      <tr>
+                        <th scope="col-4"
+                          class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
+                          <div class="flex items-center gap-x-3">
+                            <button class="flex items-center gap-x-1  text-sm">
+                              <span>Expiry Date</span>
+                            </button>
+                          </div>
+                        </th>
+
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Type of Ad
+                        </th>
+
+                        <th scope="col border-2"
+                          class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Status
+                        </th>
+
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Price
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Quality
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Free days
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Per Diem
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Pickup charges
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Port of Departure
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Port of Arrival
+                        </th>
+                        <th scope="col border-2"
+                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          {{ operation === 'Active' ?
+                          'Negotiations' : 'Actions' }}
+                        </th>
+
+                      </tr>
+                    </thead>
+                    <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
+                      <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+                        <!-- table row data here -->
+
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+
+                            <span> {{ getDateOnly(ad.expiry_date) }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
+                          {{ ad.type_of_ad }}
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <span
+                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ad.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                            {{ ad.status }}
+                          </span>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span> {{ ad.price }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span> {{ ad.quantity }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span> {{ ad.free_days }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span>{{ ad.per_diem }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span>{{ ad.pickup_charges }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span>{{ ad.port_of_departure }}</span>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div class="inline-flex items-center gap-x-3 ">
+                            <span>{{ ad.port_of_arrival }}</span>
+                          </div>
+                        </td>
+
+                        <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div style="display: flex;">
+                            <button [disabled]="isButtonDisabled" (click)="deleteAd(ad.ad_id)"
+                              class="w-6 mr-2 transform disable">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                              </svg>
+                            </button>
+                            <button [disabled]="isButtonDisabled" (click)="DisplayDraftForm(ad.ad_id)"
+                              *ngIf="operation === 'Draft'" scope="row"
+                              class="flex-1 inline-flex font-medium rounded-md text-center bg-CCblue rounded-sm px-6 mr-2 text-white disable py-1"
+                              style="font-size: 12px;"></button>
+                            <button [disabled]="isButtonDisabled" (click)="approve(ad.ad_id)"
+                              *ngIf="operation === 'Pending'" scope="row"
+                              class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 text-center px-2 text-white mr-2 bg-CCblue disable mt-2"
+                              style="font-size: 12px;">Approve</button>
+                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id)"
+                              *ngIf="operation === 'Active'" scope="row"
+                              class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
+                              style="font-size: 12px;">Open</button>
+                          </div>
+                        </td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <div class="bg-white p-4 flex items-center flex-wrap  justify-center" *ngIf="this.ads.length>0">
+                    <nav aria-label="Page navigation">
+                      <ul class="inline-flex">
+                        <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage ===1"
+                            (click)="prevPage() " [hidden]="currentPage<2"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                              <path
+                                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                            </svg></button>
+                        </li>
+                        <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                            (click)="prevPage()" *ngIf="currentPage>1" [hidden]="currentPage<2"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage
+                            - 1}}</button>
+                        </li>
+                        <li><button
+                            class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline"
+                            *ngIf="totalPages!=1">{{currentPage}}</button>
+                        </li>
+                        <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                            (click)="nextPage()" [hidden]="currentPage>=totalPages"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
+                        </li>
+                        <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                            (click)="nextPage()" [hidden]="currentPage>=totalPages"
+                            class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                              <path
+                                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" fill-rule="evenodd"></path>
+                            </svg>
+                          </button>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+      
+   
+
+

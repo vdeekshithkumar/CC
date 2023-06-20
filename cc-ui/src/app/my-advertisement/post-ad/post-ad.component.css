@@ -371,4 +371,8 @@
   .delete-button:hover {
     background-color: #b5f5e1;
   }
+  .add-h1{
+    color: #595959;
+    font-size: 20px;
+  }
   

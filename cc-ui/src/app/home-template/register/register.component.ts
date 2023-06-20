@@ -125,7 +125,9 @@ onSubmit(): void {
     if (!formValue.email) {
       errorMessage += '- Email\n';
     }
-   
+    if (!formValue.address) {
+      errorMessage += '- Country\n';
+    }
     if (!formValue.company_id) {
       errorMessage += '- Company Name\n';
     }

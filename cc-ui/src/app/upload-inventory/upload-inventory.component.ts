@@ -34,7 +34,7 @@ export class UploadInventoryComponent {
     refrigerated:any;
     ExcelData:any;
     showForm: boolean = false;
-    itemsPerPage: number = 8;
+    itemsPerPage: number = 7;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -263,6 +263,10 @@ ReadExcel(event: any) {
 get totalPages(): number {
   return Math.ceil(this.inventory_list_by_companyId.length / 8);
 }
+getPortName(portId: number): string {
+  const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
+  return port ? port.port_name : '';
+}
 prevPage() {
 
   if (this.currentPage > 1) {
@@ -283,7 +287,6 @@ prevPage() {
 
 
   getInventoryById(inv_id: number) {
-  
     this.uploadInventoryservice.getInventoryById(inv_id)
       .subscribe(
         (        data: any) => {
@@ -297,6 +300,7 @@ prevPage() {
 
         },
         (        error: any) => console.log(error));
+        this.showForm = true;
   }
 
 
