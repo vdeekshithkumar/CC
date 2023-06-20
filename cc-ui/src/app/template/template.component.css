@@ -10,11 +10,14 @@
   
   .left-section {
     width: 12%;
-    background-color: #F0F5FF;
+
     display: flex;
-    justify-content: center;
-    align-items: center;  
+    float: left;
+    justify-content: left;
+    align-items: left;  
     background:fixed;
+    opacity: 1;
+background-color: rgb(249 250 251 / var(1));
   }
   
   .right-section {

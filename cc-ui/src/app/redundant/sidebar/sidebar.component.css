@@ -25,7 +25,7 @@
     @apply block h-screen shadow-md font-poppins border-r-2 left-0 top-12;
   }
   .sidebar-a.active {
-    @apply text-CCblue border-CCblue border-l-4;
+    @apply text-CCblue border-CCblue bg-white border-l-4;
   }
   .svg-container svg {
     fill:#2F54EB;
