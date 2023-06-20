@@ -295,6 +295,12 @@ flex: none;
 order: 0;
 flex-grow: 0;
   }
+
+  .error{
+    color: #cf2222;
+    font-size: 10px;
+    font-family: 'Poppins';
+  }
   .password-container {
     position: relative;
     width: 100%;
@@ -320,6 +326,22 @@ flex-grow: 0;
 }
   .label{
 
+    width: 65px;
+    height: 30px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    
+    
+    /* Gray / gray-8 */
+    
+    color: #595959;
+  }
+  .country-input{
     width: 65px;
     height: 30px;
     

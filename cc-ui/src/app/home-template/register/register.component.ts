@@ -71,13 +71,13 @@ ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
     user_id: ['2',Validators.required],
     company_id:['',Validators.required],
-    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    address: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-    email: ['', [Validators.required, Validators.email]],
-    phone_no:['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$')]],
-    city:['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+    address: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(25)]],
+    phone_no:['', [Validators.pattern('[0-9]*'), Validators.maxLength(15)]],
+    password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
+    city:['', [Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(10)]],
     otp:['12345',Validators.required],
     is_verified:['0',Validators.required],
     is_approved:['1',Validators.required],
@@ -138,7 +138,11 @@ onSubmit(): void {
   }
 
   if (!this.registrationForm.controls['email'].valid) {
-    this.openErrorDialog('Invalid email format');
+    if (this.registrationForm.controls['email'].hasError('email')) {
+      this.openErrorDialog('Invalid email format');
+    } else if (this.registrationForm.controls['email'].hasError('maxlength')) {
+      this.openErrorDialog('Maximum character limit exceeded');
+    }
     return;
   }
 
@@ -147,13 +151,21 @@ onSubmit(): void {
     return;
   }
 
-  if (!this.registrationForm.controls['fname'].valid) {
+  
+if (!this.registrationForm.controls['fname'].valid) {
+  if (this.registrationForm.controls['fname'].hasError('maxlength')) {
+    this.openErrorDialog('Maximum character limit exceeded for First Name');
+  } else {
     this.openErrorDialog('Invalid First Name Format');
-    return;
   }
-
+  return;
+}
   if (!this.registrationForm.controls['lname'].valid) {
-    this.openErrorDialog('Invalid Last Name Format');
+    if (this.registrationForm.controls['lname'].hasError('maxlength')) {
+      this.openErrorDialog('Maximum character limit exceeded for Last Name');
+    } else {
+      this.openErrorDialog('Invalid Last Name Format');
+    }
     return;
   }
   const passwordControl = this.registrationForm.get('password');
@@ -166,13 +178,33 @@ onSubmit(): void {
     if (passwordControl.errors?.['minlength']) {
       passwordErrorMessage += '- Password must be at least 8 characters long\n';
     }
+    if (passwordControl.errors?.['maxlength']) {
+      passwordErrorMessage += '- Password cannot exceed 15 characters\n'; // Add your desired max limit message
+    }
     if (passwordControl.errors?.['pattern']) {
       passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
     }
     this.openErrorDialog(passwordErrorMessage);
     return;
   }
+  
+  if (!this.registrationForm.controls['phone_no'].valid) {
+    if (this.registrationForm.controls['phone_no'].hasError('maxlength')) {
+      this.openErrorDialog('Maximum character limit exceeded');
+    } else{
+      this.openErrorDialog('Invalid format');
+    }
+    return;
+  }
 
+  if (!this.registrationForm.controls['city'].valid) {
+    if (this.registrationForm.controls['city'].hasError('city')) {
+      this.openErrorDialog('Invalid format');
+    } else if (this.registrationForm.controls['city'].hasError('maxlength')) {
+      this.openErrorDialog('Maximum character limit exceeded');
+    }
+    return;
+  }
   try {
     const response = this.registerservice.register(formValue).toPromise();
     alert('OTP Sent Successfully, Please verify your Email');

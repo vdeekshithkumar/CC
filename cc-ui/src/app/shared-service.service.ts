@@ -10,7 +10,6 @@ export class SharedServiceService {
 
   setRegisteredEmail(email: string) {
     this.registeredEmailSource.next(email);
-
     console.log("the email in shared service is"+email)
   }
 }

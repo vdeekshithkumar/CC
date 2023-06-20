@@ -31,19 +31,22 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
       .error-dialog-button {
         background-color: #2F54EB;
         color: #f8f8f8;
-        border: none;
-        padding: 10px 20px;
+        border: 2px;
+      
         border-radius: 4px;
         border: #333;
         cursor: pointer;
-        font-size: 12px;
-        height: 10px;
-        width:20px;  
+        font-size: 10px;
+        height: 20px;
+        width:68px;  
+        align-items: center;
+        text-align: center;
       }
 
       .error-dialog-button:hover {
      
       }
+      
     </style>
     <div class="bg-black">
       <div class="error-dialog">
@@ -52,7 +55,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
           {{ data.message }}
         </div>
         <div  align="end">
-          <button class="error-dialog-button " mat-button mat-dialog-close>
+          <button class="error-dialog-button "  mat-dialog-close>
             Ok
           </button>
         </div>
