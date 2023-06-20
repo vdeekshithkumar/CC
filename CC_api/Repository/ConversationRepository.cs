@@ -1,4 +1,5 @@
 using CC_api.Models;
+using MailKit;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -28,6 +29,20 @@ namespace CC_api.Repository
       {
         dbContext.conversation.AddAsync(conversation);
         await dbContext.SaveChangesAsync();
+        // Create a participant object
+        Participant participant = new Participant()
+        {
+          ConversationId = conversation.ConversationId,
+          UserId = conversation.CreatedBy,
+          fname = dbContext.users.Where(u=>u.user_id==conversation.CreatedBy).Select(u=>u.fname).FirstOrDefault(),
+          lname = dbContext.users.Where(u => u.user_id == conversation.CreatedBy).Select(u => u.lname).FirstOrDefault(),
+          company_id = conversation.company_id,
+          company_name = dbContext.company.Where(c=> c.company_id == conversation.company_id).Select(c=> c.name).FirstOrDefault()
+        };
+
+        // Call the AddParticipant method to add the participant
+        AddParticipant(participant);
+
         return conversation;
       }
       else
