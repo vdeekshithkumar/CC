@@ -17,6 +17,8 @@ import { RegisterComponent } from '../home-template/register/register.component'
   styleUrls: ['./profile.component.css','../app.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+
   public company_id?: number;
   usercount_list=null;
   public name?: string;
@@ -27,8 +29,10 @@ export class ProfileComponent implements OnInit {
   company_logo?: string
   company_location?: string
   country?: string
-  alluser_list:any;
-  searchTerm:any;
+  filteredUsers: any;
+  alluser_list: any;
+  searchTerm: string = '';
+
   company_list: any;
   currentUser: any;
   profileForm!: FormGroup;
@@ -44,11 +48,11 @@ export class ProfileComponent implements OnInit {
   adscount: any;
   //for the employees table 
   currentPage = 1;
-  itemsPerPage = 5;
-
+  itemsPerPage = 3;
+  paginatedUsers: any[] = []; 
   //for pagination
   getTotalPages() {
-    return Math.ceil(this.alluser_list.length / this.itemsPerPage);
+    return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
   }
   getPages() {
     return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
@@ -62,6 +66,7 @@ export class ProfileComponent implements OnInit {
   }
   constructor(private dialog:MatDialog,private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
+   
     this.sessionService.getUserId().subscribe(
         (userId: number) => {
         this.userId = userId;
@@ -130,11 +135,12 @@ export class ProfileComponent implements OnInit {
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
       this.alluser_list = data;
-      console.log("employee list fetched: ", this.alluser_list); 
-     
+ 
+      this.filterUsers();
+      console.log("employee list fetched: ", this.alluser_list);
     },
     error => {
-      console.log("employee loading error:" +error);
+      console.log("employee loading error:" + error);
     }
   );
   this.profileService.getallUserCount(this.companyId).subscribe(
@@ -242,6 +248,41 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+  filterUsers() {
+    if (!this.searchTerm) {
+      // If search term is empty, show all users
+      this.filteredUsers = this.alluser_list;
+    } else {
+      // Filter users based on search term
+      const filteredArray = this.alluser_list.filter((user: any) =>
+        (user.fname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+        (user.lname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+        (user.email && user.email.toLowerCase().includes(this.searchTerm.toLowerCase()))
+      );
+
+      // Update the filteredUsers array with the filtered results
+      this.filteredUsers = filteredArray;
+    }
+
+    // Reset current page to 1 when filtering
+    this.currentPage = 1;
+
+    // Apply pagination on the filtered array
+    this.paginateUsers();
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+    this.paginateUsers();
+  }
+
+  paginateUsers() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
+  
+ 
   
   deleteUserById(userId: number) {
     this.profileService.deleteUserById(userId).subscribe(
