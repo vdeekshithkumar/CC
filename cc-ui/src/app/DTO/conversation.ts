@@ -6,4 +6,4 @@ export interface conversation {
     company_id: number;
     is_active: number;
   }
-  
+        

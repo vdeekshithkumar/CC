@@ -3,7 +3,7 @@ import { ForgotPassService } from '../forgot-password.service';
 import { Router } from '@angular/router';
 import { ResetService } from '../../reset-password/reset.service';
 import { ConfirmationResponse } from '../../reset-password/ConfirmationResponse';
-
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
@@ -11,7 +11,7 @@ import { ConfirmationResponse } from '../../reset-password/ConfirmationResponse'
 })
 export class VerifyComponent {
   result?: boolean
-  constructor(private forgotPasswordService: ForgotPassService,  private router: Router,private resetPasswordService:ResetService,
+  constructor(private snackBar: MatSnackBar,private forgotPasswordService: ForgotPassService,  private router: Router,private resetPasswordService:ResetService,
      private resetService: ResetService) { }
 
 
@@ -52,7 +52,9 @@ export class VerifyComponent {
 
     }
     else {
-      alert(" Invalid OTP, Please enter a valid OTP")
+      this.snackBar.open('Invalid OTP, Please enter a valid OTP', 'OK', {
+        duration: 3000
+      });
     }
   }
 }

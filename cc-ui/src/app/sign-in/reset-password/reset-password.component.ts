@@ -5,7 +5,7 @@ import {ConfirmationResponse,PassWriteRes} from './ConfirmationResponse';
 import {Location} from '@angular/common';
 import { Router } from '@angular/router';
 import { ForgotPassService } from '../forgot-password/forgot-password.service';
-
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -14,7 +14,7 @@ import { ForgotPassService } from '../forgot-password/forgot-password.service';
 //Model for confirmation of email
   
 export class ResetPasswordComponent implements OnInit{
-  userId : any;
+  userId : any; 
   showPassword=false;
   companyId : any;
   success = false
@@ -23,7 +23,7 @@ export class ResetPasswordComponent implements OnInit{
   email = '';
   password1! :string
   password2! :string
-  constructor(private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location
+  constructor(private snackBar: MatSnackBar,private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location
     ,private forgotService:ForgotPassService) {
     this.showEmailInput = this.resetService.getShowEmailInput();
    }
@@ -114,11 +114,11 @@ export class ResetPasswordComponent implements OnInit{
       {
         this.success = true 
         new Promise(f => setTimeout(f, 1000));
-        
       }
       else 
       {
         console.log ("error in the password changing process")
+     
         this.isFailure = true
       }
     },
@@ -127,7 +127,10 @@ export class ResetPasswordComponent implements OnInit{
       console.log("network error")
     }
   );
-  this.router.navigate(['']);
+  this.snackBar.open('Password Reset Successfull', 'OK', {
+    duration: 3000
+  });
+  this.router.navigate(['/sign-in']);
   }
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
