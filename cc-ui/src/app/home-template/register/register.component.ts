@@ -5,7 +5,7 @@ import { Registerservice } from './register.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../dialog.component';
 import { countries, Country } from 'countries-list';
-
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 interface RegisterResponse {
   message: string;
   user? : {
@@ -61,7 +61,7 @@ export class RegisterComponent implements OnInit
   
   showPassword=false;
   
-  constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
+  constructor(private snackBar: MatSnackBar,private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
    }
 
 ngOnInit(): void {
@@ -209,7 +209,9 @@ if (!this.registrationForm.controls['fname'].valid) {
   }
   try {
     const response = this.registerservice.register(formValue).toPromise();
-    alert('OTP Sent Successfully, Please verify your Email');
+    this.snackBar.open('OTP Sent Successfully, Please verify your Email', 'OK', {
+      duration: 3000
+    });
     this.email = this.registrationForm.value.email;
     this.emailSent.emit(this.email);
     console.log(this.email+"email emiting");

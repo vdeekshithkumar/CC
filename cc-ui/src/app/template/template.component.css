@@ -16,8 +16,9 @@
     justify-content: left;
     align-items: left;  
     background:fixed;
-    opacity: 1;
-background-color: rgb(249 250 251 / var(1));
+    background-color: #F9FAFB;
+    
+
   }
   
   .right-section {
