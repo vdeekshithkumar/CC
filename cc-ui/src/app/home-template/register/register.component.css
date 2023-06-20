@@ -295,6 +295,12 @@ flex: none;
 order: 0;
 flex-grow: 0;
   }
+
+  .error{
+    color: #cf2222;
+    font-size: 10px;
+    font-family: 'Poppins';
+  }
   .password-container {
     position: relative;
     width: 100%;
