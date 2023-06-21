@@ -451,6 +451,10 @@ export class AddEmployeeComponent {
       this.openErrorDialog(passwordErrorMessage);
       return;
     }
+    if (formValue.password !== formValue.confirm_password) {
+      this.openErrorDialog('Password and confirm password should match');
+      return;
+    }
   }
 
   // If all required fields are filled, call next()
