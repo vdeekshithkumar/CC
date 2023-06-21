@@ -16,6 +16,14 @@
       placeholder="E.g. John"
       name="firstName"
       />
+      <div
+                  *ngIf="showValidationErrors && addEmployeeForm.get('fname')?.invalid"
+                  class="text-red-500 text-sm mt-1">
+                </div>
+
+                <div class="error" *ngIf="addEmployeeForm?.get('fname')?.invalid && addEmployeeForm?.get('fname')?.errors?.['maxlength']">
+                  Maximum limit exceeded.
+                </div>
       </div>
       <div class="mt-10">
   
@@ -26,19 +34,30 @@
           placeholder="E.g. Wick"
           name="firstName"
         />
-        
+        <div
+        *ngIf="showValidationErrors && addEmployeeForm.get('lname')?.invalid"
+        class="text-red-500 text-sm mt-1">
+      </div>
+
+      <div class="error" *ngIf="addEmployeeForm?.get('lname')?.invalid && addEmployeeForm?.get('lname')?.errors?.['maxlength']">
+        Maximum limit exceeded.
+      </div>
       </div>
       <div class="col-span-1 mt-4">
-  
         <label for="fname" class="bg-text -ml-2">Phone Number</label>
         <input
           formControlName="phone_no"
           class="register-page-data italic-placeholder -ml-2"
           placeholder="E.g. +918707312194"
-          name="firstName"
+          name="phone_no"
         />
-        
+        <div *ngIf="showValidationErrors && addEmployeeForm.get('phone_no')?.invalid" class="text-red-500 text-sm mt-1"></div>
+        <div class="error" *ngIf="addEmployeeForm?.get('phone_no')?.invalid && addEmployeeForm?.get('phone_no')?.errors?.['maxlength']">
+          Maximum limit exceeded.
+        </div>
       </div>
+      
+      
       <div class="col-span-1 mt-4 ">
         <label for="email" class="bg-text ml-2">Email</label>
         <input
@@ -47,7 +66,10 @@
           placeholder="yourname@gmail.com"
           name="firstName"
         />
-        
+        <div *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid" class="text-red-500 text-sm mt-1"></div>
+        <div class="error" *ngIf="addEmployeeForm?.get('email')?.invalid && addEmployeeForm?.get('email')?.errors?.['maxlength']">
+          Maximum limit exceeded.
+        </div>
       </div>
       <div class="col-span-2 mt-4">  
         <label for="fname" class="bg-text">Address<span class="optional"> (optional)</span></label>
@@ -57,6 +79,7 @@
           placeholder="E.g. Marenahalli, Bangalore, India"
           name="firstName"
         />
+        
       </div>
       <div class="mb-1 mt-4">
         <h2 class="font-semibold mb-2 font-poppins -ml-2">Create Password</h2>
@@ -74,6 +97,10 @@
             placeholder=""
             name="password"
           />
+          <div *ngIf="showValidationErrors && addEmployeeForm.get('password')?.invalid" class="text-red-500 text-sm mt-1"></div>
+          <div class="error" *ngIf="!isEdit &&addEmployeeForm?.get('password')?.invalid && addEmployeeForm?.get('password')?.errors?.['maxlength']">
+            Maximum limit exceeded.
+          </div>
           <span *ngIf="!isEdit" class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
             <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
             </span>
@@ -91,6 +118,10 @@
             name="firstName"
             type="{{ showPassword ? 'text' : 'password' }}"
           />
+          <div *ngIf="showValidationErrors &&  addEmployeeForm.get('confirm_password')?.invalid" class="text-red-500 text-sm mt-1"></div>
+          <div class="error" *ngIf="!isEdit && addEmployeeForm?.get('confirm_password')?.invalid && addEmployeeForm?.get('confirm_password')?.errors?.['maxlength']">
+            Maximum limit exceeded.
+          </div>
            <span *ngIf="!isEdit" class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
             <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
             </span>

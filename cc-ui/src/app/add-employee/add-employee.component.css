@@ -84,7 +84,11 @@
   .mat-stepper-horizontal {
     @apply -mt-2;
   }
-  
+  .error{
+    color: #cf2222;
+    font-size: 10px;
+    font-family: 'Poppins';
+  }
   .mat-mdc-form-field {
     margin-top: 16px;
   }
