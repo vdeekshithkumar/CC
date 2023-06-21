@@ -13,7 +13,12 @@
               <div class="relative px-1 py-2" id="company-logo">
                 <img class="object-contain overflow-hidden w-14 h-14 rounded-full" src={{company_logo}} />
                 <button (click)="showDiv = !showDiv"  matTooltip="Edit Company Profile" class="absolute bottom-0 right-0 cursor-pointer">
-                  <i class="material-symbols-outlined text-sm text-CCblue pr-2 pb-1">border_color</i>
+                  <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="16" height="16" transform="translate(0.5)" fill="white" style="mix-blend-mode:multiply"/>
+                    <path d="M15.5 13H1.5V14H15.5V13Z" fill="#597EF7"/>
+                    <path d="M13.2 4.5C13.6 4.1 13.6 3.5 13.2 3.1L11.4 1.3C11 0.9 10.4 0.9 10 1.3L2.5 8.8V12H5.7L13.2 4.5ZM10.7 2L12.5 3.8L11 5.3L9.2 3.5L10.7 2ZM3.5 11V9.2L8.5 4.2L10.3 6L5.3 11H3.5Z" fill="#597EF7"/>
+                    </svg>
+                    
                 </button>
                 <!-- A hidden div for edit profile -->
                 <div class="my-3 relative" [class.hidden]="!showDiv">
@@ -68,7 +73,7 @@
 
               <div class="flex flex-row" id="summary-blocks">
 
-                <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
+                <div class="bg-angel-blue w-fit  p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
                     <span class="text-angel-blue-2 font-bold text-md flex-col">{{usercount_list}}</span>
                     <p class="whitespace-nowrap flex-col text-[0.6rem]">Active Members</p>
@@ -82,7 +87,7 @@
                   </div>
                 </div>
 
-                <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
+                <div class="bg-angel-blue w-fit  p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
                     <span class="text-angel-blue-2 font-bold text-md flex-col">100
                       <span class="text-black font-thin text-[0.6rem]">TEU</span></span>
@@ -98,7 +103,7 @@
                   </div>
                 </div>
 
-                <div class="bg-angel-blue w-fit h-fit p-2 flex mx-1">
+                <div class="bg-angel-blue w-fit p-2 flex mx-1">
                   <div class="flex-1 flex flex-col">
                     <span class="text-angel-blue-2 font-bold text-md flex-col">100
                       <span class="text-black font-thin text-[0.6rem]">TEU</span>
