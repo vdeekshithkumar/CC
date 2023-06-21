@@ -2,45 +2,328 @@
 @tailwind components;
 @tailwind utilities;
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
+
+
+.signin-page-input{
+    width: 100%;
+    height: 38px;
+    border: 1px solid #D9D9D9;
+    padding: 10px;
+
+}
+.form{
+  width: 380px;
+}
+.blw-btn-text{
+    margin-top: 20px;
+    font-size: 10.5px;
+  }
+
+  .btn{
+    width: 180px;
+    margin-top: 14px;
+    top: 631px;
+    font-weight: 500;
+}
+
+
+.label{
+
+    width: 65px;
+    height: 16px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 10px;
+    line-height: 20px;
+    /* identical to box height, or 143% */
+    
+    
+    /* Gray / gray-8 */
+    
+    color: #595959;
+  }
+  .heading{
+    font-size: 18px;
+    font-weight: 500;
+  }
+  .sub-text{
+      
+    margin-bottom: 20px;
+      
+      font-family: 'Poppins';
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 40px;
+      /* identical to box height, or 167% */
+      
+      
+      /* Golden Purple / purple-10 */
+      
+      color: #120338;
+    }
+.title{
+font-family: 'Poppins';
+font-size: 22px;
+font-weight: 500;
+line-height: 54px;
+letter-spacing: 0em;
+text-align: left;
+
+}
+.term{
+    font-size: 11px;
+  }
+.password-container {
+    position: relative;
+    width: 100%;
+    display: inline-block;
+  }
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .password-input {
+    padding-right: 25px;
+  }
+  
+.sub-title{
+  width: 304px;
+height: 40px;
+justify-items: center;
+text-align: center;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 40px;
+
+
+color: #120338;
+
+
+flex: none;
+order: 0;
+flex-grow: 0;
+}
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+  .max-w-2x1 {
+    
+  }
+}
+  @layer utilities {
+    .ml-50 {
+      margin-left: 50px;
+    }
+  }
+  .shadow-outline {
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+  }
+  
+  @layer utilities {
+    .focus\:shadow-outline {
+      @apply shadow-outline;
+    }
+  }
+  
+
 .div{
-    @apply flex flex-col mx-auto w-full min-h-screen bg-gray-100;
+    @apply fixed z-10 inset-0 overflow-y-auto;
 }
-.div-main{
-    @apply flex flex-auto flex-col max-w-full;
+.div-card{
+    @apply fixed z-10 inset-0 overflow-y-auto
 }
-.div-signin{
-   @apply min-h-screen flex items-center justify-center relative overflow-hidden mx-auto p-4 lg:p-8 w-full;
+.div-bg{
+  @apply fixed inset-0 transition-opacity bg-gray-500 opacity-75
 }
-.signin-section{
-    @apply py-6 lg:py-0 w-full md:w-8/12 lg:w-6/12 xl:w-4/12 relative
+.uploadinv{
+  color: aqua;
 }
-.signin-section-header{
-    @apply text-4xl font-bold inline-flex items-center mb-1 space-x-3
+.uploadinv-select option[disabled] {
+  color: #6c6a6a;
 }
-.signin-form{
-    @apply flex flex-col rounded shadow-sm bg-white overflow-hidden;
+.div-size{
+  @apply relative z-50 w-full max-w-md mx-auto mt-8
 }
-.signin-form-input{
-    @apply block border-2 border-gray-200 rounded px-5 py-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50;
+.div-details{
+  @apply bg-white rounded-lg shadow-lg p-6
 }
-.signin-btn{
-  @apply inline-flex  mt-2 justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-indigo-700 text-white hover:text-white hover:bg-indigo-800 hover:border-indigo-700 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 active:bg-indigo-700 active:border-indigo-700
+.div-btn{
+  @apply px-4 py-2 bg-gray-300 text-gray-700 rounded-lg mr-4
 }
-.signin-rememberme{
-    @apply space-y-2 sm:flex sm:items-center sm:justify-between sm:space-x-2 sm:space-y-0 mt-4
+.div-btn-set{
+  @apply px-4 py-2 bg-blue-500 text-white rounded-lg
 }
-.signin-rememberme-input{
-    @apply border border-gray-200 rounded h-4 w-4 text-blue-500 focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50
+.div-form{
+  @apply flex flex-col items-center md:flex-row
 }
-.signin-fp{
-    @apply inline-block text-blue-600 hover:text-blue-400
+.div-form-size{
+  @apply mr-4 ml-4 mt-10 w-full md:w-1/2 mb-4
 }
-.signin-noact{
-    @apply py-4 px-5 lg:px-6 w-full text-sm text-center bg-gray-50
+.uploadinv-grp{
+  @apply col-span-1 lg:col-span-6
 }
-.signin-noact-a{
-    @apply font-medium text-blue-600 hover:text-blue-400
+.uploadinv-h1{
+  @apply text-base text-gray-700 mb-5 text-center text-3xl
 }
-.a-otp-val{
-    @apply inline-block text-blue-600 hover:text-blue-400
+.uploadinv-label{
+  @apply block mb-3 text-gray-600
 }
+.uploadinv-select{
+  @apply border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider
+}
+.uploadinv-btn{
+  @apply w-20 px-2 py-3 mr-0 ml-20 bg-blue-500 rounded-md shadow-md text-blue-600 font-semibold border font-semibold focus:outline-none w-fit px-10 py-3 leading-6 rounded border-blue-700 bg-white text-blue-600 hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.upload-btn{
+  @apply flex justify-center w-20 px-2 py-3 mr-10 ml-10 bg-blue-500 rounded-md shadow-md text-blue-600 font-semibold border font-semibold focus:outline-none w-fit px-5 py-3 leading-6 rounded border-blue-700 bg-white text-blue-600 hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.uploadinv-input{
+  @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2
+}
+.uploadinv-table{
+  @apply min-w-full text-left text-sm font-light
+}
+.uploadinv-thead{
+  @apply border-b font-medium dark:border-neutral-500
+}
+.uploadinv-th{
+  @apply border px-4 py-2 text-center
+}
+.uploadinv-div{
+  @apply w-full md:w-1/2 mt-4 ml-4 mr-4 border
+}
+.uploadinv-card{
+  @apply flex flex-col overflow-x-auto
+}
+.uploadinv-card-div{
+  @apply inline-block min-w-full py-2 sm:px-6 lg:px-8
+}
+.uploadinv-search{
+  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
+}
+.uploadinv-icon{
+  @apply grid place-items-center h-full w-10 text-black
+}
+.uploadinv-size{
+  @apply max-w-sm ml-10 flex items-center
+}
+.uploadinv-nav{
+  @apply mb-2 w-full
+}
+.uploadinv-bt{
+  @apply border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
+}
+.div-app-sidebar{
+  @apply sticky w-[8vw] border-r-2 z-50;
+}
+.div-grp{
+  @apply flex flex-col sm:flex-row top-0 mb-0 ml-5
+}
+.div-section{
+  @apply antialiased min-h-screen p-9  mx-auto bg-gray-200 bg-blend-saturation rounded-md shadow-2xl dark:bg-gray-800 ml-32 mt-10 mb-96 bottom-0
+}
+.div-section-h1{
+  @apply text-xl font-medium text-black capitalize dark:text-white
+}
+.div-form{
+  @apply grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2
+}
+.div-form-label{
+  @apply text-black dark:text-gray-200
+}
+.div-form-div{
+  @apply mt-1 flex justify-center ml-50 mr-5 px-6 pt-5 pb-6 border-2 border-black border-dashed rounded-md
+}
+.div-upload{
+  @apply relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500
+}
+.div-table{
+  @apply w-full md:w-10 mt-2 ml-2 mr-1 border flex-1 text-sm  p-6 rounded-sm m-3 h-[900px] overflow-y-auto
+}
+.div-search{
+  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
+}
+.div-search-icon{
+  @apply grid place-items-center h-full w-10 text-black
+}
+.div-table-inv{
+  @apply w-full text-sm text-left bg-white text-blue-100 dark:text-blue-100
+}
+.div-thead{
+  @apply text-xs text-white uppercase bg-gray-600 border-b border-blue-400 dark:text-black
+}
+.div-tbody-th{
+  @apply px-6 py-4 
+}
+.div-tbody-tr{
+  @apply bg-gray-300 border-b border-blue-400 hover:bg-gray-400 text-black
+}
+.div-edit-btn{
+  @apply mr-3 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none 
+}
+.div-delete-btn{
+  @apply text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none
+}
+.table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .table thead th {
+    font-weight: 500;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .table th,
+  .table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .table th {
+    text-align: center;
+  }
+  
+  /* Styles for the buttons */
+  .edit-button{
+    margin-left: 2rem;
+    padding: 0.5rem;
+    border: none;
+    background-color: #0af3509d;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+  }
+  .delete-button{
+    margin-left: 2rem;
+    padding: 0.25rem;
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    border: none;
+    background-color: #ff0000c3;
+    color: #000000;
+    cursor: pointer;
+    margin-right: 0.25rem;
+  }
+  .edit-button:hover,
+  .delete-button:hover {
+    background-color: #b5f5e1;
+  }
+  

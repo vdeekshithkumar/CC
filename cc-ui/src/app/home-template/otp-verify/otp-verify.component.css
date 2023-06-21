@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+    .max-w-10xl {
+      max-width: 1920px; /* Or whatever value you want to use */
+    }
+    .mx-2inline-flex{
+        @apply rounded-full mx-2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full px-4 py-2 leading-6 caret-CCblue bg-CCblue text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700;
+      }
+    }
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
+.btn{
+    height: 38px;
+    width: 500px;
+    top: 249px;
+    border-radius: 2px;
+    padding: 10px 18px 10px 18px;
+}
+.otp-page-data{
+    box-sizing: border-box;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 10px 14px;
+    gap: 8px;
+    width: 400px;
+    height: 38px;    
+    background: #FFFFFF;
+    box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+}
+.otp-a{
+    @apply ml-2 text-blue-600
+}
+.otp-noact{
+    @apply py-4 px-5 lg:px-6 w-full text-center bg-white font-poppins
+}
+.otp-noact-a{
+    @apply font-medium text-blue-600 hover:text-blue-400 font-poppins
+}
+
+  .left-section {
+    width: 30%;
+    background-color: #F0F5FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+
+  }
+
+  .left-section h1 {
+    text-align: center;
+  }
+  .otp-section{
+    @apply py-6 lg:py-0 w-full md:w-8/12 lg:w-6/12 xl:w-4/12 relative ml-72 mt-20
+}
+.otp-h1{
+    @apply  mb-8 font-bold font-poppins inline-flex mr-0 space-x-3 text-lg whitespace-nowrap       
+}
+.p{
+@apply font-poppins font-medium text-[1rem] 
+}
+.otp{
+    @apply mt-4 font-poppins font-semibold text-gray-500 whitespace-nowrap 
+}
+.otp-r{
+    @apply mt-4 font-poppins text-gray-900 whitespace-nowrap text-center text-gray-500
+}
+
+.header{
+font-family: 'Poppins';
+font-style: normal;
+font-size: larger;
+font-weight: 500;
+}
+.label{
+height: 38px;
+width: 469px;
+left: 0px;
+top: 26px;
+border-radius: 0px;
+padding: 10px 14px 10px 14px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 20px;
+color: #595959;
+flex: none;
+order: 0;
+flex-grow: 0;
+}

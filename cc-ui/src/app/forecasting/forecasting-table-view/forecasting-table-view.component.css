@@ -16,123 +16,155 @@
       height: 1;
     }
   }
-  /* .div-img{
-    @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
+  .forecast {
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 28px;
+}
+.btn{
+    padding: 10px 18px;
+    gap: 8px;
+    
+    width: 152.33px;
+    height: 48px;
+}
+.btn-primary{
+    color: #ffffff;
+    background-color: #2F54EB;
+    height: 38px;
+}
+.btn-primary6{
+    color: #ffffff;
+    background-color: #2F54EB;
+    height: 20px;
+    font-size: 10px;
+}
+.btn-primary7{
+    background-color: #ffffff;
+     color:#595959;
+     height: 20px;
+     border: 1px solid #BFBFBF;
+     font-size: 10px;
+ }
+.top{
+    font-family: 'Poppins';
+font-size: 12px;
+
+color: #595959;
+}
+.select{
+    font-family: 'Poppins';
+    color: #595959;
+    font-size: 12px;
+}
+.top-select{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 8px;
+    gap: 8px;
+    width: 84px;
+    height: 36px;
+    border: 1px solid #D9D9D9;
+}
+.top-selct2{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 10px 8px;
+gap: 8px;
+width: 140px;
+height: 36px;
+border: 1px solid #D9D9D9;
+}
+.top-select2{
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px 8px;
+    gap: 8px;
+    width: 244px;
+    height: 38px;
+    border: 1px solid #D9D9D9;
+    }
+.select-box{
+    border: 1px solid #D9D9D9;
+    box-sizing: border-box;
+    font-family: 'Poppins';
+    color: rgba(0, 0, 0, 0.88);
+    font-size: 10px;
+}
+.div-bg{
+    background: #FAFAFA;
   }
-   */
-.div{
-  @apply flex flex-row font-poppins;
-}
-.div-app-sidebar{
-    @apply sticky w-[8vw] ;
+  .div-box-bg{
+    background: #F0F0F0;
   }
-.div-company-details{
-    @apply w-fit flex flex-col  first:flex-row ml-20 -mt-2;
+  .div-bg-line{
+    border-bottom: 1px solid #ADC6FF;
+  }
+.top-selct1{
+box-sizing: border-box;
+display: flex;
+flex-direction: row;
+align-items: center;
+width: 80px;
+height: 36px;
+border: 1px solid #D9D9D9;
 }
-.div-editcompany{
-    @apply absolute right-0 w-4 h-4 rounded-full top-8;
+.div-header-box{
+    height: 139px;
+width: 1751px;
+left: 165px;
+top: 60px;
+border-radius: 0px;
+
 }
-.div-company{
-    @apply px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
+#clearButton {
+    display: none;
+  }
+  
+
+  .hidden {
+    display: none;
+  }
+  
+.btn-primary2{
+    color: #2F54EB;
+    height: 38px;
 }
-.div-company-name{
-    @apply text-xs font-thin pt-2 px-2;
+.btn-primary4{
+    color: #2F54EB;
 }
-.div-tag{
-    @apply bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px];
+.btn-primary3{
+   background-color: #F0F0F0;
+    color:#595959;
+    height: 38px;
 }
-.div-detail{
-    @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
-}
-.div-sub-box{
-    @apply mx-[1rem] flex-shrink-0
-}
-.div-box{
-    @apply mx-2 w-[10em] h-[3.5em] bg-gray-100 flex;
-}
-.div-box-numbers{
-    @apply flex-1 text-3xl font-bold flex items-center justify-center;
-}
-.div-box-data{
-    @apply flex-1 text-sm flex items-center justify-center;
-}
-.div-box-number{
-    @apply flex-1 text-2xl flex-col font-bold flex items-center justify-center;
-}
-.div-employee{
-    @apply m-2 h-fit w-full flex-col;
-}
-.div-employee-box{
-    @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
-}
-.div-employee-name{
-    @apply text-xs px-2 first-letter:uppercase;
-}
-.div-action-button{
-    @apply bg-gray-300 h-[3rem] w-fit px-[1rem]  mx-4 my-3 md:text-sm flex-shrink-0;
+.btn-primary5{
+    color: #262626;
+    height: 38px;
+    border: 1px solid #2F54EB;
 }
 .div-search{
-    @apply relative flex items-center w-40 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
+    @apply relative flex items-center w-96 h-9  bg-white ;
+}
+
+.input-search{
+    @apply  h-full w-full outline-none text-sm bg-white text-black pr-2;
+}
+.search{
+    border: 1px solid #D9D9D9;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
 }
-.input-search{
-    @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2;
+.page-link{
+    @apply  text-xs w-7 h-7 rounded-md border-2 items-center border-white
 }
-.employee-list{
-    @apply inline-block min-w-full py-2 sm:px-6 lg:px-8;
+.page-link-active{
+    @apply  text-xs text-CCblue font-bold bg-white w-7 h-7 rounded-md border-2 items-center 
 }
-.employee-table{
-    @apply min-w-full text-left text-sm font-light;
-}
-.emplist-thead{
-    @apply border-b font-medium dark:border-neutral-50;
-}
-.employee-add{
-    @apply border-b dark:border-neutral-500;
-}
-.employee-add-btn{
-    @apply whitespace-nowrap px-2 py-4 font-medium;
-}
-.emplist{
-    @apply whitespace-nowrap px-6 py-4;
-}
-.radio-button {
-  @apply px-1 py-1 text-black border-gray-800 ml-2 w-20 h-8;
- }
- 
- .radio-button--selected {
-  @apply bg-blue-500 text-white border-blue-500;
- }
- .my-custom-select {
-   /* add your styles here */
-   font-size: 10px;
-   padding: 8px;
-   border-radius: 4px;
-   border: 1px solid #ccc;
- }
- .custom-box {
-    position: fixed;
-    top: 20px; /* adjust the top position as desired */
-    left: 20px; /* adjust the left position as desired */
-    width: 10em;
-    height: 7em;
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-  }
-  
-  .custom-label {
-    color: #666666;
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  
-.label-contain {
-    display: grid;
-    align-items: center; 
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
-   }

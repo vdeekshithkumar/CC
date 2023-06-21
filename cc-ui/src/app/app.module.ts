@@ -5,7 +5,9 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
+
+import { RegisterComponent } from './home-template/register/register.component';
+
 import { SignInComponent } from './sign-in/sign-in.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SidebarComponent } from './redundant/sidebar/sidebar.component';
@@ -18,7 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { UploadInventoryservice } from './upload-inventory/upload-inventory.service';
 import { SignInService } from './sign-in/sign-in.service';
-import { Registerservice } from './register/register.service';
+import { Registerservice } from './home-template/register/register.service';
 import { EditProfileService } from './profile/edit-profile/edit-profile.service';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { SessionService } from './session.service';
@@ -29,7 +31,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { SearchPipe } from './search.pipe';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
-import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
+import { OtpVerifyComponent } from './home-template/otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
@@ -50,6 +52,11 @@ import { NegotiationListComponent } from './negotiation-list/negotiation-list.co
 import { NegotiationsComponent } from './negotiations/negotiations.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog.component';
+import { HomeTemplateComponent } from './home-template/home-template.component';
+import { MessagingComponent } from './messaging/messaging.component';
+import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
+import { TemplateComponent } from './template/template.component';
+
 
 
 @NgModule({
@@ -88,6 +95,11 @@ import { DialogComponent } from './dialog.component';
           NegotiationListComponent,
           NegotiationsComponent,
           DialogComponent,
+          HomeTemplateComponent,
+          MessagingComponent,
+          ViewOtherAdsMapViewComponent,
+          TemplateComponent,
+          ViewOtherAdsMapViewComponent,
     
   ],
   imports: [

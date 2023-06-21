@@ -31,6 +31,11 @@ namespace CC_api.Repository
         }
       }*/
 
+ public async Task<List<ContainerType>> GetcontainersAsync()
+{
+    var containerData = await dbContext.container_type.ToListAsync();
+    return containerData;
+}
 
     public async Task<List<long>> GetAdsCount(int companyId)
     {
@@ -175,7 +180,7 @@ namespace CC_api.Repository
     public async Task<List<Ad>> GetAllAdvertisement(int companyID)
     {
 
-      return await dbContext.advertisement.Where(c => c.company_id != companyID).ToListAsync();
+      return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active").ToListAsync();
 
     }
     public async Task PostAd(Ad Ad)
@@ -203,7 +208,7 @@ namespace CC_api.Repository
     }
     public async Task<Ad> GetAdById(int adId)
     {
-      var ads= await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
+      var ads = await dbContext.advertisement.FirstOrDefaultAsync(a => a.ad_id == adId);
       return ads;
     }
 
@@ -219,12 +224,11 @@ namespace CC_api.Repository
       var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
       return uploadedFiles;
     }
-   /* public async Task DeleteAd(int AdID)
-    {
-      dbContext.advertisement.Remove(
-       dbContext.advertisement.FirstOrDefault(c => c.ad_id == AdID));
-      await dbContext.SaveChangesAsync();
-    }*/
+    /* public async Task DeleteAd(int AdID)
+     {
+       dbContext.advertisement.Remove(
+        dbContext.advertisement.FirstOrDefault(c => c.ad_id == AdID));
+       await dbContext.SaveChangesAsync();
+     }*/
   }
 }
-

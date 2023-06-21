@@ -1,0 +1,33 @@
+.container-d {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+
+   
+    
+  }
+
+  
+  .left-section {
+    width: 12%;
+
+    display: flex;
+    float: left;
+    justify-content: left;
+    align-items: left;  
+    background:fixed;
+    background-color: #F9FAFB;
+    
+
+  }
+  
+  .right-section {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: #fafafa;
+  }
+  .left-section h1 {
+    text-align: center;
+    width: 100%;
+  }

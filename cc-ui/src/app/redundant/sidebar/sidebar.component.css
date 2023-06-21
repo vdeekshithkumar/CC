@@ -14,19 +14,28 @@
       font-family: Poppins;
     }
   }
-.sidebar-div{
-    @apply block h-screen shadow-md font-poppins;
-}
+
 .sidebar-nav{
-    @apply flex flex-col w-fit;
+    @apply flex flex-col ;
 }
 .sidebar-a{
-    @apply menu-tile hover:border-CCblue hover:text-CCblue hover:border-l-4 Poppins  text-xs ;
+    @apply menu-tile px-2 hover:border-CCblue hover:text-CCblue hover:border-l-4 font-poppins  text-xs ;
 }
-.sidebar-d {
-    @apply block h-screen shadow-md font-poppins fixed w-[110px] border-r-2 z-50 left-0 top-12;
+.sidebar-d  {
+    @apply block h-screen shadow-md font-poppins border-r-2 left-0 top-12;
   }
   .sidebar-a.active {
-    @apply text-CCblue border-CCblue border-l-4;
+    @apply text-CCblue border-CCblue bg-white border-l-4 bg-opacity-100;
+  }
+  .svg-container svg {
+    fill:#2F54EB;
+  }
+  
+  .svg-image {
+    filter: grayscale(100%) brightness(200%) #2F54EB;
+  }
+  
+  .svg-image.active {
+    filter: none;
   }
   

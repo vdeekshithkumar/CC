@@ -148,6 +148,13 @@ namespace CC_api.Controllers
       });
       return Ok(contracts);
     }
+    [HttpGet("GetAllContracts")]
+    public async Task<IActionResult> GetContractsByCompanyID(int companyId)
+    {
+      var list = await this._contractRepository.GetAllContracts(companyId);
+
+      return Ok(list);
+    }
     [HttpGet("GetAllContractsByTitle")]
     public async Task<IActionResult> GetContractsByTitle(string title, int companyId)
     {
@@ -155,7 +162,6 @@ namespace CC_api.Controllers
 
       return Ok(list);
     }
-
     [HttpDelete("DeleteContract")]
     public async Task<IActionResult> DeleteContract(int contractID)
     {
@@ -168,11 +174,12 @@ namespace CC_api.Controllers
       });
       var fileId = await _contractRepository.GetFileIDbyContractID(contractID);
       // Delete the file from Google Drive
-      await service.Files.Delete(fileId).ExecuteAsync();
+      await service.Files.Delete(fileId.Split(",")[1]).ExecuteAsync();
       await _contractRepository.DeleteContract(contractID);
 
       // Return a success response
       return Ok();
     }
+
   }
 }

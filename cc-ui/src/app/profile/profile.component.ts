@@ -6,13 +6,19 @@ import { SignInService } from '../sign-in/sign-in.service';
 import { filter } from 'rxjs';
 import { SessionService } from '../session.service';
 import { findIndex } from 'lodash';
+import { MatDialog } from '@angular/material/dialog';
+import { PostAdComponent } from '../my-advertisement/post-ad/post-ad.component';
+import { AddEmployeeComponent } from '../add-employee/add-employee.component';
+import { RegisterComponent } from '../home-template/register/register.component';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css','../app.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+
   public company_id?: number;
   usercount_list=null;
   public name?: string;
@@ -23,8 +29,10 @@ export class ProfileComponent implements OnInit {
   company_logo?: string
   company_location?: string
   country?: string
-  alluser_list:any;
-  searchTerm:any;
+  filteredUsers: any;
+  alluser_list: any;
+  searchTerm: string = '';
+
   company_list: any;
   currentUser: any;
   profileForm!: FormGroup;
@@ -38,11 +46,27 @@ export class ProfileComponent implements OnInit {
   companyId: any;
   userId:any;
   adscount: any;
+  //for the employees table 
+  currentPage = 1;
+  itemsPerPage = 3;
+  paginatedUsers: any[] = []; 
+  //for pagination
+  getTotalPages() {
+    return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
+  }
+  getPages() {
+    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+  }
+  
+  
+    
+
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
+  constructor(private dialog:MatDialog,private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
+   
     this.sessionService.getUserId().subscribe(
         (userId: number) => {
         this.userId = userId;
@@ -111,11 +135,12 @@ export class ProfileComponent implements OnInit {
   this.profileService.getallUser(this.companyId).subscribe(
     data => {
       this.alluser_list = data;
-      console.log("employee list fetched: ", this.alluser_list); 
-     
+ 
+      this.filterUsers();
+      console.log("employee list fetched: ", this.alluser_list);
     },
     error => {
-      console.log("employee loading error:" +error);
+      console.log("employee loading error:" + error);
     }
   );
   this.profileService.getallUserCount(this.companyId).subscribe(
@@ -187,29 +212,35 @@ export class ProfileComponent implements OnInit {
       this.sessionService.clearSession();
     });
   }
-  getUserByID(user_id: number) {
+  DisplayPostForm(){
+    this.dialog.open(AddEmployeeComponent,{
+         data:{
+          isEdit:false,
+        ContinueDraft:0,
+        Approve:0
+      }
+    })
+   }
+  
+   getUserByID(user_id: number) {
+    debugger
     this.profileService.getUserDetails(user_id).subscribe(
       (data: any) => {
         this.user_data = data;
         console.log("User data fetched:", this.user_data);
   
-        // Navigate to the add-employee page with user_id and edit flag in the state
-        this.router.navigate(['/add-employee'], {
-          state: {
+        const dialogRef = this.dialog.open(AddEmployeeComponent, {
+          data: {
             user_id: user_id,
-            fname: this.user_data.fname,
-            lname: this.user_data.lname,
-            phone_no: this.user_data.phone_no,
-            email: this.user_data.email,
-            address: this.user_data.address,
-            password: this.user_data.password,
-            is_verified: this.user_data.is_verified,
-            is_approved: this.user_data.is_approved,
-            is_active: this.user_data.is_active,
-            last_login: this.user_data.last_login,
-            designation: this.user_data.designation,
-            edit: true
+            isEdit:true,
+            user_data: this.user_data, // Pass the user_data object
+          
           }
+        });
+  console.log("from profile to add employee"+this.fname);
+        dialogRef.afterClosed().subscribe(result => {
+          // Handle the dialog close event if needed
+          console.log("Dialog closed with result:", result);
         });
       },
       (error: any) => {
@@ -217,6 +248,41 @@ export class ProfileComponent implements OnInit {
       }
     );
   }
+  filterUsers() {
+    if (!this.searchTerm) {
+      // If search term is empty, show all users
+      this.filteredUsers = this.alluser_list;
+    } else {
+      // Filter users based on search term
+      const filteredArray = this.alluser_list.filter((user: any) =>
+        (user.fname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+        (user.lname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+        (user.email && user.email.toLowerCase().includes(this.searchTerm.toLowerCase()))
+      );
+
+      // Update the filteredUsers array with the filtered results
+      this.filteredUsers = filteredArray;
+    }
+
+    // Reset current page to 1 when filtering
+    this.currentPage = 1;
+
+    // Apply pagination on the filtered array
+    this.paginateUsers();
+  }
+
+  changePage(page: number) {
+    this.currentPage = page;
+    this.paginateUsers();
+  }
+
+  paginateUsers() {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedUsers = this.filteredUsers.slice(startIndex, endIndex);
+  }
+  
+ 
   
   deleteUserById(userId: number) {
     this.profileService.deleteUserById(userId).subscribe(
@@ -260,6 +326,22 @@ export class ProfileComponent implements OnInit {
     // clear session data and redirect to login page
     this.sessionService.clearSession();
   }
+  clearSearch() {
+    this.searchTerm = '';
+  }
+  hideClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "none";
+    }
+  }
+    
+  showClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "inline-block";
+    }
+  }
   onSubmit() {
     (company_id: number) => {
       // this.profileService.subscribe(data=>{
@@ -267,6 +349,10 @@ export class ProfileComponent implements OnInit {
       // })
     }
   }
+
+
+
+  
 
    
   

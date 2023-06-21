@@ -29,25 +29,38 @@ namespace CC_api.Controllers
     //  return await userBusiness.GetAllUserAsync(companyid);
     //}
 
+    [HttpPost("SendOtp")]
+    public async Task SendOtpToEmail([FromBody] VerifyOTPRequest payload)
+    {
+       await userBusiness.SendOtp(payload.email);
+    }
 
 
     [HttpPost("VerifyOTP")]
     public async Task<IActionResult> VerifyOTPAsync([FromBody] VerifyOTPRequest payload)
     {
-      try
-      {
-        var result = await userBusiness.VerifyOTPAsync(payload.UserId, payload.otp);
-
-
-
-        if (result)
-          return Ok(new { message = "OTP verified successfully" });
-        else
-          return Ok(new { message = "OTP verification failed" });
-      }
-      catch (Exception ex)
+      if (payload == null)
       {
         return BadRequest();
+
+      }
+      else
+      {
+        try
+        {
+          var result = await userBusiness.VerifyOTPAsync(payload.UserId, payload.otp);
+
+
+
+          if (result)
+            return Ok(new { message = "OTP verified successfully" });
+          else
+            return Ok(new { message = "OTP verification failed" });
+        }
+        catch (Exception ex)
+        {
+          return BadRequest();
+        }
       }
     }
 
@@ -85,6 +98,7 @@ namespace CC_api.Controllers
       try
       {
         var loginUser = await userBusiness.GetUserByEmailAndPassword(user.email, user.password);
+
         if (loginUser == null)
         {
           return Ok(new { message = "User not exist", user = loginUser });
@@ -92,7 +106,7 @@ namespace CC_api.Controllers
 
 
 
-        return Ok(loginUser); 
+        return Ok(loginUser);
       }
       catch (Exception ex)
       {
@@ -132,10 +146,15 @@ namespace CC_api.Controllers
     {
       return await userBusiness.GetAllUserAsync(companyid);
     }
+    [HttpGet("GetAllCompanyUser/{companyid}")]
+    public async Task<List<User>> GetAllCompanyUser(int companyid)
+    {
+      return await userBusiness.GetAllCompanyUser(companyid);
+    }
     [HttpGet("GetAllUserCount/{companyid}")]
     public async Task<int> GetAllUserCount(int companyid)
     {
-       return await userBusiness.GetAllUserCount(companyid);
+      return await userBusiness.GetAllUserCount(companyid);
     }
 
     [HttpDelete("DeleteUser/{id}")]

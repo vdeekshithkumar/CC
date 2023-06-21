@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
-import {RegisterComponent} from './register/register.component';
+// import {RegisterComponent} from './home-template/register/register.component';
 import { SignInComponent } from './sign-in/sign-in.component';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
@@ -12,7 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
 import { ResetPasswordComponent } from './sign-in/reset-password/reset-password.component';
-import { OtpVerifyComponent } from './otp-verify/otp-verify.component';
+// import { OtpVerifyComponent } from './home-template/otp-verify/otp-verify.component';
 import { ForgotPasswordComponent } from './sign-in/forgot-password/forgot-password.component';
 import { VerifyComponent } from './sign-in/forgot-password/verify/verify.component';
 import { MyAdvertisementComponent } from './my-advertisement/my-advertisement.component';
@@ -22,46 +22,48 @@ import { ForecastingComponent } from './forecasting/forecasting.component';
 import { ForecastMapComponent } from './forecasting/forecast-map/forecast-map.component';
 import { ViewOtherAdsComponent } from './view-other-ads/view-other-ads.component';
 import { NegotiationsComponent } from './negotiations/negotiations.component';
+import { HomeTemplateComponent } from './home-template/home-template.component';
+import { MessagingComponent } from './messaging/messaging.component';
+import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
+import { TemplateComponent } from './template/template.component';
+
 const routes: Routes = [
   {
     component:HomeComponent,
     path:''
   },
   {
-    component:RegisterComponent,
+    component:HomeTemplateComponent,
     path:'register'
   },
   {
-    component:SignInComponent,
+    component:HomeTemplateComponent,
     path:'sign-in'
   },
   {
-    component:DashboardComponent,
+    // component:DashboardComponent,
+    component:TemplateComponent,
     path:'dashboard',
     canActivate: [AuthGuard]
   },
-  {
-    component:MyAdvertisementComponent,
-    path:'my-ad',
-    canActivate: [AuthGuard]
-  },
+ 
   {
     component:PostAdComponent,
     path:'post-ad',
     canActivate: [AuthGuard]
   },
   {
-    component:UploadContractComponent,
+    component:TemplateComponent,
     path:'upload-contract',
     canActivate: [AuthGuard]
   },
   {
-    component:UploadInventoryComponent,
+    component:TemplateComponent,
     path:'upload-inventory',
     canActivate: [AuthGuard]
   },
   {
-    component:ProfileComponent,
+    component:TemplateComponent,
     path:'profile',
     canActivate: [AuthGuard]
   },
@@ -76,7 +78,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:OtpVerifyComponent,
+    component:HomeTemplateComponent,
     path:'otp-validation',
   },
   {
@@ -85,14 +87,9 @@ const routes: Routes = [
     canActivate: [AuthGuard]
 
   },
-  {
-    component:ForecastingComponent,
-    path:'forecasting',
-    canActivate: [AuthGuard]
 
-  },
   {
-    component:ForecastingTableViewComponent,
+    component:TemplateComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
@@ -110,13 +107,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ForecastingComponent,
+    component:TemplateComponent,
     path:'forecasting',
     canActivate: [AuthGuard]
 
   },
   {
-    component:MyAdvertisementComponent,
+    component:TemplateComponent,
     path:'my-ad',
     canActivate: [AuthGuard]
   },
@@ -126,29 +123,39 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    component:ViewOtherAdsComponent,
+    component:TemplateComponent,
     path:'view-other-ads',
     canActivate: [AuthGuard]
   },
   {
-    component:ForecastingTableViewComponent,
+    component:ViewOtherAdsMapViewComponent ,
+    path:'view-other-ads-map-view',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:TemplateComponent,
     path:'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
-    component:ForecastMapComponent,
+    component:TemplateComponent,
     path:'forecast-map',
     canActivate: [AuthGuard]
 
   },
   {
-    component:ViewContractsComponent,
+    component:TemplateComponent,
+    path:'messaging',
+    canActivate:[AuthGuard]
+  },
+  {
+    component:TemplateComponent,
     path:'view-contract',
     canActivate: [AuthGuard]
   },
   {
-    component:NegotiationsComponent,
+    component:TemplateComponent,
     path:'negotiations',
     canActivate: [AuthGuard]
   },
@@ -160,7 +167,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

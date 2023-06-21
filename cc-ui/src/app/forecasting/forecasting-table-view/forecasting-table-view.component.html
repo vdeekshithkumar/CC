@@ -1,232 +1,309 @@
-<!-- component -->
-<app-header></app-header>
-<app-sidebar></app-sidebar> 
-<div class="flex flex-col first:flex-row bg-gray ml-24 shadow-lg">
-  <div class="p-2 m-3 -ml-2 h-fit w-[1300px] mt-4">
-    <form> 
-      <div class="flex flex-row">  
-          <div class="mx-3 w-24 h-[4em] bg-gray flex-wrap -mt-3">
-            <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-4 ">Port</label>
-            <div>
-            <select #port [(ngModel)]="port_name" formControlName="port_id" class="border-2 ml-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-black-900 dark:border-gray-700 dark:text-gray-400">
-              <option selected>Select your port</option>
-              <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
-            </select>
-              </div>
-            </div>
-           
-        <div class="mx-3 w-24 h-[2em] bg-gray flex-wrap -mt-3">
-          <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-1 -mr-60">Sub Region</label>
+<div class="flex flex-col first:flex-row div-bg div-bg-line w-full">
+  <label class="forecast font-semibold text-dark mt-3 ml-2">Forecasting</label>
+  <div class="-ml-32 h-16 w-full mt-16">
+
+    <form>
+      <div class="flex flex-row">
+        <div class="-mt-3">
+          <label class="top mb-2 ml-8 font-normal">Port</label>
           <div>
-          <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-            <option>IDS</option>
-            <option>IND</option>
-            <option>UK</option>
-          </select>
+            <select #port [(ngModel)]="port_name" formControlName="port_id" class="ml-8 top-selct1 div-bg">
+              <option selected>Select your port</option>
+              <option *ngFor="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="-mt-3">
+          <label class="top mb-2 ml-2 font-normal">Sub Region</label>
+          <div>
+            <select class="top-selct2 font-normal  text-sm ml-2 div-bg">
+              <option>IDS</option>
+              <option>IND</option>
+              <option>UK</option>
+            </select>
           </div>
         </div>
 
-        <div class="mx-3 w-24 h-[2em] bg-gray flex-wrap -mt-3">
-          <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-1">Area</label>
+        <div class="-mt-3">
+          <label class=" mb-2 ml-2 top font-normal">Area</label>
           <div>
-          <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-            
-            <option>NGAE</option>
-            <option>NGAE</option>
-            <option>NGAE</option>
-          </select>
+            <select class="ml-2 top-selct2 div-bg">
+              <option>NGAE</option>
+              <option>NGAE</option>
+              <option>NGAE</option>
+            </select>
           </div>
         </div>
-        <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap -mt-3">
-          <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-1">Year and Week</label>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Year and Week</label>
           <div>
-          <input class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" type="date">
-           
+            <input class="ml-2 top-selct2 div-bg" type="date">
           </div>
         </div>
-        <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap -mt-3">
-          <label class="text-gray-600 dark:text-black-900 text-sm mb-2 ml-1">Week of Stock</label>
+        <div class=" flex-wrap -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Week of Stock</label>
           <div>
-          <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-            <option>1 week</option>
-            <option>2 week</option>
-            <option>3 week</option>
-          </select>
+            <select class="top-selct2 ml-2 div-bg">
+              <option>1 week</option>
+              <option>2 week</option>
+              <option>3 week</option>
+            </select>
           </div>
         </div>
-      
-        <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap -mt-3">
-          <label class="text-gray-600 dark:text-black-900 text-sm mb-0">Equipment Type</label>
+
+        <div class=" flex-wrap -mt-3">
+          <label class="top mb-0 ml-2 font-normal">Equipment Type</label>
           <div>
-          <select class="border-2 py-2 px-2 pr-2 block w-full border-gray-200 text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400">
-            
-            <option>40 HC</option>
-            <option>45 HC</option>
-           
-          </select>
+            <select class="top-selct2 ml-2 div-bg">
+              <option>40 HC</option>
+              <option>45 HC</option>
+            </select>
           </div>
         </div>
-        <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap ml-2">
+        <div class="mx-5 -mt-10 w-[7em] h-[2em] div-box-bg flex-wrap justify-start">
           <div>
-            <button class="ml-2 inline-flex justify-center items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Carrier Services</button>
+            <button
+              class="inline-flex justify-center items-center btn-primary3 space-x-2 border font-semibold focus:outline-none w-36 py-2 px-2 pr-2 leading-6 font-poppins">Carrier
+              Services</button>
           </div>
         </div>
-        <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap ml-2">
+
+        <div class="mx-6 -mt-10 w-[10em] h-[0.5em] bg-gray flex-wrap">
           <div>
-            <button class="ml-2 inline-flex justify-center items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Sync Data</button>
+            <button
+              class="ml-2 inline-flex justify-center items-center btn-primary2 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z" fill="#2F54EB"/>
+                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB"/>
+                </svg>
+              <span class="ml-1">Export data</span>
+            </button>
           </div>
         </div>
-        <div class="mx-3 w-[10em] h-[2em] bg-gray flex-wrap">
+        <div class="-mt-10 w-[8em] h-[2em] bg-red flex-wrap -ml-2">
           <div>
-            <button class="inline-flex justify-center items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 rounded border-blue-700 bg-white-500 text-blue hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700">Export Data</button>
+            <button
+              class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">Sync
+              data</button>
           </div>
         </div>
-  
-  </div>
- 
+      </div>
     </form>
-        
-      </div>
-      
-    </div>   
-<div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-  <nav class="table-navbar w-full">
-    <div class="flex justify-between max-w-sm mx-auto items-center mt-2">
-      <div class="p-2 w-[5em] h-[3em] bg-white-900 left-0 -ml-96 mt-2">
-        <button class="text-sm ml-2 text-black -mt-2 capitalize dark:text-white cursor-pointer hover:text-gray-700 dark:hover:text-gray-300" (click)="backPage()">&lt; Back</button>
-      </div>
-      <h1 class="text-3xl font-medium text-black capitalize -mt-2 dark:text-white mx-auto cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">Forecasting</h1>
-     <div class="flex items-center p-1 x-1 bg-white w-0 -mr-60 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition duration-500">
-        <div class="flex bg-gray-100 p-3 w-76 space-x-4 shadow-lg rounded-lg -mr-10">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-8 opacity-30 mr-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input [(ngModel)]="searchTerm" class="bg-gray-100 outline-none" type="text" placeholder="Portname | Containertype" />
-        </div>
-      </div>  
-    </div>
-  </nav>
+
+  </div>
 </div>
 
+<div class="inline-block min-w-full py-2 flex items-center">
+  <button (click)="backPage()" class="inline-flex -mt-2 btn-primary4 text-blue-500 justify-center items-center space-x-1 font-medium font-poppins">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply"/>
+      <path d="M8.75 16.25L9.63125 15.3687L4.89375 10.625H17.5V9.375H4.89375L9.63125 4.63125L8.75 3.75L2.5 10L8.75 16.25Z" fill="#2F54EB"/>
+    </svg>                
+    <span>Back to Map View</span>
+  </button>
+  <div class="div-search my-2 search justify-start mx-10 -mt-0">
+    <div class="div-search-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+    <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. PortName, Container_Type)" autocomplete="off" (focus)="showClearButton()"/>
+      <button class="text-red-500 font-poppins ml-2 mr-2" (click)="clearSearch()" (blur)="hideClearButton()" id="clearButton">
+      Clear
+    </button>
 
-<div class="w-full h-full flex flex-col first:flex-row">  
-<section  class="ml-10 mr-6">
-  <div class="flex flex-col">
-              <div class="overflow-hidden shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 ml-24 mr-0">
-                  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                      <thead class="bg-gray-200 dark:bg-gray-800">
-                          <tr >
-                              <th scope="col-4" class="py-3.5 px-4 text-1xl font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                  <div class="flex items-center gap-x-3">
-                                      <button class="flex items-center gap-x-2 ml-2 text-sm">
-                                          <span>PortName</span>
-                                          <svg class="h-3" viewBox="0 0 10 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                              <path d="M2.13347 0.0999756H2.98516L5.01902 4.79058H3.86226L3.45549 3.79907H1.63772L1.24366 4.79058H0.0996094L2.13347 0.0999756ZM2.54025 1.46012L1.96822 2.92196H3.11227L2.54025 1.46012Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
-                                              <path d="M0.722656 9.60832L3.09974 6.78633H0.811638V5.87109H4.35819V6.78633L2.01925 9.60832H4.43446V10.5617H0.722656V9.60832Z" fill="currentColor" stroke="currentColor" stroke-width="0.1" />
-                                              <path d="M8.45558 7.25664V7.40664H8.60558H9.66065C9.72481 7.40664 9.74667 7.42274 9.75141 7.42691C9.75148 7.42808 9.75146 7.42993 9.75116 7.43262C9.75001 7.44265 9.74458 7.46304 9.72525 7.49314C9.72522 7.4932 9.72518 7.49326 9.72514 7.49332L7.86959 10.3529L7.86924 10.3534C7.83227 10.4109 7.79863 10.418 7.78568 10.418C7.77272 10.418 7.73908 10.4109 7.70211 10.3534L7.70177 10.3529L5.84621 7.49332C5.84617 7.49325 5.84612 7.49318 5.84608 7.49311C5.82677 7.46302 5.82135 7.44264 5.8202 7.43262C5.81989 7.42993 5.81987 7.42808 5.81994 7.42691C5.82469 7.42274 5.84655 7.40664 5.91071 7.40664H6.96578H7.11578V7.25664V0.633865C7.11578 0.42434 7.29014 0.249976 7.49967 0.249976H8.07169C8.28121 0.249976 8.45558 0.42434 8.45558 0.633865V7.25664Z" fill="currentColor" stroke="currentColor" stroke-width="0.3" />
-                                          </svg>
-                                      </button>
-                                  </div>
-                              </th>
-
-                              <th scope="col" class="px-1 py-1  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                  Container_Type
-                              </th>
-
-                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                  Container_Size
-                              </th>
-
-                              <th scope="col" class="px-4 py-3.5  text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                  Available
-                              </th>
-                             
-                              <th scope="col" class="px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                <div class="flex items-center justify-between">
-                                  <span>Surplus</span>
-                                
-                                </div>
-                              </th>
-                              <th scope="col" class="px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-gray-700 dark:text-gray-700">
-                                Deficit
-                            </th>
-                          </tr>
-                      </thead>
-                      <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
-                        <tr *ngFor="let inv of inventory_list_by_companyId | search: searchTerm:getPortName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-                          <!-- table row data here -->
-                
-                              <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                  <div class="inline-flex items-center gap-x-3 ml-6">
-                                      
-
-                                      <span>  {{getPortName(inv.port_id)}}</span>
-                                  </div>
-                              </td>
-                              <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">{{inv.container_type}}</td>
-                              <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                                <div class="inline-flex items-center gap-x-3 ml-6">
-                                    
-
-                                    <span>  {{inv.container_size}}</span>
-                                </div>
-                            </td>
-                            <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                              <div class="inline-flex items-center gap-x-3 ml-6">
-                                  <span> {{inv.available}}</span>
-                              </div>
-                          </td>
-                  
-                          <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            <div class="ml-2 inline-flex items-center px-3 py-1 text-green-500 rounded-full gap-x-2 bg-emerald-100/60 dark:bg-gray-800">
-                                <span> {{inv.surplus}}</span>
-                            </div>
-                          </td>
-                          
-                          <td class="px-4 py-4 text-sm  text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                            <div class="ml-2 inline-flex items-center px-3 py-1 text-red-500 rounded-full gap-x-2 bg-red-100/60 dark:bg-gray-800">
-                                <span> {{inv.deficit}}</span>
-                            </div>
-                          </td>
-                          
-                          
-                          </tr>
-                  
-                      </tbody>
-                  </table>
-           
-                <div class="bg-white p-4 flex items-center flex-wrap  justify-center">
-                  <nav aria-label="Page navigation">
-                      <ul class="inline-flex">
-                          <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100">
-                                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                      <path
-                                          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                                          clip-rule="evenodd" fill-rule="evenodd"></path>
-                                  </svg></button>
-                          </li>
-                          <li><button [class.opacity-50]="currentPage === 1" (click)="currentPage = currentPage - 1" (click)="prevPage()" *ngIf = "currentPage>1"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage - 1}}</button>
-                          </li>
-                          <li><button
-                                  class="h-10 px-5 text-white transition-colors duration-150 bg-CCblue border border-r-0 border-blue-400 focus:shadow-outline">{{currentPage}}</button>
-                          </li>
-                          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 focus:shadow-outline hover:bg-blue-100">{{currentPage+1}}</button>
-                          </li>
-                          <li><button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage + 1" (click)="nextPage()"
-                                  class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100">
-                                  <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                                      <path
-                                          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                                          clip-rule="evenodd" fill-rule="evenodd"></path>
-                                  </svg></button>
-                          </li>
-                      </ul>
-                  </nav>
-              </div>
-              </div>
+  </div>
+  <div class="mx-3 -mt-10 w-[6em] h-[0.5em] bg-gray flex-wrap ml-0">
+    <div>
+      <button (click)="toggleForm()"
+        class="ml-2 inline-flex justify-end items-center btn-primary5 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M11.25 17.5H8.75C8.41848 17.5 8.10054 17.3683 7.86612 17.1339C7.6317 16.8995 7.5 16.5815 7.5 16.25V11.5063L2.86875 6.875C2.63401 6.64166 2.5014 6.32474 2.5 5.99375V3.75C2.5 3.41848 2.6317 3.10054 2.86612 2.86612C3.10054 2.6317 3.41848 2.5 3.75 2.5H16.25C16.5815 2.5 16.8995 2.6317 17.1339 2.86612C17.3683 3.10054 17.5 3.41848 17.5 3.75V5.99375C17.4986 6.32474 17.366 6.64166 17.1313 6.875L12.5 11.5063V16.25C12.5 16.5815 12.3683 16.8995 12.1339 17.1339C11.8995 17.3683 11.5815 17.5 11.25 17.5ZM3.75 3.75V5.99375L8.75 10.9937V16.25H11.25V10.9937L16.25 5.99375V3.75H3.75Z" fill="#597EF7"/>
+          </svg>
+          <span class="btn-primary4">Filter</span>
+      </button>
+    </div>
+  </div>
+  
+</div>
+<div class="flex flex-col first:flex-row div-bg " *ngIf="showForm">
+  <div class="p-2 h-24 w-full mt-2">
+    <form>
+      <div class="flex flex-row">
+        <div class="-mt-3">
+          <label class="top mb-2 font-normal">Container Type</label>
+          <div>
+            <select class="top-select2  div-bg" [(ngModel)]="containerType" formControlName="container_type" >
+                <option value="" disabled selected>Select Container Type</option>
+                <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
+              </select>
           </div>
-</section>
+        </div>
+        <div class="-mt-3">
+          <label class=" mb-2 ml-2 top font-normal">Container Size</label>
+          <div>
+            <input [(ngModel)]="containerSize" formControlName="container_size" class="ml-2 top-select2 div-bg" type="number">
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Available</label>
+          <div>
+            <input [(ngModel)]="available" formControlName="available" class="ml-2 top-select2 div-bg" type="number">
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Surplus</label>
+          <div>
+            <input [(ngModel)]="surplus" class="ml-2 top-select2 div-bg" formControlName="surplus" type="number">
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Deficit</label>
+          <div>
+            <input [(ngModel)]="containerType" class="ml-2 top-select2 div-bg" formControlName="deficit" type="number">
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+    </form>
+    
+    <div class="mt-4 w-12 float-right mr-6 flex-wrap">
+      <div>
+        <button (click)="filterData()"
+          class="rounded-sm mx-1 inline-flex justify-start btn-primary6 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700 text-white active:border-blue-700">
+          Apply</button>
+      </div>
+    </div>
+    <div class="mx-1 mt-4 w-14 float-right div-box-bg flex-wrap">
+      <div>
+        <button (click)="toggleForm()"
+          class="rounded-sm inline-flex justify-start btn-primary7 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
+         Cancel</button>
+      </div>
+    </div>
+    <div class="mx-1 mt-4 w-12  float-right bg-red flex-wrap">
+      <div>
+        <button 
+          class="rounded-sm inline-flex btn-primary6 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">
+          Reset</button>
+      </div>
+    </div>
+    </div>
+</div>
+
+<div class="w-full flex flex-col first:flex-row max-h-screen">
+  <section class="ml-4 mr-6 rounded-sm">
+    <div class="flex flex-col">
+      <div class="overflow-hidden rounded-lg  border-2  mr-0">
+        <table class="rounded-lg min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead class="bg-gray-100 dark:bg-gray-100">
+            <tr>
+              <th scope="col-4"
+                class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
+                <div class="flex items-center gap-x-3">
+                  <button class="flex items-center gap-x-1  text-sm">
+                    <span>Port Name</span>
+                  </button>
+                </div>
+              </th>
+
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Container Type
+              </th>
+
+              <th scope="col border-2"
+                class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Container Size
+              </th>
+
+              <th scope="col border-2"
+                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Available
+              </th>
+
+              <th scope="col border-2"
+                class="border-2 px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                <div class="flex items-center justify-between">
+                  <span>Surplus</span>
+
+                </div>
+              </th>
+              <th scope="col border-2"
+                class="border-2 px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                Deficit
+              </th>
+            </tr>
+          </thead>
+          <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
+            <tr
+              *ngFor="let inv of filteredInventoryList | search: searchTerm:getPortName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+              <!-- table row data here -->
+
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <div class="inline-flex items-center gap-x-3 ">
+
+
+                  <span> {{getPortName(inv.port_id)}}</span>
+                </div>
+              </td>
+              <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">{{inv.container_type}}
+              </td>
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <div class="inline-flex items-center gap-x-3 ">
+
+
+                  <span> {{inv.container_size}}</span>
+                </div>
+              </td>
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <div class="inline-flex items-center gap-x-3 ">
+                  <span> {{inv.available}}</span>
+                </div>
+              </td>
+
+           
+              <td class="px-8 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                  <button class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60" style="display: block;">
+                    <span> {{inv.surplus}}</span>
+                  </button>
+              </td>
+              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60" style="display: block;border-color: #FFA39E;">
+                  <span> {{inv.deficit}}</span>
+                </button>
+            </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+        <div class="flex gap-2 w-full justify-end mt-2">
+          <button  (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+            <i class="material-symbols-outlined cursor-pointer">
+              navigate_before
+            </i>
+          </button>
+    
+          <button class="page-link"
+           *ngFor="let page of getPages()" (click)="currentPage = page"
+           [ngClass]="{
+            'page-link-active hover:border-CCblue ': currentPage === page
+          }"
+            >
+    
+               {{page}}
+          </button>
+    
+          <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages()">
+            <i class="material-symbols-outlined cursor-pointer">
+              navigate_next
+            </i>
+          </button>
+        </div>
+     
+     
+    </div>
+  </section>
 </div>

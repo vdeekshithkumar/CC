@@ -3,7 +3,9 @@ import { ProfileService } from 'src/app/profile/profile.service';
 import { SessionService } from 'src/app/session.service';
 import { EditUserDetailsService } from './edit-user-details.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { DialogComponent } from 'src/app/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-user-details',
@@ -17,8 +19,9 @@ export class EditUserDetailsComponent implements OnInit {
   lname?: string
   address?: string
   phone_no?: string
+  showValidationErrors: boolean = false;
   regForm: FormGroup;
-  constructor(private profileService: ProfileService, private formBuilder: FormBuilder,private sessionService: SessionService, private editUserDetailsService: EditUserDetailsService) { 
+  constructor(private dialog: MatDialog,private snackBar: MatSnackBar,private profileService: ProfileService, private formBuilder: FormBuilder,private sessionService: SessionService, private editUserDetailsService: EditUserDetailsService) { 
   this.regForm = this.formBuilder.group({
     firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
     lastName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
@@ -53,6 +56,25 @@ export class EditUserDetailsComponent implements OnInit {
     );
   }
   onSubmit() {
+    const formValue = this.regForm.value;
+  if (
+    !formValue.fname ||
+    !formValue.lname||
+    !formValue.address||
+    !formValue.phone_no
+  ) {
+    this.showValidationErrors = true;
+    let errorMessage = 'The following fields are required:\n';
+    if (!formValue.fname) {
+      errorMessage += '- First Name\n';
+    }
+    if (!formValue.lname) {
+      errorMessage += '- Last Name\n';
+    }
+  
+    this.openErrorDialog(errorMessage);
+    return;
+  }
     debugger
     if (this.regForm.invalid) {
       // Show error messages for invalid fields
@@ -69,6 +91,9 @@ export class EditUserDetailsComponent implements OnInit {
     this.editUserDetailsService.updateUser(this.userId, user).subscribe(
       (data) => {
         debugger
+        this.snackBar.open('Updated Successfully', 'OK', {
+          duration: 6000
+        });
         location.reload();
       },
       (error) => {
@@ -76,11 +101,16 @@ export class EditUserDetailsComponent implements OnInit {
       }
     );
   }
+  openErrorDialog(message: string): void {
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: message
+      }
+    });
+  }
 }
 export class User {
-  /**
-   *
-   */
+ 
   constructor(fname: string, lname: string, address: string, phone_no: string) {
     this.fname = fname; this.lname = lname; this.address = address; this.phone_no = phone_no
   }

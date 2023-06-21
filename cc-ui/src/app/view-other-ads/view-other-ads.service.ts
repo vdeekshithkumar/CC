@@ -23,6 +23,8 @@ export interface Advertisement {
   pickup_charges: number;
 }
 
+ 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,18 +33,26 @@ export class ViewOtherAdsService {
   private  coUrl= 'https://localhost:7157/GetOtherCompany';
   private  nUrl= 'https://localhost:7157/GetAllNegotiation';
   private  startNUrl= 'https://localhost:7157/StartNegotiation';
+ 
   constructor(private http:HttpClient) { }
+
+ 
 
   getallnegotiation(companyId: string): Observable<any> {
     return this.http.get(`${this.nUrl}?companyID=${companyId}`, { responseType: 'json' });
   }
-  
+
   getAdvertisement(company_id: number): Observable<Advertisement[]> {
     const url = `${this.advUrl}?companyId=${company_id}`;
     return this.http.get<Advertisement[]>(url);
   }
   getotherCompany(companyId: string): Observable<any> {
     return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+  }
+
+ 
+  getAllContainers(): Observable<any> {
+    return this.http.get('https://localhost:7157/GetAllContainers');
   }
 
   StartNegotiation(ad_id: number,company_id: number, user_id: number): Observable<any> {

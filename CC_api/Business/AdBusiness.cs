@@ -101,7 +101,7 @@ namespace CC_api.Business
 
 
           await AdRepository.PostAd(ad);
-          
+
 
         }
         return new OkResult();
@@ -183,7 +183,7 @@ namespace CC_api.Business
       return new OkResult();
 
     }
-
+   
   }
+ 
 }
-

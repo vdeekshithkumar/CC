@@ -38,7 +38,7 @@ namespace CC_api.Repository
     }
     public async Task<Negotiation> GetNegotiationById(int negotitiation_id)
     {
-      var negotiation= await dbContext.negotiation.FirstOrDefaultAsync(n => n.negotiation_id == negotitiation_id);
+      var negotiation = await dbContext.negotiation.FirstOrDefaultAsync(n => n.negotiation_id == negotitiation_id);
       return negotiation;
     }
     public async Task<List<Negotiation>> GetNegotiationByCId(int company_id)
@@ -53,16 +53,17 @@ namespace CC_api.Repository
     public async Task<int> GetNegotiationCount(int adid)
     {
       var userCount = await dbContext.negotiation.Where(u => u.ad_id == adid).CountAsync();
-      if(userCount>0) {
+      if (userCount > 0)
+      {
         return userCount;
       }
       else
       {
         return 0;
       }
-      
+
     }
 
-  
+
   }
 }

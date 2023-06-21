@@ -1,0 +1,10 @@
+<div  #mapContainer class="map-container">
+  <google-map [options]="{ mapId: mapId, center: getMapCenter() }">
+    <map-marker *ngIf="selectedDeparturePort && departureLat && departureLng"
+      [position]="{ lat: departureLat, lng: departureLng }">
+    </map-marker>
+    <map-marker *ngIf="selectedArrivalPort && arrivalLat && arrivalLng"
+      [position]="{ lat: arrivalLat, lng: arrivalLng }">
+    </map-marker>
+  </google-map>
+</div>

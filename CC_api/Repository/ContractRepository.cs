@@ -1,4 +1,3 @@
-
 using CC_api.Models;
 using Google.Apis.Drive.v3.Data;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +13,45 @@ namespace CC_api.Repository
     {
       this.dbContext = new DatabaseContext();
     }
+    public class ContractsDto
+    {
+      public string title { get; set; }
+      public string[] descriptions { get; set; }
+      public int[] contractIds { get; set; }
+      public DateTime[] dates { get; set; }
+    }
+    public async Task<List<ContractsDto>> GetAllContracts(int companyId)
+    {
+      List<ContractsDto> contractDtos = new List<ContractsDto>();
+
+
+      var contracts = await dbContext.contracts
+          .Where(c => c.company_id == companyId)
+          .ToListAsync();
+
+      var groupedContracts = contracts.GroupBy(c => c.title);
+
+      foreach (var group in groupedContracts)
+      {
+        var contractIds = group.Select(c => c.contract_id).ToArray();
+        var descriptions = group.Select(c => c.content).ToArray();
+        var dates = group.Select(c => c.updated_date_time).ToArray();
+
+        ContractsDto contractDto = new ContractsDto
+        {
+          title = group.Key,
+          contractIds = contractIds,
+          descriptions = descriptions,
+          dates = dates
+        };
+
+        contractDtos.Add(contractDto);
+      }
+
+      return contractDtos;
+    }
+
+
     public async Task<string> GetFolderId(string Title, int companyID)
     {
       var folderID = await dbContext.contracts.Where(c => c.company_id == companyID && c.title == Title)
@@ -37,19 +75,30 @@ namespace CC_api.Repository
     }
     public async Task<string> GetUploadFileID(int userID, int companyID, int contractID)
     {
-      var contract = await dbContext.contracts
-      .Where(c => c.user_id == userID && c.company_id == companyID && c.contract_id == contractID)
-      .Select(c => c.uploaded_file)
-      .FirstOrDefaultAsync();
-      //returns the contract name stored in db which matches to file id in the Drive folder
-      if (contract == null)
+      using (var dbContext = new DatabaseContext()) // Replace "YourDbContext" with your actual DbContext class
       {
-        return null;
-      }
-      else
-      {
-        string[] ids = contract.Split(',');
-        return ids[1]; //returns the file id ids[0] returns folder id
+        var contract = await dbContext.contracts
+            .Where(c => c.user_id == userID && c.company_id == companyID && c.contract_id == contractID)
+            .Select(c => c.uploaded_file)
+            .FirstOrDefaultAsync();
+
+        if (contract == null)
+        {
+          return null;
+        }
+        else
+        {
+          string[] ids = contract.Split(',');
+
+          if (ids.Length >= 2)
+          {
+            return ids[1];
+          }
+          else
+          {
+            return null; // Handle the case when the array does not contain the required element
+          }
+        }
       }
     }
     public async Task<string> GetFileIDbyContractID(int contractID)
@@ -83,7 +132,6 @@ namespace CC_api.Repository
       return input.Split(',')[0];
     }
 
-    //Below fn returns the UNIQUE titles belonging to a company and their in the format {contract_id: [folderID, title]}
     public async Task<List<KeyValuePair<int, string[]>>> GetTitlesByCompanyID(int companyID)
     {
       var contracts = await dbContext.contracts.Where(c => c.company_id == companyID).ToListAsync();
@@ -93,11 +141,14 @@ namespace CC_api.Repository
                             .ToList();
       return result;
     }
+
     public async Task DeleteContract(int contractID)
     {
       dbContext.contracts.Remove(
       dbContext.contracts.FirstOrDefault(c => c.contract_id == contractID));
       await dbContext.SaveChangesAsync();
     }
+
   }
+
 }

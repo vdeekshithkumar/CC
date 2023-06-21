@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInService } from './sign-in.service';
 import { SessionService } from '../session.service';
 import { DialogComponent } from '../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { SharedServiceService } from '../shared-service.service';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 interface LoginResponse {
   message: string;
   user?: {
@@ -16,19 +17,25 @@ interface LoginResponse {
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css']
+  styleUrls: ['./sign-in.component.css','../app.component.css']
 })
 
 export class SignInComponent implements OnInit{
   loginForm!: FormGroup;
+  hide = true;
+  showModal=false;
   submitted: Boolean = false;
   Invalid: Boolean = false;
   showPassword=false;
   show=false;
-  email: string= '';
+  email!: string;
   showValidationErrors: boolean = false;
   errorMessage: string | undefined;
-constructor(private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService) { }
+
+
+@Output() emailSent = new EventEmitter<any>();
+  
+constructor(private snackBar: MatSnackBar,private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService,private sharedservice: SharedServiceService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -56,25 +63,19 @@ isUserValid:boolean=false;
   if (!this.loginForm.controls['email'].valid) {
     this.openErrorDialog('Invalid email format');
     return;
-  }
-  // const passwordControl = this.loginForm.get('password');
-  // if (passwordControl && passwordControl.invalid) {
-  //   this.showValidationErrors = true;
-  //   let passwordErrorMessage = 'Invalid password:\n';
-  //   if (passwordControl.errors?.['required']) {
-  //     passwordErrorMessage += '- Password is required\n';
-  //   }
-  //   this.openErrorDialog(passwordErrorMessage);
-  //   return;
-  
+  }debugger
     this.signInService.login(this.loginForm.value).subscribe(
       (response: Object) => {
         const loginResponse = response as LoginResponse;
         console.log(response);
-        
+        debugger
         if (loginResponse.message === 'Admin Login Successful') {
+          this.snackBar.open('hdhdhdh', 'OK', {
+            duration: 3000
+          });
           this.sessionService.setCurrentUser(loginResponse.user);//session
           console.log("admin login success inside loop")
+
           this.router.navigate(['/dashboard']);
       
           this.loginForm.reset();
@@ -87,34 +88,60 @@ isUserValid:boolean=false;
         
           this.loginForm.reset();
         } 
+
         else if (loginResponse.message === 'User Not Found') {
+          this.snackBar.open(`${loginResponse.message}`, 'OK', {
+           duration: 3000
+         });
           this.router.navigate(['/register']);
-          alert(loginResponse.message);
+     
           this.loginForm.reset();
         }
+
         else if (loginResponse.message === 'Account Not Approved Yet') {
-            alert(loginResponse.message);
+          this.snackBar.open(`${loginResponse.message}`, 'OK', {
+    });
             this.loginForm.reset();
           }
+
         else if (loginResponse.message === 'Admin Password Mismatched') {
-            alert(loginResponse.message);
+          this.snackBar.open(`${loginResponse.message}`, 'OK', {
+      duration: 3000
+    });
             this.loginForm.reset();
         }
+
+
         else if (loginResponse.message === 'User Password Mismatched') {
-            alert(loginResponse.message);
+          this.snackBar.open(`${loginResponse.message}`, 'OK', {
+      duration: 3000
+    });
             this.loginForm.reset();
         }
+
         else if (loginResponse.message === 'Account Not Active') {
-            alert(loginResponse.message);
+          this.snackBar.open(`${loginResponse.message}`, 'OK', {
+      duration: 3000
+    });
             this.loginForm.reset();
         }
         else if (loginResponse.message === 'Not Verified') {
-            alert(loginResponse.message);
-            this.loginForm.reset();
+          debugger
+          this.email = this.loginForm.value.email;
+          this.sharedservice.setRegisteredEmail(this.email);
+          console.log(this.email+"email emiting from sign in page");
+          this.snackBar.open("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue", 'OK', {
+            duration: 3000
+          });
+            
+            this.sendOtp(this.email); 
+         
         }
         else {
           // display error message
-          alert(loginResponse.message);
+         this.snackBar.open(`${loginResponse.message}`, 'OK', {
+      duration: 3000
+    });
           this.loginForm.reset();
         }
       },
@@ -127,6 +154,23 @@ isUserValid:boolean=false;
     );
   }
   
+  
+
+  sendOtp(email:string){
+
+    this.signInService.sendOtp(email).subscribe(
+      (response) => {
+        console.log('OTP sent successfully: send otp fntn', response);
+        // Handle success, e.g., display a success message to the user
+      },
+      (error) => {
+        console.error('Failed to send OTP:', error);
+        // Handle error, e.g., display an error message to the user
+      }
+    );
+    this.router.navigate(['/otp-validation']);
+  }
+
   openErrorDialog(message: string): void {
     this.dialog.open(DialogComponent, {
       data: {
@@ -138,4 +182,3 @@ isUserValid:boolean=false;
     this.showPassword = !this.showPassword;
   }
 }
-

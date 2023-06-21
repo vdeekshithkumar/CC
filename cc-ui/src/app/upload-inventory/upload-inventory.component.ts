@@ -8,6 +8,8 @@ import { NavigationEnd, Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { filter, map } from 'rxjs';
 import { NumberSymbol } from '@angular/common';
+import { DialogComponent } from '../dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Injectable({
@@ -31,7 +33,8 @@ export class UploadInventoryComponent {
     inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
-    itemsPerPage: number = 8;
+    showForm: boolean = false;
+    itemsPerPage: number = 7;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -48,8 +51,8 @@ export class UploadInventoryComponent {
     port_id: any;
     y:any=0;
     searchTerm:any;
-  
-    constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
+    showValidationErrors: boolean = false;
+    constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
      }
      addExcel(): void {
 
@@ -260,6 +263,10 @@ ReadExcel(event: any) {
 get totalPages(): number {
   return Math.ceil(this.inventory_list_by_companyId.length / 8);
 }
+getPortName(portId: number): string {
+  const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
+  return port ? port.port_name : '';
+}
 prevPage() {
 
   if (this.currentPage > 1) {
@@ -280,7 +287,6 @@ prevPage() {
 
 
   getInventoryById(inv_id: number) {
-  
     this.uploadInventoryservice.getInventoryById(inv_id)
       .subscribe(
         (        data: any) => {
@@ -294,6 +300,7 @@ prevPage() {
 
         },
         (        error: any) => console.log(error));
+        this.showForm = true;
   }
 
 
@@ -387,6 +394,7 @@ prevPage() {
   }
 
 async onSubmit() {
+  
   if(this.isEdit==1){
     if(this.UploadInventoryForm.validator){
       const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
@@ -398,7 +406,7 @@ async onSubmit() {
       await window.location.reload()
     }
     else{
-      alert("please fill the mandatory field");
+      this.openErrorDialog("All fields are mandatory");
     }
     
   }
@@ -422,12 +430,50 @@ async onSubmit() {
         }
       }  
       else{
-        alert("please fill the mandatory field");
+        this.openErrorDialog("All fields are mandatory");
       }
     
     }
     
    
+  }
+  clearSearch(): void {
+    this.searchTerm = '';
+  }
+  showClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "inline-block";
+    }
+  }
+  hideClearButton() {
+    const clearButton = document.getElementById("clearButton");
+    if (clearButton) {
+      clearButton.style.display = "none";
+    }
+  }
+  getTotalPages() {
+    return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
+  }
+  getPages() {
+    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+  }
+  toggleForm() {
+    this.showForm = !this.showForm;
+  }
+  
+  closeForm() {
+    this.showForm = false;
+  }
+  resetForm(formGroup: FormGroup) {
+    formGroup.reset(); // Reset the form group to its initial state
+  }
+  openErrorDialog(message: string): void {
+    this.dialog.open(DialogComponent, {
+      data: {
+        message: message
+      }
+    });
   }
 
 }
