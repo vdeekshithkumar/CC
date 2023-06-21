@@ -401,7 +401,7 @@ export class AddEmployeeComponent {
       !formValue.fname ||
       !formValue.lname ||
       !formValue.email ||
-      !formValue.password
+      (this.isEdit && !formValue.password)
     ) {
       // If not, display the dialog box
       this.showValidationErrors = true;
@@ -415,7 +415,7 @@ export class AddEmployeeComponent {
       if (!formValue.email) {
         errorMessage += '- Email\n';
       }
-      if (!formValue.password) {
+      if (!this.isEdit || !formValue.password) { // Exclude confirm password validation in edit mode
         errorMessage += '- Password\n';
       }
       this.openErrorDialog(errorMessage);
@@ -434,13 +434,14 @@ export class AddEmployeeComponent {
       this.openErrorDialog('Invalid Last Name Format');
       return;
     }
-    const passwordControl = this.addEmployeeForm.get('password');
-    if (passwordControl && passwordControl.invalid) {
-      this.showValidationErrors = true;
-      let passwordErrorMessage = 'Invalid password:\n';
-      if (passwordControl.errors?.['required']) {
-        passwordErrorMessage += '- Password is required\n';
-      }
+    if (!this.isEdit) { // Validate password and confirm password only in add mode
+      const passwordControl = this.addEmployeeForm.get('password');
+      if (passwordControl && passwordControl.invalid) {
+        this.showValidationErrors = true;
+        let passwordErrorMessage = 'Invalid password:\n';
+        if (passwordControl.hasError('required')) {
+          passwordErrorMessage += '- Password is required\n';
+        }
       if (passwordControl.errors?.['minlength']) {
         passwordErrorMessage += '- Password must be at least 8 characters long\n';
       }
@@ -448,12 +449,14 @@ export class AddEmployeeComponent {
         passwordErrorMessage += '- Password must contain at least one uppercase letter, one lowercase letter, and one digit\n';
       }
       this.openErrorDialog(passwordErrorMessage);
-    }
-    else {
-      // If all required fields are filled, call next()
-      stepper.next();
+      return;
     }
   }
+
+  // If all required fields are filled, call next()
+  stepper.next();
+}
+  
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
