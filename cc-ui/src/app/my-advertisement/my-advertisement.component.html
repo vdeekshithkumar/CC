@@ -23,7 +23,7 @@
               </button>
             </div>
             <div class="ml-4 justify-end w-[8em] mb-2 h-[2em] flex-wrap">
-              <button [disabled]="isButtonDisabled" (click)="DisplayPostForm()"
+              <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayPostForm()"
                 class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
                 <span class="ml-1">Post Ad</span>
               </button>
@@ -193,7 +193,7 @@
 
                         <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
                           <div style="display: flex;">
-                            <button [disabled]="isButtonDisabled" (click)="deleteAd(ad.ad_id)"
+                            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="deleteAd(ad.ad_id)"
                               class="w-6 mr-2 transform disable">
                               <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="margin-top: 4px;"
                                 viewBox="0 0 24 24" stroke="currentColor">
@@ -201,15 +201,15 @@
                                   d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                               </svg>
                             </button>
-                            <button [disabled]="isButtonDisabled" (click)="DisplayDraftForm(ad.ad_id)"
+                            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayDraftForm(ad.ad_id)"
                               *ngIf="operation === 'Draft'" scope="row"
                               class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
                               style="font-size: 12px;">Edit</button>
-                            <button [disabled]="isButtonDisabled" (click)="approve(ad.ad_id)"
+                            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="approve(ad.ad_id)"
                               *ngIf="operation === 'Pending'" scope="row"
                               class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 text-center px-2 text-white mr-2 bg-CCblue disable mt-2"
                               style="font-size: 12px;">Approve</button>
-                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id)"
+                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="isButtonDisabled" (click)="OpenNegotiations(ad.ad_id)"
                               *ngIf="operation === 'Active'" scope="row"
                               class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
                               style="font-size: 12px;">Open</button>

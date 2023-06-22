@@ -16,6 +16,9 @@
 .btn-gray{
   @apply bg-gray-300;
 }
+.disabled-button {
+  cursor: not-allowed;
+}
 .company-name {
   filter: blur(3px); 
 }

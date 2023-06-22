@@ -38,6 +38,9 @@
 .div-company-name{
     @apply text-xs font-thin pt-2 px-2;
 }
+.disabled-button {
+    cursor: not-allowed;
+  }
 .div-tag{
     @apply bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px];
 }

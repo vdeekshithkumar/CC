@@ -150,6 +150,7 @@
     
    }
     
+ 
     
     
     
@@ -272,6 +273,10 @@
     font-size: 12px;
     line-height: 28px;
 }
+.disabled-button {
+  cursor: not-allowed;
+}
+
   .btn-primary2{
     color: #FAFAFA;
     height: 38px;

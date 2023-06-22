@@ -7,6 +7,9 @@
 .button{
     @apply cursor-pointer;
 }
+.disabled-button {
+    cursor: not-allowed;
+  }
 .page-link{
     @apply  text-xs w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
 }

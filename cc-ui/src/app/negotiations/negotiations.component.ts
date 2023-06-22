@@ -179,11 +179,7 @@ export class NegotiationsComponent implements OnInit {
       }
     );
   }
-
-
-  
-
-  
+ 
 onCancel() {
     
   window.location.reload()
@@ -253,27 +249,4 @@ getDateOnly(date: Date): Date {
   this.date_created=dateString.toString().slice(0, 10);
   return this.date_created;
 }
-
-
-
-
-
 }
-
-
-
-
-
-
-  
-
-
-   
-  
-
-  
-    
-
-
-
-
