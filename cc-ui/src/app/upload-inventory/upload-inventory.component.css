@@ -210,7 +210,14 @@ border-radius: 0px;
 }
 .uploadinv-select option[disabled] {
   color: #6c6a6a;
+
+    cursor: not-allowed;
+  
 }
+.disabled-button {
+  cursor: not-allowed;
+}
+
 .top-selct1{
   box-sizing: border-box;
 display: flex;

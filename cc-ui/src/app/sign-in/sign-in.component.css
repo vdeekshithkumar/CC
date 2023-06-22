@@ -155,7 +155,9 @@ flex-grow: 0;
 }
 .uploadinv-select option[disabled] {
   color: #6c6a6a;
+  cursor: not-allowed;
 }
+
 .div-size{
   @apply relative z-50 w-full max-w-md mx-auto mt-8
 }

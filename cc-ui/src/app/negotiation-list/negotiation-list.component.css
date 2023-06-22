@@ -10,6 +10,11 @@
   overflow: hidden;
 }
 
+.disabled-button {
+  cursor: not-allowed;
+}
+
+
 .disable:disabled {
 
 
