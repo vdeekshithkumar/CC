@@ -132,13 +132,14 @@
               <!-- table row data here -->
 
               <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                <div class="inline-flex items-center gap-x-3 ">
-
-                  <span> {{getPortName(inv.port_id)}}</span>
+                <div class="inline-flex items-center gap-x-3">
+                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}</span>
                 </div>
+                
               </td>
               <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
-                {{inv.container_type}}
+              
+                {{ inv.container_type.charAt(0).toUpperCase() + inv.container_type.slice(1) }}
               </td>
               <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
@@ -238,7 +239,7 @@
               <div>
                 <select class="upload-input-data border" style="font-size: 11px;" formControlName="container_type" >
                     <option value="" class="text-xs" disabled selected>Select Container Type</option>
-                    <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
+                    <option *ngFor="let type of ['refrigerated', 'non refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
                   </select>
               </div>
             </div>
