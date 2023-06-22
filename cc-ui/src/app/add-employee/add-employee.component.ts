@@ -11,6 +11,7 @@ import { Component, ChangeDetectorRef } from '@angular/core';
 import { DialogComponent } from '../dialog.component';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NumberInput } from '@angular/cdk/coercion';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface Permission {
   write: any;
@@ -78,7 +79,7 @@ export class AddEmployeeComponent {
   Pis_active: any;
   Plast_login: any;
   Pdesignation: any;
-  constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private addEmployeesService: AddEmployeeServiceService, private sessionService: SessionService, public dialogRef: MatDialogRef<AddEmployeeComponent>,
+  constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder, private dialog: MatDialog, private router: Router, private addEmployeesService: AddEmployeeServiceService, private sessionService: SessionService, public dialogRef: MatDialogRef<AddEmployeeComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private route: ActivatedRoute) {
     this.permissions = []
       ;
@@ -348,12 +349,19 @@ export class AddEmployeeComponent {
     }
   }
   async onAdd() {
+    const timerDuration = 1000;
     if (this.isEdit) {
       try {
         const response = await this.addEmployeesService.EditUser(this.Puser_id, this.addEmployeeForm.value).toPromise();
         await this.addP();
-        alert('User Edited Successfully');
-        window.location.reload();
+        this.snackBar.open('User Edited Successfully', 'OK', {
+          duration: 3000,
+               verticalPosition: 'top',
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, timerDuration);
+       
         this.addEmployeeForm.reset();
       } catch (error) {
         console.log('Could not edit:', error);
@@ -362,8 +370,14 @@ export class AddEmployeeComponent {
       try {
         const response = await this.addEmployeesService.addEmployee(this.addEmployeeForm.value).toPromise();
         await this.addP();
-        alert('User Added Successfully');
-        window.location.reload();
+        this.snackBar.open('User Added Successfully', 'OK', {
+          duration: 3000,
+               verticalPosition: 'top',
+        });
+  
+        setTimeout(() => {
+          window.location.reload();
+        }, timerDuration);
         await this.router.navigate(['/profile']);
       } catch (error) {
         console.log('Could not add:', error);

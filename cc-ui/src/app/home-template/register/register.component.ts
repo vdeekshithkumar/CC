@@ -210,7 +210,8 @@ if (!this.registrationForm.controls['fname'].valid) {
   try {
     const response = this.registerservice.register(formValue).toPromise();
     this.snackBar.open('OTP Sent Successfully, Please verify your Email', 'OK', {
-      duration: 3000
+      duration: 3000,
+           verticalPosition: 'top',
     });
     this.email = this.registrationForm.value.email;
     this.emailSent.emit(this.email);
