@@ -277,6 +277,9 @@
   cursor: not-allowed;
 }
 
+.svg-icon:hover path {
+  fill: red;
+}
   .btn-primary2{
     color: #FAFAFA;
     height: 38px;
