@@ -10,6 +10,7 @@ import { filter, map } from 'rxjs';
 import { NumberSymbol } from '@angular/common';
 import { DialogComponent } from '../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Injectable({
@@ -52,7 +53,7 @@ export class UploadInventoryComponent {
     y:any=0;
     searchTerm:any;
     showValidationErrors: boolean = false;
-    constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
+    constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
      }
      addExcel(): void {
 
@@ -237,27 +238,6 @@ ReadExcel(event: any) {
     this.sessionService.clearSession();
   }
   
-  //  private setV(){
-  //   const now = new Date();
-  //   const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
-  //   this.UploadInventoryForm.setValue({
-      
-  //     inventory_id:8,
-  //     date_created:"2023-07-28T00:00:00",
-  //     last_modified:formattedDate,
-  //     company_id:this.companyId,
-  //     container_type:this.ExcelData[0].container_type,
-  //     available: this.ExcelData[0].available,
-  //     maximum: this.ExcelData[0].maximum,
-  //     minimum: this.ExcelData[0].minimum,
-  //     port_id: this.ExcelData[0].port_id,
-  //     updated_by:this.userId,
-  //     container_size: this.ExcelData[0].container_size
-      
-  
-  //   });
-    
-  // }
 
   
 get totalPages(): number {
@@ -333,52 +313,6 @@ prevPage() {
     });
   }
 
- 
-//   getSortedInventoryList(searchPortId:number) {
-//     if (this.searchPortId) { 
-    
-// const data = JSON.parse(this.inventory_list_by_companyId);
-
-// const filteredData = [];
-
-// for (const obj of data) {
-//   if (obj.port_id == searchPortId) {
-//     filteredData.push(obj);
-//   }
-// }
-
-// console.log(filteredData); 
-//     }
-//   }
-   
-    //   const data = JSON.parse(this.inventory_list_by_companyId);
-    //   // const filteredData = data.filter((obj: { port_id: any; }) => obj.port_id === this.searchPortId);
-    //   // const filteredJsonData = JSON.stringify(filteredData);
-    //   // console.log(filteredJsonData);
-    //   // console.log(filteredData+"non stringyfied")
-    //   console.log(data)
-    
-
-    // } else {
-    //   return this.inventory_list_by_companyId;
-     
-    // }
-
-    //
-
-
-// Search(){
-//   debugger
-//   if(this.port_id==""){
-//     this.ngOnInit();
-//   }
-//   else{
-//     this.inventory_list_by_companyId=this.inventory_list_by_companyId.filter((res: { port_id: string; })=>{
-//       return res.port_id.match(this.port_id);
-//     });
-//   }
-// }
-    
 
   deleteInventory(id: number) {
     this.uploadInventoryservice.deleteInventory(id)
@@ -394,7 +328,7 @@ prevPage() {
   }
 
 async onSubmit() {
-  
+  const timerDuration = 1000;
   if(this.isEdit==1){
     if(this.UploadInventoryForm.validator){
       const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
@@ -406,7 +340,12 @@ async onSubmit() {
       await window.location.reload()
     }
     else{
-      this.openErrorDialog("All fields are mandatory");
+      
+      this.snackBar.open('All fields are mandatory', 'OK', {
+        duration: 3000,
+             verticalPosition: 'top',
+      });
+
     }
     
   }
@@ -421,8 +360,16 @@ async onSubmit() {
         
         // reload the component
         await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+        this.snackBar.open('Inventory Uploaded Successully', 'OK', {
+          duration: 3000,
+               verticalPosition: 'top',
+        });
+  
         await this.router.navigate(['/upload-inventory']);
-        await window.location.reload()
+       
+        setTimeout(() => {
+          location.reload();
+        }, timerDuration);
       } 
       catch (error) {
         console.log('Error uploading inventory:', error);
@@ -430,7 +377,11 @@ async onSubmit() {
         }
       }  
       else{
-        this.openErrorDialog("All fields are mandatory");
+        this.snackBar.open('All fields are mandatory', 'OK', {
+          duration: 4000,
+               verticalPosition: 'top',
+        });
+
       }
     
     }

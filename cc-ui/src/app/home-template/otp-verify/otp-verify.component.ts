@@ -6,6 +6,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { OtpService } from './otp.service';
 import { DialogComponent } from '../../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 interface RegisterResponse {
   message: string;
@@ -36,7 +37,7 @@ registeredEmail:any;
  
 
  
-  constructor(private router: Router,private formBuilder: FormBuilder,private sharedservice: SharedServiceService,private dialog: MatDialog,private OtpService:OtpService) { }
+  constructor(private snackBar: MatSnackBar,private router: Router,private formBuilder: FormBuilder,private sharedservice: SharedServiceService,private dialog: MatDialog,private OtpService:OtpService) { }
   ngOnInit(): void {
     
     this.sharedservice.registeredEmail$.subscribe((email: any) => {
@@ -100,7 +101,11 @@ registeredEmail:any;
                     (                    response: { message: string; }) => {
                       console.log('verified successfully:', response.message);
                  if(response.message=="OTP verified successfully"){
-                  alert("User Verified Successfully")
+                 
+                  this.snackBar.open('User Verified Successfully', 'OK', {
+                    duration: 3000,
+                         verticalPosition: 'top',
+                  });
               this.router.navigate(['/sign-in']);
                  }
                  else{

@@ -71,7 +71,8 @@ isUserValid:boolean=false;
         debugger
         if (loginResponse.message === 'Admin Login Successful') {
           this.snackBar.open('hdhdhdh', 'OK', {
-            duration: 3000
+            duration: 3000,
+            verticalPosition: 'top'
           });
           this.sessionService.setCurrentUser(loginResponse.user);//session
           console.log("admin login success inside loop")
@@ -91,7 +92,9 @@ isUserValid:boolean=false;
 
         else if (loginResponse.message === 'User Not Found') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
-           duration: 3000
+           duration: 3000,
+           verticalPosition: 'top',
+
          });
           this.router.navigate(['/register']);
      
@@ -100,13 +103,16 @@ isUserValid:boolean=false;
 
         else if (loginResponse.message === 'Account Not Approved Yet') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
+            duration: 3000,
+            verticalPosition: 'top',
     });
             this.loginForm.reset();
           }
 
         else if (loginResponse.message === 'Admin Password Mismatched') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
-      duration: 3000
+            duration: 3000,
+            verticalPosition: 'top',
     });
             this.loginForm.reset();
         }
@@ -114,14 +120,16 @@ isUserValid:boolean=false;
 
         else if (loginResponse.message === 'User Password Mismatched') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
-      duration: 3000
+            duration: 3000,
+            verticalPosition: 'top',
     });
             this.loginForm.reset();
         }
 
         else if (loginResponse.message === 'Account Not Active') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
-      duration: 3000
+            duration: 3000,
+            verticalPosition: 'top',
     });
             this.loginForm.reset();
         }
@@ -131,7 +139,8 @@ isUserValid:boolean=false;
           this.sharedservice.setRegisteredEmail(this.email);
           console.log(this.email+"email emiting from sign in page");
           this.snackBar.open("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue", 'OK', {
-            duration: 3000
+            duration: 3000,
+            verticalPosition: 'top',
           });
             
             this.sendOtp(this.email); 
@@ -139,9 +148,12 @@ isUserValid:boolean=false;
         }
         else {
           // display error message
-         this.snackBar.open(`${loginResponse.message}`, 'OK', {
-      duration: 3000
-    });
+          this.snackBar.open(`${loginResponse.message}`, 'OK', {
+            duration: 3000,
+            verticalPosition: 'top',
+            panelClass: ['custom-snackbar']
+          });
+          
           this.loginForm.reset();
         }
       },

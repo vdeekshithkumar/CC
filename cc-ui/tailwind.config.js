@@ -6,6 +6,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        'custom-color': '#ff0000', // Replace with your desired background color
+      },
       colors:{
         'CCblue': '#2F54EB',
         'CCdarkblue': '#3E7BFA',

@@ -56,19 +56,18 @@ export class EditUserDetailsComponent implements OnInit {
     );
   }
   onSubmit() {
+    const timerDuration = 1000;
     const formValue = this.regForm.value;
   if (
-    !formValue.fname ||
-    !formValue.lname||
-    !formValue.address||
-    !formValue.phone_no
+    !formValue.firstName ||
+    !formValue.lastName
   ) {
     this.showValidationErrors = true;
     let errorMessage = 'The following fields are required:\n';
-    if (!formValue.fname) {
+    if (!formValue.firstName) {
       errorMessage += '- First Name\n';
     }
-    if (!formValue.lname) {
+    if (!formValue.lastName) {
       errorMessage += '- Last Name\n';
     }
   
@@ -92,9 +91,12 @@ export class EditUserDetailsComponent implements OnInit {
       (data) => {
         debugger
         this.snackBar.open('Updated Successfully', 'OK', {
-          duration: 6000
+          duration: 3000,
+          verticalPosition: 'top',
         });
-        location.reload();
+        setTimeout(() => {
+          location.reload();
+        }, timerDuration);
       },
       (error) => {
         console.error(error);

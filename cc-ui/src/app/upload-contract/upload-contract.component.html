@@ -33,7 +33,7 @@
               [(ngModel)]="description"
               #inputRef="ngModel"
             ></textarea>
-            <div *ngIf="inputRef.invalid && inputRef.touched" class= "text-sm text-red-500">All fields are mandatory</div>
+            <div *ngIf="inputRef.invalid && inputRef.touched" class= "text-sm text-red-500"></div>
           </div>
           <div class="flex flex-col items-center">
             <label
@@ -87,7 +87,7 @@
               ></path>
             </svg>
             <p class="div-form-p">
-              <span class="font-semibold">Click to upload</span> or drag and drop
+              <span class="font-medium">Click to upload</span> or drag and drop
             </p>
             <p class="dropspace-text-sm">
               Only upload .pdf files

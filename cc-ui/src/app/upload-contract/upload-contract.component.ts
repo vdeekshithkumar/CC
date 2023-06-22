@@ -57,7 +57,8 @@ export class UploadContractComponent implements OnInit {
     if (this.showFile) {
       for (const file of this.files) {
         this.snackBar.open(`${file.name} has been selected for upload`, 'Close', {
-          duration: 3000 // Set the duration to 3000 milliseconds (3 seconds)
+          duration: 3000,
+          verticalPosition: 'top', // Set the duration to 3000 milliseconds (3 seconds)
         });
       }    
     }
@@ -68,7 +69,8 @@ export class UploadContractComponent implements OnInit {
     if (this.title == null || this.description ==null || this.files ==null )
     {
       this.snackBar.open(`All the fields are mandatory!!`, 'Close', {
-        duration: 3000 // Set the duration to 3000 milliseconds (3 seconds)
+        duration: 3000,
+        verticalPosition: 'top',// Set the duration to 3000 milliseconds (3 seconds)
       });
     }
     debugger
