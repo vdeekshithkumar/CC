@@ -11,7 +11,7 @@
           <div class="flex justify-between items-center w-full">
             <div class=" flex flex-row items-center w-full">
               <div class="relative px-1 py-2" id="company-logo">
-                <img class="object-contain overflow-hidden w-14 h-14 rounded-full" src={{company_logo}} />
+                <img class="object-contain overflow-hidden w-14 h-14 rounded-full "style="border: 2px solid transparent; outline: 2px ;" src={{company_logo}} />
                 <button (click)="showDiv = !showDiv"  matTooltip="Edit Company Profile" class="absolute bottom-0 right-0 cursor-pointer">
                   <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="16" height="16" transform="translate(0.5)" fill="white" style="mix-blend-mode:multiply"/>
@@ -32,26 +32,42 @@
                 <div class="font-bold whitespace-nowrap ml-4" style="font-size: 18px;">
                   {{name}}
                 </div>
-                <div class="flex flex-row justify-around w-full mt-4">
-                  <div class="gray-highlights">
-                    <i class="material-symbols-outlined font-bold mr-1 text-sm">
-                      location_on</i>
-                    {{address}}
+                <div class="flex flex-row justify-around w-full mt-4 -ml-6">
+                  
+                  <div class="gray-highlights justify-between">
+                    <svg width="11" height="14"  viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M5.50001 0C4.04186 0.00177305 2.64394 0.581805 1.61288 1.61287C0.581811 2.64394 0.00177874 4.04185 5.68684e-06 5.5C-0.00171609 6.69163 0.387576 7.85092 1.10816 8.8C1.10816 8.8 1.25816 8.99725 1.28226 9.02585L5.50001 14L9.71951 9.0237C9.7417 8.99705 9.89186 8.7998 9.89186 8.7998L9.89261 8.7986C10.6128 7.84987 11.0018 6.69109 11 5.5C10.9982 4.04185 10.4182 2.64394 9.38713 1.61287C8.35607 0.581805 6.95815 0.00177305 5.50001 0ZM6.00001 8H5.00001V7H6.00001V8ZM6.00001 6H5.00001V5H6.00001V6ZM8.00001 8H7.00001V4H4.00001V8H3.00001V4C3.00031 3.73488 3.10576 3.4807 3.29324 3.29323C3.48071 3.10576 3.73488 3.0003 4.00001 3H7.00001C7.26513 3.0003 7.51931 3.10576 7.70678 3.29323C7.89425 3.4807 7.9997 3.73488 8.00001 4V8Z" fill="#262626"/>
+                      </svg>
+                      
+                      <span class="ml-1">{{company_location}}, {{country}}</span>
                   </div>
                   <!-- Sub box 2 -->
-                  <div class="div-sub-box">
-                    <div class="gray-highlights">
-                      <i class="material-symbols-outlined font-bold mr-2 text-sm">
-                        Description</i>
-                      {{licence_id}}
+                  <div class="div-sub-box ">
+                    <div class="gray-highlights -ml-12">
+                      <svg width="15" height="10" viewBox="0 0 15 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M13.5 9.5H9.5C9.23489 9.49964 8.98075 9.39417 8.79329 9.20671C8.60583 9.01925 8.50036 8.76511 8.5 8.5V7H9.5V8.5H13.5V1.5H9.5V3H8.5V1.5C8.5003 1.23488 8.60576 0.9807 8.79323 0.793229C8.9807 0.605759 9.23488 0.500304 9.5 0.5H13.5C13.7651 0.500304 14.0193 0.605759 14.2068 0.793229C14.3942 0.9807 14.4997 1.23488 14.5 1.5V8.5C14.4996 8.76511 14.3942 9.01925 14.2067 9.20671C14.0193 9.39417 13.7651 9.49964 13.5 9.5Z" fill="#595959"/>
+                        <path d="M5.5 4.5H3.5V5.5H5.5V4.5Z" fill="#595959"/>
+                        <path d="M11.5 4.5H9.5V5.5H11.5V4.5Z" fill="#595959"/>
+                        <path d="M8.5 4.5H6.5V5.5H8.5V4.5Z" fill="#595959"/>
+                        <path d="M5.5 9.5H1.5C1.23488 9.4997 0.9807 9.39424 0.793229 9.20677C0.605759 9.0193 0.500304 8.76512 0.5 8.5V1.5C0.500265 1.23486 0.605707 0.980665 0.793186 0.793186C0.980665 0.605707 1.23486 0.500265 1.5 0.5H5.5C5.76514 0.500265 6.01934 0.605707 6.20681 0.793186C6.39429 0.980665 6.49974 1.23486 6.5 1.5V3H5.5V1.5H1.5V8.5H5.5V7H6.5V8.5C6.4997 8.76512 6.39424 9.0193 6.20677 9.20677C6.0193 9.39424 5.76512 9.4997 5.5 9.5Z" fill="#595959"/>
+                        </svg>
+                        
+                        <span class="ml-1"> {{licence_id}}</span>
                     </div>
                   </div>
                   <!-- Sub box 3 -->
-                  <div class="div-sub-box">
-                    <div class="gray-highlights">
-                      <i class="material-symbols-outlined font-bold mr-2 text-sm">
-                        computer</i>
-                      {{domain_address}}
+                  <div class="div-sub-box ">
+                    <div class="gray-highlights -ml-12">
+                      <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M14.5 0H12.5V2H14.5V0Z" fill="#595959"/>
+                        <path d="M14.5 3H12.5V5H14.5V3Z" fill="#595959"/>
+                        <path d="M11.5 0H9.5V2H11.5V0Z" fill="#595959"/>
+                        <path d="M11.5 3H9.5V5H11.5V3Z" fill="#595959"/>
+                        <path d="M13.5 7V10H1.5V2H7.5V1H1.5C1.23478 1 0.98043 1.10536 0.792893 1.29289C0.605357 1.48043 0.5 1.73478 0.5 2V10C0.5 10.2652 0.605357 10.5196 0.792893 10.7071C0.98043 10.8946 1.23478 11 1.5 11H5.5V13H3.5V14H11.5V13H9.5V11H13.5C13.7652 11 14.0196 10.8946 14.2071 10.7071C14.3946 10.5196 14.5 10.2652 14.5 10V7H13.5ZM8.5 13H6.5V11H8.5V13Z" fill="#595959"/>
+                        </svg>
+                        
+                        <span class="ml-1">     
+                          {{domain_address}}</span>
                     </div>
                   </div>
                  
@@ -59,7 +75,7 @@
 
                   <!-- Ratings -->
                   <div class=" flex">
-                    <div class="gray-highlights">
+                    <div class="gray-highlights -ml-12">
                       <i class="material-icons text-sm text-yellow-400 mr-2">star</i>
                       {{rating}}
                     </div>
