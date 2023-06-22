@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 @layer utilities {
     @variants responsive {
       /* Hide scrollbar for Chrome, Safari and Opera */
@@ -38,3 +40,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     color: lightblue !important;
 
 } */
+
+
+.custom-snackbar {
+  background-color: green;
+}

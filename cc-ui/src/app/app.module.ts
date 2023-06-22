@@ -56,7 +56,7 @@ import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
 import { TemplateComponent } from './template/template.component';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -114,6 +114,7 @@ import { TemplateComponent } from './template/template.component';
     NgxPaginationModule,
     GoogleMapsModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]
