@@ -203,8 +203,8 @@
                             </button>
                             <button [disabled]="isButtonDisabled" (click)="DisplayDraftForm(ad.ad_id)"
                               *ngIf="operation === 'Draft'" scope="row"
-                              class="flex-1 inline-flex font-medium rounded-md text-center bg-CCblue rounded-sm px-6 mr-2 text-white disable py-1"
-                              style="font-size: 12px;"></button>
+                              class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
+                              style="font-size: 12px;">Edit</button>
                             <button [disabled]="isButtonDisabled" (click)="approve(ad.ad_id)"
                               *ngIf="operation === 'Pending'" scope="row"
                               class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 text-center px-2 text-white mr-2 bg-CCblue disable mt-2"
