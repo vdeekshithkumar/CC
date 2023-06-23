@@ -21,13 +21,15 @@
 
         </div>
               <!-- Just for testing purposes change ng submit-->
-              <form [formGroup]= "loginForm"autocomplete="off" (ngSubmit)="onLoginSubmit()" class="form" >
-               <label for="email" class="label" >Email</label>
-                  <input formControlName="email" autocomplete="hidden" class="page-input signin-page-input"
-                   type="email" 
-                   id="email"
-                   name="email" 
-               >
+              <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="onLoginSubmit()" class="form">
+                <label for="email" class="label email">Email</label>
+                <input formControlName="email" autocomplete="hidden" class="page-input signin-page-input"
+                  type="email"
+                  id="email"
+                  name="email"
+                  style="margin-top: 6px;">
+              
+              
                   <div
                       *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
                       class="text-red-500 text-sm mt-1"
@@ -44,11 +46,13 @@
                         class="register-page-data page-input"
                         type="{{ showPassword ? 'text' : 'password' }}"
                         id="password"
+                        style="margin-top: 6px;"
                         required
                         minlength="8"
                         pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
                       />
-                      <i style="color: #262626a6;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+                      
+                      <i style="color: #262626;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
                 
                  
                     </div>
@@ -60,24 +64,24 @@
                 </div>
                  
                 <div class="checkbox-container mt-4 mb-2 term  flex flex-row">
-                  <input type="checkbox" id="agreeCheckbox"/>
+                  <input type="checkbox" id="agreeCheckbox" class="custom-checkbox"/>
                   <div class="rowbtn">
-                    <div class="ml-2">
-                      <label for="agreeCheckbox  ">
+                    <div class="ml-2 ">
+                      <label for="agreeCheckbox" class="remme" >
                         Remember me 
                        </label>
                     </div>
                   
-                     <a class="signin-fp"routerLink="/forgot-password" style="color: blue;">Forgot Password</a>
+                     <a class="signin-fp"routerLink="/forgot-password">Forgot Password</a>
                   </div>
                  
                 </div>
                 </div>
-                <div class="center-position"> 
+                <div class="center-position"  style="margin-top: 56px;"> 
 
               
                   <button
-                   type="submit" class="btn-primary btn" style="height: 26px;font-size: 12px;" >
+                   type="submit" class="btn-primary btn1 sign-in" >
                     <div>
                       Sign In 
                     </div>
@@ -85,9 +89,9 @@
                   </button>
                 </div>
 
-                  <label class="center-position blw-btn-text">
+                  <label class="center-position text-new  blw-btn-text">
                     Don't have an account yet? 
-                    <a href="/register" style="color: blue;" class="underline px-1">Sign Up</a> 
+                    <a href="/register" style="color: #2F54EB;" class="underline px-1">Sign Up</a> 
                  
                   </label>
               </form>          
