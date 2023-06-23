@@ -286,7 +286,7 @@
         </div>
     </div>
     <div class="flex gap-2 w-full justify-end">
-      <button  (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      <button  (click)="currentPage = currentPage - 1" [class.disabled-button]="currentPage === 1" [disabled]="currentPage === 1">
         <i class="material-symbols-outlined cursor-pointer">
           navigate_before
         </i>

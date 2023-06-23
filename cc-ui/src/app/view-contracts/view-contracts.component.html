@@ -98,7 +98,7 @@
         </table>
       </div>
       <div class="flex gap-2 w-full justify-end mt-2">
-        <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+        <button (click)="currentPage = currentPage - 1" [class.disabled-button]="currentPage === 1" [disabled]="currentPage === 1">
           <i class="material-symbols-outlined cursor-pointer">
             navigate_before
           </i>
@@ -111,7 +111,7 @@
           {{page}}
         </button>
 
-        <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages()">
+        <button (click)="currentPage = currentPage + 1" [class.disabled-button]="currentPage === getTotalPages()" [disabled]="currentPage === getTotalPages()">
           <i class="material-symbols-outlined cursor-pointer">
             navigate_next
           </i>

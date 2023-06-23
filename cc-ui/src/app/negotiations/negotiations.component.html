@@ -169,6 +169,7 @@
 
           <div class="flex flex-row gap-1">
             <button
+            [class.disabled-button]="n.status != 'accepted'"
               [disabled]="n.status != 'accepted'"
               [ngClass]="{
                 'button-red-bg-list': n.status === 'accepted',

@@ -163,6 +163,7 @@
               routerLink="/my-ad"
               class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
               [disabled]="false"
+              [class.disabled-button]="false"
             >
               View My Ads
             </button>
@@ -271,6 +272,7 @@
                   class="negotiation-button"
                   [disabled]="DisableStartNegoBtn(ad.ad_id)"
                   [disabled]="NButtonDisabled"
+                  [class.disabled-button]="NButtonDisabled"
                   (click)="StartNegotiation(ad.ad_id)"
                 >
                   Start Negotiation

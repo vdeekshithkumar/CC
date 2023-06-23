@@ -168,3 +168,6 @@ border-radius: 0px;
 .page-link-active{
     @apply  text-xs text-CCblue font-bold bg-white w-7 h-7 rounded-md border-2 items-center 
 }
+.disabled-button {
+  cursor: not-allowed;
+}

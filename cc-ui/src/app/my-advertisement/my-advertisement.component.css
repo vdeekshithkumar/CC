@@ -150,6 +150,7 @@
     
    }
     
+ 
     
     
     
@@ -271,6 +272,13 @@
     font-family: Poppins;
     font-size: 12px;
     line-height: 28px;
+}
+.disabled-button {
+  cursor: not-allowed;
+}
+
+.svg-icon:hover path {
+  fill: red;
 }
   .btn-primary2{
     color: #FAFAFA;
