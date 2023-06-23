@@ -94,13 +94,16 @@ border-radius: 2px;
 }
 
 .left-section {
+  position: fixed;
   width: 30%;
+  height: 100%;
+  top: 0;
   background-color: #F0F5FF;
   display: flex;
   justify-content: center;
-  align-items: center;  
-  
+  align-items: center;
 }
+
 
 .right-section {
   flex-grow: 1;
