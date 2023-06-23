@@ -1,11 +1,24 @@
-<form [formGroup]="addEmployeeForm"  class="font-poppins grid overflow-y-hidden gap-2 p-2 flex min-h-[100px]">
-  <h3 class="col-span-2 -mt-2 text-black h-16 h1 flex items-center justify-between -ml-20">
-    <span class="ml-24 font-semibold -mt-1 text-lg font-poppins">Add New User</span>
-    <i class="fas fa-times -mt-1 mr-3 cursor-pointer" mat-button matDialogClose=""></i>
-  </h3>
-<!-- Details form -->
+<div [class.hidden]="!showform" class="fixed inset-0 flex items-center justify-center rounded-lg">
+  <div class="fixed inset-0 bg-black opacity-60 z-10"></div>
+  <div class="mt-4 mx-auto font-poppins relative z-20">
+    <div class=" justify-center h1 w-[55rem] h-[5rem]">
+      <div>
+        <div class="flex items-center justify-between ">
+          <h1 class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
+            Add New User</h1>
+          <div>
+            <button mat-dialog-close="" class="mr-4 mb-4 mt-4 text-black hover:text-gray-700 focus:outline-none">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 6L6 18M6 6L18 18" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 <mat-horizontal-stepper #stepper  linear ngClass="{{ 'last-edited-step-' + stepper.selectedIndex }}">
-  <mat-step label="Details" [editable]="true" class="gray-line font-poppins">
+  <mat-step label="Details" [editable]="false" class="gray-line font-poppins text-xs">
     <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6 font-poppins">
       <div class="col-span-1">
         <h2 class="font-semibold mb-2 font-poppins -ml-2">Add User Details</h2>
@@ -129,10 +142,10 @@
       </div>
     </form>
     <div class="flex flex-grow">
-      <button mat-button matDialogClose="" class=" font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
+      <button mat-button matDialogClose="" class="font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
         Cancel
       </button>
-      <button mat-button (click)="openDialog(stepper)" type="button" class=" font-poppins ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">
+      <button  (click)="openDialog(stepper)" type="button" class=" font-poppins ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">
         Next
       </button>
     </div>  
@@ -177,10 +190,12 @@
         <button mat-button matDialogClose="" class="mb-3 ml-6 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-gray-100 text-black mt-4">
           Cancel
         </button>
-        <button mat-button matStepperNext (click)="onAdd()" type="submit" class="mb-3 ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">Submit</button>
+        <button  matStepperNext (click)="onAdd()" type="submit" class="mb-3 ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-2 bg-CCblue text-white mt-4">Submit</button>
       </div>  
     </form>
   </mat-step>
 </mat-horizontal-stepper>
-</form>
-  
+
+  </div>
+</div>
+

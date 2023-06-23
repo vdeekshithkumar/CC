@@ -34,6 +34,7 @@ export class AddEmployeeComponent {
     return this.stepper.selectedIndex > 0;
   }
   Pfname: any;
+  showform=true;
   password1!: string
   password2!: string
   activeTab = 'details';
