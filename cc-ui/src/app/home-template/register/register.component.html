@@ -17,7 +17,7 @@
               class="register-page-data page-input"
               type="text"
               id="fname"
-              style="width: 145px; margin-top: 6px;"
+              style="width: 145px; margin-top: 6px;height: 32px;"
               placeholder="e.g. John" 
              
              
@@ -43,7 +43,7 @@
               class="register-page-data page-input"
               type="text"
               id="lname"
-              style="width: 145px; margin-top: 6px;"
+              style="width: 145px; margin-top: 6px; height: 32px;"
               placeholder="e.g. Mark"
               autocomplete="hidden"
             
@@ -60,7 +60,7 @@
           </div>
       </div>
 
-      <div class="col-span-2 mt-[1.25rem]">
+      <div class="col-span-2 mt-[0.5rem]">
         <label for="email" class="label" >Email</label>
         <input
           [(ngModel)]="email"
@@ -69,7 +69,7 @@
           class="register-page-data page-input"
           type="email"
           id="email"
-          style=" margin-top: 6px;padding: 10px 14px;"
+          style=" margin-top: 6px;padding: 10px 14px;height: 32px;"
           placeholder="e.g. someone@gmail.com"
           autocomplete="hidden"
         
@@ -85,10 +85,10 @@
         Maximum limit exceeded.
       </div>
       </div>
-      <div class="rowbtn mt-[1.25rem]">
+      <div class="rowbtn mt-[0.5rem]">
       <div class="space-y-1">
         <label for="address" class="label">Select country</label>
-        <select class="register-page-data border-2 page-input  text-xs " style="padding: 0px;width: 145px; margin-top: 6px;" id="address" formControlName="address">
+        <select class="register-page-data border-2 page-input  text-xs " style="padding: 0px;width: 145px; margin-top: 6px; height: 32px; padding-left: 6px;" id="address" formControlName="address">
           <option  class = "text-xs" *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
         </select>
     
@@ -113,7 +113,7 @@
           id="city"
           formControlName="city"
           autocomplete="hidden"
-          style="width: 145px; margin-top: 6px;"
+          style="width: 145px; margin-top: 6px;height: 32px;"
         />
         
         <div class="error" *ngIf="registrationForm?.get('city')?.invalid && registrationForm?.get('city')?.errors?.['maxlength']">
@@ -123,7 +123,7 @@
       
       </div>
       
-      <div class="space-y-1 col-span-2 mt-[1.25rem]">
+      <div class="space-y-1 col-span-2 mt-[0.5rem]">
         <label for="ph-no" class="label">Phone Number<span class="optional"> (Optional)</span></label>
 
         <input
@@ -132,7 +132,7 @@
           type="text"
           autocomplete="none"
           readonly onfocus="this.removeAttribute('readonly');"
-          style=" margin-top: 6px;"
+          style=" margin-top: 6px; height: 32px;"
           id="ph-no"
          
         />
@@ -144,7 +144,7 @@
        
       
 
-      <div class="space-y-1 col-span-2 mt-[1.25rem]">
+      <div class="space-y-1 col-span-2 mt-[0.5rem]">
         <label for="company" class="label">Company</label>
         <select
           #company
@@ -152,7 +152,7 @@
           formControlName="company_id"
           id="Company"
           class="register-page-data page-input"
-          style="padding: 0px; padding-left: 10px;  margin-top: 6px;"
+          style="padding: 0px; padding-left: 10px; height: 32px; margin-top: 6px;"
         >
       
           <!-- <option value="" disabled selected>Select your company</option> -->
@@ -172,7 +172,7 @@
       </div>
 
     
-      <div class = 'space-y-1 col-span-2 mt-[1.25rem]'>
+      <div class = 'space-y-1 col-span-2 mt-[0.5rem]'>
         <div >
           <label for="password" class="label">Create Password</label>
           <div class="password-container">
@@ -181,7 +181,7 @@
               class="register-page-data page-input"
               type="{{ showPassword ? 'text' : 'password' }}"
               id="password"
-              style=" margin-top: 6px;"
+              style=" margin-top: 6px; height: 32px;"
               required
               minlength="8"
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
