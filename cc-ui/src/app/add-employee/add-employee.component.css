@@ -123,13 +123,41 @@
 :host ::ng-deep .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
   background-color:  #2F54EB;
   color: #FAFAFA;
-}
+} 
 :host ::ng-deep .mat-horizontal-stepper-header-container {
   white-space: nowrap;
   display: flex;
   align-items: center;
   width: 100%;
 }
+:host ::ng-deep .mat-step-text-label{
+  color: var(--color-text-description, rgba(0, 0, 0, 0.45));
+  font-family: 'Poppins';
+  
+}
+:host::ng-deep .mat-step-header {
+  background-color: transparent !important;
+}
+:host ::ng-deep .mat-mdc-button-touch-target{
+    background-color: #ffffff;
+}
+:host ::ng-deep .flex .flex-grow .ng-star-inserted{
+  background-color: #ba1818;
+}
+
+
+
+:host ::ng-deep .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit {
+    background-color: #E6F4FF;
+    color: #1677FF;
+}
+
+
+
+
+/* :host::ng-deep .mat-step-header .mat-primary .ng-tns-c26-0 .mat-horizontal-stepper-header .ng-star-inserted{
+  color: #000000;
+} */
 .h1{
   background-color: #F0F5FF;
 }
@@ -309,6 +337,23 @@
 }
 .register-page-data{
   @apply block border-2  border-gray-300  px-3  text-sm py-1 leading-6 min-w-full
+}
+.full-width-input{
+  width: 102%;
+}
+.full-width{
+  width: 100%;
+}
+.full-width-th{
+  width: 50%;
+}
+.custom-checkbox {
+  width: 14px; /* specify the desired width */
+  height: 14px; /* specify the desired height */
+}
+.bg-th{
+  border: 0.5px solid var(--color-split, rgba(0, 0, 0, 0.06));
+background: var(--color-fill-alter, rgba(0, 0, 0, 0.02));
 }
 .submit-btn{
   box-sizing: border-box;
@@ -498,7 +543,7 @@
   .bg-text{
 font-family: 'Poppins';
 font-style: medium;
-font-weight: 500;
+font-weight: 550;
 font-size: 14px;
 line-height: 20px;
 color: #595959;
@@ -571,4 +616,11 @@ color: #8C8C8C;
      width: 450px;
      height: 25px;
      
+  }
+  .eye-icon {
+    /* Add your custom styles here */
+    color: #262626;
+
+    
+    /* Add any other styles you want */
   }
