@@ -22,9 +22,10 @@ arrivalLat: number = 0;
 arrivalLng: number = 0;
 
   port: Port[] = [];
-  
   @Input() selectedDeparturePort: any;
   @Input() selectedArrivalPort: any;
+  @Input() selectedType: any;
+  @Input() selectedSize: any;
   mapId: string = '2b03aff8b2fb72a3'; // Replace with your Map ID
   ports: any[] = [];
   map: google.maps.Map | undefined;

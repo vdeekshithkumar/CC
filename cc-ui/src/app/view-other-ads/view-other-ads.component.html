@@ -1,6 +1,6 @@
-<div class="div flex flex-row">
+<div class="div flex flex-row main mt-[58px]">
   <div class="text-after-type-sidebar py-10 px-2">
-    <p class="search-text">Filter as per your Requirements</p>
+    <p class="search-text">Search Space as per your Requirements</p>
     <div class="search-type-container">
       <div
         class="search-buy-container"
@@ -79,24 +79,18 @@
             MAP
           </div>
 
-          <div
-            class="view-list-box"
-            [ngClass]="{ selected: selectedOptions['view'] === 'LIST' }"
-            (click)="toggleOption('view', 'LIST')"
-          >
-            LIST
-          </div>
+           <div
+      class="view-list-box"
+      [ngClass]="{ selected: selectedOptions['view'] === 'LIST' || !selectedOptions['view'] }"
+      (click)="toggleOption('view', 'LIST')"
+    >
+      LIST
+    </div>
         </div>
       </div>
 
       <br />
-      <div class="map-view">
-        <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
-        <app-view-other-ads-map-view
-                    [selectedDeparturePort]="selectedDeparturePort"
-                    [selectedArrivalPort]="selectedArrivalPort">
-        </app-view-other-ads-map-view>
-        </div>
+      
         
          
         
@@ -155,21 +149,34 @@
 
         
 
-        <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col">
+        <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
           <div class="flex flex-row">
             <h2 class="mt-3 mx-auto flex-1">Advertisement Details</h2>
-
+           
+            
+           
             <button
-              routerLink="/my-ad"
-              class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
-              [disabled]="false"
-              [class.disabled-button]="false"
-            >
-              View My Ads
-            </button>
-          </div>
+            *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
+            routerLink="/my-ad"
+            class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
+            [disabled]="false"
+            [class.disabled-button]="false"
+          >
+            View My Ads
+          </button>
+          
+</div>
+  <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
+    <app-view-other-ads-map-view
+    
+      [selectedDeparturePort]="selectedDeparturePort"
+      [selectedArrivalPort]="selectedArrivalPort"
+      
+    ></app-view-other-ads-map-view>
+  </div>
+  <div *ngIf="!showMapView"  >
           <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-
+          
           <ng-container
             *ngFor="let ad of currentAds"
             class="flex justify-center w-full items-center  border"
@@ -466,9 +473,15 @@
               </ul>
             </nav>
           </div>
-
+  </div>
         </div>
       </div>
-    </div>
   </div>
 </div>
+
+
+        
+     
+   
+
+

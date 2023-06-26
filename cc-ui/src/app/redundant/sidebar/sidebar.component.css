@@ -14,7 +14,9 @@
       font-family: Poppins;
     }
   }
-
+.main{
+  position: fixed;
+}
 .sidebar-nav{
     @apply flex flex-col ;
 }
