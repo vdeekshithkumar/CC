@@ -600,7 +600,9 @@ justify-content: center;
 align-items: center;
 gap: 2px;
 flex: 1 0 0;
-margin-top:250px;
+
+margin-top:180px;
+
 }
 
 
@@ -982,3 +984,30 @@ margin-top:250px;
   background-size: 16px; /* Adjust the size as needed */
 }
 
+.radio{
+  border-radius: 2px;
+border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);
+background: #FFF;
+display: flex;
+width: 138px;
+padding: 4px;
+justify-content: space-between;
+align-items: center;
+align-content: flex-start;
+row-gap: 8px;
+flex-wrap: wrap;
+}
+
+.search-text {
+  color: var(--gray-gray-8, #595959);
+  font-size: 17px;
+  font-family: Poppins;
+  font-weight: 500;
+}
+.select-type{
+  margin-top:10px;
+  color: var(--gray-gray-8, #595959);
+font-size: 12px;
+font-family: Poppins;
+line-height: 20px;
+}
