@@ -56,7 +56,8 @@ export interface Advertisement {
 })
 export class ViewOtherAdsComponent {
   @ViewChild(ViewOtherAdsMapViewComponent) mapViewComponent!: ViewOtherAdsMapViewComponent;
-  selectedView: string = 'MAP';
+  isAdClicked: boolean = false;
+  selectedView: string | undefined;
 
   showMapView: boolean = false;
   isLoading: any;
@@ -70,6 +71,7 @@ export class ViewOtherAdsComponent {
   domain_address?: string;
   licence_id?: number;
   rating?: number;
+ 
   address?: string;
   fname?: string
   isBuyHovered: boolean = false;
@@ -117,6 +119,7 @@ export class ViewOtherAdsComponent {
   selectedArrivalPort: any;
   size: any;
   selectedSize: any;
+  showListView: boolean = true;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -152,6 +155,7 @@ export class ViewOtherAdsComponent {
 
   }
   ngOnInit(): void {
+    this.selectedView = 'list';
     this.isLoading = true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
       (data: any) => {
@@ -168,8 +172,7 @@ export class ViewOtherAdsComponent {
       }
     );
 
-
-
+   
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
@@ -320,6 +323,13 @@ export class ViewOtherAdsComponent {
         this.type = this.selectedOptions[section] || '';
       } else if (section === 'view') {
         this.selectedView = this.selectedOptions[section] || '';
+  
+        // Update the logic to handle the map view display
+        if (this.selectedView === 'map') {
+          this.showMapView = true;
+        } else {
+          this.showMapView = false;
+        }
       } else if (section === 'size') {
         this.selectedSize = this.selectedOptions[section] || '';
   
@@ -379,6 +389,7 @@ export class ViewOtherAdsComponent {
     if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
       this.showNoSelectionMessage = true;
       this.showMapView = false;
+      this.showListView = true; // Show the list view component
       return;
     }
   
@@ -388,10 +399,11 @@ export class ViewOtherAdsComponent {
     if (this.selectedView === 'MAP') {
       // Render the map view component
       this.showMapView = true;
+      this.showListView = false; // Hide the list view component
       const selectedType = this.type;
       this.selectedDeparturePort = this.port_of_departure;
       this.selectedArrivalPort = this.port_of_arrival;
-  
+
       // Call markPortsOnMap() of the map view component
       if (this.mapViewComponent) {
         this.mapViewComponent.clearMarkers();
@@ -400,14 +412,15 @@ export class ViewOtherAdsComponent {
           this.mapViewComponent.markPortsOnMap();
         }, 0);
       }
-  
+
       return; // Exit the method to prevent further processing
     }
   
-    // Remaining code for the list view component...
+ 
     
     // Render the list view component
     this.showMapView = false;
+    this.showListView = true; // Show the list view component
     this.noResultsMatched = false;
     const selectedType = this.type;
     const selectedDeparture = this.port_of_departure;
@@ -440,6 +453,7 @@ export class ViewOtherAdsComponent {
     );
   }
   
+  
   onDeparturePortSelected(port: Port) {
     debugger
     this.selectedDeparturePort = port.port_id;
@@ -453,7 +467,9 @@ export class ViewOtherAdsComponent {
     this.port_of_arrival = port.port_id;
   }
 
-
+  onAdClick() {
+    this.isAdClicked = true;
+  }
   setOptionBackground(option: string, isHovered: boolean): void {
     if (isHovered && this.type !== option) {
       // Set the background color to blue when hovered, if not selected
