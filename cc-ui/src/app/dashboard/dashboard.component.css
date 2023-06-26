@@ -1,6 +1,76 @@
-.div-card{
-    @apply w-full flex flex-col first:flex-row
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer utilities {
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
+  }
+}
+ .div{
+  @apply flex flex-row bg-black
+ }
+ .div-card{
+  @apply w-full flex flex-col first:flex-row
+ }
+ .bg-div{
+    background-color: #FAFAFA;
+ }
+ .div-card-div{
+  @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full ml-4
+ }
+ .h1-div{
+    color: var(--gray-gray-8, #595959);
+font-family: Poppins;
+letter-spacing: 0.64px;
+ }
+ .div-frame{
+    color: var(--neutral-9, #434343);
+    font-weight: 500;
+    font-family: Poppins;
+    line-height: 22px;
+    letter-spacing: 0.7px;
+ }
+ .div-card-card{
+  @apply flex-1 text-sm p-2 rounded-sm m-3 h-[170px]  overflow-y-auto bg-white
+ }
+ .upcoming-bookings {
+    border-radius: 6px;
+    background: var(--color-fill-secondary, rgba(0, 0, 0, 0.06)); /* Set your desired background color */
+    padding: 10px;
+    margin-bottom: 10px;
+
+  }
+  .my-custom-class {
+    width: 80%;
+  }
+  .div-card-card {
+    width: 80%;
+  }
+ .div-card-card1{
+    @apply flex-1 m-3 h-10 overflow-y-auto bg-white pl-4 pt-2 pb-2
    }
-   .div-card-div{
-    @apply text-2xl font-bold font-poppins mt-8 mb-4 p-3
-   }
+ .div-div-card{
+  @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] overflow-y-auto
+ }
+
+.flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #FAFAFA;
+  }
+  .head{
+    color: var(--gray-gray-8, #595959);
+font-size: 14px;
+font-family: Poppins;
+font-weight: 600;
+line-height: 20px;
+border-bottom: 2px solid var(--gray-gray-3, #F5F5F5);
+  }
+  .foot{
+   
+color:#2F54EB;
+font-family: Poppins;
+
+line-height: 20px;
+border-top: 2px solid var(--gray-gray-3, #F5F5F5);
+  }
