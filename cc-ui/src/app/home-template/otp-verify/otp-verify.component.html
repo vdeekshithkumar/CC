@@ -1,6 +1,12 @@
 
-<div class="otp-section">
-  <div>
+<div class="otp-section"style=" justify-content: center; align-items: center;  height: 80%;
+position: fixed;
+top: -38%;
+left: 16%;
+right: 0%;
+bottom:50%;
+overflow: hidden;">
+  <div >
     <h1 class="otp-h1">
       <!-- company's svg -->
       <span>Verify your email</span>
@@ -14,7 +20,7 @@
   <!-- Otp verify form here -->
 
   <form [formGroup]="otpForm" (ngSubmit)="onValidate()">
-    <div class="otp text-[0.7rem] text-dark">
+    <div class="otp text-[0.7rem] text-dark mt-[16px]">
       <label>One Time Password</label>
     </div>
     <div class="grow w-full  bg-white">
@@ -23,19 +29,23 @@
         <input formControlName="otp" class="otp-page-data border-2" type="email" id="email" />
         
       </div>
-      <div class="otp text-[0.7rem] ml-44 font-normal">
-        <label>Did not receive the email?<a class="otp-a">Resend OTP</a></label>
+      <div class="otp text-[0.7rem] ml-44 font-normal mt-[20px]">
+        <label>Did not receive the email?<a class="otp-a ">Resend OTP</a></label>
       </div>
     </div>
-    <div class="ml-24 center-position mt-10 flex ">
+    <div>
+    <div class="  flex  mt-12 otp-btn whitespace-nowrap " style="width: 235.333px;
+    height: 38px;">
       <button type="submit" class="btn-primary btn">
         <div>
           Verify
         </div>
       </button>
     </div>
+    </div>
   </form>
-  <div class="otp-noact text-gray-500 text-[0.7rem] ml-12">
+  
+  <div class="otp-noact text-gray-500 text-[0.7rem] -ml-10 ">
     Already have an account?
     <a class="otp-noact-a" [routerLink]="['/sign-in']" routerLinkActive="router-link-active"
       href="javascript:void(0)"><span class="underline">Sign in</span></a>

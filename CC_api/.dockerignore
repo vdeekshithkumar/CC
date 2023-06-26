@@ -1,0 +1,12 @@
+# .dockerignore for ASP.NET applications
+**/.git
+**/.svn
+**/.vs
+**/.DS_Store
+**/bin
+**/obj
+**/packages
+**/node_modules
+**/*.csproj.user
+**/*.suo
+**/*.userprefs
