@@ -1,6 +1,32 @@
-<div class="div flex flex-row">
-  <div class="text-after-type-sidebar py-10 px-2">
-    <p class="search-text">Filter as per your Requirements</p>
+<div class="div flex flex-row main mt-[42px] ">
+  <div class="text-after-type-sidebar py-10 px-2 ">
+   
+    
+    <p class="search-text">Search as per your Requirements</p>
+    <div class="radio-buttons ">
+      <div style="display: inline-block;margin-right: 16px;">
+        <p class="select-type">Selected Type</p>
+        <label class="radio mt-[10px]">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 6V5.6H1.1V6H1.5ZM1.5 18.9375H1.1V19.3375H1.5V18.9375ZM12.1272 6L12.273 5.6275C12.2265 5.60933 12.1771 5.6 12.1272 5.6V6ZM22.7545 10.1585H23.1545C23.1545 9.99382 23.0536 9.84599 22.9002 9.78598L22.7545 10.1585ZM22.7545 18.9375V19.3375C22.9754 19.3375 23.1545 19.1584 23.1545 18.9375H22.7545ZM14.8375 8.77232C14.8375 8.55141 14.6584 8.37232 14.4375 8.37232C14.2166 8.37232 14.0375 8.55141 14.0375 8.77232H14.8375ZM14.0375 17.5513C14.0375 17.7723 14.2166 17.9513 14.4375 17.9513C14.6584 17.9513 14.8375 17.7723 14.8375 17.5513H14.0375ZM17.6098 9.69643C17.6098 9.47551 17.4307 9.29643 17.2098 9.29643C16.9889 9.29643 16.8098 9.47551 16.8098 9.69643H17.6098ZM16.8098 17.5513C16.8098 17.7723 16.9889 17.9513 17.2098 17.9513C17.4307 17.9513 17.6098 17.7723 17.6098 17.5513H16.8098ZM20.3821 11.0826C20.3821 10.8617 20.2031 10.6826 19.9821 10.6826C19.7612 10.6826 19.5821 10.8617 19.5821 11.0826H20.3821ZM19.5821 17.5513C19.5821 17.7723 19.7612 17.9513 19.9821 17.9513C20.2031 17.9513 20.3821 17.7723 20.3821 17.5513H19.5821ZM1.5 6.4H11.6652V5.6H1.5V6.4ZM11.2652 6V18.9375H12.0652V6H11.2652ZM11.6652 18.5375H1.5V19.3375H11.6652V18.5375ZM1.9 18.9375V6H1.1V18.9375H1.9ZM6.18259 6V18.9375H6.98259V6H6.18259ZM5.19643 10.0964H7.96875V9.29643H5.19643V10.0964ZM5.19643 16.1031H7.96875V15.3031H5.19643V16.1031ZM11.6652 6.4H12.1272V5.6H11.6652V6.4ZM11.9815 6.3725L22.6087 10.531L22.9002 9.78598L12.273 5.6275L11.9815 6.3725ZM22.3545 10.1585V18.9375H23.1545V10.1585H22.3545ZM22.7545 18.5375H11.6652V19.3375H22.7545V18.5375ZM14.0375 8.77232V17.5513H14.8375V8.77232H14.0375ZM16.8098 9.69643V17.5513H17.6098V9.69643H16.8098ZM19.5821 11.0826V17.5513H20.3821V11.0826H19.5821Z" fill="#2F54EB"/>
+            </svg>            
+          Container
+          <input type="radio" name="search-space" value="option1" checked>
+        </label>
+      </div>
+      <div style="display: inline-block;">
+        <label class="radio">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.25 3.75H15.75V8.25H20.25V3.75Z" stroke="#2F54EB" stroke-width="0.8"/>
+            <path d="M12 12V7.5H7.5V12M12 12H16.5V16.5H7.5V12M12 12H7.5" stroke="#2F54EB" stroke-width="0.8"/>
+            <path d="M12 3.75H4.5C4.08579 3.75 3.75 4.08579 3.75 4.5V19.5C3.75 19.9142 4.08579 20.25 4.5 20.25H19.5C19.9142 20.25 20.25 19.9142 20.25 19.5V12" stroke="#2F54EB" stroke-width="0.8"/>
+            </svg>            
+          Space
+          <input type="radio" name="search-space" value="option2">
+        </label>
+      </div>
+    </div>
+    <br/>
     <div class="search-type-container">
       <div
         class="search-buy-container"
@@ -79,24 +105,18 @@
             MAP
           </div>
 
-          <div
-            class="view-list-box"
-            [ngClass]="{ selected: selectedOptions['view'] === 'LIST' }"
-            (click)="toggleOption('view', 'LIST')"
-          >
-            LIST
-          </div>
+           <div
+      class="view-list-box"
+      [ngClass]="{ selected: selectedOptions['view'] === 'LIST' || !selectedOptions['view'] }"
+      (click)="toggleOption('view', 'LIST')"
+    >
+      LIST
+    </div>
         </div>
       </div>
 
       <br />
-      <div class="map-view">
-        <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
-        <app-view-other-ads-map-view
-                    [selectedDeparturePort]="selectedDeparturePort"
-                    [selectedArrivalPort]="selectedArrivalPort">
-        </app-view-other-ads-map-view>
-        </div>
+      
         
          
         
@@ -152,24 +172,42 @@
 
         <br />
         <br />
-
+     
+   
         
 
-        <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col">
+        
+      </div>
+  </div>
+  <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
           <div class="flex flex-row">
             <h2 class="mt-3 mx-auto flex-1">Advertisement Details</h2>
-
+           
+            
+           
             <button
-              routerLink="/my-ad"
-              class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
-              [disabled]="false"
-              [class.disabled-button]="false"
-            >
-              View My Ads
-            </button>
-          </div>
+            *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
+            routerLink="/my-ad"
+            class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
+            [disabled]="false"
+            [class.disabled-button]="false"
+          >
+            View My Ads
+          </button>
+          
+</div>
+  <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
+    <app-view-other-ads-map-view
+      [adtype]="adtype"
+      [selectedDeparturePort]="selectedDeparturePort"
+      [selectedArrivalPort]="selectedArrivalPort"
+      [containerTypeId]="containerTypeId"
+      
+    ></app-view-other-ads-map-view>
+  </div>
+  <div *ngIf="!showMapView"  >
           <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-
+          
           <ng-container
             *ngFor="let ad of currentAds"
             class="flex justify-center w-full items-center  border"
@@ -466,9 +504,13 @@
               </ul>
             </nav>
           </div>
-
-        </div>
-      </div>
-    </div>
   </div>
+        </div>
 </div>
+
+
+        
+     
+   
+
+

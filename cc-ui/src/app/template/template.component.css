@@ -10,7 +10,7 @@
   
   .left-section {
     width: 12%;
-
+    height: auto;
     display: flex;
     float: left;
     justify-content: left;

@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-
+  changeImageColor(event: MouseEvent) {
+    const svg = (event.currentTarget as HTMLElement).querySelector('svg');
+    if (svg) {
+      svg.classList.add('blue');
+    }
+  }
 }

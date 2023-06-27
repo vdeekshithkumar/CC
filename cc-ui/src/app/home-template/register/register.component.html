@@ -1,6 +1,7 @@
 <div class="registration-form">
   <!-- User registration form here -->
-  <div class="sub-text">Your details</div>
+  <div style="color: #120338; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 40px; margin-bottom: 32px;">Your details</div>
+
 
   <form [formGroup]="registrationForm"  autocomplete="off" role="presentation"(ngSubmit)="onSubmit()">
     <div class="grow w-full bg-white mb-8">
@@ -16,7 +17,7 @@
               class="register-page-data page-input"
               type="text"
               id="fname"
-              style="width: 145px;"
+              style="width: 145px; margin-top: 6px;height: 32px;"
               placeholder="e.g. John" 
              
              
@@ -42,7 +43,7 @@
               class="register-page-data page-input"
               type="text"
               id="lname"
-              style="width: 145px;"
+              style="width: 145px; margin-top: 6px; height: 32px;"
               placeholder="e.g. Mark"
               autocomplete="hidden"
             
@@ -59,8 +60,8 @@
           </div>
       </div>
 
-      <div class="col-span-2 mt-1">
-        <label for="email" class="label">Email</label>
+      <div class="col-span-2 mt-[0.5rem]">
+        <label for="email" class="label" >Email</label>
         <input
           [(ngModel)]="email"
           formControlName="email"
@@ -68,6 +69,7 @@
           class="register-page-data page-input"
           type="email"
           id="email"
+          style=" margin-top: 6px;padding: 10px 14px;height: 32px;"
           placeholder="e.g. someone@gmail.com"
           autocomplete="hidden"
         
@@ -83,10 +85,10 @@
         Maximum limit exceeded.
       </div>
       </div>
-      <div class="rowbtn mt-1">
+      <div class="rowbtn mt-[0.5rem]">
       <div class="space-y-1">
         <label for="address" class="label">Select country</label>
-        <select class="register-page-data border-2 page-input  text-xs " style="padding: 0px;" id="address" formControlName="address">
+        <select class="register-page-data border-2 page-input  text-xs " style="padding: 0px;width: 145px; margin-top: 6px; height: 32px; padding-left: 6px;" id="address" formControlName="address">
           <option  class = "text-xs" *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
         </select>
     
@@ -102,8 +104,8 @@
     </div>
       
       </div> &nbsp;
-      <div class="space-y-1">
-        <label for="address" class="label ml-2">City<span class="optional"> (Optional)</span></label>
+      <div class="space-y-1 ">
+        <label for="address" class="label ml-2 ">City<span class="optional"> (Optional)</span></label>
         <input
           list="countries"
           class="register-page-data page-input ml-2"
@@ -111,7 +113,7 @@
           id="city"
           formControlName="city"
           autocomplete="hidden"
-        style="width: 145px;"
+          style="width: 145px; margin-top: 6px;height: 32px;"
         />
         
         <div class="error" *ngIf="registrationForm?.get('city')?.invalid && registrationForm?.get('city')?.errors?.['maxlength']">
@@ -121,7 +123,7 @@
       
       </div>
       
-      <div class="space-y-1 col-span-2 mt-1">
+      <div class="space-y-1 col-span-2 mt-[0.5rem]">
         <label for="ph-no" class="label">Phone Number<span class="optional"> (Optional)</span></label>
 
         <input
@@ -130,7 +132,7 @@
           type="text"
           autocomplete="none"
           readonly onfocus="this.removeAttribute('readonly');"
-          
+          style=" margin-top: 6px; height: 32px;"
           id="ph-no"
          
         />
@@ -142,7 +144,7 @@
        
       
 
-      <div class="space-y-1 col-span-2 mt-1">
+      <div class="space-y-1 col-span-2 mt-[0.5rem]">
         <label for="company" class="label">Company</label>
         <select
           #company
@@ -150,7 +152,7 @@
           formControlName="company_id"
           id="Company"
           class="register-page-data page-input"
-          style="padding: 0px; padding-left: 10px;"
+          style="padding: 0px; padding-left: 10px; height: 32px; margin-top: 6px;"
         >
       
           <!-- <option value="" disabled selected>Select your company</option> -->
@@ -170,7 +172,7 @@
       </div>
 
     
-      <div class = 'space-y-1 col-span-2 mt-1'>
+      <div class = 'space-y-1 col-span-2 mt-[0.5rem]'>
         <div >
           <label for="password" class="label">Create Password</label>
           <div class="password-container">
@@ -179,11 +181,13 @@
               class="register-page-data page-input"
               type="{{ showPassword ? 'text' : 'password' }}"
               id="password"
+              style=" margin-top: 6px; height: 32px;"
               required
               minlength="8"
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
             />
-            <i style="color: #262626a6;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
+            <i style="color: #262626; width: 14px;
+            height: 8px;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
 
           </div>
           
@@ -200,24 +204,25 @@
       
       </div>
 
-      <div class="checkbox-container mt-4 mb-2 term flex flex-row items-center gap-2">
-   
-          <input type="checkbox" id="agreeCheckbox" [checked]="checkEnabled" (change)="toggleCheckEnabled()" formControlName="iagree" />
-          <label for="agreeCheckbox">
-            I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and
-            <a href="#" style="color: blue;">privacy policy</a>
-          </label>
-      </div>
+     <div class="checkbox-container"style="white-space: nowrap; mb-2 term flex flex-row items-center gap-2 mt-[1.25rem]">
+    <input type="checkbox" id="agreeCheckbox" class="custom-checkbox" [checked]="checkEnabled" (change)="toggleCheckEnabled()" formControlName="iagree"  />
+    <label for="agreeCheckbox" class="remme"  > &nbsp;
+        I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and <a href="#" style="color: blue;">privacy policy</a>
+    </label>
+</div>
+
+
+    
 
       <div *ngIf="showValidationErrors && registrationForm.get('iagree')?.invalid" class="text-red-500 text-xs mt-1">
-        <div *ngIf="registrationForm.get('iagree')?.errors?.['required']" class="text-xs">
+        <div *ngIf="registrationForm.get('iagree')?.errors?.['required']" class="text-xs whitespace-nowrap">
           You need to agree to our Terms & Services
         </div>
       </div>
   
       
 
-      <div class="center-position mt-2 ">
+      <div class="center-position mt-[20px] ">
          
         <button type="submit" [class.disabled-button]="!checkEnabled" class="btn-primary btn  continue-button"  [disabled]="!checkEnabled" style="height: 28px;" >
      
@@ -227,9 +232,9 @@ Continue
 
       
       </div>
-      <label class="center-position blw-btn-text">
-        Already have an account ?
-        <a href="/sign-in" style="color: blue;" class="underline">Sign In</a> 
+      <label class="center-position   blw-btn-text">
+        Already have an account?
+        <a href="/sign-in" style="color: blue;" class="underline">&nbsp;Sign In</a> 
      
       </label>
       

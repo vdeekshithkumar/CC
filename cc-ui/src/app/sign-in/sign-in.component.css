@@ -26,27 +26,101 @@
     font-weight: 500;
 }
 
+.remme{
+  color: var(--gray-gray-8, #595959);
+font-size: 12px;
+font-family: Poppins;
+font-weight: 500;
+line-height: 20px;
+}
+.sign-in {
+  color: var(--base-white, #FFF);
+  font-size: 16px;
+  font-family: Poppins;
+  font-weight: 500;
+  line-height: 24px;
+  display: flex;
+  width: 235.333px;
+  height: 38px;
+  padding: 10px 18px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #3E7BFA;
+  background: var(--geek-blue-geekblue-6, #2F54EB);
+  border-radius: 2px; /* Sets the border radius to 2 pixels */
+  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+}
 
+.btn-primary btn1{
+  color: #ffffff;
+  background-color: #2F54EB;
+  height: 38px;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 18px 10px 18px;
+}
+.text-new{
+  color: #595959;
+font-size: 13px;
+font-family: Poppins;
+line-height: 22px;
+letter-spacing: 0.39px;
+}
+.custom-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #D9D9D9;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  position: relative;
+}
+.custom-checkbox:checked {
+  border-color: #1890ff; /* Blue color */
+  background-color: #1890ff; /* Blue color */
+}
+
+.custom-checkbox:checked::before {
+  content: "\2713"; /* Unicode checkmark character */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 14px;
+  color: #ffffff; /* White color */
+}
+
+
+
+
+.signin-fp{
+  color: var(--geek-blue-geekblue-6, #2F54EB);
+  font-size: 12px;
+  font-family: Poppins;
+  font-weight: 550;
+  line-height: 20px;
+}
 .label{
 
-    width: 65px;
-    height: 16px;
-    
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 10px;
-    line-height: 20px;
-    /* identical to box height, or 143% */
-    
-    
-    /* Gray / gray-8 */
-    
-    color: #595959;
+  color: var(--gray-gray-8, #595959);
+font-size: 14px;
+font-family: Poppins;
+font-weight: 500;
+line-height: 20px;
   }
   .heading{
-    font-size: 18px;
-    font-weight: 500;
+   
+    color: var(--golden-purple-purple-10, #120338);
+font-size: 24px;
+font-family: Poppins;
+font-weight: 500;
+line-height: 40px;
   }
   .sub-text{
       
@@ -80,6 +154,7 @@ text-align: left;
     position: relative;
     width: 100%;
     display: inline-block;
+    
   }
   
   .password-toggle {
@@ -339,4 +414,16 @@ flex-grow: 0;
 .custom-snackbar {
   background-color: #ff0000; /* Replace with your desired background color */
 }
-  
+  .email{
+    margin-top:32px;
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: 6px;
+align-self: stretch;
+color: var(--gray-gray-8, #595959);
+font-size: 14px;
+font-family: Poppins;
+font-weight: 500;
+line-height: 20px;
+  }
