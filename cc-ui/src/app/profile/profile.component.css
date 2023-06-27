@@ -11,6 +11,9 @@
       width: 2;
     }
   }
+  .disabled-button {
+    cursor: not-allowed;
+  }
   .employee-details-heading {
     font-size: 16px;
     font-color:rgb(40, 39, 39);

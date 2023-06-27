@@ -1,4 +1,6 @@
-<div class="div bg-gray-50 min-h-screen">
+
+<div class="div bg-gray-50 min-h-screen mt-[50px] mt-16" >
+
 
   <!-- Main View Canvas -->
   <div class="div-company-details w-full max-w-screen-2xl min-w-[780px]">
@@ -96,9 +98,7 @@
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
                     <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <i class="material-symbols-outlined text-angel-blue-2 text-xl">
-                        group
-                      </i>
+                       <img src="../../assets/icons/active-members.svg">
                     </div>
                   </div>
                 </div>
@@ -108,13 +108,11 @@
                     <span class="text-angel-blue-2 font-bold text-md flex-col">100
                       <span class="text-black font-thin text-[0.6rem]">TEU</span></span>
                     
-                    <p class="whitespace-nowrap flex-col text-[0.6rem]">Available slots</p>
+                    <p class="whitespace-nowrap flex-col text-[0.6rem]">Available for sale</p>
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
                     <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
-                        workspaces
-                      </i>
+                      <img src="../../assets/icons/sale.svg">
                     </div>
                   </div>
                 </div>
@@ -128,9 +126,7 @@
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
                     <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
-                        event_available
-                      </i>
+                      <img src="../../assets/icons/lease.svg">
                     </div>
                   </div>
                 </div>
@@ -144,9 +140,7 @@
                   </div>
                   <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
                     <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <i class="material-symbols-outlined text-angel-blue-2 text-2xl">
-                        new_releases
-                      </i>
+                      <img src="../../assets/icons/active-members.svg">
                     </div>
                   </div>
                 </div>
@@ -286,7 +280,7 @@
         </div>
     </div>
     <div class="flex gap-2 w-full justify-end">
-      <button  (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+      <button  (click)="currentPage = currentPage - 1" [class.disabled-button]="currentPage === 1" [disabled]="currentPage === 1">
         <i class="material-symbols-outlined cursor-pointer">
           navigate_before
         </i>

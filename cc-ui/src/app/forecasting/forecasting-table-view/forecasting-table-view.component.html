@@ -1,4 +1,4 @@
-<div class="flex flex-col first:flex-row div-bg div-bg-line w-full">
+<div class="flex flex-col first:flex-row div-bg div-bg-line mt-16 w-full">
   <label class="forecast font-semibold text-dark mt-3 ml-2">Forecasting</label>
   <div class="-ml-32 h-16 w-full mt-16">
 
@@ -281,7 +281,7 @@
         </table>
       </div>
         <div class="flex gap-2 w-full justify-end mt-2">
-          <button  (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">
+          <button  (click)="currentPage = currentPage - 1" [class.disabled-button]="currentPage === 1" [disabled]="currentPage === 1">
             <i class="material-symbols-outlined cursor-pointer">
               navigate_before
             </i>
@@ -297,7 +297,7 @@
                {{page}}
           </button>
     
-          <button (click)="currentPage = currentPage + 1" [disabled]="currentPage === getTotalPages()">
+          <button (click)="currentPage = currentPage + 1"  [disabled]="currentPage === getTotalPages()" [class.disabled-button]="currentPage === 1">
             <i class="material-symbols-outlined cursor-pointer">
               navigate_next
             </i>

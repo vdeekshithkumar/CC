@@ -62,6 +62,11 @@
 .div-employee{
     @apply m-2 h-fit w-full flex-col;
 }
+
+.disabled-button {
+    cursor: not-allowed;
+  }
+  
 .div-employee-box{
     @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
 }

@@ -14,7 +14,9 @@
       font-family: Poppins;
     }
   }
-
+.main{
+  position: fixed;
+}
 .sidebar-nav{
     @apply flex flex-col ;
 }
@@ -38,4 +40,14 @@
   .svg-image.active {
     filter: none;
   }
+  .active-link {
+    color: #2F54EB; /* Font color */
+  }
   
+  .active-link svg path {
+    fill: #2F54EB;  /* SVG fill color */
+  }
+  
+.main{
+  position:fixed;
+}

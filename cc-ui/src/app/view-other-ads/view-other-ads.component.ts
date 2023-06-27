@@ -24,7 +24,7 @@ export interface Containers {
   container_type_id: number;
   type: string;
   capacity: number;
- 
+
 
 }
 export interface Advertisement {
@@ -56,7 +56,8 @@ export interface Advertisement {
 })
 export class ViewOtherAdsComponent {
   @ViewChild(ViewOtherAdsMapViewComponent) mapViewComponent!: ViewOtherAdsMapViewComponent;
-  selectedView: string = 'MAP';
+  isAdClicked: boolean = false;
+  selectedView: string | undefined;
 
   showMapView: boolean = false;
   isLoading: any;
@@ -70,6 +71,7 @@ export class ViewOtherAdsComponent {
   domain_address?: string;
   licence_id?: number;
   rating?: number;
+
   address?: string;
   fname?: string
   isBuyHovered: boolean = false;
@@ -82,14 +84,14 @@ export class ViewOtherAdsComponent {
   pendingAdsClicked = false;
   ads: Advertisement[] = [];
   container_size: Containers[] = [];
-  con_type:any[] = [];
+  con_type: any[] = [];
   adv: Advertisement[] = [];
   pod: string[] = [];
   negotiation_list: any[] = [];
   negotiationCompany: { [negotiation_id: number]: string } = {};
   company_list_by_companyId: any[] = [];
-  container_type_by_container:any[] =[];
-  container_list:any[]=[];
+  container_type_by_container: any[] = [];
+  container_list: any[] = [];
   companyNames: { [companyId: number]: string } = {};
   companyLogos: { [companyId: number]: string } = {};
   companyDomain: { [companyId: number]: string } = {};
@@ -113,10 +115,15 @@ export class ViewOtherAdsComponent {
   currentPage = 1; // Current page number
   adsPerPage = 3; // Number of ads to display per page
   mapView: any;
-  selectedDeparturePort: any;  // Update the property name
+  selectedDeparturePort: any;
+  adtype: any;
+  sizeSelected: any;
+
   selectedArrivalPort: any;
   size: any;
   selectedSize: any;
+  showListView: boolean = true;
+  containerTypeId: any;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -148,10 +155,11 @@ export class ViewOtherAdsComponent {
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService,private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
+  constructor(private sessionService: SessionService, private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
 
   }
   ngOnInit(): void {
+    this.selectedView = 'list';
     this.isLoading = true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
       (data: any) => {
@@ -167,7 +175,6 @@ export class ViewOtherAdsComponent {
         console.log("Error loading negotiationdetails:", error);
       }
     );
-
 
 
     this.sessionService.getUserId().subscribe(
@@ -217,10 +224,10 @@ export class ViewOtherAdsComponent {
     this.viewotherAds.getAllContainers().subscribe(//for matching container size to container_type_id
       (condata: Containers[]) => {
         this.container_size = condata;
-       
-        
+
+
         console.log(JSON.stringify(this.container_size));
-    
+
         // Map container names based on container_type_id
         this.container_size.forEach((container: Containers) => {
           switch (container.container_type_id) {
@@ -246,10 +253,10 @@ export class ViewOtherAdsComponent {
               break;
           }
         });
-        
+
       }
     );
- 
+
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
@@ -315,14 +322,21 @@ export class ViewOtherAdsComponent {
         ...this.selectedOptions,
         [section]: option
       };
-  
+
       if (section === 'type') {
         this.type = this.selectedOptions[section] || '';
       } else if (section === 'view') {
         this.selectedView = this.selectedOptions[section] || '';
+
+        // Update the logic to handle the map view display
+        if (this.selectedView === 'map') {
+          this.showMapView = true;
+        } else {
+          this.showMapView = false;
+        }
       } else if (section === 'size') {
         this.selectedSize = this.selectedOptions[section] || '';
-  
+
         // Print the container_type_id assigned to the selected size
         this.container_size.forEach((container: Containers) => {
           if (container.type === this.selectedSize) {
@@ -332,7 +346,7 @@ export class ViewOtherAdsComponent {
       }
     }
   }
-  
+
 
 
 
@@ -379,19 +393,28 @@ export class ViewOtherAdsComponent {
     if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
       this.showNoSelectionMessage = true;
       this.showMapView = false;
+      this.showListView = true; // Show the list view component
       return;
     }
-  
+
     this.showNoSelectionMessage = false;
     this.showMapView = false; // Reset the flag
-  
+
     if (this.selectedView === 'MAP') {
       // Render the map view component
       this.showMapView = true;
-      const selectedType = this.type;
+      this.showListView = false; // Hide the list view component
+      this.adtype = this.type;
+      console.log("From list to map", this.adtype);
       this.selectedDeparturePort = this.port_of_departure;
       this.selectedArrivalPort = this.port_of_arrival;
-  
+      this.container_size.forEach((container: Containers) => {
+        if (container.type === this.selectedSize) {
+          console.log('Container Type ID:', container.container_type_id);
+          this.containerTypeId = container.container_type_id; // Assign the container_type_id to the component property
+        }
+      });
+      console.log("from list to map con_type_id", this.containerTypeId);
       // Call markPortsOnMap() of the map view component
       if (this.mapViewComponent) {
         this.mapViewComponent.clearMarkers();
@@ -400,23 +423,24 @@ export class ViewOtherAdsComponent {
           this.mapViewComponent.markPortsOnMap();
         }, 0);
       }
-  
+
       return; // Exit the method to prevent further processing
     }
-  
-    // Remaining code for the list view component...
-    
+
+
+
     // Render the list view component
     this.showMapView = false;
+    this.showListView = true; // Show the list view component
     this.noResultsMatched = false;
     const selectedType = this.type;
     const selectedDeparture = this.port_of_departure;
     const selectedArrival = this.port_of_arrival;
-  
+
     this.viewotherAds.getAdvertisement(this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
-  
+
         if (selectedDeparture && selectedArrival) {
           this.ads = this.ads.filter(ad => {
             let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
@@ -424,7 +448,7 @@ export class ViewOtherAdsComponent {
             return isTypeMatch && isPortMatch;
           });
         }
-  
+
         // Filter and display the advertisements based on the selected size and its corresponding container_type_id
         if (this.selectedSize) {
           const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
@@ -432,14 +456,15 @@ export class ViewOtherAdsComponent {
             this.ads = this.ads.filter(ad => ad.container_type_id === selectedContainerTypeId);
           }
         }
-  
+
         // Log the filtered advertisements
         console.log('Filtered Advertisements:', this.ads);
       },
       error => console.log(error)
     );
   }
-  
+
+
   onDeparturePortSelected(port: Port) {
     debugger
     this.selectedDeparturePort = port.port_id;
@@ -453,7 +478,9 @@ export class ViewOtherAdsComponent {
     this.port_of_arrival = port.port_id;
   }
 
-
+  onAdClick() {
+    this.isAdClicked = true;
+  }
   setOptionBackground(option: string, isHovered: boolean): void {
     if (isHovered && this.type !== option) {
       // Set the background color to blue when hovered, if not selected
@@ -489,12 +516,12 @@ export class ViewOtherAdsComponent {
     this.mapViewComponent.markPortsOnMap();
     this.displayAllAdvertisements();
 
-   
-  
+
+
     // Reload the ViewOtherAdsComponent
-   
+
   }
-  
+
   displayAllAdvertisements() {
     this.showMapView = false;
     this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
@@ -505,6 +532,6 @@ export class ViewOtherAdsComponent {
       error => console.log(error)
     );
   }
-  
+
 
 }  
