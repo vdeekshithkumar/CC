@@ -198,9 +198,10 @@
 </div>
   <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
     <app-view-other-ads-map-view
-    
+      [adtype]="adtype"
       [selectedDeparturePort]="selectedDeparturePort"
       [selectedArrivalPort]="selectedArrivalPort"
+      [containerTypeId]="containerTypeId"
       
     ></app-view-other-ads-map-view>
   </div>
