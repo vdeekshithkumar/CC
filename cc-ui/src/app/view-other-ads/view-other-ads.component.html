@@ -427,78 +427,72 @@
           </ng-container>
 
           <div
-            class="bg-gray-50 p-2 flex items-center flex-wrap justify-center"
+            class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
             *ngIf="this.ads.length > 0"
           >
             <nav aria-label="Page navigation">
-              <ul class="inline-flex">
-                <li>
+              <ul class="inline-flex gap-2">
+                <li class="button1">
                   <button
                     [class.opacity-50]="currentPage === totalPages"
                     (click)="(currentPage === 1)"
                     (click)="prevPage()"
-                    [hidden]="currentPage < 2"
-                    class="h-10 px-5 text-blue-600 transition-colors duration-150 rounded-l-lg focus:shadow-outline hover:bg-blue-100"
+                    [disabled]="currentPage < 2"
+                  
                   >
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                      <path
-                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                        clip-rule="evenodd"
-                        fill-rule="evenodd"
-                      ></path>
+                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
                     </svg>
+                    
                   </button>
                 </li>
 
-                <li>
+                <li class="button3"  *ngIf="currentPage > 1" >
                   <button
-                    [class.opacity-50]="currentPage === totalPages"
+              
                     (click)="currentPage = currentPage"
                     (click)="prevPage()"
                     *ngIf="currentPage > 1"
                     [hidden]="currentPage < 2"
-                    class="h-10 px-5 text-black transition-colors duration-150 focus:shadow-outline hover:bg-CCblue"
+                  
                   >
                     {{ currentPage - 1 }}
                   </button>
                 </li>
 
-                <li>
+                <li class="button2">
                   <button
-                    class="h-10 px-5 text-blue transition-colors duration-150 border-2 border-r-2 order-blue-400 focus:shadow-outline"
+                  
                     *ngIf="totalPages != 1"
                   >
                     {{ currentPage }}
                   </button>
                 </li>
 
-                <li>
+                <li class="button3" *ngIf="currentPage < totalPages">
                   <button
                     [class.opacity-50]="currentPage === totalPages"
                     (click)="currentPage = currentPage"
                     (click)="nextPage()"
                     [hidden]="currentPage >= totalPages"
-                    class="h-10 px-5 text-blue-600 transition-colors rounded-r-lg duration-150 focus:shadow-outline hover:bg-blue-100"
+                    *ngIf="currentPage <= totalPages"
                   >
                     {{ currentPage + 1 }}
                   </button>
                 </li>
 
-                <li>
+                <li class="button4">
                   <button
                     [class.opacity-50]="currentPage === totalPages"
                     (click)="currentPage = currentPage"
                     (click)="nextPage()"
-                    [hidden]="currentPage >= totalPages"
-                    class="h-10 px-5 text-blue-600 transition-colors duration-150 bg-white rounded-r-lg focus:shadow-outline hover:bg-blue-100"
+                    [disabled]="currentPage >= totalPages"
+                   
                   >
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-                      <path
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                        clip-rule="evenodd"
-                        fill-rule="evenodd"
-                      ></path>
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
                     </svg>
+                    
                   </button>
                 </li>
               </ul>
