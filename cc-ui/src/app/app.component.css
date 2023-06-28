@@ -21,7 +21,8 @@
 }
 /* Global Styles */
 .page-input{
-    
+  font-family: Poppins;
+  line-height: 20px;
     box-sizing: border-box;
     
     /* Auto layout */
