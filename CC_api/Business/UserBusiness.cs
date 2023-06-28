@@ -84,10 +84,10 @@ namespace CC_api.Business
       us.address = user.address;
       us.email = user.email;
       us.phone_no = user.phone_no;
-   
+
 
       // Set the hashed password to the PasswordHash property
-    
+
       us.is_verified = user.is_verified;
       us.is_approved = user.is_approved;
       us.is_active = user.is_active;
@@ -139,7 +139,7 @@ namespace CC_api.Business
       us.company_id = user.company_id;
       us.fname = user.fname;
       us.lname = user.lname;
-      us.address = user.city + " "+ user.address ;
+      us.address = user.city + " " + user.address;
       us.city = user.city;
       us.email = user.email;
       us.phone_no = user.phone_no;
@@ -195,7 +195,19 @@ namespace CC_api.Business
 
     }
 
+    public async Task<bool> ResetPasswordAsync(int userId, string password)
+    {
+      var user = await userRepository.GetUserById(userId);
 
+      if (user != null && user.VerifyPassword(password))
+      {
+        // Password matched
+        return true;
+      }
+
+      // Password not matched
+      return false;
+    }
 
     public async Task<AuthResponse> GetUserByEmailAndPassword(string email, string password)
     {

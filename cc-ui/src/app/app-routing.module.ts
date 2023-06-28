@@ -26,6 +26,7 @@ import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
 import { TemplateComponent } from './template/template.component';
+import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-reset-password.component';
 
 const routes: Routes = [
   {
@@ -87,7 +88,12 @@ const routes: Routes = [
     canActivate: [AuthGuard]
 
   },
+  {
+    component:ForgotResetPasswordComponent,
+    path:'forgot-reset-password',
+    canActivate: [AuthGuard]
 
+  },
   {
     component:TemplateComponent,
     path:'forecasting-table-view',
