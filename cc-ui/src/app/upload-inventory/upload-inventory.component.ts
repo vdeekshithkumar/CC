@@ -24,7 +24,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UploadInventoryComponent {
   UploadInventoryForm!: FormGroup;
     form: any;
- 
+    formHeading: string = 'Add New Inventory';
     port_name="";
     searchPortId: any;
     port_list:any;
@@ -35,6 +35,7 @@ export class UploadInventoryComponent {
     refrigerated:any;
     ExcelData:any;
     showForm: boolean = false;
+    isClicked:boolean=false
     itemsPerPage: number = 7;
     currentPage: number = 1;
     x:any;
@@ -411,6 +412,13 @@ async onSubmit() {
   }
   toggleForm() {
     this.showForm = !this.showForm;
+  }
+  toggleFormOpen(){
+    this.isClicked = !this.isClicked;
+    this.formHeading = this.isEdit ? 'Edit Inventory' : 'Add Inventory';
+  }
+  updateFormHeading(heading: string) {
+    this.formHeading = heading;
   }
   
   closeForm() {

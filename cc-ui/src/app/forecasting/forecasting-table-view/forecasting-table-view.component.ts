@@ -15,6 +15,7 @@ export class ForecastingTableViewComponent implements OnInit{
   isSearchIconClicked!: boolean ;
   showForm: boolean = false;
   showModal=false;
+  isClicked: boolean = false;
   searchTerm:any;
   data:any;
   surplus:any;
@@ -206,7 +207,7 @@ getPortName(portId: number): string {
     this.isSearchIconClicked = true;
   }
   toggleForm() {
-    this.showForm = !this.showForm;
+    this.isClicked = !this.isClicked;
   }
   getTotalPages() {
     return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);

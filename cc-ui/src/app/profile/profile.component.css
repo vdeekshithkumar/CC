@@ -65,7 +65,10 @@
     @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
 }
 .div-sub-box{
-    @apply  flex-shrink-0
+    @apply flex-shrink-0 w-5  
+}
+.div-sub-box2{
+  @apply flex-shrink-0
 }
 .div-box{
     @apply mx-3 w-[10em] h-[3.5em] bg-gray-100 flex;
@@ -90,12 +93,19 @@
 }
 .truncate {
     display: inline-block;
-    max-width: 250px;
+    max-width: 150px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-;
+  }
+  .truncate1 {
+    display: inline-block;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
   }
   
 .div-action-button{
@@ -223,4 +233,49 @@ height: 1.875rem;
 padding: 0.25rem;
 align-items: center;
 gap: 0.25rem;
+  }
+  .bg-div{
+    background: var(--geek-blue-geekblue-1, #F0F5FF);
+    display: flex;
+width: 12.5rem;
+height: 4.5rem;
+padding: 0.5rem 1rem 0.625rem 1rem;
+justify-content: center;
+align-items: center;
+gap: 1.9375rem;
+color: var(--geek-blue-geekblue-5, #597EF7);
+font-size: 1.25rem;
+font-family: Poppins;
+font-weight: 600;
+display: flex;
+padding: 0.5rem;
+justify-content: center;
+align-items: center;
+gap: 0.5rem;
+  }
+  .bg-p{
+    color: var(--gray-gray-9, #262626);
+font-size: 0.8125rem;
+font-family: Poppins;
+  }
+
+  .bg-box{
+    background: var(--geek-blue-geekblue-1, #F0F5FF);
+   
+  }
+  .bg-box1{
+  
+    color: var(--geek-blue-geekblue-5, #597EF7);
+font-size: 1.25rem;
+  }
+  .bg-box2{
+    color: var(--gray-gray-9, #262626);
+font-size: 0.8125rem;
+font-family: Poppins;
+  }
+  .bg-subbox{
+    color: var(--gray-gray-9, #262626);
+font-size: 0.75rem;
+font-family: Poppins;
+font-weight: 500;
   }

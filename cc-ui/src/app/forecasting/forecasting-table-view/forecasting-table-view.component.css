@@ -90,6 +90,11 @@ border: 1px solid #D9D9D9;
     height: 38px;
     border: 1px solid #D9D9D9;
     }
+    .clicked {
+      border-color: blue;
+      color: rgb(241, 241, 248);
+    }
+    
 .select-box{
     border: 1px solid #D9D9D9;
     box-sizing: border-box;
@@ -99,6 +104,9 @@ border: 1px solid #D9D9D9;
 }
 .div-bg{
     background: #FAFAFA;
+  }
+  .div-bg-form{
+    background: #ffffff;
   }
   .div-box-bg{
     background: #F0F0F0;
@@ -137,17 +145,23 @@ border-radius: 0px;
     height: 38px;
 }
 .btn-primary4{
-    color: #2F54EB;
+  color: #262626;
+  font-size: 0.875rem;
 }
 .btn-primary3{
-   background-color: #F0F0F0;
+   background-color: #ffffff;
     color:#595959;
     height: 38px;
 }
 .btn-primary5{
     color: #262626;
     height: 38px;
-    border: 1px solid #2F54EB;
+    border: 1px solid var(--gray-gray-5, #D9D9D9);
+   
+}
+.myClass {
+  color: #2F54EB;
+  border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);;
 }
 .div-search{
     @apply relative flex items-center w-96 h-9  bg-white ;
