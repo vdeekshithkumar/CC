@@ -88,9 +88,10 @@
       <div class="rowbtn mt-[0.5rem]">
       <div class="space-y-1">
         <label for="address" class="label">Select country</label>
-        <select class="register-page-data border-2 page-input  text-xs " style="padding: 0px;width: 145px; margin-top: 6px; height: 32px; padding-left: 6px;" id="address" formControlName="address">
-          <option  class = "text-xs" *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
+        <select class=" border-2 page-input text-xs" style="padding: 0px; width: 145px; margin-top: 6px; height: 32px; padding-left: 6px; color: var(--gray-gray-9, #262626); font-size: 14px; font-family: Poppins; line-height: 20px;" id="address" formControlName="address">
+          <option class="text-xs" *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
         </select>
+        
     
         <div
         *ngIf="showValidationErrors && registrationForm.get('address')?.invalid"
@@ -151,8 +152,8 @@
           [(ngModel)]="company_name"
           formControlName="company_id"
           id="Company"
-          class="register-page-data page-input"
-          style="padding: 0px; padding-left: 10px; height: 32px; margin-top: 6px;"
+          class=" page-input"
+          style="padding: 0px; padding-left: 10px; height: 32px; margin-top: 6px;padding-left: 6px; color: var(--gray-gray-9, #262626); font-size: 14px;  line-height: 20px;"
         >
       
           <!-- <option value="" disabled selected>Select your company</option> -->
