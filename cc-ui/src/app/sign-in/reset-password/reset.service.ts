@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfirmationResponse, PassWriteRes } from './ConfirmationResponse';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResetService {
   [x: string]: any;
-  baseUrl="https://localhost:7157"
+  baseUrl="https://localhost:7157";
+ 
   private showemailinput = false;
   private userID?:number
   private companyID?:number
@@ -35,7 +37,12 @@ export class ResetService {
     return this.companyID;
   }
 
-
+  resetPassword(userId: number, password: string): Observable<any> {
+    const url = `${this.baseUrl}/reset-password`;
+    const body = { userId, password };
+    return this.http.post<any>(url, body);
+  }
+  
 
   confirmation(email:string){
     const url = `${this.baseUrl}/GetUserByEmail/${email}`;

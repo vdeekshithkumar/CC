@@ -181,14 +181,13 @@
   </div>
   <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
           <div class="flex flex-row">
-            <h2 class="mt-3 mx-auto flex-1">Advertisement Details</h2>
-           
-            
-           
+            <h2 class="mt-3 mx-auto" style="font-weight: 500;
+            font-family: 'Poppins'; margin-left: auto;">Advertisement Details</h2> 
+            <br/>
             <button
             *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
             routerLink="/my-ad"
-            class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto"
+            class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
             [disabled]="false"
             [class.disabled-button]="false"
           >

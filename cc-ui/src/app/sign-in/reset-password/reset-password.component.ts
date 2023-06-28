@@ -21,8 +21,13 @@ export class ResetPasswordComponent implements OnInit{
   isFailure = false
   showEmailInput = true;
   email = '';
-  password1! :string
-  password2! :string
+ password: any;
+password1: any;
+password2: any;
+// Initialize a flag to track the input values
+isFormValid = false;
+
+
   constructor(private snackBar: MatSnackBar,private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location
     ,private forgotService:ForgotPassService) {
     this.showEmailInput = this.resetService.getShowEmailInput();
@@ -84,7 +89,15 @@ export class ResetPasswordComponent implements OnInit{
   }
 
 
-
+  checkFormValidity() {
+    // Check if all inputs are filled
+    if (this.password && this.password1 && this.password2) {
+      this.isFormValid = true;
+    } else {
+      this.isFormValid = false;
+    }
+  }
+  
   onEmailSend(){
     debugger
     this.resetService.confirmation(this.email).subscribe(
@@ -107,31 +120,45 @@ export class ResetPasswordComponent implements OnInit{
     );
     
   }
-  OnSubmit(){
-    this.resetService.updatePassword(this.userId,this.companyId,this.password2).subscribe((response:PassWriteRes )=>{
-      debugger
-      if (response.message === "Success")
-      {
-        this.success = true 
-        new Promise(f => setTimeout(f, 1000));
-      }
-      else 
-      {
-        console.log ("error in the password changing process")
-     
-        this.isFailure = true
-      }
-    },
-    error=>
-    {
-      console.log("network error")
-    }
-  );
-  this.snackBar.open('Password Reset Successfull', 'OK', {
-    duration: 3000
-  });
-  this.router.navigate(['/sign-in']);
+  OnSubmit() {
+    debugger
+    // Call the reset-password service to check and update the password
+    this.resetService
+      .resetPassword(this.userId, this.password)
+      
+      .subscribe((result: any) => {
+        if (result.message === "Password matched") {
+          // Password matched, update the password
+          this.resetService
+            .updatePassword(this.userId,this.companyId,this.password2)
+            .subscribe(
+              (response: PassWriteRes) => {
+                if (response.message === "Success") {
+                  // Password successfully changed
+                  this.success = true;
+                  setTimeout(() => {
+                    // Redirect to login page
+                    this.router.navigate(['/sign-in']);
+                  }, 3000);
+                } else {
+                  // Error occurred while changing password
+                  console.log("Error in the password changing process");
+                  this.isFailure = true;
+                }
+              },
+              (error: any) => {
+                console.log("Network error");
+              }
+            );
+        } else {
+          // Password not matched, display error message
+          console.log("Password does not match");
+          this.isFailure = true;
+        }
+      });
+      console.log("From old",this.userId,this.password)
   }
+  
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
