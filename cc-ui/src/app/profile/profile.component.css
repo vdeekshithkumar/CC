@@ -58,7 +58,7 @@
     @apply text-xs font-thin pt-2 px-2;
 }
 .gray-highlights {
-    @apply flex items-center justify-center text-[0.7rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
+    @apply flex items-center justify-center text-[0.7rem] bg-gray-50  px-1 whitespace-nowrap;
     
   }
 .div-detail{
@@ -88,22 +88,39 @@
 .div-employee-name{
     @apply text-xs px-2 first-letter:uppercase;
 }
+.truncate {
+    display: inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+;
+  }
+  
 .div-action-button{
     @apply bg-white border-2 h-[2rem] w-fit px-[1rem] text-xs mx-1  my-3 md:text-sm flex-shrink-0;
 }
 .div-search{
-    @apply relative flex items-center w-96 h-9  bg-white overflow-hidden;
+    @apply relative flex items-center w-96 h-9  bg-white overflow-hidden border-2;
 }
 .div-search-icon{
     @apply grid place-items-center h-full w-12 text-black;
 }
 .div-bg-line{
     border-bottom: 2px solid  #E9E9E9;
-    
   }
 .input-search{
-    @apply  outline-none text-sm bg-white w-full  text-black;
+    @apply  outline-none text-sm bg-white w-full  text-black -ml-2;
 }
+/* Custom styles for the placeholder */
+.input-search::placeholder {
+    color: var(--gray-gray-7, #8C8C8C);
+font-size: 0.9rem;
+font-family: Poppins;
+font-weight: 300;
+letter-spacing: 0.02rem;
+  }
 .employee-list{
     @apply inline-block min-w-full py-2 ;
 }
@@ -149,3 +166,61 @@
     border-radius: 0px;
     padding: 14px 15px;
 }
+.button-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-toggle {
+    background: white;
+    height: 2rem;
+    cursor: pointer;
+    width: 3em;
+    font-size: 14px;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    left:0;
+    background: var(--gray-gray-2, #FAFAFA);
+    z-index: 1;
+    width: 9.7rem;
+     height: 2rem;
+    margin-right: 6rem;
+    margin-bottom: 0.75rem;
+    flex-shrink: 0;
+    border-width: 2px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+  
+
+  
+  .view-contracts-button:hover {
+    background-color: #f1f1f1;
+  }
+  .bg-img{
+    background-color: #F0F5FF;
+  }
+  .txt{
+    color: #595959;
+  }
+  .bg-txt{
+    color: #595959;
+    display: flex;
+height: 1.875rem;
+padding: 0.25rem;
+align-items: center;
+gap: 0.25rem;
+  }

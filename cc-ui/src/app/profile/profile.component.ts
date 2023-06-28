@@ -32,7 +32,7 @@ export class ProfileComponent implements OnInit {
   filteredUsers: any;
   alluser_list: any;
   searchTerm: string = '';
-
+  showDropdown: boolean = false;
   company_list: any;
   currentUser: any;
   profileForm!: FormGroup;
@@ -45,6 +45,7 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
+  
   adscount: any;
   //for the employees table 
   currentPage = 1;
@@ -334,6 +335,9 @@ export class ProfileComponent implements OnInit {
     if (clearButton) {
       clearButton.style.display = "none";
     }
+  }
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
   }
     
   showClearButton() {

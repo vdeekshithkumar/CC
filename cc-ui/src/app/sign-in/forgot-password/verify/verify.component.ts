@@ -37,7 +37,7 @@ export class VerifyComponent {
     debugger
     this.result = this.forgotPasswordService.verifyOtp(a + b + c + d + e + f)
     if (this.result) {
-      this.router.navigate(['reset-password'])
+      this.router.navigate(['forgot-reset-password'])
       // this.resetPassComponent.showEmailInput = false
       this.updateShowEmailInput(false)
       this.resetService.confirmation(this.forgotPasswordService.getEmail()).subscribe(
