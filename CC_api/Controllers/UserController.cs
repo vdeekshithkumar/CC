@@ -32,7 +32,7 @@ namespace CC_api.Controllers
     [HttpPost("SendOtp")]
     public async Task SendOtpToEmail([FromBody] VerifyOTPRequest payload)
     {
-       await userBusiness.SendOtp(payload.email);
+      await userBusiness.SendOtp(payload.email);
     }
 
 
@@ -155,6 +155,24 @@ namespace CC_api.Controllers
     public async Task<int> GetAllUserCount(int companyid)
     {
       return await userBusiness.GetAllUserCount(companyid);
+    }
+    public class ResetPasswordRequest
+    {
+      public int UserId { get; set; }
+      public string Password { get; set; }
+    }
+
+    [HttpPost("reset-password")]
+    public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    {
+      var result = await userBusiness.ResetPasswordAsync(request.UserId, request.Password);
+
+      if (result)
+      {
+        return Ok(new { message = "Password matched" });
+      }
+
+      return BadRequest(new { message = "Password not matched" });
     }
 
     [HttpDelete("DeleteUser/{id}")]
