@@ -57,6 +57,7 @@ import { MessagingComponent } from './messaging/messaging.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
 import { TemplateComponent } from './template/template.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-reset-password.component';
 
 
 @NgModule({
@@ -100,6 +101,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
           ViewOtherAdsMapViewComponent,
           TemplateComponent,
           ViewOtherAdsMapViewComponent,
+          ForgotResetPasswordComponent,
     
   ],
   imports: [
