@@ -93,7 +93,7 @@
   </div>
 </div>
 
-<div class="inline-block min-w-full py-2 flex items-center">
+<div class="inline-block min-w-full py-2 flex items-center bg-white">
   <button (click)="backPage()" class="inline-flex -mt-2 btn-primary4 text-blue-500 justify-center items-center space-x-1 font-medium font-poppins">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply"/>
@@ -101,7 +101,7 @@
     </svg>                
     <span>Back to Map View</span>
   </button>
-  <div class="div-search my-2 search justify-start mx-10 -mt-0">
+  <div class="div-search my-2 search justify-start mx-10 mt-2">
     <div class="div-search-icon">
       <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -113,11 +113,11 @@
     </button>
 
   </div>
-  <div class="mx-3 -mt-10 w-[6em] h-[0.5em] bg-gray flex-wrap ml-0">
+  <div class="mx-3 mt-0 w-[7em] h-9 bg-white flex-wrap  ml-0">
     <div>
-      <button (click)="toggleForm()"
-        class="ml-2 inline-flex justify-end items-center btn-primary5 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button (click)="toggleForm()" [ngClass]="{'myClass': isClicked}"
+        class="ml-2 inline-flex justify-start items-center btn-primary5 space-x-3 border font-medium focus:outline-none w-full py-2  pr-3 leading-6 font-poppins">
+        <svg width="20" class="ml-3" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11.25 17.5H8.75C8.41848 17.5 8.10054 17.3683 7.86612 17.1339C7.6317 16.8995 7.5 16.5815 7.5 16.25V11.5063L2.86875 6.875C2.63401 6.64166 2.5014 6.32474 2.5 5.99375V3.75C2.5 3.41848 2.6317 3.10054 2.86612 2.86612C3.10054 2.6317 3.41848 2.5 3.75 2.5H16.25C16.5815 2.5 16.8995 2.6317 17.1339 2.86612C17.3683 3.10054 17.5 3.41848 17.5 3.75V5.99375C17.4986 6.32474 17.366 6.64166 17.1313 6.875L12.5 11.5063V16.25C12.5 16.5815 12.3683 16.8995 12.1339 17.1339C11.8995 17.3683 11.5815 17.5 11.25 17.5ZM3.75 3.75V5.99375L8.75 10.9937V16.25H11.25V10.9937L16.25 5.99375V3.75H3.75Z" fill="#597EF7"/>
           </svg>
           <span class="btn-primary4">Filter</span>
@@ -126,14 +126,14 @@
   </div>
   
 </div>
-<div class="flex flex-col first:flex-row div-bg " *ngIf="showForm">
+<div class="flex flex-col first:flex-row div-bg-form " *ngIf="isClicked">
   <div class="p-2 h-24 w-full mt-2">
     <form>
       <div class="flex flex-row">
         <div class="-mt-3">
           <label class="top mb-2 font-normal">Container Type</label>
           <div>
-            <select class="top-select2  div-bg" [(ngModel)]="containerType" formControlName="container_type" >
+            <select class="top-select2  div-bg-form" [(ngModel)]="containerType" formControlName="container_type" >
                 <option value="" disabled selected>Select Container Type</option>
                 <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
               </select>
@@ -142,25 +142,25 @@
         <div class="-mt-3">
           <label class=" mb-2 ml-2 top font-normal">Container Size</label>
           <div>
-            <input [(ngModel)]="containerSize" formControlName="container_size" class="ml-2 top-select2 div-bg" type="number">
+            <input [(ngModel)]="containerSize" formControlName="container_size" class="ml-2 top-select2 div-bg-form" type="number">
           </div>
         </div>
         <div class=" -mt-3">
           <label class="top mb-2 ml-2 font-normal">Available</label>
           <div>
-            <input [(ngModel)]="available" formControlName="available" class="ml-2 top-select2 div-bg" type="number">
+            <input [(ngModel)]="available" formControlName="available" class="ml-2 top-select2 div-bg-form" type="number">
           </div>
         </div>
         <div class=" -mt-3">
           <label class="top mb-2 ml-2 font-normal">Surplus</label>
           <div>
-            <input [(ngModel)]="surplus" class="ml-2 top-select2 div-bg" formControlName="surplus" type="number">
+            <input [(ngModel)]="surplus" class="ml-2 top-select2 div-bg-form" formControlName="surplus" type="number">
           </div>
         </div>
         <div class=" -mt-3">
           <label class="top mb-2 ml-2 font-normal">Deficit</label>
           <div>
-            <input [(ngModel)]="containerType" class="ml-2 top-select2 div-bg" formControlName="deficit" type="number">
+            <input [(ngModel)]="containerType" class="ml-2 top-select2 div-bg-form" formControlName="deficit" type="number">
           </div>
         </div>
         <div>
@@ -192,7 +192,7 @@
     </div>
 </div>
 
-<div class="w-full flex flex-col first:flex-row max-h-screen">
+<div class="w-full flex flex-col first:flex-row max-h-screen bg-white">
   <section class="ml-4 mr-6 rounded-sm">
     <div class="flex flex-col">
       <div class="overflow-hidden rounded-lg  border-2  mr-0">
