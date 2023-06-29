@@ -159,6 +159,9 @@ border-radius: 0px;
     border: 1px solid var(--gray-gray-5, #D9D9D9);
    
 }
+.txt-map{
+  color:#2F54EB
+}
 .myClass {
   color: #2F54EB;
   border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);;
