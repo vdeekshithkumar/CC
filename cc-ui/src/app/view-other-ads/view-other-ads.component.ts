@@ -54,7 +54,8 @@ export interface Advertisement {
   styleUrls: ['./view-other-ads.component.css', '../app.component.css'],
   providers: [DatePipe]
 })
-export class ViewOtherAdsComponent {
+export class ViewOtherAdsComponent  {
+  
   @ViewChild(ViewOtherAdsMapViewComponent) mapViewComponent!: ViewOtherAdsMapViewComponent;
   isAdClicked: boolean = false;
   selectedView: string | undefined;
@@ -124,6 +125,7 @@ export class ViewOtherAdsComponent {
   selectedSize: any;
   showListView: boolean = true;
   containerTypeId: any;
+  showNoResultsMessage: boolean=true;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -159,6 +161,11 @@ export class ViewOtherAdsComponent {
 
   }
   ngOnInit(): void {
+    if (this.selectedView === 'map') {
+      this.showMapView = true;
+    } else {
+      this.showMapView = false;
+    }
     this.selectedView = 'list';
     this.isLoading = true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
@@ -396,10 +403,9 @@ export class ViewOtherAdsComponent {
       this.showListView = true; // Show the list view component
       return;
     }
-
+  
     this.showNoSelectionMessage = false;
-    this.showMapView = false; // Reset the flag
-
+  
     if (this.selectedView === 'MAP') {
       // Render the map view component
       this.showMapView = true;
@@ -423,46 +429,65 @@ export class ViewOtherAdsComponent {
           this.mapViewComponent.markPortsOnMap();
         }, 0);
       }
-
-      return; // Exit the method to prevent further processing
-    }
-
-
-
-    // Render the list view component
-    this.showMapView = false;
-    this.showListView = true; // Show the list view component
-    this.noResultsMatched = false;
-    const selectedType = this.type;
-    const selectedDeparture = this.port_of_departure;
-    const selectedArrival = this.port_of_arrival;
-
-    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
-      (data: Advertisement[]) => {
-        this.ads = data;
-
-        if (selectedDeparture && selectedArrival) {
-          this.ads = this.ads.filter(ad => {
-            let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
-            let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
-            return isTypeMatch && isPortMatch;
-          });
-        }
-
-        // Filter and display the advertisements based on the selected size and its corresponding container_type_id
-        if (this.selectedSize) {
-          const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
-          if (selectedContainerTypeId) {
-            this.ads = this.ads.filter(ad => ad.container_type_id === selectedContainerTypeId);
+    } else {
+      // Render the list view component
+      this.showMapView = false;
+      this.showListView = true; // Show the list view component
+      this.noResultsMatched = false;
+      const selectedType = this.type;
+      const selectedDeparture = this.port_of_departure;
+      const selectedArrival = this.port_of_arrival;
+  
+      this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+        (data: Advertisement[]) => {
+          let filteredAds = data;
+  
+          if (selectedDeparture && selectedArrival) {
+            filteredAds = filteredAds.filter(ad => {
+              let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
+              let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
+              return isTypeMatch && isPortMatch;
+            });
           }
-        }
-
-        // Log the filtered advertisements
-        console.log('Filtered Advertisements:', this.ads);
-      },
-      error => console.log(error)
-    );
+  
+          // Filter and display the advertisements based on the selected size and its corresponding container_type_id
+          if (this.selectedSize) {
+            const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
+            if (selectedContainerTypeId) {
+              filteredAds = filteredAds.filter(ad => ad.container_type_id === selectedContainerTypeId);
+            }
+          }
+  
+          if (filteredAds.length > 0) {
+            // Matching advertisements found, update map view
+            this.showNoResultsMessage = false;
+            this.ads = filteredAds;
+  
+            // Update map view with filtered locations
+            if (this.mapViewComponent) {
+              this.mapViewComponent.clearMarkers();
+              this.mapViewComponent.updateMarkers(filteredAds);
+            }
+          } else {
+            // No matching advertisements found, display all locations
+            this.showNoResultsMessage = true;
+            this.ads = data;
+  
+            // Update map view with all locations
+            if (this.mapViewComponent) {
+              this.mapViewComponent.clearMarkers();
+              this.mapViewComponent.updateMarkers(data);
+            }
+          }
+  
+          // Log the filtered advertisements
+          console.log('Filtered Advertisements:', this.ads);
+        },
+        error => console.log(error)
+      );
+    }
   }
+  
 
 
   onDeparturePortSelected(port: Port) {
