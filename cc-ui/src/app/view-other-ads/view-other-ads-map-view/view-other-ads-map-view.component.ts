@@ -29,6 +29,7 @@ arrivalLng: number = 0;
   @Input() adtype: any;
   @Input() containerTypeId: any;
   ads: Advertisement[] = [];
+ 
   userOS:any;
   mapId: string = '2b03aff8b2fb72a3'; // Replace with your Map ID
   ports: any[] = [];
@@ -282,7 +283,11 @@ arrivalLng: number = 0;
    
     this.markPortsOnMap();
   }
-  
+  updateMarkers(filteredAds: Advertisement[]) {
+    this.ads = filteredAds;
+    this.clearMarkers();
+    this.markPortsOnMap();
+  }
   onArrivalPortSelected(port: any) {
     this.selectedArrivalPort = port;
     

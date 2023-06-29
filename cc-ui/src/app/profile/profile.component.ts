@@ -49,19 +49,24 @@ export class ProfileComponent implements OnInit {
   adscount: any;
   //for the employees table 
   currentPage = 1;
-  itemsPerPage = 3;
+  itemsPerPage = 2;
   paginatedUsers: any[] = []; 
   //for pagination
-  getTotalPages() {
+  get totalPages(): number {
     return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
   }
-  getPages() {
-    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
+ 
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
   }
-  
-  
     
-
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
   getCompanyId() {
     return this.company_id;
   }
