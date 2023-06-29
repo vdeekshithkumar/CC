@@ -126,6 +126,7 @@ export class ViewOtherAdsComponent  {
   showListView: boolean = true;
   containerTypeId: any;
   showNoResultsMessage: boolean=true;
+  ad_type: any;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -264,7 +265,7 @@ export class ViewOtherAdsComponent  {
       }
     );
 
-    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+    this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
         this.currentPage = 1;
@@ -438,7 +439,7 @@ export class ViewOtherAdsComponent  {
       const selectedDeparture = this.port_of_departure;
       const selectedArrival = this.port_of_arrival;
   
-      this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+      this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
         (data: Advertisement[]) => {
           let filteredAds = data;
   
@@ -550,7 +551,7 @@ export class ViewOtherAdsComponent  {
   displayAllAdvertisements() {
     this.showMapView = false;
     this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
-    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+    this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
       },

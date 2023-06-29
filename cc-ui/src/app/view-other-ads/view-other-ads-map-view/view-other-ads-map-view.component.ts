@@ -43,6 +43,7 @@ arrivalLng: number = 0;
   polyline: google.maps.Polyline | null = null;
   company_id: any;
   ad: any;
+  ad_type: any;
  
 
   constructor(private forecastService: ForecastingService,private adsService:ViewOtherAdsService) {
@@ -56,7 +57,7 @@ arrivalLng: number = 0;
     this.getAdvertisement();
   }
   getAdvertisement() {
-    this.adsService.getAdvertisement(this.company_id).subscribe(
+    this.adsService.getAdvertisement(this.ad_type,this.company_id).subscribe(
       (adsdata: Advertisement[]) => {
         this.ads = adsdata;
         console.log("From map view", this.ads);
