@@ -26,6 +26,9 @@ export class ForgotResetPasswordComponent implements OnInit{
  password: any;
 password1: any;
 password2: any;
+isFailureOldPassword: boolean = false;
+isNewPasswordsMatch = true;
+
 // Initialize a flag to track the input values
 isFormValid = false;
 
@@ -99,15 +102,8 @@ isFormValid = false;
       this.isFormValid = false;
     }
   }
-  comparePasswords(): boolean {
-    return (
-      this.password1 === this.password2 &&
-      this.password !== '' &&
-      this.password1 !== '' &&
-      this.password2 !== ''
-    );
-  }
   
+ 
   onEmailSend(){
     debugger
     this.resetService.confirmation(this.email).subscribe(
@@ -131,43 +127,48 @@ isFormValid = false;
     
   }
   OnSubmit() {
-    debugger
     // Call the reset-password service to check and update the password
-    this.resetService
-      .resetPassword(this.userId, this.password)
-      
-      .subscribe((result: any) => {
+    this.resetService.resetPassword(this.userId, this.password).subscribe(
+      (result: any) => {
         if (result.message === "Password matched") {
           // Password matched, update the password
-          this.resetService
-            .updatePassword(this.userId,this.companyId,this.password2)
-            .subscribe(
-              (response: PassWriteRes) => {
-                if (response.message === "Success") {
-                  // Password successfully changed
-                  this.success = true;
-                  setTimeout(() => {
-                    // Redirect to login page
-                    this.router.navigate(['/sign-in']);
-                  }, 3000);
-                } else {
-                  // Error occurred while changing password
-                  console.log("Error in the password changing process");
-                  this.isFailure = true;
-                }
-              },
-              (error: any) => {
-                console.log("Network error");
+          this.resetService.updatePassword(this.userId, this.companyId, this.password2).subscribe(
+            (response: PassWriteRes) => {
+              if (response.message === "Success") {
+                // Password successfully changed
+                this.success = true;
+                setTimeout(() => {
+                  // Redirect to login page
+                  this.router.navigate(['/sign-in']);
+                }, 3000);
+              } else {
+                // Password update failed, display error message
+                this.isFailure = true;
+                console.log("Error in the password changing process");
               }
-            );
-        } else {
-          // Password not matched, display error message
-          console.log("Password does not match");
-          this.isFailure = true;
+            },
+            (error: any) => {
+              console.log("Network error");
+            }
+          );
         }
-      });
-      console.log("From old",this.userId,this.password)
+      },
+      (error: any) => {
+        if (error.status === 400 && error.error.message === "Password not matched") {
+          // Old password does not match, display error message
+          this.isFailureOldPassword = true;
+          console.log("Old password does not match");
+        } else {
+          console.log("Network error");
+        }
+      }
+    );
   }
+  
+      
+  
+  
+  
   
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
