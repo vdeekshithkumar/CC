@@ -41,7 +41,7 @@ filteredInventoryList=[];
 // sortedData: Inventory[] = [];
 port_list:any;
 port_name="";
-itemsPerPage: number = 5;
+itemsPerPage: number = 3;
 currentPage: number = 1;
 records:any[]=[];
 // inventory_list_by_companyId: any[] = [];
@@ -180,22 +180,19 @@ getPortName(portId: number): string {
     }
   
     get totalPages(): number {
-      return Math.ceil(this.inventory_list_by_companyId.length / 8);
+      return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
     }
    
-    prevPage() {
-    
+    prevPage(): void {
       if (this.currentPage > 1) {
         this.currentPage--;
       }
-      
-       }
-       nextPage() {
-        if (this.currentPage < Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage)) {
-          this.currentPage++;
-        }
-      
-       }
+    }
+    nextPage(): void {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    }
        backPage(){
         this.router.navigate(['forecast-map']);
        }
