@@ -3,6 +3,7 @@ import { FormComponent } from './form/form.component';
 import { ForecastMapService } from './forecast-map.service';
 import { SessionService } from 'src/app/session.service';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 import { ForecastingTableService } from '../forecasting-table-view/forecasting-table-view.service';
 @Component({
   selector: 'app-forecast-map',
@@ -18,6 +19,7 @@ export class ForecastMapComponent implements OnInit {
   companyId!: number
   portData: any
   markers: google.maps.Marker[] = [];
+  Einv: Inventory[] = [];
   constructor(private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef, private appRef: ApplicationRef
     , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) {
@@ -166,6 +168,44 @@ export class ForecastMapComponent implements OnInit {
         }
       })
   }
+  getPortName(portId: number): string {
+    const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
+    return port ? port.port_name : '';
+}
+  onExportClick(): void {
+    this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
+      (data: Inventory[]) => {
+        this.Einv = data.map((item: Inventory) => {
+          const portName = this.getPortName(item.port_id);
+          return { ...item, port_name: portName };
+        });
+        console.log("This is Einv with port names:", this.Einv);
+        this.onExport();
+      },
+      error => console.log(error)
+    );
+  }
+  
+ onExport(){
+  const worksheetName = 'Inventory';
+  const excelFileName = 'Inventory.xlsx';
+  const header = ['Port Name','Container Type','Container Size','Available','Surplus','Deficit'];
+  const data = this.Einv.map((iv) => [iv.port_name,iv.container_type,iv.container_size,iv.available,iv.surplus,iv.deficit]);
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+   const columnWidths = [
+    { wch: 15 }, // Port Name width: 20
+    { wch: 15 }, // Container Type width: 15
+    
+  ];
+
+  // Apply column widths to worksheet
+  worksheet['!cols'] = columnWidths;
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+  XLSX.writeFile(workbook, excelFileName);
+}
   viewDeficit(){
     this.markers = []
     for (const marker of this.markers) {
@@ -237,3 +277,14 @@ export class ForecastMapComponent implements OnInit {
 
 
 }
+interface Inventory {
+  port_name:string;
+  port_id: number;
+  container_type: string;
+  container_size: number;
+  available: number;
+  surplus: number;
+  deficit: number;
+  // Add other properties if necessary
+}
+  

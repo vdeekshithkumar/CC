@@ -222,6 +222,14 @@ getPortName(portId: number): string {
 
   const workbook = XLSX.utils.book_new();
   const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+   const columnWidths = [
+    { wch: 15 }, // Port Name width: 20
+    { wch: 15 }, // Container Type width: 15
+    
+  ];
+
+  // Apply column widths to worksheet
+  worksheet['!cols'] = columnWidths;
 
   XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
   XLSX.writeFile(workbook, excelFileName);
