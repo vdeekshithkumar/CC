@@ -3,6 +3,7 @@ import { FormComponent } from './form/form.component';
 import { ForecastMapService } from './forecast-map.service';
 import { SessionService } from 'src/app/session.service';
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 import { ForecastingTableService } from '../forecasting-table-view/forecasting-table-view.service';
 @Component({
   selector: 'app-forecast-map',
@@ -18,6 +19,7 @@ export class ForecastMapComponent implements OnInit {
   companyId!: number
   portData: any
   markers: google.maps.Marker[] = [];
+  Einv: Inventory[] = [];
   constructor(private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef, private appRef: ApplicationRef
     , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) {
@@ -66,10 +68,9 @@ export class ForecastMapComponent implements OnInit {
       this.viewDeficit()
     }
   }
-  ngAfterViewInit() {
+ ngAfterViewInit() {
     this.markers = [];
     this.forecastService.getPortData(this.companyId).subscribe(data => {
-
       this.portData = data;
       if (this.portData && this.portData.length > 0) {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
@@ -80,10 +81,11 @@ export class ForecastMapComponent implements OnInit {
       } else {
         this.noPorts = true;
       }
-
+  
+      const surplusMarkers = [];
+      const deficitMarkers = [];
+  
       for (const port of this.portData) {
-        debugger
-        console.log(port)
         let iconUrl = "../assets/images/yellow-dot.png";
         iconUrl = (port.surplus > port.deficit) ? "../assets/images/green-dot.png" : "../assets/images/red-dot.png";
         const mapMarker = new google.maps.Marker({
@@ -96,26 +98,103 @@ export class ForecastMapComponent implements OnInit {
           },
           title: "" + port.latitude + ", " + port.longitude,
         });
+  
+        if (port.surplus > port.deficit) {
+          surplusMarkers.push(mapMarker);
+        } else {
+          deficitMarkers.push(mapMarker);
+        }
+  
         const infoWindow = new google.maps.InfoWindow();
         infoWindow.setPosition({ lat: port.latitude, lng: port.longitude })
-
+  
         const factory = this.resolver.resolveComponentFactory(FormComponent);
         const componentRef = factory.create(this.viewContainerRef.injector);
         componentRef.instance.portCode = port.portCode;
         componentRef.instance.portId = port.portId;
         componentRef.instance.surplus = port.surplus;
         componentRef.instance.deficit = port.deficit;
-
+  
         this.appRef.attachView(componentRef.hostView);
         infoWindow.setContent(componentRef.location.nativeElement);
-
+  
         mapMarker.addListener('click', () => {
           infoWindow.open(this.map, mapMarker);
         });
+  
         this.markers.push(mapMarker);
       }
-    })
+// Draw polylines between surplus and nearest deficit markers
+for (const surplusMarker of surplusMarkers) {
+  const surplusMarkerPosition = surplusMarker.getPosition();
 
+  if (surplusMarkerPosition) {
+    let closestDeficitMarker = null;
+    let shortestDistance = Infinity;
+
+    for (const deficitMarker of deficitMarkers) {
+      const deficitMarkerPosition = deficitMarker.getPosition();
+
+      if (deficitMarkerPosition) {
+        const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
+        if (distance < shortestDistance) {
+          closestDeficitMarker = deficitMarker;
+          shortestDistance = distance;  
+        }
+      }
+    }
+
+    if (closestDeficitMarker) {
+      const closestDeficitMarkerPosition = closestDeficitMarker.getPosition();
+
+      if (closestDeficitMarkerPosition) {
+        const solidPolylineOptions: google.maps.PolylineOptions = {
+          path: [
+            surplusMarkerPosition,
+            closestDeficitMarkerPosition
+          ],
+          geodesic: true,
+          strokeColor: '#2F54EB',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        };
+
+        const dottedPolylineOptions: google.maps.PolylineOptions = {
+          path: [
+            surplusMarkerPosition,
+            closestDeficitMarkerPosition
+          ],
+          geodesic: true,
+          strokeColor: '#2F54EB',
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          icons: [
+            {
+              icon: {
+                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                scale: 3,
+                strokeWeight: 1,
+                fillColor: '#2F54EB',
+                fillOpacity: 1
+              },
+              offset: '100%'
+            }
+          ]
+        };
+
+        const polyline = new google.maps.Polyline(solidPolylineOptions);
+        polyline.setMap(this.map);
+
+        const dottedPolyline = new google.maps.Polyline(dottedPolylineOptions);
+        dottedPolyline.setMap(this.map);
+      }
+    }
+  }
+}
+
+
+
+    });
   }
   viewSurplus(){
     this.markers = [];
@@ -166,6 +245,44 @@ export class ForecastMapComponent implements OnInit {
         }
       })
   }
+  getPortName(portId: number): string {
+    const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
+    return port ? port.port_name : '';
+}
+  onExportClick(): void {
+    this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
+      (data: Inventory[]) => {
+        this.Einv = data.map((item: Inventory) => {
+          const portName = this.getPortName(item.port_id);
+          return { ...item, port_name: portName };
+        });
+        console.log("This is Einv with port names:", this.Einv);
+        this.onExport();
+      },
+      error => console.log(error)
+    );
+  }
+  
+ onExport(){
+  const worksheetName = 'Inventory';
+  const excelFileName = 'Inventory.xlsx';
+  const header = ['Port Name','Container Type','Container Size','Available','Surplus','Deficit'];
+  const data = this.Einv.map((iv) => [iv.port_name,iv.container_type,iv.container_size,iv.available,iv.surplus,iv.deficit]);
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+   const columnWidths = [
+    { wch: 15 }, // Port Name width: 20
+    { wch: 15 }, // Container Type width: 15
+    
+  ];
+
+  // Apply column widths to worksheet
+  worksheet['!cols'] = columnWidths;
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+  XLSX.writeFile(workbook, excelFileName);
+}
   viewDeficit(){
     this.markers = []
     for (const marker of this.markers) {
@@ -237,3 +354,14 @@ export class ForecastMapComponent implements OnInit {
 
 
 }
+interface Inventory {
+  port_name:string;
+  port_id: number;
+  container_type: string;
+  container_size: number;
+  available: number;
+  surplus: number;
+  deficit: number;
+  // Add other properties if necessary
+}
+  

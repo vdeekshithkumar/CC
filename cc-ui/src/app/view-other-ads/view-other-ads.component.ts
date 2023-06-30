@@ -54,7 +54,8 @@ export interface Advertisement {
   styleUrls: ['./view-other-ads.component.css', '../app.component.css'],
   providers: [DatePipe]
 })
-export class ViewOtherAdsComponent {
+export class ViewOtherAdsComponent  {
+  
   @ViewChild(ViewOtherAdsMapViewComponent) mapViewComponent!: ViewOtherAdsMapViewComponent;
   isAdClicked: boolean = false;
   selectedView: string | undefined;
@@ -105,6 +106,7 @@ export class ViewOtherAdsComponent {
   advertisements: any;
   http: any;
   port_of_departure: any;
+  port_of_ad:any;
   port_of_arrival: any;
 
   selectedOptions: { [key: string]: string } = {
@@ -113,17 +115,19 @@ export class ViewOtherAdsComponent {
     size: ''
   };
   currentPage = 1; // Current page number
-  adsPerPage = 3; // Number of ads to display per page
+  adsPerPage = 1; // Number of ads to display per page
   mapView: any;
   selectedDeparturePort: any;
   adtype: any;
   sizeSelected: any;
-
+ 
   selectedArrivalPort: any;
   size: any;
   selectedSize: any;
   showListView: boolean = true;
   containerTypeId: any;
+  showNoResultsMessage: boolean=true;
+  ad_type: string = 'container';
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -159,6 +163,12 @@ export class ViewOtherAdsComponent {
 
   }
   ngOnInit(): void {
+    this.searchAds();
+    if (this.selectedView === 'map') {
+      this.showMapView = true;
+    } else {
+      this.showMapView = false;
+    }
     this.selectedView = 'list';
     this.isLoading = true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
@@ -257,7 +267,7 @@ export class ViewOtherAdsComponent {
       }
     );
 
-    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+    this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
         this.currentPage = 1;
@@ -308,7 +318,32 @@ export class ViewOtherAdsComponent {
 
     this.isLoading = false;
   }
-
+  searchAds() {
+    // Check if ad_type is defined
+    if (this.ad_type) {
+      // Call the getAdvertisement method with the selected ad_type
+      this.viewotherAds.getAdvertisement(this.ad_type, this.companyId).subscribe(
+        (data: Advertisement[]) => {
+          // Store the fetched advertisements in the component property
+          console.log(data);
+          this.advertisements = data;
+          this.currentPage = 1;
+          
+          console.log("C or swap", this.advertisements);
+        },
+        error => {
+          console.error('Error fetching advertisements:', error);
+        }
+      );
+    }
+  }
+  
+  
+    adTypeChanged(type: string) {
+      this.ad_type = type;
+      this.searchAds();
+    }
+    
   toggleOption(section: string, option: string) {
     if (this.selectedOptions[section] === option) {
       // If the clicked option is already selected, deselect it
@@ -396,10 +431,9 @@ export class ViewOtherAdsComponent {
       this.showListView = true; // Show the list view component
       return;
     }
-
+  
     this.showNoSelectionMessage = false;
-    this.showMapView = false; // Reset the flag
-
+  
     if (this.selectedView === 'MAP') {
       // Render the map view component
       this.showMapView = true;
@@ -423,46 +457,66 @@ export class ViewOtherAdsComponent {
           this.mapViewComponent.markPortsOnMap();
         }, 0);
       }
-
-      return; // Exit the method to prevent further processing
-    }
-
-
-
-    // Render the list view component
-    this.showMapView = false;
-    this.showListView = true; // Show the list view component
-    this.noResultsMatched = false;
-    const selectedType = this.type;
-    const selectedDeparture = this.port_of_departure;
-    const selectedArrival = this.port_of_arrival;
-
-    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
-      (data: Advertisement[]) => {
-        this.ads = data;
-
-        if (selectedDeparture && selectedArrival) {
-          this.ads = this.ads.filter(ad => {
-            let isTypeMatch = ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim();
-            let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
-            return isTypeMatch && isPortMatch;
-          });
-        }
-
-        // Filter and display the advertisements based on the selected size and its corresponding container_type_id
-        if (this.selectedSize) {
-          const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
-          if (selectedContainerTypeId) {
-            this.ads = this.ads.filter(ad => ad.container_type_id === selectedContainerTypeId);
+    } else {
+      // Render the list view component
+      this.showMapView = false;
+      this.showListView = true; // Show the list view component
+      this.noResultsMatched = false;
+      const selectedType = this.type;
+      const selectedDeparture = this.port_of_departure;
+      const selectedArrival = this.port_of_arrival;
+  
+      if (selectedType === 'container') {
+        // Search advertisements with ad_type "container"
+        this.viewotherAds.getAdvertisement('container', this.companyId).subscribe(
+          (data: Advertisement[]) => {
+            this.filterAndDisplayAdvertisements(data);
+          },
+          error => {
+            console.error('Error fetching advertisements:', error);
           }
-        }
-
-        // Log the filtered advertisements
-        console.log('Filtered Advertisements:', this.ads);
-      },
-      error => console.log(error)
-    );
+        );
+      } else {
+        // Search advertisements based on selected criteria
+        this.viewotherAds.getAdvertisement(this.ad_type, this.companyId).subscribe(
+          (data: Advertisement[]) => {
+            this.filterAndDisplayAdvertisements(data, selectedType, selectedDeparture, selectedArrival);
+          },
+          error => {
+            console.error('Error fetching advertisements:', error);
+          }
+        );
+      }
+    }
   }
+  
+  filterAndDisplayAdvertisements(data: Advertisement[], selectedType?: string, selectedDeparture?: string, selectedArrival?: string) {
+    let filteredAds = data;
+  
+    if (selectedDeparture && selectedArrival) {
+      filteredAds = filteredAds.filter(ad => {
+        let isTypeMatch = selectedType ? ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim() : true;
+        let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
+        return isTypeMatch && isPortMatch;
+      });
+    }
+  
+    // Filter and display the advertisements based on the selected size and its corresponding container_type_id
+    if (this.selectedSize) {
+      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
+      filteredAds = filteredAds.filter(ad => ad.container_type_id === selectedContainerTypeId);
+    }
+  
+    this.advertisements = filteredAds;
+    if (this.advertisements.length === 0) {
+      this.noResultsMatched = true;
+    } else {
+      this.noResultsMatched = false;
+    }
+  }
+  
+  
+  
 
 
   onDeparturePortSelected(port: Port) {
@@ -525,7 +579,7 @@ export class ViewOtherAdsComponent {
   displayAllAdvertisements() {
     this.showMapView = false;
     this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
-    this.viewotherAds.getAdvertisement(this.companyId).subscribe(
+    this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
       },

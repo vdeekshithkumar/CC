@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SessionService } from 'src/app/session.service';
 
 import { ForecastingTableService } from './forecasting-table-view.service';
-
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-forecasting-table-view',
@@ -15,6 +15,9 @@ export class ForecastingTableViewComponent implements OnInit{
   isSearchIconClicked!: boolean ;
   showForm: boolean = false;
   showModal=false;
+  inv:Inventory[]=[]
+
+  isClicked: boolean = false;
   searchTerm:any;
   data:any;
   surplus:any;
@@ -38,7 +41,7 @@ filteredInventoryList=[];
 // sortedData: Inventory[] = [];
 port_list:any;
 port_name="";
-itemsPerPage: number = 5;
+itemsPerPage: number = 3;
 currentPage: number = 1;
 records:any[]=[];
 // inventory_list_by_companyId: any[] = [];
@@ -46,6 +49,7 @@ records:any[]=[];
   containerType: string = '';
   containerSize: number = 0;
   available: number = 0;
+  Einv: Inventory[] = [];
  
  
 constructor(private formBuilder: FormBuilder,private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) { 
@@ -176,28 +180,59 @@ getPortName(portId: number): string {
     }
   
     get totalPages(): number {
-      return Math.ceil(this.inventory_list_by_companyId.length / 8);
+      return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
     }
    
-    prevPage() {
-    
+    prevPage(): void {
       if (this.currentPage > 1) {
         this.currentPage--;
       }
-      
-       }
-       nextPage() {
-        if (this.currentPage < Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage)) {
-          this.currentPage++;
-        }
-      
-       }
+    }
+    nextPage(): void {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    }
        backPage(){
         this.router.navigate(['forecast-map']);
        }
   onSubmit(){
   
   }
+  onExportClick(): void {
+    this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
+      (data: Inventory[]) => {
+        this.Einv = data.map((item: Inventory) => {
+          const portName = this.getPortName(item.port_id);
+          return { ...item, port_name: portName };
+        });
+        console.log("This is Einv with port names:", this.Einv);
+        this.onExport();
+      },
+      error => console.log(error)
+    );
+  }
+  
+ onExport(){
+  const worksheetName = 'Inventory';
+  const excelFileName = 'Inventory.xlsx';
+  const header = ['Port Name','Container Type','Container Size','Available','Surplus','Deficit'];
+  const data = this.Einv.map((iv) => [iv.port_name,iv.container_type,iv.container_size,iv.available,iv.surplus,iv.deficit]);
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+   const columnWidths = [
+    { wch: 15 }, // Port Name width: 20
+    { wch: 15 }, // Container Type width: 15
+    
+  ];
+
+  // Apply column widths to worksheet
+  worksheet['!cols'] = columnWidths;
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+  XLSX.writeFile(workbook, excelFileName);
+}
   clearSearch() {
     this.searchTerm = '';
   }
@@ -206,7 +241,7 @@ getPortName(portId: number): string {
     this.isSearchIconClicked = true;
   }
   toggleForm() {
-    this.showForm = !this.showForm;
+    this.isClicked = !this.isClicked;
   }
   getTotalPages() {
     return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
@@ -280,7 +315,10 @@ getPortName(portId: number): string {
   }
   
 }
+
 interface Inventory {
+  port_name:string;
+  port_id: number;
   container_type: string;
   container_size: number;
   available: number;

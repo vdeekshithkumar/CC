@@ -46,7 +46,7 @@ export class MyAdvertisementComponent {
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 2;
 currentPage: number = 1;
 
   userId: any;
@@ -313,21 +313,21 @@ AdsCount(){
 
 
    get totalPages(): number {
-    return Math.ceil(this.ads.length / 6);
+    return Math.ceil(this.ads.length /this.itemsPerPage);
   }
-  prevPage() {
-
+  prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
     }
-    
-     }
-     nextPage() {
-      if (this.currentPage < Math.ceil(this.ads.length / this.itemsPerPage)) {
-        this.currentPage++;
-      }
-    
-     }
+  }
+  
+  // Function to go to the next page
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+  
      backPage(){
       this.router.navigate(['forecast-map']);
      }

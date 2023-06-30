@@ -32,18 +32,18 @@
   </button>
 
   </div>
-  <div class="mx-3 mb-8 w-[6em] h-[0.5em] bg-gray flex-wrap ml-0">
+  <div class="mx-3 mt-0 w-[7em] h-9 flex-wrap  ml-0">
     <div>
-      <button (click)="toggleForm()"
-        class="ml-2 inline-flex justify-end items-center btn-primary5 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button (click)="toggleFormOpen()" [ngClass]="{'myClass': isClicked}"
+        class="ml-2 inline-flex justify-start items-center btn-primary5 space-x-3 border font-medium focus:outline-none w-full py-2  pr-3 leading-6 font-poppins">
+        <svg width="20" class="ml-3" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M11.25 17.5H8.75C8.41848 17.5 8.10054 17.3683 7.86612 17.1339C7.6317 16.8995 7.5 16.5815 7.5 16.25V11.5063L2.86875 6.875C2.63401 6.64166 2.5014 6.32474 2.5 5.99375V3.75C2.5 3.41848 2.6317 3.10054 2.86612 2.86612C3.10054 2.6317 3.41848 2.5 3.75 2.5H16.25C16.5815 2.5 16.8995 2.6317 17.1339 2.86612C17.3683 3.10054 17.5 3.41848 17.5 3.75V5.99375C17.4986 6.32474 17.366 6.64166 17.1313 6.875L12.5 11.5063V16.25C12.5 16.5815 12.3683 16.8995 12.1339 17.1339C11.8995 17.3683 11.5815 17.5 11.25 17.5ZM3.75 3.75V5.99375L8.75 10.9937V16.25H11.25V10.9937L16.25 5.99375V3.75H3.75Z" fill="#597EF7"/>
           </svg>
           <span class="btn-primary4">Filter</span>
       </button>
     </div>
   </div>
-  <div class="ml-28 mb-2 w-[9em] h-[2em] bg-white flex-wrap float-right">
+  <div class="ml-24 mb-2 w-[9em] h-[2em] bg-white flex-wrap float-right">
     <div>
       <button
         class="inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
@@ -72,7 +72,7 @@
 
   <div class=" w-[10em] mb-2 h-[2em] bg-red flex-wrap ml-4">
     <div>
-      <button (click)="toggleForm()"
+      <button (click)="toggleForm()" matTooltip="Add Inventory" (click)="updateFormHeading('Add New Inventory')"
         class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply"/>
@@ -81,6 +81,71 @@
           Add Inventory</button>
     </div>
   </div>
+</div>
+<div class="flex flex-col first:flex-row div-bg" *ngIf="isClicked">
+  <div class="p-2 h-24 w-full mt-10">
+    <form>
+      <div class="flex flex-row">
+        <div class="-mt-3">
+          <label class="top mb-2 font-normal">Container Type</label>
+          <div>
+            <select class="top-select2  div-bg"  formControlName="container_type" >
+                <option value="" disabled selected>Select Container Type</option>
+                <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
+              </select>
+          </div>
+        </div>
+        <div class="-mt-3">
+          <label class=" mb-2 ml-2 top font-normal">Container Size</label>
+          <div>
+            <input  formControlName="container_size" class="ml-2 top-select2 div-bg" type="number">
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Available</label>
+          <div>
+            <input formControlName="available" class="ml-2 top-select2 div-bg" type="number">
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Surplus</label>
+          <div>
+            <input  class="ml-2 top-select2 div-bg" formControlName="surplus" type="number">
+          </div>
+        </div>
+        <div class=" -mt-3">
+          <label class="top mb-2 ml-2 font-normal">Deficit</label>
+          <div>
+            <input class="ml-2 top-select2 div-bg" formControlName="deficit" type="number">
+          </div>
+        </div>
+        <div>
+        </div>
+      </div>
+    </form>
+    
+    <div class="mt-4 w-12 float-right mr-6 flex-wrap">
+      <div>
+        <button 
+          class="rounded-sm mx-1 inline-flex justify-start btn-primary6 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700 text-white active:border-blue-700">
+          Apply</button>
+      </div>
+    </div>
+    <div class="mx-1 mt-4 w-14 float-right div-box-bg flex-wrap">
+      <div>
+        <button (click)="toggleFormOpen()"
+          class="rounded-sm inline-flex justify-start btn-primary7 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
+         Cancel</button>
+      </div>
+    </div>
+    <div class="mx-1 mt-4 w-12  float-right bg-red flex-wrap">
+      <div>
+        <button 
+          class="rounded-sm inline-flex btn-primary6 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">
+          Reset</button>
+      </div>
+    </div>
+    </div>
 </div>
 <div class="w-full flex flex-col first:flex-row max-h-screen bg-white">
   <section class="ml-4 mr-6 rounded-sm">
@@ -169,7 +234,7 @@
                 </button>
               </td>
               <td class="py-4  text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                <button type="button" (click)="getInventoryById(inv.inventory_id)" class="ml-2"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <button type="button" (click)="updateFormHeading('Edit Inventory')" (click)="getInventoryById(inv.inventory_id)" class="ml-2"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M21.125 19.5938H3.875C3.46016 19.5938 3.125 19.9289 3.125 20.3438V21.1875C3.125 21.2906 3.20937 21.375 3.3125 21.375H21.6875C21.7906 21.375 21.875 21.2906 21.875 21.1875V20.3438C21.875 19.9289 21.5398 19.5938 21.125 19.5938ZM6.53984 17.625C6.58672 17.625 6.63359 17.6203 6.68047 17.6133L10.6227 16.9219C10.6695 16.9125 10.7141 16.8914 10.7469 16.8563L20.682 6.92109C20.7038 6.89941 20.721 6.87366 20.7328 6.8453C20.7445 6.81695 20.7506 6.78656 20.7506 6.75586C20.7506 6.72516 20.7445 6.69477 20.7328 6.66642C20.721 6.63806 20.7038 6.61231 20.682 6.59063L16.7867 2.69297C16.7422 2.64844 16.6836 2.625 16.6203 2.625C16.557 2.625 16.4984 2.64844 16.4539 2.69297L6.51875 12.6281C6.48359 12.6633 6.4625 12.7055 6.45312 12.7523L5.76172 16.6945C5.73892 16.8201 5.74707 16.9493 5.78545 17.071C5.82384 17.1927 5.89132 17.3032 5.98203 17.393C6.13672 17.543 6.33125 17.625 6.53984 17.625Z" fill="#8C8C8C"/>
                   </svg></button>
                 <button type="button" (click)="deleteInventory(inv.inventory_id)" class="ml-4"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,7 +279,7 @@
       <div>
         <div class="flex items-center justify-between ">
           <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1">
-            Add New Inventory</h1>
+            {{ formHeading }}</h1>
           <div>
             <button (click)="closeForm()" class="mr-4 text-black hover:text-gray-700 focus:outline-none">
               <i class="fas fa-times"></i>

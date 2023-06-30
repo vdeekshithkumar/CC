@@ -142,10 +142,10 @@
     </form>
     <div class="">
     <div class="flex items-center justify-between">
-      <button  mat-dialog-close="" type="button" class="rounded-sm font-poppins ml-6  mr-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-black bg-gray-50 text-black mt-4">
+      <button  mat-dialog-close="" type="button" class="rounded-sm font-poppins ml-6  mr-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-gray-50 border-2 bg-gray-50 text-black mt-4">
         Cancel
       </button>
-      <button  (click)="openDialog(stepper)" type="button" class="rounded-sm font-poppins ml-1 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">
+      <button  (click)="openDialog(stepper)" type="button" class="rounded-sm font-poppins ml-1 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full border-2 px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">
         Next
       </button>
     </div>
@@ -153,7 +153,7 @@
   
   </mat-step>
 
-  <mat-step label="Permissions" class="blue-line"[editable]="false">
+  <mat-step  label="Permissions" class="blue-line"[editable]="false">
     <form [formGroup]="addEmployeeForm" class="mt-6">
       <div>
         <h2 class="font-semibold mb-4 ml-0 font-poppins text-sm">Add User Permissions</h2>
@@ -192,10 +192,10 @@
       
       </div>
       <div class="flex items-center justify-between">
-        <button  matStepperNext type="button" class="font-poppins ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-black bg-gray-50 text-black mt-4">
+        <button  matStepperNext type="button" class="font-poppins ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-gray-50 border-2 bg-gray-50 text-black mt-4">
           Cancel
         </button>
-        <button  matStepperNext (click)="onAdd()" type="submit" class="rounded-sm font-poppins ml-1 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">Submit</button>
+        <button  matStepperNext (click)="onAdd()" type="submit" class="rounded-sm font-poppins ml-1 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none border-2 w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">Submit</button>
       </div>  
     </form>
     

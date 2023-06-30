@@ -29,6 +29,7 @@ arrivalLng: number = 0;
   @Input() adtype: any;
   @Input() containerTypeId: any;
   ads: Advertisement[] = [];
+ 
   userOS:any;
   mapId: string = '2b03aff8b2fb72a3'; // Replace with your Map ID
   ports: any[] = [];
@@ -42,6 +43,7 @@ arrivalLng: number = 0;
   polyline: google.maps.Polyline | null = null;
   company_id: any;
   ad: any;
+  ad_type: any;
  
 
   constructor(private forecastService: ForecastingService,private adsService:ViewOtherAdsService) {
@@ -55,7 +57,7 @@ arrivalLng: number = 0;
     this.getAdvertisement();
   }
   getAdvertisement() {
-    this.adsService.getAdvertisement(this.company_id).subscribe(
+    this.adsService.getAdvertisement(this.ad_type,this.company_id).subscribe(
       (adsdata: Advertisement[]) => {
         this.ads = adsdata;
         console.log("From map view", this.ads);
@@ -282,7 +284,11 @@ arrivalLng: number = 0;
    
     this.markPortsOnMap();
   }
-  
+  updateMarkers(filteredAds: Advertisement[]) {
+    this.ads = filteredAds;
+    this.clearMarkers();
+    this.markPortsOnMap();
+  }
   onArrivalPortSelected(port: any) {
     this.selectedArrivalPort = port;
     

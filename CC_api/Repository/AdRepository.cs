@@ -177,10 +177,10 @@ namespace CC_api.Repository
         return ads;
       }
     }
-    public async Task<List<Ad>> GetAllAdvertisement(int companyID)
+    public async Task<List<Ad>> GetAllAdvertisement(string ad_type,int companyID)
     {
 
-      return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active").ToListAsync();
+      return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active" && c.ad_type == ad_type).ToListAsync();
 
     }
     public async Task PostAd(Ad Ad)
