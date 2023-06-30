@@ -29,5 +29,7 @@ namespace CC_api.Models
     public decimal pickup_charges { get; set; }
 
     public string ad_type { get; set; }
+
+    public string port_of_ad { get; set; }
   }
 }

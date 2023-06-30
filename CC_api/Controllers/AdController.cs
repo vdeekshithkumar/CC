@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.IO;
 
 namespace CC_api.Controllers
@@ -67,7 +68,7 @@ namespace CC_api.Controllers
       DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
       decimal price, int quantity, int port_id, int posted_by, int company_id,
       string contents, string port_of_departure, string port_of_arrival, int free_days,
-      int per_diem, decimal pickup_charges, string operation)
+      int per_diem, decimal pickup_charges, string port_of_ad, string operation)
 
 
     {
@@ -123,6 +124,7 @@ namespace CC_api.Controllers
             free_days = free_days,
             per_diem = per_diem,
             pickup_charges = pickup_charges,
+            port_of_ad = port_of_ad,
             file = uploadedFileId
           };
           await this._AdBusiness.PostAd(Ad);

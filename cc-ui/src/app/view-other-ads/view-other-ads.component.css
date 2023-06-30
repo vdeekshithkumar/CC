@@ -660,7 +660,7 @@ align-items: center;
 gap: 2px;
 flex: 1 0 0;
 
-margin-top:180px;
+margin-top:245px;
 
 }
 
@@ -696,6 +696,30 @@ margin-top:180px;
 .port-input p {
   margin-bottom: 3px; /* Adjust the margin-bottom value as needed */
 }
+.clear-search-space {
+  display: flex;
+height: 38px;
+padding: 10px 0px;
+justify-content: center;
+align-items: center;
+gap: 2px;
+flex: 1 0 0;
+
+margin-top:180px;
+
+}
+
+
+
+.clear-search-space button {
+  
+  color: white;
+  border: none;
+
+  border-radius: 2px;
+  font-size: 12px;
+}
+
 .clear-color{
   background-color: lightgray;
   width: 140px;
