@@ -12,7 +12,16 @@ import { DialogComponent } from '../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
+export interface Inventory {
+  port_name:string;
+  port_id: number;
+  container_type: string;
+  container_size: number;
+  available: number;
+  surplus: number;
+  deficit: number;
+  // Add other properties if necessary
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -21,11 +30,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './upload-inventory.component.html',
   styleUrls: ['./upload-inventory.component.css']
 })
+
 export class UploadInventoryComponent {
   UploadInventoryForm!: FormGroup;
     form: any;
     formHeading: string = 'Add New Inventory';
     port_name="";
+    inv:Inventory[]=[]
     searchPortId: any;
     port_list:any;
     container_type="";

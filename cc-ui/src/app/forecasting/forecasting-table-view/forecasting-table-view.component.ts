@@ -15,6 +15,8 @@ export class ForecastingTableViewComponent implements OnInit{
   isSearchIconClicked!: boolean ;
   showForm: boolean = false;
   showModal=false;
+  inv:Inventory[]=[]
+
   isClicked: boolean = false;
   searchTerm:any;
   data:any;
