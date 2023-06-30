@@ -42,8 +42,8 @@ export class ViewOtherAdsService {
     return this.http.get(`${this.nUrl}?companyID=${companyId}`, { responseType: 'json' });
   }
 
-  getAdvertisement(ad_type:string,company_id:number): Observable<Advertisement[]> {
-    const url = `${this.advUrl}?ad_type=${ad_type}companyId=${company_id}`;
+  getAdvertisement(ad_type:string,companyId:number): Observable<Advertisement[]> {
+    const url = `${this.advUrl}?ad_type=${ad_type}&companyId=${companyId}`;
     return this.http.get<Advertisement[]>(url);
   }
   getotherCompany(companyId: string): Observable<any> {
