@@ -45,10 +45,10 @@ export class UploadInventoryComponent {
     inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
-    Einv: Inventory[] = [];
+     Einv: Inventory[] = [];
     showForm: boolean = false;
     isClicked:boolean=false
-    itemsPerPage: number = 7;
+    itemsPerPage: number = 3;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -253,26 +253,22 @@ ReadExcel(event: any) {
   
 
   
-get totalPages(): number {
-  return Math.ceil(this.inventory_list_by_companyId.length / 8);
-}
+
 getPortName(portId: number): string {
   const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
   return port ? port.port_name : '';
 }
 prevPage() {
-
   if (this.currentPage > 1) {
-    this.currentPage--;
+    this.currentPage = this.currentPage - 1;
   }
-  
-   }
-   nextPage() {
-    if (this.currentPage < Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage)) {
-      this.currentPage++;
-    }
-  
-   }
+}
+nextPage() {
+  const totalPages = Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
+  if (this.currentPage < totalPages) {
+    this.currentPage = this.currentPage + 1;
+  }
+}
    backPage(){
     this.router.navigate(['forecast-map']);
    }
@@ -450,12 +446,10 @@ async onSubmit() {
       clearButton.style.display = "none";
     }
   }
-  getTotalPages() {
+  get totalPages(): number {
     return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
   }
-  getPages() {
-    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
-  }
+
   toggleForm() {
     this.showForm = !this.showForm;
   }
