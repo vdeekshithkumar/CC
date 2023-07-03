@@ -45,6 +45,7 @@ export class UploadInventoryComponent {
     inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
+    Einv: Inventory[] = [];
     showForm: boolean = false;
     isClicked:boolean=false
     itemsPerPage: number = 7;
@@ -400,6 +401,40 @@ async onSubmit() {
     
    
   }
+  onExportClick(): void {
+    this.uploadInventoryservice.getInventoryByIdCID(this.companyId).subscribe(
+      (data: Inventory[]) => {
+        this.Einv = data.map((item: Inventory) => {
+          const portName = this.getPortName(item.port_id);
+          return { ...item, port_name: portName };
+        });
+        console.log("This is Einv with port names:", this.Einv);
+        this.onExport();
+      },
+      error => console.log(error)
+    );
+  }
+  
+ onExport(){
+  const worksheetName = 'Inventory';
+  const excelFileName = 'Inventory.xlsx';
+  const header = ['Port Name','Container Type','Container Size','Available','Surplus','Deficit'];
+  const data = this.Einv.map((iv) => [iv.port_name,iv.container_type,iv.container_size,iv.available,iv.surplus,iv.deficit]);
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+   const columnWidths = [
+    { wch: 15 }, // Port Name width: 20
+    { wch: 15 }, // Container Type width: 15
+    
+  ];
+
+  // Apply column widths to worksheet
+  worksheet['!cols'] = columnWidths;
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+  XLSX.writeFile(workbook, excelFileName);
+}
   clearSearch(): void {
     this.searchTerm = '';
   }

@@ -427,8 +427,8 @@ export class ViewOtherAdsComponent  {
 
   }
   searchAdvertisements() {
-    debugger
-    if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
+    this.searchAds
+    if (!this.selectedOptions['type'] || !this.selectedDeparturePort || !this.selectedArrivalPort || !this.selectedOptions['view'] || !this.selectedSize) {
       this.showNoSelectionMessage = true;
       this.showMapView = false;
       this.showListView = true; // Show the list view component
@@ -437,21 +437,19 @@ export class ViewOtherAdsComponent  {
   
     this.showNoSelectionMessage = false;
   
-    if (this.selectedView === 'MAP') {
+    if (this.selectedOptions['view'] === 'map') {
       // Render the map view component
       this.showMapView = true;
       this.showListView = false; // Hide the list view component
-      this.adtype = this.type;
-      console.log("From list to map", this.adtype);
-      this.selectedDeparturePort = this.port_of_departure;
-      this.selectedArrivalPort = this.port_of_arrival;
+      this.adtype = this.selectedOptions['type'];
+      this.selectedDeparturePort = this.selectedDeparturePort;
+      this.selectedArrivalPort = this.selectedArrivalPort;
       this.container_size.forEach((container: Containers) => {
         if (container.type === this.selectedSize) {
-          console.log('Container Type ID:', container.container_type_id);
           this.containerTypeId = container.container_type_id; // Assign the container_type_id to the component property
         }
       });
-      console.log("from list to map con_type_id", this.containerTypeId);
+  
       // Call markPortsOnMap() of the map view component
       if (this.mapViewComponent) {
         this.mapViewComponent.clearMarkers();
@@ -465,56 +463,53 @@ export class ViewOtherAdsComponent  {
       this.showMapView = false;
       this.showListView = true; // Show the list view component
       this.noResultsMatched = false;
-      const selectedType = this.type;
-      const selectedDeparture = this.port_of_departure;
-      const selectedArrival = this.port_of_arrival;
+  
+      const selectedType = this.selectedOptions['type'];
+      const selectedDeparture = this.selectedDeparturePort;
+      const selectedArrival = this.selectedArrivalPort;
   
       // Call the appropriate method based on the ad_type
-    // Call the appropriate method based on the ad_type
-  if (this.ad_type === 'container') {
-  this.viewotherAds.getAdvertisement('container', this.companyId).subscribe(
-    (data: Advertisement[]) => {
-      this.filterAndDisplayAdvertisements(data, 'container', selectedDeparture, selectedArrival);
-    },
-    error => {
-      console.error('Error fetching advertisements:', error);
-    }
-  );
-} else if (this.ad_type === 'space') {
-      this.viewotherAds.getAdvertisement('space', this.companyId).subscribe(
-        (data: Advertisement[]) => {
-          this.filterAndDisplayAdvertisements(data);
-        },
-        error => {
-          console.error('Error fetching swap advertisements:', error);
-        }
-      );
-    }
+      if (this.ad_type === 'container') {
+        this.viewotherAds.getAdvertisement('container', this.companyId).subscribe(
+          (data: Advertisement[]) => {
+            this.filterAndDisplayAdvertisements(data, selectedType, selectedDeparture, selectedArrival);
+          },
+          error => {
+            console.error('Error fetching advertisements:', error);
+          }
+        );
+      } else if (this.ad_type === 'space') {
+        this.viewotherAds.getAdvertisement('space', this.companyId).subscribe(
+          (data: Advertisement[]) => {
+            this.filterAndDisplayAdvertisements(data, selectedType, selectedDeparture, selectedArrival);
+          },
+          error => {
+            console.error('Error fetching swap advertisements:', error);
+          }
+        );
+      }
     }
   }
   
   filterAndDisplayAdvertisements(data: Advertisement[], selectedType?: string, selectedDeparture?: string, selectedArrival?: string) {
-    if (selectedType === 'space') {
-      // Filter advertisements with ad_type "space"
-      const filteredAds = data.filter((ad: Advertisement) => {
-        return ad.ad_type === 'space';
-      });
+    // Filter the advertisements based on the selected options
+    const filteredAds = data.filter(ad => {
+      return (
+        (!selectedType || ad.type_of_ad === selectedType) &&
+        (!selectedDeparture || ad.port_of_departure === selectedDeparture) &&
+        (!selectedArrival || ad.port_of_arrival === selectedArrival)
+      );
+    });
   
-      // Display the filtered space advertisements
-      this.ads = filteredAds;
-      this.currentPage = 1;
+    // Update the component property with the filtered advertisements
+    this.ads = filteredAds;
+    this.currentPage = 1;
+  
+    // Check if any results matched the selected options
+    if (filteredAds.length === 0) {
+      this.noResultsMatched = true;
     } else {
-      // Filter advertisements based on the selectedDeparture and selectedArrival values
-      const filteredAds = data.filter((ad: Advertisement) => {
-        return (
-          (selectedDeparture && ad.port_of_departure === selectedDeparture) ||
-          (selectedArrival && ad.port_of_arrival === selectedArrival)
-        );
-      });
-  
-      // Display the filtered container advertisements
-      this.ads = filteredAds;
-      this.currentPage = 1;
+      this.noResultsMatched = false;
     }
   }
   
