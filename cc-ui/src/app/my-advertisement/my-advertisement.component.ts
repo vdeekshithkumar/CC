@@ -503,6 +503,14 @@ onExport(){
     
       const workbook = XLSX.utils.book_new();
       const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+      const columnWidths = [
+        { wch: 20 }, 
+        { wch: 20 },
+        { wch: 20 },
+        { wch: 10 }, 
+        { wch: 15 },
+      ];
+      worksheet['!cols'] = columnWidths;
     
       XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
       XLSX.writeFile(workbook, excelFileName);
