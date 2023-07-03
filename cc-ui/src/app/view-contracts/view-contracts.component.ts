@@ -16,7 +16,7 @@ export class ViewContractsComponent implements OnInit {
   userId: any
   isTitleScreen = true
   currentPage = 1;
-  itemsPerPage = 5;
+  itemsPerPage = 2                          ;
   companyId!: number;
 
   constructor(private router: Router, private sessionService: SessionService, private formBuilder: FormBuilder, private viewContractService: ViewContractsService) { }
