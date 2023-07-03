@@ -46,7 +46,7 @@ export class MyAdvertisementComponent {
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  itemsPerPage: number = 2;
+  itemsPerPage: number = 4;
 currentPage: number = 1;
 
   userId: any;
