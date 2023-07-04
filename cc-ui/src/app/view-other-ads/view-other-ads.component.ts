@@ -47,6 +47,8 @@ export interface Advertisement {
   free_days: number;
   per_diem: number;
   pickup_charges: number;
+  ad_type:string;
+  port_of_ad:string;
 }
 @Component({
   selector: 'app-view-other-ads',
@@ -120,7 +122,6 @@ export class ViewOtherAdsComponent  {
   selectedDeparturePort: any;
   adtype: any;
   sizeSelected: any;
- 
   selectedArrivalPort: any;
   size: any;
   selectedSize: any;
@@ -142,19 +143,20 @@ export class ViewOtherAdsComponent  {
 
 
   // Function to go to the previous page
-  prevPage(): void {
+  prevPage() {
     if (this.currentPage > 1) {
-      this.currentPage--;
+      this.currentPage = this.currentPage - 1;
     }
   }
-
-  // Function to go to the next page
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+  
+  nextPage() {
+    const totalPages = Math.ceil(this.ads.length / this.adsPerPage);
+    if (this.currentPage < totalPages) {
+      this.currentPage = this.currentPage + 1;
     }
   }
-
+  
+  
   userId: any;
   getCompanyId() {
     return this.company_id;
@@ -326,7 +328,7 @@ export class ViewOtherAdsComponent  {
         (data: Advertisement[]) => {
           // Store the fetched advertisements in the component property
           console.log(data);
-          this.advertisements = data;
+          this.ads = data;
           this.currentPage = 1;
           
           console.log("C or swap", this.advertisements);
@@ -425,7 +427,8 @@ export class ViewOtherAdsComponent  {
 
   }
   searchAdvertisements() {
-    if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
+    this.searchAds
+    if (!this.selectedOptions['type'] || !this.selectedDeparturePort || !this.selectedArrivalPort || !this.selectedOptions['view'] || !this.selectedSize) {
       this.showNoSelectionMessage = true;
       this.showMapView = false;
       this.showListView = true; // Show the list view component
@@ -434,21 +437,19 @@ export class ViewOtherAdsComponent  {
   
     this.showNoSelectionMessage = false;
   
-    if (this.selectedView === 'MAP') {
+    if (this.selectedOptions['view'] === 'map') {
       // Render the map view component
       this.showMapView = true;
       this.showListView = false; // Hide the list view component
-      this.adtype = this.type;
-      console.log("From list to map", this.adtype);
-      this.selectedDeparturePort = this.port_of_departure;
-      this.selectedArrivalPort = this.port_of_arrival;
+      this.adtype = this.selectedOptions['type'];
+      this.selectedDeparturePort = this.selectedDeparturePort;
+      this.selectedArrivalPort = this.selectedArrivalPort;
       this.container_size.forEach((container: Containers) => {
         if (container.type === this.selectedSize) {
-          console.log('Container Type ID:', container.container_type_id);
           this.containerTypeId = container.container_type_id; // Assign the container_type_id to the component property
         }
       });
-      console.log("from list to map con_type_id", this.containerTypeId);
+  
       // Call markPortsOnMap() of the map view component
       if (this.mapViewComponent) {
         this.mapViewComponent.clearMarkers();
@@ -462,23 +463,14 @@ export class ViewOtherAdsComponent  {
       this.showMapView = false;
       this.showListView = true; // Show the list view component
       this.noResultsMatched = false;
-      const selectedType = this.type;
-      const selectedDeparture = this.port_of_departure;
-      const selectedArrival = this.port_of_arrival;
   
-      if (selectedType === 'container') {
-        // Search advertisements with ad_type "container"
+      const selectedType = this.selectedOptions['type'];
+      const selectedDeparture = this.selectedDeparturePort;
+      const selectedArrival = this.selectedArrivalPort;
+  
+      // Call the appropriate method based on the ad_type
+      if (this.ad_type === 'container') {
         this.viewotherAds.getAdvertisement('container', this.companyId).subscribe(
-          (data: Advertisement[]) => {
-            this.filterAndDisplayAdvertisements(data);
-          },
-          error => {
-            console.error('Error fetching advertisements:', error);
-          }
-        );
-      } else {
-        // Search advertisements based on selected criteria
-        this.viewotherAds.getAdvertisement(this.ad_type, this.companyId).subscribe(
           (data: Advertisement[]) => {
             this.filterAndDisplayAdvertisements(data, selectedType, selectedDeparture, selectedArrival);
           },
@@ -486,34 +478,45 @@ export class ViewOtherAdsComponent  {
             console.error('Error fetching advertisements:', error);
           }
         );
+      } else if (this.ad_type === 'space') {
+        this.viewotherAds.getAdvertisement('space', this.companyId).subscribe(
+          (data: Advertisement[]) => {
+            this.filterAndDisplayAdvertisements(data, selectedType, selectedDeparture, selectedArrival);
+          },
+          error => {
+            console.error('Error fetching swap advertisements:', error);
+          }
+        );
       }
     }
   }
   
   filterAndDisplayAdvertisements(data: Advertisement[], selectedType?: string, selectedDeparture?: string, selectedArrival?: string) {
-    let filteredAds = data;
+    // Filter the advertisements based on the selected options
+    const filteredAds = data.filter(ad => {
+      return (
+        (!selectedType || ad.type_of_ad === selectedType) &&
+        (!selectedDeparture || ad.port_of_departure === selectedDeparture) &&
+        (!selectedArrival || ad.port_of_arrival === selectedArrival)
+      );
+    });
   
-    if (selectedDeparture && selectedArrival) {
-      filteredAds = filteredAds.filter(ad => {
-        let isTypeMatch = selectedType ? ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim() : true;
-        let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
-        return isTypeMatch && isPortMatch;
-      });
-    }
+    // Update the component property with the filtered advertisements
+    this.ads = filteredAds;
+    this.currentPage = 1;
   
-    // Filter and display the advertisements based on the selected size and its corresponding container_type_id
-    if (this.selectedSize) {
-      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
-      filteredAds = filteredAds.filter(ad => ad.container_type_id === selectedContainerTypeId);
-    }
-  
-    this.advertisements = filteredAds;
-    if (this.advertisements.length === 0) {
+    // Check if any results matched the selected options
+    if (filteredAds.length === 0) {
       this.noResultsMatched = true;
     } else {
       this.noResultsMatched = false;
     }
   }
+  
+  
+  
+  
+  
   
   
   

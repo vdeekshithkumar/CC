@@ -21,6 +21,8 @@ export interface Advertisement {
   free_days: number;
   per_diem: number;
   pickup_charges: number;
+  ad_type:string;
+  port_of_ad:string;
 }
 
  
