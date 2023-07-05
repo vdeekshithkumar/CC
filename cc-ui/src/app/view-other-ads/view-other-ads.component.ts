@@ -47,6 +47,8 @@ export interface Advertisement {
   free_days: number;
   per_diem: number;
   pickup_charges: number;
+  ad_type:string;
+  port_of_ad:string;
 }
 @Component({
   selector: 'app-view-other-ads',
@@ -120,7 +122,6 @@ export class ViewOtherAdsComponent  {
   selectedDeparturePort: any;
   adtype: any;
   sizeSelected: any;
- 
   selectedArrivalPort: any;
   size: any;
   selectedSize: any;
@@ -128,6 +129,12 @@ export class ViewOtherAdsComponent  {
   containerTypeId: any;
   showNoResultsMessage: boolean=true;
   ad_type: string = 'container';
+  searchPortOfAd: any;
+  displayedAds: Advertisement[] =[];
+  matchedAds:  Advertisement[] =[];
+  type_of_ad: any;
+  isMatched:boolean = false;
+  originalAds: Advertisement[] =[];
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -142,19 +149,20 @@ export class ViewOtherAdsComponent  {
 
 
   // Function to go to the previous page
-  prevPage(): void {
+  prevPage() {
     if (this.currentPage > 1) {
-      this.currentPage--;
+      this.currentPage = this.currentPage - 1;
     }
   }
-
-  // Function to go to the next page
-  nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
+  
+  nextPage() {
+    const totalPages = Math.ceil(this.ads.length / this.adsPerPage);
+    if (this.currentPage < totalPages) {
+      this.currentPage = this.currentPage + 1;
     }
   }
-
+  
+  
   userId: any;
   getCompanyId() {
     return this.company_id;
@@ -326,10 +334,10 @@ export class ViewOtherAdsComponent  {
         (data: Advertisement[]) => {
           // Store the fetched advertisements in the component property
           console.log(data);
-          this.advertisements = data;
+          this.ads = data;
           this.currentPage = 1;
           
-          console.log("C or swap", this.advertisements);
+          console.log("C or swap", this.ads);
         },
         error => {
           console.error('Error fetching advertisements:', error);
@@ -383,8 +391,126 @@ export class ViewOtherAdsComponent  {
   }
 
 
-
-
+  updateSearchPortOfAd() {
+    this.searchPortOfAd = this.port_of_ad;
+  }
+  searchContainerAdvertisements() {
+    debugger;
+    const searchType = this.type.toLowerCase();
+    const searchPortOfAd = this.port_of_ad;
+    let selectedSize: string = this.selectedOptions['size'];
+    console.log(selectedSize);
+  
+    this.matchedAds = []; // Reset matchedAds array before performing the new search
+  
+    if (searchType && searchPortOfAd && selectedSize) {
+      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === selectedSize)?.container_type_id;
+  
+      if (selectedContainerTypeId) {
+        for (const ad of this.ads) {
+          let isMatched = false;
+  
+          // Check if ad_type matches
+          if (ad.ad_type === 'container') {
+            // Check if type_of_ad matches
+            if (ad.type_of_ad === searchType) {
+              // Check if port_of_ad matches
+              if (ad.port_of_ad === searchPortOfAd) {
+                // Check if container_type_id matches
+                if (ad.container_type_id === selectedContainerTypeId) {
+                  isMatched = true;
+                }
+              }
+            }
+          }
+  
+          if (isMatched) {
+            const matchedAd = { ...ad };
+            this.matchedAds.push(matchedAd);
+          }
+        }
+      }
+  
+      this.ads = this.matchedAds;
+  
+      console.log("Matched Ads:", this.matchedAds);
+      console.log("After filter:", this.ads);
+    } else {
+      // No search criteria provided, reset ads to the original list
+      this.ads = [...this.originalAds];
+    }
+  }
+  
+  searchSpaceAdvertisements() {
+    debugger;
+    const searchType = this.selectedOptions['type']?.toLowerCase();
+    const searchPortOfDep = this.port_of_departure;
+    const searchPortOfArr = this.port_of_arrival;
+    let selectedSize: string = this.selectedOptions['size'];
+    console.log(selectedSize);
+  
+    this.matchedAds = []; // Reset matchedAds array before performing the new search
+  
+    if (searchType && searchPortOfDep &&searchPortOfArr && selectedSize) {
+      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === selectedSize)?.container_type_id;
+  
+      if (selectedContainerTypeId) {
+        for (const ad of this.ads) {
+          let isMatched = false;
+  
+          // Check if ad_type matches
+          if (ad.ad_type === 'space') {
+            // Check if type_of_ad matches
+            if (ad.type_of_ad === searchType) {
+              // Check if port_of_ad matches
+              if (ad.port_of_departure === searchPortOfDep) {
+                // Check if container_type_id matches
+                if (ad.port_of_arrival === searchPortOfArr) {
+                  
+                if (ad.container_type_id === selectedContainerTypeId) {
+                  isMatched = true;
+                }
+              }
+            }
+          }
+  
+          if (isMatched) {
+            const matchedAd = { ...ad };
+            this.matchedAds.push(matchedAd);
+          }
+        }
+      }
+  
+      this.ads = this.matchedAds;
+  
+      console.log("Matched Ads:", this.matchedAds);
+      console.log("After filter:", this.ads);
+    } else {
+      // No search criteria provided, reset ads to the original list
+      this.ads = [...this.originalAds];
+    }
+  }
+  
+  
+  
+  
+  
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   backPage() {
     this.router.navigate(['forecast-map']);
@@ -424,96 +550,12 @@ export class ViewOtherAdsComponent  {
     this.NButtonDisabled = this.checkNegotiation(this.companyId, ad_id);
 
   }
-  searchAdvertisements() {
-    if (!this.type || !this.port_of_departure || !this.port_of_arrival || !this.selectedView || !this.selectedSize) {
-      this.showNoSelectionMessage = true;
-      this.showMapView = false;
-      this.showListView = true; // Show the list view component
-      return;
-    }
+
   
-    this.showNoSelectionMessage = false;
   
-    if (this.selectedView === 'MAP') {
-      // Render the map view component
-      this.showMapView = true;
-      this.showListView = false; // Hide the list view component
-      this.adtype = this.type;
-      console.log("From list to map", this.adtype);
-      this.selectedDeparturePort = this.port_of_departure;
-      this.selectedArrivalPort = this.port_of_arrival;
-      this.container_size.forEach((container: Containers) => {
-        if (container.type === this.selectedSize) {
-          console.log('Container Type ID:', container.container_type_id);
-          this.containerTypeId = container.container_type_id; // Assign the container_type_id to the component property
-        }
-      });
-      console.log("from list to map con_type_id", this.containerTypeId);
-      // Call markPortsOnMap() of the map view component
-      if (this.mapViewComponent) {
-        this.mapViewComponent.clearMarkers();
-        this.mapViewComponent.markPortsOnMap();
-        setTimeout(() => {
-          this.mapViewComponent.markPortsOnMap();
-        }, 0);
-      }
-    } else {
-      // Render the list view component
-      this.showMapView = false;
-      this.showListView = true; // Show the list view component
-      this.noResultsMatched = false;
-      const selectedType = this.type;
-      const selectedDeparture = this.port_of_departure;
-      const selectedArrival = this.port_of_arrival;
   
-      if (selectedType === 'container') {
-        // Search advertisements with ad_type "container"
-        this.viewotherAds.getAdvertisement('container', this.companyId).subscribe(
-          (data: Advertisement[]) => {
-            this.filterAndDisplayAdvertisements(data);
-          },
-          error => {
-            console.error('Error fetching advertisements:', error);
-          }
-        );
-      } else {
-        // Search advertisements based on selected criteria
-        this.viewotherAds.getAdvertisement(this.ad_type, this.companyId).subscribe(
-          (data: Advertisement[]) => {
-            this.filterAndDisplayAdvertisements(data, selectedType, selectedDeparture, selectedArrival);
-          },
-          error => {
-            console.error('Error fetching advertisements:', error);
-          }
-        );
-      }
-    }
-  }
   
-  filterAndDisplayAdvertisements(data: Advertisement[], selectedType?: string, selectedDeparture?: string, selectedArrival?: string) {
-    let filteredAds = data;
   
-    if (selectedDeparture && selectedArrival) {
-      filteredAds = filteredAds.filter(ad => {
-        let isTypeMatch = selectedType ? ad.type_of_ad.toLowerCase().trim() === selectedType.toLowerCase().trim() : true;
-        let isPortMatch = ad.port_of_departure === selectedDeparture && ad.port_of_arrival === selectedArrival;
-        return isTypeMatch && isPortMatch;
-      });
-    }
-  
-    // Filter and display the advertisements based on the selected size and its corresponding container_type_id
-    if (this.selectedSize) {
-      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === this.selectedSize)?.container_type_id;
-      filteredAds = filteredAds.filter(ad => ad.container_type_id === selectedContainerTypeId);
-    }
-  
-    this.advertisements = filteredAds;
-    if (this.advertisements.length === 0) {
-      this.noResultsMatched = true;
-    } else {
-      this.noResultsMatched = false;
-    }
-  }
   
   
   
@@ -558,6 +600,7 @@ export class ViewOtherAdsComponent  {
     const selectedPorts = type === 'departure' ? this.selectedDeparturePorts : this.selectedArrivalPorts;
     return selectedPorts.includes(port);
   }
+  
   clearOptions(): void {
     this.selectedOptions = {};
     this.port_of_departure = '';

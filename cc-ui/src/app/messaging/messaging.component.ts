@@ -74,7 +74,14 @@ export class MessagingComponent implements OnInit {
     });
     this.getParticipants()
   }
-  
+  handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      if (!event.shiftKey) {
+        event.preventDefault(); // Prevents the default behavior of "Enter" key
+        this.sendMessage(this.content);
+      }
+    }
+  }
   sendMessage(content:string){
     if(content.length==0){
       return

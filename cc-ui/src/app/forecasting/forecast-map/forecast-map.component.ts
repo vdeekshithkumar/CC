@@ -68,7 +68,7 @@ export class ForecastMapComponent implements OnInit {
       this.viewDeficit()
     }
   }
- ngAfterViewInit() {
+  ngAfterViewInit() {
     this.markers = [];
     this.forecastService.getPortData(this.companyId).subscribe(data => {
       this.portData = data;
@@ -82,8 +82,8 @@ export class ForecastMapComponent implements OnInit {
         this.noPorts = true;
       }
   
-      const surplusMarkers = [];
-      const deficitMarkers = [];
+      const surplusMarkers: google.maps.Marker[] = [];
+      const deficitMarkers: google.maps.Marker[] = [];
   
       for (const port of this.portData) {
         let iconUrl = "../assets/images/yellow-dot.png";
@@ -124,34 +124,35 @@ export class ForecastMapComponent implements OnInit {
   
         this.markers.push(mapMarker);
       }
+  
 // Draw polylines between surplus and nearest deficit markers
-for (const surplusMarker of surplusMarkers) {
-  const surplusMarkerPosition = surplusMarker.getPosition();
+for (const deficitMarker of deficitMarkers) {
+  const deficitMarkerPosition = deficitMarker.getPosition();
 
-  if (surplusMarkerPosition) {
-    let closestDeficitMarker = null;
+  if (deficitMarkerPosition) {
+    let closestSurplusMarker: google.maps.Marker | null = null;
     let shortestDistance = Infinity;
 
-    for (const deficitMarker of deficitMarkers) {
-      const deficitMarkerPosition = deficitMarker.getPosition();
+    for (const surplusMarker of surplusMarkers) {
+      const surplusMarkerPosition = surplusMarker.getPosition();
 
-      if (deficitMarkerPosition) {
+      if (surplusMarkerPosition) {
         const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
         if (distance < shortestDistance) {
-          closestDeficitMarker = deficitMarker;
-          shortestDistance = distance;  
+          closestSurplusMarker = surplusMarker;
+          shortestDistance = distance;
         }
       }
     }
 
-    if (closestDeficitMarker) {
-      const closestDeficitMarkerPosition = closestDeficitMarker.getPosition();
+    if (closestSurplusMarker) {
+      const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
 
-      if (closestDeficitMarkerPosition) {
+      if (closestSurplusMarkerPosition) {
         const solidPolylineOptions: google.maps.PolylineOptions = {
           path: [
-            surplusMarkerPosition,
-            closestDeficitMarkerPosition
+            closestSurplusMarkerPosition,
+            deficitMarkerPosition
           ],
           geodesic: true,
           strokeColor: '#2F54EB',
@@ -161,8 +162,8 @@ for (const surplusMarker of surplusMarkers) {
 
         const dottedPolylineOptions: google.maps.PolylineOptions = {
           path: [
-            surplusMarkerPosition,
-            closestDeficitMarkerPosition
+            closestSurplusMarkerPosition,
+            deficitMarkerPosition
           ],
           geodesic: true,
           strokeColor: '#2F54EB',
@@ -187,15 +188,21 @@ for (const surplusMarker of surplusMarkers) {
 
         const dottedPolyline = new google.maps.Polyline(dottedPolylineOptions);
         dottedPolyline.setMap(this.map);
+
+        // Remove the closest surplus marker from the surplusMarkers array
+        const index = surplusMarkers.indexOf(closestSurplusMarker);
+        if (index > -1) {
+          surplusMarkers.splice(index, 1);
+        }
       }
     }
   }
 }
 
 
-
     });
   }
+  
   viewSurplus(){
     this.markers = [];
       this.forecastService.getSurplus(this.companyId).subscribe(data => {

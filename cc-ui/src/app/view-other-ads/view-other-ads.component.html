@@ -6,23 +6,23 @@
     <div class="radio-buttons ">
       <div style="display: inline-block;margin-right: 16px;">
         <p class="select-type">Selected Type</p>
-        <label class="radio mt-[10px]">
+        <label class="radio mt-[10px]" style="cursor: pointer;">
           <svg width="24"  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1.5 6V5.6H1.1V6H1.5ZM1.5 18.9375H1.1V19.3375H1.5V18.9375ZM12.1272 6L12.273 5.6275C12.2265 5.60933 12.1771 5.6 12.1272 5.6V6ZM22.7545 10.1585H23.1545C23.1545 9.99382 23.0536 9.84599 22.9002 9.78598L22.7545 10.1585ZM22.7545 18.9375V19.3375C22.9754 19.3375 23.1545 19.1584 23.1545 18.9375H22.7545ZM14.8375 8.77232C14.8375 8.55141 14.6584 8.37232 14.4375 8.37232C14.2166 8.37232 14.0375 8.55141 14.0375 8.77232H14.8375ZM14.0375 17.5513C14.0375 17.7723 14.2166 17.9513 14.4375 17.9513C14.6584 17.9513 14.8375 17.7723 14.8375 17.5513H14.0375ZM17.6098 9.69643C17.6098 9.47551 17.4307 9.29643 17.2098 9.29643C16.9889 9.29643 16.8098 9.47551 16.8098 9.69643H17.6098ZM16.8098 17.5513C16.8098 17.7723 16.9889 17.9513 17.2098 17.9513C17.4307 17.9513 17.6098 17.7723 17.6098 17.5513H16.8098ZM20.3821 11.0826C20.3821 10.8617 20.2031 10.6826 19.9821 10.6826C19.7612 10.6826 19.5821 10.8617 19.5821 11.0826H20.3821ZM19.5821 17.5513C19.5821 17.7723 19.7612 17.9513 19.9821 17.9513C20.2031 17.9513 20.3821 17.7723 20.3821 17.5513H19.5821ZM1.5 6.4H11.6652V5.6H1.5V6.4ZM11.2652 6V18.9375H12.0652V6H11.2652ZM11.6652 18.5375H1.5V19.3375H11.6652V18.5375ZM1.9 18.9375V6H1.1V18.9375H1.9ZM6.18259 6V18.9375H6.98259V6H6.18259ZM5.19643 10.0964H7.96875V9.29643H5.19643V10.0964ZM5.19643 16.1031H7.96875V15.3031H5.19643V16.1031ZM11.6652 6.4H12.1272V5.6H11.6652V6.4ZM11.9815 6.3725L22.6087 10.531L22.9002 9.78598L12.273 5.6275L11.9815 6.3725ZM22.3545 10.1585V18.9375H23.1545V10.1585H22.3545ZM22.7545 18.5375H11.6652V19.3375H22.7545V18.5375ZM14.0375 8.77232V17.5513H14.8375V8.77232H14.0375ZM16.8098 9.69643V17.5513H17.6098V9.69643H16.8098ZM19.5821 11.0826V17.5513H20.3821V11.0826H19.5821Z" fill="#2F54EB"/>
             </svg>            
           Container
-          <input type="radio" name="search-space" value="container" [(ngModel)]="ad_type" checked (change)="ad_type = 'container'; searchAds()">
+          <input type="radio"style="cursor: pointer;" name="search-space" value="container" [(ngModel)]="ad_type" checked (change)="ad_type = 'container'; searchAds()">
         </label>
       </div>
       <div style="display: inline-block;">
-        <label class="radio">
+        <label class="radio"style="cursor: pointer;">
           <svg width="24" height="24"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M20.25 3.75H15.75V8.25H20.25V3.75Z" stroke="#2F54EB" stroke-width="0.8"/>
             <path d="M12 12V7.5H7.5V12M12 12H16.5V16.5H7.5V12M12 12H7.5" stroke="#2F54EB" stroke-width="0.8"/>
             <path d="M12 3.75H4.5C4.08579 3.75 3.75 4.08579 3.75 4.5V19.5C3.75 19.9142 4.08579 20.25 4.5 20.25H19.5C19.9142 20.25 20.25 19.9142 20.25 19.5V12" stroke="#2F54EB" stroke-width="0.8"/>
             </svg>            
           Space
-          <input type="radio" name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="ad_type = 'space'; searchAds()">
+          <input type="radio" style="cursor: pointer;"name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="ad_type = 'space'; searchAds()">
         </label>
       </div>
     </div>
@@ -30,6 +30,7 @@
     <div class="search-type-container">
       <div
         class="search-buy-container"
+       
         [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }"
         (click)="toggleOption('type', 'Buy')"
       >
@@ -63,49 +64,48 @@
 
     <br />
 
-    <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-      
-      <p class="port-text">Port of Departure</p>
-      <div class="port-input">
-        <select
-          class="page-input"
-          style="height: 30px; width: 275px; padding: 0px"
-          [(ngModel)]="port_of_departure"
-        >
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ port.port_name }}
-          </option>
-        </select>
-      </div>
+    <div class="flex flex-col">
 
-      <p class="port-text">Port of Arrival</p>
-
-      <div class="port-input">
-        <select
-          class="page-input"
-          style="height: 30px; width: 275px; padding: 0px"
-          [(ngModel)]="port_of_arrival"
-        >
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ port.port_name }}
-          </option>
-        </select>
+      <div *ngIf="ad_type === 'container'">
+        <ng-container>
+          <p class="port-text">Port of Ad</p>
+          <div class="port-input">
+            <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_ad" (change)="updateSearchPortOfAd()">
+              <option *ngFor="let port of port_list" [value]="port.port_name">
+                {{ port.port_name }}
+              </option>
+            </select>
+          </div>
+        </ng-container>
       </div>
+     
+    
+      <ng-container *ngIf="ad_type === 'space'">
+        <p class="port-text">Port of Departure</p>
+        <div class="port-input cursor-pointer">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_departure">
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ port.port_name }}
+            </option>
+          </select>
+        </div>
+    
+        <p class="port-text">Port of Arrival</p>
+    
+        <div class="port-input">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_arrival">
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ port.port_name }}
+            </option>
+          </select>
+        </div>
+      </ng-container>
     </div>
-    <div class="flex flex-col" *ngIf="ad_type !== 'space'">
-      <p class="port-text" *ngIf="ad_type !== 'space'">Port of Ad</p>
-      <div class="port-input">
-        <select
-          class="page-input"
-          style="height: 30px; width: 275px; padding: 0px"
-          [(ngModel)]="port_of_ad"
-        >
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ port.port_name }}
-          </option>
-        </select>
-      </div>
-    </div>
+    
+    
+    
+    
+    
     <br />
     <div>
       <div class="text-after-type-sidebar">
@@ -141,7 +141,7 @@
 
         <div class="search-type-container">
           <div
-            class="search-q1-container"
+            class="search-q1-container" id="searchSize"
             [ngClass]="{ selected: selectedOptions['size'] === 'R 1TEU' }"
             (click)="toggleOption('size', 'R 1TEU')"
           >
@@ -176,7 +176,7 @@
             Clear
           </button>
         &nbsp;
-          <button (click)="searchAdvertisements()" class="seacrh-color">
+          <button (click)="searchContainerAdvertisements()" class="seacrh-color">
             Search
           </button>
       
@@ -187,7 +187,7 @@
               Clear
             </button>
           &nbsp;
-            <button (click)="searchAdvertisements()" class="seacrh-color">
+            <button (click)="searchSpaceAdvertisements()" class="seacrh-color">
               Search
             </button>
         
@@ -230,309 +230,311 @@
       
     ></app-view-other-ads-map-view>
   </div>
-  <div *ngIf="!showMapView"  >
-          <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-          
-          <ng-container
-            *ngFor="let ad of advertisements"
-            class="flex justify-center w-full items-center  border"
+ 
+  <div *ngIf="!showMapView"   >
+    <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+    
+    <ng-container
+      *ngFor="let ad of currentAds"
+      class="flex justify-center w-full items-center  border"
+    >
+      <div class="flex flex-col border-2 mt-4">
+        <div class="p-1 flex flex-row items-center justify-around">
+          <div class="flex flex-row items-center">
+            <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
+
+            <ng-container
+              *ngIf="ad.status === 'accepted'; else defaultLogo"
+            >
+              <img
+                [src]="companyLogos[ad.company_id]"
+                [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                class="w-16 h-8 object-contain"
+              />
+            </ng-container>
+
+            <ng-template #defaultLogo>
+              <img
+                src="../../assets/images/black.png"
+                [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                class="w-16 h-8 object-contain"
+              />
+            </ng-template>
+
+            <div
+              *ngIf="ad.status === 'accepted'"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+              class="font-bold whitespace-nowrap ml-8"
+            >
+              {{ companyNames[ad.company_id] }}
+            </div>
+            <div
+              *ngIf="ad.status != 'accepted'"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+              class="font-bold whitespace-nowrap ml-8"
+            >
+              ABCDXYZ
+            </div>
+
+            <div
+              *ngIf="ad.status === 'accepted'"
+              class="gray-highlights ml-4"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+            >
+              <i class="material-icons text-sm text-yellow-400">star</i>
+              {{ companyRating[ad.company_id] }}
+            </div>
+
+            <div
+              *ngIf="ad.status != 'accepted'"
+              class="gray-highlights ml-4"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+            >
+              <i class="material-icons text-sm text-yellow-400">star</i>
+              000
+            </div>
+          </div>
+
+          <div
+            *ngIf="ad.status === 'accepted'"
+            class="gray-highlights"
+            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
           >
-            <div class="flex flex-col border-2 mt-4">
-              <div class="p-1 flex flex-row items-center justify-around">
-                <div class="flex flex-row items-center">
-                  <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
+            <i class="material-icons text-xs mr-1">computer</i>
+            {{ companyDomain[ad.company_id] }}
+          </div>
+          <div
+            *ngIf="ad.status != 'accepted'"
+            class="gray-highlights"
+            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+          >
+            <i class="material-icons text-xs mr-1">computer</i>
+            www.example.com
+          </div>
 
-                  <ng-container
-                    *ngIf="ad.status === 'accepted'; else defaultLogo"
-                  >
-                    <img
-                      [src]="companyLogos[ad.company_id]"
-                      [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                      class="w-16 h-8 object-contain"
-                    />
-                  </ng-container>
+          <div
+            *ngIf="ad.status === 'accepted'"
+            class="gray-highlights"
+            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+          >
+            <i class="material-icons text-xs mr-1">place</i>
+            {{ companyAddress[ad.company_id] }}
+          </div>
 
-                  <ng-template #defaultLogo>
-                    <img
-                      src="../../assets/images/black.png"
-                      [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                      class="w-16 h-8 object-contain"
-                    />
-                  </ng-template>
-
-                  <div
-                    *ngIf="ad.status === 'accepted'"
-                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                    class="font-bold whitespace-nowrap ml-8"
-                  >
-                    {{ companyNames[ad.company_id] }}
+          <div
+            *ngIf="ad.status != 'accepted'"
+            class="gray-highlights"
+            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+          >
+            <i class="material-icons text-xs mr-1">place</i>
+            XYZ XYZ XYZ
+          </div>
+          <div class="flex flex-row gap-1">
+            <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
+          </div>
+          <button
+            class="negotiation-button"
+            [disabled]="DisableStartNegoBtn(ad.ad_id)"
+            [disabled]="NButtonDisabled"
+            [class.disabled-button]="NButtonDisabled"
+            (click)="StartNegotiation(ad.ad_id)"
+          >
+            Start Negotiation
+          </button>
+        </div>
+        <hr class="mx-2" />
+        <div class="p-1 flex flex-row items-center gap-1 justify-around">
+          <div class="flex justify-start">
+            <img 
+              src="../../assets/images/Container.png"
+              class="bg-gray-50 p-1 w-10 h-10"
+            />
+            <div class="flex flex-col text-[0.6rem]">
+              <div class="flex flex-row gap-2">
+                <div class="flex flex-col" *ngIf="ad_type === 'container'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i
+                    >Port of Ad
                   </div>
-                  <div
-                    *ngIf="ad.status != 'accepted'"
-                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                    class="font-bold whitespace-nowrap ml-8"
-                  >
-                    ABCDXYZ
-                  </div>
-
-                  <div
-                    *ngIf="ad.status === 'accepted'"
-                    class="gray-highlights ml-4"
-                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                  >
-                    <i class="material-icons text-sm text-yellow-400">star</i>
-                    {{ companyRating[ad.company_id] }}
-                  </div>
-
-                  <div
-                    *ngIf="ad.status != 'accepted'"
-                    class="gray-highlights ml-4"
-                    [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                  >
-                    <i class="material-icons text-sm text-yellow-400">star</i>
-                    000
+                  <div class="gray-highlights" >
+                    {{ ad.port_of_ad }}
                   </div>
                 </div>
-
-                <div
-                  *ngIf="ad.status === 'accepted'"
-                  class="gray-highlights"
-                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                >
-                  <i class="material-icons text-xs mr-1">computer</i>
-                  {{ companyDomain[ad.company_id] }}
+                <div class="flex flex-col" *ngIf="ad_type !== 'container'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i
+                    >Departure
+                  </div>
+                  <div class="gray-highlights" >
+                    {{ ad.port_of_departure }}
+                  </div>
                 </div>
-                <div
-                  *ngIf="ad.status != 'accepted'"
-                  class="gray-highlights"
-                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                >
-                  <i class="material-icons text-xs mr-1">computer</i>
-                  www.example.com
-                </div>
-
-                <div
-                  *ngIf="ad.status === 'accepted'"
-                  class="gray-highlights"
-                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                >
-                  <i class="material-icons text-xs mr-1">place</i>
-                  {{ companyAddress[ad.company_id] }}
-                </div>
-
-                <div
-                  *ngIf="ad.status != 'accepted'"
-                  class="gray-highlights"
-                  [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                >
-                  <i class="material-icons text-xs mr-1">place</i>
-                  XYZ XYZ XYZ
-                </div>
-                <div class="flex flex-row gap-1">
-                  <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
-                </div>
-                <button
-                  class="negotiation-button"
-                  [disabled]="DisableStartNegoBtn(ad.ad_id)"
-                  [disabled]="NButtonDisabled"
-                  [class.disabled-button]="NButtonDisabled"
-                  (click)="StartNegotiation(ad.ad_id)"
-                >
-                  Start Negotiation
-                </button>
-              </div>
-              <hr class="mx-2" />
-              <div class="p-1 flex flex-row items-center gap-1 justify-around">
-                <div class="flex justify-start">
-                  <img 
-                    src="../../assets/images/Container.png"
-                    class="bg-gray-50 p-1 w-10 h-10"
-                  />
-                  <div class="flex flex-col text-[0.6rem]">
-                    <div class="flex flex-row gap-2">
-                      <div class="flex flex-col" *ngIf="ad_type !== 'space'">
-                        <div>
-                          <i class="material-icons mr-1 text-xs">place</i
-                          >Port of Ad
-                        </div>
-                        <div class="gray-highlights" >
-                          {{ ad.port_of_ad }}
-                        </div>
-                      </div>
-                      <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-                        <div>
-                          <i class="material-icons mr-1 text-xs">place</i
-                          >Departure
-                        </div>
-                        <div class="gray-highlights" >
-                          {{ ad.port_of_departure }}
-                        </div>
-                      </div>
-                      <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-                        <div>
-                          <i class="material-icons mr-1 text-xs">place</i
-                          >Arrival
-                        </div>
-                        <div>
-                          <div class="flex flex-row gap-1">
-                            <div class="gray-highlights">
-                              {{ ad.port_of_arrival }}
-                            </div>
-                          </div>
-                        </div>
+                <div class="flex flex-col" *ngIf="ad_type !== 'container'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i
+                    >Arrival
+                  </div>
+                  <div>
+                    <div class="flex flex-row gap-1">
+                      <div class="gray-highlights">
+                        {{ ad.port_of_arrival }}
                       </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">description</i>
-                    <span class="text-[0.6rem]">Expiry Date</span>
-                  </div>
-                  <div class="text-xs font-bold">
-                    {{ ad.expiry_date | date : "dd MMMM yyyy" }}
-                  </div>
-                </div>
-
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">inventory_2</i>
-                    <span class="text-[0.6rem]">Quantity</span>
-                  </div>
-                  <div class="text-xs font-bold">{{ ad.quantity }}</div>
-                </div>
-
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">inventory_2</i>
-                    <span class="text-[0.6rem]">Type of Ad</span>
-                  </div>
-                  <div class="text-xs font-bold">{{ ad.type_of_ad }}</div>
-                </div>
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">inventory_2</i>
-                    <span class="text-[0.6rem]">Container Type</span>
-                  </div>
-                  <div class="text-xs font-bold">
-                    <ng-container *ngFor="let container of container_size">
-                      <span *ngIf="container.container_type_id === ad.container_type_id">
-                        {{ container.type }}
-                      </span>
-                    </ng-container>
-                  </div>
-                </div>
-                
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">payments</i>
-                    <span class="text-[0.6rem]">Price</span>
-                  </div>
-                  <div class="text-xs font-bold">{{ ad.price }}</div>
-                </div>
-
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">event_available</i>
-                    <span class="text-[0.6rem]">Free Days</span>
-                  </div>
-                  <div class="text-xs font-bold">{{ ad.free_days }}</div>
-                </div>
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">event_available</i>
-                    <span class="text-[0.6rem]">Per Diem</span>
-                  </div>
-                  <div class="text-xs font-bold">{{ ad.per_diem }}</div>
-                </div>
-                <div class="flex flex-col items-center">
-                  <div class="items-center justify-center">
-                    <i class="material-icons mr-1 text-xs">event_available</i>
-                    <span class="text-[0.6rem]">Pickup Charges</span>
-                  </div>
-                  <div class="text-xs font-bold">{{ ad.pickup_charges }}</div>
-                </div>
               </div>
             </div>
-            <div>
-              <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
-            </div>
-          </ng-container>
-
-          <div
-            class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
-            *ngIf="this.ads.length > 0"
-          >
-            <nav aria-label="Page navigation">
-              <ul class="inline-flex gap-2">
-                <li class="button1">
-                  <button
-                    [class.opacity-50]="currentPage === totalPages"
-                    (click)="(currentPage === 1)"
-                    (click)="prevPage()"
-                    [disabled]="currentPage < 2"
-                  
-                  >
-                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
-                    </svg>
-                    
-                  </button>
-                </li>
-
-                <li class="button3"  *ngIf="currentPage > 1" >
-                  <button
-              
-                    (click)="currentPage = currentPage"
-                    (click)="prevPage()"
-                    *ngIf="currentPage > 1"
-                    [hidden]="currentPage < 2"
-                  
-                  >
-                    {{ currentPage - 1 }}
-                  </button>
-                </li>
-
-                <li class="button2">
-                  <button
-                  
-                    *ngIf="totalPages != 1"
-                  >
-                    {{ currentPage }}
-                  </button>
-                </li>
-
-                <li class="button3" *ngIf="currentPage < totalPages">
-                  <button
-                    [class.opacity-50]="currentPage === totalPages"
-                    (click)="currentPage = currentPage"
-                    (click)="nextPage()"
-                    [hidden]="currentPage >= totalPages"
-                    *ngIf="currentPage <= totalPages"
-                  >
-                    {{ currentPage + 1 }}
-                  </button>
-                </li>
-
-                <li class="button4">
-                  <button
-                    [class.opacity-50]="currentPage === totalPages"
-                    (click)="currentPage = currentPage"
-                    (click)="nextPage()"
-                    [disabled]="currentPage >= totalPages"
-                   
-                  >
-                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
-                    </svg>
-                    
-                  </button>
-                </li>
-              </ul>
-            </nav>
           </div>
-  </div>
+
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">description</i>
+              <span class="text-[0.6rem]">Expiry Date</span>
+            </div>
+            <div class="text-xs font-bold">
+              {{ ad.expiry_date | date : "dd MMMM yyyy" }}
+            </div>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">inventory_2</i>
+              <span class="text-[0.6rem]">Quantity</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.quantity }}</div>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">inventory_2</i>
+              <span class="text-[0.6rem]">Type of Ad</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.type_of_ad }}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">inventory_2</i>
+              <span class="text-[0.6rem]">Container Type</span>
+            </div>
+            <div class="text-xs font-bold">
+              <ng-container *ngFor="let container of container_size">
+                <span *ngIf="container.container_type_id === ad.container_type_id">
+                  {{ container.type }}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+          
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">payments</i>
+              <span class="text-[0.6rem]">Price</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.price }}</div>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Free Days</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.free_days }}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Per Diem</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.per_diem }}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Pickup Charges</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.pickup_charges }}</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
+      </div>
+    </ng-container>
+
+    <div
+      class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
+      *ngIf="this.ads.length > 0"
+    >
+      <nav aria-label="Page navigation">
+        <ul class="inline-flex gap-2">
+          <li class="button1">
+            <button
+              [class.opacity-50]="currentPage === totalPages"
+              (click)="(currentPage === 1)"
+              (click)="prevPage()"
+              [disabled]="currentPage < 2"
+            
+            >
+            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
+              </svg>
+              
+            </button>
+          </li>
+
+          <li class="button3"  *ngIf="currentPage > 1" >
+            <button
+        
+              (click)="currentPage = currentPage"
+              (click)="prevPage()"
+              *ngIf="currentPage > 1"
+              [hidden]="currentPage < 2"
+            
+            >
+              {{ currentPage - 1 }}
+            </button>
+          </li>
+
+          <li class="button2">
+            <button
+            
+              *ngIf="totalPages != 1"
+            >
+              {{ currentPage }}
+            </button>
+          </li>
+
+          <li class="button3" *ngIf="currentPage < totalPages">
+            <button
+              [class.opacity-50]="currentPage === totalPages"
+              (click)="currentPage = currentPage"
+              (click)="nextPage()"
+              [hidden]="currentPage >= totalPages"
+              *ngIf="currentPage <= totalPages"
+            >
+              {{ currentPage + 1 }}
+            </button>
+          </li>
+
+          <li class="button4">
+            <button
+              [class.opacity-50]="currentPage === totalPages"
+              (click)="currentPage = currentPage"
+              (click)="nextPage()"
+              [disabled]="currentPage >= totalPages"
+             
+            >
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
+              </svg>
+              
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  
+</div>
         </div>
 </div>
 

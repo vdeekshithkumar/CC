@@ -41,7 +41,7 @@ filteredInventoryList=[];
 // sortedData: Inventory[] = [];
 port_list:any;
 port_name="";
-itemsPerPage: number = 3;
+itemsPerPage: number = 5;
 currentPage: number = 1;
 records:any[]=[];
 // inventory_list_by_companyId: any[] = [];

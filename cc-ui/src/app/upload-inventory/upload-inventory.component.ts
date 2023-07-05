@@ -45,9 +45,10 @@ export class UploadInventoryComponent {
     inventory_list_by_companyId: any[] = [];
     refrigerated:any;
     ExcelData:any;
+     Einv: Inventory[] = [];
     showForm: boolean = false;
     isClicked:boolean=false
-    itemsPerPage: number = 7;
+    itemsPerPage: number = 3;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -252,26 +253,22 @@ ReadExcel(event: any) {
   
 
   
-get totalPages(): number {
-  return Math.ceil(this.inventory_list_by_companyId.length / 8);
-}
+
 getPortName(portId: number): string {
   const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
   return port ? port.port_name : '';
 }
 prevPage() {
-
   if (this.currentPage > 1) {
-    this.currentPage--;
+    this.currentPage = this.currentPage - 1;
   }
-  
-   }
-   nextPage() {
-    if (this.currentPage < Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage)) {
-      this.currentPage++;
-    }
-  
-   }
+}
+nextPage() {
+  const totalPages = Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
+  if (this.currentPage < totalPages) {
+    this.currentPage = this.currentPage + 1;
+  }
+}
    backPage(){
     this.router.navigate(['forecast-map']);
    }
@@ -400,6 +397,40 @@ async onSubmit() {
     
    
   }
+  onExportClick(): void {
+    this.uploadInventoryservice.getInventoryByIdCID(this.companyId).subscribe(
+      (data: Inventory[]) => {
+        this.Einv = data.map((item: Inventory) => {
+          const portName = this.getPortName(item.port_id);
+          return { ...item, port_name: portName };
+        });
+        console.log("This is Einv with port names:", this.Einv);
+        this.onExport();
+      },
+      error => console.log(error)
+    );
+  }
+  
+ onExport(){
+  const worksheetName = 'Inventory';
+  const excelFileName = 'Inventory.xlsx';
+  const header = ['Port Name','Container Type','Container Size','Available','Surplus','Deficit'];
+  const data = this.Einv.map((iv) => [iv.port_name,iv.container_type,iv.container_size,iv.available,iv.surplus,iv.deficit]);
+
+  const workbook = XLSX.utils.book_new();
+  const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+   const columnWidths = [
+    { wch: 15 }, // Port Name width: 20
+    { wch: 15 }, // Container Type width: 15
+    
+  ];
+
+  // Apply column widths to worksheet
+  worksheet['!cols'] = columnWidths;
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+  XLSX.writeFile(workbook, excelFileName);
+}
   clearSearch(): void {
     this.searchTerm = '';
   }
@@ -415,12 +446,10 @@ async onSubmit() {
       clearButton.style.display = "none";
     }
   }
-  getTotalPages() {
+  get totalPages(): number {
     return Math.ceil(this.inventory_list_by_companyId.length / this.itemsPerPage);
   }
-  getPages() {
-    return Array(this.getTotalPages()).fill(0).map((_, index) => index + 1);
-  }
+
   toggleForm() {
     this.showForm = !this.showForm;
   }
