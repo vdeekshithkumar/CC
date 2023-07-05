@@ -23,6 +23,8 @@ namespace CC_api.Models
     public int free_days { get; set; }
     public int per_diem { get; set; }
     public decimal pickup_charges { get; set; }
+
+    public string ad_type { get; set; }
   }
 
 }

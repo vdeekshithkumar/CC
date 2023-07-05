@@ -30,6 +30,7 @@
     <div class="search-type-container">
       <div
         class="search-buy-container"
+       
         [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }"
         (click)="toggleOption('type', 'Buy')"
       >
@@ -63,45 +64,47 @@
 
     <br />
 
-    <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-      
-      <p class="port-text">Port of Departure</p>
-      <div class="port-input cursor-pointer">
-        <select
-          class="page-input cursor-pointer "
-          style="height: 30px; width: 275px; padding: 0px"
-          [(ngModel)]="port_of_departure"
-        >
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ port.port_name }}
-          </option>
-        </select>
-      </div>
+    <div class="flex flex-col">
 
-      <p class="port-text">Port of Arrival</p>
-
-      <div class="port-input">
-        <select
-          class="page-input  cursor-pointer"
-          style="height: 30px; width: 275px; padding: 0px"
-          [(ngModel)]="port_of_arrival"
-        >
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ port.port_name }}
-          </option>
-        </select>
+      <div *ngIf="ad_type === 'container'">
+        <ng-container>
+          <p class="port-text">Port of Ad</p>
+          <div class="port-input">
+            <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_ad" (change)="updateSearchPortOfAd()">
+              <option *ngFor="let port of port_list" [value]="port.port_name">
+                {{ port.port_name }}
+              </option>
+            </select>
+          </div>
+        </ng-container>
       </div>
+     
+    
+      <ng-container *ngIf="ad_type === 'space'">
+        <p class="port-text">Port of Departure</p>
+        <div class="port-input cursor-pointer">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_departure">
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ port.port_name }}
+            </option>
+          </select>
+        </div>
+    
+        <p class="port-text">Port of Arrival</p>
+    
+        <div class="port-input">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_arrival">
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ port.port_name }}
+            </option>
+          </select>
+        </div>
+      </ng-container>
     </div>
-    <div class="flex flex-col" *ngIf="ad_type !== 'space'">
-      <p class="port-text" *ngIf="ad_type !== 'space'">Port of Ad</p>
-      <div class="port-input ">
-        <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_ad">
-          <option *ngFor="let port of port_list" [value]="port.port_name" >
-            {{ port.port_name }}
-          </option>
-        </select>
-      </div>
-    </div>
+    
+    
+    
+    
     
     <br />
     <div>
@@ -138,7 +141,7 @@
 
         <div class="search-type-container">
           <div
-            class="search-q1-container"
+            class="search-q1-container" id="searchSize"
             [ngClass]="{ selected: selectedOptions['size'] === 'R 1TEU' }"
             (click)="toggleOption('size', 'R 1TEU')"
           >
@@ -173,7 +176,7 @@
             Clear
           </button>
         &nbsp;
-          <button (click)="searchAdvertisements()" class="seacrh-color">
+          <button (click)="searchContainerAdvertisements()" class="seacrh-color">
             Search
           </button>
       
@@ -184,7 +187,7 @@
               Clear
             </button>
           &nbsp;
-            <button (click)="searchAdvertisements()" class="seacrh-color">
+            <button (click)="searchSpaceAdvertisements()" class="seacrh-color">
               Search
             </button>
         
@@ -348,7 +351,7 @@
             />
             <div class="flex flex-col text-[0.6rem]">
               <div class="flex flex-row gap-2">
-                <div class="flex flex-col">
+                <div class="flex flex-col" *ngIf="ad_type === 'container'">
                   <div>
                     <i class="material-icons mr-1 text-xs">place</i
                     >Port of Ad
