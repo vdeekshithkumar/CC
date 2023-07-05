@@ -34,4 +34,4 @@ jobs:
           context: .
           push: true
           tags: '${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.REGISTRY_IMAGE }}:${{ github.run_number }}, ${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.REGISTRY_IMAGE }}:latest'
-          file: ./Dockerfile
+          file: ./cc-ui/Dockerfile
