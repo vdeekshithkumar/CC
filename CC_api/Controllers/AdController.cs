@@ -68,7 +68,7 @@ namespace CC_api.Controllers
       DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
       decimal price, int quantity, int port_id, int posted_by, int company_id,
       string contents, string port_of_departure, string port_of_arrival, int free_days,
-      int per_diem, decimal pickup_charges, string port_of_ad, string operation)
+      int per_diem, decimal pickup_charges, string port_of_ad, string operation, string ad_type)
 
 
     {
@@ -125,6 +125,7 @@ namespace CC_api.Controllers
             per_diem = per_diem,
             pickup_charges = pickup_charges,
             port_of_ad = port_of_ad,
+            ad_type = ad_type,
             file = uploadedFileId
           };
           await this._AdBusiness.PostAd(Ad);
