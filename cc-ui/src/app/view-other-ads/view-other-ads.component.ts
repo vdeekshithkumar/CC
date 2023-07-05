@@ -135,32 +135,12 @@ export class ViewOtherAdsComponent  {
   type_of_ad: any;
   isMatched:boolean = false;
   originalAds: Advertisement[] =[];
+  pageSize: any;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
 
 
-  get currentAds(): Advertisement[] {
-    const startIndex = (this.currentPage - 1) * this.adsPerPage;
-    const endIndex = startIndex + this.adsPerPage;
-    return this.ads.slice(startIndex, endIndex);
-  }
-
-
-
-  // Function to go to the previous page
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage = this.currentPage - 1;
-    }
-  }
-  
-  nextPage() {
-    const totalPages = Math.ceil(this.ads.length / this.adsPerPage);
-    if (this.currentPage < totalPages) {
-      this.currentPage = this.currentPage + 1;
-    }
-  }
   
   
   userId: any;
@@ -335,6 +315,7 @@ export class ViewOtherAdsComponent  {
           // Store the fetched advertisements in the component property
           console.log(data);
           this.ads = data;
+          this.originalAds = this.ads;
           this.currentPage = 1;
           
           console.log("C or swap", this.ads);
@@ -401,13 +382,13 @@ export class ViewOtherAdsComponent  {
     let selectedSize: string = this.selectedOptions['size'];
     console.log(selectedSize);
   
-    this.matchedAds = []; // Reset matchedAds array before performing the new search
-  
     if (searchType && searchPortOfAd && selectedSize) {
       const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === selectedSize)?.container_type_id;
   
       if (selectedContainerTypeId) {
-        for (const ad of this.ads) {
+        const matchedAds = [];
+  
+        for (const ad of this.originalAds) { // Loop over originalAds instead of ads
           let isMatched = false;
   
           // Check if ad_type matches
@@ -426,36 +407,75 @@ export class ViewOtherAdsComponent  {
   
           if (isMatched) {
             const matchedAd = { ...ad };
-            this.matchedAds.push(matchedAd);
+            matchedAds.push(matchedAd);
           }
         }
-      }
   
-      this.ads = this.matchedAds;
+        if (matchedAds.length > 0) {
+          this.ads = matchedAds;
+          this.currentPage = 1;
+        } else {
+          // No matched ads found
+          this.ads = [];
+          this.currentPage = 1;
+        }
+      }
   
       console.log("Matched Ads:", this.matchedAds);
       console.log("After filter:", this.ads);
     } else {
       // No search criteria provided, reset ads to the original list
       this.ads = [...this.originalAds];
+      this.currentPage = 1;
+    }
+  
+    console.log("Ads:", this.ads);
+    // Calculate the updated total number of pages based on the filtered ads
+    this.totalPages;
+  }
+  
+  // Function to get the ads for the current page
+  get currentAds(): Advertisement[] {
+    const startIndex = (this.currentPage - 1) * this.adsPerPage;
+    const endIndex = startIndex + this.adsPerPage;
+    return this.ads.slice(startIndex, endIndex);
+  }
+  
+  // Function to go to the previous page
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage = this.currentPage - 1;
     }
   }
   
+  // Function to go to the next page
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage = this.currentPage + 1;
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
   searchSpaceAdvertisements() {
     debugger;
-    const searchType = this.selectedOptions['type']?.toLowerCase();
+    const searchType = this.type.toLowerCase();
     const searchPortOfDep = this.port_of_departure;
     const searchPortOfArr = this.port_of_arrival;
     let selectedSize: string = this.selectedOptions['size'];
     console.log(selectedSize);
   
-    this.matchedAds = []; // Reset matchedAds array before performing the new search
-  
-    if (searchType && searchPortOfDep &&searchPortOfArr && selectedSize) {
+    if (searchType && searchPortOfDep && searchPortOfArr && selectedSize) {
       const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === selectedSize)?.container_type_id;
   
       if (selectedContainerTypeId) {
-        for (const ad of this.ads) {
+        const matchedAds = [];
+  
+        for (const ad of this.originalAds) { // Loop over originalAds instead of ads
           let isMatched = false;
   
           // Check if ad_type matches
@@ -464,39 +484,44 @@ export class ViewOtherAdsComponent  {
             if (ad.type_of_ad === searchType) {
               // Check if port_of_ad matches
               if (ad.port_of_departure === searchPortOfDep) {
-                // Check if container_type_id matches
                 if (ad.port_of_arrival === searchPortOfArr) {
-                  
+                // Check if container_type_id matches
                 if (ad.container_type_id === selectedContainerTypeId) {
                   isMatched = true;
                 }
+              }
               }
             }
           }
   
           if (isMatched) {
             const matchedAd = { ...ad };
-            this.matchedAds.push(matchedAd);
+            matchedAds.push(matchedAd);
           }
         }
-      }
   
-      this.ads = this.matchedAds;
+        if (matchedAds.length > 0) {
+          this.ads = matchedAds;
+          this.currentPage = 1;
+        } else {
+          // No matched ads found
+          this.ads = [];
+          this.currentPage = 1;
+        }
+      }
   
       console.log("Matched Ads:", this.matchedAds);
       console.log("After filter:", this.ads);
     } else {
       // No search criteria provided, reset ads to the original list
       this.ads = [...this.originalAds];
+      this.currentPage = 1;
     }
+  
+    console.log("Ads:", this.ads);
+    // Calculate the updated total number of pages based on the filtered ads
+    this.totalPages;
   }
-  
-  
-  
-  
-  
-}
-  
   
   
   
