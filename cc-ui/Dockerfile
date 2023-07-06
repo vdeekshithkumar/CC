@@ -1,6 +1,7 @@
 FROM node:16-alpine as builder
 WORKDIR /app
 COPY . .
+RUN find /app
 RUN npm i
 RUN npm run build
 
