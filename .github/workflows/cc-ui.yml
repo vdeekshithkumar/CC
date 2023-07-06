@@ -33,18 +33,19 @@ jobs:
           push: true
           tags: '${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.REGISTRY_IMAGE }}:${{ github.run_number }}, ${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.REGISTRY_IMAGE }}:latest'
 
-  deploy-ui-dev:
+  deploy-dev:
     runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
     steps:
-      - name: Deploy UI to Azure Web App
+      - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'container-conundrum-dev'
+          app-name: ${{ env.AZURE_APP_SERVICE_NAME }}
           slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_APP_SERVICE_UI_PUBLISH_PROFILE }}
-          images: 'ghcr.io/${{ secrets.REGISTRY_USERNAME }}/datamapper:${{ github.run_number }}'
+          images: '${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.REGISTRY_IMAGE }}:${{ env.STABLE_VERSION }}'
