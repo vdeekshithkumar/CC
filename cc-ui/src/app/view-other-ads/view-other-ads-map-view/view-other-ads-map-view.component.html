@@ -1,10 +1,22 @@
-<div  #mapContainer class="map-container">
+<div #mapContainer class="map-container">
   <google-map [options]="{ mapId: mapId, center: getMapCenter() }">
-    <map-marker *ngIf="selectedDeparturePort && departureLat && departureLng"
-      [position]="{ lat: departureLat, lng: departureLng }">
+    <!-- Add a debug marker for portOfAd -->
+    <map-marker *ngIf="ad_typetomap === 'container' && selectedTypePortOfAd"
+      [position]="{ lat: selectedTypePortOfAd.latitude, lng: selectedTypePortOfAd.longitude }"
+      [title]="selectedTypePortOfAd.port_name"
+     >
     </map-marker>
-    <map-marker *ngIf="selectedArrivalPort && arrivalLat && arrivalLng"
-      [position]="{ lat: arrivalLat, lng: arrivalLng }">
+  
+
+    <map-marker *ngIf="ad_typetomap === 'space' && selectedTypePortOfDep"
+      [position]="{ lat: selectedTypePortOfDep.latitude, lng: selectedTypePortOfDep.longitude }"
+      [title]="selectedTypePortOfDep.port_name"
+    >
+    </map-marker>
+    <map-marker *ngIf="ad_typetomap === 'space' && selectedTypePortOfArr"
+      [position]="{ lat: selectedTypePortOfArr.latitude, lng: selectedTypePortOfArr.longitude }"
+      [title]="selectedTypePortOfArr.port_name"
+      [options]="{ icon: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png' }">
     </map-marker>
   </google-map>
 </div>

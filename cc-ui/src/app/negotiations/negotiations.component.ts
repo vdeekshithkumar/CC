@@ -172,7 +172,9 @@ export class NegotiationsComponent implements OnInit {
  
 
   async fetchNegotiations(): Promise<void> {
+    debugger
     try {
+      debugger
       const data: Negotiation[] = await this.negotiationservice.getNegotiationsByCId(this.companyId).toPromise();
       this.negotiations = data;
       this.filteredNlist = this.negotiations.filter((negotiation) => {

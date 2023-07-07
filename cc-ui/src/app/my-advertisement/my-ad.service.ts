@@ -22,12 +22,14 @@ export interface Advertisement {
   free_days: number;
   per_diem: number;
   pickup_charges: number;
+  port_of_ad:string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class MyAdService {
+  private advUrl = 'https://localhost:7157/GetAllAdvertisement';
   private deleteUrl = 'https://localhost:7157/DeleteAd';
   baseUrl = 'https://localhost:7157';
   private negotiationcountUrl = 'https://localhost:7157/GetNegotiationCount'; 
@@ -91,8 +93,8 @@ getallUser(companyid:number): Observable<any> {
   return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
 }
 
-getAdsById(company_id: number, operation: string): Observable<Advertisement[]> {
-  const url = `${this.adsUrl}?companyId=${company_id}&operation=${operation}`;
+getAdsById(company_id: number, operation: string,ad_type:string): Observable<Advertisement[]> {
+  const url = `${this.adsUrl}?companyId=${company_id}&operation=${operation}&ad_type=${ad_type}`;
   return this.http.get<Advertisement[]>(url);
 }
 deleteAd(AdId: number): Observable<any> {
@@ -102,5 +104,8 @@ deleteAd(AdId: number): Observable<any> {
 getNegotiationCount(adid:number):Observable<any> {
   return this.http.get(`${this.negotiationcountUrl}/${adid}`,{responseType:'json'});
 }
-
+getAdvertisement(ad_type:string,companyId:number): Observable<Advertisement[]> {
+  const url = `${this.advUrl}?ad_type=${ad_type}&companyId=${companyId}`;
+  return this.http.get<Advertisement[]>(url);
+}
 }

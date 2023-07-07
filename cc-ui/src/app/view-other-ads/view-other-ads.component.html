@@ -205,15 +205,18 @@
         
       </div>
   </div>
-  <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
+  
+  <div class="advertisement-details fixed-advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
           <div class="flex flex-row">
+          <div>
             <h2 class="mt-3 mx-auto" style="font-weight: 500;
-            font-family: 'Poppins'; margin-left: auto;">Advertisement Details</h2> 
+            font-family: 'Poppins'; margin-left: 350px;">Advertisement Details</h2> 
             <br/>
+          </div>
             <button
             *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
             routerLink="/my-ad"
-            class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
+            class="style text-white fixed-advertisement-details font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
             [disabled]="false"
             [class.disabled-button]="false"
           >
@@ -221,12 +224,22 @@
           </button>
           
 </div>
-  <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
+  <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
     <app-view-other-ads-map-view
-      [adtype]="adtype"
-      [selectedDeparturePort]="selectedDeparturePort"
-      [selectedArrivalPort]="selectedArrivalPort"
-      [containerTypeId]="containerTypeId"
+      [ad_typetomap]="ad_typetomap"
+      [typetomap]="typetomap"
+      [selectedTypePortOfAd]="selectedTypePortOfAd"
+      [selectedSizetomap]="selectedSizetomap"
+      
+    ></app-view-other-ads-map-view>
+  </div>
+  <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'space'" class="map-view">
+    <app-view-other-ads-map-view
+      [ad_typetomap]="ad_typetomap"
+      [typetomap]="typetomap"
+      [selectedTypePortOfDep]="selectedTypePortOfDep"
+      [selectedTypePortOfArr]="selectedTypePortOfArr"
+      [selectedSizetomap]="selectedSizetomap"
       
     ></app-view-other-ads-map-view>
   </div>
