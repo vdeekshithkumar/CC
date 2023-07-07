@@ -7,6 +7,16 @@
   
   
 }
+.map-view-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.seacrh-color{
+  color: var(--base-white, #FFF);
+}
 .text-after-sidebar-searchview{
   display: flex;
   flex-direction: column;
@@ -181,13 +191,20 @@ border-style: solid black;
 padding-top:20px;
 font-size: 10px;
 
-
+text-align: center;
+font-weight: bold;
+font-size: 20px;
+margin-bottom: 10px;
  width: 67.8%;
   font-weight: bold;
   font-size: 10px;
   color: black;
 }
 
+.ad-text{
+  text-align: center;
+  
+}
 .style{
   color: #595959;
   background-color:#F0F0F0;
@@ -668,7 +685,7 @@ margin-top:245px;
 
 .clear-search-container button {
   
-  color: white;
+  
   border: none;
 
   border-radius: 2px;
@@ -721,6 +738,7 @@ margin-top:180px;
 }
 
 .clear-color{
+  color: var(--gray-gray-8, #595959);
   background-color: lightgray;
   width: 140px;
   height: 30px;

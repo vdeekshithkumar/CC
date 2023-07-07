@@ -1,6 +1,6 @@
 import { MyAdService } from './my-ad.service';
 
-import {Component, Inject} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,12 +14,14 @@ import { NegotiationListComponent } from '../negotiation-list/negotiation-list.c
 export interface Advertisement {
   ad_id: number;
   date_created: Date;
+  port_of_ad:string;
   from_date: Date;
   expiry_date: Date;
   type_of_ad: string;
   container_type_id: number;
   price: number;
   status: string;
+  
   quantity: number;
   port_id: number;
   company_id: number;
@@ -39,16 +41,21 @@ export interface Advertisement {
   styleUrls: ['./my-advertisement.component.css']
 })
 export class MyAdvertisementComponent {
-  
-
+  @Input() adType: string | undefined;
+  @Output() adTypeChange: EventEmitter<string> = new EventEmitter<string>();
+ 
+  showContainerSection: boolean = false;
+  showSpaceSection: boolean = false;
+  originalAds: Advertisement[] =[];
   Approve:any;
-
+  selectedOption: string = 'container';
+  ad_type: string = 'container';
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
   itemsPerPage: number = 4;
 currentPage: number = 1;
-
+port_of_ad:any;
   userId: any;
 ActiveadsCount:any;
 DraftadsCount:any;
@@ -118,7 +125,8 @@ pickup_charges:any;
   x: any;
   PList: any[]=[];
   userDesignation: any;
-
+  showSection: boolean = false;
+  showSectio: boolean = false;
   getCompanyId() {
      return this.company_id;
    }
@@ -130,10 +138,8 @@ pickup_charges:any;
   licenceId:any;
   showDiv = false;
   data: any;
+
   public isButtonDisabled: boolean = false;
-
-  
-
   constructor(private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private myadservice: MyAdService){
   }
 
@@ -277,7 +283,12 @@ AdsCount(){
     }
   );
 }
-
+adTypeChanged(type: string) {
+  this.ad_type = type;
+  console.log
+  this.DisplayPostForm()
+  
+}
    DisplayPostForm(){
     
     // this.ContinueDraft=0;
@@ -286,6 +297,7 @@ AdsCount(){
       
   
       data:{
+        type:this.ad_type,
         ContinueDraft:0,
         Approve:0
       }
@@ -298,6 +310,7 @@ AdsCount(){
     this.dialog.open(PostAdComponent,{
     
       data:{
+        type:this.ad_type,
         ContinueDraft:1 ,  
         adId:adId
       }
@@ -439,10 +452,11 @@ AdsCount(){
   
 
 viewAds(){
-
-this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
+debugger
+this.myadservice.getAdsById(this.companyId, this.operation,this.ad_type).subscribe(
   (data: Advertisement[]) => {
     this.ads = data;
+    console.log(this.ads)
     if(this.operation=='Active'){
       this.ActiveadsCount=this.ads.length;
     }
@@ -452,9 +466,7 @@ this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
     else{
       this.DraftadsCount=this.ads.length;
     }
-    
-
-   
+    debugger
     console.log("this is view ads"+this.ads);
   },
   error => console.log(error)
@@ -469,8 +481,8 @@ this.pendingActive = false;
 this.draftActive = false;
 this.operation = 'Active';
 this.currentPage=1;
-this.viewAds();
 
+this.viewAds();
 }
 
 onPendingActive(){
@@ -480,6 +492,7 @@ this.draftActive = false;
 this.operation = 'Pending';
 this.currentPage=1;
 this.viewAds();
+
 }
 
 onDraftsActive()
@@ -491,6 +504,7 @@ this.Active=false;
 this.operation = 'Draft';
 this.currentPage=1;
 this.viewAds();
+
 
 }
 
@@ -521,6 +535,7 @@ onExport(){
       width: '70%',
     
       data: {
+        type:this.ad_type,
         ad_id: ad_id,
         testpassing:3443,
       }
@@ -530,7 +545,7 @@ onExport(){
 
     onExportClick(): void {
        this.operation = 'Active';
-      this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
+      this.myadservice.getAdsById(this.companyId, this.operation,this.ad_type).subscribe(
         (data: Advertisement[]) => {
           this.Eads = data;
           console.log(" this is e data"+ this.Eads);
@@ -546,7 +561,53 @@ onExport(){
     this.title= null
     this.description = null
   }
-  
+  toggleContainerSection() {
+    this.showContainerSection = true;
+    this.showSpaceSection = false;
+  }
+
+  toggleSpaceSection() {
+    this.showSpaceSection = true;
+    this.showContainerSection = false;
+  }
+  onAdTypeChange(selectedAdType: string) {
+    this.adType = selectedAdType;
+    this.adTypeChange.emit(this.adType);
+  }
+  searchAds() {
+    // Check if ad_type is defined
+    if (this.ad_type) {
+      // Update the port_of_departure and port_of_arrival based on the selected ad_type
+      if (this.ad_type === 'container') {
+        this.port_of_departure = '';
+        this.port_of_arrival = '';
+      } else if (this.ad_type === 'space') {
+        this.port_of_ad = '';
+      }
+      // Call the getAdvertisement method with the selected ad_type
+      debugger
+      this.myadservice.getAdvertisement(this.ad_type, this.companyId).subscribe(
+        (data: Advertisement[]) => {
+          // Store the fetched advertisements in the component property
+          console.log(data);
+          this.ads = data;
+          this.originalAds = this.ads;
+          this.currentPage = 1;
+          
+          console.log("C or swap", this.ads);
+        },
+        error => {
+          console.error('Error fetching advertisements:', error);
+        }
+      );
+    }
+  }
+  toggleSection(section: string) {
+    this.selectedOption = section;
+  }
+  toggleSection2(event: any) {
+    this.showSectio = event.target.checked;
+  }
   deleteAd(id: number) {
     this.myadservice.deleteAd(id)
       .subscribe(

@@ -132,15 +132,12 @@
 
     <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
     
-        <div class="min-h-[200px]   bg-blue border-t border-b border-gray-200 px-5 text-gray-800 shadow-lg">
-        
-               
-                    <!-- <div class="px-3 md:w-7/12 lg:pr-10"> -->
-                        <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
-                            <div class="min-w-[600px] min-h-[100px] flex items-center mt-0">
+        <div class="min-h-[200px] bg-blue border-t border-b border-gray-200 px-5 text-gray-800 shadow-lg">
+                  <!-- <div class="px-3 md:w-7/12 lg:pr-10"> -->
+                      <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
+                            <div class="min-w-[600px] min-h-[100px] flex  flex-row items-center mt-0">
                                 
-                               
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
+                                <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type!='container'">
                                     <label class="text-gray-600 rounded-lg font-medium text-sm  ml-1">Port of Departure</label>
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
@@ -150,7 +147,7 @@
                                       </div>
                                 </div>
 
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
+                                <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type!='container'">
                                     <label class="text-gray-600 font-medium rounded-lg text-sm  ml-1">Port of Arrival</label>
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
@@ -229,7 +226,7 @@
                                       
     
     
-                                <div class="flex-grow px-2 mb-6 lg:max-w-xs">
+                                <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'">
                                     <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Ad for Port<span class="text-red-500"> *</span></label>
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_id" class="post-page-data" style="width: 154px; height: 34px;">

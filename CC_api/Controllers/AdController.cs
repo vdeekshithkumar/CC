@@ -41,7 +41,12 @@ namespace CC_api.Controllers
       return Ads;
     }
 
-
+    [HttpGet("GetAllNegAdvertisement")]
+    public async Task<List<Ad>> GetAllFiles(int companyId)
+    {
+      var Ads = await this._AdRepository.GetAllNegAdvertisement(companyId);
+      return Ads;
+    }
     [HttpPost("ExcelUploadAd")]
     public async Task<ActionResult> AdUploadExcelData([FromForm] string excelImportedData, [FromForm] int user_id, [FromForm] int company_id)
     {
@@ -186,7 +191,9 @@ namespace CC_api.Controllers
             free_days = free_days,
             per_diem = per_diem,
             pickup_charges = pickup_charges,
-            file = uploadedFileId
+            file = uploadedFileId,
+            ad_type = ad_type,
+            port_of_ad = port_of_ad,
           };
           await this._AdBusiness.PostAd(Ad);
 
@@ -239,9 +246,9 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("GetAllAds")]
-    public async Task<List<Ad>> GetAllFiles(int companyID, string operation)
+    public async Task<List<Ad>> GetAllFiles(int companyID, string operation,string ad_type)
     {
-      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation);
+      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation,ad_type);
       return Ads;
 
 

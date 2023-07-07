@@ -47,7 +47,7 @@ export class PostAdComponent implements OnInit{
   showFile:boolean = false
   showform:boolean=true;
 date_created:any;
-
+type:any;
   from_date:any;
   expiry_date:any;
   type_of_ad:any;
@@ -150,11 +150,11 @@ console.error('Uploaded file is empty');
    this.ContinueDraft=this.data.ContinueDraft; 
    this.Approve=this.data.Approve;
    this.adId=this.data.adId;
-
+this.type=this.data.type;
    console.log(this.Approve+"fghjht");
 
    console.log("the adid for draft continue is"+this.adId);
-   
+   console.log("type is "+this.type)
 
     if(this.ContinueDraft==1)
     {
