@@ -34,7 +34,7 @@ export class NegotiationsComponent implements OnInit {
   public isButtonDisabled: boolean = false;
   companyId: any;
   NButtonDisabled: boolean = false;
-  itemsPerPage: number = 1;
+  itemsPerPage: number = 2;
   currentPage: number = 1;
   userId: any;
   adId: any;
@@ -47,7 +47,9 @@ export class NegotiationsComponent implements OnInit {
   userLNames: { [userId: number]: string } = {};
   userNo: { [userId: number]: string } = {};
   AdsArrivalPort: { [ad_id: number]: string } = {};
+  AdsType: { [ad_id: number]: string } = {};
   AdsDeparturePort: { [ad_id: number]: string } = {};
+  AdsPortofAd: { [ad_id: number]: string } = {};
   AdscompanyNames: { [ad_id: number]: string } = {};
   AdscompanyLogos: { [ad_id: number]: string } = {};
   AdscompanyDomain: { [ad_id: number]: string } = {};
@@ -65,6 +67,7 @@ export class NegotiationsComponent implements OnInit {
   date_created: any;
   elementRef: any;
   AdscompanyId: any;
+  ad_type: any;
 
  
 
@@ -92,7 +95,8 @@ export class NegotiationsComponent implements OnInit {
 
   async fetchAdvertisements(): Promise<void> {
     try {
-      const data: any = await this.negotiationservice.getAdvertisement(this.companyId).toPromise();
+      this.ad_type="container"
+      const data: any = await this.negotiationservice.getAdvertisementbytype(this.ad_type,this.companyId).toPromise();
       this.ads_list = data;
       console.log("Other ads by company ID is fetched:", this.ads_list);
 
@@ -103,6 +107,8 @@ export class NegotiationsComponent implements OnInit {
         this.AdscompanyNames[ad.ad_id] = ad.company_id;
         this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
         this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
+        this.AdsType[ad.ad_id] = ad.ad_type;
+        this.AdsPortofAd[ad.ad_id] = ad.port_of_ad;
       });
     } catch (error) {
       console.log("Error loading company details:", error);
@@ -172,11 +178,10 @@ export class NegotiationsComponent implements OnInit {
  
 
   async fetchNegotiations(): Promise<void> {
-    debugger
     try {
-      debugger
       const data: Negotiation[] = await this.negotiationservice.getNegotiationsByCId(this.companyId).toPromise();
       this.negotiations = data;
+      console.log("thus is adds",this.ads_list)
       this.filteredNlist = this.negotiations.filter((negotiation) => {
         return this.ads_list.find((ad) => ad.ad_id === negotiation.ad_id);
       });
@@ -288,3 +293,4 @@ getDateOnly(date: Date): Date {
   return this.date_created;
 }
 }
+

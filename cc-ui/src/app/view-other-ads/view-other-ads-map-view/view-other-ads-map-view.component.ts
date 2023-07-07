@@ -91,7 +91,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     const mapOptions: google.maps.MapOptions = {
       mapId: this.mapId,
       center: this.getMapCenter(),
-      zoom: 3,
+      zoom: 10,
     };
   
     this.map = new google.maps.Map(

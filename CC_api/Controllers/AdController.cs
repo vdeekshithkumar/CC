@@ -35,18 +35,19 @@ namespace CC_api.Controllers
 
     }
     [HttpGet("GetAllAdvertisement")]
-    public async Task<List<Ad>> GetAllFiles(string ad_type,int companyID)
+    public async Task<List<Ad>> GetAllFiles(string ad_type, int companyID)
     {
       var Ads = await this._AdRepository.GetAllAdvertisement(ad_type, companyID);
       return Ads;
     }
-
-    [HttpGet("GetAllNegAdvertisement")]
-    public async Task<List<Ad>> GetAllFiles(int companyId)
+    [HttpGet("GetAllAdvertisemenst")]
+    public async Task<List<Ad>> GetAllFiless(string ad_type, int companyID)
     {
-      var Ads = await this._AdRepository.GetAllNegAdvertisement(companyId);
+      var Ads = await this._AdRepository.GetAllAdvertisements(ad_type, companyID);
       return Ads;
     }
+
+
     [HttpPost("ExcelUploadAd")]
     public async Task<ActionResult> AdUploadExcelData([FromForm] string excelImportedData, [FromForm] int user_id, [FromForm] int company_id)
     {
@@ -191,9 +192,7 @@ namespace CC_api.Controllers
             free_days = free_days,
             per_diem = per_diem,
             pickup_charges = pickup_charges,
-            file = uploadedFileId,
-            ad_type = ad_type,
-            port_of_ad = port_of_ad,
+            file = uploadedFileId
           };
           await this._AdBusiness.PostAd(Ad);
 
@@ -244,11 +243,18 @@ namespace CC_api.Controllers
       var Ads = await this._AdRepository.GetAdByAdID(ad_id);
       return Ads;
     }
+    [HttpGet("GetAllAdvertisementbytype")]
+    public async Task<List<Ad>> GetAllFilesbytype(string ad_type, int companyID)
+    {
+      var Ads = await this._AdRepository.GetAllAdvertisementbytype(ad_type, companyID);
+      return Ads;
+    }
+
 
     [HttpGet("GetAllAds")]
-    public async Task<List<Ad>> GetAllFiles(int companyID, string operation,string ad_type)
+    public async Task<List<Ad>> GetAllFiles(int companyID, string operation, string ad_type)
     {
-      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation,ad_type);
+      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation, ad_type);
       return Ads;
 
 
