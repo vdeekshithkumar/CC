@@ -30,7 +30,7 @@ jobs:
       - name: Build and push container image to registry
         uses: docker/build-push-action@v3
         with:
-          context: ./cc-api/
+          context: ./CC_api/
           push: true
           tags: '${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.API_REGISTRY_IMAGE }}:${{ github.run_number }}, ${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.API_REGISTRY_IMAGE }}:latest'
  
