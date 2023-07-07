@@ -1,0 +1,38 @@
+.head{
+    color: var(--gray-gray-9, #262626);
+font-size: 1.25rem;
+font-family: Poppins;
+font-style: normal;
+font-weight: 500;
+line-height: 1.5rem;
+display: flex;
+height: 4.25rem;
+padding: 1.5rem 1rem;
+justify-content: space-between;
+align-items: center;
+flex-shrink: 0;
+align-self: stretch;
+
+}
+.message-container {
+    
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow: auto;
+
+  }
+  .message-content {
+    display: inline-block;
+    background-color: #dcf8c6;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-line;
+    overflow: auto;
+  }
+.border{
+
+    border-left: 1px solid var(--gray-gray-4, #F0F0F0);
+}
