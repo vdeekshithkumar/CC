@@ -45,8 +45,8 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'API_REGISTRY_IMAGE'
+          app-name: 'container-conundrum-api'
           slot-name: 'production'
           publish-profile: ${{ secrets.AZURE_APP_SERVICE_UI_PUBLISH_PROFILE_CC_API }}
-          images: 'ghcr.io/${{ secrets.REGISTRY_USERNAME }}/API_REGISTRY_IMAGE:${{ github.run_number }}'
+          images: 'ghcr.io/${{ secrets.REGISTRY_USERNAME }}/container-conundrum-api:${{ github.run_number }}'
  
