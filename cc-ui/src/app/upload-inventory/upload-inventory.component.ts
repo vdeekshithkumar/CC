@@ -48,7 +48,7 @@ export class UploadInventoryComponent {
      Einv: Inventory[] = [];
     showForm: boolean = false;
     isClicked:boolean=false
-    itemsPerPage: number = 3;
+    itemsPerPage: number = 5;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';

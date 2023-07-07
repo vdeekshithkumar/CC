@@ -242,20 +242,25 @@
                 <div class="flex flex-col">
 
                   <div>
-
-                    <i class="material-icons mr-1 text-xs">place</i>Departure
+                  
+                    <i class="material-icons mr-1 text-xs">place</i>  {{ ad_type === 'container' ? 'Port of Ad' : 'Departure' }}
 
                   </div>
 
-                  <div class="gray-highlights">
+                  <div class="gray-highlights" *ngIf="AdsType[n.ad_id] === 'space'">
 
                     {{ AdsDeparturePort[n.ad_id] }}
+
+                  </div>
+                  <div class="gray-highlights" *ngIf="AdsType[n.ad_id] === 'container'">
+
+                    {{ AdsPortofAd[n.ad_id] }}
 
                   </div>
 
                 </div>
 
-                <div class="flex flex-col">
+                <div class="flex flex-col" *ngIf="ad_type === 'space'">
 
                   <div>
 
@@ -370,7 +375,7 @@
 
           </div>
 
-          <div class="flex flex-col items-center">
+          <!-- <div class="flex flex-col items-center">
 
             <div class="items-center justify-center">
 
@@ -382,7 +387,7 @@
 
             <div class="text-xs font-bold">{{ n.price }}</div>
 
-          </div>
+          </div> -->
 
           <div class="flex flex-col items-center">
 

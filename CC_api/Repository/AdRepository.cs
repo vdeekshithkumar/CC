@@ -31,11 +31,11 @@ namespace CC_api.Repository
         }
       }*/
 
- public async Task<List<ContainerType>> GetcontainersAsync()
-{
-    var containerData = await dbContext.container_type.ToListAsync();
-    return containerData;
-}
+    public async Task<List<ContainerType>> GetcontainersAsync()
+    {
+      var containerData = await dbContext.container_type.ToListAsync();
+      return containerData;
+    }
 
     public async Task<List<long>> GetAdsCount(int companyId)
     {
@@ -82,7 +82,7 @@ namespace CC_api.Repository
     }
 
 
-    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation,string ad_type)
+    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation, string ad_type)
     {
 
       if (operation == "Active")
@@ -109,7 +109,7 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-         ad_type = c.ad_type,
+         port_of_ad = c.port_of_ad
 
        })
        .ToListAsync();
@@ -141,8 +141,7 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-         ad_type = c.ad_type,
-
+         port_of_ad = c.port_of_ad
        })
        .ToListAsync();
 
@@ -172,24 +171,29 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-         ad_type = c.ad_type
-
+         port_of_ad = c.port_of_ad
        })
        .ToListAsync();
 
         return ads;
       }
     }
-    public async Task<List<Ad>> GetAllAdvertisement(string ad_type,int companyID)
+    public async Task<List<Ad>> GetAllAdvertisementbytype(string ad_type, int companyID)
+    {
+
+      return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active").ToListAsync();
+
+    }
+    public async Task<List<Ad>> GetAllAdvertisement(string ad_type, int companyID)
     {
 
       return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active" && c.ad_type == ad_type).ToListAsync();
 
     }
-    public async Task<List<Ad>> GetAllNegAdvertisement( int companyId)
+    public async Task<List<Ad>> GetAllAdvertisements(string ad_type, int companyID)
     {
 
-      return await dbContext.advertisement.Where(c => c.company_id == companyId && c.status == "active" ).ToListAsync();
+      return await dbContext.advertisement.Where(c => c.company_id != companyID).ToListAsync();
 
     }
     public async Task PostAd(Ad Ad)

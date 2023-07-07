@@ -376,6 +376,7 @@ export class ViewOtherAdsComponent  {
     this.searchPortOfAd = this.port_of_ad;
   }
   searchContainerAdvertisements() {
+    debugger
     const searchType = this.type.toLowerCase();
     const searchPortOfAd = this.port_of_ad;
     const selectedSize: string = this.selectedOptions['size'];

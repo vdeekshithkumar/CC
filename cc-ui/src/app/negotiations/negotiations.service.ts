@@ -1,8 +1,4 @@
 
-
-
-
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -54,7 +50,7 @@ export class NegotiationsService {
   private userUrl = 'https://localhost:7157/GetAllCompanyUser';
   private apiUrl = 'https://localhost:7157/UserPermissions';
   private NegotiationUrl = 'https://localhost:7157/GetMyNegotiations';
-  private advUrl = 'https://localhost:7157/GetAllAdvertisement';
+  private advUrl = 'https://localhost:7157/GetAllAdvertisementbytype';
 
   constructor(private http: HttpClient) { }
 
@@ -64,8 +60,8 @@ export class NegotiationsService {
  getallUser(companyid:number): Observable<any> {
     return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
   }
-  getAdvertisement(company_id: number): Observable<Advertisement[]> {
-    const url = `${this.advUrl}?companyId=${company_id}`;
+  getAdvertisementbytype(ad_type:string,company_id: number): Observable<Advertisement[]> {
+    const url = `${this.advUrl}?ad_type=${ad_type}&companyId=${company_id}`;
     return this.http.get<Advertisement[]>(url);
   }
   getNegotiationsByCId(company_id: number): Observable<any> {
