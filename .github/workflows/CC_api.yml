@@ -33,6 +33,7 @@ jobs:
           context: ./CC_api/
           push: true
           tags: '${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.API_REGISTRY_IMAGE }}:${{ github.run_number }}, ${{ secrets.REGISTRY_SOURCE }}/${{ secrets.REGISTRY_USERNAME }}/${{ secrets.API_REGISTRY_IMAGE }}:latest'
+          Dockerfile: ./Dockerfile
  
   deploy-ui-dev:
     runs-on: ubuntu-latest
