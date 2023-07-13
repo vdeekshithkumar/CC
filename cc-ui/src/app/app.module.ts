@@ -58,12 +58,12 @@ import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-ma
 import { TemplateComponent } from './template/template.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-reset-password.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
     HomeComponent,
     RegisterComponent,
     SignInComponent,
@@ -117,6 +117,8 @@ import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-res
     GoogleMapsModule,
     MatDialogModule,
     MatSnackBarModule,
+    NgChartsModule,
+   
   ],
   providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]

@@ -10,6 +10,7 @@
     <div class="left-section">
       <app-sidebar class="min-h-screen w-[150px]"></app-sidebar>
     </div>
+   
     <!--right view-->
     <div class="right-section" *ngIf="isActive('/dashboard')">
         <app-dashboard></app-dashboard>
@@ -35,6 +36,7 @@
     <div class="right-section" *ngIf="isActive('/upload-inventory')">
       <app-upload-inventory></app-upload-inventory>
     </div>
+   
     <div class="right-section" *ngIf="isActive('/upload-contract')">
       <app-upload-contract></app-upload-contract>
     </div>

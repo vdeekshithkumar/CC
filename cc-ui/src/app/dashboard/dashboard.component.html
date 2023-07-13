@@ -1,22 +1,18 @@
 <div class="div mt-16">
   <div class="div-card bg-div max-h-screen">
     <div class="div-card-div h1-div">
-      Welcome
-      <div class="div-frame text-xs">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </div>
-    </div>
+      Welcome, {{fname}} {{lname}}
   </div>
 </div>
+</div>
 
-
-<div class="flex-container ml-4">
+<div class="main">
+  <div class="flex-container ml-4">
   <div class="div-card-card1 head">
     Upcoming Bookings
   </div>
   <div class="div-card-card1 head ">
-    Active Ads
+     My Advertisements
   </div>
   <div class="div-card-card1 head">
     Open Negotiations
@@ -36,16 +32,20 @@
     
     </div>
   </div>
-  <div class="div-card-card">
+  <div class="div-card-card"  >
 
     <div class="p-3">
       <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
+      <div *ngIf="adsCount.length > 0" class="chart-container mt-1 ">
+        <canvas baseChart
+                [data]="chartData" 
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [legend]="chartLegend"
+                [type]="'doughnut'">
+        </canvas>
       </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
+      
      
     </div>
 
@@ -60,7 +60,7 @@
       </div>
       <div class="upcoming-bookings">
       </div>
-
+      
     </div>
   </div>
 </div>
@@ -68,11 +68,12 @@
   <div class="div-card-card1 foot">
     <a routerLink="#" class="">See more ></a>
   </div>
+  <!--Ads-->
   <div class="div-card-card1 foot ">
-    <a routerLink="#" class="">See more ></a>
+    <a routerLink="/my-ad" class="">See more ></a>
   </div>
   <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
+    <a routerLink="/negotiations" class="">See more ></a>
   </div>
 </div>
 <div class="flex-container ml-4 ">
@@ -138,4 +139,5 @@
   <div class="div-card-card1 foot">
     <a routerLink="#" class="">See more ></a>
   </div>
+</div>
 </div>

@@ -32,6 +32,7 @@ export class MyAdService {
   private advUrl = 'https://localhost:7157/GetAllAdvertisement';
   private deleteUrl = 'https://localhost:7157/DeleteAd';
   baseUrl = 'https://localhost:7157';
+  private myadurl = 'https://localhost:7157/GetMyAd';
   private negotiationcountUrl = 'https://localhost:7157/GetNegotiationCount'; 
   private apiUrl = 'https://localhost:7157/UserPermissions';
   private countUrl = 'https://localhost:7157/AdsCount';
@@ -106,6 +107,10 @@ getNegotiationCount(adid:number):Observable<any> {
 }
 getAdvertisement(ad_type:string,companyId:number): Observable<Advertisement[]> {
   const url = `${this.advUrl}?ad_type=${ad_type}&companyId=${companyId}`;
+  return this.http.get<Advertisement[]>(url);
+}
+getMyAd(ad_type:string,companyId:number): Observable<Advertisement[]> {
+  const url = `${this.myadurl}?ad_type=${ad_type}&companyId=${companyId}`;
   return this.http.get<Advertisement[]>(url);
 }
 }

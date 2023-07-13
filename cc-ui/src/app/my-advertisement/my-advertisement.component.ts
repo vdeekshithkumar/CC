@@ -632,7 +632,7 @@ onExport(){
    
       // Call the getAdvertisement method with the selected ad_type
       debugger
-      this.myadservice.getAdvertisement(this.ad_type, this.companyId).subscribe(
+      this.myadservice.getMyAd(this.ad_type, this.companyId).subscribe(
         (data: Advertisement[]) => {
           // Store the fetched advertisements in the component property
           console.log(data);

@@ -43,14 +43,36 @@ letter-spacing: 0.64px;
   .my-custom-class {
     width: 80%;
   }
+ 
+  .chart-container {
+    width: 100%; 
+    height: 250px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-family: Poppins;
+    color: var(--neutral-9, #434343);
+  }
+  .text{
+    color:black;
+    font-family: Poppins;
+    font-size: 10px;
+  }
+  .main{
+    margin-top:16px;
+  }
+
+  
   .div-card-card {
     width: 80%;
+    height:300px;
   }
  .div-card-card1{
-    @apply flex-1 m-3 h-10 overflow-y-auto bg-white pl-4 pt-2 pb-2
+    @apply flex-1 m-3 h-10  bg-white pl-4 pt-2 pb-2
    }
  .div-div-card{
-  @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] overflow-y-auto
+  @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] 
  }
 
 .flex-container {
