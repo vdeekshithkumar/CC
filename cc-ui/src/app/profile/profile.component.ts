@@ -201,6 +201,7 @@ export class ProfileComponent implements OnInit {
         
         // Handle the data returned by the HTTP GET request
         this.fname = data.fname
+        console.log(this.fname)
         this.lname = data.lname
         this.email = data.email
         this.company_id = data.company_id

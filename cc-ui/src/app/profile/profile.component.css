@@ -40,9 +40,7 @@
 .div-app-sidebar{
     @apply  w-[8vw] ;
   }
-/* .div-company-details{
-    @apply w-full flex flex-col sm:w-fit first:flex-row;
-} */
+
 .div-editcompany{
     @apply absolute right-0 w-4 h-4 rounded-full top-8;
 }

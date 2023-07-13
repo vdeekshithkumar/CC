@@ -18,7 +18,138 @@
 <!-- Sidebar -->
 
 <!-- Main View -->
-<div class="inline-block min-w-full mt-16 py-2 flex div-bg div-bg-line items-center">            
+<!--empty inventory screen-->
+<div *ngIf="inventory_list_by_companyId.length === 0" >
+  <div class="mt-48  ml-[500px] right-section no-inven">
+  <svg width="119" height="119" viewBox="0 0 119 119" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M26.7095 102C26.2695 102 25.8295 101.83 25.4795 101.5C19.6295 95.8001 15.6295 88.5501 13.9195 80.5501L11.8396 70.8201C11.6696 70.0301 12.0696 69.2201 12.7996 68.8701L58.7395 46.8601C59.2795 46.6001 59.9195 46.6401 60.4395 46.9601C60.9495 47.2801 61.2596 47.8401 61.2596 48.4501V100.24C61.2596 101.21 60.4696 102 59.4996 102C58.5296 102 57.7395 101.21 57.7395 100.24V51.2401L15.5696 71.4401L17.3594 79.8201C18.9194 87.1401 22.5795 93.7701 27.9395 98.9901C28.6395 99.6701 28.6495 100.78 27.9695 101.48C27.6295 101.83 27.1695 102.01 26.7095 102.01V102Z" fill="#597EF7"/>
+    <path d="M92.2893 102C91.8293 102 91.3793 101.82 91.0293 101.47C90.3493 100.77 90.3693 99.6601 91.0593 98.9801C96.4193 93.7601 100.069 87.1301 101.639 79.8101L103.429 71.4301L61.2593 51.2301V99.6301C61.2593 100.6 60.4693 101.39 59.4993 101.39C58.5293 101.39 57.7393 100.6 57.7393 99.6301V48.4401C57.7393 47.8401 58.0493 47.2701 58.5593 46.9501C59.0693 46.6301 59.7093 46.5901 60.2593 46.8501L106.199 68.8601C106.929 69.2101 107.329 70.0201 107.159 70.8101L105.079 80.5401C103.369 88.5401 99.3693 95.7901 93.5193 101.49C93.1793 101.82 92.7393 101.99 92.2893 101.99V102Z" fill="#597EF7"/>
+    <path d="M25.6497 65.36C24.6797 65.36 23.8896 64.57 23.8896 63.6V37.5C23.8896 34 26.7397 31.1599 30.2297 31.1599H88.7698C92.2698 31.1599 95.1096 34.01 95.1096 37.5V63.51C95.1096 64.48 94.3196 65.2699 93.3496 65.2699C92.3796 65.2699 91.5898 64.48 91.5898 63.51V37.5C91.5898 35.94 90.3198 34.6699 88.7598 34.6699H30.2197C28.6597 34.6699 27.3896 35.94 27.3896 37.5V63.6C27.3896 64.57 26.5996 65.36 25.6296 65.36H25.6497Z" fill="#597EF7"/>
+    <path d="M68.0093 34.6801H50.9993C50.0293 34.6801 49.2393 33.8901 49.2393 32.9201V20.5001C49.2393 17.0001 52.0893 14.1602 55.5793 14.1602H63.4192C66.9192 14.1602 69.7593 17.0101 69.7593 20.5001V32.9201C69.7593 33.8901 68.9693 34.6801 67.9993 34.6801H68.0093ZM52.7593 31.1601H66.2493V20.4901C66.2493 18.9301 64.9792 17.6602 63.4192 17.6602H55.5793C54.0193 17.6602 52.7493 18.9301 52.7493 20.4901V31.1601H52.7593Z" fill="#597EF7"/>
+    <path d="M59.4993 17.67C58.5293 17.67 57.7393 16.88 57.7393 15.91V1.76001C57.7393 0.79001 58.5293 0 59.4993 0C60.4693 0 61.2593 0.79001 61.2593 1.76001V15.91C61.2593 16.88 60.4693 17.67 59.4993 17.67Z" fill="#597EF7"/>
+    <path d="M102.79 106.69C98.6598 106.69 96.5096 105.29 94.6096 104.06C93.5296 103.36 92.5998 102.76 91.3198 102.38C90.3898 102.11 89.8497 101.13 90.1297 100.2C90.3997 99.27 91.3798 98.73 92.3098 99.01C94.0898 99.53 95.3898 100.37 96.5298 101.11C98.2298 102.22 99.6998 103.17 102.79 103.17C105.88 103.17 107.35 102.22 109.05 101.11C110.95 99.88 113.1 98.48 117.23 98.48C118.2 98.48 118.99 99.27 118.99 100.24C118.99 101.21 118.2 102 117.23 102C114.14 102 112.67 102.95 110.97 104.06C109.07 105.29 106.92 106.69 102.79 106.69Z" fill="#85A5FF"/>
+    <path d="M73.9199 106.69C69.7899 106.69 67.64 105.29 65.74 104.06C64.04 102.95 62.57 102 59.48 102C56.39 102 54.92 102.95 53.22 104.06C51.32 105.29 49.18 106.69 45.05 106.69C40.92 106.69 38.7699 105.29 36.8799 104.06C35.1799 102.95 33.7099 102 30.6199 102C27.5299 102 26.0599 102.95 24.3599 104.06C22.4599 105.29 20.3199 106.69 16.1899 106.69C12.0599 106.69 9.91002 105.29 8.02002 104.06C6.32002 102.95 4.85001 102 1.76001 102C0.79001 102 0 101.21 0 100.24C0 99.27 0.79001 98.48 1.76001 98.48C5.89001 98.48 8.03993 99.88 9.92993 101.11C11.6299 102.22 13.0999 103.17 16.1899 103.17C19.2799 103.17 20.75 102.22 22.45 101.11C24.35 99.88 26.4899 98.48 30.6199 98.48C34.7499 98.48 36.9 99.88 38.79 101.11C40.49 102.22 41.96 103.17 45.05 103.17C48.14 103.17 49.6101 102.22 51.3101 101.11C53.2101 99.88 55.35 98.48 59.48 98.48C63.61 98.48 65.7599 99.88 67.6599 101.11C69.3599 102.22 70.8299 103.17 73.9199 103.17C77.0099 103.17 78.4799 102.22 80.1799 101.11C82.0799 99.88 84.2199 98.48 88.3499 98.48C89.8099 98.48 91.1001 98.65 92.3101 99C93.2401 99.27 93.78 100.25 93.5 101.18C93.23 102.11 92.2501 102.65 91.3201 102.37C90.4401 102.11 89.4699 101.99 88.3499 101.99C85.2599 101.99 83.7901 102.94 82.0901 104.05C80.1901 105.28 78.0499 106.68 73.9199 106.68V106.69Z" fill="#ADC6FF"/>
+    <path d="M100.122 117.99C96.8395 117.99 95.1303 116.626 93.62 115.428C92.7615 114.745 92.0224 114.161 91.0049 113.791C90.2656 113.527 89.8362 112.572 90.0588 111.666C90.2734 110.76 91.0526 110.234 91.7919 110.507C93.2068 111.013 94.2402 111.832 95.1464 112.563C96.4977 113.644 97.6662 114.57 100.122 114.57C102.579 114.57 103.747 113.644 105.099 112.563C106.609 111.364 108.318 110 111.601 110C112.372 110 113 110.77 113 111.715C113 112.66 112.372 113.43 111.601 113.43C109.145 113.43 107.976 114.356 106.625 115.437C105.114 116.636 103.405 118 100.122 118V117.99Z" fill="#85A5FF"/>
+    <path d="M73.9199 118.41C69.7899 118.41 67.64 117.01 65.74 115.78C64.04 114.67 62.57 113.72 59.48 113.72C56.39 113.72 54.92 114.67 53.22 115.78C51.32 117.01 49.18 118.41 45.05 118.41C40.92 118.41 38.7699 117.01 36.8799 115.78C35.1799 114.67 33.7099 113.72 30.6199 113.72C27.5299 113.72 26.0599 114.67 24.3599 115.78C22.4599 117.01 20.3199 118.41 16.1899 118.41C12.0599 118.41 9.91002 117.01 8.02002 115.78C6.32002 114.67 4.85001 113.72 1.76001 113.72C0.79001 113.72 0 112.93 0 111.96C0 110.99 0.79001 110.2 1.76001 110.2C5.89001 110.2 8.03993 111.6 9.92993 112.83C11.6299 113.94 13.0999 114.89 16.1899 114.89C19.2799 114.89 20.75 113.94 22.45 112.83C24.35 111.6 26.4899 110.2 30.6199 110.2C34.7499 110.2 36.9 111.6 38.79 112.83C40.49 113.94 41.96 114.89 45.05 114.89C48.14 114.89 49.6101 113.94 51.3101 112.83C53.2101 111.6 55.35 110.2 59.48 110.2C63.61 110.2 65.7599 111.6 67.6599 112.83C69.3599 113.94 70.8299 114.89 73.9199 114.89C77.0099 114.89 78.4799 113.94 80.1799 112.83C82.0799 111.6 84.2199 110.2 88.3499 110.2C89.8099 110.2 91.1001 110.37 92.3101 110.72C93.2401 110.99 93.78 111.97 93.5 112.9C93.23 113.83 92.2501 114.37 91.3201 114.09C90.4401 113.83 89.4699 113.71 88.3499 113.71C85.2599 113.71 83.7901 114.66 82.0901 115.77C80.1901 117 78.0499 118.4 73.9199 118.4V118.41Z" fill="#ADC6FF"/>
+    </svg>
+ 
+  <div class="plus-icon absolute z-20 ml-20"  *ngIf="!showForm" >
+    <button (click)="toggleForm()" matTooltip="Add Inventory" (click)="updateFormHeading('Add New Inventory')">
+    <svg  width="47" height="47" viewBox="0 0 47 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="42" height="47" fill="none" style="mix-blend-mode:multiply"/>
+      <path d="M23.5 2.9375C18.0669 3.00324 12.8749 5.19074 9.0328 9.0328C5.19074 12.8749 3.00324 18.0669 2.9375 23.5C3.00324 28.9331 5.19074 34.1251 9.0328 37.9672C12.8749 41.8093 18.0669 43.9968 23.5 44.0625C28.9331 43.9968 34.1251 41.8093 37.9672 37.9672C41.8093 34.1251 43.9968 28.9331 44.0625 23.5C43.9968 18.0669 41.8093 12.8749 37.9672 9.0328C34.1251 5.19074 28.9331 3.00324 23.5 2.9375Z" fill="#597EF7"/>
+      <path d="M35.25 22.0312H24.9688V11.75H22.0312V22.0312H11.75V24.9688H22.0312V35.25H24.9688V24.9688H35.25V22.0312Z" fill="white"/>
+      </svg>
+    </button>
+  </div>
+  </div>
+  <div class="text-inv">
+    <p>Your inventory List is empty</p>
+  </div>
+  <div class="text-inv1">
+    <p>Centralize and track your containers. Add details to manage and maintain your assets. Click "Add Inventory" to start.</p>
+  </div>
+  <div class="flex-row">
+    <div class="flex items-center space-x-2 ml-[450px] mt-4 mb-2">
+      <label class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-[10em] py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+        <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.5 12V14H3.5V12H2.5V14C2.5 14.2652 2.60536 14.5196 2.79289 14.7071C2.98043 14.8946 3.23478 15 3.5 15H13.5C13.7652 15 14.0196 14.8946 14.2071 14.7071C14.3946 14.5196 14.5 14.2652 14.5 14V12H13.5Z" fill="#2F54EB"/>
+          <path d="M13.5 7L12.795 6.295L9 10.085V1H8V10.085L4.205 6.295L3.5 7L8.5 12L13.5 7Z" fill="#2F54EB"/>
+        </svg>
+        <span class="ml-1">Bulk Import</span>
+        <input class="sr-only" type="file" (change)="ReadExcel($event)">
+      </label>
+      <button type="submit" class=" inv-btn" (click)="toggleForm()" matTooltip="Add Inventory" (click)="updateFormHeading('Add New Inventory')">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply"/>
+          <path d="M10.625 9.375V5H9.375V9.375H5V10.625H9.375V15H10.625V10.625H15V9.375H10.625Z" fill="white"/>
+          </svg>
+        Add Inventory
+
+      </button>
+      <div *ngIf="showForm" class="fixed inset-0 flex items-center justify-center rounded-lg">
+        <div class="fixed inset-0 bg-black opacity-60 z-10"></div>
+        <div class="mt-4 mx-auto font-poppins relative z-20">
+          <div class="mt-10 justify-center h1 w-[52.5rem] h-[3rem]">
+            <div>
+              <div class="flex items-center justify-between ">
+                <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1">
+                  {{ formHeading }}</h1>
+                <div>
+                  <button (click)="closeForm()" class="mr-4 text-black hover:text-gray-700 focus:outline-none">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+            <div class="min-h-[200px] bg-white border-t border-b border-gray-200 px-5 text-gray-800">
+              <form class="grid grid-cols-3 gap-x-4 mt-6 font-poppins" [formGroup]= "UploadInventoryForm" (ngSubmit)="onSubmit()">
+                <div class="col-span-1 mt-0">
+                  <label class="top mb-2 font-normal">Name of Port</label>
+                  <div>
+                    <select class="upload-input-data border" style="font-size: 11px;" #port [(ngModel)]="port_name" formControlName="port_id">
+                        <option value="" disabled selected >Select your Port</option>
+                        <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
+                      </select>
+                  </div>
+                </div>
+                <div class="col-span-1 mt-0">
+                    <label class="top mb-2 font-normal">Container Type</label>
+                    <div>
+                      <select class="upload-input-data border" style="font-size: 11px;" formControlName="container_type" >
+                          <option value="" class="text-xs" disabled selected>Select Container Type</option>
+                          <option *ngFor="let type of ['refrigerated', 'non refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
+                        </select>
+                    </div>
+                  </div>
+                <div class="col-span-1 mt-0">
+                  <label class="top mb-2 font-normal">Container Size</label>
+                    <div>
+                      <select class="upload-input-data border placeholder" style="font-size: 11px;" formControlName="container_size">
+                          <option value="" class="text-xs"  class="placeholder"disabled selected>Select Container Size in TEU</option>
+                          <option>1</option>
+                          <option>2</option>
+                          <option>4</option>  
+                        </select>
+                    </div>
+                </div>
+                <div class="col-span-1 mt-4 ">
+                  <label class="top mb-2 font-normal">Available</label>
+                  <input type="number" formControlName="available" class="upload-input-data border h-8 placeholder"
+                    placeholder="Availability in Number" />
+                </div>
+                <div class="col-span-1 mt-4 ">
+                  <label class="top mb-2 font-normal">Maximum</label>
+                  <input type="number" formControlName="maximum" class="upload-input-data border h-8 placeholder"
+                    placeholder="Maximum" />
+                </div>
+                <div class="col-span-1 mt-4 ">
+                  <label class="top mb-2 font-normal">Minimum</label>
+                  <input type="number" formControlName="minimum" class="upload-input-data border h-8 placeholder"
+                    placeholder="Minimum" />
+                </div>
+                <div class="col-span-3 flex text-xs justify-between mt-16 mb-4">
+                  <button (click)="resetForm(UploadInventoryForm)"  class="font-poppins inline-flex ml-4 justify-center items-center space-0 font-light focus:outline-none py-1 leading-6 border-2 btn-primary3">
+                    Reset
+                  </button>
+                  <button type="submit" class="font-poppins inline-flex mr-4 justify-center items-center space-0 focus:outline-none py-1 leading-6 border-CCblue btn-primary1">
+                    Add Inventory
+                  </button>
+                </div>
+              </form>
+              
+            </div>
+          </div>
+      
+      </div>
+    </div>
+  </div>
+  
+</div>
+<!--empty inventory screen-->
+<div *ngIf="inventory_list_by_companyId.length > 0">
+<div class="inline-block min-w-full mt-16 py-2 flex div-bg div-bg-line items-center" >            
     <label class="forecast font-semibold ml-2 whitespace-nowrap">Current Inventory</label>
   <div class="div-search my-2 search justify-start mx-10  mt-2">
     <div class="div-search-icon">
@@ -398,5 +529,7 @@
         
       </div>
     </div>
+
+</div>
 
 </div>

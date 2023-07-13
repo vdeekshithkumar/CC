@@ -190,10 +190,10 @@ namespace CC_api.Repository
       return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active" && c.ad_type == ad_type).ToListAsync();
 
     }
-    public async Task<List<Ad>> GetAllAdvertisements(string ad_type, int companyID)
+    public async Task<List<Ad>> GetMyAd(string ad_type, int companyID)
     {
 
-      return await dbContext.advertisement.Where(c => c.company_id != companyID).ToListAsync();
+      return await dbContext.advertisement.Where(c => c.company_id == companyID && c.ad_type == ad_type).ToListAsync();
 
     }
     public async Task PostAd(Ad Ad)
