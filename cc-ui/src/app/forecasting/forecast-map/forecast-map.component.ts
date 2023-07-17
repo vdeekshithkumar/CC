@@ -70,6 +70,9 @@ export class ForecastMapComponent implements OnInit {
   }
   ngAfterViewInit() {
     this.markers = [];
+    const surplusMarkers: google.maps.Marker[] = [];
+    const deficitMarkers: google.maps.Marker[] = [];
+  
     this.forecastService.getPortData(this.companyId).subscribe(data => {
       this.portData = data;
       if (this.portData && this.portData.length > 0) {
@@ -82,126 +85,115 @@ export class ForecastMapComponent implements OnInit {
         this.noPorts = true;
       }
   
-      const surplusMarkers: google.maps.Marker[] = [];
-      const deficitMarkers: google.maps.Marker[] = [];
-  
       for (const port of this.portData) {
-        let iconUrl = "../assets/images/yellow-dot.png";
-        iconUrl = (port.surplus > port.deficit) ? "../assets/images/green-dot.png" : "../assets/images/red-dot.png";
-        const mapMarker = new google.maps.Marker({
-          position: { lat: port.latitude, lng: port.longitude },
-          map: this.map,
-          icon: {
-            url: iconUrl,
-            scaledSize: new google.maps.Size(10, 10),
-            anchor: new google.maps.Point(10 / 2, 10 / 2)
-          },
-          title: "" + port.latitude + ", " + port.longitude,
-        });
+        if (port.surplus > 0 || port.deficit > 0) {
+          let iconUrl = "../assets/images/yellow-dot.png";
+          let markerColor = null;
   
-        if (port.surplus > port.deficit) {
-          surplusMarkers.push(mapMarker);
-        } else {
-          deficitMarkers.push(mapMarker);
-        }
+          if (port.surplus > port.deficit) {
+            iconUrl = "../assets/images/green-dot.png";
+            markerColor = '#2F54EB'; // Green
+            surplusMarkers.push(this.createMarker(port, iconUrl));
+          } else if (port.deficit > port.surplus) {
+            iconUrl = "../assets/images/red-dot.png";
+            markerColor = '#FF0000'; // Red
+            deficitMarkers.push(this.createMarker(port, iconUrl));
+          }
   
-        const infoWindow = new google.maps.InfoWindow();
-        infoWindow.setPosition({ lat: port.latitude, lng: port.longitude })
-  
-        const factory = this.resolver.resolveComponentFactory(FormComponent);
-        const componentRef = factory.create(this.viewContainerRef.injector);
-        componentRef.instance.portCode = port.portCode;
-        componentRef.instance.portId = port.portId;
-        componentRef.instance.surplus = port.surplus;
-        componentRef.instance.deficit = port.deficit;
-  
-        this.appRef.attachView(componentRef.hostView);
-        infoWindow.setContent(componentRef.location.nativeElement);
-  
-        mapMarker.addListener('click', () => {
-          infoWindow.open(this.map, mapMarker);
-        });
-  
-        this.markers.push(mapMarker);
-      }
-  
-// Draw polylines between surplus and nearest deficit markers
-for (const deficitMarker of deficitMarkers) {
-  const deficitMarkerPosition = deficitMarker.getPosition();
-
-  if (deficitMarkerPosition) {
-    let closestSurplusMarker: google.maps.Marker | null = null;
-    let shortestDistance = Infinity;
-
-    for (const surplusMarker of surplusMarkers) {
-      const surplusMarkerPosition = surplusMarker.getPosition();
-
-      if (surplusMarkerPosition) {
-        const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
-        if (distance < shortestDistance) {
-          closestSurplusMarker = surplusMarker;
-          shortestDistance = distance;
+          // ...
         }
       }
-    }
-
-    if (closestSurplusMarker) {
-      const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
-
-      if (closestSurplusMarkerPosition) {
-        const solidPolylineOptions: google.maps.PolylineOptions = {
-          path: [
-            closestSurplusMarkerPosition,
-            deficitMarkerPosition
-          ],
-          geodesic: true,
-          strokeColor: '#2F54EB',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        };
-
-        const dottedPolylineOptions: google.maps.PolylineOptions = {
-          path: [
-            closestSurplusMarkerPosition,
-            deficitMarkerPosition
-          ],
-          geodesic: true,
-          strokeColor: '#2F54EB',
-          strokeOpacity: 1.0,
-          strokeWeight: 2,
-          icons: [
-            {
-              icon: {
-                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                scale: 3,
-                strokeWeight: 1,
-                fillColor: '#2F54EB',
-                fillOpacity: 1
-              },
-              offset: '100%'
-            }
-          ]
-        };
-
-        const polyline = new google.maps.Polyline(solidPolylineOptions);
-        polyline.setMap(this.map);
-
-        const dottedPolyline = new google.maps.Polyline(dottedPolylineOptions);
-        dottedPolyline.setMap(this.map);
-
-        // Remove the closest surplus marker from the surplusMarkers array
-        const index = surplusMarkers.indexOf(closestSurplusMarker);
-        if (index > -1) {
-          surplusMarkers.splice(index, 1);
-        }
-      }
-    }
-  }
-}
-
-
+  
+      // Draw polylines between surplus and nearest deficit markers
+      this.drawPolylines(surplusMarkers, deficitMarkers);
     });
   }
+  
+  createMarker(port: any, iconUrl: string): google.maps.Marker {
+    const mapMarker = new google.maps.Marker({
+      position: { lat: port.latitude, lng: port.longitude },
+      map: this.map,
+      icon: {
+        url: iconUrl,
+        scaledSize: new google.maps.Size(10, 10),
+        anchor: new google.maps.Point(10 / 2, 10 / 2)
+      },
+      title: `${port.latitude}, ${port.longitude}`,
+    });
+  
+    const infoWindow = new google.maps.InfoWindow();
+    infoWindow.setPosition({ lat: port.latitude, lng: port.longitude });
+  
+    const factory = this.resolver.resolveComponentFactory(FormComponent);
+    const componentRef = factory.create(this.viewContainerRef.injector);
+    componentRef.instance.portCode = port.portCode;
+    componentRef.instance.portId = port.portId;
+    componentRef.instance.surplus = port.surplus;
+    componentRef.instance.deficit = port.deficit;
+  
+    this.appRef.attachView(componentRef.hostView);
+    infoWindow.setContent(componentRef.location.nativeElement);
+  
+    mapMarker.addListener('click', () => {
+      infoWindow.open(this.map, mapMarker);
+    });
+  
+    this.markers.push(mapMarker);
+    return mapMarker;
+  }
+  
+  drawPolylines(surplusMarkers: google.maps.Marker[], deficitMarkers: google.maps.Marker[]) {
+    for (const deficitMarker of deficitMarkers) {
+      const deficitMarkerPosition = deficitMarker.getPosition();
+      if (deficitMarkerPosition) {
+        let closestSurplusMarker: google.maps.Marker | null = null;
+        let shortestDistance = Infinity;
+  
+        for (const surplusMarker of surplusMarkers) {
+          const surplusMarkerPosition = surplusMarker.getPosition();
+          if (surplusMarkerPosition) {
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
+            if (distance < shortestDistance) {
+              closestSurplusMarker = surplusMarker;
+              shortestDistance = distance;
+            }
+          }
+        }
+  
+        if (closestSurplusMarker) {
+          const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
+          if (closestSurplusMarkerPosition) {
+            const lineCoordinates = [closestSurplusMarkerPosition, deficitMarkerPosition];
+            const arrowSymbol: google.maps.Symbol = {
+              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+              scale: 3,
+              strokeWeight: 1,
+              fillColor: '#2F54EB',
+              fillOpacity: 1
+            };
+  
+            const polylineOptions: google.maps.PolylineOptions = {
+              path: lineCoordinates,
+              geodesic: true,
+              strokeColor: '#2F54EB',
+              strokeOpacity: 1.0,
+              strokeWeight: 2,
+              icons: [{
+                icon: arrowSymbol,
+                offset: '100%'
+              }]
+            };
+  
+            const polyline = new google.maps.Polyline(polylineOptions);
+            polyline.setMap(this.map);
+          }
+        }
+      }
+    }
+  }
+  
+  
+  
   
   viewSurplus(){
     this.markers = [];

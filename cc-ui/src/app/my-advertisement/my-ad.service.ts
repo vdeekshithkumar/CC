@@ -39,6 +39,7 @@ export class MyAdService {
   private Url = 'https://localhost:7157/GetCompanyById';
   private userUrl = 'https://localhost:7157/GetAllUser';
   private adsUrl = 'https://localhost:7157/GetAllAds';
+  private myadsurl ='https://localhost:7157/GetMyAds';
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {
@@ -47,8 +48,12 @@ export class MyAdService {
   getAdsCount(companyId: number): Observable<any> {
     return this.http.get(`${this.countUrl}?company_id=${companyId}`);
   }
-
-
+  getSpaceAds(ad_type:string,companyId: number,): Observable<any> {
+    return this.http.get(`${this.myadsurl}?ad_type=${ad_type}&companyId=${companyId}`);
+  }
+  getContainerAds(ad_type:string,companyId: number,): Observable<any> {
+    return this.http.get(`${this.myadsurl}?ad_type=${ad_type}&companyId=${companyId}`);
+  }
   updateAd(id: number, file: File, from_date: Date, expiry_date: number, type_of_ad: string,
     container_type_id: number, price: number, quantity: number, port_id: number,
     userId: number, companyId: number, contents: string, port_of_departure: string,

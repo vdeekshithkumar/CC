@@ -9,33 +9,50 @@
 <div class="main">
   <div class="flex-container ml-4">
   <div class="div-card-card1 head">
-    Upcoming Bookings
+    Containers
+  </div>
+  <div class="div-card-card1 head">
+    Space
   </div>
   <div class="div-card-card1 head ">
      My Advertisements
-  </div>
-  <div class="div-card-card1 head">
-    Open Negotiations
   </div>
 </div>
 <div class="flex-container ml-4 -mt-6">
   <div class="div-card-card">
 
     <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
+      <!-- Line Chart -->
+      <div *ngIf="PieChartData && originalcontainerAds.length >0" class="chart-container-pie mt-10">
+        <canvas baseChart
+                [datasets]="PieChartData.datasets"
+                [labels]="PieChartData.labels"
+                [options]="PieChartOptions"
+                [type]="'pie'"
+                style="height: 200px; width: 350px;">
+        </canvas>
       </div>
-      <div class="upcoming-bookings mt-8  ">
+    </div>
+  </div>
+
+  <div class="div-card-card">
+    <div class="p-3">
+      <!-- Line Chart -->
+      <div *ngIf="lineChartData && originalspaceAds.length>0" class="chart-container-line mt-14">
+        <canvas baseChart
+                [datasets]="lineChartData.datasets"
+                [labels]="lineChartData.labels"
+                [options]="lineChartOptions"
+                [type]="'bar'"
+                style="height: 200px; width: 350px;">
+        </canvas>
       </div>
-      <div class="upcoming-bookings">
-      </div>
-    
     </div>
   </div>
   <div class="div-card-card"  >
 
     <div class="p-3">
-      <!-- Dummy bookings -->
+      <!-- myads -->
       <div *ngIf="adsCount.length > 0" class="chart-container mt-1 ">
         <canvas baseChart
                 [data]="chartData" 
@@ -50,30 +67,11 @@
     </div>
 
   </div>
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
-      
-    </div>
-  </div>
 </div>
 <div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
-  </div>
   <!--Ads-->
-  <div class="div-card-card1 foot ">
-    <a routerLink="/my-ad" class="">See more ></a>
-  </div>
   <div class="div-card-card1 foot">
-    <a routerLink="/negotiations" class="">See more ></a>
+    <a routerLink="/my-ad" class="">See more ></a>
   </div>
 </div>
 <div class="flex-container ml-4 ">
@@ -98,8 +96,9 @@
       </div>
       <div class="upcoming-bookings">
       </div>
-      
+     
     </div>
+
   </div>
   <div class="div-card-card">
 

@@ -5,6 +5,7 @@ using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Runtime.InteropServices;
 
 
 namespace CC_api.Business
@@ -60,53 +61,143 @@ namespace CC_api.Business
       }
     }
 
-    public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
+
+public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
+
     {
 
 
 
+
+
       if (item == null || item.Count == 0)
-      {
-        throw new System.Exception("Excel data is empty.");
-      }
-      else
+
       {
 
+        throw new System.Exception("Excel data is empty.");
+
+      }
+
+      else
+
+      {
+
+
+
         foreach (var i in item)
+
         {
+
           //
+
+
+
+          var ad_for_port = await AdRepository.GetPortName(i.port_id);
+
+
+          if (ad_for_port == null)
+
+          {
+
+            ad_for_port = "NA";
+
+
+
+          }
+
           var ad = new Ad();
+
+
 
           DateTime currentDate = DateTime.Now;
 
+
+
           ad.ad_id = i.ad_id;
+
           ad.date_created = i.date_created;
+
           ad.from_date = i.from_date;
+
           ad.expiry_date = i.expiry_date;
+
           ad.type_of_ad = i.type_of_ad;
+
           ad.container_type_id = i.container_type_id;
+
           ad.price = i.price;
+
           ad.status = i.status;
+
           ad.quantity = i.quantity;
+
           ad.port_id = i.port_id;
+
           ad.company_id = company_id;
+
           ad.posted_by = user_id;
+
           ad.contents = i.contents;
+
+
+
+          ad.port_of_ad = i.port_of_ad;
+
+          ad.ad_type = i.ad_type;
+
           ad.port_of_departure = i.port_of_departure;
+
           ad.port_of_arrival = i.port_of_arrival;
+
           ad.free_days = i.free_days;
+
           ad.per_diem = i.per_diem;
+
           ad.pickup_charges = i.pickup_charges;
+
           ad.file = "NA";
+
+
+
 
 
           await AdRepository.PostAd(ad);
 
 
+
+
+
         }
+
         return new OkResult();
 
+
+
       }
+
+
+
+
+
+    }
+
+ 
+
+public async Task<String> GetPortName(int id)
+
+    {
+
+      return await AdRepository.GetPortName(id);
+
+
+
+    }
+
+    public async Task<int> GetPortId(string portName)
+
+    {
+
+      return await AdRepository.GetPortId(portName);
 
 
 
@@ -116,6 +207,16 @@ namespace CC_api.Business
       var AdsCount = await AdRepository.GetAdsCount(companyId);
       var count = new List<int>();
       foreach (var c in AdsCount)
+      {
+        count.Add((int)c);
+      }
+      return count;
+    }
+    public async Task<List<int>> GetMyAdscount(string ad_type,int companyId)
+    {
+      var GetMyAdscount = await AdRepository.GetMyAdscount(ad_type,companyId);
+      var count = new List<int>();
+      foreach (var c in GetMyAdscount)
       {
         count.Add((int)c);
       }
@@ -175,6 +276,8 @@ namespace CC_api.Business
       ad.port_of_arrival = Ad.port_of_arrival;
       ad.free_days = Ad.free_days;
       ad.per_diem = Ad.per_diem;
+      ad.port_of_ad= Ad.port_of_ad;
+      ad.ad_type = Ad.ad_type;
       ad.pickup_charges = Ad.pickup_charges;
       ad.file = Ad.file;
 

@@ -11,7 +11,14 @@ import { NumberSymbol } from '@angular/common';
 import { DialogComponent } from '../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ViewOtherAdsService } from '../view-other-ads/view-other-ads.service';
+export interface Containers {
+  container_type_id: number;
+  type: string;
+  capacity: number;
 
+
+}
 export interface Inventory {
   port_name:string;
   port_id: number;
@@ -39,6 +46,7 @@ export class UploadInventoryComponent {
     inv:Inventory[]=[]
     searchPortId: any;
     port_list:any;
+    condata:any;
     container_type="";
     inventory_list=null;
     records:any[]=[];
@@ -46,6 +54,7 @@ export class UploadInventoryComponent {
     refrigerated:any;
     ExcelData:any;
      Einv: Inventory[] = [];
+     container_list: Containers[] = [];
     showForm: boolean = false;
     isClicked:boolean=false
     itemsPerPage: number = 5;
@@ -66,7 +75,7 @@ export class UploadInventoryComponent {
     y:any=0;
     searchTerm:any;
     showValidationErrors: boolean = false;
-    constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
+    constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice,private viewotherAds: ViewOtherAdsService){ 
      }
      addExcel(): void {
 
@@ -163,7 +172,18 @@ ReadExcel(event: any) {
         console.error('Error retrieving company ID:', error);
       }
     );
-
+    this.viewotherAds.getAllContainers().subscribe(
+      (condata: Containers[]) => {
+        // Filter out duplicate values based on capacity
+        const uniqueContainers = condata.filter((container, index, self) =>
+          index === self.findIndex((c) => c.capacity === container.capacity)
+        );
+    
+        this.container_list = uniqueContainers;
+        console.log(JSON.stringify(this.container_list));
+      }
+    );
+    
 
     const now = new Date();
     const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
