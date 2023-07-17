@@ -48,6 +48,7 @@ export class PostAdComponent implements OnInit{
   showform:boolean=true;
 date_created:any;
 type:any;
+
   from_date:any;
   expiry_date:any;
   type_of_ad:any;
@@ -62,6 +63,7 @@ port_of_departure:any;
 port_of_arrival:any;
 free_days:any;
 per_diem:any;
+port_of_ad:any;
 pickup_charges:any;
 public isButtonDisabled: boolean = false;
 Approve: any;
@@ -175,6 +177,7 @@ this.type=this.data.type;
         this.port_of_departure=this.ads[0].port_of_departure;
         this.port_of_arrival=this.ads[0].port_of_arrival;
         this.free_days=this.ads[0].free_days;
+        this.port_of_ad=this.ads[0].port_of_ad;
      
         this.expiry_date=this.getWeekDifference(this.ads[0].from_date,this.expiry_date);
        
@@ -263,12 +266,13 @@ this.type=this.data.type;
 
   
   async onPost() {
+    debugger
     this.isLoading=true;
   if(this.operation=="PostAd"){
-    if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) {
+    if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.container_type_id && this.type_of_ad) {
 
-    
-      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+    debugger
+      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
      
         
         if (response.message === 'Success') {
@@ -294,10 +298,10 @@ this.type=this.data.type;
 
   else{
     this.isLoading=true;
-    if (this.port_id && this.container_type_id && this.file) {
+    if (this.container_type_id && this.file) {
 
 
-      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
     
       
        if (response.message === 'Success') {
@@ -363,10 +367,10 @@ this.type=this.data.type;
 
   Edit(ad_id: number){
     if(this.operation=="PostAd"){
-      if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) 
+      if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file  && this.container_type_id && this.type_of_ad) 
       {
 
-                  this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+                  this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
                 
                   
                   if (response.message === 'Success') {
@@ -392,7 +396,7 @@ this.type=this.data.type;
     if (this.port_id && this.container_type_id && this.file) {
     
 
-      this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+      this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
     
       
        if (response.message === 'Success') {
@@ -414,20 +418,9 @@ this.type=this.data.type;
   }
   }
   
-//   options = ['Buy', 'Lease', 'Sell','Swap'];
- 
-//    selectedOption = 0;
-//    selectOption(index: number) {
-//    this.selectedOption = index;
-//    this.type_of_ad = this.options[index];
-   
-// }
+
   clear(){
     this.title= null
     this.description = null
   }
 }
-
-
-
-

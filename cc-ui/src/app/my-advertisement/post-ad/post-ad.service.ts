@@ -19,11 +19,13 @@ export interface Advertisement {
   posted_by: number;
   contents: string;
   file: string;
+  port_of_ad:string;
   port_of_departure: string;
   port_of_arrival: string;
   free_days: number;
   per_diem: number;
   pickup_charges: number;
+  ad_type:string;
 }
 export interface Port {
   id: number;
@@ -38,9 +40,9 @@ export class PostAdService {
   private ad_Url = 'https://localhost:7157/GetAd';
   constructor(private http: HttpClient) { }
 
-  uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string) {
+  uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string,port_of_ad:string,ad_type:string) {
   if(operation=="PostAd"){
-
+debugger
     const formData = new FormData();
     formData.append('file', file);
 
@@ -52,7 +54,7 @@ export class PostAdService {
     formData.append('container_type_id', container_type_id.toString());
     formData.append('price', (price || 0).toString());
     formData.append('quantity', (quantity || 0).toString());
-    formData.append('port_id', port_id.toString());
+    formData.append('port_id', (port_id || 0).toString());
     formData.append('posted_by', userId.toString());
     formData.append('company_id', companyId.toString());
     formData.append('contents', (contents || 'NA'));
@@ -62,6 +64,8 @@ export class PostAdService {
     formData.append('per_diem', (per_diem || 0).toString());
     formData.append('pickup_charges', (pickup_charges || 0).toString());
     formData.append('operation', operation);
+    formData.append('port_of_ad', (port_of_ad || 'NA'));
+    formData.append('ad_type', (ad_type || 'NA'));
     
     return this.http.post(`${this.baseUrl}/PostAd`, formData);
 
@@ -76,7 +80,7 @@ export class PostAdService {
     formData.append('container_type_id', container_type_id.toString());
     formData.append('price', (price || 0).toString());
     formData.append('quantity', (quantity || 0).toString());
-    formData.append('port_id', port_id.toString());
+    formData.append('port_id', (port_id || 0).toString());
     formData.append('posted_by', userId.toString());
     formData.append('company_id', companyId.toString());
     formData.append('contents', (contents || 'NA'));
@@ -86,6 +90,9 @@ export class PostAdService {
     formData.append('per_diem', (per_diem || 0).toString());
     formData.append('pickup_charges', (pickup_charges || 0).toString());
     formData.append('operation', operation);
+    formData.append('port_of_ad', port_of_ad);
+    formData.append('ad_type', (ad_type || 'NA'));
+
     return this.http.post(`${this.baseUrl}/PostAd`, formData);
 
   }
@@ -95,7 +102,7 @@ export class PostAdService {
     container_type_id: number, price: number, quantity: number, port_id: number,
     userId: number, companyId: number, contents: string, port_of_departure: string,
     port_of_arrival: string, free_days: number, per_diem: number, pickup_charges: number,
-    operation: string): Observable<any> {
+    operation: string,port_of_ad:string,ad_type:string): Observable<any> {
 
       const formData = new FormData();
       formData.append('file', file);
@@ -106,7 +113,7 @@ export class PostAdService {
       formData.append('container_type_id', container_type_id.toString());
       formData.append('price', (price || 0).toString());
       formData.append('quantity', (quantity || 0).toString());
-      formData.append('port_id', port_id.toString());
+      formData.append('port_id', (port_id || 0).toString());
       formData.append('posted_by', userId.toString());
       formData.append('company_id', companyId.toString());
       formData.append('contents', (contents || 'NA'));
@@ -116,6 +123,9 @@ export class PostAdService {
       formData.append('per_diem', (per_diem || 0).toString());
       formData.append('pickup_charges', (pickup_charges || 0).toString());
       formData.append('operation', operation);
+      formData.append('port_of_ad', port_of_ad);
+      formData.append('ad_type', (ad_type || 'NA'));
+
 const url = `${this.baseUrl}/Edit/${id}`;
 return this.http.put(url, formData);
 }

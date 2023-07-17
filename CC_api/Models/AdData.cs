@@ -20,6 +20,8 @@ namespace CC_api.Models
     public string contents { get; set; }
     public string port_of_departure { get; set; }
     public string port_of_arrival { get; set; }
+
+    public string port_of_ad { get; set; }
     public int free_days { get; set; }
     public int per_diem { get; set; }
     public decimal pickup_charges { get; set; }

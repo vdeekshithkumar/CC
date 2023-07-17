@@ -196,6 +196,32 @@ namespace CC_api.Repository
       return await dbContext.advertisement.Where(c => c.company_id == companyID && c.ad_type == ad_type).ToListAsync();
 
     }
+    public async Task<List<long>> GetMyAdscount(string ad_type,int companyId)
+    {
+
+
+
+      var buyAds = await dbContext.advertisement
+      .Where(a => a.company_id == companyId && a.type_of_ad == "buy" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      var count = new List<long>();
+      count.Add(buyAds);
+
+      var sellAds = await dbContext.advertisement
+      .Where(a => a.company_id == companyId && a.type_of_ad == "sell" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(sellAds);
+
+
+      var leaseAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.type_of_ad == "lease" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(leaseAds);
+
+      var swapAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.type_of_ad == "swap" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(swapAds);
+
+
+      return count;
+    }
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);
@@ -229,14 +255,37 @@ namespace CC_api.Repository
     {
       dbContext.advertisement.Update(Ad);
       await dbContext.SaveChangesAsync();
-    }
 
+    }
+    public async Task<string> GetPortName(int id)
+    {
+      var port = await dbContext.ports
+      .Where(a => a.port_id == id)
+      .Select(c => c.port_name)
+     .FirstOrDefaultAsync();
+
+
+
+      return port;
+    }
+    public async Task<int> GetPortId(string portName)
+    {
+      var port = await dbContext.ports
+      .Where(a => a.port_name == portName)
+      .Select(c => c.port_id)
+     .FirstOrDefaultAsync();
+
+
+
+      return port;
+    }
     public async Task<List<KeyValuePair<int, string>>> GetAdByCompanyID(int companyID)
     {
       var Ad = dbContext.advertisement.Where(c => c.company_id == companyID);
       var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
       return uploadedFiles;
     }
+
     /* public async Task DeleteAd(int AdID)
      {
        dbContext.advertisement.Remove(
@@ -244,4 +293,6 @@ namespace CC_api.Repository
        await dbContext.SaveChangesAsync();
      }*/
   }
+
+
 }
