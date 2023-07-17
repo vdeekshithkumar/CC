@@ -557,8 +557,28 @@ viewAds() {
     this.currentPage = 1;
     this.viewAds();
   }
-  
 
+downloadTemplate() {
+    const worksheetName = 'Advertisements';
+    const excelFileName = 'template.xlsx';
+    const header = ['Date created', 'From date', 'Expiry date', 'Type of Ad', 'Container type id', 'Price', 'Status', 'Quantity', 'Port id', 'Contents', 'Port of Departure', 'Port of arrival', 'Free days', 'Per diem', 'Pickup Charges'];
+ 
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([header]);
+ 
+    const columnWidths = [
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 10 },
+       { wch: 15 },
+    ];
+    worksheet['!cols'] = columnWidths;
+ 
+    XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+    XLSX.writeFile(workbook, excelFileName);
+ }
+ 
 
 
 
