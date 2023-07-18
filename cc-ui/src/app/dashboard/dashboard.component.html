@@ -24,7 +24,7 @@
     <!-- <div class="p-3"> -->
       <!-- Line Chart -->
       <div *ngIf="PieChartData && originalcontainerAds.length>0" class="chart-container-pie">
-        <canvas baseChart style="height: 280px; margin-top: 250px; overflow: hidden;"
+        <canvas baseChart style=" height: 280px; overflow: hidden; "
                 [datasets]="PieChartData.datasets"
                 [labels]="PieChartData.labels"
                 [options]="PieChartOptions"
@@ -91,11 +91,9 @@
     <div class="p-3">
       <!-- Dummy bookings -->
       <div class="upcoming-bookings mt-1 w-60">
+        <canvas id="horizontalBarChart"></canvas>
       </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
+      
      
     </div>
 

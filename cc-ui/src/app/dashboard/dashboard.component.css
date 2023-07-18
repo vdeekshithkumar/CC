@@ -55,7 +55,6 @@ letter-spacing: 0.64px;
     color: var(--neutral-9, #434343);
   }
   .chart-container-pie {
-    height:50px; 
     display: flex;
     justify-content: center;
     align-items: center;

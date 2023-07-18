@@ -2,10 +2,12 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { SessionService } from '../session.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { ChartData, ChartOptions } from 'chart.js';
+import { Chart, ChartData, ChartDataset, ChartOptions } from 'chart.js';
 import { Advertisement, MyAdService } from '../my-advertisement/my-ad.service';
 import { FormGroup } from '@angular/forms';
 import { ProfileService } from '../profile/profile.service';
+import ChartDataLabels, { Context } from 'chartjs-plugin-datalabels';
+
 
 @Injectable({
   providedIn: 'root'
@@ -69,6 +71,17 @@ export class DashboardComponent implements OnInit {
       }
     ]
   };
+  horizontalBarGraphData: ChartData<any, number[], string> = {
+    labels: ['Label 3', 'Label 2', 'Label 1'],
+    datasets: [
+      {
+        label: 'Horizontal Bar Chart',
+        data: [30, 20, 10],
+        backgroundColor: '#FDC74F',
+        hoverBackgroundColor: '#FDC74F'
+      }
+    ]
+  };
   chartOptions: ChartOptions = {
     responsive: false,
     plugins: {
@@ -82,17 +95,40 @@ export class DashboardComponent implements OnInit {
           title: () => '',
           labelColor: () => ({
             borderColor: 'transparent',
-            backgroundColor: 'transparent'
-          })
+            backgroundColor: 'transparent',
+          }),
         },
         displayColors: false,
         bodyAlign: 'left',
         bodyFont: {
-          weight: 'bold'
-        }
-      }
-    }
+          weight: 'bold',
+        },
+      },
+      datalabels: {
+        formatter: (value: any, ctx: Context) => {
+          const totalCount = ctx.chart.data.datasets.reduce(
+            (acc: number, dataset: ChartDataset<any>) => {
+              const datasetValues = dataset.data || [];
+              const datasetSum = datasetValues.reduce((sum: number, val: number | null) => sum + (val || 0), 0);
+              return acc + datasetSum;
+            },
+            0
+          );
+          const percentage = ((value * 100) / totalCount).toFixed(0) + '%';
+          return percentage; // Display count as percentage
+        },
+        color: '#000',
+        anchor: 'end',
+        align: 'start',
+        offset: 6,
+        clamp: true,
+        font: {
+          weight: 'bold',
+        },
+      },
+    },
   };
+  
   lineChartOptions: ChartOptions = {
     responsive: false,
     scales: {
@@ -100,20 +136,18 @@ export class DashboardComponent implements OnInit {
         display: true,
         title: {
           display: true,
-         
-        }
+        },
       },
       y: {
         display: true,
         title: {
           display: true,
-          
         },
         ticks: {
           stepSize: 2,
-          precision: 0
-        }
-      }
+          precision: 0,
+        },
+      },
     },
     plugins: {
       tooltip: {
@@ -126,30 +160,81 @@ export class DashboardComponent implements OnInit {
           title: () => '',
           labelColor: () => ({
             borderColor: 'transparent',
-            backgroundColor: 'transparent'
-          })
+            backgroundColor: 'transparent',
+          }),
         },
         displayColors: false,
         bodyAlign: 'left',
         bodyFont: {
-          weight: 'bold'
-        }
+          weight: 'bold',
+        },
       },
-    legend: {
-      display: false
-    }
-  }
+      datalabels: {
+        display: false, 
+      },
+      legend: {
+        display: false,
+      },
+    },
   };
+  
   PieChartOptions: ChartOptions = {
     responsive: false,
-  
+    plugins: {
+      datalabels: {
+        formatter: (value: any, ctx: Context) => {
+          const label = ctx.chart.data.labels?.[ctx.dataIndex] ?? '';
+          return `${label}`; // Display label and its count
+        },
+        color: '#000',
+        anchor: 'end',
+        align: 'start',
+        offset: 6,
+        clamp: true,
+        font: {
+          weight: 'bold',
+        },
+      },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.label || '';
+            const value = context.raw || '';
+            return `${label}: ${value}`; // Display label and its count
+          },
+          title: () => '',
+          labelColor: () => ({
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
+          }),
+        },
+        displayColors: false,
+        bodyAlign: 'left',
+        bodyFont: {
+          weight: 'bold',
+        },
+      },
+    },
+  };
+  horizontalBarChartOptions: ChartOptions = {
+    responsive: true,
+    indexAxis: 'y',
+    scales: {
+      x: {
+        beginAtZero: true
+      },
+      y: {
+        beginAtZero: true,
+        reverse: true
+      }
+    },
     plugins: {
       tooltip: {
         callbacks: {
           label: (context) => {
             const label = context.label || '';
             const value = context.raw || '';
-            return `${label}:${value}`;
+            return `${label}: ${value}`;
           },
           title: () => '',
           labelColor: () => ({
@@ -162,13 +247,11 @@ export class DashboardComponent implements OnInit {
         bodyFont: {
           weight: 'bold'
         }
-      },
-    legend: {
-      display: true
+      }
     }
-  }
   };
 
+  
   chartLegend = true;
   lineChartLegend = true;
 
@@ -187,6 +270,16 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    Chart.register(ChartDataLabels);
+    const horizontalBarChartCanvas = document.getElementById('horizontalBarChart') as HTMLCanvasElement;
+
+    // Create the horizontal bar chart
+    new Chart(horizontalBarChartCanvas, {
+      type: 'bar',
+      data: this.horizontalBarGraphData,
+      options: this.horizontalBarChartOptions
+    });
+  
     this.sessionService.getCompanyId().subscribe(
       (companyId: number) => {
         this.companyId = companyId;
