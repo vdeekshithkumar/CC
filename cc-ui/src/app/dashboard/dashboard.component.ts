@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
     labels: ['BUY', 'SELL','LEASE', 'SWAP'],
     datasets: [
       {
-        label: 'Space',
+        label: 'Container',
         data: [],
         backgroundColor: ['#FFCC0A', '#F3796E', '#08BEC4','#28D35D'],
         borderColor: ['#FFCC0A', '#F3796E', '#08BEC4','#28D35D'],
@@ -119,12 +119,9 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         callbacks: {
           label: (context) => {
-            const datasetLabel = context.dataset.label || '';
-            const value = context.parsed.y || '';
-            const label = datasetLabel === 'BUY' ? 'BUY:' :
-                          datasetLabel === 'LEASE' ? 'LEASE:' :
-                          datasetLabel === 'SWAP' ? 'SWAP:' : '';
-            return `${label} ${value}`;
+            const label = context.label || '';
+            const value = context.raw || '';
+            return `${label}:${value}`;
           },
           title: () => '',
           labelColor: () => ({
@@ -150,12 +147,9 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         callbacks: {
           label: (context) => {
-            const datasetLabel = context.dataset.label || '';
-            const value = context.parsed.y || '';
-            const label = datasetLabel === 'BUY' ? 'BUY:' :
-                          datasetLabel === 'LEASE' ? 'LEASE:' :
-                          datasetLabel === 'SWAP' ? 'SWAP:' : '';
-            return `${label} ${value}`;
+            const label = context.label || '';
+            const value = context.raw || '';
+            return `${label}:${value}`;
           },
           title: () => '',
           labelColor: () => ({
@@ -177,7 +171,7 @@ export class DashboardComponent implements OnInit {
 
   chartLegend = true;
   lineChartLegend = true;
-
+  PieChartLegent  = true;
   currentUser: any;
   companyId: any;
   adsCount: number[] = [];
@@ -288,7 +282,7 @@ export class DashboardComponent implements OnInit {
         this.originalcontainerAds = adsblscount;
         console.log('count is are container', this.originalcontainerAds);
         this.PieChartData.datasets[0].data = this.originalcontainerAds;
-        console.log(this.PieChartData);
+        console.log("for container",this.PieChartData);
       },
       (error: any) => {
         console.log(error);
