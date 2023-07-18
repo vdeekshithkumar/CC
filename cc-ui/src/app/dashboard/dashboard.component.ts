@@ -119,12 +119,9 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         callbacks: {
           label: (context) => {
-            const datasetLabel = context.dataset.label || '';
-            const value = context.parsed.y || '';
-            const label = datasetLabel === 'BUY' ? 'BUY:' :
-                          datasetLabel === 'LEASE' ? 'LEASE:' :
-                          datasetLabel === 'SWAP' ? 'SWAP:' : '';
-            return `${label} ${value}`;
+            const label = context.label || '';
+            const value = context.raw || '';
+            return `${label}:${value}`;
           },
           title: () => '',
           labelColor: () => ({
@@ -150,12 +147,9 @@ export class DashboardComponent implements OnInit {
       tooltip: {
         callbacks: {
           label: (context) => {
-            const datasetLabel = context.dataset.label || '';
-            const value = context.parsed.y || '';
-            const label = datasetLabel === 'BUY' ? 'BUY:' :
-                          datasetLabel === 'LEASE' ? 'LEASE:' :
-                          datasetLabel === 'SWAP' ? 'SWAP:' : '';
-            return `${label} ${value}`;
+            const label = context.label || '';
+            const value = context.raw || '';
+            return `${label}:${value}`;
           },
           title: () => '',
           labelColor: () => ({
@@ -170,7 +164,7 @@ export class DashboardComponent implements OnInit {
         }
       },
     legend: {
-      display: false
+      display: true
     }
   }
   };

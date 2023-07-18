@@ -21,17 +21,17 @@
 <div class="flex-container ml-4 -mt-6">
   <div class="div-card-card">
 
-    <div class="p-3">
+    <!-- <div class="p-3"> -->
       <!-- Line Chart -->
-      <div *ngIf="PieChartData && originalcontainerAds.length >0" class="chart-container-pie mt-10">
-        <canvas baseChart
+      <div *ngIf="PieChartData && originalcontainerAds.length>0" class="chart-container-pie">
+        <canvas baseChart style="height: 280px; margin-top: 250px; overflow: hidden;"
                 [datasets]="PieChartData.datasets"
                 [labels]="PieChartData.labels"
                 [options]="PieChartOptions"
                 [type]="'pie'"
-                style="height: 200px; width: 350px;">
+                >
         </canvas>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
 
@@ -76,7 +76,7 @@
 </div>
 <div class="flex-container ml-4 ">
   <div class="div-card-card1 head">
-    Upcoming Bookings
+    Surplus/Deficit
   </div>
   <div class="div-card-card1 head ">
     Active Ads
@@ -129,12 +129,7 @@
   </div>
 </div>
 <div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-  <div class="div-card-card1 foot ">
-    <a routerLink="#" class="">See more ></a>
-  </div>
+
   <div class="div-card-card1 foot">
     <a routerLink="#" class="">See more ></a>
   </div>
