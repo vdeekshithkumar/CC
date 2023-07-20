@@ -115,4 +115,8 @@ border: 1px solid var(--color-primary-base, #1677FF);
   
   
   }
+  .highlight {
+    background-color: blue;
+    color: white;
+  }
   

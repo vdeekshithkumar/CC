@@ -5,7 +5,8 @@ export interface participant{
     companyId:number,
     fname: string,
     lname:string,
-    company_name:string
+    company_name:string,
+    AdscompanyId:number;
 }
 export interface Candidate{
     user_id:number,
@@ -15,4 +16,5 @@ export interface Candidate{
     designation:string
     selected:boolean
     company_name: string
+    AdscompanyId:number;
 }
