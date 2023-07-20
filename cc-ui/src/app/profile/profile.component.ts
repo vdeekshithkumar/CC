@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
   adscount: any;
   //for the employees table 
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 4;
   paginatedUsers: any[] = []; 
   //for pagination
   get totalPages(): number {

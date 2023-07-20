@@ -68,7 +68,7 @@ export class NegotiationsComponent implements OnInit {
   elementRef: any;
   AdscompanyId: any;
   ad_type: any;
-
+  negotiationscount: any[] = [];
  
 
   constructor(
@@ -89,6 +89,7 @@ export class NegotiationsComponent implements OnInit {
     await this.fetchUserId();
     await this.fetchPermissions();
     await this.fetchNegotiations();
+   
   }
 
  

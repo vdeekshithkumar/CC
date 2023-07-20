@@ -68,9 +68,9 @@
 
   </div>
 </div>
-<div class="flex-container ml-4 -mt-6">
+<div class="flex-container -mt-6">
   <!--Ads-->
-  <div class="div-card-card1 foot">
+  <div class="div-card-card1 foot ">
     <a routerLink="/my-ad" class="">See more ></a>
   </div>
 </div>
@@ -78,20 +78,18 @@
   <div class="div-card-card1 head">
     Surplus/Deficit
   </div>
-  <div class="div-card-card1 head ">
-    Active Ads
-  </div>
-  <div class="div-card-card1 head">
+  <div class="div-card-card1 head ml-[102px] ">
     Open Negotiations
   </div>
+  
 </div>
 <div class="flex-container ml-4 -mt-6">
   <div class="div-card-card">
 
     <div class="p-3">
       <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-        <canvas id="horizontalBarChart"></canvas>
+      <div style="margin-left: 50px;" >
+        <canvas class="horizontal-bar" id="horizontalBarChart" style="height:200px;"></canvas>
       </div>
       
      
@@ -101,35 +99,27 @@
   <div class="div-card-card">
 
     <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
+      <!-- myads -->
+      <div *ngIf="negotiationCount.length > 0" class="chart-container-neg  ml-[20px]">
+        <canvas baseChart
+                [data]="negotiationchartData" 
+                [labels]="chartLabels"
+                [options]="chartOptions"
+                [legend]="chartLegend"
+                [type]="'doughnut'">
+        </canvas>
       </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
+      
      
     </div>
 
   </div>
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
-      
-    </div>
-  </div>
+  
 </div>
 <div class="flex-container ml-4 -mt-6">
 
   <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
+    <a routerLink="/negotiations" class="">See more ></a>
   </div>
 </div>
 </div>

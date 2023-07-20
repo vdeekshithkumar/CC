@@ -59,6 +59,27 @@ namespace CC_api.Repository
       return count;
     }
 
+    public async Task<List<long>> GetMyadvertisementCount(string ad_type, int companyId)
+    {
+
+
+
+      var activeAds = await dbContext.advertisement
+      .Where(a => a.company_id == companyId && a.status == "active" && a.ad_type == ad_type).CountAsync();
+      var count = new List<long>();
+      count.Add(activeAds);
+
+      var PendingAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "pending" && a.ad_type == ad_type).CountAsync();
+      count.Add(PendingAds);
+
+      var DraftAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "draft" && a.ad_type == ad_type).CountAsync();
+      count.Add(DraftAds);
+
+
+      return count;
+    }
     public async Task Add(Ad ad)
     {
       await dbContext.advertisement.AddAsync(ad);
@@ -222,6 +243,8 @@ namespace CC_api.Repository
 
       return count;
     }
+
+
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);

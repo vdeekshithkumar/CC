@@ -337,6 +337,12 @@ namespace CC_api.Controllers
       return Ok(count);
     }
 
+    [HttpGet("MyadvertisementCount")]
+    public async Task<IActionResult> GetMyadvertisementCount(string ad_type,int companyId)
+    {
+      var count = await _AdBusiness.GetMyadvertisementCount(ad_type, companyId);
+      return Ok(count);
+    }
 
 
     [HttpPut("Edit/{id}")]
