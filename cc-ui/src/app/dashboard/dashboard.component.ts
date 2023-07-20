@@ -2,11 +2,13 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { SessionService } from '../session.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { Chart, ChartData, ChartDataset, ChartOptions } from 'chart.js';
+import { Chart, ChartData, ChartDataset, ChartOptions, ChartType } from 'chart.js';
 import { Advertisement, MyAdService } from '../my-advertisement/my-ad.service';
 import { FormGroup } from '@angular/forms';
 import { ProfileService } from '../profile/profile.service';
 import ChartDataLabels, { Context } from 'chartjs-plugin-datalabels';
+import { UploadInventoryservice } from '../upload-inventory/upload-inventory.service';
+import { NegotiationsService } from '../negotiations/negotiations.service';
 
 
 @Injectable({
@@ -35,50 +37,29 @@ export class DashboardComponent implements OnInit {
   country?: string;
   chartLabels: string[] = [];
   lineChartLabels: any;
+    // Optional: Add the following properties if needed (remove these if not required)
+    public horizontalBarChartType: ChartType = 'bar';
+    public horizontalBarChartLegend = true;
+    public horizontalBarChartPlugins = [];
+  
   originalspaceAds: number[] = [];
   originalcontainerAds: number[] = [];
+  chartLegend = true;
+  lineChartLegend = true;
+  currentUser: any;
+  companyId: any;
+  adsCount: number[] = [];
+  negotiationCount:number[] = [];
+  profileForm!: FormGroup;
+  public showDiv = false;
+  inventory_list_by_companyId: any[] =[];
   chartData: ChartData<any, number[], string> = {
     labels: ['Active', 'Pending', 'Drafts'],
     datasets: [
       {
         data: [0, 0, 0],
-        backgroundColor: ['#FDC74F', '#FD5A7C', '#1DA1F4'],
-        hoverBackgroundColor: ['#FDC74F', '#FD5A7C', '#1DA1F4'],
-      }
-    ]
-  };
-  lineChartData: ChartData<any, number[], string> = {
-    labels: ['BUY', 'SELL','LEASE', 'SWAP'],
-    datasets: [
-      {
-        label: 'Space',
-        data: [],
-        backgroundColor: ['#F3973F', '#E44D02', '#6B7AB2'],
-        borderColor: ['#F3973F', '#E44D02', '#6B7AB2'],
-        borderWidth: 1
-      }
-    ]
-  };
-  PieChartData: ChartData<any, number[], string> = {
-    labels: ['BUY', 'SELL','LEASE', 'SWAP'],
-    datasets: [
-      {
-        label: 'Space',
-        data: [],
-        backgroundColor: ['#FFCC0A', '#F3796E', '#08BEC4','#28D35D'],
-        borderColor: ['#FFCC0A', '#F3796E', '#08BEC4','#28D35D'],
-        borderWidth: 1
-      }
-    ]
-  };
-  horizontalBarGraphData: ChartData<any, number[], string> = {
-    labels: ['Label 3', 'Label 2', 'Label 1'],
-    datasets: [
-      {
-        label: 'Horizontal Bar Chart',
-        data: [30, 20, 10],
-        backgroundColor: '#FDC74F',
-        hoverBackgroundColor: '#FDC74F'
+        backgroundColor: ['#65B3FC', '#0068CB', '#668FEA'],
+        hoverBackgroundColor: ['#65B3FC', '#0068CB', '#668FEA'],
       }
     ]
   };
@@ -115,6 +96,12 @@ export class DashboardComponent implements OnInit {
             0
           );
           const percentage = ((value * 100) / totalCount).toFixed(0) + '%';
+  
+          // Check if value is zero and return an empty string
+          if (value === 0) {
+            return '';
+          }
+  
           return percentage; // Display count as percentage
         },
         color: '#000',
@@ -128,7 +115,18 @@ export class DashboardComponent implements OnInit {
       },
     },
   };
-  
+  lineChartData: ChartData<any, number[], string> = {
+    labels: ['BUY', 'SELL','LEASE', 'SWAP'],
+    datasets: [
+      {
+        label: 'Space',
+        data: [],
+        backgroundColor: ['#B8E5D8', '#2F82A4', '#4CAABC','#0097BC'],
+        borderColor: ['#B8E5D8', '#2F82A4', '#4CAABC','#0097BC'],
+        borderWidth: 1
+      }
+    ]
+  };
   lineChartOptions: ChartOptions = {
     responsive: false,
     scales: {
@@ -178,13 +176,26 @@ export class DashboardComponent implements OnInit {
     },
   };
   
+  PieChartData: ChartData<any, number[], string> = {
+    labels: ['BUY', 'SELL','LEASE', 'SWAP'],
+    datasets: [
+      {
+        label: 'Space',
+        data: [],
+        backgroundColor: ['#AAD5F7', '#1D69A5', '#2997EC','#69B6F1'],
+        borderColor: ['#AAD5F7', '#1D69A5', '#2997EC','#69B6F1'],
+        borderWidth: 1
+      }
+    ]
+  };
   PieChartOptions: ChartOptions = {
     responsive: false,
     plugins: {
       datalabels: {
         formatter: (value: any, ctx: Context) => {
           const label = ctx.chart.data.labels?.[ctx.dataIndex] ?? '';
-          return `${label}`; // Display label and its count
+          const count = ctx.chart.data.datasets?.[0].data?.[ctx.dataIndex] ?? 0;
+          return count > 0 ? `${label}` : ''; // Display label only if count is greater than zero
         },
         color: '#000',
         anchor: 'end',
@@ -192,7 +203,7 @@ export class DashboardComponent implements OnInit {
         offset: 6,
         clamp: true,
         font: {
-          weight: 'bold',
+          family: 'Poppins',
         },
       },
       tooltip: {
@@ -210,25 +221,38 @@ export class DashboardComponent implements OnInit {
         },
         displayColors: false,
         bodyAlign: 'left',
-        bodyFont: {
-          weight: 'bold',
-        },
+       
       },
     },
   };
+  horizontalBarGraphData: ChartData<any, number[], string> = {
+    labels: ['Deficit', 'Surplus'],
+    datasets: [
+      {
+        label: 'Horizontal Bar Chart',
+        data: [0, 0], // Set initial data values to 0
+        backgroundColor: ['#A7B8C5', '#DCDDC5'],
+        hoverBackgroundColor: ['#A7B8C5', '#DCDDC5'],
+      },
+    ],
+  };
+  
   horizontalBarChartOptions: ChartOptions = {
-    responsive: true,
+    responsive: false,
     indexAxis: 'y',
     scales: {
       x: {
-        beginAtZero: true
+        beginAtZero: true,
       },
       y: {
         beginAtZero: true,
-        reverse: true
-      }
+        reverse: true,
+      },
     },
     plugins: {
+      legend: {
+        display: false,
+      },
       tooltip: {
         callbacks: {
           label: (context) => {
@@ -239,45 +263,113 @@ export class DashboardComponent implements OnInit {
           title: () => '',
           labelColor: () => ({
             borderColor: 'transparent',
-            backgroundColor: 'transparent'
-          })
+            backgroundColor: 'transparent',
+          }),
         },
         displayColors: false,
         bodyAlign: 'left',
         bodyFont: {
-          weight: 'bold'
-        }
-      }
-    }
+          weight: 'bold',
+        },
+      },
+      datalabels: {
+        // Display value on top of the bar
+        display: true,
+        formatter: (value: any) => {
+          return value > 0 ? value.toString() : ''; // Display value only if greater than 0
+        },
+        color: '#000',
+        anchor: 'end',
+        align: 'start',
+        clamp: true,
+        font: {
+          weight: 'bold',
+        },
+      },
+    },
   };
-
+  negotiationchartData: ChartData<any, number[], string> = {
+    labels: ['Accepted', 'Pending', 'Rejected'],
+    datasets: [
+      {
+        data: [0, 0, 0],
+        backgroundColor: ['#65B3FC', '#0068CB', '#668FEA'],
+        hoverBackgroundColor: ['#65B3FC', '#0068CB', '#668FEA'],
+      }
+    ]
+  };
+  negotiationchartOptions: ChartOptions = {
+    responsive: false,
+    plugins: {
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = context.label || '';
+            const value = context.raw || '';
+            return `${label}:${value}`;
+          },
+          title: () => '',
+          labelColor: () => ({
+            borderColor: 'transparent',
+            backgroundColor: 'transparent',
+          }),
+        },
+        displayColors: false,
+        bodyAlign: 'left',
+        bodyFont: {
+          weight: 'bold',
+        },
+      },
+      datalabels: {
+        formatter: (value: any, ctx: Context) => {
+          const totalCount = ctx.chart.data.datasets.reduce(
+            (acc: number, dataset: ChartDataset<any>) => {
+              const datasetValues = dataset.data || [];
+              const datasetSum = datasetValues.reduce((sum: number, val: number | null) => sum + (val || 0), 0);
+              return acc + datasetSum;
+            },
+            0
+          );
+          const percentage = ((value * 100) / totalCount).toFixed(0) + '%';
   
-  chartLegend = true;
-  lineChartLegend = true;
-
-  currentUser: any;
-  companyId: any;
-  adsCount: number[] = [];
-  profileForm!: FormGroup;
-  public showDiv = false;
+          // Check if value is zero and return an empty string
+          if (value === 0) {
+            return '';
+          }
   
-
+          return percentage; // Display count as percentage
+        },
+        color: '#000',
+        anchor: 'end',
+        align: 'start',
+        offset: 6,
+        clamp: true,
+        font: {
+          weight: 'bold',
+        },
+      },
+    },
+  };
   constructor(
     private sessionService: SessionService,
     private router: Router,
     private adService: MyAdService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private inventoryService:UploadInventoryservice,
+    private negotiationService:NegotiationsService
   ) {}
 
   ngOnInit(): void {
     Chart.register(ChartDataLabels);
+
     const horizontalBarChartCanvas = document.getElementById('horizontalBarChart') as HTMLCanvasElement;
 
-    // Create the horizontal bar chart
-    new Chart(horizontalBarChartCanvas, {
+    // Create the horizontal bar chart with plugins
+    const horizontalBarChart = new Chart(horizontalBarChartCanvas, {
       type: 'bar',
       data: this.horizontalBarGraphData,
-      options: this.horizontalBarChartOptions
+      options: this.horizontalBarChartOptions,
+      plugins: [ChartDataLabels], // Add the datalabels plugin
     });
   
     this.sessionService.getCompanyId().subscribe(
@@ -324,7 +416,34 @@ export class DashboardComponent implements OnInit {
         console.warn('oninit error' + error);
       }
     );
+   // Inside the subscription where you calculate the surplusSum and deficitSum
+   this.inventoryService.getInventoryByIdCID(this.companyId).subscribe(
+    (data: any[]) => {
+      this.inventory_list_by_companyId = data;
+      let surplusSum = 0;
+      let deficitSum = 0;
 
+      for (const item of this.inventory_list_by_companyId) {
+        if (item.surplus) {
+          surplusSum += item.surplus;
+        }
+        if (item.deficit) {
+          deficitSum += item.deficit;
+        }
+      }
+
+      // Update the data and labels for the chart
+      this.horizontalBarGraphData.datasets[0].data = [deficitSum, surplusSum];
+      console.log(this.horizontalBarGraphData);
+
+      // Update the chart to reflect the changes
+      horizontalBarChart.update();
+    },
+    (error: any) => {
+      console.log("Inventory loading error: " + error);
+    }
+  );
+    
     this.adService.getAdsCount(this.companyId).subscribe(
       (count: number[]) => {
         this.adsCount = count;
@@ -380,6 +499,19 @@ export class DashboardComponent implements OnInit {
       (error: any) => {
         console.log(error);
         alert('error');
+      }
+    );
+    this.negotiationService.getNegotiationsByCount(this.companyId).subscribe(
+      (count: number[]) => {
+        debugger
+        this.negotiationCount = count;
+        this.negotiationchartData.datasets[0].data = this.negotiationCount;
+        console.log('negotiation count:', this.negotiationCount);
+        console.log(' negotiation Chart data:', this.negotiationchartData);
+      },
+      (error: any) => {
+        console.log(error);
+        alert('Error occurred');
       }
     );
   }

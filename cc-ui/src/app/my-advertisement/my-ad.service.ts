@@ -40,6 +40,7 @@ export class MyAdService {
   private userUrl = 'https://localhost:7157/GetAllUser';
   private adsUrl = 'https://localhost:7157/GetAllAds';
   private myadsurl ='https://localhost:7157/GetMyAds';
+  private advertisementcount = 'https://localhost:7157/MyadvertisementCount';
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {
@@ -47,6 +48,9 @@ export class MyAdService {
   }
   getAdsCount(companyId: number): Observable<any> {
     return this.http.get(`${this.countUrl}?company_id=${companyId}`);
+  }
+  getContainercount(ad_type:string,companyId: number,): Observable<any> {
+    return this.http.get(`${this.advertisementcount}?ad_type=${ad_type}&companyId=${companyId}`);
   }
   getSpaceAds(ad_type:string,companyId: number,): Observable<any> {
     return this.http.get(`${this.myadsurl}?ad_type=${ad_type}&companyId=${companyId}`);

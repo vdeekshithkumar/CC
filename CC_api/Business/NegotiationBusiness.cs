@@ -49,7 +49,16 @@ namespace CC_api.Business
       return new OkResult();
     }
 
-
+    public async Task<List<int>> GetMyNegotiationsCount( int company_id)
+    {
+      var GetMyNegcount = await NegotiationRepository.GetMyNegotiationsCount(company_id);
+      var count = new List<int>();
+      foreach (var c in GetMyNegcount)
+      {
+        count.Add((int)c);
+      }
+      return count;
+    }
     public async Task DeleteNegotiation(Negotiation n)
     {
       try
