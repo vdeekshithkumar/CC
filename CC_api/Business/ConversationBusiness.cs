@@ -15,9 +15,6 @@ namespace CC_api.Business
 
     public async Task<Conversation> CreateConversation(Conversation conversation)
     {
-      // Perform any necessary business logic/validation
-      // Example: conversation.Name should not be empty or null
-
       return await conversationRepository.CreateConversation(conversation);
     }
 
@@ -37,8 +34,6 @@ namespace CC_api.Business
     }
     public async Task<Message> SendMessage(Message message)
     {
-      // Perform any necessary business logic/validation
-      // Example: Check if the user is allowed to send a message in the conversation
 
       return await conversationRepository.SendMessage(message);
     }
@@ -46,14 +41,26 @@ namespace CC_api.Business
     {
       return await conversationRepository.GetConversationByCompanyId(companyId);
     }
+    public async Task<List<Conversation>> GetConversationByAdCompanyId(int AdscompanyId)
+    {
+      return await conversationRepository.GetConversationByAdCompanyId(AdscompanyId);
+    }
+    public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
+    {
+      return await conversationRepository.GetConversationByConversationId(ConversationId);
+    }
+    public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)
+    {
+      return await conversationRepository.GetConversationByNegotationId(negotiation_id);
+    }
     public async Task<List<Participant>> GetParticipant(int convoid)
     {
       return await conversationRepository.GetParticipants(convoid);
     }
 
-    public async Task<List<UserDTO>> GetUsersAsync(int conversationId, int companyId)
+    public async Task<List<UserDTO>> GetUsersAsync(int convoid, int companyId)
     {
-      return await conversationRepository.GetUsers(conversationId, companyId);
+      return await conversationRepository.GetUsers(convoid, companyId);
     }
   }
 }

@@ -26,7 +26,7 @@ namespace CC_api.Controllers
     }
 
     [HttpPost("AddParticipant")]
-    public async Task< IActionResult> AddParticipant([FromBody] Participant participant)
+    public async Task<IActionResult> AddParticipant([FromBody] Participant participant)
     {
       if (participant == null)
       {
@@ -40,9 +40,10 @@ namespace CC_api.Controllers
     [HttpGet("GetMessagesByConversationId")]
     public async Task<IActionResult> GetMessagesByConversationId(int conversationId)
     {
-      var messages = await  conversationBusiness.GetMessagesByConversationId(conversationId);
+      var messages = await conversationBusiness.GetMessagesByConversationId(conversationId);
       return Ok(messages);
     }
+
     [HttpPost("SendMessage")]
     public async Task<IActionResult> SendMessage([FromBody] Message message)
     {
@@ -57,6 +58,24 @@ namespace CC_api.Controllers
     public async Task<IActionResult> GetConversationByCompanyId(int companyId)
     {
       var conversations = await conversationBusiness.GetConversationByCompanyId(companyId);
+      return Ok(conversations);
+    }
+    [HttpGet("GetConversationByAdCompanyId")]
+    public async Task<IActionResult> GetConversationByAdCompanyId(int AdscompanyId)
+    {
+      var conversations = await conversationBusiness.GetConversationByAdCompanyId(AdscompanyId);
+      return Ok(conversations);
+    }
+    [HttpGet("GetConversationByConversationId")]
+    public async Task<IActionResult> GetConversationByConversationId(int ConversationId)
+    {
+      var conversations = await conversationBusiness.GetConversationByConversationId(ConversationId);
+      return Ok(conversations);
+    }
+    [HttpGet("GetConversationByNegotationId")]
+    public async Task<IActionResult> GetConversationByNegotationId(int negotiation_id)
+    {
+      var conversations = await conversationBusiness.GetConversationByNegotationId(negotiation_id);
       return Ok(conversations);
     }
     [HttpGet("GetParticipantsByConversationId")]

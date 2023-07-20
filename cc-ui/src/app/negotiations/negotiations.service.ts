@@ -52,7 +52,8 @@ export class NegotiationsService {
   private NegotiationUrl = 'https://localhost:7157/GetMyNegotiations';
   private advUrl = 'https://localhost:7157/GetAllAdvertisementbytype';
   private countUrl = 'https://localhost:7157/GetMyNegotiationsCount';
-
+  private cid='https://localhost:7157/GetCompanyById?companyId'
+  selectedConversation:any;
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {
@@ -68,6 +69,9 @@ export class NegotiationsService {
   getNegotiationsByCId(company_id: number): Observable<any> {
     debugger
     return this.http.get(`${this.NegotiationUrl}?company_id=${company_id}`);
+  }
+  getcompanybycid(companyId: string): Observable<any> {
+    return this.http.get(`${this.cid}?companyID=${companyId}`, { responseType: 'json' });
   }
   
   getNegotiationsByCount(company_id: number): Observable<any> {
