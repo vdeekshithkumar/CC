@@ -379,3 +379,30 @@
     color: #595959;
     font-size: 20px;
   }
+  /* custom-styles.css */
+.custom-button-toggle-group {
+  border: 2px ;
+  
+  
+}
+
+.custom-button-toggle {
+  font-family: Poppins;
+  color: #333;
+  font-size: 14px;
+  width: 90px; height: 40px;
+
+}
+.custom-button-toggle-curved {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.custom-button-toggle custom-button-toggle-curved-sell{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  
+}
+
+.style-font{
+  font-family:Poppins;
+}
