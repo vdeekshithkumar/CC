@@ -181,14 +181,20 @@
                                 <div class="flex-grow px-2 lg:max-w-xs">
                                     <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                    
-                                        <div class="flex text-black-600 left-0 mt-1 border rounded-md">
-                                          <mat-button-toggle-group [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 220px;">
-                                            <mat-button-toggle value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
-                                            <mat-button-toggle value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
-                                            <mat-button-toggle value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" *ngIf="type == 'container'">Swap</mat-button-toggle>
-                                            <mat-button-toggle value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'" >Lease</mat-button-toggle>
+                                        <div class="flex text-black-600 left-0 mt-1 border rounded-md" *ngIf="type == 'container'">
+                                          <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 240px;" *ngIf="type == 'container'">
+                                            <mat-button-toggle class="style-font" value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
+                                            <mat-button-toggle class="style-font" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
+                                            <mat-button-toggle  class="style-font"value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+                                            <mat-button-toggle class="style-font" value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" >Swap</mat-button-toggle>
                                           </mat-button-toggle-group>
-                                          
+                                        </div>
+                                        <div>
+                                          <mat-button-toggle-group  class="custom-button-toggle-group rounded-md  flex text-black-600  mt-1"  [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style"  *ngIf="type == 'space'">
+                                            <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved-sell border "  value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
+                                            <mat-button-toggle class=" custom-button-toggle border" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
+                                            <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved border"  value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+                                          </mat-button-toggle-group>
                                         <!-- <button
                                              *ngFor="let option of options; let i = index"
                                              class="radio-button"
