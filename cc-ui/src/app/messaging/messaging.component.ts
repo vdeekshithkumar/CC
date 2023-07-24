@@ -48,6 +48,7 @@ export class MessagingComponent implements OnInit {
   negotiationId!: string;
   selectedConversationName!: string;
   selectedConversationDesc!: string;
+  selectedcompanyname!:string
   selectedConversationLogo!:string;
   selectedConversationIndex: number = -1;
   showPopup: boolean = false;

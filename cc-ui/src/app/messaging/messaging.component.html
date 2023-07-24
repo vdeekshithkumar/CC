@@ -21,7 +21,7 @@
      [ngClass]="{ 'selected-conversation': i === selectedConversationIndex }"
      (click)="getMessages(convo.conversationId); setSelectedConversationIndex(i);
               selectedConversationName = (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name;
-              selectedConversationDesc = convo.user_name; selectedConversationLogo =(convo.company_id === this.companyId) ? convo.company_logo:convo.negotiator_company_logo">
+              selectedConversationDesc = convo.user_name;selectedcompanyname=convo.negotiator_company_name; selectedConversationLogo =(convo.company_id === this.companyId) ? convo.company_logo:convo.negotiator_company_logo">
   <div class="container text-sm inline">
     <div class="flex items-center">
       <div class="relative px-1 py-2" id="company-logo">
@@ -34,7 +34,7 @@
           {{ (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name }}
         </div>
         <div>{{ convo.user_name }}</div>
-        <div *ngIf="lastMessages[convo.conversationId]">
+        <div *ngIf="lastMessages[convo.conversationId]" class="truncate">
             Last Message: {{ lastMessages[convo.conversationId]?.content }}
         </div>
       </div>
@@ -53,7 +53,7 @@
                     Selected conversation topic - topic description
                 </div>
             </div> -->
-        <div class=" w-[630px] bg-white h-[400px] mx-2 -mt-3 ">
+        <div class=" w-[630px] bg-white h-[500px] mx-2 -mt-3 ">
             <div class="bg-white max-h-screen">
                 <div class="h-[5.25rem] w-full p-2 bg-white cursor-pointer border-2 bord">
                     <div class="container text-sm inline">
@@ -61,9 +61,15 @@
                                   <div class="relative px-1 py-2" id="company-logo">
                                     <img class="bg-img object-contain overflow-hidden w-16 h-14 rounded-full border-1 border-transparent outline-2" src="{{selectedConversationLogo}}" />
                                   </div>
-                                  <div class="ml-2">
+                                  <div class="conversation-details">
                                     <div class="font-bold">{{selectedConversationName}}</div>
-                                    <div>{{selectedConversationDesc}}</div>
+                                    <div class="ml-[350px] fixed font-bold -mt-4">
+                                        <span style="white-space: nowrap;">{{selectedcompanyname}}</span>
+                                        <br />
+                                        Negotiator : <span class="font-medium"> 
+                                        {{selectedConversationDesc}}</span>
+                                      </div>
+                                      
                                   </div>
                                 </div>
                               </div>

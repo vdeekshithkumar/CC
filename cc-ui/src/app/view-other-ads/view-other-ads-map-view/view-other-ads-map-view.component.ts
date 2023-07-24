@@ -46,6 +46,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     console.log("dh", this.userOS);
     this.getAllPorts();
    
+   
   }
 
   ngOnChanges(): void {
@@ -91,7 +92,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     const mapOptions: google.maps.MapOptions = {
       mapId: this.mapId,
       center: this.getMapCenter(),
-      zoom: 10,
+      zoom: 3,
     };
   
     this.map = new google.maps.Map(
@@ -124,6 +125,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     return null;
   }
   markPortOfAdOnMap(): void {
+    debugger
     this.clearMarkers();
   
     if (!this.map || !this.selectedTypePortOfAd || !this.selectedSizetomap) {
@@ -154,9 +156,17 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     // Fit the map to the bounds
     this.map.fitBounds(bounds);
   
-    // Adjust the zoom level if specified
-   
+    // Check if the bounds contain only a single marker
+    if (bounds.getNorthEast().equals(bounds.getSouthWest())) {
+      // Set the zoom level directly to 3 if there is only one marker
+      this.map.setZoom(3);
+    }
   }
+  
+  
+  
+  
+  
   
   
   
@@ -223,9 +233,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
       this.map.fitBounds(bounds);
   
       // Adjust the zoom level if specified
-      if (this.selectedSizetomap) {
-        this.map.setZoom(this.selectedSizetomap);
-      }
+    
     }
   }
   

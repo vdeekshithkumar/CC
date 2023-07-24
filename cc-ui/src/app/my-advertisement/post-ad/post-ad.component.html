@@ -118,8 +118,8 @@
         <div class=" justify-center py-4 min-h-full min-w-[800px] bg-blue-100">
           <div>
             <div class="mb-2 ">
-              <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1">
-                New Advertisement</h1>
+              <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1 uppercase">
+                New Advertisement ({{type}})</h1>
            
             </div>
             <!-- Other content here -->
@@ -185,8 +185,8 @@
                                           <mat-button-toggle-group [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 220px;">
                                             <mat-button-toggle value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
                                             <mat-button-toggle value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
-                                            <mat-button-toggle value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'">Swap</mat-button-toggle>
-                                            <mat-button-toggle value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+                                            <mat-button-toggle value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" *ngIf="type == 'container'">Swap</mat-button-toggle>
+                                            <mat-button-toggle value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'" >Lease</mat-button-toggle>
                                           </mat-button-toggle-group>
                                           
                                         <!-- <button

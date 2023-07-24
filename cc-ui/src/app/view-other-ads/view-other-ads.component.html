@@ -53,7 +53,7 @@
       </div>
     
       <div
-        class="search-swap-container"
+        class="search-swap-container" *ngIf="ad_type == 'container'"
         [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
         (click)="toggleOption('type', 'Swap')"
       >

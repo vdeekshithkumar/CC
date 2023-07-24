@@ -157,7 +157,7 @@ export class ViewOtherAdsComponent  {
 
   }
   ngOnInit(): void {
-    this.searchAds();
+    
     if (this.selectedView === 'map') {
       this.showMapView = true;
     } else {
@@ -224,7 +224,7 @@ export class ViewOtherAdsComponent  {
 
 
     );
-
+    this.searchAds();
     this.viewotherAds.getAllContainers().subscribe(//for matching container size to container_type_id
       (condata: Containers[]) => {
         this.container_size = condata;
@@ -305,10 +305,11 @@ export class ViewOtherAdsComponent  {
     this.isLoading = false;
   }
   searchAds() {
+    debugger
     // Check if ad_type is defined
     if (this.ad_type) {
-      // Call the getAdvertisement method with the selected ad_type
-      this.viewotherAds.getAdvertisement(this.ad_type, this.companyId).subscribe(
+      // Call the getAdvertisement method with the selected ad_typeId
+      this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
         
         (data: Advertisement[]) => {
           debugger

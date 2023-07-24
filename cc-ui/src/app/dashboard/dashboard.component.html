@@ -1,5 +1,5 @@
 <div class="div mt-16">
-  <div class="div-card bg-div max-h-screen">
+  <div class="div-card bg-div max-h-screen ">
     <div class="div-card-div h1-div">
       Welcome, {{fname}} {{lname}}
   </div>
@@ -8,18 +8,18 @@
 
 <div class="main">
   <div class="flex-container ml-4">
-  <div class="div-card-card1 head">
+  <div class="div-card-card1 head highlight-card">
     Containers
   </div>
-  <div class="div-card-card1 head">
+  <div class="div-card-card1 head highlight-card">
     Space
   </div>
-  <div class="div-card-card1 head ">
+  <div class="div-card-card1 head highlight-card ">
      My Advertisements
   </div>
 </div>
 <div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card">
+  <div class="div-card-card highlight-card">
 
     <!-- <div class="p-3"> -->
       <!-- Line Chart -->
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div class="div-card-card">
+  <div class="div-card-card highlight-card" style="height: 300px;">
     <div class="p-3">
       <!-- Line Chart -->
       <div *ngIf="lineChartData && originalspaceAds.length>0" class="chart-container-line mt-14">
@@ -49,7 +49,7 @@
       </div>
     </div>
   </div>
-  <div class="div-card-card"  >
+  <div class="div-card-card highlight-card"  >
 
     <div class="p-3">
       <!-- myads -->
@@ -70,21 +70,21 @@
 </div>
 <div class="flex-container -mt-6">
   <!--Ads-->
-  <div class="div-card-card1 foot ">
+  <div class="div-card-card1 foot  ">
     <a routerLink="/my-ad" class="">See more ></a>
   </div>
 </div>
 <div class="flex-container ml-4 ">
-  <div class="div-card-card1 head">
+  <div class="div-card-card1 head highlight-card">
     Surplus/Deficit
   </div>
-  <div class="div-card-card1 head ml-[102px] ">
+  <div class="div-card-card1 head ml-[100px] highlight-card ">
     Open Negotiations
   </div>
   
 </div>
 <div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card">
+  <div class="div-card-card highlight-card">
 
     <div class="p-3">
       <!-- Dummy bookings -->
@@ -96,11 +96,11 @@
     </div>
 
   </div>
-  <div class="div-card-card">
+  <div class="div-card-card highlight-card">
 
-    <div class="p-3">
+    <div class="p-3 -ml-4">
       <!-- myads -->
-      <div *ngIf="negotiationCount.length > 0" class="chart-container-neg  ml-[20px]">
+      <div *ngIf="negotiationCount.length > 0" class="chart-container-neg">
         <canvas baseChart
                 [data]="negotiationchartData" 
                 [labels]="chartLabels"
@@ -116,10 +116,12 @@
   </div>
   
 </div>
-<div class="flex-container ml-4 -mt-6">
-
+<div class="flex-container ml-4 ">
+  <div class="div-card-card1 foot" style="margin-left: auto;">
+    <a routerLink="/forecasting-table-view" class="">See more ></a>
+  </div>
   <div class="div-card-card1 foot">
-    <a routerLink="/negotiations" class="">See more ></a>
+    <a routerLink="/negotiations" class="-ml-[430px]" >See more ></a>
   </div>
 </div>
 </div>

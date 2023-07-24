@@ -18,6 +18,18 @@
  .div-card-div{
   @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full ml-4
  }
+ .highlight-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+  
+  background-color: #fff; /* Set a background color (here it's white, but you can change it) */
+  transition: box-shadow 0.3s ease, border 0.3s ease; /* Add a transition effect for smooth animation */
+}
+
+.highlight-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust the shadow effect when hovering over the card */
+   /* Adjust the border color on hover (here it's orange) */
+}
+
  .h1-div{
     color: var(--gray-gray-8, #595959);
 font-family: Poppins;
@@ -122,7 +134,7 @@ font-family: Poppins;
 
 line-height: 20px;
 border-top: 2px solid var(--gray-gray-3, #F5F5F5);
-margin-left:870px;
+margin-left:864px;
   }
   chart-container-line{
     width: 100%; 

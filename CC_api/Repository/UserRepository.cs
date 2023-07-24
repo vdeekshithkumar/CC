@@ -126,7 +126,7 @@ namespace CC_api.Repository
     }
     public async Task<int> GetAllUserCount(int companyId)
     {
-      var userCount = await dbContext.users.Where(u => u.company_id == companyId && u.is_active == 1).CountAsync();
+      var userCount = await dbContext.users.Where(u => u.company_id == companyId && u.is_active == 1 && u.is_approved == 1 && u.is_verified == 1).CountAsync();
       return userCount;
     }
 
