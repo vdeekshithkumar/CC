@@ -116,13 +116,13 @@ export class DashboardComponent implements OnInit {
     },
   };
   lineChartData: ChartData<any, number[], string> = {
-    labels: ['BUY', 'SELL','LEASE', 'SWAP'],
+    labels: ['BUY', 'SELL','LEASE'],
     datasets: [
       {
         label: 'Space',
         data: [],
-        backgroundColor: ['#B8E5D8', '#2F82A4', '#4CAABC','#0097BC'],
-        borderColor: ['#B8E5D8', '#2F82A4', '#4CAABC','#0097BC'],
+        backgroundColor: ['#B8E5D8', '#2F82A4', '#4CAABC'],
+        borderColor: ['#B8E5D8', '#2F82A4', '#4CAABC'],
         borderWidth: 1
       }
     ]
@@ -161,10 +161,14 @@ export class DashboardComponent implements OnInit {
             backgroundColor: 'transparent',
           }),
         },
+        
         displayColors: false,
         bodyAlign: 'left',
         bodyFont: {
+          
           weight: 'bold',
+          family: 'Poppins',
+          
         },
       },
       datalabels: {
@@ -231,8 +235,8 @@ export class DashboardComponent implements OnInit {
       {
         label: 'Horizontal Bar Chart',
         data: [0, 0], // Set initial data values to 0
-        backgroundColor: ['#A7B8C5', '#DCDDC5'],
-        hoverBackgroundColor: ['#A7B8C5', '#DCDDC5'],
+        backgroundColor: ['#6FB8F2', '#108AE8'],
+        hoverBackgroundColor: ['#6FB8F2', '#108AE8'],
       },
     ],
   };

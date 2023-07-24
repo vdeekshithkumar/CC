@@ -11,6 +11,10 @@
         margin-left: 50px;
       }
     }
+    .uppercase {
+      text-transform: uppercase;
+    }
+    
     .shadow-outline {
       box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
     }

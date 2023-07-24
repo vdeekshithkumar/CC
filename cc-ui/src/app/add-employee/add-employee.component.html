@@ -22,9 +22,10 @@
     <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6 font-poppins">
       <div class="col-span-1">
         <h2 class="font-semibold mb-2 font-poppins -ml-2">Add User Details</h2>
-          <label for="fname" class="bg-text -ml-2">First Name</label>
+          <label for="fname"   class="bg-text -ml-2">First Name</label>
         <input
         formControlName="fname"
+        autocomplete="off"
         class="register-page-data italic-placeholder mt-2 -ml-2"
       placeholder="E.g. John"
       name="firstName"
@@ -43,6 +44,7 @@
         <label for="fname" class="bg-text ml-2">Last Name</label>
         <input
           formControlName="lname"
+          autocomplete="off"
           class="register-page-data italic-placeholder ml-2 mt-2"
           placeholder="E.g. Wick"
           name="firstName"
@@ -60,6 +62,7 @@
         <label for="fname" class="bg-text -ml-2">Phone Number</label>
         <input
           formControlName="phone_no"
+          autocomplete="off"
           class="register-page-data italic-placeholder -ml-2 mt-2"
           placeholder="E.g. +918707312194"
           name="phone_no"
@@ -75,6 +78,7 @@
         <label for="email" class="bg-text ml-2">Email</label>
         <input
           formControlName="email"
+          autocomplete="off"
           class="register-page-data italic-placeholder ml-2 mt-2"
           placeholder="yourname@gmail.com"
           name="firstName"
@@ -88,6 +92,7 @@
         <label for="fname" class="bg-text -ml-2">Address<span class="optional"> (optional)</span></label>
         <input
           formControlName="address"
+          autocomplete="off"
           class="register-page-data italic-placeholder -ml-2 mt-2 full-width-input"
           placeholder="E.g. Marenahalli, Bangalore, India"
           name="firstName"
@@ -113,8 +118,8 @@
           <div class="error" *ngIf="!isEdit &&addEmployeeForm?.get('password')?.invalid && addEmployeeForm?.get('password')?.errors?.['maxlength']">
             Maximum limit exceeded.
           </div>
-          <span *ngIf="!isEdit" class="absolute inset-y-0 right-0 mr-3 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
-            <i class="fas eye-icon" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          <span *ngIf="!isEdit" class="absolute inset-y-0 right-0 mr-3 pr-3 flex items-center cursor-pointer">
+            <i  class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
           </span>
           
         </div>
@@ -134,8 +139,8 @@
           <div class="error" *ngIf="!isEdit && addEmployeeForm?.get('confirm_password')?.invalid && addEmployeeForm?.get('confirm_password')?.errors?.['maxlength']">
             Maximum limit exceeded.
           </div>
-           <span *ngIf="!isEdit" class="absolute inset-y-0 ml-96 pr-3 flex items-center cursor-pointer" (click)="showPassword = !showPassword">
-            <i class="fas eye-icon" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          <span *ngIf="!isEdit" class="absolute inset-y-0 ml-96 pr-3 flex items-center cursor-pointer">
+            <i class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
           </span>
         </div>
       </div>

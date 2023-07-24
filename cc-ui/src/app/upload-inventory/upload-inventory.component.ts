@@ -57,7 +57,7 @@ export class UploadInventoryComponent {
      container_list: Containers[] = [];
     showForm: boolean = false;
     isClicked:boolean=false
-    itemsPerPage: number = 5;
+    itemsPerPage: number = 7;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -296,6 +296,7 @@ nextPage() {
 
 
   getInventoryById(inv_id: number) {
+    debugger
     this.uploadInventoryservice.getInventoryById(inv_id)
       .subscribe(
         (        data: any) => {
@@ -314,6 +315,7 @@ nextPage() {
 
 
   editI(inv_id:number){
+    debugger
     // const parsedData = JSON.parse(this.inventory_data);
 
     console.log('inventory id is    shis' + inv_id)
@@ -356,29 +358,28 @@ nextPage() {
         (        error: any) => console.log(error));
   }
 
-async onSubmit() {
-  const timerDuration = 1000;
-  if(this.isEdit==1){
-    if(this.UploadInventoryForm.validator){
-      const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
-      console.log('edit'+response)
-      this.isEdit=0
-      this.UploadInventoryForm.reset();
-      await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-      await this.router.navigate(['/upload-inventory']);
-      await window.location.reload()
+  async onSubmit() {
+    debugger;
+    const timerDuration = 1000;
+    if (this.isEdit == 1) {
+      if (this.UploadInventoryForm.valid) {
+        debugger;
+        const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id, this.UploadInventoryForm.value).toPromise();
+        console.log('edit' + response);
+        this.isEdit = 0;
+        this.UploadInventoryForm.reset();
+        await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+        await this.router.navigate(['/upload-inventory']);
+        await window.location.reload();
+      } else {
+        this.snackBar.open('All fields are mandatory', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      }
     }
-    else{
-      
-      this.snackBar.open('All fields are mandatory', 'OK', {
-        duration: 3000,
-             verticalPosition: 'top',
-      });
-
-    }
-    
-  }
   else{
+    debugger
     if(this.UploadInventoryForm.valid){
       try {
         const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
