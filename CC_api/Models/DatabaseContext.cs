@@ -24,7 +24,11 @@ namespace CC_api.Models
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
       {
         //if (!optionsBuilder.IsConfigured)
+<<<<<<< HEAD
         optionsBuilder.UseSqlServer("Server=DEEKSHITH\\SQLEXPRESS;Database=CC_Model;Encrypt=False;Integrated Security=True;Trusted_Connection=True;");
+=======
+        optionsBuilder.UseSqlServer("Server=tcp:cc-api.database.windows.net,1433;Initial Catalog=CC_Models;Persist Security Info=False;User ID=ivoyant;Password=ContainerConundrum123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+>>>>>>> e5e1bb35e0121eef5652e87e4c59bcf34ddf6874
 
 
       }
