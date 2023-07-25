@@ -20,18 +20,18 @@ export interface Port {
   })
   export class ForecastingService {
     
-    private IdUrl='https://localhost:7157/GetInventoryById';
-    private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
+    private IdUrl='https://container-conundrum-api.azurewebsites.net/GetInventoryById';
+    private CIdUrl='https://container-conundrum-api.azurewebsites.net/GetInventoryByIdCID';
     
     constructor(private http:HttpClient) {
 
   }
     getAllPorts(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllPorts');
+      return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllPorts');
     }
     
     getAllInventory(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllInventory');  
+      return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllInventory');  
     }
     getInventoryById(id: number): Observable<any> {
       return this.http.get(`${this.IdUrl}/${id}`, { responseType: 'json' });

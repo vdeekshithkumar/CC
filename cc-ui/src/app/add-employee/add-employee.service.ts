@@ -10,12 +10,12 @@ import { User } from '../redundant/header/edit-user-details/edit-user-details.co
   providedIn: 'root'
 })
 export class AddEmployeeServiceService {
-  private apiUrl = 'https://localhost:7157/SaveUser'
-  private baseUrl = 'https://localhost:7157/AddPermission'
+  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/SaveUser'
+  private baseUrl = 'https://container-conundrum-api.azurewebsites.net/AddPermission'
   addPermissionForm: any;
-  private editUrl = 'https://localhost:7157/EditUserById'
-  private baseEditUrl = 'https://localhost:7157/EditPermission'
-  private UIdUrl = 'https://localhost:7157/GetUserById';
+  private editUrl = 'https://container-conundrum-api.azurewebsites.net/EditUserById'
+  private baseEditUrl = 'https://container-conundrum-api.azurewebsites.net/EditPermission'
+  private UIdUrl = 'https://container-conundrum-api.azurewebsites.net/GetUserById';
   constructor(private http:HttpClient) { }
   addPermission(ppList: any,emailValue:string): Observable<any> {
     const httpOptions = {
@@ -70,10 +70,10 @@ const payload = {
       );
   }
   getAllPermission(): Observable<Permissions[]> {
-    return this.http.get<Permissions[]>('https://localhost:7157/GetAllPermission');
+    return this.http.get<Permissions[]>('https://container-conundrum-api.azurewebsites.net/GetAllPermission');
   }
   getUserPermissions(user_id: number): Observable<Permissions[]> {
-    return this.http.get<Permissions[]>('https://localhost:7157/UserPermissions', {
+    return this.http.get<Permissions[]>('https://container-conundrum-api.azurewebsites.net/UserPermissions', {
       params: { user_id: user_id.toString() }
     });
   }

@@ -8,8 +8,8 @@ import { Observable, catchError, throwError } from 'rxjs';
     providedIn: 'root'
   })
   export class SignInService {
-    private baseServerUrl='https://localhost:7157/Login';
-    private otpApiUrl = 'https://localhost:7157/SendOtp'; // Replace with your backend API endpoint
+    private baseServerUrl='https://container-conundrum-api.azurewebsites.net/Login';
+    private otpApiUrl = 'https://container-conundrum-api.azurewebsites.net/SendOtp'; // Replace with your backend API endpoint
 
   constructor(private http:HttpClient) {
     

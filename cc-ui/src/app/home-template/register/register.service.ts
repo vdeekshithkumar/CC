@@ -13,9 +13,9 @@ export interface Company {
     
   })
   export class Registerservice {
-    private apiUrl='https://localhost:7157/SaveUser';
-    private baseUrl='https://localhost:7157/VerifyOTP';
-    private getUrl = 'https://localhost:7157/GetuserByEmail'
+    private apiUrl='https://container-conundrum-api.azurewebsites.net/SaveUser';
+    private baseUrl='https://container-conundrum-api.azurewebsites.net/VerifyOTP';
+    private getUrl = 'https://container-conundrum-api.azurewebsites.net/GetuserByEmail'
  
   constructor(private http:HttpClient) {
     
@@ -58,7 +58,7 @@ export interface Company {
       
     }
     getAllCompanies(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllCompany');
+      return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllCompany');
     }
     
   }

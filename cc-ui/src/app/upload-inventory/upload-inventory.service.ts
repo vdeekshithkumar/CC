@@ -19,12 +19,12 @@ export interface Port {
     providedIn: 'root'
   })
   export class UploadInventoryservice {
-    private apiUrl='https://localhost:7157/UploadInventory';
-    private baseUrl='https://localhost:7157/DeleteInventory';
-    private IdUrl='https://localhost:7157/GetInventoryById';
-    private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
-    private editUrl='https://localhost:7157/EditInventory';
-    private BASE_URL='https://localhost:7157/AddExcel';
+    private apiUrl='https://container-conundrum-api.azurewebsites.net/UploadInventory';
+    private baseUrl='https://container-conundrum-api.azurewebsites.net/DeleteInventory';
+    private IdUrl='https://container-conundrum-api.azurewebsites.net/GetInventoryById';
+    private CIdUrl='https://container-conundrum-api.azurewebsites.net/GetInventoryByIdCID';
+    private editUrl='https://container-conundrum-api.azurewebsites.net/EditInventory';
+    private BASE_URL='https://container-conundrum-api.azurewebsites.net/AddExcel';
     constructor(private http:HttpClient) {
 
   }
@@ -42,11 +42,11 @@ export interface Port {
     
 
     getAllPorts(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllPorts');
+      return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllPorts');
     }
     
     getAllInventory(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllInventory');  
+      return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllInventory');  
     }
     getInventoryById(id: number): Observable<any> {
       return this.http.get(`${this.IdUrl}/${id}`, { responseType: 'json' });

@@ -48,14 +48,14 @@ export interface Negotiation{
   providedIn: 'root'
 })
 export class NegotiationListService {
-  private  coUrl= 'https://localhost:7157/GetOtherCompany';
-  private deleteUrl = 'https://localhost:7157/DeleteNegotiation';
-  private acceptUrl = 'https://localhost:7157/AcceptNegotiation';
-  baseUrl = 'https://localhost:7157';
-  private apiUrl = 'https://localhost:7157/UserPermissions';
-  private userUrl = 'https://localhost:7157/GetAllOtherUser';
-  private NegotiationUrl = 'https://localhost:7157/GetAllNegotiations';
-  private adsUrl = 'https://localhost:7157/GetAllAds';
+  private  coUrl= 'https://container-conundrum-api.azurewebsites.net/GetOtherCompany';
+  private deleteUrl = 'https://container-conundrum-api.azurewebsites.net/DeleteNegotiation';
+  private acceptUrl = 'https://container-conundrum-api.azurewebsites.net/AcceptNegotiation';
+  baseUrl = 'https://container-conundrum-api.azurewebsites.net';
+  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/UserPermissions';
+  private userUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllOtherUser';
+  private NegotiationUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllNegotiations';
+  private adsUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllAds';
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {

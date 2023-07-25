@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class EditProfileService {
  
-  private apiUrl='https://localhost:7157/UpdateCompany';
+  private apiUrl='https://container-conundrum-api.azurewebsites.net/UpdateCompany';
   constructor(private http:HttpClient) { }
   edit(editprofileForm: FormGroup<any>)
   {
@@ -18,11 +18,11 @@ export class EditProfileService {
   }
   GetAllCompany():Observable<any>{
   
-    return this.http.get('https://localhost:7157/GetAllCompany')
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllCompany')
     // .pipe(map(res => res.json()));
   }
   getCompanyById(company_id:number):Observable<any>{
-    return this.http.get('https://localhost:7157/GetCompanyById',{params:{'companyId':company_id}})
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetCompanyById',{params:{'companyId':company_id}})
   }
  updatecompany(id:number,editprofileForm: FormGroup<any>){
   debugger;

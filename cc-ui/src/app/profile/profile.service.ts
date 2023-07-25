@@ -5,20 +5,20 @@ import { Observable,of } from 'rxjs';
   providedIn: 'root'
 })
 export class ProfileService {
-  private countUrl = 'https://localhost:7157/AdsCount';
-  private apiUrl = 'https://localhost:7157/GetCompanyById';
-   private UIdUrl = 'https://localhost:7157/GetUserById';
-  private userUrl = 'https://localhost:7157/GetAllUser';
-   private deleteUrl = 'https://localhost:7157/DeleteUser'; 
-   private usercountUrl = 'https://localhost:7157/GetAllUserCount'; 
+  private countUrl = 'https://container-conundrum-api.azurewebsites.net/AdsCount';
+  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/GetCompanyById';
+   private UIdUrl = 'https://container-conundrum-api.azurewebsites.net/GetUserById';
+  private userUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllUser';
+   private deleteUrl = 'https://container-conundrum-api.azurewebsites.net/DeleteUser'; 
+   private usercountUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllUserCount'; 
   constructor(private http: HttpClient) { }
   getUserDetails(user_id: number): Observable<any> {
-    return this.http.get(`https://localhost:7157/GetUserDetails?userId=${user_id}`);
+    return this.http.get(`https://container-conundrum-api.azurewebsites.net/GetUserDetails?userId=${user_id}`);
   }
 
   GetAllCompany(): Observable<any> {
 
-    return this.http.get('https://localhost:7157/GetAllCompany')
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllCompany')
   }
   getAdsCount(companyId: number): Observable<any> {
     return this.http.get(`${this.countUrl}?company_id=${companyId}`);

@@ -7,13 +7,13 @@ import { ContractDto } from '../DTO/ContractDto';
   providedIn: 'root'
 })
 export class ViewContractsService {
-  baseUrl = 'https://localhost:7157'
-  private IdUrl='https://localhost:7157/GetInventoryById';
-    private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
+  baseUrl = 'https://container-conundrum-api.azurewebsites.net'
+  private IdUrl='https://container-conundrum-api.azurewebsites.net/GetInventoryById';
+    private CIdUrl='https://container-conundrum-api.azurewebsites.net/GetInventoryByIdCID';
  
   constructor(private http: HttpClient) { }
   getAllPorts(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllPorts');
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllPorts');
   }
   
   

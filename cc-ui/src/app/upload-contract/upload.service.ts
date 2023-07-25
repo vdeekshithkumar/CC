@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UploadService {
-  baseUrl = 'https://localhost:7157'
+  baseUrl = 'https://container-conundrum-api.azurewebsites.net'
   constructor(private http: HttpClient) { }
 
   uploadFile(files: File[], userId: number, companyId: number, contentDesc:string, title:string) {

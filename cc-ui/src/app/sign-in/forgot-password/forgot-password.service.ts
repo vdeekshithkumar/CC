@@ -8,7 +8,7 @@ export class ForgotPassService {
     otp:any
     private email!: string
 
-  baseUrl="https://localhost:7157"
+  baseUrl="https://container-conundrum-api.azurewebsites.net"
   constructor(private http:HttpClient) { }
   getOTP(email:string){
     const url = `${this.baseUrl}/OTPVerification/${email}`;

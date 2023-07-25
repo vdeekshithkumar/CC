@@ -33,9 +33,9 @@ export interface Port {
   providedIn: 'root'
 })
 export class PostAdService {
-  baseUrl = 'https://localhost:7157'
-  private BASE_URL = 'https://localhost:7157/ExcelUploadAd';
-  private ad_Url = 'https://localhost:7157/GetAd';
+  baseUrl = 'https://container-conundrum-api.azurewebsites.net'
+  private BASE_URL = 'https://container-conundrum-api.azurewebsites.net/ExcelUploadAd';
+  private ad_Url = 'https://container-conundrum-api.azurewebsites.net/GetAd';
   constructor(private http: HttpClient) { }
 
   uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string) {
@@ -129,10 +129,10 @@ return this.http.put(url, formData);
    
 
   getAllPorts(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllPorts');
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllPorts');
   }
   getAllCTypes(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllCTypes');
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllCTypes');
   }
 
   UploadExcelData(excelImportedData:any,user_id:number,company_id:number) {

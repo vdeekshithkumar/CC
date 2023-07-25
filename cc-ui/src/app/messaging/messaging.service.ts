@@ -12,28 +12,28 @@ export class MessagingService {
 
   constructor(private http : HttpClient) { }
   getConversationByCompanyId(companyId:number){
-    return this.http.get<conversation[]>(`https://localhost:7157/GetConversationByCompanyId?companyId=${companyId}`);
+    return this.http.get<conversation[]>(`https://container-conundrum-api.azurewebsites.net/GetConversationByCompanyId?companyId=${companyId}`);
   }
   getMessges(conversationId:number)
   {
-    return this.http.get<Message[]>(`https://localhost:7157/GetMessagesByConversationId?conversationId=${conversationId}`);
+    return this.http.get<Message[]>(`https://container-conundrum-api.azurewebsites.net/GetMessagesByConversationId?conversationId=${conversationId}`);
   }
   sendMessage(message:Message)
   {
-    return this.http.post (`https://localhost:7157/SendMessage`,message)
+    return this.http.post (`https://container-conundrum-api.azurewebsites.net/SendMessage`,message)
   }
   GetParticipants(convoID:number)
   {
-    return this.http.get<participant[]>(`https://localhost:7157/GetParticipantsByConversationId?convoid=${convoID}`)
+    return this.http.get<participant[]>(`https://container-conundrum-api.azurewebsites.net/GetParticipantsByConversationId?convoid=${convoID}`)
   }
   GetUsersAsync(convoID:number , companyId:number)
   {
-    return this.http.get<Candidate[]> (`https://localhost:7157/GetUsers?convoid=${convoID}&companyId=${companyId}`)
+    return this.http.get<Candidate[]> (`https://container-conundrum-api.azurewebsites.net/GetUsers?convoid=${convoID}&companyId=${companyId}`)
   }
    AddParticipant (participant:participant)
   {
     debugger
-    return  this.http.post(`https://localhost:7157/AddParticipant`, participant)
+    return  this.http.post(`https://container-conundrum-api.azurewebsites.net/AddParticipant`, participant)
   }
 
 }

@@ -31,10 +31,10 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class ViewOtherAdsService {
-  private advUrl = 'https://localhost:7157/GetAllAdvertisement';
-  private  coUrl= 'https://localhost:7157/GetOtherCompany';
-  private  nUrl= 'https://localhost:7157/GetAllNegotiation';
-  private  startNUrl= 'https://localhost:7157/StartNegotiation';
+  private advUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllAdvertisement';
+  private  coUrl= 'https://container-conundrum-api.azurewebsites.net/GetOtherCompany';
+  private  nUrl= 'https://container-conundrum-api.azurewebsites.net/GetAllNegotiation';
+  private  startNUrl= 'https://container-conundrum-api.azurewebsites.net/StartNegotiation';
  
   constructor(private http:HttpClient) { }
 
@@ -54,7 +54,7 @@ export class ViewOtherAdsService {
 
  
   getAllContainers(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllContainers');
+    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllContainers');
   }
 
   StartNegotiation(ad_id: number,company_id: number, user_id: number): Observable<any> {

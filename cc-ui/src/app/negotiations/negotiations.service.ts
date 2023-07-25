@@ -49,12 +49,12 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class NegotiationsService {
-  private  coUrl= 'https://localhost:7157/GetOtherCompany';
-  private  nUrl= 'https://localhost:7157/GetAllNegotiation';
-  private userUrl = 'https://localhost:7157/GetAllCompanyUser';
-  private apiUrl = 'https://localhost:7157/UserPermissions';
-  private NegotiationUrl = 'https://localhost:7157/GetMyNegotiations';
-  private advUrl = 'https://localhost:7157/GetAllAdvertisement';
+  private  coUrl= 'https://container-conundrum-api.azurewebsites.net/GetOtherCompany';
+  private  nUrl= 'https://container-conundrum-api.azurewebsites.net/GetAllNegotiation';
+  private userUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllCompanyUser';
+  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/UserPermissions';
+  private NegotiationUrl = 'https://container-conundrum-api.azurewebsites.net/GetMyNegotiations';
+  private advUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllAdvertisement';
 
   constructor(private http: HttpClient) { }
 

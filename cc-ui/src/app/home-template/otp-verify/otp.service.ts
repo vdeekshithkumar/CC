@@ -9,9 +9,9 @@ import { Observable, catchError, throwError } from 'rxjs';
     
   })
   export class OtpService {
-    private apiUrl='https://localhost:7157/SaveUser';
-    private baseUrl='https://localhost:7157/VerifyOTP';
-    private getUrl = 'https://localhost:7157/GetuserByEmail'
+    private apiUrl='https://container-conundrum-api.azurewebsites.net/SaveUser';
+    private baseUrl='https://container-conundrum-api.azurewebsites.net/VerifyOTP';
+    private getUrl = 'https://container-conundrum-api.azurewebsites.net/GetuserByEmail'
  
   constructor(private http:HttpClient) {
     

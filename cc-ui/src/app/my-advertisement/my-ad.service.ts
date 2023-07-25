@@ -28,14 +28,14 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class MyAdService {
-  private deleteUrl = 'https://localhost:7157/DeleteAd';
-  baseUrl = 'https://localhost:7157';
-  private negotiationcountUrl = 'https://localhost:7157/GetNegotiationCount'; 
-  private apiUrl = 'https://localhost:7157/UserPermissions';
-  private countUrl = 'https://localhost:7157/AdsCount';
-  private Url = 'https://localhost:7157/GetCompanyById';
-  private userUrl = 'https://localhost:7157/GetAllUser';
-  private adsUrl = 'https://localhost:7157/GetAllAds';
+  private deleteUrl = 'https://container-conundrum-api.azurewebsites.net/DeleteAd';
+  baseUrl = 'https://container-conundrum-api.azurewebsites.net';
+  private negotiationcountUrl = 'https://container-conundrum-api.azurewebsites.net/GetNegotiationCount'; 
+  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/UserPermissions';
+  private countUrl = 'https://container-conundrum-api.azurewebsites.net/AdsCount';
+  private Url = 'https://container-conundrum-api.azurewebsites.net/GetCompanyById';
+  private userUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllUser';
+  private adsUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllAds';
   constructor(private http: HttpClient) { }
 
   getPermissions(userId: number): Observable<any> {

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class ResetService {
   [x: string]: any;
-  baseUrl="https://localhost:7157";
+  baseUrl="https://container-conundrum-api.azurewebsites.net";
  
   private showemailinput = false;
   private userID?:number
