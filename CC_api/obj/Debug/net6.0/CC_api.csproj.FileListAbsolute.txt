@@ -472,3 +472,10 @@ C:\Users\bhavi\OneDrive\Desktop\some new files\Container-conundrum\CC_api\obj\De
 C:\Users\bhavi\OneDrive\Desktop\some new files\Container-conundrum\CC_api\obj\Debug\net6.0\CC_api.pdb
 C:\Users\bhavi\OneDrive\Desktop\some new files\Container-conundrum\CC_api\obj\Debug\net6.0\CC_api.genruntimeconfig.cache
 C:\Users\bhavi\OneDrive\Desktop\some new files\Container-conundrum\CC_api\obj\Debug\net6.0\ref\CC_api.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\CC_api.staticwebassets.runtime.json
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Google.Apis.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Google.Apis.Auth.PlatformServices.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Google.Apis.Auth.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Google.Apis.Core.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Google.Apis.Drive.v3.dll
+C:\Users\vdeek\OneDrive\Documents\GitHub\cc\Container-conundrum\CC_api\bin\Debug\net6.0\Newtonsoft.Json.dll

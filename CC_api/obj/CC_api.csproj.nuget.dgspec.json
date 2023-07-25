@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj": {}
+    "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj": {
+    "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "projectUniqueName": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
         "projectName": "CC_api",
-        "projectPath": "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\CC_api.csproj",
-        "packagesPath": "C:\\Users\\bhavi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\bhavi\\OneDrive\\Desktop\\monday demo\\Container-conundrum\\CC_api\\obj\\",
+        "projectPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "packagesPath": "C:\\Users\\vdeek\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\bhavi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vdeek\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
