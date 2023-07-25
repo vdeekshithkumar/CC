@@ -146,13 +146,12 @@ border-bottom: 2px solid var(--gray-gray-3, #F5F5F5);
   }
   .foot{
    
-color:#2F54EB;
-font-family: Poppins;
-
-line-height: 20px;
-border-top: 2px solid var(--gray-gray-3, #F5F5F5);
-margin-left:864px;
-  }
+    color:#2F54EB;
+    font-family: Poppins;
+    
+    line-height: 20px;
+    border-top: 2px solid var(--gray-gray-3, #F5F5F5);
+      }
   chart-container-line{
     width: 100%; 
     height: 250px; 
