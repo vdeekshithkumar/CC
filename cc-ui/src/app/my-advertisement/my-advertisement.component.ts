@@ -683,39 +683,7 @@ onExport(){
   onAdTypeChange(selectedAdType: string) {
     this.ad_type = selectedAdType;
     this.operation = 'Active'; // Set the default operation to 'Active'
-    this.searchAd();
-  }
-
-  searchAd() {
-    debugger
-    this.myadservice.getMyAd(this.ad_type, this.companyId).subscribe(
-      (data: Advertisement[]) => {
-        // Store the fetched advertisements in the component property
-        console.log(data);
-        this.originalAds = data;
-        this.currentPage = 1;
-
-        // Filter the ads based on the selected operation (Active, Pending, or Draft)
-        this.filterAdsByOperation();
-
-        console.log("C or swap", this.ads);
-      },
-      error => {
-        console.error('Error fetching advertisements:', error);
-      }
-    );
-  }
-  filterAdsByOperation() {
-    if (this.operation === 'Active') {
-      // Show only active ads
-      this.ads = this.originalAds.filter(ad => ad.status === 'Active');
-    } else if (this.operation === 'Pending') {
-      // Show only pending ads
-      this.ads = this.originalAds.filter(ad => ad.status === 'Pending');
-    } else if (this.operation === 'Draft') {
-      // Show only draft ads
-      this.ads = this.originalAds.filter(ad => ad.status === 'Draft');
-    }
+    this.viewAds();
   }
 
   

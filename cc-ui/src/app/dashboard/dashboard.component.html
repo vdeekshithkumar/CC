@@ -84,7 +84,7 @@
   
 </div>
 <div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card highlight-card">
+  <div class="div-card-card highlight-card" style="height:340px;">
 
     <div class="p-3">
       <!-- Dummy bookings -->
@@ -96,13 +96,14 @@
     </div>
 
   </div>
-  <div class="div-card-card highlight-card">
+  <div class="div-card-card highlight-card" style="height:340px;" >
 
     <div class="p-3 -ml-4">
       <!-- myads -->
-      <div *ngIf="negotiationCount.length > 0" class="chart-container-neg">
+      <div *ngIf="negotiationCount.length > 0" class="chart-container-neg ">
         <canvas baseChart
                 [data]="negotiationchartData" 
+                class="curved-labels -mt-50 "
                 [labels]="chartLabels"
                 [options]="chartOptions"
                 [legend]="chartLegend"

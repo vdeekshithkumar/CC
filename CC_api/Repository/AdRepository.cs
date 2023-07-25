@@ -80,6 +80,7 @@ namespace CC_api.Repository
 
       return count;
     }
+ 
     public async Task Add(Ad ad)
     {
       await dbContext.advertisement.AddAsync(ad);

@@ -223,6 +223,7 @@ public async Task<String> GetPortName(int id)
       }
       return count;
     }
+ 
     public async Task<List<int>> GetMyAdscount(string ad_type,int companyId)
     {
       var GetMyAdscount = await AdRepository.GetMyAdscount(ad_type,companyId);
