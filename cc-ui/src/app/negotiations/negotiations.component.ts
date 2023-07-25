@@ -78,7 +78,7 @@ selectedNegotiation: any;
   ad_type: any;
   conversationID!:number
   negotiation_id!:number;
- 
+ negCount:any;
   selectedConversationIndex:any=null;
   selectedConversation:any;
   constructor(
@@ -242,6 +242,20 @@ debugger
         console.log("Error loading company details:", error);
       }
     );
+debugger
+    this.negotiationservice.getnegotiationcount(this.companyId).subscribe(
+      (count: number[]) => {
+        this.negCount = count;
+       
+        console.log('Ads count:', this.negCount[0]);
+      
+      },
+      (error: any) => {
+        console.log(error);
+        alert('Error occurred');
+      }
+    );
+
   }
 
 onCancel() {

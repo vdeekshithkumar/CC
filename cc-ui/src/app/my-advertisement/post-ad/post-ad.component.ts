@@ -269,6 +269,7 @@ this.type=this.data.type;
     debugger
     this.isLoading=true;
   if(this.operation=="PostAd"){
+    
     if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.container_type_id && this.type_of_ad) {
 
     debugger

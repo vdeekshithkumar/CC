@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit {
   userId:any;
   
   adscount: any;
+  approvedadscount:any;
   //for the employees table 
   currentPage = 1;
   itemsPerPage = 4;
@@ -117,7 +118,7 @@ export class ProfileComponent implements OnInit {
       (count: any[]) => {
         this.adscount = count;
       
-        console.log("count is are "+this.adscount);
+        console.log("count is are "+this.adscount[1]);
       
       },
       (error: any) => {
@@ -137,6 +138,7 @@ export class ProfileComponent implements OnInit {
    }
 
   );
+  debugger
 
   this.profileService.getallUser(this.companyId).subscribe(
     data => {

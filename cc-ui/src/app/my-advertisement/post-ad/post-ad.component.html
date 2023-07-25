@@ -182,7 +182,7 @@
                                     <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                    
                                         <div class="flex text-black-600 left-0 mt-1 border rounded-md" *ngIf="type == 'container'">
-                                          <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 240px;" *ngIf="type == 'container'">
+                                          <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 230px;" *ngIf="type == 'container'">
                                             <mat-button-toggle class="style-font" value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
                                             <mat-button-toggle class="style-font" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
                                             <mat-button-toggle  class="style-font"value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
@@ -232,15 +232,24 @@
     
     
                                 <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'">
-                                    <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Ad for Port<span class="text-red-500"> *</span></label>
-                                    <div class="bg-white font-medium rounded-lg">
-                                        <select #port [(ngModel)]="port_id" class="post-page-data" style="width: 154px; height: 34px;">
-                                            <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
-                                          </select>
-                                      </div>
-                                      
-                                </div>
+
+                                  <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Ad for Port<span class="text-red-500"> *</span></label>
+
+                                  <div class="bg-white font-medium rounded-lg">
+
+                                      <select #port [(ngModel)]="port_id" class="post-page-data" style="width: 154px; height: 34px;">
+
+                                          <option selected>Select your port </option>
+
+                                          <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+
+                                        </select>
+
+                                    </div>
+
+                                   
+
+                              </div>
                                 
                                 
                                 

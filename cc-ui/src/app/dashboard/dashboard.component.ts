@@ -87,31 +87,16 @@ export class DashboardComponent implements OnInit {
       },
       datalabels: {
         formatter: (value: any, ctx: Context) => {
-          const totalCount = ctx.chart.data.datasets.reduce(
-            (acc: number, dataset: ChartDataset<any>) => {
-              const datasetValues = dataset.data || [];
-              const datasetSum = datasetValues.reduce((sum: number, val: number | null) => sum + (val || 0), 0);
-              return acc + datasetSum;
-            },
-            0
-          );
-          const percentage = ((value * 100) / totalCount).toFixed(0) + '%';
-  
-          // Check if value is zero and return an empty string
-          if (value === 0) {
-            return '';
-          }
-  
-          return percentage; // Display count as percentage
+          const label = ctx.chart.data.labels?.[ctx.dataIndex] ?? '';
+          const count = ctx.chart.data.datasets?.[0].data?.[ctx.dataIndex] ?? 0;
+          return count > 0 ? `${label}: ${count}` : ''; // Display label only if count is greater than zero
         },
         color: '#000',
         anchor: 'end',
         align: 'start',
         offset: 6,
         clamp: true,
-        font: {
-          weight: 'bold',
-        },
+        
       },
     },
   };
@@ -199,7 +184,7 @@ export class DashboardComponent implements OnInit {
         formatter: (value: any, ctx: Context) => {
           const label = ctx.chart.data.labels?.[ctx.dataIndex] ?? '';
           const count = ctx.chart.data.datasets?.[0].data?.[ctx.dataIndex] ?? 0;
-          return count > 0 ? `${label}` : ''; // Display label only if count is greater than zero
+          return count > 0 ? `${label}: ${count}` : ''; // Display label only if count is greater than zero
         },
         color: '#000',
         anchor: 'end',
@@ -286,9 +271,7 @@ export class DashboardComponent implements OnInit {
         anchor: 'end',
         align: 'start',
         clamp: true,
-        font: {
-          weight: 'bold',
-        },
+        
       },
     },
   };
@@ -319,38 +302,20 @@ export class DashboardComponent implements OnInit {
           }),
         },
         displayColors: false,
-        bodyAlign: 'left',
-        bodyFont: {
-          weight: 'bold',
-        },
+        bodyAlign: 'right',
+       
       },
       datalabels: {
         formatter: (value: any, ctx: Context) => {
-          const totalCount = ctx.chart.data.datasets.reduce(
-            (acc: number, dataset: ChartDataset<any>) => {
-              const datasetValues = dataset.data || [];
-              const datasetSum = datasetValues.reduce((sum: number, val: number | null) => sum + (val || 0), 0);
-              return acc + datasetSum;
-            },
-            0
-          );
-          const percentage = ((value * 100) / totalCount).toFixed(0) + '%';
-  
-          // Check if value is zero and return an empty string
-          if (value === 0) {
-            return '';
-          }
-  
-          return percentage; // Display count as percentage
+          const label = ctx.chart.data.labels?.[ctx.dataIndex] ?? '';
+          const count = ctx.chart.data.datasets?.[0].data?.[ctx.dataIndex] ?? 0;
+          return count > 0 ? `${label}: ${count}` : ''; // Display label only if count is greater than zero
         },
         color: '#000',
         anchor: 'end',
-        align: 'start',
-        offset: 6,
+        align: 'end',
         clamp: true,
-        font: {
-          weight: 'bold',
-        },
+        
       },
     },
   };
@@ -512,6 +477,7 @@ export class DashboardComponent implements OnInit {
         this.negotiationchartData.datasets[0].data = this.negotiationCount;
         console.log('negotiation count:', this.negotiationCount);
         console.log(' negotiation Chart data:', this.negotiationchartData);
+        console.log("for test",this.negotiationCount);
       },
       (error: any) => {
         console.log(error);

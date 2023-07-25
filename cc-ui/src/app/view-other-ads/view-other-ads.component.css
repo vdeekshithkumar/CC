@@ -730,7 +730,7 @@ margin-top:180px;
 
 .clear-search-space button {
   
-  color: white;
+
   border: none;
 
   border-radius: 2px;
@@ -738,11 +738,12 @@ margin-top:180px;
 }
 
 .clear-color{
-  color: var(--gray-gray-8, #595959);
+  color: black;
   background-color: lightgray;
   width: 140px;
   height: 30px;
 }
+
 .viewmyads{
   display: flex;
   padding: 10px 18px;
