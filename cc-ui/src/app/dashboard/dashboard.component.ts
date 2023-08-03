@@ -263,9 +263,18 @@ export class DashboardComponent implements OnInit {
       },
       datalabels: {
         // Display value on top of the bar
-        display: true,
-        formatter: (value: any) => {
-          return value > 0 ? value.toString() : ''; // Display value only if greater than 0
+        formatter: (value: any, context: any) => {
+          const sumValue = context.dataset.data[context.dataIndex];
+          if (sumValue > 8000) {
+            // Display count if greater than 8000
+            return sumValue.toString();
+          } else if (value > 0) {
+            // Display values beside the bars, only if greater than 0
+            return value.toString();
+          } else {
+            // Show an empty string for other cases (negative or zero values)
+            return '';
+          }
         },
         color: '#000',
         anchor: 'end',

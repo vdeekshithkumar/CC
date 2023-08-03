@@ -142,37 +142,25 @@
       <div class="error" *ngIf="registrationForm?.get('phone_no')?.invalid && registrationForm?.get('phone_no')?.errors?.['maxlength']">
         Maximum limit exceeded.
       </div>
-       
-      
-
       <div class="space-y-1 col-span-2 mt-[0.5rem]">
         <label for="company" class="label">Company</label>
-        <select
-          #company
-          [(ngModel)]="company_name"
-          formControlName="company_id"
+        <input
+          [(ngModel)]="enteredCompanyName"
+          (input)="onCompanyNameChange($event)"
+          name="companyName"
           id="Company"
-          class=" page-input"
+          class="page-input"
           style="padding: 0px; padding-left: 10px; height: 32px; margin-top: 6px;padding-left: 6px; color: var(--gray-gray-9, #262626); font-size: 14px;  line-height: 20px;"
+          placeholder="Enter company name"
         >
-      
-          <!-- <option value="" disabled selected>Select your company</option> -->
-          <option
-            *ngFor="let company of company_list"
-            [value]="company.company_id"
-          >
-            {{ company.name }}
-          </option>
-        </select>
         <div
-        *ngIf="showValidationErrors && registrationForm.get('company_id')?.invalid"
-        class="text-red-500 text-sm mt-1"
-      >
-      <!-- <div *ngIf="registrationForm.get('company_id')?.errors?.['required']">Company is required</div> -->
-    </div>
+          *ngIf="showValidationErrors && registrationForm.get('company_id')?.invalid"
+          class="text-red-500 text-sm mt-1"
+        >
+        </div>
       </div>
-
-    
+      
+      
       <div class = 'space-y-1 col-span-2 mt-[0.5rem]'>
         <div >
           <label for="password" class="label">Create Password</label>

@@ -19,7 +19,7 @@
                 <div class="mt-4">
                     <div *ngFor="let convo of conversations; let i = index" class="h-100 w-full border-2 bord p-2 bg-white cursor-pointer"
      [ngClass]="{ 'selected-conversation': i === selectedConversationIndex }"
-     (click)="getMessages(convo.conversationId); setSelectedConversationIndex(i);
+     (click)="getMessages(convo.conversationid); setSelectedConversationIndex(i);
               selectedConversationName = (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name;
               selectedConversationDesc = convo.user_name;selectedcompanyname=convo.negotiator_company_name; selectedConversationLogo =(convo.company_id === this.companyId) ? convo.company_logo:convo.negotiator_company_logo">
   <div class="container text-sm inline">
@@ -34,8 +34,8 @@
           {{ (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name }}
         </div>
         <div>{{ convo.user_name }}</div>
-        <div *ngIf="lastMessages[convo.conversationId]" class="truncate">
-            Last Message: {{ lastMessages[convo.conversationId]?.content }}
+        <div *ngIf="lastMessages[convo.conversationid]" class="truncate">
+            Last Message: {{ lastMessages[convo.conversationid]?.content }}
         </div>
       </div>
     </div>
@@ -85,8 +85,8 @@
                     <div *ngIf="isFirstMessageOrDateChanged(i)" class="w-full text-center font-medium">
                         {{ message.timestamp | date:'dd MMMM, yyyy' }}
                     </div>
-                    <div *ngIf="userId == message.senderId; else otherSender" class="float-right">
-                        <div class=" float-right">{{ getSenderName(message.senderId) }}</div><br>
+                    <div *ngIf="userId == message.senderid; else otherSender" class="float-right">
+                        <div class=" float-right">{{ getSenderName(message.senderid) }}</div><br>
                         <div class="message-content float-right">{{ message.content }}</div>
                        
                         <div class="message-time text-[0.7rem]">{{ message.timestamp | date:'hh:mm a':'Asia/Calcutta' }}
@@ -95,7 +95,7 @@
 
                     <ng-template #otherSender>
                         <div class="float-left">
-                            <div class=" float-left">{{ getSenderName(message.senderId) }}</div><br>
+                            <div class=" float-left">{{ getSenderName(message.senderid) }}</div><br>
                             <div class="message-content ">{{ message.content }}</div>
                            
                             <div class="message-time text-[0.7rem]">{{ message.timestamp | date:'hh:mm a':'Asia/Calcutta'}}

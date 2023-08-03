@@ -4,8 +4,10 @@
     <div class=" justify-center h1 w-[55rem] h-[5rem]">
       <div>
         <div class="flex items-center justify-between ">
-          <h1 class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
+          <h1 *ngIf="!isEdit" class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
             Add New User</h1>
+            <h1 *ngIf="isEdit" class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
+              Edit User Details</h1>
           <div>
             <button mat-dialog-close="" class="mr-4 mb-4 mt-4 text-black hover:text-gray-700 focus:outline-none">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

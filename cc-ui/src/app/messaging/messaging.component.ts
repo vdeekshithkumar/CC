@@ -288,8 +288,8 @@ export class MessagingComponent implements OnInit {
     
     const message: Message = {
       content: content,
-      senderId: this.userId,
-      conversationId: this.conversationID,
+      senderid: this.userId,
+      conversationid: this.conversationID,
       timestamp: new Date(),
   
       // negotiation_id:this.negotiation_id,

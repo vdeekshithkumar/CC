@@ -640,7 +640,6 @@ onExport(){
       XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
       XLSX.writeFile(workbook, excelFileName);
    }
-
    OpenNegotiations(ad_id: number) {
     this.dialog.open(NegotiationListComponent, {
       width: '70%',

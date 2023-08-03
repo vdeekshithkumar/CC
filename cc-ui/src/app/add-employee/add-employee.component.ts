@@ -130,7 +130,11 @@ export class AddEmployeeComponent {
         console.error('Error retrieving company ID:', error);
       }
     );
+    const now = new Date();
+    const formattedDateTime = now.toISOString();
+    console.log(formattedDateTime);
     this.addEmployeeForm = this.formBuilder.group({
+      
       user_id: ['2', Validators.required],
       company_id: this.companyId,
       fname:  ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
@@ -144,7 +148,7 @@ export class AddEmployeeComponent {
       is_verified: ['1', Validators.required],
       is_approved: ['1', Validators.required],
       is_active: ['1', Validators.required],
-      last_login: ['2024-07-15', Validators.required],
+      last_login:formattedDateTime,
       designation: ['user'],
     }
     );

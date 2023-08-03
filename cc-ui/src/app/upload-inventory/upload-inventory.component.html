@@ -484,18 +484,20 @@
           <div class="col-span-1 mt-0">
               <label class="top mb-2 font-normal">Container Type</label>
               <div>
-                <select class="upload-input-data border" style="font-size: 11px;" formControlName="container_type" >
-                    <option value="" class="text-xs" disabled selected>Select Container Type</option>
-                    <option *ngFor="let type of ['refrigerated', 'non refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
-                  </select>
+                <select class="upload-input-data border placeholder" style="font-size: 11px;" formControlName="container_type">
+                  <option value="" class="text-xs" class="placeholder" disabled selected>Select Container Type </option>
+                  <option *ngFor="let contype of container_type_list">{{contype.type}}</option>
+                  
+                </select>
               </div>
             </div>
             <div class="col-span-1 mt-0">
               <label class="top mb-2 font-normal">Container Size</label>
               <div>
                 <select class="upload-input-data border placeholder" style="font-size: 11px;" formControlName="container_size">
-                  <option value="" class="text-xs" class="placeholder" disabled selected>Select Container Size in TEU</option>
-                  <option *ngFor="let con of container_list" [value]="con.capacity">{{ con.capacity }} TEU</option>
+                  <option value="" class="text-xs" class="placeholder" disabled selected>Select Container Size in Ft</option>
+                  <option *ngFor="let consize of container_list">{{consize.capacity}}</option>
+                  
                 </select>
               </div>
             </div>

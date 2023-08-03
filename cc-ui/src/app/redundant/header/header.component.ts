@@ -67,5 +67,7 @@ export class HeaderComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
-
+  onBellIconClick(){
+    console.log("Bell icon is clicked")
+  }
 }
