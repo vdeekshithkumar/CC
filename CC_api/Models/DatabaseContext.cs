@@ -21,17 +21,23 @@ namespace CC_api.Models
     public DbSet<Participant> participant { get; set; }
 
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-      {
-        //if (!optionsBuilder.IsConfigured)
-<<<<<<< HEAD
-        optionsBuilder.UseSqlServer("Server=DEEKSHITH\\SQLEXPRESS;Database=CC_Model;Encrypt=False;Integrated Security=True;Trusted_Connection=True;");
-=======
-        optionsBuilder.UseSqlServer("Server=tcp:cc-api.database.windows.net,1433;Initial Catalog=CC_Models;Persist Security Info=False;User ID=ivoyant;Password=ContainerConundrum123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
->>>>>>> e5e1bb35e0121eef5652e87e4c59bcf34ddf6874
+
+   //FOR POSTGRESQL
+   // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    // {
+    //   optionsBuilder.UseNpgsql("User ID=postgres;Password=deekshith;Host=localhost;Port=5432;Database=db-cc;Pooling=true;");
 
 
-      }
-    }
+    //}
+
+
+    //FOR SQL 
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //  optionsBuilder.UseSqlServer("Server=DEEKSHITH\\SQLEXPRESS;Database=CC_Model;Encrypt=False;Integrated Security=True;Trusted_Connection=True;");
+
+
+    //}
+  }
 
 }

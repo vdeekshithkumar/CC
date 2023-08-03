@@ -62,7 +62,7 @@ namespace CC_api.Business
     }
 
 
-public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
+    public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, int company_id)
 
     {
 
@@ -108,22 +108,23 @@ public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, in
           var ad = new Ad();
 
 
+          DateTime currentDate = DateTime.Now.ToUniversalTime();
 
-          DateTime currentDate = DateTime.Now;
+
 
 
 
           ad.ad_id = i.ad_id;
 
-          ad.date_created = i.date_created;
+          ad.date_created = i.date_created.ToUniversalTime();
 
-          ad.from_date = i.from_date;
+          ad.from_date = i.from_date.ToUniversalTime();
 
-          ad.expiry_date = i.expiry_date;
+          ad.expiry_date = i.expiry_date.ToUniversalTime();
 
           ad.type_of_ad = i.type_of_ad;
 
-          ad.container_type_id = i.container_type_id;
+
 
           ad.price = i.price;
 
@@ -139,7 +140,8 @@ public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, in
 
           ad.contents = i.contents;
 
-
+          ad.container_type = i.container_type;
+         
 
           ad.port_of_ad = i.port_of_ad;
 
@@ -181,9 +183,9 @@ public async Task<IActionResult> AdImportData(List<AdData> item, int user_id, in
 
     }
 
- 
 
-public async Task<String> GetPortName(int id)
+
+    public async Task<String> GetPortName(int id)
 
     {
 
@@ -213,9 +215,9 @@ public async Task<String> GetPortName(int id)
       return count;
     }
 
-    public async Task<List<int>> GetMyadvertisementCount(string ad_type,int companyId)
+    public async Task<List<int>> GetMyadvertisementCount(string ad_type, int companyId)
     {
-      var AdsCount = await AdRepository.GetMyadvertisementCount(ad_type,companyId);
+      var AdsCount = await AdRepository.GetMyadvertisementCount(ad_type, companyId);
       var count = new List<int>();
       foreach (var c in AdsCount)
       {
@@ -223,10 +225,10 @@ public async Task<String> GetPortName(int id)
       }
       return count;
     }
- 
-    public async Task<List<int>> GetMyAdscount(string ad_type,int companyId)
+
+    public async Task<List<int>> GetMyAdscount(string ad_type, int companyId)
     {
-      var GetMyAdscount = await AdRepository.GetMyAdscount(ad_type,companyId);
+      var GetMyAdscount = await AdRepository.GetMyAdscount(ad_type, companyId);
       var count = new List<int>();
       foreach (var c in GetMyAdscount)
       {
@@ -243,11 +245,12 @@ public async Task<String> GetPortName(int id)
         return new NotFoundResult();
       }
 
-      existingAd.date_created = Ad.date_created;
-      existingAd.from_date = Ad.from_date;
-      existingAd.expiry_date = Ad.expiry_date;
+      existingAd.date_created = Ad.date_created.ToUniversalTime();
+      existingAd.from_date = Ad.from_date.ToUniversalTime();
+      existingAd.expiry_date = Ad.expiry_date.ToUniversalTime();
       existingAd.type_of_ad = Ad.type_of_ad;
-      existingAd.container_type_id = Ad.container_type_id;
+      existingAd.container_type = Ad.container_type;
+      existingAd.container_size = Ad.container_size;
       existingAd.price = Ad.price;
       existingAd.status = Ad.status;
       existingAd.quantity = Ad.quantity;
@@ -272,11 +275,12 @@ public async Task<String> GetPortName(int id)
       var ad = new Ad();
 
       ad.ad_id = Ad.ad_id;
-      ad.date_created = Ad.date_created;
-      ad.from_date = ad.from_date;
-      ad.expiry_date = Ad.expiry_date;
+      ad.date_created = Ad.date_created.ToUniversalTime();
+      ad.from_date = ad.from_date.ToUniversalTime();
+      ad.expiry_date = Ad.expiry_date.ToUniversalTime();
       ad.type_of_ad = Ad.type_of_ad;
-      ad.container_type_id = Ad.container_type_id;
+      ad.container_type = Ad.container_type;
+      ad.container_size = Ad.container_size;
       ad.price = Ad.price;
       ad.status = Ad.status;
       ad.quantity = Ad.quantity;
@@ -288,7 +292,7 @@ public async Task<String> GetPortName(int id)
       ad.port_of_arrival = Ad.port_of_arrival;
       ad.free_days = Ad.free_days;
       ad.per_diem = Ad.per_diem;
-      ad.port_of_ad= Ad.port_of_ad;
+      ad.port_of_ad = Ad.port_of_ad;
       ad.ad_type = Ad.ad_type;
       ad.pickup_charges = Ad.pickup_charges;
       ad.file = Ad.file;

@@ -48,9 +48,9 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("GetMyAds")]
-    public async Task<IActionResult> GetMyAdscount(string ad_type,int companyId)
+    public async Task<IActionResult> GetMyAdscount(string ad_type, int companyId)
     {
-      var count = await _AdBusiness.GetMyAdscount(ad_type,companyId);
+      var count = await _AdBusiness.GetMyAdscount(ad_type, companyId);
       return Ok(count);
     }
 
@@ -83,7 +83,7 @@ namespace CC_api.Controllers
 
     [HttpPost("PostAd")]
     public async Task<ActionResult> PostAd(IFormFile file,
-      DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
+      DateTime from_date, int expiry_date, string type_of_ad, string container_type, int container_size,
       decimal price, int quantity, int port_id, int posted_by, int company_id,
       string contents, string port_of_departure, string port_of_arrival, int free_days,
       int per_diem, decimal pickup_charges, string operation, string port_of_ad, string ad_type)
@@ -132,11 +132,12 @@ namespace CC_api.Controllers
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = expiry_date_time,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = expiry_date_time.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "pending",
             quantity = quantity,
@@ -203,11 +204,12 @@ namespace CC_api.Controllers
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = expiry_date_time,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = expiry_date_time.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "draft",
             quantity = quantity,
@@ -338,20 +340,20 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("MyadvertisementCount")]
-    public async Task<IActionResult> GetMyadvertisementCount(string ad_type,int companyId)
+    public async Task<IActionResult> GetMyadvertisementCount(string ad_type, int companyId)
     {
       var count = await _AdBusiness.GetMyadvertisementCount(ad_type, companyId);
       return Ok(count);
     }
 
-  
+
 
     [HttpPut("Edit/{id}")]
 
 
 
     public async Task<ActionResult> UpdateAd(int id, IFormFile file,
-    DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
+    DateTime from_date, int expiry_date, string type_of_ad, string container_type, int container_size,
     decimal price, int quantity, int port_id, int posted_by, int company_id,
     string contents, string port_of_departure, string port_of_arrival, int free_days,
     int per_diem, decimal pickup_charges, string operation, string port_of_ad, string ad_type)
@@ -413,11 +415,12 @@ namespace CC_api.Controllers
           var Ad = new Ad
           {
             ad_id = id,
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = expiry_date_time,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = expiry_date_time.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "active",
             quantity = quantity,
@@ -500,11 +503,12 @@ namespace CC_api.Controllers
           var Ad = new Ad
           {
             ad_id = id,
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = from_date,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = from_date.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "draft",
             quantity = quantity,
@@ -585,11 +589,12 @@ namespace CC_api.Controllers
           var Ad = new Ad
           {
             ad_id = id,
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = from_date,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = from_date.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "pending",
             quantity = quantity,

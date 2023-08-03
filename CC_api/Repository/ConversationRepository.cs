@@ -27,7 +27,7 @@ namespace CC_api.Repository
     {
       if (dbContext.users.Any(u => u.user_id == conversation.user_id) && conversation != null)
       {
-        var existingConversation = await dbContext.conversation.FirstOrDefaultAsync(c => c.ConversationId == conversation.ConversationId);
+        var existingConversation = await dbContext.conversation.FirstOrDefaultAsync(c => c.conversationid == conversation.conversationid);
 
         if (existingConversation != null)
         {
@@ -43,8 +43,8 @@ namespace CC_api.Repository
         // Create a participant object
         Participant participant = new Participant()
         {
-          ConversationId = conversation.ConversationId,
-          UserId = conversation.user_id,
+          conversationid = conversation.conversationid,
+          user_id = conversation.user_id,
           fname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.fname).FirstOrDefault(),
           lname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.lname).FirstOrDefault(),
           company_id = conversation.company_id,
@@ -66,7 +66,7 @@ namespace CC_api.Repository
 
     public async void AddParticipant(Participant participant)
     {
-      var user = await dbContext.users.FindAsync(participant.UserId);
+      var user = await dbContext.users.FindAsync(participant.user_id);
       var company = await dbContext.company.FindAsync(participant.company_id);
 
       if (user != null && company != null)
@@ -86,16 +86,16 @@ namespace CC_api.Repository
     }
     public async Task<List<Participant>> GetParticipants(int convoid)
     {
-      return await dbContext.participant.Where(c => c.ConversationId == convoid).ToListAsync();
+      return await dbContext.participant.Where(c => c.conversationid == convoid).ToListAsync();
     }
 
     public async Task<List<Message>> GetMessagesByConversationId(int conversationId)
     {
-      return await dbContext.message.Where(m => m.ConversationId == conversationId).ToListAsync();
+      return await dbContext.message.Where(m => m.conversationid == conversationId).ToListAsync();
     }
     public async Task<Message> SendMessage(Message message)
     {
-      message.Timestamp = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(5.5)).DateTime; // Convert to local DateTime in IST
+      message.timestamp = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(5.5)).DateTime; // Convert to local DateTime in IST
       dbContext.message.Add(message);
       await dbContext.SaveChangesAsync();
       return message;
@@ -104,15 +104,15 @@ namespace CC_api.Repository
 
     public async Task<List<Conversation>> GetConversationByCompanyId(int companyId)
     {
-      return await dbContext.conversation.Where(c => c.company_id == companyId || c.AdscompanyId == companyId).ToListAsync();
+      return await dbContext.conversation.Where(c => c.company_id == companyId || c.adscompanyid == companyId).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByAdCompanyId(int AdscompanyId)
     {
-      return await dbContext.conversation.Where(c => c.AdscompanyId == AdscompanyId).ToListAsync();
+      return await dbContext.conversation.Where(c => c.adscompanyid == AdscompanyId).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {
-      return await dbContext.conversation.Where(c => c.ConversationId == ConversationId).ToListAsync();
+      return await dbContext.conversation.Where(c => c.conversationid == ConversationId).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)
     {
@@ -122,8 +122,8 @@ namespace CC_api.Repository
     {
       //the company name is same for all the users here since an admin can only add his own employees
       var participantUserIds = dbContext.participant
-          .Where(p => p.ConversationId == convoid)
-          .Select(p => p.UserId);
+          .Where(p => p.conversationid == convoid)
+          .Select(p => p.user_id);
       var companyName = await dbContext.company
         .Where(c => c.company_id == companyId)
         .Select(c => c.name)

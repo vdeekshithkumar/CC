@@ -49,7 +49,7 @@ namespace CC_api.Repository
 
       return negotiations;
     }
-    public async Task<List<long>> GetMyNegotiationsCount( int company_id)
+    public async Task<List<long>> GetMyNegotiationsCount(int company_id)
     {
 
 
@@ -68,7 +68,7 @@ namespace CC_api.Repository
      .Where(a => a.company_id == company_id && a.status == "rejected").CountAsync();
       count.Add(rejectednegotiations);
 
-     
+
 
 
       return count;

@@ -38,9 +38,9 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("GetMessagesByConversationId")]
-    public async Task<IActionResult> GetMessagesByConversationId(int conversationId)
+    public async Task<IActionResult> GetMessagesByConversationId(int conversationid)
     {
-      var messages = await conversationBusiness.GetMessagesByConversationId(conversationId);
+      var messages = await conversationBusiness.GetMessagesByConversationId(conversationid);
       return Ok(messages);
     }
 
@@ -67,9 +67,9 @@ namespace CC_api.Controllers
       return Ok(conversations);
     }
     [HttpGet("GetConversationByConversationId")]
-    public async Task<IActionResult> GetConversationByConversationId(int ConversationId)
+    public async Task<IActionResult> GetConversationByConversationId(int conversationid)
     {
-      var conversations = await conversationBusiness.GetConversationByConversationId(ConversationId);
+      var conversations = await conversationBusiness.GetConversationByConversationId(conversationid);
       return Ok(conversations);
     }
     [HttpGet("GetConversationByNegotationId")]

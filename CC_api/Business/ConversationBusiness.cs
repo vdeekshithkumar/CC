@@ -41,9 +41,9 @@ namespace CC_api.Business
     {
       return await conversationRepository.GetConversationByCompanyId(companyId);
     }
-    public async Task<List<Conversation>> GetConversationByAdCompanyId(int AdscompanyId)
+    public async Task<List<Conversation>> GetConversationByAdCompanyId(int adscompanyid)
     {
-      return await conversationRepository.GetConversationByAdCompanyId(AdscompanyId);
+      return await conversationRepository.GetConversationByAdCompanyId(adscompanyid);
     }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {

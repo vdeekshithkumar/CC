@@ -28,7 +28,7 @@ namespace CC_api.Business
 
     public async Task<IActionResult> UploadInventory(Inventory inventory)
     {
-      
+
       var inv = new Inventory();
 
 
