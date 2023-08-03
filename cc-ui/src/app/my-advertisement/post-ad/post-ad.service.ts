@@ -11,6 +11,8 @@ export interface Advertisement {
   expiry_date: Date;
   type_of_ad: string;
   container_type_id: number;
+  container_type:string;
+  container_size:number;
   price: number;
   status: string;
   quantity: number;
@@ -40,7 +42,7 @@ export class PostAdService {
   private ad_Url = 'https://localhost:7157/GetAd';
   constructor(private http: HttpClient) { }
 
-  uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type_id:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string,port_of_ad:string,ad_type:string) {
+  uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type:string,size:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string,port_of_ad:string,ad_type:string) {
   if(operation=="PostAd"){
 debugger
     const formData = new FormData();
@@ -51,7 +53,8 @@ debugger
     formData.append('from_date', (from_date || 0).toString());
     formData.append('expiry_date', (expiry_date || 0).toString());
     formData.append('type_of_ad', (type_of_ad || 'NA'));
-    formData.append('container_type_id', container_type_id.toString());
+    formData.append('container_type', container_type||'NA');
+    formData.append('container_size',(size || 0).toString());
     formData.append('price', (price || 0).toString());
     formData.append('quantity', (quantity || 0).toString());
     formData.append('port_id', (port_id || 0).toString());
@@ -77,7 +80,8 @@ debugger
     formData.append('from_date', (from_date || 0).toString());
     formData.append('expiry_date', (expiry_date || 0).toString());
     formData.append('type_of_ad', (type_of_ad || 'NA'));
-    formData.append('container_type_id', container_type_id.toString());
+    formData.append('container_type', container_type|| 'NA');
+    formData.append('container_size',(size || 0).toString());
     formData.append('price', (price || 0).toString());
     formData.append('quantity', (quantity || 0).toString());
     formData.append('port_id', (port_id || 0).toString());
@@ -99,7 +103,7 @@ debugger
   }
 
   updateAd(id: number, file: File, from_date: Date, expiry_date: number, type_of_ad: string,
-    container_type_id: number, price: number, quantity: number, port_id: number,
+    container_type: string,size:number, price: number, quantity: number, port_id: number,
     userId: number, companyId: number, contents: string, port_of_departure: string,
     port_of_arrival: string, free_days: number, per_diem: number, pickup_charges: number,
     operation: string,port_of_ad:string,ad_type:string): Observable<any> {
@@ -110,7 +114,8 @@ debugger
       formData.append('from_date', (from_date || 0).toString());
       formData.append('expiry_date', (expiry_date || 0).toString());
       formData.append('type_of_ad', (type_of_ad || 'NA'));
-      formData.append('container_type_id', container_type_id.toString());
+      formData.append('container_type', container_type|| 'NA');
+      formData.append('container_size',(size || 0).toString());
       formData.append('price', (price || 0).toString());
       formData.append('quantity', (quantity || 0).toString());
       formData.append('port_id', (port_id || 0).toString());

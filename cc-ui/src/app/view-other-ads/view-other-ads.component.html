@@ -108,7 +108,7 @@
       <ng-container *ngIf="ad_type === 'space'">
         <p class="port-text">Port of Departure</p>
         <div class="port-input cursor-pointer">
-          <select class="cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_departure">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_departure">
             <option *ngFor="let port of port_list" [value]="port.port_name">
               {{ port.port_name }}
             </option>
@@ -118,7 +118,7 @@
         <p class="port-text">Port of Arrival</p>
     
         <div class="port-input">
-          <select class="cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_arrival">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_arrival">
             <option *ngFor="let port of port_list" [value]="port.port_name">
               {{ port.port_name }}
             </option>
@@ -162,40 +162,27 @@
         
               </div>
       <div class="text-after-type-sidebar">
-        <p class="port-text">Select Type</p>
-
-        <div class="search-type-container">
-          <div
-            class="search-q1-container" id="searchSize"
-            [ngClass]="{ selected: selectedOptions['size'] === 'R 1TEU' }"
-            (click)="toggleOption('size', 'R 1TEU')"
-          >
-          R 1TEU
-          </div>
-
-          <div
-            class="search-q2-container"
-            [ngClass]="{ selected: selectedOptions['size'] === 'NR 1TEU' }"
-            (click)="toggleOption('size', 'NR 1TEU')"
-          >
-          NR 1TEU
-          </div>
-          <div
-            class="search-q2-container"
-            [ngClass]="{ selected: selectedOptions['size'] === 'R 2TEU' }"
-            (click)="toggleOption('size', 'R 2TEU')"
-          >
-          R 2TEU
-          </div>
-          <div
-            class="search-q-container"
-            [ngClass]="{ selected: selectedOptions['size'] === 'NR 2 TEU' }"
-            (click)="toggleOption('size', 'NR 2TEU')"
-          >
-          NR 2TEU
-          </div>
-        
+        <p class="port-text">Select type</p>
+    
+        <div class="port-input">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" menu="bottom" [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
+            <option disabled selected value="">Select a type</option>
+            <option style="height: 10px;" *ngFor="let contype of container_type_list" [value]="contype.type">
+              {{ contype.type }}
+            </option>
+          </select>
         </div>
+        <p class="port-text" style="margin-top: 10px;" >Select Size(in Ft)</p>
+        <ul class="horizontal-list">
+          <li
+            *ngFor="let size of container_list"
+            (click)="onSizeClick(size)"
+            [ngClass]="{ 'selected': selectedcontainerSize === size.capacity }"
+          >
+            {{ size.capacity }}'
+          </li>
+        </ul>
+        
         <div class="clear-search-container" *ngIf="ad_type === 'container'">
           <button (click)="clearOptions()" class="clear-color">
             Clear
@@ -254,7 +241,9 @@
       [ad_typetomap]="ad_typetomap"
       [typetomap]="typetomap"
       [selectedTypePortOfAd]="selectedTypePortOfAd"
-      [selectedSizetomap]="selectedSizetomap"
+      [selectedcontainertypetomap]="selectedcontainertypetomap"
+      [selectedcontainersizetomap]="selectedcontainersizetomap"
+
       
     ></app-view-other-ads-map-view>
   </div>
@@ -264,7 +253,9 @@
       [typetomap]="typetomap"
       [selectedTypePortOfDep]="selectedTypePortOfDep"
       [selectedTypePortOfArr]="selectedTypePortOfArr"
-      [selectedSizetomap]="selectedSizetomap"
+      [selectedcontainertypetomap]="selectedcontainertypetomap"
+      [selectedcontainersizetomap]="selectedcontainersizetomap"
+
       
     ></app-view-other-ads-map-view>
   </div>
@@ -455,11 +446,7 @@
               <span class="text-[0.6rem]">Container Type</span>
             </div>
             <div class="text-xs font-bold">
-              <ng-container *ngFor="let container of container_size">
-                <span *ngIf="container.container_type_id === ad.container_type_id">
-                  {{ container.type }}
-                </span>
-              </ng-container>
+              <div class="text-xs font-bold">{{ ad.container_type }}</div>
             </div>
           </div>
           

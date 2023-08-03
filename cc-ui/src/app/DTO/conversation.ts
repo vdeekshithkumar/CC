@@ -1,6 +1,6 @@
 export interface conversation {
   adcompanyId:number;  
-  conversationId: number;
+  conversationid: number;
   company_id: number;
 
   user_id:number;

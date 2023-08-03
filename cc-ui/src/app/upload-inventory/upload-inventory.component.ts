@@ -55,6 +55,7 @@ export class UploadInventoryComponent {
     ExcelData:any;
      Einv: Inventory[] = [];
      container_list: Containers[] = [];
+     container_type_list:Containers[]=[];
     showForm: boolean = false;
     isClicked:boolean=false
     itemsPerPage: number = 7;
@@ -178,19 +179,24 @@ ReadExcel(event: any) {
         const uniqueContainers = condata.filter((container, index, self) =>
           index === self.findIndex((c) => c.capacity === container.capacity)
         );
-    
+        const uniqueContainertypes = condata.filter((container, index, self) =>
+        index === self.findIndex((c) => c.type === container.type)
+      );
+  
         this.container_list = uniqueContainers;
+        this.container_type_list = uniqueContainertypes;
         console.log(JSON.stringify(this.container_list));
       }
     );
-    
+   
 
     const now = new Date();
-    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+  const formattedDateTime = now.toISOString();
+  console.log(formattedDateTime); // get date in format yyyy-mm-dd
     this.UploadInventoryForm = this.formBuilder.group({
       inventory_id:['8'],
-      date_created:['2023-03-28'],
-      last_modified:formattedDate,
+      date_created:formattedDateTime,
+      last_modified:formattedDateTime,
       company_id:this.companyId,
       container_type:['',Validators.required],
       available: ['', Validators.required],
@@ -382,6 +388,7 @@ nextPage() {
     debugger
     if(this.UploadInventoryForm.valid){
       try {
+        debugger
         const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
         console.log(response);
         console.log(this.UploadInventoryForm.value);

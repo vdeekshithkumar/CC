@@ -115,11 +115,11 @@
       </div>
       
       <div class=" mx-auto font-poppins">
-        <div class=" justify-center py-4 min-h-full min-w-[800px] bg-blue-100">
+        <div class=" justify-center py-4 min-h-full min-w-[900px] bg-blue-100">
           <div>
             <div class="mb-2 ">
-              <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1 uppercase">
-                New Advertisement ({{type}})</h1>
+              <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1 ">
+                New Advertisement <span class="uppercase">({{type}})</span></h1>
            
             </div>
             <!-- Other content here -->
@@ -131,10 +131,10 @@
 
     <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
     
-        <div class="min-h-[200px] bg-blue border-t border-b border-gray-200 px-5 text-gray-800 shadow-lg">
+        <div class="min-h-[200px]  bg-blue border-t border-b border-gray-200 px-5 text-gray-800 shadow-lg">
                   <!-- <div class="px-3 md:w-7/12 lg:pr-10"> -->
                       <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
-                            <div class="min-w-[600px] min-h-[100px] flex  flex-row items-center mt-0">
+                            <div class="min-w-[700px] min-h-[100px] flex  flex-row items-center mt-0">
                                 
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type!='container'">
                                     <label class="text-gray-600 rounded-lg font-medium text-sm  ml-1">Port of Departure</label>
@@ -170,46 +170,57 @@
                                     </div>
                                  
                                 </div>
+                                <div class="flex-grow px-2 lg:max-w-xs" *ngIf="type!='space'">
+                                  <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
+                                 
+                                      <div class="flex text-black-600 left-0 mt-1 border rounded-md" *ngIf="type == 'container'">
+                                        <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 230px;" *ngIf="type == 'container'">
+                                          <mat-button-toggle class="style-font" value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
+                                          <mat-button-toggle class="style-font" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
+                                          <mat-button-toggle  class="style-font"value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+                                          <mat-button-toggle class="style-font" value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" >Swap</mat-button-toggle>
+                                        </mat-button-toggle-group>
+                                      </div>
+                                    
+                                     
+                              
+                                                              
+                                      
+                              </div>
                                 
                             </div>
 
                             
                         </div>
                         <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
+                          
                             <div class="min-w-[600px] min-h-[100px] flex items-center">
                                
-                                <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
+                              <div class="flex-grow px-2 lg:max-w-xs" *ngIf="type!='container'">
+                                <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
+                               
                                    
-                                        <div class="flex text-black-600 left-0 mt-1 border rounded-md" *ngIf="type == 'container'">
-                                          <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 230px;" *ngIf="type == 'container'">
-                                            <mat-button-toggle class="style-font" value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
-                                            <mat-button-toggle class="style-font" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
-                                            <mat-button-toggle  class="style-font"value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
-                                            <mat-button-toggle class="style-font" value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" >Swap</mat-button-toggle>
-                                          </mat-button-toggle-group>
+                                    <div>
+                                      <mat-button-toggle-group  class="custom-button-toggle-group rounded-md  flex text-black-600  mt-1"  [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style">
+                                        <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved-sell border "  value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
+                                        <mat-button-toggle class=" custom-button-toggle border" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
+                                        <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved border"  value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+                                      </mat-button-toggle-group>
+                                    <!-- <button
+                                         *ngFor="let option of options; let i = index"
+                                         class="radio-button"
+                                         [ngClass]="{ 'radio-button--selected': selectedOption === i }"
+                                         (click)="selectOption(i)"
+                                         [(ngModel)]="type_of_ad"
+                                        >
+                                         {{ option }}
+                                        </button> -->
                                         </div>
-                                        <div>
-                                          <mat-button-toggle-group  class="custom-button-toggle-group rounded-md  flex text-black-600  mt-1"  [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style"  *ngIf="type == 'space'">
-                                            <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved-sell border "  value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
-                                            <mat-button-toggle class=" custom-button-toggle border" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
-                                            <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved border"  value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
-                                          </mat-button-toggle-group>
-                                        <!-- <button
-                                             *ngFor="let option of options; let i = index"
-                                             class="radio-button"
-                                             [ngClass]="{ 'radio-button--selected': selectedOption === i }"
-                                             (click)="selectOption(i)"
-                                             [(ngModel)]="type_of_ad"
-                                            >
-                                             {{ option }}
-                                            </button> -->
-                                            </div>
-                                       
-                                
-                                                                
-                                        <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Type of requirement</label>
-                                </div>
+                                   
+                            
+                                                            
+                                    
+                            </div>
                                 <div class="flex-grow px-2 lg:max-w-xs">
                                     <label class="text-gray-600 font-medium text-sm mb-2"  >Quantity</label>
                                     <div>
@@ -219,17 +230,27 @@
                                 </div>
     
                                 <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Container Type<span class="text-red-500"> *</span></label>
+                                    <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Container Type<span class="text-red-500">*</span></label>
                                     <div>
-                                        <select #port [(ngModel)]="container_type_id" class="post-page-data" placeholder="Select here" style="width: 220px; height: 34px;">
-                                            <option selected>Select your port </option>
-                                            <option  *ngFor ="let CType of CType_list" [value]="CType.container_type_id">{{CType.type}}</option>
+                                        <select #port [(ngModel)]="container_type" class="post-page-data" placeholder="Select here" style="width: 220px; height: 34px;">
+                  
+                                            <option  *ngFor ="let CType of container_type_list" [value]="CType.type">{{CType.type}}</option>
                                           </select>
                                     </div>
                                     <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Select Here</label>
                                 </div>
+                          
                                       
-    
+                                <div class="flex-grow px-2 lg:max-w-xs">
+                                  <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Container Size(in Ft')<span class="text-red-500">*</span></label>
+                                  <div>
+                                      <select  [(ngModel)]="size"  #inputRef="ngModel" class="post-page-data" placeholder="Select here" style="width: 220px; height: 34px;">
+                
+                                          <option  *ngFor ="let Csize of container_list" [value]="Csize.capacity">{{Csize.capacity}}</option>
+                                        </select>
+                                  </div>
+                                  <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Select Here</label>
+                              </div>
     
                                 <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'">
 

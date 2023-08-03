@@ -33,6 +33,8 @@ export interface Advertisement {
   from_date: Date;
   expiry_date: Date;
   type_of_ad: string;
+  container_type:string;
+  container_size:number;
   container_type_id: number;
   price: number;
   status: string;
@@ -74,7 +76,9 @@ export class ViewOtherAdsComponent  {
   domain_address?: string;
   licence_id?: number;
   rating?: number;
-
+selectedcontainerSize: any;
+selectedcontainertypetomap:any;
+selectedcontainersizetomap:any;
   address?: string;
   fname?: string
   isBuyHovered: boolean = false;
@@ -133,6 +137,7 @@ export class ViewOtherAdsComponent  {
   displayedAds: Advertisement[] =[];
   matchedAds:  Advertisement[] =[];
   type_of_ad: any;
+  container_type_list:Containers[]=[];
   isMatched:boolean = false;
   originalAds: Advertisement[] =[];
   pageSize: any;
@@ -141,6 +146,8 @@ export class ViewOtherAdsComponent  {
   typetomap: any;
   ad_typetomap: any;
   selectedTypePortOfDep: any;
+
+  selectedcontainerType: string = '';
   selectedTypePortOfArr: any;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
@@ -225,44 +232,24 @@ export class ViewOtherAdsComponent  {
 
     );
     this.searchAds();
-    this.viewotherAds.getAllContainers().subscribe(//for matching container size to container_type_id
+ 
+
+
+    this.viewotherAds.getAllContainers().subscribe(
       (condata: Containers[]) => {
-        this.container_size = condata;
-
-
-        console.log(JSON.stringify(this.container_size));
-
-        // Map container names based on container_type_id
-        this.container_size.forEach((container: Containers) => {
-          switch (container.container_type_id) {
-            case 1:
-              container.type = 'R 1TEU';
-              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
-              break;
-            case 2:
-              container.type = 'NR 1TEU';
-              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
-              break;
-            case 3:
-              container.type = 'R 2TEU';
-              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
-              break;
-            case 4:
-              container.type = 'NR 2TEU';
-              console.log('Container Type ID:', container.container_type_id, 'assigned to', container.type);
-              break;
-            default:
-              container.type = 'Unknown';
-              console.log('Unknown container_type_id:', container.container_type_id);
-              break;
-          }
-        });
-
+        // Filter out duplicate values based on capacity
+        const uniqueContainers = condata.filter((container, index, self) =>
+          index === self.findIndex((c) => c.capacity === container.capacity)
+        );
+        const uniqueContainertypes = condata.filter((container, index, self) =>
+        index === self.findIndex((c) => c.type === container.type)
+      );
+  
+        this.container_list = uniqueContainers;
+        this.container_type_list = uniqueContainertypes;
+        console.log(JSON.stringify(this.container_list));
       }
     );
-
-
-
 
     this.uploadInventoryservice.getAllPorts().subscribe(
       data => {
@@ -304,6 +291,15 @@ export class ViewOtherAdsComponent  {
 
     this.isLoading = false;
   }
+  // In your component.ts file
+onSizeClick(size: any) {
+  if (this.selectedcontainerSize === size) {
+    this.selectedcontainerSize = null; // Unselect the option if it's already selected
+  } else {
+    this.selectedcontainerSize = size.capacity; // Otherwise, select the clicked option
+  }
+}
+
   searchAds() {
     debugger
     // Check if ad_type is defined
@@ -372,7 +368,9 @@ export class ViewOtherAdsComponent  {
     }
   }
 
-
+  onTypeSelected(){
+    console.log("for check",this.selectedcontainerType)
+  }
   updateSearchPortOfAd() {
     this.searchPortOfAd = this.port_of_ad;
   }
@@ -380,18 +378,19 @@ export class ViewOtherAdsComponent  {
     debugger
     const searchType = this.type.toLowerCase();
     const searchPortOfAd = this.port_of_ad;
-    const selectedSize: string = this.selectedOptions['size'];
+    const selectedContainerType = this.selectedcontainerType;
+    const selectedContainerSize = this.selectedcontainerSize;
   
-    if (searchType && searchPortOfAd && selectedSize) {
-      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === selectedSize)?.container_type_id;
+    if (searchType && searchPortOfAd &&selectedContainerType && selectedContainerSize) {
+     
   
-      if (selectedContainerTypeId) {
+    
         const matchedAds = [];
   
         for (const ad of this.originalAds) {
           let isMatched = false;
   
-          if (ad.ad_type === 'container' && ad.type_of_ad === searchType && ad.port_of_ad === searchPortOfAd && ad.container_type_id === selectedContainerTypeId) {
+          if (ad.ad_type === 'container' && ad.type_of_ad === searchType && ad.port_of_ad === searchPortOfAd && ad.container_type === selectedContainerType && ad.container_size === selectedContainerSize) {
             isMatched = true;
           }
   
@@ -399,7 +398,7 @@ export class ViewOtherAdsComponent  {
             const matchedAd = { ...ad };
             matchedAds.push(matchedAd);
           }
-        }
+        
   
         if (this.selectedOptions['view'] === 'MAP') {
           this.showMapView = true;
@@ -408,7 +407,10 @@ export class ViewOtherAdsComponent  {
           this.ad_typetomap = this.ad_type;
           this.typetomap = this.type.toLowerCase();
           this.selectedTypePortOfAd = searchPortOfAd;
-          this.selectedSizetomap = selectedContainerTypeId;
+          this.selectedcontainertypetomap = selectedContainerType;
+          this.selectedcontainersizetomap = selectedContainerSize;
+
+       
   
           // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
           if (this.mapViewComponent) {
@@ -470,39 +472,29 @@ export class ViewOtherAdsComponent  {
     const searchType = this.type.toLowerCase();
     const searchPortOfDep = this.port_of_departure;
     const searchPortOfArr = this.port_of_arrival;
-    let selectedSize: string = this.selectedOptions['size'];
-    console.log(selectedSize);
+    const searchcontainertype = this.selectedcontainerType;
+    const searchcontainersize = this.selectedcontainerSize;
+    
   
-    if (searchType && searchPortOfDep && searchPortOfArr && selectedSize) {
-      const selectedContainerTypeId = this.container_size.find((container: Containers) => container.type === selectedSize)?.container_type_id;
   
-      if (selectedContainerTypeId) {
+    if (searchType && searchPortOfDep && searchPortOfArr&& searchcontainertype && searchcontainertype ) {
+    
+  
+      
         const matchedAds = [];
   
         for (const ad of this.originalAds) { // Loop over originalAds instead of ads
           let isMatched = false;
   
-          // Check if ad_type matches
-          if (ad.ad_type === 'space') {
-            // Check if type_of_ad matches
-            if (ad.type_of_ad === searchType) {
-              // Check if port_of_ad matches
-              if (ad.port_of_departure === searchPortOfDep) {
-                if (ad.port_of_arrival === searchPortOfArr) {
-                // Check if container_type_id matches
-                if (ad.container_type_id === selectedContainerTypeId) {
-                  isMatched = true;
-                }
-              }
-              }
-            }
+          if (ad.ad_type === 'space' && ad.type_of_ad === searchType && ad.port_of_departure === searchPortOfDep &&ad.port_of_arrival === searchPortOfArr && ad.container_type === searchcontainertype && ad.container_size == searchcontainersize) {
+            isMatched = true;
           }
   
           if (isMatched) {
             const matchedAd = { ...ad };
             matchedAds.push(matchedAd);
           }
-        }
+        
         if (this.selectedOptions['view'] === 'MAP') {
           this.showMapView = true;
   
@@ -511,11 +503,10 @@ export class ViewOtherAdsComponent  {
           this.typetomap = this.type.toLowerCase();
           this.selectedTypePortOfDep = searchPortOfDep;
           this.selectedTypePortOfArr = searchPortOfArr;
-          this.selectedSizetomap = selectedContainerTypeId;
-          console.log("from list",this.typetomap);
-          console.log("from list",this.selectedTypePortOfDep);
-          console.log("from list",this.selectedTypePortOfArr);
-          console.log("from list",this.selectedSizetomap);
+          this.selectedcontainertypetomap = searchcontainertype;
+          this.selectedcontainersizetomap = searchcontainersize;
+       
+         
   
           // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
           if (this.mapViewComponent) {

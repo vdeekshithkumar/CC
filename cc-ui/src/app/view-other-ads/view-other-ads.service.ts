@@ -8,6 +8,8 @@ export interface Advertisement {
   expiry_date: Date;
   type_of_ad: string;
   container_type_id: number;
+  container_type:string;
+  container_size:number;
   price: number;
   status: string;
   quantity: number;
@@ -22,7 +24,7 @@ export interface Advertisement {
   per_diem: number;
   pickup_charges: number;
   ad_type:string;
-  port_of_ad:string;
+  port_of_ad:any;
 }
 
  

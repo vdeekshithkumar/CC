@@ -609,8 +609,19 @@ th {
     flex-grow: 1;
   
   }
+  [port-input][menu="bottom"] select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+    top: 100%; /* Place the dropdown below the select element */
+    left: 0;
+    width: 100%;
+    z-index: 1; /* Ensure the dropdown is above other elements */
+  }
 .port-input {
   margin-bottom: 9px;
+  position: relative;
 }
 
 .port-input label {
@@ -620,6 +631,52 @@ th {
 .port-input .uploadinv-select {
   margin-top: -9px; 
 }
+.horizontal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-list li {
+  display: inline-block;
+  border: 1px solid #ccc; 
+  padding: 5px 10px;
+  width:90px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.horizontal-list li.selected {
+  background-color: #1779FB;
+  color: white;
+  border-color: #1779FB;
+}
+.horizontal-list li:first-child {
+  border-radius: 8px 0 0 8px; /* Curved left side for the first item */
+}
+
+.horizontal-list li:last-child {
+  border-radius: 0 8px 8px 0; /* Curved right side for the last item */
+}
+
+.horizontal-list li:hover {
+  background-color: #1779FB;
+  color: white;
+  border-color: #1779FB;
+}
+
+
+
+
+
+
 
 .icon-container {
   display: inline-block;

@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ForecastingService } from 'src/app/forecasting/forecasting.service';
 import { Advertisement, ViewOtherAdsService } from '../view-other-ads.service';
+import { SessionService } from 'src/app/session.service';
 
 export interface Port {
   port_id: number;
@@ -23,11 +24,13 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   @Input() ad_typetomap: any;
   @Input() typetomap: any;
   @Input() selectedTypePortOfAd: any;
-  @Input() selectedSizetomap: any;
   @Input() selectedTypePortOfDep: any;
   @Input() selectedTypePortOfArr: any;
+  @Input()selectedcontainertypetomap:any;
+  @Input()selectedcontainersizetomap:any;
   ads: Advertisement[] = [];
   userOS: any;
+  companyId: any;
   mapId: string = '2b03aff8b2fb72a3'; // Replace with your Map ID
   ports: Port[] = [];
   map: google.maps.Map | undefined;
@@ -36,13 +39,12 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   companyID: any;
   ad_type: any;
 
-  constructor(private forecastService: ForecastingService, private adsService: ViewOtherAdsService) {
+  constructor(private forecastService: ForecastingService,private sessionService: SessionService, private adsService: ViewOtherAdsService) {
     this.userOS = navigator.platform;
     
   }
 
   ngOnInit(): void {
-    this.loadMap();
     console.log("dh", this.userOS);
     this.getAllPorts();
    
@@ -50,18 +52,52 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   }
 
   ngOnChanges(): void {
-    this.getAdvertisement(); // Call getAdvertisement() whenever the inputs change
     this.loadMap();
+    this.getAdvertisement(); // Call getAdvertisement() whenever the inputs change
+   
     console.log("'selectedTypePortOfAd:'",this.selectedTypePortOfAd);
   }
   
   getAdvertisement() {
+     this.sessionService.getCompanyId().subscribe(
+
+
+
+      (companyId: number) => {
+
+
+
+        this.companyId = companyId;
+
+
+
+        console.log('company ID is :', companyId);
+
+
+
+      },
+
+
+
+      (error: any) => {
+
+
+
+
+        console.error('Error retrieving company ID:', error);
+
+
+
+      }
+
+
+
+    );
     debugger
-    this.adsService.getAdvertisement(this.ad_typetomap, this.companyID).subscribe(
+    this.adsService.getAdvertisement(this.ad_typetomap, this.companyId).subscribe(
       (adsdata: Advertisement[]) => {
         this.ads = adsdata;
         console.log("From map view", this.ads);
-        this.markPortOfAdOnMap(); // Call markPortOfAdOnMap() after retrieving the advertisements
       },
       (error: any) => {
         console.error('Error fetching advertisements:', error);
@@ -102,7 +138,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   
     console.log('map:', this.map);
   
-    if (this.ad_typetomap === 'container' && this.selectedTypePortOfAd) {
+    if (this.ad_typetomap === 'container') {
       this.markPortOfAdOnMap();
     } else if (this.ad_typetomap === 'space') {
       this.markPortOfDepArrOnMap();
@@ -126,31 +162,142 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   }
   markPortOfAdOnMap(): void {
     debugger
-    this.clearMarkers();
-  
-    if (!this.map || !this.selectedTypePortOfAd || !this.selectedSizetomap) {
+    if (!this.map || !this.selectedTypePortOfAd || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
       return;
     }
   
     const bounds = new google.maps.LatLngBounds();
+    const matchingAds = [];
   
-    const portOfAd = this.ports.find(port => port.port_name === this.selectedTypePortOfAd);
+    // Find ads with matching port_of_ad, container_type, and container_size
+    for (const ad of this.ads) {
+      if (
+        ad.port_of_ad === this.selectedTypePortOfAd &&
+        ad.container_type === this.selectedcontainertypetomap &&
+        ad.container_size === this.selectedcontainersizetomap
+      ) {
+        matchingAds.push(ad);
+      }
+      console.log(matchingAds);
+    }
   
-    if (portOfAd) {
-      const portLatLng = new google.maps.LatLng(portOfAd.latitude, portOfAd.longitude);
+    // Clear existing markers
+    this.clearMarkers();
   
-      const marker = new google.maps.Marker({
-        position: portLatLng,
-        title: portOfAd.port_name,
-        map: this.map,
-        icon: {
-          url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-        }
-      });
+    // Mark ports of ads on the map
+    for (const ad of matchingAds) {
+      const portOfAd = this.ports.find(port => port.port_name === ad.port_of_ad);
   
-      this.markers.push(marker);
+      if (portOfAd) {
+        const portLatLng = new google.maps.LatLng(portOfAd.latitude, portOfAd.longitude);
   
-      bounds.extend(marker.getPosition() as google.maps.LatLng);
+        const marker = new google.maps.Marker({
+          position: portLatLng,
+          title: portOfAd.port_name,
+          map: this.map,
+          icon: {
+            url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+          }
+        });
+  
+        this.markers.push(marker);
+        bounds.extend(marker.getPosition() as google.maps.LatLng);
+      }
+    }
+  
+    // Fit the map to the bounds
+    this.map.fitBounds(bounds);
+  
+   
+   
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  markPortOfDepArrOnMap(): void {
+    if (!this.map || !this.selectedTypePortOfDep || !this.selectedTypePortOfArr || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
+      return;
+    }
+  
+    const bounds = new google.maps.LatLngBounds();
+    const matchingAds = [];
+  
+    // Find ads with matching port_of_departure, port_of_arrival, container_type, and container_size
+    for (const ad of this.ads) {
+      if (
+        ad.port_of_departure === this.selectedTypePortOfDep &&
+        ad.port_of_arrival === this.selectedTypePortOfArr &&
+        ad.container_type === this.selectedcontainertypetomap &&
+        ad.container_size === this.selectedcontainersizetomap
+      ) {
+        matchingAds.push(ad);
+      }
+    }
+  
+    // Clear existing markers and polylines
+    this.clearMarkers();
+    if (this.polyline) {
+      this.polyline.setMap(null);
+      this.polyline = null;
+    }
+  
+    // Mark ports of ads on the map and draw polyline between them
+    for (const ad of matchingAds) {
+      const portOfDep = this.ports.find(port => port.port_name === ad.port_of_departure);
+      const portOfArr = this.ports.find(port => port.port_name === ad.port_of_arrival);
+  
+      if (portOfDep && portOfArr) {
+        const portDepLatLng = new google.maps.LatLng(portOfDep.latitude, portOfDep.longitude);
+        const portArrLatLng = new google.maps.LatLng(portOfArr.latitude, portOfArr.longitude);
+  
+        // Create markers for both ports
+        const portDepMarker = new google.maps.Marker({
+          position: portDepLatLng,
+          title: portOfDep.port_name,
+          map: this.map,
+          icon: {
+            url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+          }
+        });
+  
+        const portArrMarker = new google.maps.Marker({
+          position: portArrLatLng,
+          title: portOfArr.port_name,
+          map: this.map,
+          icon: {
+            url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+          }
+        });
+  
+        // Add the markers to the map
+        this.markers.push(portDepMarker);
+        this.markers.push(portArrMarker);
+  
+        // Extend bounds to include both port markers
+        bounds.extend(portDepLatLng);
+        bounds.extend(portArrLatLng);
+  
+        // Create a polyline between the ports
+        const polylineOptions: google.maps.PolylineOptions = {
+          path: [portDepLatLng, portArrLatLng],
+          geodesic: true,
+          strokeColor: '#FF0000', // You can change the color of the polyline here
+          strokeOpacity: 1.0,
+          strokeWeight: 2,
+          map: this.map
+        };
+  
+        this.polyline = new google.maps.Polyline(polylineOptions);
+  
+        // Add the polyline to the map
+        this.polyline!.setMap(this.map);
+      }
     }
   
     // Fit the map to the bounds
@@ -165,77 +312,6 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   
   
   
-  
-  
-  
-  
-  
-  markPortOfDepArrOnMap(): void {
-    if (!this.map || !this.selectedTypePortOfDep || !this.selectedTypePortOfArr || !this.selectedSizetomap) {
-      return;
-    }
-  
-    const bounds = new google.maps.LatLngBounds();
-    const polylineCoordinates: google.maps.LatLng[] = [];
-  
-    // Clear existing markers and polyline
-    this.clearMarkers();
-    if (this.polyline) {
-      this.polyline.setMap(null);
-      this.polyline = null;
-    }
-  
-    // Mark port of departure
-    const depPort = this.ports.find(port => port.port_name === this.selectedTypePortOfDep);
-    const arrPort = this.ports.find(port => port.port_name === this.selectedTypePortOfArr);
-  
-    if (depPort && arrPort) {
-      const depLatLng = new google.maps.LatLng(depPort.latitude, depPort.longitude);
-      const arrLatLng = new google.maps.LatLng(arrPort.latitude, arrPort.longitude);
-  
-      const depMarker = new google.maps.Marker({
-        position: depLatLng,
-        title: depPort.port_name,
-        map: this.map,
-        icon: {
-          url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-        }
-      });
-  
-      const arrMarker = new google.maps.Marker({
-        position: arrLatLng,
-        title: arrPort.port_name,
-        map: this.map,
-        icon: {
-          url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
-        }
-      });
-  
-      this.markers.push(depMarker);
-      this.markers.push(arrMarker);
-  
-      bounds.extend(depMarker.getPosition() as google.maps.LatLng);
-      bounds.extend(arrMarker.getPosition() as google.maps.LatLng);
-      polylineCoordinates.push(depLatLng);
-      polylineCoordinates.push(arrLatLng);
-  
-      // Create polyline
-      this.polyline = new google.maps.Polyline({
-        path: polylineCoordinates,
-        geodesic: true,
-        strokeColor: '#FF0000',
-        strokeOpacity: 1.0,
-        strokeWeight: 2,
-        map: this.map
-      });
-  
-      // Fit the map to the bounds
-      this.map.fitBounds(bounds);
-  
-      // Adjust the zoom level if specified
-    
-    }
-  }
   
   
   
