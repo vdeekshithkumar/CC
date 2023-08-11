@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { conversation } from '../DTO/conversation';
 import { Message } from '../DTO/Message';
 import { participant,Candidate } from '../DTO/Participant';
+import { Observable, catchError, throwError } from 'rxjs';
 
 export interface Negotiation{
   negotiation_id: number;
@@ -24,7 +25,8 @@ export interface Negotiation{
   providedIn: 'root'
 })
 export class MessagingService {
-
+private countUrl = 'https://localhost:7157/GetmessageCount';
+private editstatusurl = 'https://localhost:7157/Editmessagestatus';
   constructor(private http : HttpClient) { }
   getConversationByCompanyId(companyId:number){
     return this.http.get<conversation[]>(`https://localhost:7157/GetConversationByCompanyId?companyId=${companyId}`);
@@ -66,5 +68,14 @@ export class MessagingService {
     return this.http.post('https://localhost:7157/CreateConversation', conversation);
   }
 
+  getMessageCount(companyId: number): Observable<any> {
+    return this.http.get(`${this.countUrl}?companyId=${companyId}`);
+  }
 
+  EditMessagestatus(conversationid:number,companyId:number){
+    debugger
+    const headers = new HttpHeaders().set('content-Type', 'application/json');
+  
+      return this.http.put(`${this.editstatusurl}/${conversationid}/${companyId}`,{ headers });
+  }
 }

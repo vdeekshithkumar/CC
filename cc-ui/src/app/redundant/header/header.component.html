@@ -111,10 +111,20 @@
           <a class="header-box-a" (click)="onBellIconClick()">
             <button style="margin-right: 20px; margin-top: 8px;">
               <span class="material-symbols-outlined">
-                notifications
+                <div class="notification-bell">
+                  <span *ngIf="message_list > 0" class="red-dot ">
+                    notifications
+                  </span>
+                </div>
+                 
+                <span *ngIf="message_list === 0">
+                  notifications
+                </span>
               </span>
             </button>
           </a>
+          &nbsp;
+          
           <svg (click)="showPopup = !showPopup" class="cursor-pointer" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0.5" y="0.5" width="35" height="35" rx="17.5" stroke="#597EF7"/>
             <rect width="20.5714" height="20.5714" transform="translate(7.71484 6.85742)" fill="white" style="mix-blend-mode:multiply"/>

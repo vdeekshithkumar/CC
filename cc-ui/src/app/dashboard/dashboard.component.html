@@ -21,7 +21,7 @@
     </div>
   </div>
   <div class="flex-container ml-4 -mt-6">
-    <div class="div-card-card highlight-card">
+    <div class="div-card-card highlight-card" style="height:340px;">
   
       <!-- <div class="p-3"> -->
         <!-- Line Chart -->
@@ -37,7 +37,7 @@
       </div>
     </div>
   
-    <div class="div-card-card highlight-card" style="height: 300px;">
+    <div class="div-card-card highlight-card" style="height:340px;">
       <div class="p-3">
         <!-- Line Chart -->
         <div *ngIf="lineChartData && originalspaceAds.length>0" class="chart-container-line mt-14">
@@ -51,14 +51,14 @@
         </div>
       </div>
     </div>
-    <div class="div-card-card highlight-card"  >
+    <div class="div-card-card highlight-card "style="height:340px;" >
   
       <div class="p-3">
         <!-- myads -->
-        <div *ngIf="adsCount.length > 0" class="chart-container mt-1 ">
+        <div *ngIf="adsCount.length > 0" class="chart-container mt-1" >
           <canvas baseChart
                   [data]="chartData" 
-                  class="curved-labels -mt-50 "
+                  class="curved-labels-adv -mt-50 "
                   [labels]="chartLabels"
                   [options]="chartOptions"
                   [legend]="chartLegend"

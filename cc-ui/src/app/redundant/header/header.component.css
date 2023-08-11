@@ -50,3 +50,16 @@ a:hover {
 .hidden {
   display: none;
 }
+.red-dot {
+  position: relative;
+  display: inline-block;
+  margin-top:3px;
+  top: 0;
+  left:0;
+  transform: translate(50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: red;
+  border-radius: 50%;
+}
+
