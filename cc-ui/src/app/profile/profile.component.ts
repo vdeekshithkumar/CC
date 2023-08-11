@@ -39,8 +39,8 @@ export class ProfileComponent implements OnInit {
   user_id:any;
   public showDiv = false;
   user_data:any;
-  fname?: string
-  lname?: string
+  first_name?: string
+  last_name?: string
   email?: string
   phone?: string
   companyId: any;
@@ -202,9 +202,9 @@ export class ProfileComponent implements OnInit {
       data => {
         
         // Handle the data returned by the HTTP GET request
-        this.fname = data.fname
-        console.log(this.fname)
-        this.lname = data.lname
+        this.first_name = data.first_name
+        console.log(this.first_name)
+        this.last_name = data.last_name
         this.email = data.email
         this.company_id = data.company_id
         this.phone = data.phone_no
@@ -246,7 +246,7 @@ export class ProfileComponent implements OnInit {
           
           }
         });
-  console.log("from profile to add employee"+this.fname);
+  console.log("from profile to add employee"+this.first_name);
         dialogRef.afterClosed().subscribe(result => {
           // Handle the dialog close event if needed
           console.log("Dialog closed with result:", result);
@@ -264,8 +264,8 @@ export class ProfileComponent implements OnInit {
     } else {
       // Filter users based on search term
       const filteredArray = this.alluser_list.filter((user: any) =>
-        (user.fname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
-        (user.lname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+        (user.first_name.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
+        (user.last_name.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
         (user.email && user.email.toLowerCase().includes(this.searchTerm.toLowerCase()))
       );
 
