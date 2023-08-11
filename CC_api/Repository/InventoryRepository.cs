@@ -117,7 +117,9 @@ namespace CC_api.Repository
                 Deficit = inventory.deficit,
                 Latitude = port.latitude,
                 PortCode = port.port_code,
-                Longitude = port.longitude
+                Longitude = port.longitude,
+                containertype = inventory.container_type,
+                containersize = inventory.container_size
               })
           .Where(pd => pd.Surplus > pd.Deficit)
           .ToListAsync();
@@ -138,7 +140,9 @@ namespace CC_api.Repository
                 Deficit = inventory.deficit,
                 Latitude = port.latitude,
                 PortCode = port.port_code,
-                Longitude = port.longitude
+                Longitude = port.longitude,
+                containertype = inventory.container_type,
+                containersize = inventory.container_size
               })
           .Where(pd => pd.Deficit > pd.Surplus)
           .ToListAsync();
