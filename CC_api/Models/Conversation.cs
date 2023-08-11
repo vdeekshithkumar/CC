@@ -21,5 +21,7 @@ namespace CC_api.Models
 
     public string negotiator_company_logo { get; set; }
 
+
+
   }
 }

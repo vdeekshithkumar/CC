@@ -43,9 +43,10 @@ namespace CC_api.Repository
         }
         else
         {
-          user.is_verified = 1; // set isVerified to true
+          user.is_verified = true; // set isVerified to true
           user.otp = -1; // clear the OTP from the database
-          dbContext.Update(user);
+
+          dbContext.Update(user);
           await dbContext.SaveChangesAsync();
 
 
@@ -72,9 +73,9 @@ namespace CC_api.Repository
         Emailuser.otp = otp;
         dbContext.users.Update(Emailuser);
         await dbContext.SaveChangesAsync();
-    
+
       }
- 
+
     }
 
 
@@ -121,12 +122,12 @@ namespace CC_api.Repository
     }
     public async Task<List<User>> GetAllUserAsync(int companyId)
     {
-      return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == 1).ToListAsync();
+      return await dbContext.users.Where(u => u.company_id == companyId && u.designation != "admin" && u.is_active == true).ToListAsync();
 
     }
     public async Task<int> GetAllUserCount(int companyId)
     {
-      var userCount = await dbContext.users.Where(u => u.company_id == companyId && u.is_active == 1 && u.is_approved == 1 && u.is_verified == 1).CountAsync();
+      var userCount = await dbContext.users.Where(u => u.company_id == companyId && u.is_active == true).CountAsync();
       return userCount;
     }
 
@@ -136,7 +137,7 @@ namespace CC_api.Repository
 
       if (user != null)
       {
-        user.is_active = 0;
+        user.is_active = false;
         dbContext.users.Update(user);
         await dbContext.SaveChangesAsync();
       }
@@ -158,6 +159,21 @@ namespace CC_api.Repository
       return await dbContext.users.FirstOrDefaultAsync(x => x.user_id == id);
     }
 
+    public async Task<int> GetSenderCidBySenderId(int senderId)
+    {
+      var user = await dbContext.users
+          .Where(u => u.user_id == senderId)
+          .Select(u => u.company_id)
+          .FirstOrDefaultAsync();
+
+      if (user != null)
+      {
+        return user;
+      }
+
+      // Return a default value or throw an exception if necessary
+      return 0; // Change this to an appropriate default value or handling
+    }
 
 
     public async Task<User> GetUserByEmailAndPassword(string email, string password)
@@ -179,8 +195,8 @@ namespace CC_api.Repository
 
       if (user != null)
       {
-        user.fname = updatedUser.fname;
-        user.lname = updatedUser.lname;
+        user.first_name = updatedUser.first_name;
+        user.last_name = updatedUser.last_name;
         user.phone_no = updatedUser.phone_no;
         user.address = updatedUser.address;
 

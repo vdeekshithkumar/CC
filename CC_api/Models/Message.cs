@@ -13,5 +13,11 @@ namespace CC_api.Models
     public string content { get; set; }
     public DateTime timestamp { get; set; }
 
+    public int sender_cid { get; set; }
+
+    public bool sender_read { get; set; }
+
+    public bool receiver_read { get; set; }
+
   }
 }

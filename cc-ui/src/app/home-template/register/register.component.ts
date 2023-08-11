@@ -74,17 +74,17 @@ ngOnInit(): void {
   this.registrationForm = this.formBuilder.group({
     user_id: ['0',Validators.required],
     company_id:['',Validators.required],
-    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
-    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+    first_name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+    last_name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
     address: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(25)]],
     phone_no:['', [Validators.pattern('[0-9]*'), Validators.maxLength(15)]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
     city:['', [Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(10)]],
     otp:['123456',Validators.required],
-    is_verified:['0',Validators.required],
-    is_approved:['1',Validators.required],
-    is_active:['1',Validators.required],
+    is_verified:[false,Validators.required],
+    is_approved:[true,Validators.required],
+    is_active:[true,Validators.required],
     last_login:formattedDateTime,
     designation: ['admin',Validators.required],
     iagree: [false, Validators.requiredTrue]
@@ -124,8 +124,8 @@ onSubmit(): void {
   }
   const formValue = this.registrationForm.value;
   if (
-    !formValue.fname ||
-    !formValue.lname ||
+    !formValue.first_name ||
+    !formValue.last_name ||
     !formValue.email ||
     !formValue.address ||
     !formValue.iagree||
@@ -134,10 +134,10 @@ onSubmit(): void {
   ) {
     this.showValidationErrors = true;
     let errorMessage = 'The following fields are required:\n';
-    if (!formValue.fname) {
+    if (!formValue.first_name) {
       errorMessage += '- First Name\n';
     }
-    if (!formValue.lname) {
+    if (!formValue.last_name) {
       errorMessage += '- Last Name\n';
     }
     if (!formValue.email) {
@@ -172,16 +172,16 @@ onSubmit(): void {
   }
 
   
-if (!this.registrationForm.controls['fname'].valid) {
-  if (this.registrationForm.controls['fname'].hasError('maxlength')) {
+if (!this.registrationForm.controls['first_name'].valid) {
+  if (this.registrationForm.controls['first_name'].hasError('maxlength')) {
     this.openErrorDialog('Maximum character limit exceeded for First Name');
   } else {
     this.openErrorDialog('Invalid First Name Format');
   }
   return;
 }
-  if (!this.registrationForm.controls['lname'].valid) {
-    if (this.registrationForm.controls['lname'].hasError('maxlength')) {
+  if (!this.registrationForm.controls['last_name'].valid) {
+    if (this.registrationForm.controls['last_name'].hasError('maxlength')) {
       this.openErrorDialog('Maximum character limit exceeded for Last Name');
     } else {
       this.openErrorDialog('Invalid Last Name Format');

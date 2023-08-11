@@ -1,5 +1,6 @@
 using CC_api.Models;
 using CC_api.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CC_api.Business
 {
@@ -7,16 +8,21 @@ namespace CC_api.Business
   public class ConversationBusiness
   {
     private readonly ConversationRepository conversationRepository;
+    private readonly UserRepository userRepository;
+
 
     public ConversationBusiness()
     {
       this.conversationRepository = new ConversationRepository();
+      this.userRepository = new UserRepository();
+
     }
 
     public async Task<Conversation> CreateConversation(Conversation conversation)
     {
       return await conversationRepository.CreateConversation(conversation);
     }
+
 
     public void AddParticipant(Participant participant)
     {
@@ -28,15 +34,44 @@ namespace CC_api.Business
 
     public async Task<List<Message>> GetMessagesByConversationId(int conversationId)
     {
-      // Perform any necessary business logic/validation
+
 
       return await conversationRepository.GetMessagesByConversationId(conversationId);
     }
     public async Task<Message> SendMessage(Message message)
     {
+      // Assuming you have a method to get the sender's cid by sender_id
+      int senderCid = await userRepository.GetSenderCidBySenderId(message.senderid);
 
+      // Now you have the sender_cid, set it in the message or use it as needed
+      message.sender_cid = senderCid;
+
+      // Call the SendMessage method in the conversationRepository
       return await conversationRepository.SendMessage(message);
     }
+    public async Task<List<Message>> Editmessagestatus(int conversationid, int companyId)
+    {
+      List<Message> messages = await conversationRepository.GetmessageByConversationID(conversationid);
+
+      foreach (var message in messages)
+      {
+        if (message != null && companyId == message.sender_cid && message.sender_read == false)
+        {
+          await conversationRepository.UpdateSenderReadStatus(message);
+        }
+        else if (message != null && companyId != message.sender_cid && message.receiver_read == false)
+        {
+          await conversationRepository.UpdateReceiverReadStatus(message);
+        }
+      }
+
+      return messages;
+    }
+    public async Task<int> GetmessageCount(int companyId)
+    {
+      return await conversationRepository.GetmessageCount(companyId);
+    }
+
     public async Task<List<Conversation>> GetConversationByCompanyId(int companyId)
     {
       return await conversationRepository.GetConversationByCompanyId(companyId);

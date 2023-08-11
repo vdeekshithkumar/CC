@@ -141,7 +141,7 @@ namespace CC_api.Business
           ad.contents = i.contents;
 
           ad.container_type = i.container_type;
-         
+          ad.container_size = i.container_size;
 
           ad.port_of_ad = i.port_of_ad;
 

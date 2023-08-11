@@ -1,6 +1,8 @@
 using CC_api.Models;
+using Google.Apis.Drive.v3.Data;
 using MailKit;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.Design;
 
 
 namespace CC_api.Repository
@@ -45,8 +47,8 @@ namespace CC_api.Repository
         {
           conversationid = conversation.conversationid,
           user_id = conversation.user_id,
-          fname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.fname).FirstOrDefault(),
-          lname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.lname).FirstOrDefault(),
+          fname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.first_name).FirstOrDefault(),
+          lname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.last_name).FirstOrDefault(),
           company_id = conversation.company_id,
           company_name = dbContext.company.Where(c => c.company_id == conversation.company_id).Select(c => c.name).FirstOrDefault()
         };
@@ -71,8 +73,8 @@ namespace CC_api.Repository
 
       if (user != null && company != null)
       {
-        participant.fname = user.fname;
-        participant.lname = user.lname;
+        participant.fname = user.first_name;
+        participant.lname = user.last_name;
         participant.company_name = company.name;
         await dbContext.SaveChangesAsync();
       }
@@ -96,6 +98,7 @@ namespace CC_api.Repository
     public async Task<Message> SendMessage(Message message)
     {
       message.timestamp = DateTimeOffset.UtcNow.ToOffset(TimeSpan.FromHours(5.5)).DateTime; // Convert to local DateTime in IST
+      message.sender_read = true;
       dbContext.message.Add(message);
       await dbContext.SaveChangesAsync();
       return message;
@@ -110,9 +113,33 @@ namespace CC_api.Repository
     {
       return await dbContext.conversation.Where(c => c.adscompanyid == AdscompanyId).ToListAsync();
     }
+
+    public async Task<List<Message>> GetmessageByConversationID(int conversationid)
+    {
+      return await dbContext.message.Where(c => c.conversationid == conversationid && c.sender_read == false || c.receiver_read == false).ToListAsync();
+    }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {
       return await dbContext.conversation.Where(c => c.conversationid == ConversationId).ToListAsync();
+    }
+    public async Task UpdateSenderReadStatus(Message message)
+    {
+      message.sender_read = true;
+      dbContext.Update(message);
+      await dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateReceiverReadStatus(Message message)
+    {
+      message.receiver_read = true;
+      dbContext.Update(message);
+      await dbContext.SaveChangesAsync();
+
+    }
+    public async Task<int> GetmessageCount(int companyId)
+    {
+      var userCount = await dbContext.message.Where(m => m.sender_cid == companyId && m.receiver_read == false).CountAsync();
+      return userCount;
     }
     public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)
     {
@@ -136,8 +163,8 @@ namespace CC_api.Repository
           {
             user_id = u.user_id,
             company_id = u.company_id,
-            fname = u.fname,
-            lname = u.lname,
+            fname = u.first_name,
+            lname = u.last_name,
             designation = u.designation,
             company_name = companyName
           })

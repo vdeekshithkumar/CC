@@ -1,6 +1,7 @@
 using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 
 namespace CC_api.Controllers
 {
@@ -44,6 +45,7 @@ namespace CC_api.Controllers
       return Ok(messages);
     }
 
+
     [HttpPost("SendMessage")]
     public async Task<IActionResult> SendMessage([FromBody] Message message)
     {
@@ -60,6 +62,7 @@ namespace CC_api.Controllers
       var conversations = await conversationBusiness.GetConversationByCompanyId(companyId);
       return Ok(conversations);
     }
+
     [HttpGet("GetConversationByAdCompanyId")]
     public async Task<IActionResult> GetConversationByAdCompanyId(int AdscompanyId)
     {
@@ -83,6 +86,18 @@ namespace CC_api.Controllers
     {
 
       return Ok(await conversationBusiness.GetParticipant(convoid));
+    }
+    [HttpPut("Editmessagestatus/{conversationid}/{companyId}")]
+    public async Task<IActionResult> Editmessagestatus(int conversationid, int companyId)
+    {
+      var messagebycid = await conversationBusiness.Editmessagestatus(conversationid, companyId);
+      return Ok(messagebycid);
+
+    }
+    [HttpGet("GetmessageCount")]
+    public async Task<int> GetmessageCount(int companyId)
+    {
+      return await conversationBusiness.GetmessageCount(companyId);
     }
     // Other conversation-related endpoints
     [HttpGet("GetUsers")]
