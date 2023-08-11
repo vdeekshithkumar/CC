@@ -168,7 +168,7 @@
               </svg>              
             <div class="text-name ml-2">Admin</div>
           </div>
-          <div class="font-semibold text-sm">{{fname}} {{lname}}</div>
+          <div class="font-semibold text-sm">{{first_name}} {{last_name}}</div>
         </div>
         
         
@@ -269,8 +269,8 @@
               </thead>
               <tbody>
                 <tr *ngFor="let u of filteredUsers | search: searchTerm  |  paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }" class="employee-add bg-white">
-                  <td class="emplist ml-20 border-r-2">{{u.fname}}</td>
-                  <td class="emplist border-r-2">{{u.lname}}</td>
+                  <td class="emplist ml-20 border-r-2">{{u.first_name}}</td>
+                  <td class="emplist border-r-2">{{u.last_name}}</td>
                   <td class="emplist border-r-2">{{u.email}}</td>
                   <td class="emplist border-r-2">{{u.phone_no}}</td>
                   <td class="whitespace-nowrap px-6 py-4 border-r-2">

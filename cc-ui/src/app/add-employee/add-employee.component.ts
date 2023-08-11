@@ -33,7 +33,7 @@ export class AddEmployeeComponent {
   get isBlue(): boolean {
     return this.stepper.selectedIndex > 0;
   }
-  Pfname: any;
+  Pfirst_name: any;
   showform=true;
   password1!: string
   password2!: string
@@ -71,7 +71,7 @@ export class AddEmployeeComponent {
  
   types = [];
   Pis_verified: any;
-  Plname: any;
+  Plast_name: any;
   Pphone: any;
   Pemail: any;
   Paddress: any;
@@ -94,9 +94,9 @@ export class AddEmployeeComponent {
     console.log("From profile" + this.Puser_id);
     this.Pcompany_id = this.data.user_data.company_id;
     console.log("From profile" + this.Pcompany_id);
-    this.Pfname = this.data.user_data.fname;
-    console.log("From profile its is dataggggg" + this.Pfname);
-    this.Plname = this.data.user_data.lname;
+    this.Pfirst_name = this.data.user_data.first_name;
+    console.log("From profile its is dataggggg" + this.Pfirst_name);
+    this.Plast_name = this.data.user_data.last_name;
     this.Pphone = this.data.user_data.phone_no;
     this.Pemail = this.data.user_data.email;
     this.Paddress = this.data.user_data.address;
@@ -113,7 +113,7 @@ export class AddEmployeeComponent {
     
 
     console.log('Received data:', this.data);
-    console.log('fname:', this.Pfname);
+    console.log('first_name:', this.Pfirst_name);
     // Access other properties as neede
     }
     debugger
@@ -137,17 +137,17 @@ export class AddEmployeeComponent {
       
       user_id: ['2', Validators.required],
       company_id: this.companyId,
-      fname:  ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
-      lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+      first_name:  ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+      last_name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(25)]],
       phone_no: ['', [Validators.pattern('[0-9]*'), Validators.maxLength(15)]],
       city: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
       confirm_password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
-      is_verified: ['1', Validators.required],
-      is_approved: ['1', Validators.required],
-      is_active: ['1', Validators.required],
+      is_verified: [true, Validators.required],
+      is_approved: [true, Validators.required],
+      is_active: [true, Validators.required],
       last_login:formattedDateTime,
       designation: ['user'],
     }
@@ -160,8 +160,8 @@ export class AddEmployeeComponent {
         user_id: this.Puser_id,
          // Set the received user_id
         company_id: this.Pcompany_id,
-        fname:  this.Pfname,
-        lname: this.Plname,
+        first_name:  this.Pfirst_name,
+        last_name: this.Plast_name,
         address: this.Paddress,
         email: this.Pemail,
         phone_no: this.Pphone,
@@ -417,18 +417,18 @@ export class AddEmployeeComponent {
     // Check if all required fields are filled
     const formValue = this.addEmployeeForm.value;
     if (
-      !formValue.fname ||
-      !formValue.lname ||
+      !formValue.first_name ||
+      !formValue.last_name ||
       !formValue.email ||
       (this.isEdit && !formValue.password)
     ) {
       // If not, display the dialog box
       this.showValidationErrors = true;
       let errorMessage = 'The following fields are required:\n';
-      if (!formValue.fname) {
+      if (!formValue.first_name) {
         errorMessage += '- First Name\n';
       }
-      if (!formValue.lname) {
+      if (!formValue.last_name) {
         errorMessage += '- Last Name\n';
       }
       if (!formValue.email) {
@@ -444,12 +444,12 @@ export class AddEmployeeComponent {
       this.openErrorDialog('Invalid email format');
       return;
     }
-    if (!this.addEmployeeForm.controls['fname'].valid) {
+    if (!this.addEmployeeForm.controls['first_name'].valid) {
       this.openErrorDialog('Invalid First Name Format');
       return;
     }
 
-    if (!this.addEmployeeForm.controls['lname'].valid) {
+    if (!this.addEmployeeForm.controls['last_name'].valid) {
       this.openErrorDialog('Invalid Last Name Format');
       return;
     }
