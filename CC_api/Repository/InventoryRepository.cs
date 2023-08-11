@@ -77,6 +77,8 @@ namespace CC_api.Repository
       public int Deficit { get; set; }
       public decimal Latitude { get; set; }
       public decimal Longitude { get; set; }
+      public string containertype { get; set; }
+      public int containersize { get; set; }
     }
 
     public async Task<List<PortDetails>> GetPortDetailsAsync(int companyId)
@@ -93,7 +95,9 @@ namespace CC_api.Repository
                 Deficit = inventory.deficit,
                 Latitude = port.latitude,
                 PortCode = port.port_code,
-                Longitude = port.longitude
+                Longitude = port.longitude,
+                containertype = inventory.container_type,
+                containersize = inventory.container_size
               })
           .ToListAsync();
 

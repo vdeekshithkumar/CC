@@ -9,14 +9,14 @@
 
         
           <div class="relative">
-            <label for="fname" class="label">First Name</label>
+            <label for="first_name" class="label">First Name</label>
             <input
               type="text"
-              formControlName="fname"
+              formControlName="first_name"
               onfocus="changeInputType(this, 'first name')"
               class="register-page-data page-input"
               type="text"
-              id="fname"
+              id="first_name"
               style="width: 145px; margin-top: 6px;height: 32px;"
               placeholder="e.g. John" 
              
@@ -24,11 +24,11 @@
             
             />
                 <div
-                  *ngIf="showValidationErrors && registrationForm.get('fname')?.invalid"
+                  *ngIf="showValidationErrors && registrationForm.get('first_name')?.invalid"
                   class="text-red-500 text-sm mt-1">
                 </div>
 
-                <div class="error" *ngIf="registrationForm?.get('fname')?.invalid && registrationForm?.get('fname')?.errors?.['maxlength']">
+                <div class="error" *ngIf="registrationForm?.get('first_name')?.invalid && registrationForm?.get('first_name')?.errors?.['maxlength']">
                   Maximum limit exceeded.
                 </div>
                 
@@ -36,25 +36,25 @@
 
             </div>
           <div class="relative">
-            <label for="lname" class="label">Last Name</label>
+            <label for="last_name" class="label">Last Name</label>
             <input
-              formControlName="lname"
+              formControlName="last_name"
               onfocus="changeInputType(this, 'last name')"
               class="register-page-data page-input"
               type="text"
-              id="lname"
+              id="last_name"
               style="width: 145px; margin-top: 6px; height: 32px;"
               placeholder="e.g. Mark"
               autocomplete="hidden"
             
             />
                   <div
-                  *ngIf="showValidationErrors && registrationForm.get('lname')?.invalid"
+                  *ngIf="showValidationErrors && registrationForm.get('last_name')?.invalid"
                   class="text-red-500 text-sm mt-1"
                 > 
                  
                </div>
-               <div class="error" *ngIf="registrationForm?.get('lname')?.invalid && registrationForm?.get('lname')?.errors?.['maxlength']">
+               <div class="error" *ngIf="registrationForm?.get('last_name')?.invalid && registrationForm?.get('last_name')?.errors?.['maxlength']">
                 Maximum limit exceeded.
               </div>
           </div>

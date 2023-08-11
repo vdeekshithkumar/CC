@@ -12,8 +12,8 @@ namespace CC_api.Models
     public int user_id { get; set; }
 
     public int company_id { get; set; }
-    public string fname { get; set; }
-    public string lname { get; set; }
+    public string first_name { get; set; }
+    public string last_name { get; set; }
     public string address { get; set; }
     public string city { get; set; }
     public string email { get; set; }
@@ -23,20 +23,20 @@ namespace CC_api.Models
     public string password { get; set; }
 
     public bool VerifyPassword(string password)
-{
-    using (var sha256 = SHA256.Create())
     {
+      using (var sha256 = SHA256.Create())
+      {
         byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
         string hashedInput = Convert.ToBase64String(hashedBytes);
         return hashedInput == this.password; // Compare with the stored hashed password
+      }
     }
-}
 
 
 
-    public int is_verified { get; set; }
-    public int is_approved { get; set; }
-    public int is_active { get; set; }
+    public bool is_verified { get; set; }
+    public bool is_approved { get; set; }
+    public bool is_active { get; set; }
     public DateTime last_login { get; set; }
     public string designation { get; set; }
     public int otp { get; set; }

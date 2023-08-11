@@ -80,7 +80,7 @@ namespace CC_api.Repository
 
       return count;
     }
- 
+
     public async Task Add(Ad ad)
     {
       await dbContext.advertisement.AddAsync(ad);
@@ -118,7 +118,8 @@ namespace CC_api.Repository
          from_date = c.from_date,
          expiry_date = c.expiry_date,
          type_of_ad = c.type_of_ad,
-         container_type_id = c.container_type_id,
+         container_type = c.container_type,
+         container_size = c.container_size,
          price = c.price,
          status = c.status,
          quantity = c.quantity,
@@ -150,7 +151,8 @@ namespace CC_api.Repository
          from_date = c.from_date,
          expiry_date = c.expiry_date,
          type_of_ad = c.type_of_ad,
-         container_type_id = c.container_type_id,
+         container_type = c.container_type,
+         container_size = c.container_size,
          price = c.price,
          status = c.status,
          quantity = c.quantity,
@@ -180,7 +182,8 @@ namespace CC_api.Repository
          from_date = c.from_date,
          expiry_date = c.expiry_date,
          type_of_ad = c.type_of_ad,
-         container_type_id = c.container_type_id,
+         container_type = c.container_type,
+         container_size = c.container_size,
          price = c.price,
          status = c.status,
          quantity = c.quantity,
@@ -218,7 +221,7 @@ namespace CC_api.Repository
       return await dbContext.advertisement.Where(c => c.company_id == companyID && c.ad_type == ad_type).ToListAsync();
 
     }
-    public async Task<List<long>> GetMyAdscount(string ad_type,int companyId)
+    public async Task<List<long>> GetMyAdscount(string ad_type, int companyId)
     {
 
 
