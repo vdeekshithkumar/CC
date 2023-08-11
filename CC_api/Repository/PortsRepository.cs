@@ -11,7 +11,7 @@ namespace CC_api.Repository
       this.dbContext = new DatabaseContext();
     }
 
-   
+
     public async Task<List<Ports>> GetAllPortsAsync()
     {
       return dbContext.ports.ToList();
@@ -20,7 +20,7 @@ namespace CC_api.Repository
     {
       return dbContext.container_type.ToList();
     }
-  
-}
+
+  }
 }
 
