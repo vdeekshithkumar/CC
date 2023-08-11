@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "M0Bs5U4RgQcqGz/qgFb2IUBA2nktzfnkzTa6DavJ03Q=",
+  "Hash": "+OfMVS45kId+JYlzcW5qMuxhHPo1FJkQWGnBmpssmOQ=",
   "Source": "CC_api",
   "BasePath": "_content/CC_api",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "CC_api\\wwwroot",
       "Source": "CC_api",
-      "ContentRoot": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\wwwroot\\",
       "BasePath": "_content/CC_api",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\wwwroot\\client_secret.json",
+      "Identity": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\wwwroot\\client_secret.json",
       "SourceId": "CC_api",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\wwwroot\\",
       "BasePath": "_content/CC_api",
       "RelativePath": "client_secret.json",
       "AssetKind": "All",

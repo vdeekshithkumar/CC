@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj": {}
+    "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj": {
+    "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
+        "projectUniqueName": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj",
         "projectName": "CC_api",
-        "projectPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\CC_api.csproj",
-        "packagesPath": "C:\\Users\\vdeek\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\vdeek\\OneDrive\\Documents\\GitHub\\cc\\Container-conundrum\\CC_api\\obj\\",
+        "projectPath": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj",
+        "packagesPath": "C:\\Users\\Vishr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\vdeek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Vishr\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -66,6 +66,10 @@
               "target": "Package",
               "version": "[3.6.1, )"
             },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"
@@ -90,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }
