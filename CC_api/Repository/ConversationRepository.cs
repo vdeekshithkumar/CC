@@ -47,8 +47,8 @@ namespace CC_api.Repository
         {
           conversationid = conversation.conversationid,
           user_id = conversation.user_id,
-          fname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.first_name).FirstOrDefault(),
-          lname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.last_name).FirstOrDefault(),
+          first_name = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.first_name).FirstOrDefault(),
+          last_name = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.last_name).FirstOrDefault(),
           company_id = conversation.company_id,
           company_name = dbContext.company.Where(c => c.company_id == conversation.company_id).Select(c => c.name).FirstOrDefault()
         };
@@ -73,8 +73,8 @@ namespace CC_api.Repository
 
       if (user != null && company != null)
       {
-        participant.fname = user.first_name;
-        participant.lname = user.last_name;
+        participant.first_name = user.first_name;
+        participant.last_name = user.last_name;
         participant.company_name = company.name;
         await dbContext.SaveChangesAsync();
       }

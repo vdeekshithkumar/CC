@@ -18,11 +18,11 @@
         <form class="grid grid-cols-2 gap-x-4 mt-6 font-poppins" [formGroup]="regForm" (ngSubmit)="onSubmit()">
           <div class="col-span-1 mt-0">
             <label class="top mb-2 font-normal">First Name</label>
-            <input type="text" formControlName="firstName" [(ngModel)]="fname" class="upload-input-data border h-8 placeholder" placeholder="" />
+            <input type="text" formControlName="firstName" [(ngModel)]="first_name" class="upload-input-data border h-8 placeholder" placeholder="" />
           </div>
           <div class="col-span-1 mt-0">
             <label class="top mb-2 font-normal">Last Name</label>
-            <input type="text" formControlName="lastName" [(ngModel)]="lname" class="upload-input-data border h-8 placeholder" placeholder="" />
+            <input type="text" formControlName="lastName" [(ngModel)]="last_name" class="upload-input-data border h-8 placeholder" placeholder="" />
           </div>
           <div class="col-span-2 mt-4 grid grid-cols-2 gap-x-4">
             <div>

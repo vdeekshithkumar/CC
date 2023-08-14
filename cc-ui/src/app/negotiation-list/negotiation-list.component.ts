@@ -1,4 +1,4 @@
-import { Component,Inject } from '@angular/core';
+import { Component,Inject, Input } from '@angular/core';
 
 
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -32,6 +32,7 @@ export interface Negotiation{
   styleUrls: ['./negotiation-list.component.css']
 })
 export class NegotiationListComponent{
+  
   public isButtonDisabled: boolean = false;
   companyId: any;
   itemsPerPage: number = 3;
@@ -43,6 +44,7 @@ alluser_list: any[] = [];
 ads_list: any[] = [];
 AdsArrivalPort: { [ad_id: number]: string } = {};
 AdsDeparturePort: { [ad_id: number]: string } = {};
+AdsAdsPort: { [ad_id: number]: string } = {};
 
 userNames: { [userId: number]: string } = {};
 userLNames: { [userId: number]: string } = {};
@@ -63,12 +65,15 @@ testpassing:any;
   date_created: any;
   elementRef: any;
   userDesignation: any;
-
+  negad_type:any;
   
 constructor(@Inject(MAT_DIALOG_DATA)public data:any,private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private negotiationservice: NegotiationListService){
 }
 
 ngOnInit(): void {
+  this.negad_type = this.data.ad_type;
+  console.log("ad_type passed"+this.data.ad_type);
+  console.log("ad_type in neg"+this.negad_type);
 console.log("data passed adid is"+this.data.ad_id);
 console.log("data passed adid is"+this.data.testpassing);
   this.viewNegotiations(this.data.ad_id);
@@ -84,8 +89,9 @@ console.log("data passed adid is"+this.data.testpassing);
     }
   );
 
-  this.negotiationservice.getAdvertisement(this.companyId,"Active").subscribe(
+  this.negotiationservice.getAdvertisement(this.companyId,"Active",this.data.ad_type).subscribe(
     (data: any) => {
+      debugger
       this.ads_list = data;
       console.log("Other ads by company ID is fetched:", this.ads_list);
 
@@ -93,6 +99,8 @@ console.log("data passed adid is"+this.data.testpassing);
       this.ads_list.forEach((ad: any) => {
         this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
         this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
+        this.AdsAdsPort[ad.ad_id] = ad.port_of_ad;
+     
     
 
       });
@@ -139,8 +147,8 @@ console.log("data passed adid is"+this.data.testpassing);
 
       // Populate the user names object
       this.alluser_list.forEach((user: any) => {
-        this.userNames[user.user_id] = user.fname;
-        this.userLNames[user.user_id] = user.lname;
+        this.userNames[user.user_id] = user.first_name;
+        this.userLNames[user.user_id] = user.last_name;
         this.userNo[user.user_id] = user.phone_no;
        
 

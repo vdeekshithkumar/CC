@@ -21,7 +21,7 @@
      [ngClass]="{ 'selected-conversation': i === selectedConversationIndex }"
      (click)="getMessages(convo.conversationid); setSelectedConversationIndex(i);
               selectedConversationName = (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name;
-              selectedConversationDesc = convo.user_name;selectedcompanyname=convo.negotiator_company_name; selectedConversationLogo =(convo.company_id === this.companyId) ? convo.company_logo:convo.negotiator_company_logo">
+              selectedConversationDesc = convo.first_name;selectedcompanyname=convo.negotiator_company_name; selectedConversationLogo =(convo.company_id === this.companyId) ? convo.company_logo:convo.negotiator_company_logo">
   <div class="container text-sm inline">
     <div class="flex items-center">
       <div class="relative px-1 py-2" id="company-logo">
@@ -33,7 +33,7 @@
           
           {{ (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name }}
         </div>
-        <div>{{ convo.user_name }}</div>
+        <div>{{ convo.first_name }}</div>
         <div *ngIf="lastMessages[convo.conversationid]" class="truncate">
             Last Message: {{ lastMessages[convo.conversationid]?.content }}
         </div>
@@ -194,7 +194,7 @@
                                     <div class="user-info">
 
                                         <div class="company-name font-bold">{{ user.company_name }}</div>
-                                        <div class="user-name">{{ user.fname }}</div>
+                                        <div class="user-name">{{ user.first_name }}</div>
 
                                       
                                         <div class="company-name">{{ user.AdscompanyId }}</div>
@@ -220,7 +220,7 @@
                     <img class="rounded-full w-14 h-11 bg-blue-500 cursor-pointer inline">
                     <div class="container text-sm inline ml-2">
                         <div class="font-bold">{{participant.company_name}}</div>
-                        <div>{{participant.fname}}</div>
+                        <div>{{participant.first_name}}</div>
                        
                     </div>
                 </div>

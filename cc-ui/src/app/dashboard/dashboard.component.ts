@@ -9,6 +9,9 @@ import { ProfileService } from '../profile/profile.service';
 import ChartDataLabels, { Context } from 'chartjs-plugin-datalabels';
 import { UploadInventoryservice } from '../upload-inventory/upload-inventory.service';
 import { NegotiationsService } from '../negotiations/negotiations.service';
+import { MessagingService } from '../messaging/messaging.service';
+import { conversation } from '../DTO/conversation';
+
 
 
 @Injectable({
@@ -20,8 +23,8 @@ import { NegotiationsService } from '../negotiations/negotiations.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  fname?: string;
-  lname?: string;
+  first_name?: string;
+  last_name?: string;
   email?: string;
   phone?: string;
   designation?: string;
@@ -50,6 +53,7 @@ export class DashboardComponent implements OnInit {
   companyId: any;
   adsCount: number[] = [];
   negotiationCount:number[] = [];
+  conversationid: any[] = [];
   profileForm!: FormGroup;
   public showDiv = false;
   inventory_list_by_companyId: any[] =[];
@@ -328,16 +332,20 @@ export class DashboardComponent implements OnInit {
       },
     },
   };
+  
+
   constructor(
     private sessionService: SessionService,
     private router: Router,
     private adService: MyAdService,
     private profileService: ProfileService,
     private inventoryService:UploadInventoryservice,
-    private negotiationService:NegotiationsService
+    private negotiationService:NegotiationsService,
+    private messageService:MessagingService
   ) {}
 
   ngOnInit(): void {
+    
     Chart.register(ChartDataLabels);
 
     const horizontalBarChartCanvas = document.getElementById('horizontalBarChart') as HTMLCanvasElement;
@@ -359,6 +367,8 @@ export class DashboardComponent implements OnInit {
         console.error('Error retrieving company ID:', error);
       }
     );
+    debugger
+
     this.sessionService.getCurrentUser().subscribe((user) => {
       if (user.user_id == null) {
         this.router.navigate(['/sign-in']);
@@ -381,9 +391,9 @@ export class DashboardComponent implements OnInit {
 
     this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
       (data) => {
-        this.fname = data.fname;
-        console.log(this.fname);
-        this.lname = data.lname;
+        this.first_name = data.first_name;
+        console.log(this.first_name);
+        this.last_name = data.last_name;
         this.email = data.email;
         this.company_id = data.company_id;
         this.phone = data.phone_no;
@@ -421,7 +431,7 @@ export class DashboardComponent implements OnInit {
       console.log("Inventory loading error: " + error);
     }
   );
-    
+
     this.adService.getAdsCount(this.companyId).subscribe(
       (count: number[]) => {
         this.adsCount = count;
@@ -494,6 +504,7 @@ export class DashboardComponent implements OnInit {
       }
     );
   }
+
 
   logout(): void {
     this.sessionService.clearSession();

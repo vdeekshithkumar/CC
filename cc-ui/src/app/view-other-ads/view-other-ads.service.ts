@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from '../api.service';
 export interface Advertisement {
   ad_id: number;
   date_created: Date;
@@ -33,34 +34,35 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class ViewOtherAdsService {
-  private advUrl = 'https://localhost:7157/GetAllAdvertisement';
-  private  coUrl= 'https://localhost:7157/GetOtherCompany';
-  private  nUrl= 'https://localhost:7157/GetAllNegotiation';
-  private  startNUrl= 'https://localhost:7157/StartNegotiation';
- 
-  constructor(private http:HttpClient) { }
-
- 
+  private advUrl = 'GetAllAdvertisement';
+  private  coUrl= 'GetOtherCompany';
+  private  nUrl= 'GetAllNegotiation';
+  private  startNUrl= 'StartNegotiation';
+  private contUrl='GetAllContainers';
+  constructor(private http:HttpClient,private apiService: ApiService) { }
 
   getallnegotiation(companyId: string): Observable<any> {
-    return this.http.get(`${this.nUrl}?companyID=${companyId}`, { responseType: 'json' });
+    const url = this.apiService.getFullUrl(`${this.nUrl}?companyID=${companyId}`);
+    return this.http.get(url, { responseType: 'json' });
   }
-
+  
   getAdvertisement(ad_type:string,companyId:number): Observable<Advertisement[]> {
-    const url = `${this.advUrl}?ad_type=${ad_type}&companyId=${companyId}`;
+    const url = this.apiService.getFullUrl(`${this.advUrl}?ad_type=${ad_type}&companyId=${companyId}`);
     return this.http.get<Advertisement[]>(url);
   }
+
   getotherCompany(companyId: string): Observable<any> {
-    return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+    const url = this.apiService.getFullUrl(`${this.coUrl}?companyID=${companyId}`);
+    return this.http.get(url, { responseType: 'json' });
   }
 
- 
   getAllContainers(): Observable<any> {
-    return this.http.get('https://localhost:7157/GetAllContainers');
+    const url = this.apiService.getFullUrl(`${this.contUrl}`);
+    return this.http.get(url);
   }
 
   StartNegotiation(ad_id: number,company_id: number, user_id: number): Observable<any> {
-    const url = `${this.startNUrl}?ad_id=${ad_id}&company_id=${company_id}&user_id=${user_id}`;
+    const url = this.apiService.getFullUrl(`${this.startNUrl}?ad_id=${ad_id}&company_id=${company_id}&user_id=${user_id}`);
     return this.http.post(url,null);
   }
 }
