@@ -156,7 +156,7 @@ export class MessagingComponent implements OnInit {
     // Perform any necessary actions with the selected conversation
     this.getMessages(conversation.conversationId);
     this.selectedConversationName = conversation.company_name;
-    this.selectedConversationDesc = conversation.user_name;
+    this.selectedConversationDesc = conversation.first_name;
     this.selectedConversationLogo = conversation.company_logo;
   }
   getAllConversations() {
@@ -321,7 +321,7 @@ export class MessagingComponent implements OnInit {
   }
   getSenderName(senderId: number): string {
     const participant = this.participants.find(p => p.userId === senderId);
-    return participant ? participant.fname : '';
+    return participant ? participant.first_name : '';
   }
   
   
@@ -340,8 +340,8 @@ export class MessagingComponent implements OnInit {
       conversationId: this.conversationID,
       userId: candidate.user_id,
       companyId: this.companyId,
-      fname: candidate.fname,
-      lname: candidate.lname,
+      first_name: candidate.first_name,
+      last_name: candidate.last_name,
       company_name: candidate.company_name,
       AdscompanyId:candidate.AdscompanyId
     };

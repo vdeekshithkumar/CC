@@ -105,7 +105,7 @@ pickup_charges:any;
    licence_id?: number;
    rating?: number;
    address?: string;
-   fname?: string
+   first_name?: string
   //  company_logo?: string
    company_location?: string
    country?: string
@@ -640,12 +640,13 @@ onExport(){
       XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
       XLSX.writeFile(workbook, excelFileName);
    }
-   OpenNegotiations(ad_id: number) {
+   OpenNegotiations(ad_id: number,ad_type:string) {
     this.dialog.open(NegotiationListComponent, {
       width: '70%',
     
       data: {
         ad_id: ad_id,
+        ad_type:ad_type,
         testpassing:3443,
       }
     });

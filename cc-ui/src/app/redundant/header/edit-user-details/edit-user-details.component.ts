@@ -15,8 +15,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class EditUserDetailsComponent implements OnInit {
   userId?: any
-  fname?: string
-  lname?: string
+  first_name?: string
+  last_name?: string
   address?: string
   phone_no?: string
   showValidationErrors: boolean = false;
@@ -44,8 +44,8 @@ export class EditUserDetailsComponent implements OnInit {
     this.profileService.getUserDetails(this.userId).subscribe(
       data => {
         // Handle the data returned by the HTTP GET request
-        this.fname = data.fname;
-        this.lname = data.lname;
+        this.first_name = data.first_name;
+        this.last_name = data.last_name;
         this.address = data.address;
         this.phone_no = data.phone_no;
       },
@@ -81,8 +81,8 @@ export class EditUserDetailsComponent implements OnInit {
       return;
     }
     let user = new User(
-      this.fname ?? '',
-      this.lname ?? '',
+      this.first_name ?? '',
+      this.last_name ?? '',
       this.address ?? '',
       this.phone_no ?? ''
     );
@@ -113,11 +113,11 @@ export class EditUserDetailsComponent implements OnInit {
 }
 export class User {
  
-  constructor(fname: string, lname: string, address: string, phone_no: string) {
-    this.fname = fname; this.lname = lname; this.address = address; this.phone_no = phone_no
+  constructor(first_name: string, last_name: string, address: string, phone_no: string) {
+    this.first_name = first_name; this.last_name = last_name; this.address = address; this.phone_no = phone_no
   }
-  fname!: string
-  lname!: string
+  first_name!: string
+  last_name!: string
   address!: string
   phone_no!: string
 }

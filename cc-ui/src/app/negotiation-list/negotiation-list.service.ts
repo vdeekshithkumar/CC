@@ -1,11 +1,7 @@
-
-
-
-
-
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from '../api.service';
 export interface Advertisement {
   ad_id: number;
   date_created: Date;
@@ -48,42 +44,46 @@ export interface Negotiation{
   providedIn: 'root'
 })
 export class NegotiationListService {
-  private  coUrl= 'https://localhost:7157/GetOtherCompany';
-  private deleteUrl = 'https://localhost:7157/DeleteNegotiation';
-  private acceptUrl = 'https://localhost:7157/AcceptNegotiation';
-  baseUrl = 'https://localhost:7157';
-  private apiUrl = 'https://localhost:7157/UserPermissions';
-  private userUrl = 'https://localhost:7157/GetAllOtherUser';
-  private NegotiationUrl = 'https://localhost:7157/GetAllNegotiations';
-  private adsUrl = 'https://localhost:7157/GetAllAds';
-  constructor(private http: HttpClient) { }
+  private  coUrl= 'GetOtherCompany';
+  private deleteUrl = 'DeleteNegotiation';
+  private acceptUrl = 'AcceptNegotiation';
+  private apiUrl = 'UserPermissions';
+  private userUrl = 'GetAllOtherUser';
+  private NegotiationUrl = 'GetAllNegotiations';
+  private adsUrl = 'GetAllAds';
+  constructor(private http: HttpClient,private apiService: ApiService) { }
 
+ 
   getPermissions(userId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}?user_id=${userId}`);
+    const url = this.apiService.getFullUrl(`${this.apiUrl}?user_id=${userId}`);
+    return this.http.get(url);
   }
-  getAdvertisement(company_id: number,operation:string): Observable<Advertisement[]> {
-    const url = `${this.adsUrl}?companyId=${company_id}&operation=${operation}`;
+
+  getAdvertisement(company_id: number,operation:string,ad_type:string): Observable<Advertisement[]> {
+    const url = this.apiService.getFullUrl(`${this.adsUrl}?companyId=${company_id}&operation=${operation}&ad_type=${ad_type}`);
     return this.http.get<Advertisement[]>(url);
   }
 
   getallUser(companyid:number): Observable<any> {
-    return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
+    const url = this.apiService.getFullUrl(`${this.userUrl}/${companyid}`);
+    return this.http.get(url,{responseType:'json'});
   }
 
- 
-  
 getNegotiationsById(ad_id: number): Observable<any> {
-  return this.http.get(`${this.NegotiationUrl}?ad_id=${ad_id}`);
+  const url = this.apiService.getFullUrl(`${this.NegotiationUrl}?ad_id=${ad_id}`);
+  return this.http.get(url);
 }
 getotherCompany(companyId: string): Observable<any> {
-  return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+  const url = this.apiService.getFullUrl(`${this.coUrl}?companyID=${companyId}`);
+  return this.http.get(url, { responseType: 'json' });
 }
 deleteNegotiation(negotiation_id: number): Observable<any> {
-
-  return this.http.delete(`${this.deleteUrl}?negotiation_id=${negotiation_id}`);
+  const url = this.apiService.getFullUrl(`${this.deleteUrl}?negotiation_id=${negotiation_id}`);
+  return this.http.delete(url);
 }
 AcceptNegotiation(negotiation_id: number): Observable<any> {
-  return this.http.put(`${this.acceptUrl}?negotiation_id=${negotiation_id}`,null);
+  const url = this.apiService.getFullUrl(`${this.acceptUrl}?negotiation_id=${negotiation_id}`);
+  return this.http.put(url,null);
 }
 
 }
