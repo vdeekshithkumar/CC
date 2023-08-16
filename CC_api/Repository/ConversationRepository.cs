@@ -116,7 +116,7 @@ namespace CC_api.Repository
 
     public async Task<List<Message>> GetmessageByConversationID(int conversationId)
     {
-      return await dbContext.message.Where(c => c.conversationid == conversationId && c.sender_read == false || c.receiver_read == false).ToListAsync();
+      return await dbContext.message.Where(c => c.conversationid == conversationId &&( c.sender_read == false || c.receiver_read == false)).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {
@@ -142,6 +142,13 @@ namespace CC_api.Repository
       return messageCount;
     }
 
+    public async Task<List<int>> GetmessageConversationIds(int companyId)
+    {
+      return await dbContext.conversation
+          .Where(c => c.company_id == companyId || c.adscompanyid == companyId)
+          .Select(c => c.conversationid)
+          .ToListAsync();
+    }
     public async Task<List<int>> GetConversationIds(int companyId)
     {
       return await dbContext.conversation
