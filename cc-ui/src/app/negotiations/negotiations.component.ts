@@ -231,8 +231,8 @@ debugger
 
         // Populate the user names object
         this.alluser_list.forEach((user: any) => {
-          this.userNames[user.user_id] = user.fname;
-          this.userLNames[user.user_id] = user.lname;
+          this.userNames[user.user_id] = user.first_name;
+          this.userLNames[user.user_id] = user.last_name;
           this.userNo[user.user_id] = user.phone_no;
 
 
