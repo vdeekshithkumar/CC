@@ -19,7 +19,7 @@
                 <div class="mt-4">
                     <div *ngFor="let convo of conversations; let i = index" class="h-100 w-full border-2 bord p-2 bg-white cursor-pointer"
      [ngClass]="{ 'selected-conversation': i === selectedConversationIndex }"
-     (click)="getMessages(convo.conversationid); setSelectedConversationIndex(i);
+     (click)="getMessages(convo.conversationid); setSelectedConversationIndex(i); EditMessageStatusForConversation();
               selectedConversationName = (convo.company_id === this.companyId) ? convo.company_name : convo.negotiator_company_name;
               selectedConversationDesc = convo.first_name;selectedcompanyname=convo.negotiator_company_name; selectedConversationLogo =(convo.company_id === this.companyId) ? convo.company_logo:convo.negotiator_company_logo">
   <div class="container text-sm inline">

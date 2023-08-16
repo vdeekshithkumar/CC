@@ -84,4 +84,8 @@ export class MessagingService {
     const url = this.apiService.getFullUrl(`GetmessageCount?companyId=${companyId}`);
     return this.http.get(url);
   }
+  EditMessagestatus(conversationID:number,companyId: number): Observable<any> {
+    const url = this.apiService.getFullUrl(`Editmessagestatus?conversationID=${conversationID}&companyId=${companyId}`);
+    return this.http.put(url,null);
+  }
 }

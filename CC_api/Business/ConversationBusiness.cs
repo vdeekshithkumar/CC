@@ -49,9 +49,9 @@ namespace CC_api.Business
       // Call the SendMessage method in the conversationRepository
       return await conversationRepository.SendMessage(message);
     }
-    public async Task<List<Message>> Editmessagestatus(int conversationid, int companyId)
+    public async Task<List<Message>> Editmessagestatus(int conversationId, int companyId)
     {
-      List<Message> messages = await conversationRepository.GetmessageByConversationID(conversationid);
+      List<Message> messages = await conversationRepository.GetmessageByConversationID(conversationId);
 
       foreach (var message in messages)
       {
