@@ -87,10 +87,10 @@ namespace CC_api.Controllers
 
       return Ok(await conversationBusiness.GetParticipant(convoid));
     }
-    [HttpPut("Editmessagestatus/{conversationid}/{companyId}")]
-    public async Task<IActionResult> Editmessagestatus(int conversationid, int companyId)
+    [HttpPut("Editmessagestatus")]
+    public async Task<IActionResult> Editmessagestatus(int conversationId, int companyId)
     {
-      var messagebycid = await conversationBusiness.Editmessagestatus(conversationid, companyId);
+      var messagebycid = await conversationBusiness.Editmessagestatus(conversationId, companyId);
       return Ok(messagebycid);
 
     }

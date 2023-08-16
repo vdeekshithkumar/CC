@@ -114,9 +114,9 @@ namespace CC_api.Repository
       return await dbContext.conversation.Where(c => c.adscompanyid == AdscompanyId).ToListAsync();
     }
 
-    public async Task<List<Message>> GetmessageByConversationID(int conversationid)
+    public async Task<List<Message>> GetmessageByConversationID(int conversationId)
     {
-      return await dbContext.message.Where(c => c.conversationid == conversationid && c.sender_read == false || c.receiver_read == false).ToListAsync();
+      return await dbContext.message.Where(c => c.conversationid == conversationId && c.sender_read == false || c.receiver_read == false).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {
@@ -138,7 +138,7 @@ namespace CC_api.Repository
     }
     public async Task<int> GetmessageCount(int companyId)
     {
-      var userCount = await dbContext.message.Where(m => m.sender_cid == companyId && m.receiver_read == false).CountAsync();
+      var userCount = await dbContext.message.Where(m => m.sender_cid == companyId &&  m.receiver_read == false).CountAsync();
       return userCount;
     }
     public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)

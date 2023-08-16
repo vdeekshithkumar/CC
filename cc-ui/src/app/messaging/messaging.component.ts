@@ -28,6 +28,7 @@ export class MessagingComponent implements OnInit {
   adcompanyId!:number
   userId: number = 0
   conversations: conversation[] = [];
+  convid: conversation[] = [];
   filteredConversations: conversation[]=[];
   messages: Message[] = []
   lastMessages: { [key: number]: Message | undefined } = {};
@@ -48,7 +49,8 @@ export class MessagingComponent implements OnInit {
   negotiationId!: string;
   selectedConversationName!: string;
   selectedConversationDesc!: string;
-  selectedcompanyname!:string
+  selectedcompanyname!:string;
+  first_name!:string;
   selectedConversationLogo!:string;
   selectedConversationIndex: number = -1;
   showPopup: boolean = false;
@@ -104,6 +106,7 @@ export class MessagingComponent implements OnInit {
         this.messageService.getConversationByCompanyId(this.companyId).subscribe({
           next: data => {
             this.conversations = data;
+            console.log(this.conversations);
             this.filterConversationsByNegotiationId();
           },
           error: error => {
@@ -116,7 +119,21 @@ export class MessagingComponent implements OnInit {
       }
     });
   }
-  
+  EditMessageStatusForConversation() {
+    debugger
+    this.messageService.EditMessagestatus(this.conversationID, this.companyId).subscribe({
+      next: (response: any) => {
+        // Handle the response after editing the message status
+        console.log(`Message status edited for conversation ${this.conversationID}`);
+      },
+      error: (error: any) => {
+        console.error(`Error editing message status for conversation ${this.conversationID}:`, error);
+      }
+    });
+  }
+  // EditMessageStatus():void{
+  // this.messageService.EditMessagestatus()
+  // }
   
   // filterConversationsByNegotiationId(): void {
   //   debugger
@@ -131,6 +148,7 @@ export class MessagingComponent implements OnInit {
   //     });
   //   }
   // }
+  
   filterConversationsByNegotiationId(): void {
   
     if (this.companyId && this.conversations) {
@@ -152,12 +170,13 @@ export class MessagingComponent implements OnInit {
   
   
   selectConversation(index: number, conversation: any) {
-    debugger
+   
     this.selectedConversationIndex = index;
     // Perform any necessary actions with the selected conversation
     this.getMessages(conversation.conversationId);
     this.selectedConversationName = conversation.company_name;
     this.selectedConversationDesc = conversation.first_name;
+    console.log("in msg",this.selectedConversationDesc);
     this.selectedConversationLogo = conversation.company_logo;
   }
   getAllConversations() {
@@ -179,7 +198,7 @@ export class MessagingComponent implements OnInit {
 
     // this.selectedNegotiationId = negotiation_id;
   getMessages(conversationId: number) {
-    debugger
+   
   this.loadUsers = false;
   this.conversationID = conversationId;
   this.messageService.getMessges(conversationId).subscribe({
@@ -322,7 +341,7 @@ export class MessagingComponent implements OnInit {
     });
   }
   getSenderName(senderId: number): string {
-    debugger
+   
     const participant = this.participants.find(p => p.userId === senderId);
     return participant ? participant.first_name : '';
   }
