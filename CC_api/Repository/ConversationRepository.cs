@@ -136,10 +136,18 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
 
     }
-    public async Task<int> GetmessageCount(int companyId)
+    public async Task<int> GetmessageCount(int conversationId, int companyId)
     {
-      var userCount = await dbContext.message.Where(m => m.sender_cid == companyId &&  m.receiver_read == false).CountAsync();
-      return userCount;
+      var messageCount = await dbContext.message.Where(m => m.sender_cid != companyId && m.receiver_read == false && m.conversationid == conversationId).CountAsync();
+      return messageCount;
+    }
+
+    public async Task<List<int>> GetConversationIds(int companyId)
+    {
+      return await dbContext.conversation
+          .Where(c => c.company_id == companyId || c.adscompanyid == companyId)
+          .Select(c => c.conversationid)
+          .ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)
     {

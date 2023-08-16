@@ -95,7 +95,7 @@ namespace CC_api.Controllers
 
     }
     [HttpGet("GetmessageCount")]
-    public async Task<int> GetmessageCount(int companyId)
+    public async Task<IActionResult> GetmessageCount(int companyId)
     {
       return await conversationBusiness.GetmessageCount(companyId);
     }

@@ -67,11 +67,26 @@ namespace CC_api.Business
 
       return messages;
     }
-    public async Task<int> GetmessageCount(int companyId)
+    public async Task<IActionResult> GetmessageCount(int companyId)
     {
-      return await conversationRepository.GetmessageCount(companyId);
-    }
+      // Await the conversation IDs retrieval
+      List<int> conversationIds = await conversationRepository.GetConversationIds(companyId);
 
+      int totalMessageCount = 0;
+
+      // Iterate through conversation IDs
+      foreach (int conversationId in conversationIds)
+      {
+        int conversationMessageCount = await conversationRepository.GetmessageCount(conversationId, companyId);
+        totalMessageCount += conversationMessageCount;
+      }
+
+      return new OkObjectResult(new
+      {
+        ConversationIds = conversationIds,
+        TotalMessageCount = totalMessageCount
+      });
+    }
     public async Task<List<Conversation>> GetConversationByCompanyId(int companyId)
     {
       return await conversationRepository.GetConversationByCompanyId(companyId);

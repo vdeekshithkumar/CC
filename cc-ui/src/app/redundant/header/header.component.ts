@@ -11,13 +11,14 @@ import { MessagingService } from 'src/app/messaging/messaging.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+  totalMessageCount: any;
+  isCardVisible: boolean = false;
   searchTerm = '';
   filterAds = false;
   filterNegotiation = false;
   selectedFilters: string[] = [];
   companyId: any;
-  message_list:any;
+  
 
   showPopup = false;
 
@@ -37,14 +38,17 @@ export class HeaderComponent {
       }
     );
     this.messageService.getMessageCount(this.companyId).subscribe(
-      (count:number[]) => {
-        this.message_list = count;
-        console.log("For message count",this.message_list);
+      (response: any) => {
+      this.totalMessageCount = response.totalMessageCount;
+
+        console.log("Total Message Count:", this.totalMessageCount);
+        // Now you can use 'totalMessageCount' wherever you want to display it in your frontend.
       },
       (error: any) => {
-        console.log("Inventory loading error: " + error);
+        console.log("Error loading message count: " + error);
       }
     );
+    
   }
   logout(): void {
 
@@ -91,6 +95,8 @@ export class HeaderComponent {
     });
   }
   onBellIconClick(){
-    console.log("Bell icon is clicked")
+    
+      this.isCardVisible = !this.isCardVisible;
+    
   }
 }
