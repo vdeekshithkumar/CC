@@ -49,24 +49,6 @@ namespace CC_api.Business
       // Call the SendMessage method in the conversationRepository
       return await conversationRepository.SendMessage(message);
     }
-    public async Task<List<Message>> Editmessagestatus(int conversationId, int companyId)
-    {
-      List<Message> messages = await conversationRepository.GetmessageByConversationID(conversationId);
-
-      foreach (var message in messages)
-      {
-        if (message != null && companyId == message.sender_cid && message.sender_read == false)
-        {
-          await conversationRepository.UpdateSenderReadStatus(message);
-        }
-        else if (message != null && companyId != message.sender_cid && message.receiver_read == false)
-        {
-          await conversationRepository.UpdateReceiverReadStatus(message);
-        }
-      }
-
-      return messages;
-    }
     public async Task<IActionResult> GetmessageCount(int companyId)
     {
       // Await the conversation IDs retrieval
@@ -87,6 +69,27 @@ namespace CC_api.Business
         TotalMessageCount = totalMessageCount
       });
     }
+    public async Task<List<Message>> Editmessagestatus(int conversationId, int companyId)
+    {
+      List<Message> messages = await conversationRepository.GetmessageByConversationID(conversationId);
+
+      foreach (var message in messages)
+      {
+        if (message != null && companyId == message.sender_cid && message.sender_read == false)
+        {
+          await conversationRepository.UpdateSenderReadStatus(message);
+        }
+        else if (message != null && companyId != message.sender_cid && message.receiver_read == false)
+        {
+          await conversationRepository.UpdateReceiverReadStatus(message);
+
+
+        }
+      }
+
+      return messages;
+    }
+
     public async Task<List<Conversation>> GetConversationByCompanyId(int companyId)
     {
       return await conversationRepository.GetConversationByCompanyId(companyId);

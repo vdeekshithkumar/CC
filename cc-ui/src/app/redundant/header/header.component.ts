@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SessionService } from 'src/app/session.service';
 import { EditUserDetailsComponent } from './edit-user-details/edit-user-details.component';
 import { MessagingService } from 'src/app/messaging/messaging.service';
-
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -37,18 +37,28 @@ export class HeaderComponent {
         console.error('Error retrieving company ID:', error);
       }
     );
+   
+    const refreshInterval = 1000; //refreshing messagecount
+interval(refreshInterval).subscribe(() => {
+  this.fetchMessageCount();
+});
+ 
+
+
+
+    
+  }
+  fetchMessageCount() {
     this.messageService.getMessageCount(this.companyId).subscribe(
       (response: any) => {
-      this.totalMessageCount = response.totalMessageCount;
-
+        this.totalMessageCount = response.totalMessageCount;
         console.log("Total Message Count:", this.totalMessageCount);
-        // Now you can use 'totalMessageCount' wherever you want to display it in your frontend.
+       
       },
       (error: any) => {
         console.log("Error loading message count: " + error);
       }
     );
-    
   }
   logout(): void {
 
@@ -100,3 +110,4 @@ export class HeaderComponent {
     
   }
 }
+                  

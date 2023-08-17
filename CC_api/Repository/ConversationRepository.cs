@@ -11,8 +11,8 @@ namespace CC_api.Repository
   {
     public int user_id { get; set; }
     public int company_id { get; set; }
-    public string fname { get; set; }
-    public string lname { get; set; }
+    public string first_name { get; set; }
+    public string last_name { get; set; }
     public string designation { get; set; }
     public string? company_name { get; set; }
   }
@@ -116,7 +116,7 @@ namespace CC_api.Repository
 
     public async Task<List<Message>> GetmessageByConversationID(int conversationId)
     {
-      return await dbContext.message.Where(c => c.conversationid == conversationId &&( c.sender_read == false || c.receiver_read == false)).ToListAsync();
+      return await dbContext.message.Where(c => c.conversationid == conversationId && (c.sender_read == false || c.receiver_read == false)).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {
@@ -178,8 +178,8 @@ namespace CC_api.Repository
           {
             user_id = u.user_id,
             company_id = u.company_id,
-            fname = u.first_name,
-            lname = u.last_name,
+            first_name = u.first_name,
+            last_name = u.last_name,
             designation = u.designation,
             company_name = companyName
           })

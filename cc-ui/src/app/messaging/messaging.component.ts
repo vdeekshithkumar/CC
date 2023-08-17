@@ -341,7 +341,7 @@ export class MessagingComponent implements OnInit {
     });
   }
   getSenderName(senderId: number): string {
-   
+   debugger
     const participant = this.participants.find(p => p.userId === senderId);
     return participant ? participant.first_name : '';
   }
@@ -358,6 +358,7 @@ export class MessagingComponent implements OnInit {
     })
   }
   async addParticipant(candidate: Candidate) {
+    debugger
     const participant: participant = {
       conversationId: this.conversationID,
       userId: candidate.user_id,
@@ -387,7 +388,7 @@ export class MessagingComponent implements OnInit {
   }
   // async sendMessage(senderId:number, content:string , )  
   addParticipants() {
-
+debugger
     const selectedUsers = this.users.filter(user => user.selected);
     this.users.forEach(user => {
       if (user.selected) {
