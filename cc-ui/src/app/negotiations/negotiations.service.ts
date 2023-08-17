@@ -2,6 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ApiService } from '../api.service';
 
 export interface Negotiation{
   negotiation_id: number;
@@ -45,47 +46,55 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class NegotiationsService {
-  private  coUrl= 'https://localhost:7157/GetOtherCompany';
-  private  nUrl= 'https://localhost:7157/GetAllNegotiation';
-  private userUrl = 'https://localhost:7157/GetAllCompanyUser';
-  private apiUrl = 'https://localhost:7157/UserPermissions';
-  private NegotiationUrl = 'https://localhost:7157/GetMyNegotiations';
-  private advUrl = 'https://localhost:7157/GetAllAdvertisementbytype';
-  private countUrl = 'https://localhost:7157/GetMyNegotiationsCount';
-  private cid='https://localhost:7157/GetCompanyById?companyId'
-  private negcountUrl = 'https://localhost:7157/GetMyNegotiationsCount'
+  private  coUrl= 'GetOtherCompany';
+  private  nUrl= 'GetAllNegotiation';
+  private userUrl = 'GetAllCompanyUser';
+  private apiUrl = 'UserPermissions';
+  private NegotiationUrl = 'GetMyNegotiations';
+  private advUrl = 'GetAllAdvertisementbytype';
+  private countUrl = 'GetMyNegotiationsCount';
+  private cid='GetCompanyById?companyId'
+  private negcountUrl = 'GetMyNegotiationsCount'
   selectedConversation:any;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private apiService: ApiService) { }
 
+  getallnegotiation(companyId: string): Observable<any> {
+    const url = this.apiService.getFullUrl(`${this.nUrl}?companyID=${companyId}`);
+    return this.http.get(url, { responseType: 'json' });
+  }
   getPermissions(userId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}?user_id=${userId}`);
+    const url = this.apiService.getFullUrl(`${this.apiUrl}?user_id=${userId}`);
+    return this.http.get(url);
   }
  getallUser(companyid:number): Observable<any> {
-    return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
+  const url = this.apiService.getFullUrl(`${this.userUrl}/${companyid}`);
+    return this.http.get(url,{responseType:'json'});
   }
   getAdvertisementbytype(ad_type:string,company_id: number): Observable<Advertisement[]> {
-    const url = `${this.advUrl}?ad_type=${ad_type}&companyId=${company_id}`;
+    const url = this.apiService.getFullUrl(`${this.advUrl}?ad_type=${ad_type}&companyId=${company_id}`);
     return this.http.get<Advertisement[]>(url);
   }
   getNegotiationsByCId(company_id: number): Observable<any> {
     debugger
-    return this.http.get(`${this.NegotiationUrl}?company_id=${company_id}`);
+    const url = this.apiService.getFullUrl(`${this.NegotiationUrl}?company_id=${company_id}`);
+    return this.http.get(url);
   }
   getcompanybycid(companyId: string): Observable<any> {
-    return this.http.get(`${this.cid}?companyID=${companyId}`, { responseType: 'json' });
+    const url = this.apiService.getFullUrl(`${this.cid}?companyID=${companyId}`);
+    return this.http.get(url, { responseType: 'json' });
   }
   
   getNegotiationsByCount(company_id: number): Observable<any> {
-    return this.http.get(`${this.countUrl}?company_id=${company_id}`);
+    const url = this.apiService.getFullUrl(`${this.countUrl}?company_id=${company_id}`);
+    return this.http.get(url);
   }
 getotherCompany(companyId: string): Observable<any> {
-  return this.http.get(`${this.coUrl}?companyID=${companyId}`, { responseType: 'json' });
+  const url = this.apiService.getFullUrl(`${this.coUrl}?companyID=${companyId}`);
+  return this.http.get(url, { responseType: 'json' }); 
 }
 
-getallnegotiation(companyId: string): Observable<any> {
-  return this.http.get(`${this.nUrl}?companyID=${companyId}`, { responseType: 'json' });
-}
 getnegotiationcount(companyId: string): Observable<any> {
-  return this.http.get(`${this.negcountUrl}?companyID=${companyId}`, { responseType: 'json' });
+  const url = this.apiService.getFullUrl(`${this.negcountUrl}?companyID=${companyId}`);
+  return this.http.get(url, { responseType: 'json' });
 }
 }

@@ -29,6 +29,7 @@
                 <input type="radio" style="cursor: pointer;"name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="ad_type = 'space'; viewAds()" (change)="onAdTypeChange('space')">
               </label>
             </div>
+            
           </div>
 
 
@@ -336,7 +337,7 @@
                               *ngIf="operation === 'Pending'" scope="row"
                               class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 text-center px-2 text-white mr-2 bg-CCblue disable mt-2"
                               style="font-size: 12px;">Approve</button>
-                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id)"
+                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id,ad_type)"
                               *ngIf="operation === 'Active'" scope="row"
                               class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
                               style="font-size: 12px;">Open</button>

@@ -47,8 +47,8 @@ namespace CC_api.Repository
         {
           conversationid = conversation.conversationid,
           user_id = conversation.user_id,
-          fname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.first_name).FirstOrDefault(),
-          lname = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.last_name).FirstOrDefault(),
+          first_name = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.first_name).FirstOrDefault(),
+          last_name = dbContext.users.Where(u => u.user_id == conversation.user_id).Select(u => u.last_name).FirstOrDefault(),
           company_id = conversation.company_id,
           company_name = dbContext.company.Where(c => c.company_id == conversation.company_id).Select(c => c.name).FirstOrDefault()
         };
@@ -73,8 +73,8 @@ namespace CC_api.Repository
 
       if (user != null && company != null)
       {
-        participant.fname = user.first_name;
-        participant.lname = user.last_name;
+        participant.first_name = user.first_name;
+        participant.last_name = user.last_name;
         participant.company_name = company.name;
         await dbContext.SaveChangesAsync();
       }
@@ -114,9 +114,9 @@ namespace CC_api.Repository
       return await dbContext.conversation.Where(c => c.adscompanyid == AdscompanyId).ToListAsync();
     }
 
-    public async Task<List<Message>> GetmessageByConversationID(int conversationid)
+    public async Task<List<Message>> GetmessageByConversationID(int conversationId)
     {
-      return await dbContext.message.Where(c => c.conversationid == conversationid && c.sender_read == false || c.receiver_read == false).ToListAsync();
+      return await dbContext.message.Where(c => c.conversationid == conversationId &&( c.sender_read == false || c.receiver_read == false)).ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
     {
@@ -136,10 +136,25 @@ namespace CC_api.Repository
       await dbContext.SaveChangesAsync();
 
     }
-    public async Task<int> GetmessageCount(int companyId)
+    public async Task<int> GetmessageCount(int conversationId, int companyId)
     {
-      var userCount = await dbContext.message.Where(m => m.sender_cid == companyId && m.receiver_read == false).CountAsync();
-      return userCount;
+      var messageCount = await dbContext.message.Where(m => m.sender_cid != companyId && m.receiver_read == false && m.conversationid == conversationId).CountAsync();
+      return messageCount;
+    }
+
+    public async Task<List<int>> GetmessageConversationIds(int companyId)
+    {
+      return await dbContext.conversation
+          .Where(c => c.company_id == companyId || c.adscompanyid == companyId)
+          .Select(c => c.conversationid)
+          .ToListAsync();
+    }
+    public async Task<List<int>> GetConversationIds(int companyId)
+    {
+      return await dbContext.conversation
+          .Where(c => c.company_id == companyId || c.adscompanyid == companyId)
+          .Select(c => c.conversationid)
+          .ToListAsync();
     }
     public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)
     {

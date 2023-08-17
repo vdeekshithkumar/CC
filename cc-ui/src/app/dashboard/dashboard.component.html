@@ -3,7 +3,7 @@
   
     <div class="div-card bg-div">
       <div class="div-card-div h1-div">
-        Welcome, {{fname}} {{lname}}
+        Welcome, {{first_name}} {{last_name}}
     </div>
   </div>
   </div>
@@ -55,7 +55,7 @@
   
       <div class="p-3">
         <!-- myads -->
-        <div *ngIf="adsCount.length > 0" class="chart-container mt-1" >
+        <div *ngIf="adsCount.length > 0" class="chart-container mt-6" >
           <canvas baseChart
                   [data]="chartData" 
                   class="curved-labels-adv -mt-50 "

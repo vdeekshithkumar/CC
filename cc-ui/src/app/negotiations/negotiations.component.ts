@@ -231,8 +231,8 @@ debugger
 
         // Populate the user names object
         this.alluser_list.forEach((user: any) => {
-          this.userNames[user.user_id] = user.fname;
-          this.userLNames[user.user_id] = user.lname;
+          this.userNames[user.user_id] = user.first_name;
+          this.userLNames[user.user_id] = user.last_name;
           this.userNo[user.user_id] = user.phone_no;
 
 
@@ -326,7 +326,7 @@ createConversation(conversation: any) {
     negotiator_company_logo:negcompanyLogo,
     company_name: companyName,
     user_id: conversation.user_id,
-    user_name: this.getUserName(conversation.user_id),
+    first_name: this.getUserName(conversation.user_id),
     negotiation_id: conversation.negotiation_id,
     AdscompanyId: adcompanyId,
     is_active: 1, // Set the is_active field to 1

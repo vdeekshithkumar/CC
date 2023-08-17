@@ -331,13 +331,14 @@ nextPage() {
     this.isEdit=1;
     console.log('now turned '+this.isEdit)
     const now = new Date();
-    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+  const formattedDateTime = now.toISOString();
+  console.log(formattedDateTime); // get date in format yyyy-mm-dd
    
     this.UploadInventoryForm.setValue({
   
       inventory_id:inv_id,
       date_created:"2023-03-28",
-      last_modified:formattedDate,
+      last_modified:formattedDateTime,
       company_id:this.companyId,
       container_type:this.inventory_data.container_type,
       available: this.inventory_data.available,

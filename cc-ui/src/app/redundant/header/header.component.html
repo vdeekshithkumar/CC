@@ -112,17 +112,18 @@
             <button style="margin-right: 20px; margin-top: 8px;">
               <span class="material-symbols-outlined">
                 <div class="notification-bell">
-                  <span *ngIf="message_list > 0" class="red-dot ">
-                    notifications
-                  </span>
-                </div>
-                 
-                <span *ngIf="message_list === 0">
+                  <span class="red-dot" *ngIf="totalMessageCount > 0"></span>
                   notifications
-                </span>
+                </div>
               </span>
+              
+              
+              
             </button>
           </a>
+          <div class="notification-card" *ngIf="isCardVisible &&totalMessageCount > 0">
+          <p routerLink="/messaging">You have {{totalMessageCount}} unread messages</p>
+          </div>
           &nbsp;
           
           <svg (click)="showPopup = !showPopup" class="cursor-pointer" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">

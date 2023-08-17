@@ -2,10 +2,9 @@ export interface conversation {
   adcompanyId:number;  
   conversationid: number;
   company_id: number;
-
   user_id:number;
   company_name:string;
-  user_name:string;
+  first_name:string;
   is_active:number;
   negotiation_id:number;
   company_logo:string;
@@ -15,8 +14,8 @@ export interface conversation {
 export interface Candidatee{
   user_id:number,
   company_id:number,
-  fname:string,
-  lname:string,
+  first_name:string,
+  last_name:string,
   designation:string
   selected:boolean
   company_name: string

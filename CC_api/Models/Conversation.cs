@@ -10,7 +10,7 @@ namespace CC_api.Models
     //public string ConvoDesc { get; set; }
     public int adscompanyid { get; set; }//ad requesting company name
     public string company_name { get; set; }
-    public string user_name { get; set; }
+    public string first_name { get; set; }
     public int company_id { get; set; }
     public int is_active { get; set; }
     public int user_id { get; set; }
