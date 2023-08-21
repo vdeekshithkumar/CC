@@ -17,6 +17,7 @@ import { Advertisement, PostAdService } from './post-ad.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 import { ViewOtherAdsService } from 'src/app/view-other-ads/view-other-ads.service';
+import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 export interface Containers {
   container_type_id: number;
   type: string;
@@ -84,7 +85,7 @@ Approve: any;
 
 
 
-  constructor(@Inject(MAT_DIALOG_DATA)public data:any, private ref:MatDialogRef<PostAdComponent>,private postAdService: PostAdService,private router:Router,private sessionService: SessionService,private viewotherads:ViewOtherAdsService) {
+  constructor(@Inject(MAT_DIALOG_DATA)public data:any,private snackBar: MatSnackBar, private ref:MatDialogRef<PostAdComponent>,private postAdService: PostAdService,private router:Router,private sessionService: SessionService,private viewotherads:ViewOtherAdsService) {
   }
 
   addExcel(): void {
@@ -272,6 +273,9 @@ this.type=this.data.type;
     this.fileName = file.name
     this.showFile = !this.showFile;
     await  setTimeout(() => {this.showFile = !this.showFile}, 3000);
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(`Successfully uploaded the file.`, 'Close', {
+      duration: 2000
+    });
   }
 
   async Draft(){

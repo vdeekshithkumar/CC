@@ -415,15 +415,6 @@
             </div>
           </div>
 
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">description</i>
-              <span class="text-[0.6rem]">Expiry Date</span>
-            </div>
-            <div class="text-xs font-bold">
-              {{ ad.expiry_date | date : "dd MMMM yyyy" }}
-            </div>
-          </div>
 
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
@@ -452,32 +443,33 @@
           
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">payments</i>
-              <span class="text-[0.6rem]">Price</span>
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Date Created</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.price }}</div>
+            <div class="text-xs font-bold">{{ ad.date_created  | date : "dd MMMM yyyy" }}</div>
           </div>
 
+       
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">From Date</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.from_date  | date : "dd MMMM yyyy" }}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Expiry Date</span>
+            </div>
+            <div class="text-xs font-bold">{{ ad.expiry_date  | date : "dd MMMM yyyy" }}</div>
+          </div>
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
               <i class="material-icons mr-1 text-xs">event_available</i>
               <span class="text-[0.6rem]">Free Days</span>
             </div>
             <div class="text-xs font-bold">{{ ad.free_days }}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Per Diem</span>
-            </div>
-            <div class="text-xs font-bold">{{ ad.per_diem }}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Pickup Charges</span>
-            </div>
-            <div class="text-xs font-bold">{{ ad.pickup_charges }}</div>
           </div>
         </div>
       </div>
