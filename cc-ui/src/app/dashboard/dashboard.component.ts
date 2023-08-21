@@ -11,6 +11,7 @@ import { UploadInventoryservice } from '../upload-inventory/upload-inventory.ser
 import { NegotiationsService } from '../negotiations/negotiations.service';
 import { MessagingService } from '../messaging/messaging.service';
 import { conversation } from '../DTO/conversation';
+import { DashboardServiceService } from './dashboard.service';
 
 
 
@@ -346,7 +347,8 @@ export class DashboardComponent implements OnInit {
     private profileService: ProfileService,
     private inventoryService:UploadInventoryservice,
     private negotiationService:NegotiationsService,
-    private messageService:MessagingService
+    private messageService:MessagingService,
+    private dashboardService:DashboardServiceService
   ) {}
 
   ngOnInit(): void {
@@ -410,12 +412,12 @@ export class DashboardComponent implements OnInit {
       }
     );
    // Inside the subscription where you calculate the surplusSum and deficitSum
-   this.inventoryService.getInventoryByIdCID(this.companyId).subscribe(
-    (data: any[]) => {
-      this.inventory_list_by_companyId = data;
+   this.dashboardService.getAllData(this.companyId).subscribe(
+    (data: any) => {
+      this.inventory_list_by_companyId = data.inventory;
       let surplusSum = 0;
       let deficitSum = 0;
-
+  
       for (const item of this.inventory_list_by_companyId) {
         if (item.surplus) {
           surplusSum += item.surplus;
@@ -424,31 +426,27 @@ export class DashboardComponent implements OnInit {
           deficitSum += item.deficit;
         }
       }
-
+  
       // Update the data and labels for the chart
       this.horizontalBarGraphData.datasets[0].data = [deficitSum, surplusSum];
       console.log(this.horizontalBarGraphData);
-
+  
       // Update the chart to reflect the changes
       horizontalBarChart.update();
+  
+     
+      this.adsCount = data.adCount; 
+      this.chartData.datasets[0].data = this.adsCount;
+      console.log('Ads counts:', this.adsCount);
+      console.log('Chart data:', this.chartData);
     },
     (error: any) => {
-      console.log("Inventory loading error: " + error);
+      console.log("Error: " + error);
+      alert('Error occurred');
     }
   );
-
-    this.adService.getAdsCount(this.companyId).subscribe(
-      (count: number[]) => {
-        this.adsCount = count;
-        this.chartData.datasets[0].data = this.adsCount;
-        console.log('Ads count:', this.adsCount);
-        console.log('Chart data:', this.chartData);
-      },
-      (error: any) => {
-        console.log(error);
-        alert('Error occurred');
-      }
-    );
+  
+  
 
     this.profileService.getCompanyById(this.companyId).subscribe(
       (data) => {
