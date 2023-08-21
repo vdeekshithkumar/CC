@@ -17,7 +17,7 @@ import { Advertisement, PostAdService } from './post-ad.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 import { ViewOtherAdsService } from 'src/app/view-other-ads/view-other-ads.service';
-import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
 export interface Containers {
   container_type_id: number;
   type: string;
@@ -264,19 +264,28 @@ this.type=this.data.type;
   }
   
 
-  async onChange($event: Event) {
+    async onChange($event: Event) {
+      const target = $event.target as HTMLInputElement;
+      const file: File = (target.files as FileList)[0];
+      this.file = file;
+      this.title = file.name;
+      this.fileName = file.name;
+      this.showFile = !this.showFile;
+      await setTimeout(() => {
+        this.showFile = !this.showFile;
+      }, 3000);
+      const snackBarConfig: MatSnackBarConfig = {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['success-snackbar'],
+      };
+      const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+        `${file.name} Successfully uploaded the file.`,
+        'Close',
+        snackBarConfig
+      );
+    }
 
-    const target = $event.target as HTMLInputElement;
-    const file: File = (target.files as FileList)[0];
-    this.file = file
-    this.title = file.name
-    this.fileName = file.name
-    this.showFile = !this.showFile;
-    await  setTimeout(() => {this.showFile = !this.showFile}, 3000);
-    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(`Successfully uploaded the file.`, 'Close', {
-      duration: 2000
-    });
-  }
 
   async Draft(){
   debugger
@@ -287,6 +296,19 @@ this.type=this.data.type;
   async PostAd(){
     this.operation="PostAd";
     this.onPost();
+    await setTimeout(() => {
+      this.showFile = !this.showFile;
+    }, 3000);
+    const snackBarConfig: MatSnackBarConfig = {
+      duration: 4000,
+      verticalPosition: 'top',
+      panelClass: ['success-snackbar'],
+    };
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+      `Successfully Posted the Advertisement`,
+      'Close',
+      snackBarConfig
+    );
   }
 
  getWeekDifference(from_date: Date, expiry_date: Date): number {

@@ -45,3 +45,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .custom-snackbar {
   background-color: green;
 }
+
+.mycsssnackbartest {
+  background-color: blue;
+}
+.green-snackbar {
+  background: rgb(65, 252, 134);
+  color: white;
+}
+.green-snackbar button {
+  background-color: rgb(65, 252, 134);
+  color: white;
+  border: none;
+}
+.red-snackbar {
+  background: #F44336;
+  color: white;
+}
+.red-snackbar button {
+  background-color: #F44336;
+  color: white !important;
+  border: none;
+}

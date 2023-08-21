@@ -446,7 +446,7 @@
               <i class="material-icons mr-1 text-xs">event_available</i>
               <span class="text-[0.6rem]">Date Created</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.date_created  | date : "dd MMMM yyyy" }}</div>
+            <div class="text-xs font-bold">{{getDateOnly(ad.date_created)}}</div>
           </div>
 
        
@@ -455,14 +455,14 @@
               <i class="material-icons mr-1 text-xs">event_available</i>
               <span class="text-[0.6rem]">From Date</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.from_date  | date : "dd MMMM yyyy" }}</div>
+            <div class="text-xs font-bold">{{getDateOnly(ad.from_date)}}</div>
           </div>
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
               <i class="material-icons mr-1 text-xs">event_available</i>
               <span class="text-[0.6rem]">Expiry Date</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.expiry_date  | date : "dd MMMM yyyy" }}</div>
+            <div class="text-xs font-bold">{{getDateOnly(ad.expiry_date)}}</div>
           </div>
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
