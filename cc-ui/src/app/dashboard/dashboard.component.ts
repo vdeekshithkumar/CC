@@ -56,6 +56,7 @@ export class DashboardComponent implements OnInit {
   conversationid: any[] = [];
   profileForm!: FormGroup;
   public showDiv = false;
+ 
   inventory_list_by_companyId: any[] =[];
   chartData: ChartData<any, number[], string> = {
     labels: ['Active', 'Pending', 'Drafts'],
@@ -70,6 +71,7 @@ export class DashboardComponent implements OnInit {
   chartOptions: ChartOptions = {
     responsive: false,
     plugins: {
+      
       tooltip: {
         callbacks: {
           label: (context) => {
@@ -87,6 +89,7 @@ export class DashboardComponent implements OnInit {
         bodyAlign: 'left',
         bodyFont: {
           weight: 'bold',
+        
         },
       },
       datalabels: {
@@ -112,7 +115,9 @@ export class DashboardComponent implements OnInit {
         data: [],
         backgroundColor: ['#B8E5D8', '#2F82A4', '#4CAABC'],
         borderColor: ['#B8E5D8', '#2F82A4', '#4CAABC'],
-        borderWidth: 1
+        borderWidth: 1,
+        
+        
       }
     ]
   };
@@ -463,7 +468,7 @@ export class DashboardComponent implements OnInit {
       }
     );
 
-    this.adService.getSpaceAds('space',this.companyId).subscribe(
+    this.adService.getSpaceAds('space').subscribe(
       (adsblscount: number[]) => {
         debugger
         this.originalspaceAds = adsblscount;
@@ -476,7 +481,7 @@ export class DashboardComponent implements OnInit {
         alert('error');
       }
     );
-    this.adService.getContainerAds('container',this.companyId).subscribe(
+    this.adService.getContainerAds('container').subscribe(
       (adsblscount: number[]) => {
         debugger
         this.originalcontainerAds = adsblscount;
