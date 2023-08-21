@@ -226,9 +226,9 @@ namespace CC_api.Business
       return count;
     }
 
-    public async Task<List<int>> GetMyAdscount(string ad_type, int companyId)
+    public async Task<List<int>> GetMyAdscount(string ad_type)
     {
-      var GetMyAdscount = await AdRepository.GetMyAdscount(ad_type, companyId);
+      var GetMyAdscount = await AdRepository.GetMyAdscount(ad_type);
       var count = new List<int>();
       foreach (var c in GetMyAdscount)
       {
