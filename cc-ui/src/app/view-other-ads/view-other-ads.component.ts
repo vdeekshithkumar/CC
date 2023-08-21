@@ -299,7 +299,11 @@ onSizeClick(size: any) {
     this.selectedcontainerSize = size.capacity; // Otherwise, select the clicked option
   }
 }
+capitalizeFirstLetter(text: string): string {
+  if (!text) return text;
 
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
   searchAds() {
     debugger
     // Check if ad_type is defined

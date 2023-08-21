@@ -386,7 +386,8 @@
                     >Port of Ad
                   </div>
                   <div class="gray-highlights" >
-                    {{ ad.port_of_ad }}
+                    {{ capitalizeFirstLetter(ad.port_of_ad) }}
+
                   </div>
                 </div>
                 <div class="flex flex-col" *ngIf="ad_type !== 'container'">
@@ -395,7 +396,7 @@
                     >Departure
                   </div>
                   <div class="gray-highlights" >
-                    {{ ad.port_of_departure }}
+                    {{capitalizeFirstLetter(ad.port_of_departure)  }}
                   </div>
                 </div>
                 <div class="flex flex-col" *ngIf="ad_type !== 'container'">
@@ -406,7 +407,7 @@
                   <div>
                     <div class="flex flex-row gap-1">
                       <div class="gray-highlights">
-                        {{ ad.port_of_arrival }}
+                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
                       </div>
                     </div>
                   </div>
@@ -429,7 +430,7 @@
               <i class="material-icons mr-1 text-xs">inventory_2</i>
               <span class="text-[0.6rem]">Type of Ad</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.type_of_ad }}</div>
+            <div class="text-xs font-bold">{{capitalizeFirstLetter(ad.type_of_ad)  }}</div>
           </div>
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
