@@ -56,12 +56,12 @@ export class MyAdService {
     const url = this.apiService.getFullUrl(`${this.advertisementcount}?ad_type=${ad_type}&companyId=${companyId}`);
     return this.http.get(url);
   }
-  getSpaceAds(ad_type:string,companyId: number,): Observable<any> {
-    const url = this.apiService.getFullUrl(`${this.myadsurl}?ad_type=${ad_type}&companyId=${companyId}`);
+  getSpaceAds(ad_type:string): Observable<any> {
+    const url = this.apiService.getFullUrl(`${this.myadsurl}?ad_type=${ad_type}`);
     return this.http.get(url);
   }
-  getContainerAds(ad_type:string,companyId: number,): Observable<any> {
-    const url = this.apiService.getFullUrl(`${this.myadsurl}?ad_type=${ad_type}&companyId=${companyId}`);
+  getContainerAds(ad_type:string): Observable<any> {
+    const url = this.apiService.getFullUrl(`${this.myadsurl}?ad_type=${ad_type}`);
     return this.http.get(url);
   }
   updateAd(
