@@ -367,7 +367,7 @@ export class DashboardComponent implements OnInit {
         console.error('Error retrieving company ID:', error);
       }
     );
-    debugger
+   
 
     this.sessionService.getCurrentUser().subscribe((user) => {
       if (user.user_id == null) {
@@ -465,7 +465,7 @@ export class DashboardComponent implements OnInit {
 
     this.adService.getSpaceAds('space',this.companyId).subscribe(
       (adsblscount: number[]) => {
-        debugger
+        
         this.originalspaceAds = adsblscount;
         console.log('count is are space', this.originalspaceAds);
         this.lineChartData.datasets[0].data = this.originalspaceAds;
@@ -478,7 +478,7 @@ export class DashboardComponent implements OnInit {
     );
     this.adService.getContainerAds('container',this.companyId).subscribe(
       (adsblscount: number[]) => {
-        debugger
+        
         this.originalcontainerAds = adsblscount;
         console.log('count is are container', this.originalcontainerAds);
         this.PieChartData.datasets[0].data = this.originalcontainerAds;
@@ -491,7 +491,7 @@ export class DashboardComponent implements OnInit {
     );
     this.negotiationService.getNegotiationsByCount(this.companyId).subscribe(
       (count: number[]) => {
-        debugger
+        
         this.negotiationCount = count;
         this.negotiationchartData.datasets[0].data = this.negotiationCount;
         console.log('negotiation count:', this.negotiationCount);
