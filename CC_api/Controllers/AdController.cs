@@ -48,11 +48,12 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("GetMyAds")]
-    public async Task<IActionResult> GetMyAdscount(string ad_type, int companyId)
+    public async Task<IActionResult> GetMyAdscount(string ad_type)
     {
-      var count = await _AdBusiness.GetMyAdscount(ad_type, companyId);
+      var count = await _AdBusiness.GetMyAdscount(ad_type);
       return Ok(count);
     }
+
 
 
     [HttpPost("ExcelUploadAd")]

@@ -221,27 +221,27 @@ namespace CC_api.Repository
       return await dbContext.advertisement.Where(c => c.company_id == companyID && c.ad_type == ad_type).ToListAsync();
 
     }
-    public async Task<List<long>> GetMyAdscount(string ad_type, int companyId)
+    public async Task<List<long>> GetMyAdscount(string ad_type)
     {
 
 
 
       var buyAds = await dbContext.advertisement
-      .Where(a => a.company_id == companyId && a.type_of_ad == "buy" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      .Where(a =>  a.type_of_ad == "buy" && a.ad_type == ad_type && a.status == "active").CountAsync();
       var count = new List<long>();
       count.Add(buyAds);
 
       var sellAds = await dbContext.advertisement
-      .Where(a => a.company_id == companyId && a.type_of_ad == "sell" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      .Where(a => a.type_of_ad == "sell" && a.ad_type == ad_type && a.status == "active").CountAsync();
       count.Add(sellAds);
 
 
       var leaseAds = await dbContext.advertisement
-     .Where(a => a.company_id == companyId && a.type_of_ad == "lease" && a.ad_type == ad_type && a.status == "active").CountAsync();
+     .Where(a =>  a.type_of_ad == "lease" && a.ad_type == ad_type && a.status == "active").CountAsync();
       count.Add(leaseAds);
 
       var swapAds = await dbContext.advertisement
-     .Where(a => a.company_id == companyId && a.type_of_ad == "swap" && a.ad_type == ad_type && a.status == "active").CountAsync();
+     .Where(a => a.type_of_ad == "swap" && a.ad_type == ad_type && a.status == "active").CountAsync();
       count.Add(swapAds);
 
 
