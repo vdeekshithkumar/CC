@@ -1,6 +1,6 @@
-<div class="div" *ngIf="showModal">
+<div  class="centered-modal" *ngIf="showModal">
   <div class="div-card">
-    <div class="div-bg ">
+    <div class="div-bg">
     </div>
     <div class="div-size">
       <div class="div-details">
@@ -57,7 +57,7 @@
           <path d="M13.5 7L12.795 6.295L9 10.085V1H8V10.085L4.205 6.295L3.5 7L8.5 12L13.5 7Z" fill="#2F54EB"/>
         </svg>
         <span class="ml-1">Bulk Import</span>
-        <input class="sr-only" type="file" (change)="ReadExcel($event)">
+        <input class="sr-only" type="file" (change)="ReadFile($event)">
       </label>
       <button type="submit" class=" inv-btn" (click)="toggleForm()" matTooltip="Add Inventory" (click)="updateFormHeading('Add New Inventory')">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -150,7 +150,7 @@
 <div *ngIf="inventory_list_by_companyId.length > 0">
 <div class="inline-block min-w-full mt-16 py-2 flex div-bg div-bg-line items-center" >            
     <label class="forecast font-semibold ml-2 whitespace-nowrap">Current Inventory</label>
-  <div class="div-search my-2 search justify-start mx-10  mt-2">
+  <div  *ngIf="!showModal" class="div-search my-2 search justify-start mx-10  mt-2 backdrop" >
     <div class="div-search-icon">
       <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -162,6 +162,8 @@
   </button>
 
   </div>
+ 
+
   <div class="mx-3 mt-0 w-[7em] h-9 flex-wrap  ml-0">
     <div>
       <button (click)="toggleFormOpen()" [ngClass]="{'myClass': isClicked}"
@@ -193,12 +195,13 @@
           <path d="M13.5 7L12.795 6.295L9 10.085V1H8V10.085L4.205 6.295L3.5 7L8.5 12L13.5 7Z" fill="#2F54EB"/>
         </svg>
         <span class="ml-1">Bulk Import</span>
-        <input class="sr-only" type="file" (change)="ReadExcel($event)">
+        <input class="sr-only" type="file" (change)="ReadFile($event)">
       </label>
       
     </div>
   </div>
-
+  
+ 
 
   <div class=" w-[10em] mb-2 h-[2em] bg-red flex-wrap ml-4">
     <div>
@@ -212,6 +215,11 @@
     </div>
   </div>
 </div>
+<button (click)="downloadTemplate()"
+class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 font-poppins border-blue-700 justify-end float-right">
+
+<span class="ml-0">Download Template</span>
+</button>
 <div class="flex flex-col first:flex-row div-bg" *ngIf="isClicked">
   <div class="p-2 h-24 w-full mt-10">
     <form>
@@ -277,7 +285,7 @@
     </div>
     </div>
 </div>
-<div class="w-full flex flex-col first:flex-row max-h-screen bg-white">
+<div class="w-full flex flex-col first:flex-row max-h-screen bg-gray-50">
   <section class="ml-4 mr-6 rounded-sm">
     <div class="flex flex-col">
       <div class="overflow-hidden rounded-lg  border-1  mr-0 mt-4">
@@ -332,10 +340,10 @@
                 </div>
                 
               </td>
-              <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
-              
-                {{ inv.container_type.charAt(0).toUpperCase() + inv.container_type.slice(1) }}
+              <td class="px-4 py-4 text-sm text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
+                {{ formatContainerType(inv.container_type) }}
               </td>
+              
               <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
 
