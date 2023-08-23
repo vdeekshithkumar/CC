@@ -1,6 +1,7 @@
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MimeKit;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -158,6 +159,21 @@ namespace CC_api.Repository
     {
       return await dbContext.users.FirstOrDefaultAsync(x => x.user_id == id);
     }
+
+    public async Task<User> AuthenticateUser(string email, string password)
+    {
+      var user = await dbContext.users
+          .Where(u =>  u.email == email)
+          .FirstOrDefaultAsync();
+
+      if (user != null && user.VerifyPassword(password))
+      {
+        return user;
+      }
+
+      return null; 
+    }
+
 
     public async Task<int> GetSenderCidBySenderId(int senderId)
     {
