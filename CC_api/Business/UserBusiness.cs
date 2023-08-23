@@ -59,6 +59,11 @@ namespace CC_api.Business
       return await userRepository.GetUserById(id);
 
     }
+    public async Task<User> AuthenticateUser( string email, string password)
+    {
+      return await userRepository.AuthenticateUser( email,password);
+
+    }
     public async Task<int> generateOTP(string email)
     {
       var random = new Random();

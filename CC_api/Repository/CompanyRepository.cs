@@ -34,5 +34,19 @@ namespace CC_api.Repository
       return await dbContext.company.ToListAsync();
     /*  return await dbContext.company.Where(c => c.company_id != companyID).ToListAsync();*/
     }
+    public async Task<int?> GetCompanyIdByCompanyName(string companyname)
+    {
+      var company = await dbContext.company.FirstOrDefaultAsync(c => c.name == companyname);
+
+      if (company != null)
+      {
+        return company.company_id;
+      }
+      else
+      {
+        return null;
+      }
+    }
+
   }
 }

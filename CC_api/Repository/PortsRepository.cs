@@ -1,4 +1,5 @@
 using CC_api.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CC_api.Repository
 {
@@ -20,7 +21,13 @@ namespace CC_api.Repository
     {
       return dbContext.container_type.ToList();
     }
+    public async Task<int> GetPortidbyCode(string portcode)
+    {
+      var port = await dbContext.ports
+          .FirstOrDefaultAsync(p => p.port_code == portcode);
 
+      return port?.port_id ?? 0;
+    }
   }
 }
 
