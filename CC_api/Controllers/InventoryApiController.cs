@@ -68,7 +68,7 @@ namespace CC_api.Controllers
                 await _inventoryBusiness.AddExcelData(excelData, authenticatedUser.user_id, authenticatedUser.company_id);
 
 
-                return Ok("Authentication successful for" + email + "File processes successfully.");
+                return Ok("Authentication successful for" +  email + "File processed successfully.");
               }
             }
             else if (contentType == "application/vnd.ms-excel" || contentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -82,7 +82,7 @@ namespace CC_api.Controllers
                 var excelData = ReadExcelDataFromStream(excelStream); 
                 await _inventoryBusiness.AddExcelData(excelData, authenticatedUser.user_id, authenticatedUser.company_id);
 
-                return Ok("Authentication successful for" + email + "File processes successfully.");
+                return Ok("Authentication successful for" +  email + "File processed successfully.");
               }
             }
             else
