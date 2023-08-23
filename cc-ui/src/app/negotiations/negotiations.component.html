@@ -304,7 +304,7 @@
 
             </div>
 
-            <div class="text-xs font-bold">{{ n.date_created  | date : "dd MMMM yyyy" }}</div>
+            <div class="text-xs font-bold">{{ getDateOnly(n.date_created) }}</div>
 
           </div>
 
@@ -319,9 +319,7 @@
             </div>
 
             <div class="text-xs font-bold">
-
-              {{ n.expiry_date | date : "dd MMMM yyyy" }}
-
+              {{ getDateOnly(n.expiry_date) }}
             </div>
 
           </div>

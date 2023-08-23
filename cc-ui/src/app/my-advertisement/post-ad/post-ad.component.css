@@ -406,3 +406,30 @@
 .style-font{
   font-family:Poppins;
 }
+.custom-snackbar.mat-simple-snackbar {
+  background-color: #ff9900;
+  color: white;
+}
+.blue-snackbar {
+  background: #2196F3;
+}
+::ng-deep .warning{
+  background-color: #ff9900;
+}
+::ng-deep .redNoMatch
+{
+  color:white;
+  background: #F44336 !important;
+}
+.mycsssnackbartest {
+  background-color: blue;
+}
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: blue;
+}
+.success-snackbar {
+  --mdc-snackbar-container-color: green !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  --mat-mdc-snack-bar-button-color: white !important;
+  white-space: pre-wrap
+}

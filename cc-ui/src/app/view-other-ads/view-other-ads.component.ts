@@ -673,5 +673,16 @@ capitalizeFirstLetter(text: string): string {
     );
   }
 
-
+  getDateOnly(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    const timestamp = newDate.getTime();
+    const dateOnly=new Date(timestamp);
+    const dateString = dateOnly.toLocaleDateString('en-GB');
+    this.date_created=dateString.toString().slice(0, 10);
+    return this.date_created;
+  }
 }  

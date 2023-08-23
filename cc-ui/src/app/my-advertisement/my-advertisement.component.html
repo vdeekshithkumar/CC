@@ -335,7 +335,7 @@
                               style="font-size: 12px;">Edit</button>
                             <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="approve(ad.ad_id)"
                               *ngIf="operation === 'Pending'" scope="row"
-                              class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 text-center px-2 text-white mr-2 bg-CCblue disable mt-2"
+                              class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 px-2 text-center text-white bg-CCblue disable mt-2"
                               style="font-size: 12px;">Approve</button>
                             <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id,ad_type)"
                               *ngIf="operation === 'Active'" scope="row"
