@@ -305,14 +305,14 @@ capitalizeFirstLetter(text: string): string {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
   searchAds() {
-    debugger
+   
     // Check if ad_type is defined
     if (this.ad_type) {
       // Call the getAdvertisement method with the selected ad_typeId
       this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
         
         (data: Advertisement[]) => {
-          debugger
+         
           // Store the fetched advertisements in the component property
           console.log(data);
           this.ads = data;
@@ -379,70 +379,61 @@ capitalizeFirstLetter(text: string): string {
     this.searchPortOfAd = this.port_of_ad;
   }
   searchContainerAdvertisements() {
-    debugger
+    debugger;
     const searchType = this.type.toLowerCase();
     const searchPortOfAd = this.port_of_ad;
     const selectedContainerType = this.selectedcontainerType;
     const selectedContainerSize = this.selectedcontainerSize;
-  
-    if (searchType && searchPortOfAd &&selectedContainerType && selectedContainerSize) {
-     
-  
-    
-        const matchedAds = [];
-  
-        for (const ad of this.originalAds) {
-          let isMatched = false;
-  
-          if (ad.ad_type === 'container' && ad.type_of_ad === searchType && ad.port_of_ad === searchPortOfAd && ad.container_type === selectedContainerType && ad.container_size === selectedContainerSize) {
-            isMatched = true;
-          }
-  
-          if (isMatched) {
-            const matchedAd = { ...ad };
-            matchedAds.push(matchedAd);
-          }
-        
-  
-        if (this.selectedOptions['view'] === 'MAP') {
-          this.showMapView = true;
-  
-          // Set the selected values
-          this.ad_typetomap = this.ad_type;
-          this.typetomap = this.type.toLowerCase();
-          this.selectedTypePortOfAd = searchPortOfAd;
-          this.selectedcontainertypetomap = selectedContainerType;
-          this.selectedcontainersizetomap = selectedContainerSize;
 
-       
-  
-          // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
-          if (this.mapViewComponent) {
-           
-            this.mapViewComponent.markPortOfAdOnMap();
-          }
-        } else {
-          this.showMapView = false;
-  
-          if (matchedAds.length > 0) {
+    if (this.selectedOptions['view'] !== 'MAP') {
+        const matchedAds = [];
+
+        for (const ad of this.originalAds) {
+            let isMatched = false;
+
+            if (ad.ad_type === 'container' && ad.type_of_ad === searchType && ad.port_of_ad === searchPortOfAd && ad.container_type === selectedContainerType && ad.container_size === selectedContainerSize) {
+                isMatched = true;
+            }
+
+            if (isMatched) {
+                const matchedAd = { ...ad };
+                matchedAds.push(matchedAd);
+            }
+        }
+
+        if (matchedAds.length > 0) {
             this.ads = matchedAds;
             this.currentPage = 1;
-          } else {
+        } else {
             // No matched ads found
             this.ads = [];
             this.currentPage = 1;
-          }
         }
-      }
-    } else {
-      // No search criteria provided, reset ads to the original list
-      this.ads = [...this.originalAds];
-      this.currentPage = 1;
     }
-  
+
+    if (this.selectedOptions['view'] === 'MAP') {
+        this.showMapView = true;
+
+        // Set the selected values
+        this.ad_typetomap = this.ad_type;
+        this.typetomap = this.type.toLowerCase();
+        this.selectedTypePortOfAd = searchPortOfAd;
+        this.selectedcontainertypetomap = selectedContainerType;
+        this.selectedcontainersizetomap = selectedContainerSize;
+
+        // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
+        if (this.mapViewComponent) {
+            this.mapViewComponent.markPortOfAdOnMap();
+        }
+    } else {
+        this.showMapView = false;
+    }
+
     // Calculate the updated total number of pages based on the filtered ads
     this.totalPages;
-  }
+}
+
+
   
   // Function to get the ads for the current page
   get currentAds(): Advertisement[] {
@@ -471,75 +462,65 @@ capitalizeFirstLetter(text: string): string {
   
   
   
-  searchSpaceAdvertisements() {
+searchSpaceAdvertisements() {
     debugger;
     const searchType = this.type.toLowerCase();
     const searchPortOfDep = this.port_of_departure;
     const searchPortOfArr = this.port_of_arrival;
     const searchcontainertype = this.selectedcontainerType;
     const searchcontainersize = this.selectedcontainerSize;
-    
-  
-  
-    if (searchType && searchPortOfDep && searchPortOfArr&& searchcontainertype && searchcontainertype ) {
-    
-  
-      
-        const matchedAds = [];
-  
-        for (const ad of this.originalAds) { // Loop over originalAds instead of ads
-          let isMatched = false;
-  
-          if (ad.ad_type === 'space' && ad.type_of_ad === searchType && ad.port_of_departure === searchPortOfDep &&ad.port_of_arrival === searchPortOfArr && ad.container_type === searchcontainertype && ad.container_size == searchcontainersize) {
-            isMatched = true;
-          }
-  
-          if (isMatched) {
-            const matchedAd = { ...ad };
-            matchedAds.push(matchedAd);
-          }
-        
-        if (this.selectedOptions['view'] === 'MAP') {
-          this.showMapView = true;
-  
-          // Set the selected values
-          this.ad_typetomap = this.ad_type;
-          this.typetomap = this.type.toLowerCase();
-          this.selectedTypePortOfDep = searchPortOfDep;
-          this.selectedTypePortOfArr = searchPortOfArr;
-          this.selectedcontainertypetomap = searchcontainertype;
-          this.selectedcontainersizetomap = searchcontainersize;
-       
-         
-  
-          // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
-          if (this.mapViewComponent) {
-            
+
+    if (this.selectedOptions['view'] === 'MAP') {
+        this.showMapView = true;
+
+        // Set the selected values
+        this.ad_typetomap = this.ad_type;
+        this.typetomap = this.type.toLowerCase();
+        this.selectedTypePortOfDep = searchPortOfDep;
+        this.selectedTypePortOfArr = searchPortOfArr;
+        this.selectedcontainertypetomap = searchcontainertype;
+        this.selectedcontainersizetomap = searchcontainersize;
+
+        // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
+        if (this.mapViewComponent) {
             this.mapViewComponent.markPortOfDepArrOnMap();
-            
-          }
-        } else {
-          this.showMapView = false;
-  
-          if (matchedAds.length > 0) {
-            this.ads = matchedAds;
-            this.currentPage = 1;
-          } else {
-            // No matched ads found
-            this.ads = [];
-            this.currentPage = 1;
-          }
         }
-      }
     } else {
-      // No search criteria provided, reset ads to the original list
-      this.ads = [...this.originalAds];
-      this.currentPage = 1;
+        if (searchType && searchPortOfDep && searchPortOfArr && searchcontainertype && searchcontainersize) {
+            const matchedAds = [];
+
+            for (const ad of this.originalAds) { // Loop over originalAds instead of ads
+                let isMatched = false;
+
+                if (ad.ad_type === 'space' && ad.type_of_ad === searchType && ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr && ad.container_type === searchcontainertype && ad.container_size === searchcontainersize) {
+                    isMatched = true;
+                }
+
+                if (isMatched) {
+                    const matchedAd = { ...ad };
+                    matchedAds.push(matchedAd);
+                }
+            }
+
+            if (matchedAds.length > 0) {
+                this.ads = matchedAds;
+                this.currentPage = 1;
+            } else {
+                // No matched ads found
+                this.ads = [];
+                this.currentPage = 1;
+            }
+        } else {
+            // No search criteria provided, reset ads to the original list
+            this.ads = [...this.originalAds];
+            this.currentPage = 1;
+        }
     }
-  
+
     // Calculate the updated total number of pages based on the filtered ads
     this.totalPages;
-  }
+}
+
   
   
   
@@ -562,7 +543,7 @@ capitalizeFirstLetter(text: string): string {
 
   checkNegotiation(company_id: number, ad_id: number): boolean {
     let x = false;
-    debugger
+  
     for (const negotiation of this.negotiation_list) {
       if (negotiation.ad_id === ad_id && negotiation.company_id === company_id) {
         x = true;
@@ -589,7 +570,7 @@ capitalizeFirstLetter(text: string): string {
 
 
   DisableStartNegoBtn(ad_id: number) {
-    debugger
+   
     this.NButtonDisabled = this.checkNegotiation(this.companyId, ad_id);
 
   }
@@ -605,7 +586,7 @@ capitalizeFirstLetter(text: string): string {
 
 
   onDeparturePortSelected(port: Port) {
-    debugger
+   
     this.selectedDeparturePort = port.port_id;
     console.log("in view" + this.selectedDeparturePort)
     this.port_of_departure = port.port_id;

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj": {}
+    "C:\\Users\\Vishr\\OneDrive\\Desktop\\CC-check\\ContainerConundrum\\CC_api\\CC_api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj": {
+    "C:\\Users\\Vishr\\OneDrive\\Desktop\\CC-check\\ContainerConundrum\\CC_api\\CC_api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj",
+        "projectUniqueName": "C:\\Users\\Vishr\\OneDrive\\Desktop\\CC-check\\ContainerConundrum\\CC_api\\CC_api.csproj",
         "projectName": "CC_api",
-        "projectPath": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\CC_api.csproj",
+        "projectPath": "C:\\Users\\Vishr\\OneDrive\\Desktop\\CC-check\\ContainerConundrum\\CC_api\\CC_api.csproj",
         "packagesPath": "C:\\Users\\Vishr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Vishr\\OneDrive\\Desktop\\Stipend\\ContainerConundrum\\CC_api\\obj\\",
+        "outputPath": "C:\\Users\\Vishr\\OneDrive\\Desktop\\CC-check\\ContainerConundrum\\CC_api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Vishr\\AppData\\Roaming\\NuGet\\NuGet.Config",
