@@ -1276,12 +1276,7 @@ row-gap: 8px;
 flex-wrap: wrap;
 }
 
-.search-text {
-  color: var(--gray-gray-8, #595959);
-  font-size: 17px;
-  font-family: Poppins;
-  font-weight: 500;
-}
+
 .select-type{
   margin-top:10px;
   color: var(--gray-gray-8, #595959);
@@ -1289,3 +1284,53 @@ font-size: 12px;
 font-family: Poppins;
 line-height: 20px;
 }
+
+/* Include your component-specific styles here */
+.dropdown {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.dropdown-label {
+  display: block;
+  margin-bottom: 8px;
+}
+.ra{
+ 
+top: 24px;
+left: 20px;
+font-family: Poppins;
+font-size: 16px;
+font-weight: 600;
+line-height: 30px;
+letter-spacing: 0em;
+text-align: left;
+color: #595959;
+}
+
+.custom-dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative; /* Required for the ::after pseudo-element */
+}
+
+
+.radio{
+  border-radius: 2px;
+border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);
+background: #FFF;
+display: flex;
+width: 138px;
+padding: 4px;
+justify-content: space-between;
+align-items: center;
+align-content: flex-start;
+row-gap: 8px;
+flex-wrap: wrap;
+}
+
+

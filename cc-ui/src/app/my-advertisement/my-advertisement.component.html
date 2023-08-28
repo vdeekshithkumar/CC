@@ -7,8 +7,8 @@
        
           <div class="radio-buttons">
             <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
-            <p class="select-type whitespace-nowrap">Select as per your requirements</p>
-            <div style="display: inline-block;margin-right: 16px;">
+            <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p>
+            <!-- <div style="display: inline-block;margin-right: 16px;">
               
               <label class="radio mt-[10px]" style="cursor: pointer;">
                 <svg width="24"  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,10 +28,32 @@
                 Space
                 <input type="radio" style="cursor: pointer;"name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="ad_type = 'space'; viewAds()" (change)="onAdTypeChange('space')">
               </label>
-            </div>
-            
-          </div>
+            </div> -->
 
+            <div class="flex items-center">
+             
+              <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)" class="radio ml-2 border rounded-md py-1 px-2">
+                <option value="container" ><img src="120363_original_4240x2832.jpg"/>Container</option>
+                <option value="space"><img src="120363_original_4240x2832.jpg"/>Space</option>
+              </select>              
+            </div>            
+          </div>
+          <!-- <div class="dropdown">
+            <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)"  class="custom-dropdown radio ml-2 border rounded-md py-1 px-2">
+              <option value="container" class="custom-dropdown-option">
+                <img src="../../assets/icons/Container.svg" class="dropdown-icon" alt="Container Icon" />
+                Container
+              </option>
+              <option value="space" class="custom-dropdown-option">
+                <img src="../../assets/icons/vessels.svg" class="dropdown-icon" alt="Space Icon" />
+                Space
+              </option>
+            </select>
+            
+          </div> -->
+
+          
+         
 
           
  
