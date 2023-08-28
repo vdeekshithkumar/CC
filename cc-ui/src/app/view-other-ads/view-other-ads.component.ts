@@ -431,6 +431,7 @@ capitalizeFirstLetter(text: string): string {
 
     // Calculate the updated total number of pages based on the filtered ads
     this.totalPages;
+    
 }
 
 

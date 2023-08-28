@@ -469,13 +469,7 @@ border-radius: 6px;
   cursor: pointer;
   position: relative; /* Required for the ::after pseudo-element */
 }
-.container-icon {
-  background-image: url('120363_original_4240x2832.jpg');
-}
 
-.space-icon {
-  background-image: url('120363_original_4240x2832.jpg');
-}
 
 
 
