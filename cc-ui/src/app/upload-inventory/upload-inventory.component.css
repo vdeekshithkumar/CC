@@ -125,6 +125,21 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     }
   }
 
+  .centered-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /* Horizontally centers content */
+    align-items: center; /* Vertically centers content */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background overlay */
+  }
+  .backdrop{
+    position: relative;
+    z-index: 2000; /* Place it above the backdrop and pop-up */
+  }
 .div-size{
   @apply relative z-50 w-full max-w-md mx-auto mt-0
 }

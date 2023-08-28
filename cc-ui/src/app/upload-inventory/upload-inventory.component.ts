@@ -78,49 +78,67 @@ export class UploadInventoryComponent {
     showValidationErrors: boolean = false;
     constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice,private viewotherAds: ViewOtherAdsService){ 
      }
+
      addExcel(): void {
-
-          if(this.y==1){
-            this.uploadInventoryservice.sendExcelData(this.ExcelData,this.userId,this.companyId)
-            .subscribe(
-              response => {
-                console.log('Excel data sent successfully:', response);
-                this.y=0;
-                window.location.reload()
-              },
-              error => {
-                console.error('An error occurred while sending Excel data:', error);
-              }
-            );
-          }
-          else{
-          alert("no suceed")
-          }
-}
-  
-OnSetY(){
-  debugger
-  this.y=1;
-  this.showModal=false;
-  console.log("this is excel d"+JSON.stringify(this.ExcelData))
-this.addExcel();
-}
-
-
-ReadExcel(event: any) {
-  const file = event.target.files[0];
-  const fileType = file.type;
-  if (fileType !== "application/vnd.ms-excel" && fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-    alert("Please upload a valid Excel file");
+      debugger
+      if (this.y === 1) {
+        // Assuming this.ExcelData contains the parsed Excel data
+        const preparedData = this.ExcelData.map((row: { port_code: any; container_size: any; container_type: any; port_id:any;available:any;maximum:any;minimum:any;}) => {
+          return {
+            port_code: row.port_code, // Add port_code
+            container_size: row.container_size,
+            container_type: row.container_type,
+            port_id:row.port_id,
+            available:row.available,
+            maximum:row.maximum,
+            minimum:row.minimum,
+          };
+        });
     
-    return;
-  }
+        this.uploadInventoryservice.sendExcelData(preparedData, this.userId, this.companyId)
+          .subscribe(
+            response => {
+              console.log('Excel data sent successfully:', response);
+              this.y = 0;
+              window.location.reload();
+            },
+            error => {
+              console.error('An error occurred while sending Excel data:', error);
+            }
+          );
+      } else {
+        alert("no succeed");
+      }
+    }
 
-  const fileReader = new FileReader();
-  fileReader.readAsBinaryString(file);
-  fileReader.onload = (e: ProgressEvent<FileReader>) => {
-    if (e.target && e.target.result) {
-      const binaryString = e.target.result;
+    OnSetY(){
+      debugger
+      this.y=1;
+      this.showModal=false;
+      console.log("this is excel d"+JSON.stringify(this.ExcelData))
+    this.addExcel();
+    }
+    
+    ReadFile(event: any): void {
+      debugger;
+      const file = event.target.files[0];
+      const fileType = file.type;
+      const validFileTypes = [
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/csv' // Add CSV file type
+      ];
+    
+      if (!validFileTypes.includes(fileType)) {
+        alert('Please upload a valid Excel or CSV file');
+        return;
+      }
+
+      const fileReader = new FileReader();
+      fileReader.readAsBinaryString(file);
+      fileReader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target && e.target.result) {
+          const binaryString = e.target.result;
           const workBook = XLSX.read(binaryString, { type: 'binary' });
           const sheetNames = workBook.SheetNames;
           if (sheetNames && sheetNames.length > 0) {
@@ -134,21 +152,42 @@ ReadExcel(event: any) {
               });
               this.ExcelData[this.ExcelData.indexOf(row)] = newRow;
             });
-            console.log("this is the list of excel"+this.ExcelData);
-          this.showModal=true;
-          }
-          else {
-
-            alert("no sheets found")
+            console.log("this is the list of excel", this.ExcelData);
+            this.showModal = true;
+    
+            // After you have prepared the data, fetch the corresponding port_id for each row
+            this.fetchPortIds();
+          } else {
+            alert("no sheets found");
             console.error('No sheets found in uploaded Excel file');
           }
-              
-    } else {
-      alert("Uploaded file is empty");
-      console.error('Uploaded file is empty');
+        } else {
+          alert("Uploaded file is empty");
+          console.error('Uploaded file is empty');
+        }
+      };
     }
-  }
-}
+    
+    
+    fetchPortIds(): void {
+      debugger;
+      // Assuming this.ExcelData contains the prepared Excel data
+      this.ExcelData.forEach((row: { port_code: any; port_id: any; }) => {
+        const matchingPort = this.port_list.find((port: { port_code: any; }) =>
+          port.port_code.toLowerCase() === row.port_code.toLowerCase()
+        );
+        if (matchingPort) {
+          row.port_id = matchingPort.port_id;
+        } else {
+          console.error(`No matching port found for port_code ${row.port_code}`);
+          this.openErrorDialog(`No matching port found for port_code ${row.port_code}`);
+          
+        }
+      });
+    }
+    
+    
+    
 
   ngOnInit(): void {
 
@@ -503,5 +542,32 @@ nextPage() {
       }
     });
   }
+  downloadTemplate() {
+    const worksheetName = 'Inventory';
+    const excelFileName = 'inventory_template.xlsx';
+    const header = ['Port Code', 'Container type', 'Container Size', 'Available', 'Maximum', 'Minimum'];
+ 
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([header]);
+ 
+    const columnWidths = [
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 10 },
+       { wch: 15 },
+    ];
+    worksheet['!cols'] = columnWidths;
+ 
+    XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+    XLSX.writeFile(workbook, excelFileName);
+ }
+ // Inside your component class
+formatContainerType(containerType: string): string {
+  const words = containerType.split('_');
+  const formattedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+  return formattedWords.join(' ');
+}
+
 
 }
