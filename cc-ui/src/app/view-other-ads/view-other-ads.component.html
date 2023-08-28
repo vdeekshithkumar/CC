@@ -2,8 +2,8 @@
   <div class="text-after-type-sidebar py-10 px-2 ">
    
     
-    <p class="search-text">Search as per your Requirements</p>
-    <div class="radio-buttons ">
+    <p class="search-text ra">Search Containers or Vessels as<br> per your requirements</p>
+    <!-- <div class="radio-buttons ">
       <div style="display: inline-block;margin-right: 16px;">
         <p class="select-type">Selected Type</p>
         <label class="radio mt-[10px]" style="cursor: pointer;">
@@ -25,7 +25,25 @@
           <input type="radio" style="cursor: pointer;"name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="ad_type = 'space'; searchAds()">
         </label>
       </div>
+    </div> -->
+
+    <div class="dropdown">
+      <label for="ad-type-dropdown" class="dropdown-label">
+        Selected Type
+      </label>
+      <select id="ad-type-dropdown" [(ngModel)]="ad_type" (ngModelChange)="searchAds()" class="custom-dropdown  radio ml-2 border rounded-md py-1 px-2">
+        <option value="container" class="custom-dropdown-option">
+          <img src="../../assets/icons/Container.svg" class="dropdown-icon" alt="Container Icon" />
+          Container
+        </option>
+        <option value="space" class="custom-dropdown-option">
+          <img src="../../assets/icons/vessels.svg" class="dropdown-icon" alt="Space Icon" />
+          Space
+        </option>
+      </select>
+      
     </div>
+    
     <br/>
     <div class="search-type-container" *ngIf="ad_type == 'container'">
       <div

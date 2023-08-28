@@ -1,6 +1,6 @@
 import { MyAdService } from './my-ad.service';
 
-import {Component, EventEmitter, Inject, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,10 +40,16 @@ export interface Advertisement {
   templateUrl: './my-advertisement.component.html',
   styleUrls: ['./my-advertisement.component.css']
 })
-export class MyAdvertisementComponent {
+export class MyAdvertisementComponent implements OnInit {
   @Input() adType: string | undefined;
   @Output() adTypeChange: EventEmitter<string> = new EventEmitter<string>();
- 
+  // adTypes = [
+  //   { value: 'container', label: 'Container', icon: '../../assets/icons/Container.svg' },
+  //   { value: 'space', label: 'Space', icon: '../../assets/icons/Container.svg' }
+  // ];
+  // selectedAdType = 'container';
+
+  isDropdownOpen = false;
   showContainerSection: boolean = false;
   showSpaceSection: boolean = false;
   originalAds: Advertisement[] =[];
@@ -299,6 +305,8 @@ pickup_charges:any;
 //     debugger;
  
 
+
+  
 
 adTypeChanged(type: string) {
   this.ad_type = type;
@@ -685,7 +693,15 @@ onExport(){
     this.operation = 'Active'; // Set the default operation to 'Active'
     this.viewAds();
   }
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
+  selectOption(option: { label: any; }) {
+    console.log('Selected:', option.label);
+    this.isDropdownOpen = false;
+    // Implement your logic for handling the selected option
+  }
   
   
   toggleSection(section: string) {
@@ -718,7 +734,7 @@ onExport(){
         (        error: any) => console.log(error));
   }
 }
-/////////////////////////////////////////////
+
 
 
 
