@@ -6,7 +6,7 @@ name: Build and deploy ContainerConundrum(CC_api) app to Azure Web App
 on:
   push:
     branches:
-      - namitha
+      - demo
   workflow_dispatch:
 
 jobs:
