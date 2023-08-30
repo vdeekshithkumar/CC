@@ -5,7 +5,7 @@ name: Build and deploy container app to Azure Web App
 on:
   push:
     branches:
-      - namitha
+      - demo
   workflow_dispatch:
 
 jobs:
