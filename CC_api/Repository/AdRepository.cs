@@ -31,11 +31,11 @@ namespace CC_api.Repository
         }
       }*/
 
- public async Task<List<ContainerType>> GetcontainersAsync()
-{
-    var containerData = await dbContext.container_type.ToListAsync();
-    return containerData;
-}
+    public async Task<List<ContainerType>> GetcontainersAsync()
+    {
+      var containerData = await dbContext.container_type.ToListAsync();
+      return containerData;
+    }
 
     public async Task<List<long>> GetAdsCount(int companyId)
     {
@@ -53,6 +53,28 @@ namespace CC_api.Repository
 
       var DraftAds = await dbContext.advertisement
      .Where(a => a.company_id == companyId && a.status == "draft").CountAsync();
+      count.Add(DraftAds);
+
+
+      return count;
+    }
+
+    public async Task<List<long>> GetMyadvertisementCount(string ad_type, int companyId)
+    {
+
+
+
+      var activeAds = await dbContext.advertisement
+      .Where(a => a.company_id == companyId && a.status == "active" && a.ad_type == ad_type).CountAsync();
+      var count = new List<long>();
+      count.Add(activeAds);
+
+      var PendingAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "pending" && a.ad_type == ad_type).CountAsync();
+      count.Add(PendingAds);
+
+      var DraftAds = await dbContext.advertisement
+     .Where(a => a.company_id == companyId && a.status == "draft" && a.ad_type == ad_type).CountAsync();
       count.Add(DraftAds);
 
 
@@ -82,13 +104,13 @@ namespace CC_api.Repository
     }
 
 
-    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation)
+    public async Task<List<Ad>> GetAdByCompanyID(int companyID, string operation, string ad_type)
     {
 
       if (operation == "Active")
       {
         var ads = await dbContext.advertisement
-       .Where(c => c.company_id == companyID && c.status == "active")
+       .Where(c => c.company_id == companyID && c.status == "active" && c.ad_type == ad_type)
        .Select(c => new Ad
        {
          ad_id = c.ad_id,
@@ -96,7 +118,8 @@ namespace CC_api.Repository
          from_date = c.from_date,
          expiry_date = c.expiry_date,
          type_of_ad = c.type_of_ad,
-         container_type_id = c.container_type_id,
+         container_type = c.container_type,
+         container_size = c.container_size,
          price = c.price,
          status = c.status,
          quantity = c.quantity,
@@ -109,6 +132,7 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
+         port_of_ad = c.port_of_ad
 
        })
        .ToListAsync();
@@ -119,7 +143,7 @@ namespace CC_api.Repository
       else if (operation == "Pending")
       {
         var ads = await dbContext.advertisement
-       .Where(c => c.company_id == companyID && c.status == "pending")
+       .Where(c => c.company_id == companyID && c.status == "pending" && c.ad_type == ad_type)
        .Select(c => new Ad
        {
          ad_id = c.ad_id,
@@ -127,7 +151,8 @@ namespace CC_api.Repository
          from_date = c.from_date,
          expiry_date = c.expiry_date,
          type_of_ad = c.type_of_ad,
-         container_type_id = c.container_type_id,
+         container_type = c.container_type,
+         container_size = c.container_size,
          price = c.price,
          status = c.status,
          quantity = c.quantity,
@@ -140,7 +165,7 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-
+         port_of_ad = c.port_of_ad
        })
        .ToListAsync();
 
@@ -149,7 +174,7 @@ namespace CC_api.Repository
       else
       {
         var ads = await dbContext.advertisement
-       .Where(c => c.company_id == companyID && c.status == "draft")
+       .Where(c => c.company_id == companyID && c.status == "draft" && c.ad_type == ad_type)
        .Select(c => new Ad
        {
          ad_id = c.ad_id,
@@ -157,7 +182,8 @@ namespace CC_api.Repository
          from_date = c.from_date,
          expiry_date = c.expiry_date,
          type_of_ad = c.type_of_ad,
-         container_type_id = c.container_type_id,
+         container_type = c.container_type,
+         container_size = c.container_size,
          price = c.price,
          status = c.status,
          quantity = c.quantity,
@@ -170,19 +196,59 @@ namespace CC_api.Repository
          free_days = c.free_days,
          per_diem = c.per_diem,
          pickup_charges = c.pickup_charges,
-
+         port_of_ad = c.port_of_ad
        })
        .ToListAsync();
 
         return ads;
       }
     }
-    public async Task<List<Ad>> GetAllAdvertisement(string ad_type,int companyID)
+    public async Task<List<Ad>> GetAllAdvertisementbytype(string ad_type, int companyID)
+    {
+
+      return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active").ToListAsync();
+
+    }
+    public async Task<List<Ad>> GetAllAdvertisement(string ad_type, int companyID)
     {
 
       return await dbContext.advertisement.Where(c => c.company_id != companyID && c.status == "active" && c.ad_type == ad_type).ToListAsync();
 
     }
+    public async Task<List<Ad>> GetMyAd(string ad_type, int companyID)
+    {
+
+      return await dbContext.advertisement.Where(c => c.company_id == companyID && c.ad_type == ad_type).ToListAsync();
+
+    }
+    public async Task<List<long>> GetMyAdscount(string ad_type)
+    {
+
+
+
+      var buyAds = await dbContext.advertisement
+      .Where(a =>  a.type_of_ad == "buy" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      var count = new List<long>();
+      count.Add(buyAds);
+
+      var sellAds = await dbContext.advertisement
+      .Where(a => a.type_of_ad == "sell" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(sellAds);
+
+
+      var leaseAds = await dbContext.advertisement
+     .Where(a =>  a.type_of_ad == "lease" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(leaseAds);
+
+      var swapAds = await dbContext.advertisement
+     .Where(a => a.type_of_ad == "swap" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(swapAds);
+
+
+      return count;
+    }
+
+
     public async Task PostAd(Ad Ad)
     {
       dbContext.advertisement.Add(Ad);
@@ -216,14 +282,37 @@ namespace CC_api.Repository
     {
       dbContext.advertisement.Update(Ad);
       await dbContext.SaveChangesAsync();
-    }
 
+    }
+    public async Task<string> GetPortName(int id)
+    {
+      var port = await dbContext.ports
+      .Where(a => a.port_id == id)
+      .Select(c => c.port_name)
+     .FirstOrDefaultAsync();
+
+
+
+      return port;
+    }
+    public async Task<int> GetPortId(string portName)
+    {
+      var port = await dbContext.ports
+      .Where(a => a.port_name == portName)
+      .Select(c => c.port_id)
+     .FirstOrDefaultAsync();
+
+
+
+      return port;
+    }
     public async Task<List<KeyValuePair<int, string>>> GetAdByCompanyID(int companyID)
     {
       var Ad = dbContext.advertisement.Where(c => c.company_id == companyID);
       var uploadedFiles = Ad.Select(c => new KeyValuePair<int, string>(c.ad_id, c.file)).ToList();
       return uploadedFiles;
     }
+
     /* public async Task DeleteAd(int AdID)
      {
        dbContext.advertisement.Remove(
@@ -231,4 +320,6 @@ namespace CC_api.Repository
        await dbContext.SaveChangesAsync();
      }*/
   }
+
+
 }

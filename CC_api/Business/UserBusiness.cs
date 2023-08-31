@@ -59,6 +59,11 @@ namespace CC_api.Business
       return await userRepository.GetUserById(id);
 
     }
+    public async Task<User> AuthenticateUser( string email, string password)
+    {
+      return await userRepository.AuthenticateUser( email,password);
+
+    }
     public async Task<int> generateOTP(string email)
     {
       var random = new Random();
@@ -79,8 +84,8 @@ namespace CC_api.Business
 
 
       us.company_id = user.company_id;
-      us.fname = user.fname;
-      us.lname = user.lname;
+      us.first_name = user.first_name;
+      us.last_name = user.last_name;
       us.address = user.address;
       us.email = user.email;
       us.phone_no = user.phone_no;
@@ -132,13 +137,16 @@ namespace CC_api.Business
       DateTime expirationTime = DateTime.Now.AddMinutes(5);
       var otp = random.Next(100000, 999999);
 
-      await _emailService.SendOTPAsync(user.email, otp);
+      if (user.designation == "admin")
+      {
+        await _emailService.SendOTPAsync(user.email, otp);
+      }
 
       var us = new User();
 
       us.company_id = user.company_id;
-      us.fname = user.fname;
-      us.lname = user.lname;
+      us.first_name = user.first_name;
+      us.last_name = user.last_name;
       us.address = user.city + " " + user.address;
       us.city = user.city;
       us.email = user.email;
@@ -150,9 +158,19 @@ namespace CC_api.Business
       us.is_verified = user.is_verified;
       us.is_approved = user.is_approved;
       us.is_active = user.is_active;
-      us.last_login = user.last_login;
+
       us.designation = user.designation;
-      us.otp = otp;
+      if (user.designation == "admin")
+      {
+        us.otp = otp;
+      }
+      else
+      {
+        us.otp = -1;
+      }
+      us.last_login = user.last_login;
+
+
 
       await userRepository.Create(us);
 
@@ -214,13 +232,13 @@ namespace CC_api.Business
       var login = await userRepository.GetUserByEmailAndPassword(email, password);
       if (login != null)
       {
-        if (login.is_active == 1)
+        if (login.is_active == true)
         {
           if (login.designation == "admin")
           {
-            if (login.is_approved == 1)
+            if (login.is_approved == true)
             {
-              if (login.is_verified == 1)
+              if (login.is_verified == true)
               {
                 if (login.email == email && login.VerifyPassword(password))
                 {

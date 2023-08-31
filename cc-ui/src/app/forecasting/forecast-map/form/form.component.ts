@@ -8,6 +8,8 @@ import { Component, Input } from '@angular/core';
 export class FormComponent {
   @Input() portCode!: string;
   @Input() portId!: number;
+  @Input() containersize!:number;
+  @Input() containertype!:string;
   @Input() surplus!: number;
   @Input() deficit!: number 
 }

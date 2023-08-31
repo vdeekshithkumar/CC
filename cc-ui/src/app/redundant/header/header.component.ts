@@ -3,25 +3,62 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { SessionService } from 'src/app/session.service';
 import { EditUserDetailsComponent } from './edit-user-details/edit-user-details.component';
-
+import { MessagingService } from 'src/app/messaging/messaging.service';
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+  totalMessageCount: any;
+  isCardVisible: boolean = false;
   searchTerm = '';
   filterAds = false;
   filterNegotiation = false;
   selectedFilters: string[] = [];
+  companyId: any;
+  
 
   showPopup = false;
 
   showFilterOptions: boolean = false;
 
-  constructor(private router: Router, private sessionService: SessionService, public dialog: MatDialog) {
+  constructor(private router: Router, private sessionService: SessionService, public dialog: MatDialog,private messageService:MessagingService) {
 
+  }
+  ngOnInit(): void {
+    this.sessionService.getCompanyId().subscribe(
+      (companyId: number) => {
+        this.companyId = companyId;
+        console.log('company ID is:', companyId);
+      },
+      (error: any) => {
+        console.error('Error retrieving company ID:', error);
+      }
+    );
+   
+    const refreshInterval = 1000; //refreshing messagecount
+interval(refreshInterval).subscribe(() => {
+  this.fetchMessageCount();
+});
+ 
+
+
+
+    
+  }
+  fetchMessageCount() {
+    this.messageService.getMessageCount(this.companyId).subscribe(
+      (response: any) => {
+        this.totalMessageCount = response.totalMessageCount;
+        console.log("Total Message Count:", this.totalMessageCount);
+       
+      },
+      (error: any) => {
+        console.log("Error loading message count: " + error);
+      }
+    );
   }
   logout(): void {
 
@@ -67,5 +104,10 @@ export class HeaderComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
-
+  onBellIconClick(){
+    
+      this.isCardVisible = !this.isCardVisible;
+    
+  }
 }
+                  

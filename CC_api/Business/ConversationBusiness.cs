@@ -1,5 +1,6 @@
 using CC_api.Models;
 using CC_api.Repository;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CC_api.Business
 {
@@ -7,19 +8,21 @@ namespace CC_api.Business
   public class ConversationBusiness
   {
     private readonly ConversationRepository conversationRepository;
+    private readonly UserRepository userRepository;
+
 
     public ConversationBusiness()
     {
       this.conversationRepository = new ConversationRepository();
+      this.userRepository = new UserRepository();
+
     }
 
     public async Task<Conversation> CreateConversation(Conversation conversation)
     {
-      // Perform any necessary business logic/validation
-      // Example: conversation.Name should not be empty or null
-
       return await conversationRepository.CreateConversation(conversation);
     }
+
 
     public void AddParticipant(Participant participant)
     {
@@ -31,29 +34,86 @@ namespace CC_api.Business
 
     public async Task<List<Message>> GetMessagesByConversationId(int conversationId)
     {
-      // Perform any necessary business logic/validation
+
 
       return await conversationRepository.GetMessagesByConversationId(conversationId);
     }
     public async Task<Message> SendMessage(Message message)
     {
-      // Perform any necessary business logic/validation
-      // Example: Check if the user is allowed to send a message in the conversation
+      // Assuming you have a method to get the sender's cid by sender_id
+      int senderCid = await userRepository.GetSenderCidBySenderId(message.senderid);
 
+      // Now you have the sender_cid, set it in the message or use it as needed
+      message.sender_cid = senderCid;
+
+      // Call the SendMessage method in the conversationRepository
       return await conversationRepository.SendMessage(message);
     }
+    public async Task<IActionResult> GetmessageCount(int companyId)
+    {
+      // Await the conversation IDs retrieval
+      List<int> conversationIds = await conversationRepository.GetConversationIds(companyId);
+
+      int totalMessageCount = 0;
+
+      // Iterate through conversation IDs
+      foreach (int conversationId in conversationIds)
+      {
+        int conversationMessageCount = await conversationRepository.GetmessageCount(conversationId, companyId);
+        totalMessageCount += conversationMessageCount;
+      }
+
+      return new OkObjectResult(new
+      {
+        ConversationIds = conversationIds,
+        TotalMessageCount = totalMessageCount
+      });
+    }
+    public async Task<List<Message>> Editmessagestatus(int conversationId, int companyId)
+    {
+      List<Message> messages = await conversationRepository.GetmessageByConversationID(conversationId);
+
+      foreach (var message in messages)
+      {
+        if (message != null && companyId == message.sender_cid && message.sender_read == false)
+        {
+          await conversationRepository.UpdateSenderReadStatus(message);
+        }
+        else if (message != null && companyId != message.sender_cid && message.receiver_read == false)
+        {
+          await conversationRepository.UpdateReceiverReadStatus(message);
+
+
+        }
+      }
+
+      return messages;
+    }
+
     public async Task<List<Conversation>> GetConversationByCompanyId(int companyId)
     {
       return await conversationRepository.GetConversationByCompanyId(companyId);
+    }
+    public async Task<List<Conversation>> GetConversationByAdCompanyId(int adscompanyid)
+    {
+      return await conversationRepository.GetConversationByAdCompanyId(adscompanyid);
+    }
+    public async Task<List<Conversation>> GetConversationByConversationId(int ConversationId)
+    {
+      return await conversationRepository.GetConversationByConversationId(ConversationId);
+    }
+    public async Task<List<Conversation>> GetConversationByNegotationId(int negotiation_id)
+    {
+      return await conversationRepository.GetConversationByNegotationId(negotiation_id);
     }
     public async Task<List<Participant>> GetParticipant(int convoid)
     {
       return await conversationRepository.GetParticipants(convoid);
     }
 
-    public async Task<List<UserDTO>> GetUsersAsync(int conversationId, int companyId)
+    public async Task<List<UserDTO>> GetUsersAsync(int convoid, int companyId)
     {
-      return await conversationRepository.GetUsers(conversationId, companyId);
+      return await conversationRepository.GetUsers(convoid, companyId);
     }
   }
 }

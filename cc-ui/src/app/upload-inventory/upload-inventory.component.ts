@@ -11,7 +11,14 @@ import { NumberSymbol } from '@angular/common';
 import { DialogComponent } from '../dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ViewOtherAdsService } from '../view-other-ads/view-other-ads.service';
+export interface Containers {
+  container_type_id: number;
+  type: string;
+  capacity: number;
 
+
+}
 export interface Inventory {
   port_name:string;
   port_id: number;
@@ -39,6 +46,7 @@ export class UploadInventoryComponent {
     inv:Inventory[]=[]
     searchPortId: any;
     port_list:any;
+    condata:any;
     container_type="";
     inventory_list=null;
     records:any[]=[];
@@ -46,9 +54,11 @@ export class UploadInventoryComponent {
     refrigerated:any;
     ExcelData:any;
      Einv: Inventory[] = [];
+     container_list: Containers[] = [];
+     container_type_list:Containers[]=[];
     showForm: boolean = false;
     isClicked:boolean=false
-    itemsPerPage: number = 3;
+    itemsPerPage: number = 7;
     currentPage: number = 1;
     x:any;
     emailValue: string = '';
@@ -66,51 +76,69 @@ export class UploadInventoryComponent {
     y:any=0;
     searchTerm:any;
     showValidationErrors: boolean = false;
-    constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice){ 
+    constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice,private viewotherAds: ViewOtherAdsService){ 
      }
+
      addExcel(): void {
-
-          if(this.y==1){
-            this.uploadInventoryservice.sendExcelData(this.ExcelData,this.userId,this.companyId)
-            .subscribe(
-              response => {
-                console.log('Excel data sent successfully:', response);
-                this.y=0;
-                window.location.reload()
-              },
-              error => {
-                console.error('An error occurred while sending Excel data:', error);
-              }
-            );
-          }
-          else{
-          alert("no suceed")
-          }
-}
-  
-OnSetY(){
-  debugger
-  this.y=1;
-  this.showModal=false;
-  console.log("this is excel d"+JSON.stringify(this.ExcelData))
-this.addExcel();
-}
-
-
-ReadExcel(event: any) {
-  const file = event.target.files[0];
-  const fileType = file.type;
-  if (fileType !== "application/vnd.ms-excel" && fileType !== "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") {
-    alert("Please upload a valid Excel file");
+      debugger
+      if (this.y === 1) {
+        // Assuming this.ExcelData contains the parsed Excel data
+        const preparedData = this.ExcelData.map((row: { port_code: any; container_size: any; container_type: any; port_id:any;available:any;maximum:any;minimum:any;}) => {
+          return {
+            port_code: row.port_code, // Add port_code
+            container_size: row.container_size,
+            container_type: row.container_type,
+            port_id:row.port_id,
+            available:row.available,
+            maximum:row.maximum,
+            minimum:row.minimum,
+          };
+        });
     
-    return;
-  }
+        this.uploadInventoryservice.sendExcelData(preparedData, this.userId, this.companyId)
+          .subscribe(
+            response => {
+              console.log('Excel data sent successfully:', response);
+              this.y = 0;
+              window.location.reload();
+            },
+            error => {
+              console.error('An error occurred while sending Excel data:', error);
+            }
+          );
+      } else {
+        alert("no succeed");
+      }
+    }
 
-  const fileReader = new FileReader();
-  fileReader.readAsBinaryString(file);
-  fileReader.onload = (e: ProgressEvent<FileReader>) => {
-    if (e.target && e.target.result) {
-      const binaryString = e.target.result;
+    OnSetY(){
+      debugger
+      this.y=1;
+      this.showModal=false;
+      console.log("this is excel d"+JSON.stringify(this.ExcelData))
+    this.addExcel();
+    }
+    
+    ReadFile(event: any): void {
+      debugger;
+      const file = event.target.files[0];
+      const fileType = file.type;
+      const validFileTypes = [
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/csv' // Add CSV file type
+      ];
+    
+      if (!validFileTypes.includes(fileType)) {
+        alert('Please upload a valid Excel or CSV file');
+        return;
+      }
+
+      const fileReader = new FileReader();
+      fileReader.readAsBinaryString(file);
+      fileReader.onload = (e: ProgressEvent<FileReader>) => {
+        if (e.target && e.target.result) {
+          const binaryString = e.target.result;
           const workBook = XLSX.read(binaryString, { type: 'binary' });
           const sheetNames = workBook.SheetNames;
           if (sheetNames && sheetNames.length > 0) {
@@ -124,21 +152,42 @@ ReadExcel(event: any) {
               });
               this.ExcelData[this.ExcelData.indexOf(row)] = newRow;
             });
-            console.log("this is the list of excel"+this.ExcelData);
-          this.showModal=true;
-          }
-          else {
-
-            alert("no sheets found")
+            console.log("this is the list of excel", this.ExcelData);
+            this.showModal = true;
+    
+            // After you have prepared the data, fetch the corresponding port_id for each row
+            this.fetchPortIds();
+          } else {
+            alert("no sheets found");
             console.error('No sheets found in uploaded Excel file');
           }
-              
-    } else {
-      alert("Uploaded file is empty");
-      console.error('Uploaded file is empty');
+        } else {
+          alert("Uploaded file is empty");
+          console.error('Uploaded file is empty');
+        }
+      };
     }
-  }
-}
+    
+    
+    fetchPortIds(): void {
+      debugger;
+      // Assuming this.ExcelData contains the prepared Excel data
+      this.ExcelData.forEach((row: { port_code: any; port_id: any; }) => {
+        const matchingPort = this.port_list.find((port: { port_code: any; }) =>
+          port.port_code.toLowerCase() === row.port_code.toLowerCase()
+        );
+        if (matchingPort) {
+          row.port_id = matchingPort.port_id;
+        } else {
+          console.error(`No matching port found for port_code ${row.port_code}`);
+          this.openErrorDialog(`No matching port found for port_code ${row.port_code}`);
+          
+        }
+      });
+    }
+    
+    
+    
 
   ngOnInit(): void {
 
@@ -163,14 +212,30 @@ ReadExcel(event: any) {
         console.error('Error retrieving company ID:', error);
       }
     );
-
+    this.viewotherAds.getAllContainers().subscribe(
+      (condata: Containers[]) => {
+        // Filter out duplicate values based on capacity
+        const uniqueContainers = condata.filter((container, index, self) =>
+          index === self.findIndex((c) => c.capacity === container.capacity)
+        );
+        const uniqueContainertypes = condata.filter((container, index, self) =>
+        index === self.findIndex((c) => c.type === container.type)
+      );
+  
+        this.container_list = uniqueContainers;
+        this.container_type_list = uniqueContainertypes;
+        console.log(JSON.stringify(this.container_list));
+      }
+    );
+   
 
     const now = new Date();
-    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+  const formattedDateTime = now.toISOString();
+  console.log(formattedDateTime); // get date in format yyyy-mm-dd
     this.UploadInventoryForm = this.formBuilder.group({
       inventory_id:['8'],
-      date_created:['2023-03-28'],
-      last_modified:formattedDate,
+      date_created:formattedDateTime,
+      last_modified:formattedDateTime,
       company_id:this.companyId,
       container_type:['',Validators.required],
       available: ['', Validators.required],
@@ -276,6 +341,7 @@ nextPage() {
 
 
   getInventoryById(inv_id: number) {
+    debugger
     this.uploadInventoryservice.getInventoryById(inv_id)
       .subscribe(
         (        data: any) => {
@@ -294,6 +360,7 @@ nextPage() {
 
 
   editI(inv_id:number){
+    debugger
     // const parsedData = JSON.parse(this.inventory_data);
 
     console.log('inventory id is    shis' + inv_id)
@@ -303,13 +370,14 @@ nextPage() {
     this.isEdit=1;
     console.log('now turned '+this.isEdit)
     const now = new Date();
-    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+  const formattedDateTime = now.toISOString();
+  console.log(formattedDateTime); // get date in format yyyy-mm-dd
    
     this.UploadInventoryForm.setValue({
   
       inventory_id:inv_id,
       date_created:"2023-03-28",
-      last_modified:formattedDate,
+      last_modified:formattedDateTime,
       company_id:this.companyId,
       container_type:this.inventory_data.container_type,
       available: this.inventory_data.available,
@@ -336,31 +404,31 @@ nextPage() {
         (        error: any) => console.log(error));
   }
 
-async onSubmit() {
-  const timerDuration = 1000;
-  if(this.isEdit==1){
-    if(this.UploadInventoryForm.validator){
-      const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id,this.UploadInventoryForm.value).toPromise();
-      console.log('edit'+response)
-      this.isEdit=0
-      this.UploadInventoryForm.reset();
-      await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
-      await this.router.navigate(['/upload-inventory']);
-      await window.location.reload()
+  async onSubmit() {
+    debugger;
+    const timerDuration = 1000;
+    if (this.isEdit == 1) {
+      if (this.UploadInventoryForm.valid) {
+        debugger;
+        const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id, this.UploadInventoryForm.value).toPromise();
+        console.log('edit' + response);
+        this.isEdit = 0;
+        this.UploadInventoryForm.reset();
+        await this.router.navigateByUrl('/upload-inventory', { skipLocationChange: true });
+        await this.router.navigate(['/upload-inventory']);
+        await window.location.reload();
+      } else {
+        this.snackBar.open('All fields are mandatory', 'OK', {
+          duration: 3000,
+          verticalPosition: 'top',
+        });
+      }
     }
-    else{
-      
-      this.snackBar.open('All fields are mandatory', 'OK', {
-        duration: 3000,
-             verticalPosition: 'top',
-      });
-
-    }
-    
-  }
   else{
+    debugger
     if(this.UploadInventoryForm.valid){
       try {
+        debugger
         const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
         console.log(response);
         console.log(this.UploadInventoryForm.value);
@@ -474,5 +542,32 @@ async onSubmit() {
       }
     });
   }
+  downloadTemplate() {
+    const worksheetName = 'Inventory';
+    const excelFileName = 'inventory_template.xlsx';
+    const header = ['Port Code', 'Container type', 'Container Size', 'Available', 'Maximum', 'Minimum'];
+ 
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([header]);
+ 
+    const columnWidths = [
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 10 },
+       { wch: 15 },
+    ];
+    worksheet['!cols'] = columnWidths;
+ 
+    XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+    XLSX.writeFile(workbook, excelFileName);
+ }
+ // Inside your component class
+formatContainerType(containerType: string): string {
+  const words = containerType.split('_');
+  const formattedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+  return formattedWords.join(' ');
+}
+
 
 }

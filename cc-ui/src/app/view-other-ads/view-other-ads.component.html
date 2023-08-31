@@ -45,6 +45,7 @@
       </div>
    
       <div
+      *ngIf="ad_type=='container'"
         class="search-lease-container"
         [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
         (click)="toggleOption('type', 'Lease')"
@@ -53,16 +54,24 @@
       </div>
     
       <div
+      *ngIf="ad_type == 'container'"
         class="search-swap-container"
         [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
         (click)="toggleOption('type', 'Swap')"
       >
         Swap
       </div>
+      <div
+      *ngIf="ad_type == 'space'"
+      class="search-swap-space"
+      [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
+      (click)="toggleOption('type', 'Lease')"
+    >
+      Lease
+    </div>
       &nbsp;
     </div>
-
-    <br />
+   <br/>
 
     <div class="flex flex-col">
 
@@ -137,40 +146,27 @@
         
               </div>
       <div class="text-after-type-sidebar">
-        <p class="port-text">Select Type</p>
-
-        <div class="search-type-container">
-          <div
-            class="search-q1-container" id="searchSize"
-            [ngClass]="{ selected: selectedOptions['size'] === 'R 1TEU' }"
-            (click)="toggleOption('size', 'R 1TEU')"
-          >
-          R 1TEU
-          </div>
-
-          <div
-            class="search-q2-container"
-            [ngClass]="{ selected: selectedOptions['size'] === 'NR 1TEU' }"
-            (click)="toggleOption('size', 'NR 1TEU')"
-          >
-          NR 1TEU
-          </div>
-          <div
-            class="search-q2-container"
-            [ngClass]="{ selected: selectedOptions['size'] === 'R 2TEU' }"
-            (click)="toggleOption('size', 'R 2TEU')"
-          >
-          R 2TEU
-          </div>
-          <div
-            class="search-q-container"
-            [ngClass]="{ selected: selectedOptions['size'] === 'NR 2 TEU' }"
-            (click)="toggleOption('size', 'NR 2TEU')"
-          >
-          NR 2TEU
-          </div>
-        
+        <p class="port-text">Select type</p>
+    
+        <div class="port-input">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" menu="bottom" [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
+            <option disabled selected value="">Select a type</option>
+            <option style="height: 10px;" *ngFor="let contype of container_type_list" [value]="contype.type">
+              {{ contype.type }}
+            </option>
+          </select>
         </div>
+        <p class="port-text" style="margin-top: 10px;" >Select Size(in Ft)</p>
+        <ul class="horizontal-list">
+          <li
+            *ngFor="let size of container_list"
+            (click)="onSizeClick(size)"
+            [ngClass]="{ 'selected': selectedcontainerSize === size.capacity }"
+          >
+            {{ size.capacity }}'
+          </li>
+        </ul>
+        
         <div class="clear-search-container" *ngIf="ad_type === 'container'">
           <button (click)="clearOptions()" class="clear-color">
             Clear
@@ -205,15 +201,18 @@
         
       </div>
   </div>
-  <div class="advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
+  
+  <div class="advertisement-details fixed-advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
           <div class="flex flex-row">
+          <div>
             <h2 class="mt-3 mx-auto" style="font-weight: 500;
-            font-family: 'Poppins'; margin-left: auto;">Advertisement Details</h2> 
+            font-family: 'Poppins'; margin-left: 350px;">Advertisement Details</h2> 
             <br/>
+          </div>
             <button
             *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
             routerLink="/my-ad"
-            class="style text-white font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
+            class="style text-white fixed-advertisement-details font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
             [disabled]="false"
             [class.disabled-button]="false"
           >
@@ -221,12 +220,26 @@
           </button>
           
 </div>
-  <div *ngIf="selectedView === 'MAP' && showMapView" class="map-view">
+  <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
     <app-view-other-ads-map-view
-      [adtype]="adtype"
-      [selectedDeparturePort]="selectedDeparturePort"
-      [selectedArrivalPort]="selectedArrivalPort"
-      [containerTypeId]="containerTypeId"
+      [ad_typetomap]="ad_typetomap"
+      [typetomap]="typetomap"
+      [selectedTypePortOfAd]="selectedTypePortOfAd"
+      [selectedcontainertypetomap]="selectedcontainertypetomap"
+      [selectedcontainersizetomap]="selectedcontainersizetomap"
+
+      
+    ></app-view-other-ads-map-view>
+  </div>
+  <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'space'" class="map-view">
+    <app-view-other-ads-map-view
+      [ad_typetomap]="ad_typetomap"
+      [typetomap]="typetomap"
+      [selectedTypePortOfDep]="selectedTypePortOfDep"
+      [selectedTypePortOfArr]="selectedTypePortOfArr"
+      [selectedcontainertypetomap]="selectedcontainertypetomap"
+      [selectedcontainersizetomap]="selectedcontainersizetomap"
+
       
     ></app-view-other-ads-map-view>
   </div>
@@ -357,7 +370,8 @@
                     >Port of Ad
                   </div>
                   <div class="gray-highlights" >
-                    {{ ad.port_of_ad }}
+                    {{ capitalizeFirstLetter(ad.port_of_ad) }}
+
                   </div>
                 </div>
                 <div class="flex flex-col" *ngIf="ad_type !== 'container'">
@@ -366,7 +380,7 @@
                     >Departure
                   </div>
                   <div class="gray-highlights" >
-                    {{ ad.port_of_departure }}
+                    {{capitalizeFirstLetter(ad.port_of_departure)  }}
                   </div>
                 </div>
                 <div class="flex flex-col" *ngIf="ad_type !== 'container'">
@@ -377,7 +391,7 @@
                   <div>
                     <div class="flex flex-row gap-1">
                       <div class="gray-highlights">
-                        {{ ad.port_of_arrival }}
+                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
                       </div>
                     </div>
                   </div>
@@ -386,15 +400,6 @@
             </div>
           </div>
 
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">description</i>
-              <span class="text-[0.6rem]">Expiry Date</span>
-            </div>
-            <div class="text-xs font-bold">
-              {{ ad.expiry_date | date : "dd MMMM yyyy" }}
-            </div>
-          </div>
 
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
@@ -409,7 +414,7 @@
               <i class="material-icons mr-1 text-xs">inventory_2</i>
               <span class="text-[0.6rem]">Type of Ad</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.type_of_ad }}</div>
+            <div class="text-xs font-bold">{{capitalizeFirstLetter(ad.type_of_ad)  }}</div>
           </div>
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
@@ -417,42 +422,39 @@
               <span class="text-[0.6rem]">Container Type</span>
             </div>
             <div class="text-xs font-bold">
-              <ng-container *ngFor="let container of container_size">
-                <span *ngIf="container.container_type_id === ad.container_type_id">
-                  {{ container.type }}
-                </span>
-              </ng-container>
+              <div class="text-xs font-bold">{{ ad.container_type }}</div>
             </div>
           </div>
           
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">payments</i>
-              <span class="text-[0.6rem]">Price</span>
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Date Created</span>
             </div>
-            <div class="text-xs font-bold">{{ ad.price }}</div>
+            <div class="text-xs font-bold">{{getDateOnly(ad.date_created)}}</div>
           </div>
 
+       
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">From Date</span>
+            </div>
+            <div class="text-xs font-bold">{{getDateOnly(ad.from_date)}}</div>
+          </div>
+          <div class="flex flex-col items-center">
+            <div class="items-center justify-center">
+              <i class="material-icons mr-1 text-xs">event_available</i>
+              <span class="text-[0.6rem]">Expiry Date</span>
+            </div>
+            <div class="text-xs font-bold">{{getDateOnly(ad.expiry_date)}}</div>
+          </div>
           <div class="flex flex-col items-center">
             <div class="items-center justify-center">
               <i class="material-icons mr-1 text-xs">event_available</i>
               <span class="text-[0.6rem]">Free Days</span>
             </div>
             <div class="text-xs font-bold">{{ ad.free_days }}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Per Diem</span>
-            </div>
-            <div class="text-xs font-bold">{{ ad.per_diem }}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Pickup Charges</span>
-            </div>
-            <div class="text-xs font-bold">{{ ad.pickup_charges }}</div>
           </div>
         </div>
       </div>

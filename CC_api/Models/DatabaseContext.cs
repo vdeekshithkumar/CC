@@ -1,10 +1,12 @@
+using Google.Apis.Drive.v3.Data;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.EntityFrameworkCore;
 
 namespace CC_api.Models
 {
- 
-    public class DatabaseContext : DbContext
-    {
+
+  public class DatabaseContext : DbContext
+  {
     public DbSet<User> users { get; set; }
     public DbSet<Inventory> inventory { get; set; }
     public DbSet<Company> company { get; set; }
@@ -22,12 +24,10 @@ namespace CC_api.Models
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-      {
-        //if (!optionsBuilder.IsConfigured)
-        optionsBuilder.UseSqlServer("Server=tcp:cc-api.database.windows.net,1433;Initial Catalog=CC_Models;Persist Security Info=False;User ID=ivoyant;Password=ContainerConundrum123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-
-
-      }
+    {
+      //if (!optionsBuilder.IsConfigured)
+      optionsBuilder.UseNpgsql("User ID=postgres;Password=*Vishu2002;Host=localhost;Port=5432;Database=db-cc;Pooling=true;");
     }
+  }
 
 }

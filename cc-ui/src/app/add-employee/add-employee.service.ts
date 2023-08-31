@@ -4,19 +4,23 @@ import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
 import { User } from '../redundant/header/edit-user-details/edit-user-details.component';
+import { ApiService } from '../api.service';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddEmployeeServiceService {
-  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/SaveUser'
-  private baseUrl = 'https://container-conundrum-api.azurewebsites.net/AddPermission'
+
+  private apiUrl = 'SaveUser'
+  private baseUrl = 'AddPermission'
   addPermissionForm: any;
-  private editUrl = 'https://container-conundrum-api.azurewebsites.net/EditUserById'
-  private baseEditUrl = 'https://container-conundrum-api.azurewebsites.net/EditPermission'
-  private UIdUrl = 'https://container-conundrum-api.azurewebsites.net/GetUserById';
-  constructor(private http:HttpClient) { }
+  private editUrl = 'EditUserById'
+  private baseEditUrl = 'EditPermission'
+  private UIdUrl = 'GetUserById';
+  constructor(private http:HttpClient,private apiService: ApiService) { }
+
+ 
   addPermission(ppList: any,emailValue:string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -29,7 +33,7 @@ const payload = {
       emailValue: emailValue
     };
 
-    const url = `${this.baseUrl}`;
+    const url = this.apiService.getFullUrl(`${this.baseUrl}`);
 
     return this.http.post(url, payload, httpOptions)
       .pipe(
@@ -41,16 +45,16 @@ const payload = {
     return throwError(error);
   }
   addEmployee(addEmployeeForm: FormGroup<any>){
+    const url = this.apiService.getFullUrl(`${this.apiUrl}`);
     const headers=new HttpHeaders().set('content-Type','application/json');
-    return this.http.post(this.apiUrl,addEmployeeForm,{headers});
-
+    return this.http.post(url,addEmployeeForm,{headers});
   }
 
   EditUser(id:number,addEmployeeForm:FormGroup<any>){
     debugger
+    const url = this.apiService.getFullUrl(`${this.editUrl}/${id}`);
     const headers = new HttpHeaders().set('content-Type', 'application/json');
-  
-      return this.http.put(`${this.editUrl}/${id}`,addEmployeeForm,{ headers });
+      return this.http.put(url,addEmployeeForm,{ headers });
   }
   EditPermission(ppList: any,user_id:number): Observable<any> {
     const httpOptions = {
@@ -62,7 +66,7 @@ const payload = {
   ppList: ppList,
       user_id: user_id
     };
-    const url =`${this.baseEditUrl}/${user_id}`;
+    const url =this.apiService.getFullUrl(`${this.baseEditUrl}/${user_id}`);
 
     return this.http.put(url, payload, httpOptions)
       .pipe(
@@ -70,17 +74,23 @@ const payload = {
       );
   }
   getAllPermission(): Observable<Permissions[]> {
-    return this.http.get<Permissions[]>('https://container-conundrum-api.azurewebsites.net/GetAllPermission');
-  }
+
+    const url = this.apiService.getFullUrl(`GetAllPermission`);
+    return this.http.get<Permissions[]>(url);
+
+
+
   getUserPermissions(user_id: number): Observable<Permissions[]> {
-    return this.http.get<Permissions[]>('https://container-conundrum-api.azurewebsites.net/UserPermissions', {
+
+    const url = this.apiService.getFullUrl(`UserPermissions`);
+    return this.http.get<Permissions[]>(url, {
+
       params: { user_id: user_id.toString() }
     });
   }
-  
-  
-  
+
   getUserById(id: number): Observable<any> {
-    return this.http.get(`${this.UIdUrl}/${id}`, { responseType: 'json' });
+    const url = this.apiService.getFullUrl(`${this.UIdUrl}/${id}`);
+    return this.http.get(url, { responseType: 'json' });
   }
 }

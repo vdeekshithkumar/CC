@@ -3,13 +3,68 @@
       <div class="w-full mt-20 left-0 overflow-auto mr-2 div-bg-line">
         <!-- Company Details section  -->
         <div class="inline-block min-w-full py-2 flex div-bg  items-center"> 
-          <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
+         
+       
+          <div class="radio-buttons">
+            <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
+            <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p>
+            <!-- <div style="display: inline-block;margin-right: 16px;">
+              
+              <label class="radio mt-[10px]" style="cursor: pointer;">
+                <svg width="24"  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.5 6V5.6H1.1V6H1.5ZM1.5 18.9375H1.1V19.3375H1.5V18.9375ZM12.1272 6L12.273 5.6275C12.2265 5.60933 12.1771 5.6 12.1272 5.6V6ZM22.7545 10.1585H23.1545C23.1545 9.99382 23.0536 9.84599 22.9002 9.78598L22.7545 10.1585ZM22.7545 18.9375V19.3375C22.9754 19.3375 23.1545 19.1584 23.1545 18.9375H22.7545ZM14.8375 8.77232C14.8375 8.55141 14.6584 8.37232 14.4375 8.37232C14.2166 8.37232 14.0375 8.55141 14.0375 8.77232H14.8375ZM14.0375 17.5513C14.0375 17.7723 14.2166 17.9513 14.4375 17.9513C14.6584 17.9513 14.8375 17.7723 14.8375 17.5513H14.0375ZM17.6098 9.69643C17.6098 9.47551 17.4307 9.29643 17.2098 9.29643C16.9889 9.29643 16.8098 9.47551 16.8098 9.69643H17.6098ZM16.8098 17.5513C16.8098 17.7723 16.9889 17.9513 17.2098 17.9513C17.4307 17.9513 17.6098 17.7723 17.6098 17.5513H16.8098ZM20.3821 11.0826C20.3821 10.8617 20.2031 10.6826 19.9821 10.6826C19.7612 10.6826 19.5821 10.8617 19.5821 11.0826H20.3821ZM19.5821 17.5513C19.5821 17.7723 19.7612 17.9513 19.9821 17.9513C20.2031 17.9513 20.3821 17.7723 20.3821 17.5513H19.5821ZM1.5 6.4H11.6652V5.6H1.5V6.4ZM11.2652 6V18.9375H12.0652V6H11.2652ZM11.6652 18.5375H1.5V19.3375H11.6652V18.5375ZM1.9 18.9375V6H1.1V18.9375H1.9ZM6.18259 6V18.9375H6.98259V6H6.18259ZM5.19643 10.0964H7.96875V9.29643H5.19643V10.0964ZM5.19643 16.1031H7.96875V15.3031H5.19643V16.1031ZM11.6652 6.4H12.1272V5.6H11.6652V6.4ZM11.9815 6.3725L22.6087 10.531L22.9002 9.78598L12.273 5.6275L11.9815 6.3725ZM22.3545 10.1585V18.9375H23.1545V10.1585H22.3545ZM22.7545 18.5375H11.6652V19.3375H22.7545V18.5375ZM14.0375 8.77232V17.5513H14.8375V8.77232H14.0375ZM16.8098 9.69643V17.5513H17.6098V9.69643H16.8098ZM19.5821 11.0826V17.5513H20.3821V11.0826H19.5821Z" fill="#2F54EB"/>
+                  </svg>            
+                Container
+                <input type="radio"style="cursor: pointer;" name="search-space" value="container" [(ngModel)]="ad_type" checked (change)="ad_type = 'container'; viewAds()" (change)="onAdTypeChange('container')">
+              </label>
+            </div>
+            <div style="display: inline-block;">
+              <label class="radio"style="cursor: pointer;">
+                <svg width="24" height="24"  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20.25 3.75H15.75V8.25H20.25V3.75Z" stroke="#2F54EB" stroke-width="0.8"/>
+                  <path d="M12 12V7.5H7.5V12M12 12H16.5V16.5H7.5V12M12 12H7.5" stroke="#2F54EB" stroke-width="0.8"/>
+                  <path d="M12 3.75H4.5C4.08579 3.75 3.75 4.08579 3.75 4.5V19.5C3.75 19.9142 4.08579 20.25 4.5 20.25H19.5C19.9142 20.25 20.25 19.9142 20.25 19.5V12" stroke="#2F54EB" stroke-width="0.8"/>
+                  </svg>            
+                Space
+                <input type="radio" style="cursor: pointer;"name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="ad_type = 'space'; viewAds()" (change)="onAdTypeChange('space')">
+              </label>
+            </div> -->
+
+            <div class="flex items-center">
+             
+              <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)" class="radio ml-2 border rounded-md py-1 px-2">
+                <option value="container" ><img src="120363_original_4240x2832.jpg"/>Container</option>
+                <option value="space"><img src="120363_original_4240x2832.jpg"/>Space</option>
+              </select>              
+            </div>            
+          </div>
+          <!-- <div class="dropdown">
+            <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)"  class="custom-dropdown radio ml-2 border rounded-md py-1 px-2">
+              <option value="container" class="custom-dropdown-option">
+                <img src="../../assets/icons/Container.svg" class="dropdown-icon" alt="Container Icon" />
+                Container
+              </option>
+              <option value="space" class="custom-dropdown-option">
+                <img src="../../assets/icons/vessels.svg" class="dropdown-icon" alt="Space Icon" />
+                Space
+              </option>
+            </select>
+            
+          </div> -->
+
+          
+         
+
+          
+ 
           <div class=" ml-80 justify-end flex">
-            <div class="mb-2  justify-end w-[10em] h-[2em]  flex-wrap">
+            <!-- <div class="mb-2  justify-end w-[10em] h-[2em]  flex-wrap">
               <button >
                 
               </button>
-            </div>
+            </div> -->
+           
+
             <div class="mb-2 ml-96 justify-end w-[10em] h-[2em]  flex-wrap">
               <button (click)="onExportClick()"
                 class="ml-4 float-right inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
@@ -31,30 +86,37 @@
           </div>
         </div>
       </div>
+      
+      
+      <button (click)="downloadTemplate()"
+          class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 font-poppins border-blue-700 justify-end float-right">
+         
+          <span class="ml-0">Download Template</span>
+        </button>
        
         <hr style="height: 2px;">
-        <nav class="bg-white div-bg-line font-semibold text-base lg:text-lg">
+        
+        <nav *ngIf="ad_type==='container'" class="bg-white div-bg-line font-semibold text-base lg:text-lg">
           <ul class="flex items-center ">
-            <li class="nav-item" [routerLinkActive]="['active']">
-              <a>
-                <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" class="underline-button">
-                  <div class="flex items-center">
-                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
-                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.adscount[0]}}</span>
-                    </div>
+            <li class="nav-item">
+              <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" *ngIf="ad_type === 'container'" class="underline-button">
+                <div class="flex items-center">
+                  <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
+                  <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                    style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                    <span [class.hover:text-black]="true">{{ this.ad_type === 'container' ? originalcontaineractiveAds : originalspaceactiveAds }}</span>
                   </div>
-                </button></a>
+                </div>
+              </button>
             </li>&nbsp; &nbsp; &nbsp;
             <li class="nav-item" [routerLinkActive]="['pending']">
               <a>
-                <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" class="underline-button">
+                <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" *ngIf="ad_type === 'container'" class="underline-button">
                   <div class="flex items-center">
                     <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
                     <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
                       style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.adscount[1]}}</span>
+                      <span [class.hover:text-black]="true">{{this.originalcontainerpendingAds}}</span>
                     </div>
                   </div>
                 </button></a>
@@ -62,18 +124,61 @@
             &nbsp; &nbsp; &nbsp;
             <li class="nav-item" [routerLinkActive]="['pending']">
               <a>
-                <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" class="underline-button">
+                <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" *ngIf="ad_type === 'container'" class="underline-button">
                   <div class="flex items-center">
                     <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
                     <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
                       style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.adscount[2]}}</span>
+                      <span [class.hover:text-black]="true">{{this.originalcontainerdraftAds}}</span>
                     </div>
                   </div>
                 </button></a>
             </li>
           </ul>
         </nav>
+        <nav *ngIf="ad_type==='space'" class="bg-white div-bg-line font-semibold text-base lg:text-lg">
+          <ul class="flex items-center ">
+            <li class="nav-item" [routerLinkActive]="['active']">
+              <a>
+                <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" *ngIf="ad_type === 'space'" class="underline-button">
+                  <div class="flex items-center">
+                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
+                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                      <span [class.hover:text-black]="true">{{ this.ad_type === 'space' ? originalspaceactiveAds : originalcontaineractiveAds }}</span>
+                    </div>
+                  </div>
+                </button></a>
+            </li>&nbsp; &nbsp; &nbsp;
+            <li class="nav-item" [routerLinkActive]="['pending']">
+              <a>
+                <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" *ngIf="ad_type === 'space'" class="underline-button">
+                  <div class="flex items-center">
+                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
+                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                      <span [class.hover:text-black]="true">{{this.originalspacependingAds}}</span>
+                    </div>
+                  </div>
+                </button></a>
+            </li>
+            &nbsp; &nbsp; &nbsp;
+            <li class="nav-item" [routerLinkActive]="['pending']">
+              <a>
+                <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" *ngIf="ad_type === 'space'" class="underline-button">
+                  <div class="flex items-center">
+                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
+                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                      <span [class.hover:text-black]="true">{{this.originalspacedraftAds}}</span>
+                    </div>
+                  </div>
+                </button></a>
+            </li>
+          </ul>
+        </nav>
+        
+      
         <div class="w-full flex flex-col first:flex-row max-h-screen bg-gray-50">
           <section class="ml-4 mr-6 rounded-sm">
             <div class="flex flex-col">
@@ -120,22 +225,59 @@
                           class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
                           Pickup charges
                         </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Port of Departure
+                        <th scope="col border-2" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          {{ ad_type === 'container' ? 'Port of Ad' : 'Port of Departure' }}
                         </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                        <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Negotiations
+                        </th>
+                        <th scope="col border-2" *ngIf="ad_type === 'space'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
                           Port of Arrival
                         </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          {{ operation === 'Active' ?
-                          'Negotiations' : 'Actions' }}
+                        <th scope="col border-2" *ngIf="ad_type === 'space' && operation === 'Active'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Negotiations
                         </th>
-
+                        <th scope="col border-2" *ngIf="ad_type === 'space' && operation !== 'Active'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Actions
+                        </th>
+                        
                       </tr>
                     </thead>
+                    <!-- <div class="flex flex-col text-[0.6rem]">
+                      <div class="flex flex-row gap-2">
+                        <div class="flex flex-col" *ngIf="ad_type === 'container'">
+                          <div>
+                            <i class="material-icons mr-1 text-xs">place</i
+                            >Port of Ad
+                          </div>
+                          <div class="gray-highlights" >
+                            {{ ad.port_of_ad }}
+                          </div>
+                        </div>
+                        <div class="flex flex-col" *ngIf="ad_type !== 'container'">
+                          <div>
+                            <i class="material-icons mr-1 text-xs">place</i
+                            >Departure
+                          </div>
+                          <div class="gray-highlights" >
+                            {{ ad.port_of_departure }}
+                          </div>
+                        </div>
+                        <div class="flex flex-col" *ngIf="ad_type !== 'container'">
+                          <div>
+                            <i class="material-icons mr-1 text-xs">place</i
+                            >Arrival
+                          </div>
+                          <div>
+                            <div class="flex flex-row gap-1">
+                              <div class="gray-highlights">
+                                {{ ad.port_of_arrival }}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
                     <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
                       <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
                         <!-- table row data here -->
@@ -181,13 +323,28 @@
                           </div>
                         </td>
                         <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span>{{ ad.port_of_departure }}</span>
-                          </div>
+                          <ng-container *ngIf="ad_type === 'container'">
+                            <div class="gray-highlights">
+                              {{ ad.port_of_ad }}
+                            </div>
+                          </ng-container>
+                          <ng-container *ngIf="ad_type !== 'container'">
+                            <div class="flex flex-col">
+                              <div class="gray-highlights">
+                                {{ ad.port_of_departure }}
+                              </div>
+                             
+                            </div>
+                          </ng-container>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span>{{ ad.port_of_arrival }}</span>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap" *ngIf="ad_type !== 'container'">
+                          <div class="flex flex-row gap-2">
+                            <div class="flex flex-col">
+                              
+                              <div class="gray-highlights">
+                                {{ ad.port_of_arrival }}
+                              </div>
+                            </div>
                           </div>
                         </td>
 
@@ -200,9 +357,9 @@
                               style="font-size: 12px;">Edit</button>
                             <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="approve(ad.ad_id)"
                               *ngIf="operation === 'Pending'" scope="row"
-                              class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 text-center px-2 text-white mr-2 bg-CCblue disable mt-2"
+                              class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 px-2 text-center text-white bg-CCblue disable mt-2"
                               style="font-size: 12px;">Approve</button>
-                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id)"
+                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id,ad_type)"
                               *ngIf="operation === 'Active'" scope="row"
                               class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
                               style="font-size: 12px;">Open</button>

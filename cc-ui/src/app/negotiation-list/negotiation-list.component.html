@@ -53,13 +53,27 @@
         </div>
         <hr class="mx-2">
         <div class="p-1 flex flex-row items-center gap-1 justify-around">
-          <div class="flex justify-start">
+          <div class="flex justify-start" *ngIf="negad_type==='container'">
             <img src="../../assets/images/Container.png" class="bg-gray-50 p-1 w-10 h-10">
-          <div class="flex flex-col text-[0.6rem]">
+            <div class="flex flex-col">
+              <div>
+                <i class="material-icons mr-1 text-xs">place</i>Port of Ad
+              </div>
+              <div>
+                <div class="flex flex-row gap-1">
+                  <div class="gray-highlights">{{AdsAdsPort[n.ad_id]}}</div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex justify-start" *ngIf="negad_type==='space'">
+            <img src="../../assets/images/Container.png" class="bg-gray-50 p-1 w-10 h-10">
+          <div class="flex flex-col text-[0.6rem]"  >
             <div class="flex flex-row gap-2">
               <div class="flex flex-col">
                 <div>
-                  <i class="material-icons mr-1 text-xs">place</i>Departure
+                  <i class="material-icons mr-1 text-xs">place</i>Departures
                 </div>
                 <div class="gray-highlights">
                   {{AdsDeparturePort[n.ad_id]}}

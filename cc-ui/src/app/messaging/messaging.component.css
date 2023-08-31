@@ -1,5 +1,5 @@
 .head{
-    color: var(--gray-gray-9, #262626);
+  color: var(--gray-gray-9, #262626);
 font-size: 1.25rem;
 font-family: Poppins;
 font-style: normal;
@@ -14,25 +14,115 @@ flex-shrink: 0;
 align-self: stretch;
 
 }
-.message-container {
-    
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    overflow: auto;
+.truncate {
+  display: inline-block;
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.conversation-details {
+  display: flex;
+  justify-content: space-between;
+}
 
-  }
-  .message-content {
-    display: inline-block;
-    background-color: #dcf8c6;
-    color: black;
-    padding: 10px;
-    border-radius: 5px;
-    white-space: pre-line;
-    overflow: auto;
-  }
+.font-bold {
+  font-weight: bold;
+}
+.negotiator {
+  margin-left: auto; /* Push the negotiator div to the right */
+}
+
+.bg-img{
+  background-color: #F0F5FF;
+}
+.message-container {
+  
+  color: rgb(0, 0, 0);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  overflow: auto;
+
+}
+.profile-icon{
+  @apply flex-1 flex justify-start relative cursor-pointer
+}     
+.profile-div{
+  @apply absolute mt-0 border-2 right-4 rounded-md w-[250px] h-full
+}
+.profile-box{
+  @apply text-xs w-full float-left font-poppins leading-6 p-2 flex flex-col shadow-lg bg-white 
+}
+.btn-primary1{
+  color: #ffffff;
+  background-color: #2F54EB;
+  height: 30px;
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0px;
+  padding: 14px 15px;
+}
+.close-icon {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  float: right;
+  margin-top: 4px;
+}
+
+.user-info {
+
+  padding-bottom: 4px;
+}
+.border1{
+
+      border-bottom: 1px solid #ccc;   
+}
+.border1:hover{
+  background-color: #f0f0f0;
+}
+.user-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.conversation-container {
+  height: 100%;
+}
+.user-item:hover {
+  background-color: #f0f0f0;
+}
+.textarea-no-scrollbar {
+  overflow: hidden;
+}
+
+.user-name {
+  cursor: pointer;
+}
+.message-content {
+  display: inline-block;
+  background-color: #dcf8c6;
+  color: black;
+  padding: 5px;
+  border-radius: 5px;
+  white-space: pre-line;
+  overflow: auto;
+}
+.selected-conversation {
+  border-bottom: 1px solid var(--gray-gray-4, #F0F0F0);
+  background-color: #F0F5FF;
+  color: rgb(0, 0, 0);
+}
+
+.bord{
+  border-top: 0px;
+}
 .border{
 
-    border-left: 1px solid var(--gray-gray-4, #F0F0F0);
+  border-left: 1px solid var(--gray-gray-4, #F0F0F0);
 }

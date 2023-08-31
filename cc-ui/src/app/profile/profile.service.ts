@@ -1,43 +1,54 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable,of } from 'rxjs';
+import { ApiService } from '../api.service';
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private countUrl = 'https://container-conundrum-api.azurewebsites.net/AdsCount';
-  private apiUrl = 'https://container-conundrum-api.azurewebsites.net/GetCompanyById';
-   private UIdUrl = 'https://container-conundrum-api.azurewebsites.net/GetUserById';
-  private userUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllUser';
-   private deleteUrl = 'https://container-conundrum-api.azurewebsites.net/DeleteUser'; 
-   private usercountUrl = 'https://container-conundrum-api.azurewebsites.net/GetAllUserCount'; 
-  constructor(private http: HttpClient) { }
-  getUserDetails(user_id: number): Observable<any> {
-    return this.http.get(`https://container-conundrum-api.azurewebsites.net/GetUserDetails?userId=${user_id}`);
-  }
 
+  private countUrl = 'AdsCount';
+  private apiUrl = 'GetCompanyById';
+   private UIdUrl = 'GetUserById';
+  private userUrl = 'GetAllUser';
+   private deleteUrl = 'DeleteUser'; 
+   private usercountUrl = 'GetAllUserCount'; 
+   
+  constructor(private http: HttpClient,private apiService: ApiService) { }
+
+  getUserDetails(user_id: number): Observable<any> {
+    const url = this.apiService.getFullUrl(`GetUserDetails?userId=${user_id}`);
+    return this.http.get(url);
+
+  }
   GetAllCompany(): Observable<any> {
 
-    return this.http.get('https://container-conundrum-api.azurewebsites.net/GetAllCompany')
+    const url = this.apiService.getFullUrl(`GetAllCompany`);
+    return this.http.get(url);
+
   }
   getAdsCount(companyId: number): Observable<any> {
-    return this.http.get(`${this.countUrl}?company_id=${companyId}`);
+    const url = this.apiService.getFullUrl(`${this.countUrl}?company_id=${companyId}`);
+    return this.http.get(url);
   }
-  
   getCompanyById(company_id: number): Observable<any> {
-    console.log(`${this.apiUrl}?company_id=${company_id}`)
-    return this.http.get(`${this.apiUrl}?companyId=${company_id}`);
+    const url = this.apiService.getFullUrl(`${this.apiUrl}?companyId=${company_id}`);
+    return this.http.get(url);
   }
   getallUser(companyid:number): Observable<any> {
-    return this.http.get(`${this.userUrl}/${companyid}`,{responseType:'json'});
+    const url = this.apiService.getFullUrl(`${this.userUrl}/${companyid}`);
+    return this.http.get(url);
   }
- deleteUserById(id: number): Observable<any> {
-    return this.http.delete(`${this.deleteUrl}/${id}`, { responseType: 'text' });
-  }
+deleteUserById(id: number): Observable<any> {
+  const url = this.apiService.getFullUrl(`${this.deleteUrl}/${id}`);
+  return this.http.get(url);
+}
   getUserById(id: number): Observable<any> {
-    return this.http.get(`${this.UIdUrl}/${id}`, { responseType: 'json' });
+    const url = this.apiService.getFullUrl(`${this.UIdUrl}/${id}`);
+    return this.http.get(url);
   }
   getallUserCount(companyid:number):Observable<any> {
-    return this.http.get(`${this.usercountUrl}/${companyid}`,{responseType:'json'});
+    const url = this.apiService.getFullUrl(`${this.usercountUrl}/${companyid}`);
+    return this.http.get(url);
   }
 }

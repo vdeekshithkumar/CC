@@ -88,6 +88,7 @@ isFormValid = false;
   }
   
   compare(){
+    debugger
     if (this.password1 === this.password2)
     return true 
     else return false
@@ -127,6 +128,11 @@ isFormValid = false;
     
   }
   OnSubmit() {
+    this.isFailureOldPassword = false; // Reset the old password error message
+    if (this.password1 !== this.password2) {
+      this.isNewPasswordsMatch = false;
+      return;
+    }
     // Call the reset-password service to check and update the password
     this.resetService.resetPassword(this.userId, this.password).subscribe(
       (result: any) => {
@@ -158,6 +164,11 @@ isFormValid = false;
           // Old password does not match, display error message
           this.isFailureOldPassword = true;
           console.log("Old password does not match");
+          
+          // Reset the form input fields
+          this.password = '';
+          this.password1 = '';
+          this.password2 = '';
         } else {
           console.log("Network error");
         }
@@ -165,7 +176,6 @@ isFormValid = false;
     );
   }
   
-      
   
   
   

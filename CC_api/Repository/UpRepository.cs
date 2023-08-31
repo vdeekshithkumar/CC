@@ -71,7 +71,7 @@ namespace CC_api.Repository
     }
 
 
- 
+
     public async Task<List<Permissions>> GetAllPermissionAsync()
     {
       return dbContext.permission.ToList();

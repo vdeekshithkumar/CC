@@ -1,8 +1,7 @@
 export interface Message {
-    messageId?: number;
-    conversationId: number;
-    senderId: number;
-    content: string;
-    timestamp: Date;
-    
-  }
+  messageid?: number;
+  conversationid: number;
+  senderid: number;
+  content: string;
+  timestamp: Date;
+}

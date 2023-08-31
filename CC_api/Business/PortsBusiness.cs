@@ -28,5 +28,10 @@ namespace CC_api.Business
     {
       return await portsRepository.GetAllCTypesAsync();
     }
+
+    public async Task<int> GetPortidbyCode(string portcode)
+    {
+      return await portsRepository.GetPortidbyCode(portcode);
+    }
   }
 }

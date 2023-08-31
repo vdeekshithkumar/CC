@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfirmationResponse, PassWriteRes } from './ConfirmationResponse';
 import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResetService {
-  [x: string]: any;
-  baseUrl="https://container-conundrum-api.azurewebsites.net";
- 
+
+  [x: string]: any; 
+
   private showemailinput = false;
   private userID?:number
   private companyID?:number
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private apiService: ApiService) { }
 
   public setShowEmailInput(value: boolean): void {
     this.showemailinput = value;
@@ -38,23 +39,21 @@ export class ResetService {
   }
 
   resetPassword(userId: number, password: string): Observable<any> {
-    const url = `${this.baseUrl}/reset-password`;
+    const endpoint = 'reset-password'; // Endpoint without base URL
+    const url = this.apiService.getFullUrl(endpoint);
     const body = { userId, password };
     return this.http.post<any>(url, body);
   }
-  
-
-  confirmation(email:string){
-    const url = `${this.baseUrl}/GetUserByEmail/${email}`;
-    return this.http.get<ConfirmationResponse>(url);
+  confirmation(email: string): Observable<ConfirmationResponse> {
+    const endpoint = `GetUserByEmail/${email}`; // Endpoint without base URL
+    const fullUrl = this.apiService.getFullUrl(endpoint);
+    return this.http.get<ConfirmationResponse>(fullUrl);
   }
-  
-  updatePassword (user_id:number, company_id: number, password: string)
-  {
-    debugger
-    const headers=new HttpHeaders().set('ContentType','application/json');
-
+  updatePassword(user_id: number, company_id: number, password: string): Observable<PassWriteRes> {
+    const endpoint = 'UpdatePassword'; // Endpoint without base URL
+    const fullUrl = this.apiService.getFullUrl(endpoint);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
     const body = { user_id, company_id, password };
-    return this.http.put<PassWriteRes>(`${this.baseUrl}/UpdatePassword`, body,{headers});
+    return this.http.put<PassWriteRes>(fullUrl, body, { headers });
   }
 }

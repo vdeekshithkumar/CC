@@ -39,7 +39,7 @@ a:hover {
 
 }
 .profile-icon{
-  @apply flex-1 flex justify-end relative cursor-pointer
+  @apply flex-1 flex justify-end relative 
 }     
 .profile-div{
   @apply absolute top-full right-0 rounded-md 
@@ -50,3 +50,38 @@ a:hover {
 .hidden {
   display: none;
 }
+.notification-bell {
+  position: relative;
+  display: inline-block;
+  
+  
+}
+
+.red-dot {
+  position: absolute;
+  top: 4px; 
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+
+
+
+.notification-card {
+  position: absolute;
+  top: 40px; /* Adjust the top value to position the card below the bell */
+  right: 0;
+  width: 200px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 10; 
+  cursor: pointer;
+}
+

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ApiService } from 'src/app/api.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +10,15 @@ export class ForgotPassService {
     otp:any
     private email!: string
 
-  baseUrl="https://container-conundrum-api.azurewebsites.net"
-  constructor(private http:HttpClient) { }
-  getOTP(email:string){
-    const url = `${this.baseUrl}/OTPVerification/${email}`;
-    return this.http.get(url);
-  }
 
+  constructor(private http:HttpClient,private apiService: ApiService) { }
+
+  getOTP(email: string): Observable<any> {
+    const endpoint = `OTPVerification/${email}`; // Endpoint without base URL
+    const fullUrl = this.apiService.getFullUrl(endpoint);
+    return this.http.get(fullUrl);
+  }
+ 
   setEmail(email: string): void {
     this.email = email;
   }

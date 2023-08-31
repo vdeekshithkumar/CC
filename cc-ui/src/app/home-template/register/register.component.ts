@@ -60,29 +60,32 @@ export class RegisterComponent implements OnInit
   r: any;
   
   showPassword=false;
-  
+  enteredCompanyName: string = '';
   constructor(private snackBar: MatSnackBar,private route: ActivatedRoute,private formBuilder: FormBuilder,private dialog: MatDialog,private router:Router,private registerservice:Registerservice) {
    }
+
 
 ngOnInit(): void {
  
   const now = new Date();
-    const formattedDate = now.toISOString().split('T')[0]; // get date in format yyyy-mm-dd
+  const formattedDateTime = now.toISOString();
+  console.log(formattedDateTime); // Output: "2023-07-26T12:34:56.789Z"
+   // get date in format yyyy-mm-dd
   this.registrationForm = this.formBuilder.group({
-    user_id: ['2',Validators.required],
+    user_id: ['0',Validators.required],
     company_id:['',Validators.required],
-    fname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
-    lname: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+    first_name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
+    last_name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
     address: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email, Validators.maxLength(25)]],
     phone_no:['', [Validators.pattern('[0-9]*'), Validators.maxLength(15)]],
     password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
     city:['', [Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(10)]],
-    otp:['12345',Validators.required],
-    is_verified:['0',Validators.required],
-    is_approved:['1',Validators.required],
-    is_active:['1',Validators.required],
-    last_login:formattedDate,
+    otp:['123456',Validators.required],
+    is_verified:[false,Validators.required],
+    is_approved:[true,Validators.required],
+    is_active:[true,Validators.required],
+    last_login:formattedDateTime,
     designation: ['admin',Validators.required],
     iagree: [false, Validators.requiredTrue]
   });
@@ -99,27 +102,42 @@ ngOnInit(): void {
   );
 
 }
-
-
+onCompanyNameChange(event: Event) {
+  // Explicitly specify the event type as 'Event' and then access the 'value' property of the target element.
+  this.enteredCompanyName = (event.target as HTMLInputElement).value;
+}
 
 onSubmit(): void {
+  debugger;
+  this.showValidationErrors = true;
+
+  // Find the corresponding company_id based on the entered company name.
+  const selectedCompany = this.company_list.find((company: { name: string }) => company.name === this.enteredCompanyName);
+
+  if (selectedCompany) {
+    // Set the company_id in the form control.
+    this.registrationForm.patchValue({ company_id: selectedCompany.company_id });
+  } else {
+    // Handle the case when the entered company name is not found in the list.
+    this.openErrorDialog('Invalid Company Name');
+    return;
+  }
   const formValue = this.registrationForm.value;
-  
   if (
-    !formValue.fname ||
-    !formValue.lname ||
+    !formValue.first_name ||
+    !formValue.last_name ||
     !formValue.email ||
     !formValue.address ||
     !formValue.iagree||
-    !formValue.company_id ||
+    !this.enteredCompanyName ||
     !formValue.password
   ) {
     this.showValidationErrors = true;
     let errorMessage = 'The following fields are required:\n';
-    if (!formValue.fname) {
+    if (!formValue.first_name) {
       errorMessage += '- First Name\n';
     }
-    if (!formValue.lname) {
+    if (!formValue.last_name) {
       errorMessage += '- Last Name\n';
     }
     if (!formValue.email) {
@@ -128,7 +146,7 @@ onSubmit(): void {
     if (!formValue.address) {
       errorMessage += '- Country\n';
     }
-    if (!formValue.company_id) {
+    if (!formValue.enteredCompanyName) {
       errorMessage += '- Company Name\n';
     }
     if (!formValue.password) {
@@ -154,16 +172,16 @@ onSubmit(): void {
   }
 
   
-if (!this.registrationForm.controls['fname'].valid) {
-  if (this.registrationForm.controls['fname'].hasError('maxlength')) {
+if (!this.registrationForm.controls['first_name'].valid) {
+  if (this.registrationForm.controls['first_name'].hasError('maxlength')) {
     this.openErrorDialog('Maximum character limit exceeded for First Name');
   } else {
     this.openErrorDialog('Invalid First Name Format');
   }
   return;
 }
-  if (!this.registrationForm.controls['lname'].valid) {
-    if (this.registrationForm.controls['lname'].hasError('maxlength')) {
+  if (!this.registrationForm.controls['last_name'].valid) {
+    if (this.registrationForm.controls['last_name'].hasError('maxlength')) {
       this.openErrorDialog('Maximum character limit exceeded for Last Name');
     } else {
       this.openErrorDialog('Invalid Last Name Format');
@@ -207,6 +225,7 @@ if (!this.registrationForm.controls['fname'].valid) {
     }
     return;
   }
+  
   try {
     const response = this.registerservice.register(formValue).toPromise();
     this.snackBar.open('OTP Sent Successfully, Please verify your Email', 'OK', {
