@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-const BASE_URL = 'https://localhost:7157/';
+const BASE_URL = 'https://container-conundrum-api.azurewebsites.net';
 
 @Injectable({
   providedIn: 'root'

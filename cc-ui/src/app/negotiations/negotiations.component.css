@@ -11,7 +11,31 @@
   @apply bg-white text-blue-500 border p-1 px-10  text-xs font-thin border-blue-500;
 
 }
-
+.forecast {
+  font-family: Poppins;
+  font-size: 16px;
+  line-height: 28px;
+}
+.radio{
+  border-radius: 2px;
+border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);
+background: #FFF;
+display: flex;
+width: 138px;
+padding: 4px;
+justify-content: space-between;
+align-items: center;
+align-content: flex-start;
+row-gap: 8px;
+flex-wrap: wrap;
+}
+.select-type{
+  margin-top:10px;
+  color: var(--gray-gray-8, #595959);
+font-size: 12px;
+font-family: Poppins;
+line-height: 20px;
+}
 .button-blue-bg {
 
   @apply bg-CCdarkblue text-white border p-1 px-10  text-xs font-thin border-blue-500;

@@ -86,3 +86,4 @@ const payload = {
     return this.http.get(url, { responseType: 'json' });
   }
 }
+  
