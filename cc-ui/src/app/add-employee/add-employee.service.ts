@@ -11,7 +11,6 @@ import { ApiService } from '../api.service';
   providedIn: 'root'
 })
 export class AddEmployeeServiceService {
-
   private apiUrl = 'SaveUser'
   private baseUrl = 'AddPermission'
   addPermissionForm: any;
@@ -19,8 +18,6 @@ export class AddEmployeeServiceService {
   private baseEditUrl = 'EditPermission'
   private UIdUrl = 'GetUserById';
   constructor(private http:HttpClient,private apiService: ApiService) { }
-
- 
   addPermission(ppList: any,emailValue:string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -74,17 +71,13 @@ const payload = {
       );
   }
   getAllPermission(): Observable<Permissions[]> {
-
     const url = this.apiService.getFullUrl(`GetAllPermission`);
     return this.http.get<Permissions[]>(url);
-
-
+  }
 
   getUserPermissions(user_id: number): Observable<Permissions[]> {
-
     const url = this.apiService.getFullUrl(`UserPermissions`);
     return this.http.get<Permissions[]>(url, {
-
       params: { user_id: user_id.toString() }
     });
   }
@@ -94,3 +87,4 @@ const payload = {
     return this.http.get(url, { responseType: 'json' });
   }
 }
+  
