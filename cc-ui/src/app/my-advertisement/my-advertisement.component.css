@@ -469,12 +469,3 @@ border-radius: 6px;
   cursor: pointer;
   position: relative; /* Required for the ::after pseudo-element */
 }
-
-
-
-
-
-
-    
-
-    .select#ad-type-dropdown option[value="container"]   { background-image:url(../../assets/icons/Container.svg);   }
