@@ -31,6 +31,7 @@ export class MessagingService {
   
   private countUrl = 'https://localhost:7157/GetmessageCount';
   getConversationByCompanyId(companyId:number){
+
     const url = this.apiService.getFullUrl(`GetConversationByCompanyId?companyId=${companyId}`);
     return this.http.get<conversation[]>(url);
   }
@@ -65,10 +66,12 @@ export class MessagingService {
   {
     const url = this.apiService.getFullUrl(`GetUsers?convoid=${convoID}&companyId=${companyId}`);
     return this.http.get<Candidate[]> (url)
+
   }
    AddParticipant (participant:participant)
   {
     debugger
+
     const url = this.apiService.getFullUrl(`AddParticipant`);
     return  this.http.post(url, participant)
   }
@@ -78,6 +81,7 @@ export class MessagingService {
   createConversation(conversation: any) {
     const url = this.apiService.getFullUrl(`CreateConversation`);
     return this.http.post(url, conversation);
+
   }
 
   getMessageCount(companyId: number): Observable<any> {

@@ -8,7 +8,9 @@ import { ApiService } from 'src/app/api.service';
   providedIn: 'root'
 })
 export class ResetService {
+
   [x: string]: any; 
+
   private showemailinput = false;
   private userID?:number
   private companyID?:number

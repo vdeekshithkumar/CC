@@ -44,6 +44,7 @@ export interface Negotiation{
   providedIn: 'root'
 })
 export class NegotiationListService {
+
   private  coUrl= 'GetOtherCompany';
   private deleteUrl = 'DeleteNegotiation';
   private acceptUrl = 'AcceptNegotiation';
@@ -52,6 +53,7 @@ export class NegotiationListService {
   private NegotiationUrl = 'GetAllNegotiations';
   private adsUrl = 'GetAllAds';
   constructor(private http: HttpClient,private apiService: ApiService) { }
+
 
  
   getPermissions(userId: number): Observable<any> {

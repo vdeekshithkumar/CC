@@ -38,9 +38,11 @@ export interface Port {
   providedIn: 'root'
 })
 export class PostAdService {
+
   private BASE_URL = 'ExcelUploadAd';
   private ad_Url = 'GetAd';
   constructor(private http: HttpClient,private apiService: ApiService){ }
+
 
   uploadFile(file: File,from_date:Date,expiry_date:number,type_of_ad:string,container_type:string,size:number,price:number,quantity:number,port_id:number, userId: number, companyId: number, contents:string,port_of_departure:string,port_of_arrival:string,free_days:number,per_diem:number,pickup_charges:number,operation:string,port_of_ad:string,ad_type:string) {
   if(operation=="PostAd"){
@@ -146,12 +148,14 @@ debugger
   }
 
   getAllPorts(): Observable<any> {
+
     const url = this.apiService.getFullUrl(`GetAllPorts`);
     return this.http.get(url);
   }
   getAllCTypes(): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllCTypes`);
     return this.http.get(url);
+
   }
 
   UploadExcelData(excelImportedData:any,user_id:number,company_id:number) {

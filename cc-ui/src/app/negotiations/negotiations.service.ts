@@ -46,6 +46,7 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class NegotiationsService {
+
   private  coUrl= 'GetOtherCompany';
   private  nUrl= 'GetAllNegotiation';
   private userUrl = 'GetAllCompanyUser';
@@ -57,6 +58,7 @@ export class NegotiationsService {
   private negcountUrl = 'GetMyNegotiationsCount'
   selectedConversation:any;
   constructor(private http: HttpClient,private apiService: ApiService) { }
+
 
   getallnegotiation(companyId: string): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.nUrl}?companyID=${companyId}`);

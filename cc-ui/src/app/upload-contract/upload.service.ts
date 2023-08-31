@@ -10,8 +10,10 @@ import { ApiService } from '../api.service';
   providedIn: 'root'
 })
 export class UploadService {
+
  
   constructor(private http: HttpClient,private apiService: ApiService) { }
+
 
   uploadFile(files: File[], userId: number, companyId: number, contentDesc:string, title:string) {
     const endpoint = `upload`;

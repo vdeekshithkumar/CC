@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
   providedIn: 'root'
 })
 export class ProfileService {
+
   private countUrl = 'AdsCount';
   private apiUrl = 'GetCompanyById';
    private UIdUrl = 'GetUserById';
@@ -18,10 +19,13 @@ export class ProfileService {
   getUserDetails(user_id: number): Observable<any> {
     const url = this.apiService.getFullUrl(`GetUserDetails?userId=${user_id}`);
     return this.http.get(url);
+
   }
   GetAllCompany(): Observable<any> {
+
     const url = this.apiService.getFullUrl(`GetAllCompany`);
     return this.http.get(url);
+
   }
   getAdsCount(companyId: number): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.countUrl}?company_id=${companyId}`);
