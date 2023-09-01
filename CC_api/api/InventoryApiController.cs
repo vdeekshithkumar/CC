@@ -1,13 +1,9 @@
 using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using OfficeOpenXml;
-using NSwag.Annotations;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Linq;
-using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace CC_api.api
 {
@@ -39,10 +35,11 @@ namespace CC_api.api
 
     public async Task<IActionResult> PostInventory([FromForm] InventoryRequest request)
     {
-      string email = HttpContext.Request.Form["email"];
-      string password = HttpContext.Request.Form["password"];
+
+
+
       {
-        var authenticatedUser = await _userBusiness.AuthenticateUser(email, password);
+        var authenticatedUser = await _userBusiness.AuthenticateUser(request.email, request.password);
 
         if (authenticatedUser != null)
         {
@@ -81,7 +78,7 @@ namespace CC_api.api
                 await _inventoryBusiness.AddExcelData(excelData, authenticatedUser.user_id, authenticatedUser.company_id);
 
 
-                return Ok("Authentication successful for" + email + " File Uploaded successfully.");
+                return Ok("Authentication successful for" + request.email + "File processes successfully.");
               }
             }
             else if (contentType == "application/vnd.ms-excel" || contentType == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -95,7 +92,7 @@ namespace CC_api.api
                 var excelData = ReadExcelDataFromStream(excelStream);
                 await _inventoryBusiness.AddExcelData(excelData, authenticatedUser.user_id, authenticatedUser.company_id);
 
-                return Ok("Authentication successful for" + email + "File processes successfully.");
+                return Ok("Authentication successful for" + request.email + "File processes successfully.");
               }
             }
             else
@@ -115,19 +112,6 @@ namespace CC_api.api
       }
 
       return BadRequest();
-    }
-    public class RemoveParamsFilter : IOperationFilter
-    {
-      public void Apply(OpenApiOperation operation, OperationFilterContext context)
-      {
-        if (context.ApiDescription.RelativePath.Contains("PostInventory"))
-        {
-          var parametersToRemove = new List<string> { "email", "password" };
-          operation.Parameters = operation.Parameters
-              .Where(p => !parametersToRemove.Contains(p.Name, StringComparer.OrdinalIgnoreCase))
-              .ToList();
-        }
-      }
     }
 
     public List<Inventory> ReadExcelDataFromStream(Stream excelStream)
