@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="6.2.8" />
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.60.0.3034" />
+    <PackageReference Include="IdentityModel" Version="6.2.0" />
     <PackageReference Include="MailKit" Version="3.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
