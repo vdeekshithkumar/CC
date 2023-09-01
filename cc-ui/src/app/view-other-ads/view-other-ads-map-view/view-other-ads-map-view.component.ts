@@ -121,6 +121,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   }
   
   loadMap() {
+    debugger
     if (!this.mapContainer || !this.mapContainer.nativeElement) {
       return;
     }
@@ -147,6 +148,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   
   
   getMapCenter(): google.maps.LatLngLiteral | null {
+    debugger
     if (this.selectedTypePortOfAd) {
       const portOfAd = this.ports.find(port => port.port_name === this.selectedTypePortOfAd);
 
@@ -161,8 +163,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     return null;
   }
   markPortOfAdOnMap(): void {
-    debugger
-    if (!this.map || !this.selectedTypePortOfAd || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
+    if (!this.map || !this.typetomap || !this.selectedTypePortOfAd || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
       return;
     }
   
@@ -178,7 +179,6 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
       ) {
         matchingAds.push(ad);
       }
-      console.log(matchingAds);
     }
   
     // Clear existing markers
@@ -205,11 +205,16 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
       }
     }
   
-    // Fit the map to the bounds
-    this.map.fitBounds(bounds);
+    // Adjust the zoom level by explicitly specifying bounds
+    const zoomLevel = 5; // You can adjust this value as needed
+    const center = bounds.getCenter();
+    const newBounds = new google.maps.LatLngBounds(
+      new google.maps.LatLng(center.lat() - 1, center.lng() - 1),
+      new google.maps.LatLng(center.lat() + 1, center.lng() + 1)
+    );
   
-   
-   
+    // Set the new bounds and zoom level
+    this.map.fitBounds(newBounds);
   }
   
   
@@ -220,8 +225,10 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   
   
   
+  
+  
   markPortOfDepArrOnMap(): void {
-    if (!this.map || !this.selectedTypePortOfDep || !this.selectedTypePortOfArr || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
+    if (!this.map ||!this.typetomap|| !this.selectedTypePortOfDep || !this.selectedTypePortOfArr || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
       return;
     }
   
