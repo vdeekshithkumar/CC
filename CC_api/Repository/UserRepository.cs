@@ -20,6 +20,15 @@ namespace CC_api.Repository
       var userdata = dbContext.users.FirstOrDefault(u => u.user_id == userId);
       return userdata;
     }
+    public async Task<User> GetUser(string username)
+    {
+      var userdata = dbContext.users.FirstOrDefault(u => u.first_name == username);
+      return userdata;
+    }
+    public async Task<List<User>> GetAllUsers()
+    {
+      return dbContext.users.ToList();
+    }
     public async Task UpdatePasswordAsync(int user_id, int company_id, string password)
     {
       var user = await dbContext.users.FirstOrDefaultAsync(u => u.user_id == user_id && u.company_id == company_id);

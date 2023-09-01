@@ -35,9 +35,19 @@ namespace CC_api.Business
 
 
 
+    public async Task<List<User>> GetAllUsers()
+    {
+      return await userRepository.GetAllUsers();
+    }
+
     public async Task<User> GetUserAsync(int userID)
     {
       var userData = await userRepository.GetUserAsync(userID);
+      return userData;
+    }
+    public async Task<User> GetUser(string username)
+    {
+      var userData = await userRepository.GetUser(username);
       return userData;
     }
     public async Task<IActionResult> UpdatePasswordAsync(int user_id, int company_id, string password)

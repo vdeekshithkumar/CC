@@ -17,11 +17,23 @@ namespace CC_api.Controllers
       _logger = logger;
       userBusiness = new UserBusiness();
     }
+  
+    [HttpGet("GetAllUsers")]
+    public async Task<List<User>> GetAllUsers()
+    {
+      return await userBusiness.GetAllUsers();
+    }
     [HttpGet("GetUserDetails")]
     public async Task<IActionResult> GetUserAsync(int userId)
     {
       return Ok(await userBusiness.GetUserAsync(userId));
     }
+    [HttpGet("GetUserDetail")]
+    public async Task<IActionResult> GetUser(string username)
+    {
+      return Ok(await userBusiness.GetUser(username));
+    }
+
 
     //[HttpGet("GetAllUser")]
     //public async Task<List<User>> GetAllUser(int companyid)
