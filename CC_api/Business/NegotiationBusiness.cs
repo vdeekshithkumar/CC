@@ -1,4 +1,3 @@
-using Azure;
 using CC_api.Models;
 using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
