@@ -35,9 +35,19 @@ namespace CC_api.Business
 
 
 
+    public async Task<List<User>> GetAllUsers()
+    {
+      return await userRepository.GetAllUsers();
+    }
+
     public async Task<User> GetUserAsync(int userID)
     {
       var userData = await userRepository.GetUserAsync(userID);
+      return userData;
+    }
+    public async Task<User> GetUser(string username)
+    {
+      var userData = await userRepository.GetUser(username);
       return userData;
     }
     public async Task<IActionResult> UpdatePasswordAsync(int user_id, int company_id, string password)
@@ -59,9 +69,9 @@ namespace CC_api.Business
       return await userRepository.GetUserById(id);
 
     }
-    public async Task<User> AuthenticateUser( string email, string password)
+    public async Task<User> AuthenticateUser(string email, string password)
     {
-      return await userRepository.AuthenticateUser( email,password);
+      return await userRepository.AuthenticateUser(email, password);
 
     }
     public async Task<int> generateOTP(string email)
