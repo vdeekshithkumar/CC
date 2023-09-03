@@ -10,13 +10,13 @@
 
         <div class="radio-buttons"><label class="forecast font-semibold ml-2 whitespace-nowrap">My Negotiations</label>
           <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p>
-          <div class="flex items-center">
+        
              
-            <select id="ad-type-dropdown" [(ngModel)]="ad_type" class="radio ml-2 border rounded-md py-1 px-2">
-              <option value="container" ><img src="120363_original_4240x2832.jpg"/>Container</option>
-              <option value="space"><img src="120363_original_4240x2832.jpg"/>Space</option>
-            </select>              
-          </div>            
+            <div class="flex items-center">
+              <span *ngIf="ad_type === 'container'">Container</span>
+              <span *ngIf="ad_type === 'space'">Space</span>
+            </div>           
+                     
         
         </div>
         <div>

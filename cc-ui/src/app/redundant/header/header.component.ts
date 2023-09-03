@@ -109,5 +109,9 @@ interval(refreshInterval).subscribe(() => {
       this.isCardVisible = !this.isCardVisible;
     
   }
+  
+  togglePopup() {
+    this.showPopup = !this.showPopup;
+  }
 }
                   

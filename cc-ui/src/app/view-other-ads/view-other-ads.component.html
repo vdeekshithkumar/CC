@@ -27,18 +27,9 @@
       </div>
     </div> -->
 
-    <div class="dropdown">
-    
-      <select id="ad-type-dropdown" [(ngModel)]="ad_type" (ngModelChange)="searchAds()" class="custom-dropdown  radio ml-2 border rounded-md py-1 px-2">
-        <option value="container" class="custom-dropdown-option">
-          <img src="../../assets/icons/Container.svg" class="dropdown-icon" alt="Container Icon" />
-          Container
-        </option>
-        <option value="space" class="custom-dropdown-option">
-          <img src="../../assets/icons/vessels.svg" class="dropdown-icon" alt="Space Icon" />
-          Space
-        </option>
-      </select>
+    <div class="flex items-center">
+      <span *ngIf="ad_type === 'container'">Container</span>
+      <span *ngIf="ad_type === 'space'">Space</span>
     </div>
     
     <br/>

@@ -16,7 +16,7 @@
     background-color: #FAFAFA;
  }
  .div-card-div{
-  @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full ml-4
+  @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full 
  }
  .highlight-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */

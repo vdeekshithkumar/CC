@@ -75,7 +75,7 @@ selectedNegotiation: any;
   elementRef: any;
   AdscompanyId: any;
   NegcompanyId:any;
-  ad_type: any;
+  ad_type!: string;
   conversationID!:number
   negotiation_id!:number;
  negCount:any;
@@ -101,7 +101,10 @@ selectedNegotiation: any;
     await this.fetchUserId();
     await this.fetchPermissions();
     await this.fetchNegotiations();
-debugger
+    this.route.queryParams.subscribe(params => {
+      this.ad_type = params['type'] || 'container'; // Default to 'container'
+    });
+
         this.sessionService.getCompanyId().subscribe({
           next: (companyId: number) => {
             this.companyId = companyId;
