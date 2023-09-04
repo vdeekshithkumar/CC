@@ -63,19 +63,20 @@
 .popup {
   position: absolute;
   top: 30%;
-  left: calc(100% + 10px);
-  width: 150px; /* Increased the width to accommodate the icon and shape */
-  height: auto;
-  max-height: 150px;
-  background-color: #ffffff;
+  left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
+  width: 120px;
+  height: auto; /* Allow the height to adjust based on content */
+  max-height: 150px; /* Limit the maximum height as needed */
+  background-color: rgba(0, 0, 0, 0.5); /* Set the background color to opaque white (#ffffff) */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  transition: left 0.3s ease-in-out;
-  overflow-y: auto;
+  transition: left 0.3s ease-in-out; /* Use left for transition */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
   z-index: 2000;
-  padding: 10px; /* Added some padding for content */
-  border-radius: 5px; /* Rounded corners */
 }
 
+.popup-content{
+  background-color: #ffffff;
+}
 .popup::before {
   content: '';
   position: absolute;
@@ -95,13 +96,15 @@
   width: 120px;
   height: auto; /* Allow the height to adjust based on content */
   max-height: 150px; /* Limit the maximum height as needed */
-  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
+  background-color: rgba(0, 0, 0, 0.5); /* Set the background color to opaque white (#ffffff) */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease-in-out; /* Use left for transition */
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
   z-index: 2000;
 }
-
+.side{
+  background-color: rgba(0, 0, 0, 0.5);
+}
 
 
 .show-popup {
