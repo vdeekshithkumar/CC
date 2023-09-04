@@ -67,7 +67,7 @@
   width: 120px;
   height: auto; /* Allow the height to adjust based on content */
   max-height: 150px; /* Limit the maximum height as needed */
-  background-color: rgba(0, 0, 0, 0.5); /* Set the background color to opaque white (#ffffff) */
+  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease-in-out; /* Use left for transition */
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
@@ -96,7 +96,7 @@
   width: 120px;
   height: auto; /* Allow the height to adjust based on content */
   max-height: 150px; /* Limit the maximum height as needed */
-  background-color: rgba(0, 0, 0, 0.5); /* Set the background color to opaque white (#ffffff) */
+  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease-in-out; /* Use left for transition */
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */

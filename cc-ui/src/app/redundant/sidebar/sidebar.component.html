@@ -183,14 +183,15 @@
     </a> -->
     
 
-    <a class="sidebar-a flex flex-row items-center  " (click)="togglePopup()" (click)="changeImageColor($event)" routerLinkActive="active-link">
+    <a class="sidebar-a flex flex-row items-center" (click)="togglePopup()" (click)="changeImageColor($event)" routerLinkActive="active-link">
       <svg class="px-1 flex active-link ml-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2 6V5.44H1.44V6H2ZM2 18.1739H1.44V18.7339H2V18.1739ZM12 6L12.2041 5.4785C12.139 5.45306 12.0698 5.44 12 5.44V6ZM22 9.91304H22.56C22.56 9.68252 22.4187 9.47555 22.2041 9.39155L22 9.91304ZM22 18.1739V18.7339C22.3093 18.7339 22.56 18.4832 22.56 18.1739H22ZM14.7339 8.6087C14.7339 8.29942 14.4832 8.0487 14.1739 8.0487C13.8646 8.0487 13.6139 8.29942 13.6139 8.6087H14.7339ZM13.6139 16.8696C13.6139 17.1788 13.8646 17.4296 14.1739 17.4296C14.4832 17.4296 14.7339 17.1788 14.7339 16.8696H13.6139ZM17.3426 9.47826C17.3426 9.16898 17.0919 8.91826 16.7826 8.91826C16.4733 8.91826 16.2226 9.16898 16.2226 9.47826H17.3426ZM16.2226 16.8696C16.2226 17.1788 16.4733 17.4296 16.7826 17.4296C17.0919 17.4296 17.3426 17.1788 17.3426 16.8696H16.2226ZM19.9513 10.7826C19.9513 10.4733 19.7006 10.2226 19.3913 10.2226C19.082 10.2226 18.8313 10.4733 18.8313 10.7826H19.9513ZM18.8313 16.8696C18.8313 17.1788 19.082 17.4296 19.3913 17.4296C19.7006 17.4296 19.9513 17.1788 19.9513 16.8696H18.8313ZM2 6.56H11.5652V5.44H2V6.56ZM11.0052 6V18.1739H12.1252V6H11.0052ZM11.5652 17.6139H2V18.7339H11.5652V17.6139ZM2.56 18.1739V6H1.44V18.1739H2.56ZM6.22261 6V18.1739H7.34261V6H6.22261ZM5.47826 10.0383H8.08696V8.91826H5.47826V10.0383ZM5.47826 15.6904H8.08696V14.5704H5.47826V15.6904ZM11.5652 6.56H12V5.44H11.5652V6.56ZM11.7959 6.5215L21.7959 10.4345L22.2041 9.39155L12.2041 5.4785L11.7959 6.5215ZM21.44 9.91304V18.1739H22.56V9.91304H21.44ZM22 17.6139H11.5652V18.7339H22V17.6139ZM13.6139 8.6087V16.8696H14.7339V8.6087H13.6139ZM16.2226 9.47826V16.8696H17.3426V9.47826H16.2226ZM18.8313 10.7826V16.8696H19.9513V10.7826H18.8313Z" fill="#595959"/>
         </svg>
         <div class="mt-10 -ml-10">Container</div>
-    <div class="popup absolute" *ngIf="showPopup">
-      <div class="popup-content absolute">
-        <div class="popup-fields absolute">        
+        
+    <div class="popup" *ngIf="showPopup">
+      <div class="popup-content">
+        <div class="popup-fields ">        
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">Advertisement</a>
           <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">My-ad</a>
           <a [routerLink]="['/negotiations']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">Negotiations</a>
@@ -198,6 +199,8 @@
         </div>
       </div>
     </div>
+   
+    
   </a>
     <a class="sidebar-a flex flex-row items-center" (click)="togglePopupp()" (click)="changeImageColor($event)" routerLinkActive="active-link">
       <svg class="px-1 flex active-link ml-6" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

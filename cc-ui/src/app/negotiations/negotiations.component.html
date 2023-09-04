@@ -6,12 +6,12 @@
       <div class="flex justify-between -ml-2">
 
         <div class="radio-buttons"><label class="forecast font-semibold ml-2 whitespace-nowrap">My Negotiations</label>
-          <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p>
+          <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
         
              
-            <div class="flex items-center">
-              <span *ngIf="ad_type === 'container'">Container</span>
-              <span *ngIf="ad_type === 'space'">Space</span>
+            <div class="select-type whitespace-nowrap ml-2 font-semibold">
+              <span *ngIf="ad_type === 'container'">Container Negotiations</span>
+              <span *ngIf="ad_type === 'space'">Space Negotiations</span>
             </div>           
                      
         
