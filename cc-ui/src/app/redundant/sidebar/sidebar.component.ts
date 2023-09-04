@@ -29,4 +29,5 @@ export class SidebarComponent {
   togglePopupp() {
     this.showPopupp = !this.showPopupp;
   }
+ 
 }
