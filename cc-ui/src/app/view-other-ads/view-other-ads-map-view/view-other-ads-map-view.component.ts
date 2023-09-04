@@ -173,6 +173,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     // Find ads with matching port_of_ad, container_type, and container_size
     for (const ad of this.ads) {
       if (
+        ad.type_of_ad == this.typetomap&&
         ad.port_of_ad === this.selectedTypePortOfAd &&
         ad.container_type === this.selectedcontainertypetomap &&
         ad.container_size === this.selectedcontainersizetomap
@@ -238,6 +239,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     // Find ads with matching port_of_departure, port_of_arrival, container_type, and container_size
     for (const ad of this.ads) {
       if (
+        ad.type_of_ad === this.typetomap &&
         ad.port_of_departure === this.selectedTypePortOfDep &&
         ad.port_of_arrival === this.selectedTypePortOfArr &&
         ad.container_type === this.selectedcontainertypetomap &&
