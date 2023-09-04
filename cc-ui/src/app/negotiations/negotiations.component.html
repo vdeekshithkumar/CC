@@ -1,23 +1,18 @@
-<div class="flex sticky mt-20">
-
-
-
-  <div id="main-neg-component" class="w-full bg-gray-50 font-poppins min-h-screen sticky">
+<div class="flex mt-20">
+  <div id="main-neg-component" class="w-full bg-white font-poppins min-h-screen">
 
     <div id="title" class="w-full p-2 h-fit flex flex-col">
 
       <div class="flex justify-between -ml-2">
 
         <div class="radio-buttons"><label class="forecast font-semibold ml-2 whitespace-nowrap">My Negotiations</label>
-          <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p>
-          <div class="flex items-center">
-             
-            <select id="ad-type-dropdown" [(ngModel)]="ad_type" class="radio ml-2 border rounded-md py-1 px-2">
-              <option value="container" ><img src="120363_original_4240x2832.jpg"/>Container</option>
-              <option value="space"><img src="120363_original_4240x2832.jpg"/>Space</option>
-            </select>              
-          </div>            
+          <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
         
+             
+            <div class="select-type whitespace-nowrap ml-2 font-semibold">
+              <span *ngIf="ad_type === 'container'">Container Negotiations</span>
+              <span *ngIf="ad_type === 'space'">Space Negotiations</span>
+            </div>           
         </div>
         <div>
 
@@ -89,9 +84,9 @@
 
     </div>
 
-    <div class="bg-gray-50 ml-0 mr-0" style="height: 4px"></div>
+    <div class="bg-gray-50 ml-0 mr-0 flex" style="height: 4px"></div>
 
-    <ng-container *ngFor="
+      <ng-container *ngFor="
 
         let n of filteredNlist
 
@@ -99,7 +94,7 @@
 
       " class="flex justify-center items-center border">
 
-      <div class="flex flex-col border-2 mx-2">
+      <div class="flex flex-col border-2 mx-2 bg-white">
 
         <div class="p-1 flex flex-row items-center justify-around">
 
@@ -222,16 +217,8 @@
           }"
           class="whitespace-nowrap cursor-pointer"
           (click)="createConversation(n)">
-    Message
-  </button>
-
-    
-
-
-
-
-
-            <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
+        Message
+        </button>
 
           </div>
 
@@ -388,19 +375,7 @@
 
           </div>
 
-          <!-- <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">event_available</i>
-
-              <span class="text-[0.6rem]">Price</span>
-
-            </div>
-
-            <div class="text-xs font-bold">{{ n.price }}</div>
-
-          </div> -->
+          
 
           <div class="flex flex-col items-center">
 

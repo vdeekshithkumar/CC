@@ -1,8 +1,8 @@
-<div class="div flex flex-row main mt-[42px] ">
-  <div class="text-after-type-sidebar py-10 px-2 ">
+<div class="div flex flex-row main mt-[42px]">
+  <div class="text-after-type-sidebar py-10 px-2  ">
    
     
-    <p class="search-text ra">Search Containers or Vessels as<br> per your requirements</p>
+    <!-- <p class="search-text ra">Search Containers or Vessels as<br> per your requirements</p> -->
     <!-- <div class="radio-buttons ">
       <div style="display: inline-block;margin-right: 16px;">
         <p class="select-type">Selected Type</p>
@@ -27,22 +27,13 @@
       </div>
     </div> -->
 
-    <div class="dropdown">
-    
-      <select id="ad-type-dropdown" [(ngModel)]="ad_type" (ngModelChange)="searchAds()" class="custom-dropdown  radio ml-2 border rounded-md py-1 px-2">
-        <option value="container" class="custom-dropdown-option">
-          <img src="../../assets/icons/Container.svg" class="dropdown-icon" alt="Container Icon" />
-          Container
-        </option>
-        <option value="space" class="custom-dropdown-option">
-          <img src="../../assets/icons/vessels.svg" class="dropdown-icon" alt="Space Icon" />
-          Space
-        </option>
-      </select>
+    <div class="flex items-center">
+      <span *ngIf="ad_type === 'container'" class="search-text ra">Container Advertisement</span>
+      <span *ngIf="ad_type === 'space'" class="search-text ra">Vessel Advertisement</span>
     </div>
     
     <br/>
-    <div class="search-type-container" *ngIf="ad_type == 'container'">
+    <div class="search-type-container " *ngIf="ad_type == 'container'">
       <div
         class="search-buy-container"
        
@@ -133,7 +124,7 @@
         <p class="port-text">Port of Arrival</p>
     
         <div class="port-input">
-          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_arrival">
+          <select  [(ngModel)]="port_of_arrival">
             <option *ngFor="let port of port_list" [value]="port.port_name">
               {{ port.port_name }}
             </option>
@@ -182,7 +173,8 @@
         <div class="port-input">
           <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" menu="bottom" [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
             <option disabled selected value="">Select a type</option>
-            <option style="height: 10px;" *ngFor="let contype of container_type_list" [value]="contype.type">
+            <option style="height: 10px; position: absolute;
+            z-index: 2000;" *ngFor="let contype of container_type_list" [value]="contype.type">
               {{ contype.type }}
             </option>
           </select>

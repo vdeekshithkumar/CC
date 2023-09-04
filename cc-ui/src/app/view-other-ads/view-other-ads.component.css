@@ -618,16 +618,21 @@ th {
     left: 0;
     width: 100%;
     z-index: 1; /* Ensure the dropdown is above other elements */
+    
   }
 .port-input {
   margin-bottom: 9px;
   position: relative;
+
 }
 
 .port-input label {
   margin-bottom: 3px;
 }
-
+.backdrop{
+  position: relative;
+  z-index: 2000; /* Place it above the backdrop and pop-up */
+}
 .port-input .uploadinv-select {
   margin-top: -9px; 
 }
@@ -1236,7 +1241,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     font-weight: 500px;
   
     font-style: normal;
-  
+    
   }
   
   
@@ -1332,5 +1337,3 @@ align-content: flex-start;
 row-gap: 8px;
 flex-wrap: wrap;
 }
-
-

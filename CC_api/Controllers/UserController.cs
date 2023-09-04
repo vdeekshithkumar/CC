@@ -17,7 +17,7 @@ namespace CC_api.Controllers
       _logger = logger;
       userBusiness = new UserBusiness();
     }
-  
+
     [HttpGet("GetAllUsers")]
     public async Task<List<User>> GetAllUsers()
     {

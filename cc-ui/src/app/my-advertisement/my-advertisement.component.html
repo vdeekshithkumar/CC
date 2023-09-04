@@ -7,7 +7,7 @@
        
           <div class="radio-buttons">
             <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
-            <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p>
+            <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
             <!-- <div style="display: inline-block;margin-right: 16px;">
               
               <label class="radio mt-[10px]" style="cursor: pointer;">
@@ -30,14 +30,10 @@
               </label>
             </div> -->
 
-            <div class="flex items-center">
-             
-              <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)" class="radio ml-2 border rounded-md py-1 px-2">
-                <option value="container" ><img src="120363_original_4240x2832.jpg"/>Container</option>
-                <option value="space"><img src="120363_original_4240x2832.jpg"/>Space</option>
-              </select>              
-            </div>            
-          </div>
+            <div class="flex items-center ml-2">
+              <span *ngIf="ad_type === 'container'" class="select-type whitespace-nowrap">Container Advertisement</span>
+              <span *ngIf="ad_type === 'space'" class="select-type whitespace-nowrap">Vessel Advertisement</span>
+            </div>
           <!-- <div class="dropdown">
             <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)"  class="custom-dropdown radio ml-2 border rounded-md py-1 px-2">
               <option value="container" class="custom-dropdown-option">
@@ -453,5 +449,3 @@
           </div>
       
    
-
-

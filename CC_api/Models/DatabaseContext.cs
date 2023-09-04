@@ -27,7 +27,6 @@ namespace CC_api.Models
     {
       //if (!optionsBuilder.IsConfigured)
       optionsBuilder.UseNpgsql("User ID=citus;Password=ivoyant@14;Host=ivoyant-datamapper.postgres.database.azure.com;Port=5432;Database=container-conundrum;Pooling=true;");
-  
     }
   }
 

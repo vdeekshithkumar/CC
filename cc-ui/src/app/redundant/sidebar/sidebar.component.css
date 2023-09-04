@@ -51,3 +51,97 @@
 .main{
   position:fixed;
 }
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+/* sidebar.component.css */
+.popup {
+  position: absolute;
+  top: 30%;
+  left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
+  width: 120px;
+  height: auto; /* Allow the height to adjust based on content */
+  max-height: 150px; /* Limit the maximum height as needed */
+  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease-in-out; /* Use left for transition */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+  z-index: 2000;
+}
+
+.popup-content{
+  background-color: #ffffff;
+}
+.popup::before {
+  content: '';
+  position: absolute;
+  top: 50%; /* Vertically centered */
+  left: -10px; /* Adjust the position */
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #ffffff; /* Color matches the background */
+}
+
+.popup1 {
+  position: absolute;
+  top: 40%;
+  left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
+  width: 120px;
+  height: auto; /* Allow the height to adjust based on content */
+  max-height: 150px; /* Limit the maximum height as needed */
+  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s ease-in-out; /* Use left for transition */
+  overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+  z-index: 2000;
+}
+.side{
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.show-popup {
+  
+  left: 100%; /* Display the pop-up by moving it to the visible position */
+}
+
+.sidebar-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+}
+
+.popup-fields a {
+  position: relative;
+  display: block; /* Display the links as block elements */
+  padding: 10px; /* Add padding for spacing between links */
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+/* Adjust the positioning of the SVG */
+
+.svg-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; /* Ensure the SVG is above the text */
+}
+
+/* Add padding to create space for the SVG */
+.sidebar-button span {
+  position: absolute;
+  padding-left: 30px; /* Adjust this value as needed */
+}
+
+
+/* Adjust the padding to create space for the SVG */
+

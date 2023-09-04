@@ -149,7 +149,7 @@
 <!--empty inventory screen-->
 <div *ngIf="inventory_list_by_companyId.length > 0">
 <div class="inline-block min-w-full mt-16 py-2 flex div-bg div-bg-line items-center" >            
-    <label class="forecast font-semibold ml-2 whitespace-nowrap">Current Inventory</label>
+    <label class="forecast font-semibold ml-4 whitespace-nowrap">Current Inventory</label>
   <div  *ngIf="!showModal" class="div-search my-2 search justify-start mx-10  mt-2 backdrop" >
     <div class="div-search-icon">
       <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
@@ -175,7 +175,7 @@
       </button>
     </div>
   </div>
-  <div class="ml-24 mb-2 w-[9em] h-[2em] bg-white flex-wrap float-right">
+  <div class="ml-60 mb-2 w-[9em] h-[2em] bg-white flex-wrap float-right">
     <div>
       <button (click)="onExportClick()"
         class="inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
@@ -187,7 +187,7 @@
       </button>
     </div>
   </div>
-  <div class="ml-4 w-[10em] mb-2 h-[2em] bg-gray flex-wrap float-right">
+  <div class="ml-6 justify-end w-[10em] mb-2 h-[2em] bg-gray flex-wrap float-right">
     <div>
       <label class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
         <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -203,7 +203,7 @@
   
  
 
-  <div class=" w-[10em] mb-2 h-[2em] bg-red flex-wrap ml-4">
+  <div class=" w-[10em] mb-2 h-[2em] bg-red flex-wrap ml-6">
     <div>
       <button (click)="toggleForm()" matTooltip="Add Inventory" (click)="updateFormHeading('Add New Inventory')"
         class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">
@@ -215,6 +215,7 @@
     </div>
   </div>
 </div>
+
 <button (click)="downloadTemplate()"
 class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 font-poppins border-blue-700 justify-end float-right">
 

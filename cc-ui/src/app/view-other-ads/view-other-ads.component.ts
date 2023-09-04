@@ -1,6 +1,6 @@
 import { Component, Renderer2, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { DatePipe } from '@angular/common';
 import { Location } from '@angular/common';
@@ -132,7 +132,7 @@ selectedcontainersizetomap:any;
   showListView: boolean = true;
   containerTypeId: any;
   showNoResultsMessage: boolean=true;
-  ad_type: string = 'container';
+  ad_type!: string;
   searchPortOfAd: any;
   displayedAds: Advertisement[] =[];
   matchedAds:  Advertisement[] =[];
@@ -160,7 +160,7 @@ selectedcontainersizetomap:any;
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService, private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
+  constructor(private sessionService: SessionService,private route: ActivatedRoute, private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
 
   }
   ngOnInit(): void {
@@ -170,6 +170,7 @@ selectedcontainersizetomap:any;
     } else {
       this.showMapView = false;
     }
+    
     this.selectedView = 'list';
     this.isLoading = true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
@@ -186,6 +187,9 @@ selectedcontainersizetomap:any;
         console.log("Error loading negotiationdetails:", error);
       }
     );
+    this.route.queryParams.subscribe(params => {
+      this.ad_type = params['type'] || 'container'; // Default to 'container'
+    });
 
 
     this.sessionService.getUserId().subscribe(

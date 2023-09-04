@@ -55,7 +55,7 @@ export class MyAdvertisementComponent implements OnInit {
   originalAds: Advertisement[] =[];
   Approve:any;
   selectedOption: any;
-  ad_type: string = 'container';
+  ad_type!: string;
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
@@ -165,7 +165,10 @@ pickup_charges:any;
     if (this.isFirstTime) {
       this.isFirstTime = false;
     }
-  
+    this.route.queryParams.subscribe(params => {
+      this.ad_type = params['type'] || 'container'; // Default to 'container'
+    });
+
     
     this.route.queryParams.subscribe(params => {
       const value = params['value'];
