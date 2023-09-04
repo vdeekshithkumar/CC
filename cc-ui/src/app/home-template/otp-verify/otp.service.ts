@@ -10,7 +10,9 @@ import { ApiService } from 'src/app/api.service';
     
   })
   export class OtpService {
+
     private getUrl = 'GetuserByEmail'
+
 
   constructor(private http:HttpClient,private apiService: ApiService) { 
   }

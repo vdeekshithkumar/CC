@@ -30,6 +30,7 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class MyAdService {
+
   private advUrl = 'GetAllAdvertisement';
   private deleteUrl = 'DeleteAd';
   private myadurl = 'GetMyAd';
@@ -42,6 +43,7 @@ export class MyAdService {
   private myadsurl ='GetMyAds';
   private advertisementcount = 'MyadvertisementCount';
   constructor(private http: HttpClient,private apiService: ApiService) { }
+
 
   
   getPermissions(userId: number): Observable<any> {

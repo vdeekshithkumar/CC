@@ -20,6 +20,7 @@ export interface Port {
     providedIn: 'root'
   })
   export class UploadInventoryservice {
+
     private apiUrl='UploadInventory';
     private baseUrl='DeleteInventory';
     private IdUrl='GetInventoryById';
@@ -42,6 +43,7 @@ export interface Port {
     }
     
     getAllPorts(): Observable<any> {
+
       const url = this.apiService.getFullUrl(`GetAllPorts`);
       return this.http.get(url);
     }
@@ -49,6 +51,7 @@ export interface Port {
     getAllInventory(): Observable<any> {
       const url = this.apiService.getFullUrl(`GetAllInventory`);
       return this.http.get(url);  
+
     }
     getInventoryById(id: number): Observable<any> {
       const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);

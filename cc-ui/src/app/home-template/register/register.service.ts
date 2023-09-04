@@ -14,9 +14,10 @@ export interface Company {
     
   })
   export class Registerservice {
+
     private apiUrl='SaveUser';
     private getUrl = 'GetuserByEmail'
- 
+
   constructor(private http:HttpClient,private apiService: ApiService) {
     
   }
@@ -42,8 +43,10 @@ export interface Company {
       
     }
     getAllCompanies(): Observable<any> {
+
       const url = this.apiService.getFullUrl(`GetAllCompany`);
       return this.http.get(url);
+
     }
     
   }

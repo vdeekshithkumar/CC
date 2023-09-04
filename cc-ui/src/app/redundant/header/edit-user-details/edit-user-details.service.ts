@@ -9,9 +9,11 @@ import { ApiService } from 'src/app/api.service';
 })
 export class EditUserDetailsService {
   
+
   constructor(private http : HttpClient,private apiService: ApiService){}
   updateUser(id: number, user: User): Observable<User> {
     const fullUrl = this.apiService.getFullUrl( `UpdateUserAsync/${id}`);
     return this.http.put<User>(fullUrl, user);
+
   }
 }

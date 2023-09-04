@@ -8,12 +8,15 @@ import { ApiService } from '../api.service';
   providedIn: 'root'
 })
 export class ViewContractsService {
+
  
   constructor(private http: HttpClient,private apiService: ApiService) { }
   getAllPorts(): Observable<any> {
+
     const url = this.apiService.getFullUrl(`GetAllPorts`);
     return this.http.get(url);
   } 
+
   getAllContracts(companyId: number): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllContracts?companyId=${companyId}`);
     return this.http.get<ContractDto[]>(url);
