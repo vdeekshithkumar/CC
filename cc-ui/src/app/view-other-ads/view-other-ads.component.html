@@ -1,8 +1,8 @@
-<div class="div flex flex-row main mt-[42px] ">
+<div class="div flex flex-row main mt-[42px]">
   <div class="text-after-type-sidebar py-10 px-2 ">
    
     
-    <p class="search-text ra">Search Containers or Vessels as<br> per your requirements</p>
+    <!-- <p class="search-text ra">Search Containers or Vessels as<br> per your requirements</p> -->
     <!-- <div class="radio-buttons ">
       <div style="display: inline-block;margin-right: 16px;">
         <p class="select-type">Selected Type</p>
@@ -28,8 +28,8 @@
     </div> -->
 
     <div class="flex items-center">
-      <span *ngIf="ad_type === 'container'">Container</span>
-      <span *ngIf="ad_type === 'space'">Space</span>
+      <span *ngIf="ad_type === 'container'" class="search-text ra">Container Advertisement</span>
+      <span *ngIf="ad_type === 'space'" class="search-text ra">Vessel Advertisement</span>
     </div>
     
     <br/>
@@ -173,7 +173,8 @@
         <div class="port-input">
           <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" menu="bottom" [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
             <option disabled selected value="">Select a type</option>
-            <option style="height: 10px;" *ngFor="let contype of container_type_list" [value]="contype.type">
+            <option style="height: 10px; position: absolute;
+            z-index: 2000;" *ngFor="let contype of container_type_list" [value]="contype.type">
               {{ contype.type }}
             </option>
           </select>

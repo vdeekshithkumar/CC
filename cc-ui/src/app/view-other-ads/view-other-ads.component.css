@@ -734,7 +734,7 @@ align-items: center;
 gap: 2px;
 flex: 1 0 0;
 
-margin-top:160px;
+margin-top:180px;
 
 }
 
@@ -779,7 +779,7 @@ align-items: center;
 gap: 2px;
 flex: 1 0 0;
 
-margin-top:95px;
+margin-top:115px;
 
 }
 
@@ -1332,5 +1332,3 @@ align-content: flex-start;
 row-gap: 8px;
 flex-wrap: wrap;
 }
-
-

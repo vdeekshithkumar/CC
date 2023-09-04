@@ -63,31 +63,49 @@
 .popup {
   position: absolute;
   top: 30%;
-  left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-  width: 200px;
-  height: auto; /* Allow the height to adjust based on content */
-  max-height: 150px; /* Limit the maximum height as needed */
-  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
+  left: calc(100% + 10px);
+  width: 150px; /* Increased the width to accommodate the icon and shape */
+  height: auto;
+  max-height: 150px;
+  background-color: #ffffff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  transition: left 0.3s ease-in-out; /* Use left for transition */
-  overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+  transition: left 0.3s ease-in-out;
+  overflow-y: auto;
+  z-index: 2000;
+  padding: 10px; /* Added some padding for content */
+  border-radius: 5px; /* Rounded corners */
 }
+
+.popup::before {
+  content: '';
+  position: absolute;
+  top: 50%; /* Vertically centered */
+  left: -10px; /* Adjust the position */
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #ffffff; /* Color matches the background */
+}
+
 .popup1 {
   position: absolute;
   top: 40%;
   left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-  width: 200px;
+  width: 120px;
   height: auto; /* Allow the height to adjust based on content */
   max-height: 150px; /* Limit the maximum height as needed */
   background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   transition: left 0.3s ease-in-out; /* Use left for transition */
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
+  z-index: 2000;
 }
 
 
 
 .show-popup {
+  
   left: 100%; /* Display the pop-up by moving it to the visible position */
 }
 
@@ -95,10 +113,11 @@
   background: none;
   border: none;
   cursor: pointer;
-  position: relative;
+  position: absolute;
 }
 
 .popup-fields a {
+  position: relative;
   display: block; /* Display the links as block elements */
   padding: 10px; /* Add padding for spacing between links */
   text-decoration: none;
@@ -116,6 +135,7 @@
 
 /* Add padding to create space for the SVG */
 .sidebar-button span {
+  position: absolute;
   padding-left: 30px; /* Adjust this value as needed */
 }
 
