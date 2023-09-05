@@ -186,7 +186,7 @@ border-radius: 6px;
 .advertisement-details {
   position: fixed;
   top: 0px;
-  left: calc(31% + 16px);
+  left: calc(31.5% + 16px);
 border-style: solid black;
 padding-top:20px;
 font-size: 10px;

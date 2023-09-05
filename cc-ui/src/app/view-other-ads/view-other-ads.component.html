@@ -49,14 +49,21 @@
       >
         Sell
       </div>
-   
+      <div
+      class="search-lease-container"
+      *ngIf="ad_type == 'container'"
+      [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
+      (click)="toggleOption('type', 'Lease')"
+    >
+      Lease
+    </div>
       <div
         class="search-lease-container"
         *ngIf="ad_type == 'container'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
-        (click)="toggleOption('type', 'Lease')"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
+        (click)="toggleOption('type', 'Swap')"
       >
-        Lease
+      Swap
       </div>
       <div
       class="search-swap-space"
@@ -69,10 +76,10 @@
       <div
         class="search-swap-container"
         *ngIf="ad_type == 'container'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
-        (click)="toggleOption('type', 'Swap')"
+        [ngClass]="{ selected: selectedOptions['type'] === 'OneWay' }"
+        (click)="toggleOption('type', 'OneWay')"
       >
-        Swap
+      OneWay
       </div>
       &nbsp;
     </div>

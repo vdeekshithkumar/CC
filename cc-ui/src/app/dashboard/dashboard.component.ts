@@ -176,13 +176,13 @@ export class DashboardComponent implements OnInit {
   };
   
   PieChartData: ChartData<any, number[], string> = {
-    labels: ['BUY', 'SELL','LEASE', 'SWAP'],
+    labels: ['BUY', 'SELL','LEASE', 'SWAP','ONEWAY'],
     datasets: [
       {
-        label: 'Space',
+        label: 'Container',
         data: [],
-        backgroundColor: ['#AAD5F7', '#1D69A5', '#2997EC','#69B6F1'],
-        borderColor: ['#AAD5F7', '#1D69A5', '#2997EC','#69B6F1'],
+        backgroundColor: ['#AAD5F7', '#1D69A5', '#2997EC','#69B6F1','#69B6F1'],
+        borderColor: ['#AAD5F7', '#1D69A5', '#2997EC','#69B6F1','#69B6F1'],
         borderWidth: 1
       }
     ]

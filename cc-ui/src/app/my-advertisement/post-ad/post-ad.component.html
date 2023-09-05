@@ -170,12 +170,14 @@
                                 <div class="flex-grow px-2 lg:max-w-xs" *ngIf="type!='space'">
                                   <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                  
-                                      <div class="flex text-black-600 left-0 mt-1 border rounded-md" *ngIf="type == 'container'">
-                                        <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px; width: 230px;" *ngIf="type == 'container'">
+                                      <div class="flex text-black-600 mt-1 border rounded-md -ml-2" *ngIf="type == 'container'">
+                                        <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px;" *ngIf="type == 'container'">
                                           <mat-button-toggle class="style-font" value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
                                           <mat-button-toggle class="style-font" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
                                           <mat-button-toggle  class="style-font"value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
                                           <mat-button-toggle class="style-font" value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" >Swap</mat-button-toggle>
+                                          <mat-button-toggle class="style-font -ml-1" value="oneway" color="primary" [class.selected-toggle]="type_of_ad === 'oneway'">OneWay</mat-button-toggle>
+
                                         </mat-button-toggle-group>
                                       </div>
                                     

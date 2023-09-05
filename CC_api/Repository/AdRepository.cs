@@ -244,7 +244,9 @@ namespace CC_api.Repository
      .Where(a => a.type_of_ad == "swap" && a.ad_type == ad_type && a.status == "active").CountAsync();
       count.Add(swapAds);
 
-
+      var onewayAds = await dbContext.advertisement
+    .Where(a => a.type_of_ad == "oneway" && a.ad_type == ad_type && a.status == "active").CountAsync();
+      count.Add(onewayAds);
       return count;
     }
 
