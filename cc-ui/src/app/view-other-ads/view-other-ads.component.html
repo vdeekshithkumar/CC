@@ -33,7 +33,7 @@
     </div>
     
     <br/>
-    <div class="search-type-container " *ngIf="ad_type == 'container'">
+    <div class="search-type-container">
       <div
         class="search-buy-container"
        
@@ -49,47 +49,37 @@
       >
         Sell
       </div>
-   
+      <div
+      class="search-lease-container"
+      *ngIf="ad_type == 'container'"
+      [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
+      (click)="toggleOption('type', 'Lease')"
+    >
+      Lease
+    </div>
       <div
         class="search-lease-container"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
-        (click)="toggleOption('type', 'Lease')"
-      >
-        Lease
-      </div>
-    
-      <div
-        class="search-swap-container"
+        *ngIf="ad_type == 'container'"
         [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
         (click)="toggleOption('type', 'Swap')"
       >
-        Swap
+      Swap
       </div>
-      &nbsp;
+      <div
+      class="search-swap-space"
+      *ngIf="ad_type == 'space'"
+      [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
+      (click)="toggleOption('type', 'Lease')"
+    >
+      Lease
     </div>
-    <div class="search-type-container" *ngIf="ad_type == 'space'">
       <div
-        class="search-buy-space"
-       
-        [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }"
-        (click)="toggleOption('type', 'Buy')"
+        class="search-swap-container"
+        *ngIf="ad_type == 'container'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'OneWay' }"
+        (click)="toggleOption('type', 'OneWay')"
       >
-        Buy
-      </div>
-      <div
-        class="search-lease-space"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Sell' }"
-        (click)="toggleOption('type', 'Sell')"
-      >
-        Sell
-      </div>
-   
-      <div
-        class="search-swap-space"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
-        (click)="toggleOption('type', 'Lease')"
-      >
-        Lease
+      OneWay
       </div>
       &nbsp;
     </div>
@@ -167,7 +157,7 @@
          
         
               </div>
-      <div class="text-after-type-sidebar">
+      <div >
         <p class="port-text">Select type</p>
     
         <div class="port-input">
