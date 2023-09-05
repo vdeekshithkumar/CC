@@ -110,6 +110,7 @@ export class ForecastMapComponent implements OnInit {
   }
   
   createMarker(port: any, iconUrl: string): google.maps.Marker {
+    
     const mapMarker = new google.maps.Marker({
       position: { lat: port.latitude, lng: port.longitude },
       map: this.map,
@@ -120,6 +121,13 @@ export class ForecastMapComponent implements OnInit {
       },
       title: `${port.latitude}, ${port.longitude}`,
     });
+    
+    // Set the containertype property
+    mapMarker.set('containertype', port.containertype);
+    
+    // Log the containertype value
+    console.log(`Containertype set: ${port.containertype}`);
+    
   
     const infoWindow = new google.maps.InfoWindow();
     infoWindow.setPosition({ lat: port.latitude, lng: port.longitude });
@@ -150,17 +158,26 @@ export class ForecastMapComponent implements OnInit {
         let closestSurplusMarker: google.maps.Marker | null = null;
         let shortestDistance = Infinity;
   
+        const deficitContainerType = deficitMarker.get('containertype'); // Get the containertype of the deficit marker
+  
         for (const surplusMarker of surplusMarkers) {
           const surplusMarkerPosition = surplusMarker.getPosition();
           if (surplusMarkerPosition) {
             const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
-            if (distance < shortestDistance) {
+  
+            // Check if the containertype is the same for both markers
+            const surplusContainerType = surplusMarker.get('containertype'); // Get the containertype of the surplus marker
+            console.log(`Surplus ContainerType: ${surplusContainerType}`);
+            if (distance < shortestDistance && surplusContainerType === deficitContainerType) {
               closestSurplusMarker = surplusMarker;
               shortestDistance = distance;
             }
           }
         }
-  
+  // Inside the drawPolylines function
+console.log(`Deficit ContainerType: ${deficitContainerType}`);
+
+
         if (closestSurplusMarker) {
           const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
           if (closestSurplusMarkerPosition) {
@@ -191,11 +208,12 @@ export class ForecastMapComponent implements OnInit {
         }
       }
     }
+    
   }
   
   
   
-  
+ 
   viewSurplus(){
     this.markers = [];
       this.forecastService.getSurplus(this.companyId).subscribe(data => {
@@ -326,7 +344,7 @@ export class ForecastMapComponent implements OnInit {
         componentRef.instance.surplus = port.surplus;
         componentRef.instance.deficit = port.deficit;
         componentRef.instance.containertype=port.containertype;
-         componentRef.instance.containersize=port.containersize
+        componentRef.instance.containersize=port.containersize
         this.appRef.attachView(componentRef.hostView);
         infoWindow.setContent(componentRef.location.nativeElement);
 
