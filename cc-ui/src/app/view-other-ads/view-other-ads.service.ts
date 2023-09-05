@@ -34,12 +34,14 @@ export interface Advertisement {
   providedIn: 'root'
 })
 export class ViewOtherAdsService {
+
   private advUrl = 'GetAllAdvertisement';
   private  coUrl= 'GetOtherCompany';
   private  nUrl= 'GetAllNegotiation';
   private  startNUrl= 'StartNegotiation';
   private contUrl='GetAllContainers';
   constructor(private http:HttpClient,private apiService: ApiService) { }
+
 
   getallnegotiation(companyId: string): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.nUrl}?companyID=${companyId}`);
@@ -57,8 +59,10 @@ export class ViewOtherAdsService {
   }
 
   getAllContainers(): Observable<any> {
+
     const url = this.apiService.getFullUrl(`${this.contUrl}`);
     return this.http.get(url);
+
   }
 
   StartNegotiation(ad_id: number,company_id: number, user_id: number): Observable<any> {

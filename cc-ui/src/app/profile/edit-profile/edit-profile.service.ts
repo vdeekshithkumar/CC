@@ -10,6 +10,7 @@ import { ApiService } from 'src/app/api.service';
 })
 export class EditProfileService {
  
+
   private apiUrl='UpdateCompany';
   private countUrl='GetCompanyById';
   constructor(private http:HttpClient,private apiService: ApiService) { }
@@ -23,11 +24,14 @@ export class EditProfileService {
   GetAllCompany(): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllCompany`);
     return this.http.get(url);
+
   }
  
   getCompanyById(company_id:number):Observable<any>{
+
     const url = this.apiService.getFullUrl(`${this.countUrl}?companyId':company_id}`);
     return this.http.get(url);
+
   }
 
  updatecompany(id: number, editprofileForm: FormGroup<any>): Observable<any> {

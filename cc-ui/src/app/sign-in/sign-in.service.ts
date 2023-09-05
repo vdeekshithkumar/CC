@@ -9,8 +9,10 @@ import { ApiService } from '../api.service';
     providedIn: 'root'
   })
   export class SignInService {
+
     private apiUrl='Login';
     private otpApiUrl = 'SendOtp'; // Replace with your backend API endpoint
+
 
   constructor(private http:HttpClient,private apiService: ApiService) {
     

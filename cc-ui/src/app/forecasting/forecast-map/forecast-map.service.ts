@@ -10,12 +10,14 @@ import { ApiService } from 'src/app/api.service';
   })
   
   export class ForecastMapService{
+
     private apiUrl = 'GetInventoryForMap';
     private apiUrlSurplus = 'GetSurplus';
     private IdUrl='GetInventoryById';
     private CIdUrl='GetInventoryByIdCID';
     
   constructor(private http: HttpClient,private apiService: ApiService) {}
+
 
   getPortData(companyID:number): Observable<PortData[]> {
     const url = this.apiService.getFullUrl(`${this.apiUrl}/${companyID}`);
@@ -31,6 +33,7 @@ import { ApiService } from 'src/app/api.service';
   }
   
   getAllPorts(): Observable<any> {
+
     const url = this.apiService.getFullUrl(`GetAllPorts`);
     return this.http.get(url);
   }
@@ -38,6 +41,7 @@ import { ApiService } from 'src/app/api.service';
   getAllInventory(): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllInventory`);
     return this.http.get(url);  
+
   }
   getInventoryById(id: number): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);

@@ -1,16 +1,15 @@
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 builder.Services.AddDbContext<DbContext>(options =>
    options.UseNpgsql(builder.Configuration.GetConnectionString("PostgresConnection")));
 var Configuration = builder.Configuration;
+// Add services to the container.
 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddControllers();
+
 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
 builder.Services.AddEndpointsApiExplorer();
@@ -21,12 +20,13 @@ builder.Services.AddCors(options =>
   builder =>
   {
     builder.AllowAnyOrigin()
-             .AllowAnyHeader()
-             .AllowAnyMethod();
+   .AllowAnyHeader()
+   .AllowAnyMethod();
   });
 });
-
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -35,12 +35,16 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 
+
+
 app.UseAuthorization();
-
 app.UseCors();
-
 app.MapControllers();
+
+
 
 app.Run();

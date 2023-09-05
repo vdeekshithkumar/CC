@@ -21,6 +21,7 @@ export interface Port {
   })
   export class ForecastingTableService {
     
+
     private IdUrl='GetInventoryById';
     private CIdUrl='GetInventoryByIdCID';
     
@@ -28,6 +29,7 @@ export interface Port {
 
   }
     getAllPorts(): Observable<any> {
+
       const url = this.apiService.getFullUrl(`GetAllPorts`);
       return this.http.get(url);
     }
@@ -35,6 +37,7 @@ export interface Port {
     getAllInventory(): Observable<any> {
       const url = this.apiService.getFullUrl(`GetAllInventory`);
       return this.http.get(url);  
+
     }
     getInventoryById(id: number): Observable<any> {
       const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);
