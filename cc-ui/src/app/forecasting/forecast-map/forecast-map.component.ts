@@ -130,7 +130,8 @@ export class ForecastMapComponent implements OnInit {
     componentRef.instance.portId = port.portId;
     componentRef.instance.surplus = port.surplus;
     componentRef.instance.deficit = port.deficit;
-  
+    componentRef.instance.containertype=port.containertype;
+    componentRef.instance.containersize=port.containersize
     this.appRef.attachView(componentRef.hostView);
     infoWindow.setContent(componentRef.location.nativeElement);
   
@@ -232,7 +233,8 @@ export class ForecastMapComponent implements OnInit {
           componentRef.instance.portId = port.portId;
           componentRef.instance.surplus = port.surplus;
           componentRef.instance.deficit = port.deficit;
-  
+          componentRef.instance.containertype=port.containertype;
+          componentRef.instance.containersize=port.containersize
           this.appRef.attachView(componentRef.hostView);
           infoWindow.setContent(componentRef.location.nativeElement);
   
@@ -323,7 +325,8 @@ export class ForecastMapComponent implements OnInit {
         componentRef.instance.portId = port.portId;
         componentRef.instance.surplus = port.surplus;
         componentRef.instance.deficit = port.deficit;
-
+        componentRef.instance.containertype=port.containertype;
+         componentRef.instance.containersize=port.containersize
         this.appRef.attachView(componentRef.hostView);
         infoWindow.setContent(componentRef.location.nativeElement);
 
