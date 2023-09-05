@@ -124,11 +124,11 @@ export class ForecastMapComponent implements OnInit {
     
     // Set the containertype property
     mapMarker.set('containertype', port.containertype);
-    
+    mapMarker.set('containersize', port.containersize);
     // Log the containertype value
     console.log(`Containertype set: ${port.containertype}`);
+    console.log(`ContainerSize set: ${port.containersize}`);
     
-  
     const infoWindow = new google.maps.InfoWindow();
     infoWindow.setPosition({ lat: port.latitude, lng: port.longitude });
   
@@ -159,25 +159,28 @@ export class ForecastMapComponent implements OnInit {
         let shortestDistance = Infinity;
   
         const deficitContainerType = deficitMarker.get('containertype'); // Get the containertype of the deficit marker
-  
+        const deficitContainerSize = deficitMarker.get('containersize'); // Get the containersize of the deficit marker
+        console.log(`Deficit ContainerType: ${deficitContainerType}`);
+        console.log(`Deficit ContainerSize: ${deficitContainerSize}`);
         for (const surplusMarker of surplusMarkers) {
           const surplusMarkerPosition = surplusMarker.getPosition();
           if (surplusMarkerPosition) {
             const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
   
-            // Check if the containertype is the same for both markers
+            // Check if both containertype and containersize match for both markers
             const surplusContainerType = surplusMarker.get('containertype'); // Get the containertype of the surplus marker
+            const surplusContainerSize = surplusMarker.get('containersize'); // Get the containersize of the surplus marker
             console.log(`Surplus ContainerType: ${surplusContainerType}`);
-            if (distance < shortestDistance && surplusContainerType === deficitContainerType) {
+            console.log(`Surplus ContainerSize: ${surplusContainerSize}`);
+            if (distance < shortestDistance &&
+                surplusContainerType === deficitContainerType &&
+                surplusContainerSize === deficitContainerSize) {
               closestSurplusMarker = surplusMarker;
               shortestDistance = distance;
             }
           }
         }
-  // Inside the drawPolylines function
-console.log(`Deficit ContainerType: ${deficitContainerType}`);
-
-
+  
         if (closestSurplusMarker) {
           const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
           if (closestSurplusMarkerPosition) {
@@ -208,8 +211,8 @@ console.log(`Deficit ContainerType: ${deficitContainerType}`);
         }
       }
     }
-    
-  }
+  }   
+  
   
   
   
