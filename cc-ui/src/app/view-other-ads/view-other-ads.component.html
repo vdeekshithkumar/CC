@@ -93,7 +93,7 @@
           <div class="port-input">
             <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_ad" (change)="updateSearchPortOfAd()">
               <option *ngFor="let port of port_list" [value]="port.port_name">
-                {{ port.port_name }}
+                {{ capitalizeFirstLetter(port.port_name) }}  ({{port.port_code}})
               </option>
             </select>
           </div>
@@ -106,17 +106,16 @@
         <div class="port-input cursor-pointer">
           <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_departure">
             <option *ngFor="let port of port_list" [value]="port.port_name">
-              {{ port.port_name }}
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
             </option>
           </select>
         </div>
     
         <p class="port-text">Port of Arrival</p>
-    
-        <div class="port-input">
-          <select  [(ngModel)]="port_of_arrival">
+        <div class="port-input cursor-pointer">
+          <select class="page-input cursor-pointer" style="height: 30px; width: 275px; padding: 0px" [(ngModel)]="port_of_departure">
             <option *ngFor="let port of port_list" [value]="port.port_name">
-              {{ port.port_name }}
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
             </option>
           </select>
         </div>
@@ -261,7 +260,7 @@
     <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
     
     <ng-container
-      *ngFor="let ad of currentAds"
+      *ngFor="let ad of currentAds" 
       class="flex justify-center w-full items-center  border"
     >
       <div class="flex flex-col border-2 mt-4">
@@ -377,13 +376,13 @@
             />
             <div class="flex flex-col text-[0.6rem]">
               <div class="flex flex-row gap-2">
-                <div class="flex flex-col" *ngIf="ad_type === 'container'">
+                <div class="flex flex-col" *ngIf="ad_type === 'container'" >
                   <div>
                     <i class="material-icons mr-1 text-xs">place</i
                     >Port of Ad
                   </div>
                   <div class="gray-highlights" >
-                    {{ capitalizeFirstLetter(ad.port_of_ad) }}
+                    {{ capitalizeFirstLetter(ad.port_of_ad) }} 
 
                   </div>
                 </div>
