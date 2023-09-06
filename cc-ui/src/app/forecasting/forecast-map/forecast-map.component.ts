@@ -110,6 +110,7 @@ export class ForecastMapComponent implements OnInit {
   }
   
   createMarker(port: any, iconUrl: string): google.maps.Marker {
+    
     const mapMarker = new google.maps.Marker({
       position: { lat: port.latitude, lng: port.longitude },
       map: this.map,
@@ -120,7 +121,14 @@ export class ForecastMapComponent implements OnInit {
       },
       title: `${port.latitude}, ${port.longitude}`,
     });
-  
+    
+    // Set the containertype property
+    mapMarker.set('containertype', port.containertype);
+    mapMarker.set('containersize', port.containersize);
+    // Log the containertype value
+    console.log(`Containertype set: ${port.containertype}`);
+    console.log(`ContainerSize set: ${port.containersize}`);
+    
     const infoWindow = new google.maps.InfoWindow();
     infoWindow.setPosition({ lat: port.latitude, lng: port.longitude });
   
@@ -130,7 +138,8 @@ export class ForecastMapComponent implements OnInit {
     componentRef.instance.portId = port.portId;
     componentRef.instance.surplus = port.surplus;
     componentRef.instance.deficit = port.deficit;
-  
+    componentRef.instance.containertype=port.containertype;
+    componentRef.instance.containersize=port.containersize
     this.appRef.attachView(componentRef.hostView);
     infoWindow.setContent(componentRef.location.nativeElement);
   
@@ -149,11 +158,23 @@ export class ForecastMapComponent implements OnInit {
         let closestSurplusMarker: google.maps.Marker | null = null;
         let shortestDistance = Infinity;
   
+        const deficitContainerType = deficitMarker.get('containertype'); // Get the containertype of the deficit marker
+        const deficitContainerSize = deficitMarker.get('containersize'); // Get the containersize of the deficit marker
+        console.log(`Deficit ContainerType: ${deficitContainerType}`);
+        console.log(`Deficit ContainerSize: ${deficitContainerSize}`);
         for (const surplusMarker of surplusMarkers) {
           const surplusMarkerPosition = surplusMarker.getPosition();
           if (surplusMarkerPosition) {
             const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
-            if (distance < shortestDistance) {
+  
+            // Check if both containertype and containersize match for both markers
+            const surplusContainerType = surplusMarker.get('containertype'); // Get the containertype of the surplus marker
+            const surplusContainerSize = surplusMarker.get('containersize'); // Get the containersize of the surplus marker
+            console.log(`Surplus ContainerType: ${surplusContainerType}`);
+            console.log(`Surplus ContainerSize: ${surplusContainerSize}`);
+            if (distance < shortestDistance &&
+                surplusContainerType === deficitContainerType &&
+                surplusContainerSize === deficitContainerSize) {
               closestSurplusMarker = surplusMarker;
               shortestDistance = distance;
             }
@@ -190,11 +211,12 @@ export class ForecastMapComponent implements OnInit {
         }
       }
     }
-  }
+  }   
   
   
   
   
+ 
   viewSurplus(){
     this.markers = [];
       this.forecastService.getSurplus(this.companyId).subscribe(data => {
@@ -232,7 +254,8 @@ export class ForecastMapComponent implements OnInit {
           componentRef.instance.portId = port.portId;
           componentRef.instance.surplus = port.surplus;
           componentRef.instance.deficit = port.deficit;
-  
+          componentRef.instance.containertype=port.containertype;
+          componentRef.instance.containersize=port.containersize
           this.appRef.attachView(componentRef.hostView);
           infoWindow.setContent(componentRef.location.nativeElement);
   
@@ -323,7 +346,8 @@ export class ForecastMapComponent implements OnInit {
         componentRef.instance.portId = port.portId;
         componentRef.instance.surplus = port.surplus;
         componentRef.instance.deficit = port.deficit;
-
+        componentRef.instance.containertype=port.containertype;
+        componentRef.instance.containersize=port.containersize
         this.appRef.attachView(componentRef.hostView);
         infoWindow.setContent(componentRef.location.nativeElement);
 
