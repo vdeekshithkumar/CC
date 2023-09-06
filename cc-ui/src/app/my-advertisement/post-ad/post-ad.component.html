@@ -138,7 +138,7 @@
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
                                             <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
+                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
                                           </select>
                                       </div>
                                 </div>
@@ -148,7 +148,7 @@
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
                                             <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_name">{{port.port_name}}</option>
+                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
                                           </select>
                                       </div>
                                 </div>
@@ -253,7 +253,7 @@
     
                                 <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'">
 
-                                  <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Ad for Port<span class="text-red-500"> *</span></label>
+                                  <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Port of Ad<span class="text-red-500"> *</span></label>
 
                                   <div class="bg-white font-medium rounded-lg">
 
@@ -261,7 +261,7 @@
 
                                           <option selected>Select your port </option>
 
-                                          <option  *ngFor ="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+                                          <option  *ngFor ="let port of port_list" [value]="port.port_id"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
 
                                         </select>
 
