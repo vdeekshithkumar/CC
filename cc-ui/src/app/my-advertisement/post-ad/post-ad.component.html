@@ -138,7 +138,7 @@
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
                                             <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ (port.port_name) }}({{port.port_code}})</option>
+                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
                                           </select>
                                       </div>
                                 </div>
@@ -148,7 +148,7 @@
                                     <div class="bg-white font-medium rounded-lg">
                                         <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
                                             <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ (port.port_name) }}({{port.port_code}})</option>
+                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
                                           </select>
                                       </div>
                                 </div>
@@ -261,7 +261,7 @@
 
                                           <option selected>Select your port </option>
 
-                                          <option  *ngFor ="let port of port_list" [value]="port.port_id"> {{ (port.port_name) }}({{port.port_code}})</option>
+                                          <option  *ngFor ="let port of port_list" [value]="port.port_id"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
 
                                         </select>
 
