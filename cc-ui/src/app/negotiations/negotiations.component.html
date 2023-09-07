@@ -236,33 +236,69 @@
 
               <div class="flex flex-row gap-2">
 
-                <div class="flex flex-col">
+                <div class="flex flex-col"  *ngIf="ad_type==='container'">
 
                   <div>
 
-                    <i class="material-icons mr-1 text-xs">place</i> {{ ad_type === 'container' ? 'Port of Ad' :
-                    'Departure' }}
+                    <i class="material-icons mr-1 text-xs">place</i>Port of Ad
 
                   </div>
 
-                  <div class="gray-highlights" *ngIf="AdsType[n.ad_id] === 'space'">
+                  <div class="gray-highlights" >
 
-                    {{ AdsDeparturePort[n.ad_id] }}
-
-                  </div>
-                  <div class="gray-highlights" *ngIf="AdsType[n.ad_id] === 'container'">
-
-                    {{ AdsPortofAd[n.ad_id] }}
+                    {{AdsPortofAd[n.ad_id]}}
 
                   </div>
+                
 
                 </div>
+
+
+                <!-- <div class="flex flex-col" *ngIf="ad_type==='container'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i>Departures
+                  </div>
+                  <div class="gray-highlights">
+                    {{AdsPortofAd[n.ad_id]}}
+                    {{ad_type}}
+                  </div>
+                  <div class="gray-highlights">
+                  </div>
+                </div> -->
+
+
+
+
+                <!-- <div class="flex flex-col" *ngIf="ad_type==='space'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i>Departures
+                  </div>
+                  <div class="gray-highlights">
+                    {{AdsDeparturePort[n.ad_id]}}
+                  </div>
+                  <div class="gray-highlights">
+                  </div>
+              
+                  <div class="flex flex-col">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i>Arrival
+                  </div>
+                  <div>
+                    <div class="flex flex-row gap-1">
+                      <div class="gray-highlights">
+                        {{ AdsArrivalPort[n.ad_id] }}
+                        {{ad_type}}
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
 
                 <div class="flex flex-col" *ngIf="ad_type === 'space'">
 
                   <div>
 
-                    <i class="material-icons mr-1 text-xs">place</i>Arrival
+                    <i class="material-icons mr-1 text-xs">place</i>Departures
 
                   </div>
 
@@ -272,18 +308,34 @@
 
                       <div class="gray-highlights">
 
-                        {{ AdsArrivalPort[n.ad_id] }}
-
+                        {{AdsDeparturePort[n.ad_id]}}
                       </div>
 
                     </div>
+                    <div>
+
+                      <i class="material-icons mr-1 text-xs">place</i>Arrival
+  
+                    </div>
+  
+                    <div>
+  
+                      <div class="flex flex-row gap-1">
+  
+                        <div class="gray-highlights">
+  
+                          {{ AdsArrivalPort[n.ad_id] }}
+                        </div>
+  
+                      </div>
+  
 
                   </div>
 
                 </div>
 
               </div>
-
+              </div>
             </div>
 
           </div>
