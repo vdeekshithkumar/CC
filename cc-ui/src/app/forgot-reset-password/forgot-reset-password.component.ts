@@ -27,7 +27,8 @@ export class ForgotResetPasswordComponent implements OnInit{
 password1: any;
 password2: any;
 isFailureOldPassword: boolean = false;
-isNewPasswordsMatch = true;
+isNewPasswordsMatch: boolean = true;
+isEmailNotFound: boolean = false; 
 
 // Initialize a flag to track the input values
 isFormValid = false;
@@ -105,34 +106,41 @@ isFormValid = false;
   }
   
  
-  onEmailSend(){
-    debugger
+  onEmailSend() {
     this.resetService.confirmation(this.email).subscribe(
       (response: ConfirmationResponse) => {
         if (response.message === "User found") {
           const { user_id, company_id } = response.user;
-          if (user_id ===this.userId && company_id === this.companyId)
-          {
-            debugger
-            this.showEmailInput = false
+          if (user_id === this.userId && company_id === this.companyId) {
+            this.showEmailInput = false;
           }
-          // Do something with user_id and company_id
+          // Reset other error flags
+          this.isFailureOldPassword = false;
+          this.isNewPasswordsMatch = true;
+          this.isEmailNotFound = false;
         } else {
-          console.log("User not found");
+          // Set the email not found error flag
+          this.isEmailNotFound = true;
+          // Reset other error flags
+          this.isFailureOldPassword = false;
+          this.isNewPasswordsMatch = true;
         }
       },
-      error => {
-       console.log("error occured while fetching the email")
+      (error) => {
+        console.log("error occured while fetching the email");
       }
     );
-    
   }
+ 
   OnSubmit() {
     this.isFailureOldPassword = false; // Reset the old password error message
+    this.isNewPasswordsMatch = true; // Reset the "New Passwords Not Matched" error message
+  
     if (this.password1 !== this.password2) {
-      this.isNewPasswordsMatch = false;
+      this.isNewPasswordsMatch = false; // Set the flag if passwords do not match
       return;
     }
+  
     // Call the reset-password service to check and update the password
     this.resetService.resetPassword(this.userId, this.password).subscribe(
       (result: any) => {
@@ -153,28 +161,29 @@ isFormValid = false;
                 console.log("Error in the password changing process");
               }
             },
-            (error: any) => {
-              console.log("Network error");
+            (updateError: any) => {
+              console.log("Network error during password update");
             }
           );
         }
       },
-      (error: any) => {
-        if (error.status === 400 && error.error.message === "Password not matched") {
+      (resetError: any) => {
+        if (resetError.status === 400 && resetError.error.message === "Password not matched") {
           // Old password does not match, display error message
           this.isFailureOldPassword = true;
           console.log("Old password does not match");
-          
+  
           // Reset the form input fields
           this.password = '';
           this.password1 = '';
           this.password2 = '';
         } else {
-          console.log("Network error");
+          console.log("Network error during password reset");
         }
       }
     );
   }
+
   
   
   
