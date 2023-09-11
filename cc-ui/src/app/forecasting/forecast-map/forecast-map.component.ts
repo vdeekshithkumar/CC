@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, OnInit, ApplicationRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, ComponentFactoryResolver, ViewContainerRef, OnInit, ApplicationRef,AfterViewInit  } from '@angular/core';
 import { FormComponent } from './form/form.component';
 import { ForecastMapService } from './forecast-map.service';
 import { SessionService } from 'src/app/session.service';
@@ -10,16 +10,21 @@ import { ForecastingTableService } from '../forecasting-table-view/forecasting-t
   templateUrl: './forecast-map.component.html',
   styleUrls: ['./forecast-map.component.css']
 })
-export class ForecastMapComponent implements OnInit {
+export class ForecastMapComponent implements OnInit,AfterViewInit  {
   @ViewChild('mapElement') mapElement!: ElementRef;
+  @ViewChild('port', { static: false }) portElement!: ElementRef;
   noPorts = false
   map: any
-  port_name="";
+  port_name: string = ""; 
   port_list:any;
   companyId!: number
+  totalSurplusPercentage: number = 0;
+totalDeficitPercentage: number = 0;
+
   portData: any
   markers: google.maps.Marker[] = [];
   Einv: Inventory[] = [];
+  selectedPort: any;
   constructor(private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef, private appRef: ApplicationRef
     , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) {
@@ -68,46 +73,95 @@ export class ForecastMapComponent implements OnInit {
       this.viewDeficit()
     }
   }
-  ngAfterViewInit() {
-    this.markers = [];
-    const surplusMarkers: google.maps.Marker[] = [];
-    const deficitMarkers: google.maps.Marker[] = [];
-  
-    this.forecastService.getPortData(this.companyId).subscribe(data => {
-      this.portData = data;
-      if (this.portData && this.portData.length > 0) {
-        this.map = new google.maps.Map(this.mapElement.nativeElement, {
-          center: { lat: +this.portData[0].latitude, lng: +this.portData[0].longitude },
-          zoom: 3,
-          mapId: '2b03aff8b2fb72a3'
-        });
-      } else {
-        this.noPorts = true;
-      }
-  
-      for (const port of this.portData) {
-        if (port.surplus > 0 || port.deficit > 0) {
-          let iconUrl = "../assets/images/yellow-dot.png";
-          let markerColor = null;
-  
-          if (port.surplus > port.deficit) {
-            iconUrl = "../assets/images/green-dot.png";
-            markerColor = '#2F54EB'; // Green
-            surplusMarkers.push(this.createMarker(port, iconUrl));
-          } else if (port.deficit > port.surplus) {
-            iconUrl = "../assets/images/red-dot.png";
-            markerColor = '#FF0000'; // Red
-            deficitMarkers.push(this.createMarker(port, iconUrl));
-          }
-  
-          // ...
-        }
-      }
-  
-      // Draw polylines between surplus and nearest deficit markers
-      this.drawPolylines(surplusMarkers, deficitMarkers);
-    });
+   surplusMarkers: google.maps.Marker[] = [];
+ deficitMarkers: google.maps.Marker[] = [];
+ ngAfterViewInit() {
+  if (this.portElement) {
+    // Access the selected value
+    this.selectedPort = this.portElement.nativeElement.value;
+    console.log("inside after", this.selectedPort);
   }
+  this.markers = [];
+
+  // Create an object to store totals for each port code
+  const portCodeTotals: { [key: string]: { surplus: number, deficit: number } } = {};
+
+  this.forecastService.getPortData(this.companyId).subscribe(data => {
+    this.portData = data;
+    if (this.portData && this.portData.length > 0) {
+      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+        center: { lat: +this.portData[0].latitude, lng: +this.portData[0].longitude },
+        zoom: 3,
+        mapId: '2b03aff8b2fb72a3'
+      });
+    } else {
+      this.noPorts = true;
+    }
+
+    for (const port of this.portData) {
+      // Calculate the total surplus and deficit for each port code
+      if (!portCodeTotals[port.portCode]) {
+        portCodeTotals[port.portCode] = { surplus: 0, deficit: 0 };
+      }
+
+      portCodeTotals[port.portCode].surplus += port.surplus;
+      portCodeTotals[port.portCode].deficit += port.deficit;
+
+      let iconUrl = "../assets/images/yellow-dot.png";
+      let markerColor = null;
+
+      if (port.surplus > port.deficit) {
+        iconUrl = "../assets/images/green-dot.png";
+        markerColor = '#2F54EB'; // Green
+        this.surplusMarkers.push(this.createMarker(port, iconUrl));
+      } else if (port.deficit > port.surplus) {
+        iconUrl = "../assets/images/red-dot.png";
+        markerColor = '#FF0000'; // Red
+        this.deficitMarkers.push(this.createMarker(port, iconUrl));
+      }
+      // ...
+    }
+
+    // Iterate through the portData array again to calculate percentages
+    for (const port of this.portData) {
+      const total = portCodeTotals[port.portCode].surplus + portCodeTotals[port.portCode].deficit;
+      const surplusPercentage = (portCodeTotals[port.portCode].surplus / total) * 100;
+      const deficitPercentage = (portCodeTotals[port.portCode].deficit / total) * 100;
+
+      // Now, you can use surplusPercentage and deficitPercentage for each port.
+      console.log('Port Code:', port.portCode);
+      console.log('Surplus Percentage:', surplusPercentage);
+      console.log('Deficit Percentage:', deficitPercentage);
+    }
+
+    // Draw polylines between surplus and nearest deficit markers
+    // this.drawPolylines(this.surplusMarkers, this.deficitMarkers);
+  });
+}
+
+// Helper function to clear markers for a specific port
+clearMarkersForPort(port: any) {
+  this.surplusMarkers = this.surplusMarkers.filter(marker => {
+    const position = marker.getPosition();
+    if (position && position.lat() === port.latitude && position.lng() === port.longitude) {
+      marker.setMap(null);
+      return false; // Remove the marker from the surplusMarkers array
+    }
+    return true; // Keep other markers
+  });
+
+  this.deficitMarkers = this.deficitMarkers.filter(marker => {
+    const position = marker.getPosition();
+    if (position && position.lat() === port.latitude && position.lng() === port.longitude) {
+      marker.setMap(null);
+      return false; // Remove the marker from the deficitMarkers array
+    }
+    return true; // Keep other markers
+  });
+}
+
+  
+
   
   createMarker(port: any, iconUrl: string): google.maps.Marker {
     
@@ -151,69 +205,91 @@ export class ForecastMapComponent implements OnInit {
     return mapMarker;
   }
   
-  drawPolylines(surplusMarkers: google.maps.Marker[], deficitMarkers: google.maps.Marker[]) {
-    for (const deficitMarker of deficitMarkers) {
-      const deficitMarkerPosition = deficitMarker.getPosition();
-      if (deficitMarkerPosition) {
-        let closestSurplusMarker: google.maps.Marker | null = null;
-        let shortestDistance = Infinity;
+  // drawPolylines(surplusMarkers: google.maps.Marker[], deficitMarkers: google.maps.Marker[]) {
+  //   for (const deficitMarker of deficitMarkers) {
+  //     const deficitMarkerPosition = deficitMarker.getPosition();
+  //     if (deficitMarkerPosition) {
+  //       let closestSurplusMarker: google.maps.Marker | null = null;
+  //       let shortestDistance = Infinity;
   
-        const deficitContainerType = deficitMarker.get('containertype'); // Get the containertype of the deficit marker
-        const deficitContainerSize = deficitMarker.get('containersize'); // Get the containersize of the deficit marker
-        console.log(`Deficit ContainerType: ${deficitContainerType}`);
-        console.log(`Deficit ContainerSize: ${deficitContainerSize}`);
-        for (const surplusMarker of surplusMarkers) {
-          const surplusMarkerPosition = surplusMarker.getPosition();
-          if (surplusMarkerPosition) {
-            const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
+  //       const deficitContainerType = deficitMarker.get('containertype'); // Get the containertype of the deficit marker
+  //       const deficitContainerSize = deficitMarker.get('containersize'); // Get the containersize of the deficit marker
+  //       console.log(`Deficit ContainerType: ${deficitContainerType}`);
+  //       console.log(`Deficit ContainerSize: ${deficitContainerSize}`);
+  //       for (const surplusMarker of surplusMarkers) {
+  //         const surplusMarkerPosition = surplusMarker.getPosition();
+  //         if (surplusMarkerPosition) {
+  //           const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
   
-            // Check if both containertype and containersize match for both markers
-            const surplusContainerType = surplusMarker.get('containertype'); // Get the containertype of the surplus marker
-            const surplusContainerSize = surplusMarker.get('containersize'); // Get the containersize of the surplus marker
-            console.log(`Surplus ContainerType: ${surplusContainerType}`);
-            console.log(`Surplus ContainerSize: ${surplusContainerSize}`);
-            if (distance < shortestDistance &&
-                surplusContainerType === deficitContainerType &&
-                surplusContainerSize === deficitContainerSize) {
-              closestSurplusMarker = surplusMarker;
-              shortestDistance = distance;
-            }
-          }
-        }
+  //           // Check if both containertype and containersize match for both markers
+  //           const surplusContainerType = surplusMarker.get('containertype'); // Get the containertype of the surplus marker
+  //           const surplusContainerSize = surplusMarker.get('containersize'); // Get the containersize of the surplus marker
+  //           console.log(`Surplus ContainerType: ${surplusContainerType}`);
+  //           console.log(`Surplus ContainerSize: ${surplusContainerSize}`);
+  //           if (distance < shortestDistance &&
+  //               surplusContainerType === deficitContainerType &&
+  //               surplusContainerSize === deficitContainerSize) {
+  //             closestSurplusMarker = surplusMarker;
+  //             shortestDistance = distance;
+  //           }
+  //         }
+  //       }
   
-        if (closestSurplusMarker) {
-          const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
-          if (closestSurplusMarkerPosition) {
-            const lineCoordinates = [closestSurplusMarkerPosition, deficitMarkerPosition];
-            const arrowSymbol: google.maps.Symbol = {
-              path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-              scale: 3,
-              strokeWeight: 1,
-              fillColor: '#2F54EB',
-              fillOpacity: 1
-            };
+  //       if (closestSurplusMarker) {
+  //         const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
+  //         if (closestSurplusMarkerPosition) {
+  //           const lineCoordinates = [closestSurplusMarkerPosition, deficitMarkerPosition];
+  //           const arrowSymbol: google.maps.Symbol = {
+  //             path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+  //             scale: 3,
+  //             strokeWeight: 1,
+  //             fillColor: '#2F54EB',
+  //             fillOpacity: 1
+  //           };
   
-            const polylineOptions: google.maps.PolylineOptions = {
-              path: lineCoordinates,
-              geodesic: true,
-              strokeColor: '#2F54EB',
-              strokeOpacity: 1.0,
-              strokeWeight: 2,
-              icons: [{
-                icon: arrowSymbol,
-                offset: '100%'
-              }]
-            };
+  //           const polylineOptions: google.maps.PolylineOptions = {
+  //             path: lineCoordinates,
+  //             geodesic: true,
+  //             strokeColor: '#2F54EB',
+  //             strokeOpacity: 1.0,
+  //             strokeWeight: 2,
+  //             icons: [{
+  //               icon: arrowSymbol,
+  //               offset: '100%'
+  //             }]
+  //           };
   
-            const polyline = new google.maps.Polyline(polylineOptions);
-            polyline.setMap(this.map);
-          }
-        }
+  //           const polyline = new google.maps.Polyline(polylineOptions);
+  //           polyline.setMap(this.map);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }   
+  
+  
+  onPortSelected(selectedPortName: string) {
+    if (selectedPortName === '') {
+      // If "Select your port" is chosen, reset the map to its original state
+      this.map.setCenter({ lat: 0, lng: 0 }); // Set the center to your original coordinates
+      this.map.setZoom(3); // Set the original zoom level
+    } else {
+      // Find the selected port based on port_name in your port_list
+      const selectedPort = this.port_list.find((port: { port_name: string; }) => port.port_name === selectedPortName);
+  
+      if (selectedPort) {
+        // Get the latitude and longitude of the selected port
+        const latitude = +selectedPort.latitude;
+        const longitude = +selectedPort.longitude;
+  
+        // Set the map's center to the selected port's location
+        this.map.setCenter({ lat: latitude, lng: longitude });
+  
+        // You can also adjust the zoom level as needed
+        this.map.setZoom(10); // Set the desired zoom level
       }
     }
-  }   
-  
-  
+  }
   
   
  
