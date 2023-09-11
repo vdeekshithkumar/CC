@@ -160,9 +160,9 @@ const routes: Routes = [
     path:'view-contract',
     canActivate: [AuthGuard]
   },
-  {
-    component:TemplateComponent,
-    path:'negotiations',
+{
+    component: TemplateComponent,
+    path: 'negotiations/:ad_type',
     canActivate: [AuthGuard]
   },
 
