@@ -6,12 +6,13 @@
       <div class="flex flex-row">
         <div class="-mt-3">
           <label class="top mb-2 ml-8 font-normal">Port</label>
-          <div>
-            <select #port [(ngModel)]="port_name" formControlName="port_id" class="ml-8 top-selct1 div-bg">
-              <option selected>Select your port</option>
-              <option *ngFor="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
-            </select>
-          </div>
+       <div>
+  <select #port class="ml-8 top-selct1 div-bg" (change)="onPortSelected(port.value)">
+    <option selected></option>
+    <option *ngFor="let port of port_list" [value]="port.port_name">{{ port.port_name }}</option>
+  </select>
+</div>
+
         </div>
         <div class="-mt-3">
           <label class="top mb-2 ml-2 font-normal">Sub Region</label>
@@ -51,7 +52,7 @@
           </div>
         </div>
 
-        <div class=" flex-wrap -mt-3">
+        <!-- <div class=" flex-wrap -mt-3">
           <label class="top mb-0 ml-2 font-normal">Equipment Type</label>
           <div>
             <select class="top-selct2 ml-2 div-bg">
@@ -59,7 +60,7 @@
               <option>45 HC</option>
             </select>
           </div>
-        </div>
+        </div> -->
         <div class="-ml-5 -mt-10 w-[7em] h-[2em] div-box-bg flex-wrap justify-start">
           <div>
             <button
