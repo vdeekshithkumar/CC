@@ -194,8 +194,7 @@
         <div class="popup-fields ">        
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">Advertisement</a>
           <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">My-ad</a>
-          <a [routerLink]="['/negotiations']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">Negotiations</a>
-         
+          <a  [routerLink]="['/negotiations', 'container']" routerLinkActive="active-link">Negotiations</a>
         </div>
       </div>
     </div>
@@ -213,11 +212,9 @@
     <div class="popup1" *ngIf="showPopupp">
       <div class="popup-content">
         <div class="popup-fields">
-          <!-- Your 3 fields here -->
-          
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">Advertisement</a>
           <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">My-ad</a>
-          <a [routerLink]="['/negotiations']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">Negotiations</a>
+          <a  [routerLink]="['/negotiations', 'space']" routerLinkActive="active-link">Negotiations</a>
         </div>
       </div>
     </div>
