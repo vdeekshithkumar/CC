@@ -7,12 +7,15 @@ import { NegotiationsService } from './negotiations.service';
 import { MessagingService } from '../messaging/messaging.service';
 import { conversation } from '../DTO/conversation';
 import { Observable, map, catchError, of } from 'rxjs';
+import { SharedServiceService } from '../shared-service.service';
 
  
 
 export interface Negotiation {
+  [x: string]: any;
   negotiation_id: number;
   user_id: number;
+ 
   ad_id: number;
   price: number;
   negotiation_type: string;
@@ -75,7 +78,9 @@ selectedNegotiation: any;
   elementRef: any;
   AdscompanyId: any;
   NegcompanyId:any;
-  ad_type!: string;
+
+  ad_type: string='container';
+  negad_type!: string;
   conversationID!:number
   negotiation_id!:number;
  negCount:any;
@@ -88,23 +93,24 @@ selectedNegotiation: any;
     private formBuilder: FormBuilder,
     private router: Router,
     private negotiationservice: NegotiationsService,
-    private messageService: MessagingService
+    private messageService: MessagingService,
+   
   ) {}
 
  
 
   async ngOnInit(): Promise<void> {
-    debugger
+    
     await this.fetchAdvertisements();
     await this.fetchCompanyId();
     await this.fetchOtherCompanies();
     await this.fetchUserId();
     await this.fetchPermissions();
-    await this.fetchNegotiations();
-    this.route.queryParams.subscribe(params => {
-      this.ad_type = params['type'] || 'container'; // Default to 'container'
+    await this.fetchNegotiations('selectedAdType');
+    this.route.paramMap.subscribe((params) => {
+      const adType = params.get('ad_type') ?? 'container'; 
+      this.fetchNegotiations(adType);
     });
-
         this.sessionService.getCompanyId().subscribe({
           next: (companyId: number) => {
             this.companyId = companyId;
@@ -129,38 +135,36 @@ selectedNegotiation: any;
 
   async fetchAdvertisements(): Promise<void> {
     try {
-      this.ad_type="container"
-      const data: any = await this.negotiationservice.getAdvertisementbytype(this.ad_type,this.companyId).toPromise();
+      const data: any = await this.negotiationservice.getAdvertisementbytype(this.ad_type, this.companyId).toPromise();
       this.ads_list = data;
-      console.log("Other ads by company ID is fetched:", this.ads_list);
-
- 
-
-      // Populate the company names object
+      console.log("Ads by company ID and ad_type:", this.ads_list);
+      // Populate the company names object and other properties
       this.ads_list.forEach((ad: any) => {
         this.AdscompanyNames[ad.ad_id] = ad.company_id;
         this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
         this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
         this.AdsType[ad.ad_id] = ad.ad_type;
         this.AdsPortofAd[ad.ad_id] = ad.port_of_ad;
-        this.Negotiatorcompanynames[ad.company_id]=ad.company_id;
+        this.Negotiatorcompanynames[ad.company_id] = ad.company_id;
       });
     } catch (error) {
-      console.log("Error loading company details:", error);
+      console.log("Error loading advertisements:", error);
     }
   }
 
- 
+  updateAdType(selectedAdType: string) {
+    this.ad_type = selectedAdType;
+  }
 
   async fetchCompanyId(): Promise<void> {
     try {
-      debugger
+      
       this.companyId = await this.sessionService.getCompanyId().toPromise();
       this.companyName = this.companyName;
       console.log('Company ID is:', this.companyId);
     } catch (error) {
       console.error('Error retrieving company ID:', error);
-    }
+    } 
   }
 
  
@@ -210,22 +214,28 @@ selectedNegotiation: any;
   }
 
  
-
-  async fetchNegotiations(): Promise<void> {
+  async fetchNegotiations(selectedAdType: string): Promise<void> {
     try {
+      this.updateAdType(selectedAdType); // Call the updateAdType method here
+      
+      debugger;
       const data: Negotiation[] = await this.negotiationservice.getNegotiationsByCId(this.companyId).toPromise();
       this.negotiations = data;
-      console.log("thus is adds",this.ads_list)
+      console.log("This is ads_list", this.ads_list);
+      debugger;
+  
+      // Filter negotiations based on the selected ad_type
       this.filteredNlist = this.negotiations.filter((negotiation) => {
-        return this.ads_list.find((ad) => ad.ad_id === negotiation.ad_id);
+        const ad = this.ads_list.find((ad) => ad.ad_id === negotiation.ad_id && ad.ad_type === selectedAdType);
+        return !!ad; // Include the negotiation if a matching ad with the selected ad_type is found
       });
+  
       console.log("Filtered negotiations:", this.filteredNlist);
       console.log("All negotiations:", this.negotiations);
     } catch (error) {
       console.log(error);
     }
-
- 
+    
 
     this.negotiationservice.getallUser(this.companyId).subscribe(
       (data: any) => {
