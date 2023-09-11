@@ -15,7 +15,26 @@
             </div>           
         </div>
         <div>
-
+          <!-- <div style="display: inline-block;margin-right: 16px;">   
+            <label class="radio mt-[10px]" style="cursor: pointer;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              
+              </svg>            
+              Container
+              <input type="radio" style="cursor: pointer;" name="search-space" value="container" [(ngModel)]="ad_type" (change)="updateAdType('container')">
+            </label>
+          </div>
+          <div style="display: inline-block;">
+            <label class="radio" style="cursor: pointer;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              
+              </svg>            
+              Space
+              <input type="radio" style="cursor: pointer;" name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="updateAdType('space')">
+            </label>
+          </div> -->
+          
+          
           <button class="button-no-bg mx-4">Export Data</button>
 
           <button class="button-blue-bg mx-4">Create Bid</button>
@@ -236,106 +255,41 @@
 
               <div class="flex flex-row gap-2">
 
-                <div class="flex flex-col"  *ngIf="ad_type==='container'">
-
-                  <div>
-
-                    <i class="material-icons mr-1 text-xs">place</i>Port of Ad
-
-                  </div>
-
-                  <div class="gray-highlights" >
-
-                    {{AdsPortofAd[n.ad_id]}}
-
+                <div [ngSwitch]="ad_type">
+                  <div class="flex flex-col" *ngSwitchCase="'container'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Port of Ad
+                    </div>
+                    <div class="gray-highlights">
+                      {{AdsPortofAd[n.ad_id]}}
+                    </div>
                   </div>
                 
-
-                </div>
-
-
-                <!-- <div class="flex flex-col" *ngIf="ad_type==='container'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i>Departures
-                  </div>
-                  <div class="gray-highlights">
-                    {{AdsPortofAd[n.ad_id]}}
-                    {{ad_type}}
-                  </div>
-                  <div class="gray-highlights">
-                  </div>
-                </div> -->
-
-
-
-
-                <!-- <div class="flex flex-col" *ngIf="ad_type==='space'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i>Departures
-                  </div>
-                  <div class="gray-highlights">
-                    {{AdsDeparturePort[n.ad_id]}}
-                  </div>
-                  <div class="gray-highlights">
-                  </div>
-              
-                  <div class="flex flex-col">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i>Arrival
-                  </div>
-                  <div>
+                  <div class="flex flex-col" *ngSwitchCase="'space'">
                     <div class="flex flex-row gap-1">
-                      <div class="gray-highlights">
-                        {{ AdsArrivalPort[n.ad_id] }}
-                        {{ad_type}}
+                      <div>
+                        <i class="material-icons mr-1 text-xs">place</i>Departure
+                      </div>
+                      <div class="ml-2">
+                        <i class="material-icons mr-1 text-xs">place</i>Arrival
                       </div>
                     </div>
-                  </div>
-                </div> -->
-
-
-                <div class="flex flex-col" *ngIf="ad_type === 'space'">
-
-                  <div>
-
-                    <i class="material-icons mr-1 text-xs">place</i>Departures
-
-                  </div>
-
-                  <div>
-
                     <div class="flex flex-row gap-1">
-
-                      <div class="gray-highlights">
-
+                      <div class="gray-highlights ml-3">
                         {{AdsDeparturePort[n.ad_id]}}
                       </div>
-
-                    </div>
-                    <div>
-
-                      <i class="material-icons mr-1 text-xs">place</i>Arrival
-  
-                    </div>
-  
-                    <div>
-  
-                      <div class="flex flex-row gap-1">
-  
-                        <div class="gray-highlights">
-  
-                          {{ AdsArrivalPort[n.ad_id] }}
-                        </div>
-  
+                      <div class="gray-highlights ml-6">
+                        {{AdsArrivalPort[n.ad_id]}}
                       </div>
-  
-
+                    </div>
                   </div>
-
+                  
+                  
                 </div>
+                
 
               </div>
-              </div>
+              
             </div>
 
           </div>
