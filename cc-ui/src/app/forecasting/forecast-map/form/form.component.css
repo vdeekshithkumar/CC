@@ -2,3 +2,36 @@
 .disabled-button {
     cursor: not-allowed;
   }
+  /* Flex container for two sets of elements */
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; 
+
+}
+.custom-select {
+  margin-left: -20px;
+}
+.custom-select-deficit{
+  margin-left: -76px;
+}
+/* Individual flex items (each set of elements) */
+.flex-item {
+  flex: 1;
+}
+
+/* Vertical line separator */
+.vertical-line {
+  width: 5px;
+  background-color: #ccc; /* Adjust the color as needed */
+  margin: 0 10px; /* Adjust the margin as needed */
+  height: 100%; /* Stretch the line to match the height of the container */
+}
+/* Centered buttons */
+.centered-buttons {
+  text-align: center;
+}
+.header {
+  font-size: 25px;
+  font-weight: bold;
+}
