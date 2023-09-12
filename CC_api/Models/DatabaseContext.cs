@@ -26,7 +26,7 @@ namespace CC_api.Models
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
       //if (!optionsBuilder.IsConfigured)
-      optionsBuilder.UseNpgsql("User ID=postgres;Password=*Vishu2002;Host=localhost;Port=5432;Database=db-cc;Pooling=true;");
+    optionsBuilder.UseNpgsql("User ID=citus;Password=ivoyant@14;Host=ivoyant-datamapper.postgres.database.azure.com;Port=5432;Database=container-conundrum;Pooling=true;");
     }
   }
 
