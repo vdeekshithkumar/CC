@@ -15,9 +15,19 @@ export class FormComponent  implements OnInit{
   @Input() deficit!: number 
   @Input() surplusPercentage!: number; // New input
   @Input() deficitPercentage!: number; // New input
+  @Input() surplusContainerTypesByPort!: string[];
+@Input() surplusContainerSizesByPort!: number[];
+@Input() DeficitContainerTypesByPort!: string[];
+@Input() DeficitlusContainerSizesByPort!: number[];
+ 
+
   ngOnInit(): void {
     console.log("to form",this.surplusPercentage)
     console.log("to form",this.deficitPercentage)
+    console.log("to form",this.surplusContainerTypesByPort);
+    console.log("to form",this.surplusContainerSizesByPort);
+    console.log("to form",this.DeficitContainerTypesByPort);
+    console.log("to form",this.DeficitlusContainerSizesByPort);
   }
 }
 

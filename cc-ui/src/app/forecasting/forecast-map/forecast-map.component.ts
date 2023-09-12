@@ -97,7 +97,12 @@ totalDeficitPercentage: number = 0;
     } else {
       this.noPorts = true;
     }
+    const surplusContainerTypesByPort: { [key: string]: string[] } = {};
+    const surplusContainerSizesByPort: { [key: string]: number[] } = {};
+    const DeficitContainerTypesByPort: { [key: string]: string[] } = {};
+    const DeficitlusContainerSizesByPort: { [key: string]: number[] } = {};
 
+    
     for (const port of this.portData) {
       // Calculate the total surplus and deficit for each port code
       if (!portCodeTotals[port.portCode]) {
@@ -130,14 +135,47 @@ totalDeficitPercentage: number = 0;
       console.log(`Port: ${port.portCode}`);
       console.log(`Surplus Percentage: ${surplusPercentage}`);
       console.log(`Deficit Percentage: ${deficitPercentage}`);
-
+      
+    
+      // Store surplus container types for this port
+      if (port.surplus > 0) {
+        // Store surplus container types for this port
+        if (!surplusContainerTypesByPort[port.portCode]) {
+          surplusContainerTypesByPort[port.portCode] = [];
+        }
+        surplusContainerTypesByPort[port.portCode].push(port.containertype);
+    
+        // Store surplus container sizes for this port
+        if (!surplusContainerSizesByPort[port.portCode]) {
+          surplusContainerSizesByPort[port.portCode] = [];
+        }
+        surplusContainerSizesByPort[port.portCode].push(port.containersize);
+      }
+      if (port.deficit > 0) {
+        // Store surplus container types for this port
+        if (!DeficitContainerTypesByPort[port.portCode]) {
+          DeficitContainerTypesByPort[port.portCode] = [];
+        }
+        DeficitContainerTypesByPort[port.portCode].push(port.containertype);
+    
+        // Store surplus container sizes for this port
+        if (!DeficitlusContainerSizesByPort[port.portCode]) {
+          DeficitlusContainerSizesByPort[port.portCode] = [];
+        }
+        DeficitlusContainerSizesByPort[port.portCode].push(port.containersize);
+      }
+    
       // Create the marker with the specified icon
-      const marker = this.createMarker(port, iconUrl, surplusPercentage, deficitPercentage);
+      const marker = this.createMarker(port, iconUrl, surplusPercentage, deficitPercentage ,surplusContainerTypesByPort[port.portCode],
+        surplusContainerSizesByPort[port.portCode],DeficitContainerTypesByPort[port.portCode],  DeficitlusContainerSizesByPort[port.portCode]);
 
-      // ...
+      
     }
-    // Draw polylines between surplus and nearest deficit markers
-    // this.drawPolylines(this.surplusMarkers, this.deficitMarkers);
+    console.log("Surplus Container Types Across All Ports:", surplusContainerTypesByPort);
+    console.log("Surplus Container Sizes Across All Ports:", surplusContainerSizesByPort);
+    console.log("Deficit Container Types Across All Ports:", DeficitContainerTypesByPort);
+    console.log("Deficit Container Sizes Across All Ports:", DeficitlusContainerSizesByPort);
+  
   });
 }
 
@@ -167,7 +205,9 @@ clearMarkersForPort(port: any) {
   
 
   
-createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPercentage: number): google.maps.Marker {
+createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPercentage: number,  surplusContainerTypesByPort: string[],
+  surplusContainerSizesByPort: number[],DeficitContainerTypesByPort: string[],
+  DeficitlusContainerSizesByPort: number[]): google.maps.Marker {
   const mapMarker = new google.maps.Marker({
     position: { lat: port.latitude, lng: port.longitude },
     map: this.map,
@@ -195,6 +235,10 @@ createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPerce
   componentRef.instance.surplusPercentage = surplusPercentage; // Pass surplusPercentage here
   componentRef.instance.deficitPercentage = deficitPercentage; // Pass deficitPercentage here
   console.log("in forecast", surplusPercentage, deficitPercentage);
+  componentRef.instance.surplusContainerTypesByPort = surplusContainerTypesByPort;
+  componentRef.instance.surplusContainerSizesByPort = surplusContainerSizesByPort;
+  componentRef.instance.DeficitContainerTypesByPort = DeficitContainerTypesByPort;
+  componentRef.instance.DeficitlusContainerSizesByPort = DeficitlusContainerSizesByPort;
   componentRef.instance.containertype = port.containertype;
   componentRef.instance.containersize = port.containersize;
   this.appRef.attachView(componentRef.hostView);
