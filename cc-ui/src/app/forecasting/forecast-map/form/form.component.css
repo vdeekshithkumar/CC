@@ -6,9 +6,15 @@
 .flex-container {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; /* Align items at the top */
-}
+  align-items: flex-start; 
 
+}
+.custom-select {
+  margin-left: -20px;
+}
+.custom-select-deficit{
+  margin-left: -76px;
+}
 /* Individual flex items (each set of elements) */
 .flex-item {
   flex: 1;
@@ -24,4 +30,8 @@
 /* Centered buttons */
 .centered-buttons {
   text-align: center;
+}
+.header {
+  font-size: 25px;
+  font-weight: bold;
 }
