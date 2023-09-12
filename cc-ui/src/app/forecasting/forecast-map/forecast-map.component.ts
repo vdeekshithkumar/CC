@@ -106,38 +106,36 @@ totalDeficitPercentage: number = 0;
 
       portCodeTotals[port.portCode].surplus += port.surplus;
       portCodeTotals[port.portCode].deficit += port.deficit;
-
-      let iconUrl = "../assets/images/yellow-dot.png";
-      let markerColor = null;
-
-      if (port.surplus > port.deficit) {
-        iconUrl = "../assets/images/green-dot.png";
-        markerColor = '#2F54EB'; // Green
-        this.surplusMarkers.push(this.createMarker(port, iconUrl));
-      } else if (port.deficit > port.surplus) {
-        iconUrl = "../assets/images/red-dot.png";
-        markerColor = '#FF0000'; // Red
-        this.deficitMarkers.push(this.createMarker(port, iconUrl));
-      }
-      // ...
     }
 
-    // Iterate through the portData array again to calculate percentages
+    // Iterate through the portData array again to calculate percentages and create markers
     for (const port of this.portData) {
       const total = portCodeTotals[port.portCode].surplus + portCodeTotals[port.portCode].deficit;
       const surplusPercentage = (portCodeTotals[port.portCode].surplus / total) * 100;
       const deficitPercentage = (portCodeTotals[port.portCode].deficit / total) * 100;
 
-      // Now, you can use surplusPercentage and deficitPercentage for each port.
-      console.log('Port Code:', port.portCode);
-      console.log('Surplus Percentage:', surplusPercentage);
-      console.log('Deficit Percentage:', deficitPercentage);
-    }
+      // Determine the icon URL based on percentages
+      let iconUrl: string;
 
+      if (surplusPercentage > deficitPercentage) {
+        iconUrl = "../assets/images/green-dot.png";
+      } else if (deficitPercentage > surplusPercentage) {
+        iconUrl = "../assets/images/red-dot.png";
+      } else {
+        // If surplus and deficit percentages are equal, you can set a default icon here.
+        iconUrl = "../assets/images/default-dot.png";
+      }
+
+      // Create the marker with the specified icon
+      const marker = this.createMarker(port, iconUrl);
+
+      // ...
+    }
     // Draw polylines between surplus and nearest deficit markers
     // this.drawPolylines(this.surplusMarkers, this.deficitMarkers);
   });
 }
+
 
 // Helper function to clear markers for a specific port
 clearMarkersForPort(port: any) {
