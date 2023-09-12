@@ -122,8 +122,8 @@ totalDeficitPercentage: number = 0;
       } else if (deficitPercentage > surplusPercentage) {
         iconUrl = "../assets/images/red-dot.png";
       } else {
-        // If surplus and deficit percentages are equal, you can set a default icon here.
-        iconUrl = "../assets/images/default-dot.png";
+        // If both percentages are equal, display a yellow dot
+        iconUrl = "../assets/images/yellow-dot.png";
       }
 
       // Create the marker with the specified icon
