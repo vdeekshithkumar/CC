@@ -126,8 +126,13 @@ totalDeficitPercentage: number = 0;
         iconUrl = "../assets/images/yellow-dot.png";
       }
 
+      // Log the surplusPercentage and deficitPercentage
+      console.log(`Port: ${port.portCode}`);
+      console.log(`Surplus Percentage: ${surplusPercentage}`);
+      console.log(`Deficit Percentage: ${deficitPercentage}`);
+
       // Create the marker with the specified icon
-      const marker = this.createMarker(port, iconUrl);
+      const marker = this.createMarker(port, iconUrl, surplusPercentage, deficitPercentage);
 
       // ...
     }
@@ -135,6 +140,7 @@ totalDeficitPercentage: number = 0;
     // this.drawPolylines(this.surplusMarkers, this.deficitMarkers);
   });
 }
+
 
 
 // Helper function to clear markers for a specific port
@@ -161,111 +167,49 @@ clearMarkersForPort(port: any) {
   
 
   
-  createMarker(port: any, iconUrl: string): google.maps.Marker {
-    
-    const mapMarker = new google.maps.Marker({
-      position: { lat: port.latitude, lng: port.longitude },
-      map: this.map,
-      icon: {
-        url: iconUrl,
-        scaledSize: new google.maps.Size(10, 10),
-        anchor: new google.maps.Point(10 / 2, 10 / 2)
-      },
-      title: `${port.latitude}, ${port.longitude}`,
-    });
-    
-    // Set the containertype property
-    mapMarker.set('containertype', port.containertype);
-    mapMarker.set('containersize', port.containersize);
-    // Log the containertype value
-    console.log(`Containertype set: ${port.containertype}`);
-    console.log(`ContainerSize set: ${port.containersize}`);
-    
-    const infoWindow = new google.maps.InfoWindow();
-    infoWindow.setPosition({ lat: port.latitude, lng: port.longitude });
+createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPercentage: number): google.maps.Marker {
+  const mapMarker = new google.maps.Marker({
+    position: { lat: port.latitude, lng: port.longitude },
+    map: this.map,
+    icon: {
+      url: iconUrl,
+      scaledSize: new google.maps.Size(10, 10),
+      anchor: new google.maps.Point(10 / 2, 10 / 2)
+    },
+    title: `${port.latitude}, ${port.longitude}`,
+  });
+
+  // Set the containertype property
+  mapMarker.set('containertype', port.containertype);
+  mapMarker.set('containersize', port.containersize);
+
+  const infoWindow = new google.maps.InfoWindow();
+  infoWindow.setPosition({ lat: port.latitude, lng: port.longitude });
+
+  const factory = this.resolver.resolveComponentFactory(FormComponent);
+  const componentRef = factory.create(this.viewContainerRef.injector);
+  componentRef.instance.portCode = port.portCode;
+  componentRef.instance.portId = port.portId;
+  componentRef.instance.surplus = port.surplus;
+  componentRef.instance.deficit = port.deficit;
+  componentRef.instance.surplusPercentage = surplusPercentage; // Pass surplusPercentage here
+  componentRef.instance.deficitPercentage = deficitPercentage; // Pass deficitPercentage here
+  console.log("in forecast", surplusPercentage, deficitPercentage);
+  componentRef.instance.containertype = port.containertype;
+  componentRef.instance.containersize = port.containersize;
+  this.appRef.attachView(componentRef.hostView);
+  infoWindow.setContent(componentRef.location.nativeElement);
+
+  mapMarker.addListener('click', () => {
+    infoWindow.open(this.map, mapMarker);
+  });
+
+  this.markers.push(mapMarker);
+  return mapMarker;
+}
+
   
-    const factory = this.resolver.resolveComponentFactory(FormComponent);
-    const componentRef = factory.create(this.viewContainerRef.injector);
-    componentRef.instance.portCode = port.portCode;
-    componentRef.instance.portId = port.portId;
-    componentRef.instance.surplus = port.surplus;
-    componentRef.instance.deficit = port.deficit;
-    componentRef.instance.containertype=port.containertype;
-    componentRef.instance.containersize=port.containersize
-    this.appRef.attachView(componentRef.hostView);
-    infoWindow.setContent(componentRef.location.nativeElement);
-  
-    mapMarker.addListener('click', () => {
-      infoWindow.open(this.map, mapMarker);
-    });
-  
-    this.markers.push(mapMarker);
-    return mapMarker;
-  }
-  
-  // drawPolylines(surplusMarkers: google.maps.Marker[], deficitMarkers: google.maps.Marker[]) {
-  //   for (const deficitMarker of deficitMarkers) {
-  //     const deficitMarkerPosition = deficitMarker.getPosition();
-  //     if (deficitMarkerPosition) {
-  //       let closestSurplusMarker: google.maps.Marker | null = null;
-  //       let shortestDistance = Infinity;
-  
-  //       const deficitContainerType = deficitMarker.get('containertype'); // Get the containertype of the deficit marker
-  //       const deficitContainerSize = deficitMarker.get('containersize'); // Get the containersize of the deficit marker
-  //       console.log(`Deficit ContainerType: ${deficitContainerType}`);
-  //       console.log(`Deficit ContainerSize: ${deficitContainerSize}`);
-  //       for (const surplusMarker of surplusMarkers) {
-  //         const surplusMarkerPosition = surplusMarker.getPosition();
-  //         if (surplusMarkerPosition) {
-  //           const distance = google.maps.geometry.spherical.computeDistanceBetween(surplusMarkerPosition, deficitMarkerPosition);
-  
-  //           // Check if both containertype and containersize match for both markers
-  //           const surplusContainerType = surplusMarker.get('containertype'); // Get the containertype of the surplus marker
-  //           const surplusContainerSize = surplusMarker.get('containersize'); // Get the containersize of the surplus marker
-  //           console.log(`Surplus ContainerType: ${surplusContainerType}`);
-  //           console.log(`Surplus ContainerSize: ${surplusContainerSize}`);
-  //           if (distance < shortestDistance &&
-  //               surplusContainerType === deficitContainerType &&
-  //               surplusContainerSize === deficitContainerSize) {
-  //             closestSurplusMarker = surplusMarker;
-  //             shortestDistance = distance;
-  //           }
-  //         }
-  //       }
-  
-  //       if (closestSurplusMarker) {
-  //         const closestSurplusMarkerPosition = closestSurplusMarker.getPosition();
-  //         if (closestSurplusMarkerPosition) {
-  //           const lineCoordinates = [closestSurplusMarkerPosition, deficitMarkerPosition];
-  //           const arrowSymbol: google.maps.Symbol = {
-  //             path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-  //             scale: 3,
-  //             strokeWeight: 1,
-  //             fillColor: '#2F54EB',
-  //             fillOpacity: 1
-  //           };
-  
-  //           const polylineOptions: google.maps.PolylineOptions = {
-  //             path: lineCoordinates,
-  //             geodesic: true,
-  //             strokeColor: '#2F54EB',
-  //             strokeOpacity: 1.0,
-  //             strokeWeight: 2,
-  //             icons: [{
-  //               icon: arrowSymbol,
-  //               offset: '100%'
-  //             }]
-  //           };
-  
-  //           const polyline = new google.maps.Polyline(polylineOptions);
-  //           polyline.setMap(this.map);
-  //         }
-  //       }
-  //     }
-  //   }
-  // }   
-  
-  
+ 
   onPortSelected(selectedPortName: string) {
     if (selectedPortName === '') {
       // If "Select your port" is chosen, reset the map to its original state
@@ -292,6 +236,7 @@ clearMarkersForPort(port: any) {
   
  
   viewSurplus(){
+    debugger
     this.markers = [];
       this.forecastService.getSurplus(this.companyId).subscribe(data => {
   
@@ -305,7 +250,7 @@ clearMarkersForPort(port: any) {
         } else {
           this.noPorts = true;
         }
-  
+     
         for (const port of this.portData) {
           if (port.surplus> port.deficit){
           let iconUrl = "../assets/images/green-dot.png";
@@ -321,13 +266,14 @@ clearMarkersForPort(port: any) {
           });
           const infoWindow = new google.maps.InfoWindow();
           infoWindow.setPosition({ lat: port.latitude, lng: port.longitude })
-  
+ 
           const factory = this.resolver.resolveComponentFactory(FormComponent);
           const componentRef = factory.create(this.viewContainerRef.injector);
           componentRef.instance.portCode = port.portCode;
           componentRef.instance.portId = port.portId;
           componentRef.instance.surplus = port.surplus;
           componentRef.instance.deficit = port.deficit;
+          
           componentRef.instance.containertype=port.containertype;
           componentRef.instance.containersize=port.containersize
           this.appRef.attachView(componentRef.hostView);
@@ -433,21 +379,7 @@ clearMarkersForPort(port: any) {
       }
     })
 }
-// nextMarker() {
-//   const currentCenter = this.map.getCenter();
-//   const currentIndex = this.markers.findIndex(marker => marker.getPosition()?.equals(currentCenter));
-//   const nextIndex = (currentIndex + 1) % this.markers.length;
-//   const nextMarker = this.markers[nextIndex];
-//   this.map.panTo(nextMarker.getPosition());
-// }
 
-// previousMarker() {
-//   const currentCenter = this.map.getCenter();
-//   const currentIndex = this.markers.findIndex(marker => marker.getPosition()?.equals(currentCenter));
-//   const previousIndex = (currentIndex - 1 + this.markers.length) % this.markers.length;
-//   const previousMarker = this.markers[previousIndex];
-//   this.map.panTo(previousMarker.getPosition());
-// }
 
 
 }
