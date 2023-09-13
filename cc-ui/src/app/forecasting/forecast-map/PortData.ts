@@ -7,6 +7,5 @@ export interface PortData {
   longitude: number;
   containertype:string;
   containersize:number;
-  surplusPercentage:number;
-  deficitPercentage :number;
+
 }
