@@ -64,7 +64,7 @@
   position: absolute;
   top: 30%;
   left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-  width: 120px;
+  width: 130px;
   height: auto; /* Allow the height to adjust based on content */
   max-height: 150px; /* Limit the maximum height as needed */
   background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
@@ -73,7 +73,11 @@
   overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
   z-index: 2000;
 }
+.svg-ad{
+  display: flex; 
+  align-items: center;
 
+}
 .popup-content{
   background-color: #ffffff;
 }
@@ -93,7 +97,7 @@
   position: absolute;
   top: 40%;
   left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-  width: 120px;
+  width: 130px;
   height: auto; /* Allow the height to adjust based on content */
   max-height: 150px; /* Limit the maximum height as needed */
   background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
@@ -125,10 +129,15 @@
   padding: 10px; /* Add padding for spacing between links */
   text-decoration: none;
   color: #333;
-  font-weight: bold;
+  font-weight: 550;
 }
 /* Adjust the positioning of the SVG */
-
+/* .popup-fields:hover  a{
+  color: #007bff;
+}
+.popup-fields:hover  .h-a{
+  color: #222323;
+} */
 .svg-icon {
   position: absolute;
   top: 0;
@@ -142,6 +151,74 @@
   padding-left: 30px; /* Adjust this value as needed */
 }
 
+/* Initially hide the dropdown menu */
+.dropdown-menu {
+  display: none;
+}
+
+/* Style the dropdown icon */
+.dropdown-icon {
+  float: right;
+  margin-left: 5px;
+}
+
+/* Show the dropdown menu when the button is clicked */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Add styles for the dropdown button */
+/* Style the button */
+.dropdown-toggle {
+  background-color: #fff;
+  color: #333;
+  padding: 8px 10px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out; /* Add a transition effect for smooth hover */
+}
+
+/* Style the button text when hovered */
+.dropdown-toggle:hover .svg-ad {
+  color: #007bff; /* Change text color on hover (adjust the color as needed) */
+}
+
+/* Style the dropdown icon */
+.svg-ad {
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  color: #333; /* Initial text color */
+}
+
+/* Style the SVG icon */
+.svg-ad svg {
+  margin-left: 5px;
+}
+
+/* Rest of your styles... */
+
+
+/* Add styles for the dropdown menu items */
+.dropdown-menu a {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+}
+.popup-fields a:hover{
+  background-color: #f0f0f0;
+}
+/* Hover effect for menu items */
+.dropdown-menu a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Active link style (if needed) */
+.active-link {
+  font-weight: bold;
+}
 
 /* Adjust the padding to create space for the SVG */
 
