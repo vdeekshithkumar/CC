@@ -7,8 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent {
-  showPopup = false;
-  showPopupp = false;
+  showPopup : boolean =  false;
+  isDropdownOpen: boolean = false;
+  showPopupp: boolean  = false;
+  popupMaxHeight: number = 150;
   constructor(public dialog: MatDialog){}
   changeImageColor(event: MouseEvent) {
     const svg = (event.currentTarget as HTMLElement).querySelector('svg');
@@ -29,5 +31,16 @@ export class SidebarComponent {
   togglePopupp() {
     this.showPopupp = !this.showPopupp;
   }
- 
+  toggleDropdown(event: Event) {
+    event.stopPropagation();
+    this.isDropdownOpen = !this.isDropdownOpen;
+
+    // Adjust max-height when the dropdown is open
+    if (this.isDropdownOpen) {
+      this.popupMaxHeight = 300; // Change this value as needed
+    } else {
+      this.popupMaxHeight = 150; // Reset max-height when the dropdown is closed
+    }
+  }
 }
+  
