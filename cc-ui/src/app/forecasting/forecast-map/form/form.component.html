@@ -72,10 +72,10 @@
 <div></div>
 <div class="flex flex-row justify-end">
   <!-- Check if deficitCount has a value, if so, display it, otherwise, display deficitPercentage -->
-  <ng-container *ngIf="deficitCount !== null; else displayPercentage">
+  <ng-container *ngIf="deficitCount !== null; else displaydeficiPercentage">
     {{ deficitCount | number:'1.0-0' }}
   </ng-container>
-  <ng-template #displayPercentage>
+  <ng-template #displaydeficiPercentage>
     {{ deficitPercentage | number:'1.0-0' }} %
   </ng-template>
   <svg class="mt-1" width="10" height="10">
