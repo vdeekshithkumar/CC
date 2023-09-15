@@ -255,7 +255,8 @@ createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPerce
   
  
   onPortSelected(selectedPortName: string) {
-    if (selectedPortName === '') {
+    if (selectedPortName === 'Select Port') {
+      window.location.reload();
       // If "Select your port" is chosen, reset the map to its original state
       this.map.setCenter({ lat: 0, lng: 0 }); // Set the center to your original coordinates
       this.map.setZoom(3); // Set the original zoom level
