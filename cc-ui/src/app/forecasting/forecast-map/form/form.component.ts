@@ -86,6 +86,7 @@ export class FormComponent implements OnInit {
     this.updateDeficitCount(this.portcode,this.deifcitcontainerType,this.deficitcontainerSize);
   }
   onDropdownChange() {
+    
   if (this.surpluscontainerType && this.surpluscontainerSize) {
     this.updateSurplusCount(this.portCode, this.surpluscontainerType, this.surpluscontainerSize);
   }

@@ -35,7 +35,7 @@
             <div class="col-span-2 text-xs">Container Type</div>
             <div class="text-right">
               <select class="custom-select" [(ngModel)]="surpluscontainerType" (change)="onDropdownChange()">
-                <option selected disabled>Select the Type</option> <!-- Added [ngValue] to set value to null -->
+                <option selected >Select the Type</option> <!-- Added [ngValue] to set value to null -->
                 <option *ngFor="let surpluscontainerType of surplusContainerTypesByPort" [value]="surpluscontainerType">{{ surpluscontainerType }}</option>
               </select>
             </div>
@@ -44,7 +44,7 @@
             <div class="text-right">
                 
                 <select [(ngModel)]="surpluscontainerSize" (change)="onDropdownChange()">
-                    <option selected disabled>Select the Size</option>
+                    <option selected >Select the Size</option>
                     <option *ngFor="let surpluscontainerSize of surplusContainerSizesByPort" [value]="surpluscontainerSize">{{ surpluscontainerSize }}</option>
                   </select>
             </div>
@@ -92,7 +92,7 @@
             <div class="col-span-2 text-xs">Container Type</div>
             <div class="text-right">
                 <select class="custom-select-deficit"[(ngModel)]="deifcitcontainerType" (change)="ondeficitDropdownChange()">
-                    <option selected disabled>Select the Type</option>
+                    <option selected >Select the Type</option>
                     <option *ngFor="let deifcitcontainerType of DeficitContainerTypesByPort" [value]="deifcitcontainerType">{{
                         deifcitcontainerType }}</option>
                 </select>
@@ -104,7 +104,7 @@
             <div class="col-span-2 text-xs">Container Size</div>
             <div class="text-right">
                 <select [(ngModel)]="deficitcontainerSize" (change)="ondeficitDropdownChange()">
-                    <option selected disabled>Select the Size</option>
+                    <option selected >Select the Size</option>
                     <option *ngFor="let deficitcontainerSize of DeficitlusContainerSizesByPort" [value]="deficitcontainerSize">{{
                         deficitcontainerSize }}</option>
                 </select>
