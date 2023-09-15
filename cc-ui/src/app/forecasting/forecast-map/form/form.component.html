@@ -127,7 +127,7 @@
             routerLink="/view-other-ads">Search ads</button>&nbsp;
         <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
             routerLink="/my-ad">Post ad</button>&nbsp;
-        <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
-            routerLink="/my-ad">Optimized View</button>
+            <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
+            routerLink="/my-ad"  [ngClass]="{'disabled-button': !isOptimizedViewEnabled()}">Optimized View</button>
     </div>
 </div>

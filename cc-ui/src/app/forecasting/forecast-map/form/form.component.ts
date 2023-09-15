@@ -10,6 +10,8 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 })
 export class FormComponent implements OnInit {
   
+
+  
   inventory_list_by_companyId: Inventory[] = [];
   companyId: any;
   surpluscontainerSize: number | null = null;
@@ -94,6 +96,15 @@ ondeficitDropdownChange() {
     this.updateDeficitCount(this.portCode, this.deifcitcontainerType, this.deficitcontainerSize);
   }
 }
+isOptimizedViewEnabled(): boolean {
+ 
+  return (
+    (this.surpluscontainerType && this.surpluscontainerSize) ||
+    (this.deifcitcontainerType && this.deficitcontainerSize)
+  );
+}
+
+
 updateSurplusCount(portCode: any, surpluscontainerType: any, surpluscontainerSize: any) {
   debugger;
   console.log('Current portCode:', portCode);
@@ -170,6 +181,7 @@ console.log("Inventory after filtering by container size:", inventoryForContaine
     console.log("Port with the selected portCode does not exist.");
   }
 }
+
 }
 interface Inventory {
   port_name: string;
