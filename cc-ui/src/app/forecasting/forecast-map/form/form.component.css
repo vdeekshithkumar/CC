@@ -9,6 +9,13 @@
   align-items: flex-start; 
 
 }
+/* Define the disabled button style */
+.disabled-button {
+  background-color: gray; /* Change to your desired gray color */
+  color: white; /* Text color for the disabled state */
+  cursor: not-allowed; /* Change the cursor to not-allowed */
+}
+
 .custom-select {
   margin-left: -20px;
 }

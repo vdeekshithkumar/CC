@@ -114,7 +114,8 @@ selectedcontainersizetomap:any;
   port_of_departure: any;
   port_of_ad:any;
   port_of_arrival: any;
-
+selectedMainOption: string = ''; // To store the selected main option
+  isMainDropdownOpen: boolean = false; // To control the visibility of the main dropdown
   selectedOptions: { [key: string]: string } = {
     type: '',
     view: '',
@@ -125,6 +126,7 @@ selectedcontainersizetomap:any;
   mapView: any;
   selectedDeparturePort: any;
   adtype: any;
+  showPopup = false;
   sizeSelected: any;
   selectedArrivalPort: any;
   size: any;
@@ -146,7 +148,7 @@ selectedcontainersizetomap:any;
   typetomap: any;
   ad_typetomap: any;
   selectedTypePortOfDep: any;
-
+  isTypeDropdownOpen: boolean = false;
   selectedcontainerType: string = '';
   selectedTypePortOfArr: any;
   get totalPages(): number {
@@ -191,6 +193,9 @@ selectedcontainersizetomap:any;
       this.ad_type = params['type'] || 'container'; // Default to 'container'
     });
 
+    this.route.queryParams.subscribe(params => {
+      this.selectedMainOption = params['typee'];
+    });
 
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
@@ -303,10 +308,14 @@ onSizeClick(size: any) {
     this.selectedcontainerSize = size.capacity; // Otherwise, select the clicked option
   }
 }
+
 capitalizeFirstLetter(text: string): string {
   if (!text) return text;
 
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+togglePopup() {
+  this.showPopup = !this.showPopup;
 }
   searchAds() {
    
@@ -337,7 +346,25 @@ capitalizeFirstLetter(text: string): string {
       this.ad_type = type;
       this.searchAds();
     }
-    
+    toggleDropdown(section: string) {
+  if (section === 'type') {
+    this.isTypeDropdownOpen = !this.isTypeDropdownOpen;
+  }
+}
+toggleMainDropdown() {
+  this.isMainDropdownOpen = !this.isMainDropdownOpen;
+}
+
+selectMainOption(option: string) {
+  this.selectedMainOption = option;
+  this.isMainDropdownOpen = false; // Close the main dropdown when a main option is selected
+}
+
+selectSubOption(subOption: string) {
+  // Handle the selection of sub-options based on the selected main option
+  // For example, you can update a variable or perform any other action here
+  console.log(`Selected ${this.selectedMainOption} sub-option: ${subOption}`);
+}
   toggleOption(section: string, option: string) {
     if (this.selectedOptions[section] === option) {
       // If the clicked option is already selected, deselect it

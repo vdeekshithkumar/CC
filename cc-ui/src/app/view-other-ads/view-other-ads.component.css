@@ -617,13 +617,13 @@ th {
     top: 100%; /* Place the dropdown below the select element */
     left: 0;
     width: 100%;
-    z-index: 1; /* Ensure the dropdown is above other elements */
+    z-index: 99; /* Ensure the dropdown is above other elements */
     
   }
 .port-input {
   margin-bottom: 9px;
   position: relative;
-
+  z-index: 0;
 }
 
 .port-input label {
@@ -731,16 +731,14 @@ th {
 
 
 .clear-search-container {
-  display: flex;
+
 height: 38px;
 padding: 10px 0px;
 justify-content: center;
 align-items: center;
 gap: 2px;
-flex: 1 0 0;
 
-margin-top:180px;
-
+margin-top: 8px;
 }
 
 
@@ -859,7 +857,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   flex: none;
   order: 0;
-  flex-grow: 1;
+ 
 
   }
   .search-buy-space{
@@ -882,7 +880,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   
     flex: none;
     order: 0;
-    flex-grow: 1;
+   
   
     }
   .search-q1-container{
@@ -1037,7 +1035,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   
   padding: 0px 16px;
   
-  gap: 8px;
+  gap: 10px;
   
   width: 70px;
 
@@ -1056,8 +1054,6 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   flex: none;
   
   order: 0;
-  
-  flex-grow: 1;
   
   }
   .search-lease-space{
@@ -1182,11 +1178,9 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   .port-text{
 
     font-family:Poppins;
-  
+  font-weight: 500;
     color:#595959;
-  
- 
-  
+    margin-top: 20px;
   }
   
   .port-text p{
@@ -1224,25 +1218,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     
   }
  
-  .text-after-type-sidebar {
 
-    display: flex;
-  
-    flex-direction: column;
-  
-    align-items: flex-start;
-  
-    margin-top: -2.3px;
-  
-    font-family: Poppins;
-  
-    color: #595959;
-  
-    font-weight: 500px;
-  
-    font-style: normal;
-    
-  }
   
   
   
@@ -1336,4 +1312,108 @@ align-items: center;
 align-content: flex-start;
 row-gap: 8px;
 flex-wrap: wrap;
+}
+/* Style the main dropdown button */
+.dropdown-toggle {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+/* Style the dropdown icon */
+.dropdown-icon {
+  margin-left: 5px;
+}
+
+/* Style the dropdown menu container */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+/* Style each dropdown option */
+.main-option,
+.sub-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Style the selected option */
+.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+.ad{
+  position: relative;
+}
+/* Custom CSS class for reducing z-index */
+.lower-z-index {
+  z-index: 99; /* Adjust this value as needed */
+}
+
+/* Show the dropdown menu when it's open */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Style the sub-dropdown container */
+.sub-dropdown {
+  margin-top: 10px; /* Add spacing between main and sub-dropdowns */
+}
+.profile-div{
+  @apply absolute top-full right-0 rounded-md 
+}
+.profile-box{
+  @apply text-xs w-fit items-center font-poppins leading-6 p-2 flex flex-col shadow-lg bg-white 
+}
+.container-select{
+  width: 275px; 
+  height: 30px; 
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.select-container {
+  display: flex; /* Use flex display to arrange children horizontally */
+  align-items: center; /* Vertically center the elements within the container */
+
+}
+.search-select-container{
+
+  display: flex;
+
+flex-direction: column;
+
+justify-content: center;
+
+align-items: center;
+
+padding: 0px 8px;
+
+gap: 10px;
+
+width: 50px;
+
+height: 25px;
+
+background: #FFFFFF;
+
+border-width: 1px 1px 1px 1px;
+
+border-style: solid;
+
+border-color: rgba(0, 0, 0, 0.15);
+font-size: 12px;
+
+
+flex: none;
+
+order: 0;
+
 }

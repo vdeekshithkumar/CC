@@ -189,15 +189,31 @@
         </svg>
         <div class="mt-10 -ml-10">Container</div>
         
-    <div class="popup" *ngIf="showPopup">
-      <div class="popup-content">
-        <div class="popup-fields ">        
-          <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">Advertisement</a>
-          <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }" routerLinkActive="active-link">My-ad</a>
-          <a  [routerLink]="['/negotiations', 'container']" routerLinkActive="active-link">Negotiations</a>
+        <div class="popup" [ngStyle]="{ 'max-height.px': popupMaxHeight }"  *ngIf="showPopup">
+          <div class="popup-content">
+            <div class="popup-fields">
+              <div class="dropdown">
+                <button class="dropdown-toggle" id="advertisementDropdownButton" >
+                  <span class="svg-ad" (click)="toggleDropdown($event)">
+                    Advertisement 
+                    <svg (click)="toggleDropdown($event)" class="ml-2" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1L5.5 5L9 1" stroke="black"/>
+                    </svg>
+                  </span>
+                </button>
+                
+                <div class="dropdown-menu font-light" id="advertisementDropdownMenu" [ngClass]="{ 'show': isDropdownOpen }">
+                  <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Trading' }" routerLinkActive="active-link">Trading</a>
+                  <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Leasing' }" routerLinkActive="active-link">Leasing</a>
+                </div>
+              </div>
+              
+              <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }" class="h-a" routerLinkActive="active-link">My-ad</a>
+              <a [routerLink]="['/negotiations', 'container']" routerLinkActive="active-link">Negotiations</a>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+        
    
     
   </a>
@@ -209,12 +225,26 @@
         </svg>
         
         <div class="mt-10 -ml-8">Vessel</div>
-    <div class="popup1" *ngIf="showPopupp">
+    <div class="popup1"  [ngStyle]="{ 'max-height.px': popupMaxHeight }" *ngIf="showPopupp">
       <div class="popup-content">
         <div class="popup-fields">
-          <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">Advertisement</a>
-          <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">My-ad</a>
-          <a  [routerLink]="['/negotiations', 'space']" routerLinkActive="active-link">Negotiations</a>
+          <div class="dropdown ">
+            <button class="dropdown-toggle -ml-4" id="advertisementDropdownButton" >
+              <span class="svg-ad" (click)="toggleDropdown($event)">
+                Advertisement 
+                <svg (click)="toggleDropdown($event)" class="ml-2" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L5.5 5L9 1" stroke="black"/>
+                </svg>
+              </span>
+            </button>
+            
+            <div class="dropdown-menu font-light" id="advertisementDropdownMenu" [ngClass]="{ 'show': isDropdownOpen }">
+              <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Trading' }" routerLinkActive="active-link">Trading</a>
+              <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Leasing' }" routerLinkActive="active-link">Leasing</a>
+            </div>
+          </div>
+          <a class="" [routerLink]="['/my-ad']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">My-ad</a>
+          <a class="" [routerLink]="['/negotiations', 'space']" routerLinkActive="active-link">Negotiations</a>
         </div>
       </div>
     </div>
