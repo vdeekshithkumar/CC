@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
+import { ApiService } from '../api.service';
 
 
 export interface Forecasting {
@@ -19,25 +20,32 @@ export interface Port {
     providedIn: 'root'
   })
   export class ForecastingService {
+
+    private IdUrl='GetInventoryById';
+    private CIdUrl='GetInventoryByIdCID';
+
     
-    private IdUrl='https://localhost:7157/GetInventoryById';
-    private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
-    
-    constructor(private http:HttpClient) {
+    constructor(private http:HttpClient,private apiService: ApiService) {
 
   }
     getAllPorts(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllPorts');
+
+      const url = this.apiService.getFullUrl(`GetAllPorts`);
+      return this.http.get(url);
     }
     
     getAllInventory(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllInventory');  
+      const url = this.apiService.getFullUrl(`GetAllInventory`);
+      return this.http.get(url);  
+
     }
     getInventoryById(id: number): Observable<any> {
-      return this.http.get(`${this.IdUrl}/${id}`, { responseType: 'json' });
+      const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);
+      return this.http.get(url, { responseType: 'json' });
     }
     getInventoryByIdCID(companyId:number): Observable<any> {
-      return this.http.get(`${this.CIdUrl}/${companyId}`, { responseType: 'json' });
+      const url = this.apiService.getFullUrl(`${this.CIdUrl}/${companyId}`);
+      return this.http.get(url, { responseType: 'json' });
     }
 
    

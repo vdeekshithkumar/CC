@@ -49,7 +49,30 @@ namespace CC_api.Repository
 
       return negotiations;
     }
+    public async Task<List<long>> GetMyNegotiationsCount(int company_id)
+    {
 
+
+
+      var acceptednegotiations = await dbContext.negotiation
+      .Where(a => a.company_id == company_id && a.status == "accepted").CountAsync();
+      var count = new List<long>();
+      count.Add(acceptednegotiations);
+
+      var pendingnegotiaitions = await dbContext.negotiation
+      .Where(a => a.company_id == company_id && a.status == "pending").CountAsync();
+      count.Add(pendingnegotiaitions);
+
+
+      var rejectednegotiations = await dbContext.negotiation
+     .Where(a => a.company_id == company_id && a.status == "rejected").CountAsync();
+      count.Add(rejectednegotiations);
+
+
+
+
+      return count;
+    }
     public async Task<int> GetNegotiationCount(int adid)
     {
       var userCount = await dbContext.negotiation.Where(u => u.ad_id == adid).CountAsync();

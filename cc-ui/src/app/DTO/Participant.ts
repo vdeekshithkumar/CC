@@ -3,16 +3,18 @@ export interface participant{
     conversationId:number,
     userId:number,
     companyId:number,
-    fname: string,
-    lname:string,
-    company_name:string
+    first_name: string,
+    last_name:string,
+    company_name:string,
+    AdscompanyId:number;
 }
 export interface Candidate{
     user_id:number,
     company_id:number,
-    fname:string,
-    lname:string,
+    first_name:string,
+    last_name:string,
     designation:string
     selected:boolean
     company_name: string
+    AdscompanyId:number;
 }

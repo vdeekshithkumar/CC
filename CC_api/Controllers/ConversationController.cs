@@ -1,6 +1,7 @@
 using CC_api.Business;
 using CC_api.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.Design;
 
 namespace CC_api.Controllers
 {
@@ -26,7 +27,7 @@ namespace CC_api.Controllers
     }
 
     [HttpPost("AddParticipant")]
-    public async Task< IActionResult> AddParticipant([FromBody] Participant participant)
+    public async Task<IActionResult> AddParticipant([FromBody] Participant participant)
     {
       if (participant == null)
       {
@@ -38,11 +39,13 @@ namespace CC_api.Controllers
     }
 
     [HttpGet("GetMessagesByConversationId")]
-    public async Task<IActionResult> GetMessagesByConversationId(int conversationId)
+    public async Task<IActionResult> GetMessagesByConversationId(int conversationid)
     {
-      var messages = await  conversationBusiness.GetMessagesByConversationId(conversationId);
+      var messages = await conversationBusiness.GetMessagesByConversationId(conversationid);
       return Ok(messages);
     }
+
+
     [HttpPost("SendMessage")]
     public async Task<IActionResult> SendMessage([FromBody] Message message)
     {
@@ -59,11 +62,42 @@ namespace CC_api.Controllers
       var conversations = await conversationBusiness.GetConversationByCompanyId(companyId);
       return Ok(conversations);
     }
+
+    [HttpGet("GetConversationByAdCompanyId")]
+    public async Task<IActionResult> GetConversationByAdCompanyId(int AdscompanyId)
+    {
+      var conversations = await conversationBusiness.GetConversationByAdCompanyId(AdscompanyId);
+      return Ok(conversations);
+    }
+    [HttpGet("GetConversationByConversationId")]
+    public async Task<IActionResult> GetConversationByConversationId(int conversationid)
+    {
+      var conversations = await conversationBusiness.GetConversationByConversationId(conversationid);
+      return Ok(conversations);
+    }
+    [HttpGet("GetConversationByNegotationId")]
+    public async Task<IActionResult> GetConversationByNegotationId(int negotiation_id)
+    {
+      var conversations = await conversationBusiness.GetConversationByNegotationId(negotiation_id);
+      return Ok(conversations);
+    }
     [HttpGet("GetParticipantsByConversationId")]
     public async Task<IActionResult> GetParticipants(int convoid)
     {
 
       return Ok(await conversationBusiness.GetParticipant(convoid));
+    }
+    [HttpPut("Editmessagestatus")]
+    public async Task<IActionResult> Editmessagestatus(int conversationId, int companyId)
+    {
+      var messagebycid = await conversationBusiness.Editmessagestatus(conversationId, companyId);
+      return Ok(messagebycid);
+
+    }
+    [HttpGet("GetmessageCount")]
+    public async Task<IActionResult> GetmessageCount(int companyId)
+    {
+      return await conversationBusiness.GetmessageCount(companyId);
     }
     // Other conversation-related endpoints
     [HttpGet("GetUsers")]

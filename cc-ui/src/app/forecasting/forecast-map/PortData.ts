@@ -5,4 +5,7 @@ export interface PortData {
   deficit: number;
   latitude: number;
   longitude: number;
+  containertype:string;
+  containersize:number;
+
 }

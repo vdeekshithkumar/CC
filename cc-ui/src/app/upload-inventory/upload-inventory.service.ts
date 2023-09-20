@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable, catchError, throwError } from 'rxjs';
+import { ApiService } from '../api.service';
 
 
 export interface Inventory {
@@ -19,47 +20,54 @@ export interface Port {
     providedIn: 'root'
   })
   export class UploadInventoryservice {
-    private apiUrl='https://localhost:7157/UploadInventory';
-    private baseUrl='https://localhost:7157/DeleteInventory';
-    private IdUrl='https://localhost:7157/GetInventoryById';
-    private CIdUrl='https://localhost:7157/GetInventoryByIdCID';
-    private editUrl='https://localhost:7157/EditInventory';
-    private BASE_URL='https://localhost:7157/AddExcel';
-    constructor(private http:HttpClient) {
+
+    private apiUrl='UploadInventory';
+    private baseUrl='DeleteInventory';
+    private IdUrl='GetInventoryById';
+    private CIdUrl='GetInventoryByIdCID';
+    private editUrl='EditInventory';
+    private addexcel='AddExcel';
+    constructor(private http:HttpClient,private apiService: ApiService) {
 
   }
     uploadInventory(UploadInventoryForm: FormGroup<any>){
+      const url = this.apiService.getFullUrl(`${this.apiUrl}`);
       const headers=new HttpHeaders().set('content-Type','application/json');
-      return this.http.post(this.apiUrl,UploadInventoryForm,{headers}); 
+      return this.http.post(url,UploadInventoryForm,{headers}); 
     }
    
     editInventory(id: number, UploadInventoryForm: FormGroup<any>) {
+      const url = this.apiService.getFullUrl(`${this.editUrl}/${id}`);
       const headers = new HttpHeaders().set('content-Type', 'application/json');
-  
-      return this.http.put(`${this.editUrl}/${id}`,UploadInventoryForm,{ headers });
+      return this.http.put(url,UploadInventoryForm,{ headers });
     }
     
-    
-
     getAllPorts(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllPorts');
+
+      const url = this.apiService.getFullUrl(`GetAllPorts`);
+      return this.http.get(url);
     }
     
     getAllInventory(): Observable<any> {
-      return this.http.get('https://localhost:7157/GetAllInventory');  
+      const url = this.apiService.getFullUrl(`GetAllInventory`);
+      return this.http.get(url);  
+
     }
     getInventoryById(id: number): Observable<any> {
-      return this.http.get(`${this.IdUrl}/${id}`, { responseType: 'json' });
+      const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);
+      return this.http.get(url, { responseType: 'json' });
+    }
+    getInventoryByIdCID(companyId:number): Observable<any> {
+      const url = this.apiService.getFullUrl(`${this.CIdUrl}/${companyId}`);
+      return this.http.get(url, { responseType: 'json' });
     }
 
-    
-    getInventoryByIdCID(companyId:number): Observable<any> {
-      return this.http.get(`${this.CIdUrl}/${companyId}`, { responseType: 'json' });
-    }
 
     deleteInventory(id: number): Observable<any> {
-      return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+      const url = this.apiService.getFullUrl(`${this.baseUrl}/${id}`);
+      return this.http.delete(url, { responseType: 'text' });
     }
+
     sendExcelData(excelData: any,user_id:number,company_id:number): Observable<any> {
       const httpOptions = {
         headers: new HttpHeaders({
@@ -72,8 +80,7 @@ export interface Port {
         company_id:company_id
       };
       
-      const url = `${this.BASE_URL}`;
-  
+      const url = this.apiService.getFullUrl(`${this.addexcel}`);
       return this.http.post(url, payload, httpOptions)
         .pipe(
           catchError(this.handleError)

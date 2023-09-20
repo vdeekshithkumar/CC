@@ -56,14 +56,14 @@ import { HomeTemplateComponent } from './home-template/home-template.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads/view-other-ads-map-view/view-other-ads-map-view.component';
 import { TemplateComponent } from './template/template.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-reset-password.component';
+import { NgChartsModule } from 'ng2-charts';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
     HomeComponent,
     RegisterComponent,
     SignInComponent,
@@ -117,8 +117,14 @@ import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-res
     GoogleMapsModule,
     MatDialogModule,
     MatSnackBarModule,
+    NgChartsModule,
+   
   ],
-  providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },SignInService,Registerservice,EditProfileService,SessionService],
+  providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },    {
+    provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+    useValue: { panelClass: ['mycsssnackbartest'] },
+  },
+SignInService,Registerservice,EditProfileService,SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -290,7 +290,11 @@ getPortName(portId: number): string {
       clearButton.style.display = "none";
     }
   }
-  
+  formatContainerType(containerType: string): string {
+    const words = containerType.split('_');
+    const formattedWords = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
+    return formattedWords.join(' ');
+  }
   filterInventory() {
     debugger
     this.filteredInventoryList = this.inventory_data.filter((inv: { container_type: string; container_size: number; available: number; surplus: any; deficit: any; }) => {

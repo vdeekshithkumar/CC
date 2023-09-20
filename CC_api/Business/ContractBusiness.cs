@@ -26,7 +26,7 @@ namespace CC_api.Business
       con.title = contract.title;
       con.uploaded_file = contract.uploaded_file;
       con.updated_by = contract.updated_by;
-      con.updated_date_time = contract.updated_date_time;
+      con.updated_date_time = contract.updated_date_time.ToUniversalTime();
 
       await contractRepository.UploadC(con);
       return new OkResult();

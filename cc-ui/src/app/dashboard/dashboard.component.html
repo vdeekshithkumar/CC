@@ -1,141 +1,145 @@
-<div class="div mt-16">
-  <div class="div-card bg-div max-h-screen">
-    <div class="div-card-div h1-div">
-      Welcome
-      <div class="div-frame text-xs">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-        magna aliqua.
-      </div>
+<div class="bg-gray-50 ">
+  <div class="div mt-16">
+  
+    <div class="div-card bg-div">
+      <div class="div-card-div h1-div">
+        Welcome, {{first_name}} {{last_name}}
     </div>
   </div>
-</div>
-
-
-<div class="flex-container ml-4">
-  <div class="div-card-card1 head">
-    Upcoming Bookings
   </div>
-  <div class="div-card-card1 head ">
-    Active Ads
+  
+  <div class="main">
+    <div class="flex-container ml-4">
+    <div class="div-card-card1 head highlight-card">
+      Containers
+    </div>
+    <div class="div-card-card1 head highlight-card">
+      Space
+    </div>
+    <div class="div-card-card1 head highlight-card ">
+       My Advertisements
+    </div>
   </div>
-  <div class="div-card-card1 head">
-    Open Negotiations
+  <div class="flex-container ml-4 -mt-6">
+    <div class="div-card-card highlight-card" style="height:340px;">
+  
+      <!-- <div class="p-3"> -->
+        <!-- Line Chart -->
+        <div *ngIf="PieChartData && originalcontainerAds.length>0" class="chart-container-pie">
+          <canvas baseChart style=" height: 280px; overflow: hidden; "
+                  [datasets]="PieChartData.datasets"
+                  [labels]="PieChartData.labels"
+                  [options]="PieChartOptions"
+                  [type]="'pie'"
+                  >
+          </canvas>
+        <!-- </div> -->
+      </div>
+    </div>
+  
+    <div class="div-card-card highlight-card" style="height:340px;">
+      <div class="p-3">
+        <!-- Line Chart -->
+        <div *ngIf="lineChartData && originalspaceAds.length>0" class="chart-container-line mt-14">
+          <canvas baseChart
+                  [datasets]="lineChartData.datasets"
+                  [labels]="lineChartData.labels"
+                  [options]="lineChartOptions"
+                  [type]="'bar'"
+                  style="height: 200px; width: 350px;">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <div class="div-card-card highlight-card "style="height:340px;" >
+  
+      <div class="p-3">
+        <!-- myads -->
+        <div *ngIf="adsCount.length > 0" class="chart-container mt-6" >
+          <canvas baseChart
+                  [data]="chartData" 
+                  class="curved-labels-adv -mt-50 "
+                  [labels]="chartLabels"
+                  [options]="chartOptions"
+                  [legend]="chartLegend"
+                  [type]="'doughnut'">
+          </canvas>
+        </div>
+        
+       
+      </div>
+  
+    </div>
   </div>
-</div>
-<div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
+  <div class="flex-container ml-4 -mt-6">
+    <div class="div-card-card1 foot">
+      <a routerLink="/my-ad" class="">See more ></a>
+    </div>
+    <div class="div-card-card1 foot ">
+      <a routerLink="/my-ad" class="">See more ></a>
+    </div>
+    <div class="div-card-card1 foot">
+      <a routerLink="/my-ad" class="">See more ></a>
+    </div>
+  </div>
+  
+  <div class="flex-container ml-4 ">
+    <div class="div-card-card1 head highlight-card">
+      Surplus/Deficit
+    </div>
+    <div class="div-card-card1 head ml-[100px] highlight-card ">
+      Open Negotiations
+    </div>
     
+  </div>
+  <div class="flex-container ml-4 -mt-6">
+    <div class="div-card-card highlight-card" style="height:340px;">
+  
+      <div class="p-3">
+        <!-- Dummy bookings -->
+        <div style="margin-left: 50px;" >
+          <canvas class="horizontal-bar" id="horizontalBarChart" style="height:200px;"></canvas>
+        </div>
+        
+       
+      </div>
+  
     </div>
-  </div>
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
-     
-    </div>
-
-  </div>
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
-
-    </div>
-  </div>
-</div>
-<div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-  <div class="div-card-card1 foot ">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-  <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-</div>
-<div class="flex-container ml-4 ">
-  <div class="div-card-card1 head">
-    Upcoming Bookings
-  </div>
-  <div class="div-card-card1 head ">
-    Active Ads
-  </div>
-  <div class="div-card-card1 head">
-    Open Negotiations
-  </div>
-</div>
-<div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
+  
+   
+      <!--Ads-->
       
+  
+  
+    <div class="div-card-card highlight-card" style="height:340px;" >
+  
+      <div class="p-3 -ml-4">
+        <!-- myads -->
+        <div *ngIf="negotiationCount.length > 0" class="chart-container-neg">
+          <canvas baseChart
+                  [data]="negotiationchartData" 
+                  class="curved-labels -mt-50 "
+                  [labels]="chartLabels"
+                  [options]="chartOptions"
+                  [legend]="chartLegend"
+                  [type]="'doughnut'">
+          </canvas>
+        </div>
+        
+       
+      </div>
+  
+    </div>
+    
+  </div>
+  <div class="flex-container ml-4 -mt-6">
+    <div class="div-card-card1 foot">
+      <a routerLink="/forecast-map" class="">See more ></a>
+    </div>
+  
+    <div class="div-card-card1 foot">
+      <a routerLink="/negotiations" class="">See more ></a>
     </div>
   </div>
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
-     
-    </div>
-
   </div>
-  <div class="div-card-card">
-
-    <div class="p-3">
-      <!-- Dummy bookings -->
-      <div class="upcoming-bookings mt-1 w-60">
-      </div>
-      <div class="upcoming-bookings mt-8  ">
-      </div>
-      <div class="upcoming-bookings">
-      </div>
-      
-    </div>
   </div>
-</div>
-<div class="flex-container ml-4 -mt-6">
-  <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-  <div class="div-card-card1 foot ">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-  <div class="div-card-card1 foot">
-    <a routerLink="#" class="">See more ></a>
-  </div>
-</div>

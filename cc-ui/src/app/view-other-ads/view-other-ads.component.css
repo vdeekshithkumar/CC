@@ -7,6 +7,16 @@
   
   
 }
+.map-view-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.seacrh-color{
+  color: var(--base-white, #FFF);
+}
 .text-after-sidebar-searchview{
   display: flex;
   flex-direction: column;
@@ -176,18 +186,25 @@ border-radius: 6px;
 .advertisement-details {
   position: fixed;
   top: 0px;
-  left: calc(31% + 16px);
+  left: calc(31.5% + 16px);
 border-style: solid black;
 padding-top:20px;
 font-size: 10px;
 
-
+text-align: center;
+font-weight: bold;
+font-size: 20px;
+margin-bottom: 10px;
  width: 67.8%;
   font-weight: bold;
   font-size: 10px;
   color: black;
 }
 
+.ad-text{
+  text-align: center;
+  
+}
 .style{
   color: #595959;
   background-color:#F0F0F0;
@@ -592,17 +609,79 @@ th {
     flex-grow: 1;
   
   }
+  [port-input][menu="bottom"] select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+    top: 100%; /* Place the dropdown below the select element */
+    left: 0;
+    width: 100%;
+    z-index: 99; /* Ensure the dropdown is above other elements */
+    
+  }
 .port-input {
   margin-bottom: 9px;
+  position: relative;
+  z-index: 0;
 }
 
 .port-input label {
   margin-bottom: 3px;
 }
-
+.backdrop{
+  position: relative;
+  z-index: 2000; /* Place it above the backdrop and pop-up */
+}
 .port-input .uploadinv-select {
   margin-top: -9px; 
 }
+.horizontal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.horizontal-list li {
+  display: inline-block;
+  border: 1px solid #ccc; 
+  padding: 5px 10px;
+  width:90px;
+  text-align: center;
+  cursor: pointer;
+}
+
+
+.horizontal-list li.selected {
+  background-color: #1779FB;
+  color: white;
+  border-color: #1779FB;
+}
+.horizontal-list li:first-child {
+  border-radius: 8px 0 0 8px; /* Curved left side for the first item */
+}
+
+.horizontal-list li:last-child {
+  border-radius: 0 8px 8px 0; /* Curved right side for the last item */
+}
+
+.horizontal-list li:hover {
+  background-color: #1779FB;
+  color: white;
+  border-color: #1779FB;
+}
+
+
+
+
+
+
 
 .icon-container {
   display: inline-block;
@@ -652,23 +731,21 @@ th {
 
 
 .clear-search-container {
-  display: flex;
+
 height: 38px;
 padding: 10px 0px;
 justify-content: center;
 align-items: center;
 gap: 2px;
-flex: 1 0 0;
 
-margin-top:245px;
-
+margin-top: 8px;
 }
 
 
 
 .clear-search-container button {
   
-  color: white;
+  
   border: none;
 
   border-radius: 2px;
@@ -705,7 +782,7 @@ align-items: center;
 gap: 2px;
 flex: 1 0 0;
 
-margin-top:180px;
+margin-top:115px;
 
 }
 
@@ -713,7 +790,7 @@ margin-top:180px;
 
 .clear-search-space button {
   
-  color: white;
+
   border: none;
 
   border-radius: 2px;
@@ -721,10 +798,12 @@ margin-top:180px;
 }
 
 .clear-color{
+  color: black;
   background-color: lightgray;
   width: 140px;
   height: 30px;
 }
+
 .viewmyads{
   display: flex;
   padding: 10px 18px;
@@ -778,9 +857,32 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
 
   flex: none;
   order: 0;
-  flex-grow: 1;
+ 
 
   }
+  .search-buy-space{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 16px;
+    gap: 8px;
+    width: 95px;
+    height: 35px;
+    background: #FFFFFF;
+    
+    /* colorBorder */
+    
+    border-width: 1px 1px 1px 1px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.15);
+    border-radius: 6px 0px 0px 6px;
+  
+    flex: none;
+    order: 0;
+   
+  
+    }
   .search-q1-container{
     font-size: 12px;
  
@@ -920,7 +1022,41 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   .search-type-container > div {
     cursor: pointer;
   }
+  
   .search-lease-container{
+
+    display: flex;
+  
+  flex-direction: column;
+  
+  justify-content: center;
+  
+  align-items: center;
+  
+  padding: 0px 16px;
+  
+  gap: 10px;
+  
+  width: 70px;
+
+  height: 35px;
+  
+  background: #FFFFFF;
+  
+  border-width: 1px 1px 1px 1px;
+  
+  border-style: solid;
+  
+  border-color: rgba(0, 0, 0, 0.15);
+  
+
+  
+  flex: none;
+  
+  order: 0;
+  
+  }
+  .search-lease-space{
 
     display: flex;
   
@@ -934,7 +1070,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   
   gap: 8px;
   
-  width: 70px;
+  width: 95px;
 
   height: 35px;
   
@@ -991,6 +1127,43 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     flex-grow: 1;
   
   }
+
+  .search-swap-space{
+
+    display: flex;
+  
+    flex-direction: column;
+  
+    justify-content: center;
+  
+    align-items: center;
+  
+    padding: 0px 16px;
+  
+    gap: 8px;
+  
+    width: 95px;
+    height: 35px;
+  
+    background: #FFFFFF;
+  
+    border-width: 1px 1px 1px 1px;
+  
+    border-style: solid;
+  
+    border-color: rgba(0, 0, 0, 0.15);
+  
+    border-radius: 0px 6px 6px 0px;
+  
+
+  
+    flex: none;
+  
+    order: 0;
+  
+    flex-grow: 1;
+  
+  }
   .text-location-container {
 
     display: flex;
@@ -1005,11 +1178,9 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
   .port-text{
 
     font-family:Poppins;
-  
+  font-weight: 500;
     color:#595959;
-  
- 
-  
+    margin-top: 20px;
   }
   
   .port-text p{
@@ -1047,25 +1218,7 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     
   }
  
-  .text-after-type-sidebar {
 
-    display: flex;
-  
-    flex-direction: column;
-  
-    align-items: flex-start;
-  
-    margin-top: -2.3px;
-  
-    font-family: Poppins;
-  
-    color: #595959;
-  
-    font-weight: 500px;
-  
-    font-style: normal;
-  
-  }
   
   
   
@@ -1104,16 +1257,163 @@ row-gap: 8px;
 flex-wrap: wrap;
 }
 
-.search-text {
-  color: var(--gray-gray-8, #595959);
-  font-size: 17px;
-  font-family: Poppins;
-  font-weight: 500;
-}
+
 .select-type{
   margin-top:10px;
   color: var(--gray-gray-8, #595959);
 font-size: 12px;
 font-family: Poppins;
 line-height: 20px;
+}
+
+/* Include your component-specific styles here */
+.dropdown {
+  display: inline-block;
+  margin-right: 16px;
+}
+
+.dropdown-label {
+  display: block;
+  margin-bottom: 8px;
+}
+.ra{
+ 
+top: 24px;
+left: 20px;
+font-family: Poppins;
+font-size: 16px;
+font-weight: 600;
+line-height: 30px;
+letter-spacing: 0em;
+text-align: left;
+color: #595959;
+}
+
+.custom-dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative; /* Required for the ::after pseudo-element */
+}
+
+
+.radio{
+  border-radius: 2px;
+border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);
+background: #FFF;
+display: flex;
+width: 138px;
+padding: 4px;
+justify-content: space-between;
+align-items: center;
+align-content: flex-start;
+row-gap: 8px;
+flex-wrap: wrap;
+}
+/* Style the main dropdown button */
+.dropdown-toggle {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+/* Style the dropdown icon */
+.dropdown-icon {
+  margin-left: 5px;
+}
+
+/* Style the dropdown menu container */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+/* Style each dropdown option */
+.main-option,
+.sub-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Style the selected option */
+.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+.ad{
+  position: relative;
+}
+/* Custom CSS class for reducing z-index */
+.lower-z-index {
+  z-index: 99; /* Adjust this value as needed */
+}
+
+/* Show the dropdown menu when it's open */
+.dropdown-menu.show {
+  display: block;
+}
+
+/* Style the sub-dropdown container */
+.sub-dropdown {
+  margin-top: 10px; /* Add spacing between main and sub-dropdowns */
+}
+.profile-div{
+  @apply absolute top-full right-0 rounded-md 
+}
+.profile-box{
+  @apply text-xs w-fit items-center font-poppins leading-6 p-2 flex flex-col shadow-lg bg-white 
+}
+.container-select{
+  width: 275px; 
+  height: 30px; 
+  padding: 0;
+  cursor: pointer;
+  border: 1px solid #ccc;
+}
+
+.select-container {
+  display: flex; /* Use flex display to arrange children horizontally */
+  align-items: center; /* Vertically center the elements within the container */
+
+}
+.search-select-container{
+
+  display: flex;
+
+flex-direction: column;
+
+justify-content: center;
+
+align-items: center;
+
+padding: 0px 8px;
+
+gap: 10px;
+
+width: 50px;
+
+height: 25px;
+
+background: #FFFFFF;
+
+border-width: 1px 1px 1px 1px;
+
+border-style: solid;
+
+border-color: rgba(0, 0, 0, 0.15);
+font-size: 12px;
+
+
+flex: none;
+
+order: 0;
+
 }

@@ -1,6 +1,6 @@
 import { MyAdService } from './my-ad.service';
 
-import {Component, Inject} from '@angular/core';
+import {Component, EventEmitter, Inject, Input, OnInit, Output} from '@angular/core';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,12 +14,14 @@ import { NegotiationListComponent } from '../negotiation-list/negotiation-list.c
 export interface Advertisement {
   ad_id: number;
   date_created: Date;
+  port_of_ad:string;
   from_date: Date;
   expiry_date: Date;
   type_of_ad: string;
   container_type_id: number;
   price: number;
   status: string;
+  
   quantity: number;
   port_id: number;
   company_id: number;
@@ -38,17 +40,28 @@ export interface Advertisement {
   templateUrl: './my-advertisement.component.html',
   styleUrls: ['./my-advertisement.component.css']
 })
-export class MyAdvertisementComponent {
-  
+export class MyAdvertisementComponent implements OnInit {
+  @Input() adType: string | undefined;
+  @Output() adTypeChange: EventEmitter<string> = new EventEmitter<string>();
+  // adTypes = [
+  //   { value: 'container', label: 'Container', icon: '../../assets/icons/Container.svg' },
+  //   { value: 'space', label: 'Space', icon: '../../assets/icons/Container.svg' }
+  // ];
+  // selectedAdType = 'container';
 
+  isDropdownOpen = false;
+  showContainerSection: boolean = false;
+  showSpaceSection: boolean = false;
+  originalAds: Advertisement[] =[];
   Approve:any;
-
+  selectedOption: any;
+  ad_type!: string;
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  itemsPerPage: number = 4;
+  itemsPerPage: number = 3;
 currentPage: number = 1;
-
+port_of_ad:any;
   userId: any;
 ActiveadsCount:any;
 DraftadsCount:any;
@@ -98,14 +111,15 @@ pickup_charges:any;
    licence_id?: number;
    rating?: number;
    address?: string;
-   fname?: string
+   first_name?: string
   //  company_logo?: string
    company_location?: string
    country?: string
    
      profileForm!: FormGroup;
-     activeAdsClicked = false;
-     pendingAdsClicked = false;
+     activeHighlighted: boolean = true;
+  pendingHighlighted: boolean = false;
+  draftHighlighted: boolean = false;
    ads: Advertisement[] = [];
    Eads: Advertisement[] = [];
 
@@ -118,27 +132,44 @@ pickup_charges:any;
   x: any;
   PList: any[]=[];
   userDesignation: any;
-
+  showSection: boolean = false;
+  originalcontaineractiveAds: any[] = [];
+  originalcontainerpendingAds: any[] = [];
+  originalcontainerdraftAds: any[] = [];
+  originalspaceactiveAds: any[] = [];
+  originalspacependingAds: any[] = [];
+  originalspacedraftAds: any[] = [];
+  showSectio: boolean = false;
   getCompanyId() {
      return this.company_id;
    }
  
-
+   isFirstTime: boolean = true;
   companyName:any;
   company_logo:any;
   currentUser: any;
   licenceId:any;
   showDiv = false;
   data: any;
+
   public isButtonDisabled: boolean = false;
-
-  
-
   constructor(private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private myadservice: MyAdService){
   }
 
 
   ngOnInit(): void {
+    this.ad_type = 'container'; // Set initial ad_type to 'container'
+    this.operation = 'Active'; // Set initial operation to 'Active'
+    this.showContainerSection = true; // Show the container section by default
+    this.showSpaceSection = false;
+    if (this.isFirstTime) {
+      this.isFirstTime = false;
+    }
+    this.route.queryParams.subscribe(params => {
+      this.ad_type = params['type'] || 'container'; // Default to 'container'
+    });
+
+    
     this.route.queryParams.subscribe(params => {
       const value = params['value'];
       this.approvalLink=value;
@@ -192,7 +223,20 @@ pickup_charges:any;
       }
     );
 
-    
+    this.myadservice.getContainercount('space',this.companyId).subscribe(
+      (adsblsscount: any[]) => {
+        debugger
+        this.originalspaceactiveAds = adsblsscount[0];
+        this.originalspacependingAds = adsblsscount[1];
+        this.originalspacedraftAds = adsblsscount[2];
+        
+
+      },
+      (error: any) => {
+        console.log(error);
+        alert('error');
+      }
+    );
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
         this.PList = permissions;
@@ -249,7 +293,8 @@ pickup_charges:any;
     else{
       this.onViewActive();
     }
- 
+    this.fetchAdsCounts(this.ad_type);
+    this.viewAds();
      
    }
    
@@ -263,58 +308,98 @@ pickup_charges:any;
 //     debugger;
  
 
-AdsCount(){
-  this.myadservice.getAdsCount(this.companyId).subscribe(
-    (count: any[]) => {
-      this.adscount = count;
-    
-      console.log("count is are "+this.adscount);
-    
-    },
-    (error: any) => {
-      console.log(error);
-      alert("error")
-    }
-  );
+
+  
+
+adTypeChanged(type: string) {
+  this.ad_type = type;
+  console.log
+  this.DisplayPostForm()
+  
 }
 
+
    DisplayPostForm(){
-    
-    // this.ContinueDraft=0;
-    this.dialog.open(PostAdComponent,{
-     
-      
-  
-      data:{
-        ContinueDraft:0,
-        Approve:0
-      }
-      
 
-    })
    
-   }
-   DisplayDraftForm(adId: number){
+
+    // this.ContinueDraft=0;
+
     this.dialog.open(PostAdComponent,{
-    
+
+     
+
+     
+
+ 
+
       data:{
-        ContinueDraft:1 ,  
-        adId:adId
+
+        type:this.ad_type,
+
+        ContinueDraft:0,
+
+        Approve:0
+
       }
-    
+
+     
+
+
+
 
     })
 
-  
+   
+
+   }
+
+   DisplayDraftForm(adId: number){
+
+    this.dialog.open(PostAdComponent,{
+
+   
+
+      data:{
+
+        type:this.ad_type,
+
+        ContinueDraft:1 ,  
+
+        adId:adId
+
+      }
+
+   
+
+
+
+
+    })
+
+
+
+
+ 
+
     console.log("ad id from funcion is"+adId);
 
 
+
+
+
    }
 
 
+
+
+
    get totalPages(): number {
+
     return Math.ceil(this.ads.length /this.itemsPerPage);
+
   }
+ 
   prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -351,10 +436,10 @@ AdsCount(){
 
   //  }
   ApproveAd(ad_id:number){
-    
+    debugger
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
-      this.AdsCount();
+      this.fetchAdsCounts(this.ad_type);
       this.onPendingActive();
       // this.onPendingActive();
       
@@ -438,61 +523,112 @@ AdsCount(){
   }
   
 
-viewAds(){
+  fetchAdsCounts(ad_type: string) {
+    debugger;
+    this.myadservice.getContainercount(ad_type, this.companyId).subscribe(
+      (adsCounts: any[]) => {
+        debugger;
+        if (ad_type === 'container') {
+          this.originalcontaineractiveAds = adsCounts[0];
+          this.originalcontainerpendingAds = adsCounts[1];
+          this.originalcontainerdraftAds = adsCounts[2];
+        } else if (ad_type === 'space') {
+          this.originalspaceactiveAds = adsCounts[0];
+          this.originalspacependingAds = adsCounts[1];
+          this.originalspacedraftAds = adsCounts[2];
+        }
+      },
+      (error: any) => {
+        console.log(error);
+        alert('Error occurred while fetching ad counts.');
+      }
+    );
+  }
+  
+viewAds() {
+  this.myadservice.getAdsById(this.companyId, this.operation, this.ad_type).subscribe(
+    (data: Advertisement[]) => {
+      this.ads = data;
+      console.log(this.ads);
 
-this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
-  (data: Advertisement[]) => {
-    this.ads = data;
-    if(this.operation=='Active'){
-      this.ActiveadsCount=this.ads.length;
-    }
-    else if(this.operation=='Pending'){
-      this.PendingadsCount=this.ads.length;
-    }
-    else{
-      this.DraftadsCount=this.ads.length;
-    }
-    
+      if (this.operation === 'Active') {
+        if (this.ad_type === 'container') {
+          this.adscount[0] = this.ads.length;
+        } else if (this.ad_type === 'space') {
+          const activeAds = this.ads.filter(ad => ad.status === 'Active');
+          this.adscount[1] = activeAds.length;
+        }
+      } else if (this.operation === 'Pending') {
+        this.adscount[1] = this.ads.length;
+      } else {
+        this.adscount[2] = this.ads.length;
+      }
 
-   
-    console.log("this is view ads"+this.ads);
-  },
-  error => console.log(error)
-);
+      console.log("This is view ads: ", this.ads);
+    },
+    error => console.log(error)
+  );
 }
 
+  
+  onViewActive() {
+    debugger
+    this.Active = true;
+    this.pendingActive = false;
+    this.draftActive = false;
+    this.operation = 'Active';
+    this.currentPage = 1;
+    this.adType = this.adType;
+    this.viewAds();
+  }
+  
+  onPendingActive() {
+    if (!this.isFirstTime) {
+      this.fetchAdsCounts
+      }
+    this.pendingActive = true;
+    this.Active = false;
+    this.draftActive = false;
+    this.operation = 'Pending';
+    this.currentPage = 1;
+    this.viewAds();
+  }
+  
+  onDraftsActive() {
+    if (!this.isFirstTime) {
+      this.fetchAdsCounts
+      }
+    this.pendingActive = false;
+    this.draftActive = true;
+    this.Active = false;
+    this.operation = 'Draft';
+    this.currentPage = 1;
+    this.viewAds();
+  }
+
+downloadTemplate() {
+    const worksheetName = 'Advertisements';
+    const excelFileName = 'template.xlsx';
+    const header = ['Date created', 'From date', 'Expiry date', 'Type of Ad', 'Container type id', 'Price', 'Status', 'Quantity', 'Port id', 'Contents', 'Port of Departure', 'Port of arrival', 'Free days', 'Per diem', 'Pickup Charges'];
+ 
+    const workbook = XLSX.utils.book_new();
+    const worksheet = XLSX.utils.aoa_to_sheet([header]);
+ 
+    const columnWidths = [
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 20 },
+       { wch: 10 },
+       { wch: 15 },
+    ];
+    worksheet['!cols'] = columnWidths;
+ 
+    XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
+    XLSX.writeFile(workbook, excelFileName);
+ }
+ 
 
 
-onViewActive(){
-this.Active=true;
-this.pendingActive = false;
-this.draftActive = false;
-this.operation = 'Active';
-this.currentPage=1;
-this.viewAds();
-
-}
-
-onPendingActive(){
-this.pendingActive = true;
-this.Active=false;
-this.draftActive = false;
-this.operation = 'Pending';
-this.currentPage=1;
-this.viewAds();
-}
-
-onDraftsActive()
-{
-
-this.pendingActive = false;
-this.draftActive = true;
-this.Active=false;
-this.operation = 'Draft';
-this.currentPage=1;
-this.viewAds();
-
-}
 
  
 onExport(){
@@ -515,13 +651,13 @@ onExport(){
       XLSX.utils.book_append_sheet(workbook, worksheet, worksheetName);
       XLSX.writeFile(workbook, excelFileName);
    }
-
-   OpenNegotiations(ad_id: number) {
+   OpenNegotiations(ad_id: number,ad_type:string) {
     this.dialog.open(NegotiationListComponent, {
       width: '70%',
     
       data: {
         ad_id: ad_id,
+        ad_type:ad_type,
         testpassing:3443,
       }
     });
@@ -530,7 +666,7 @@ onExport(){
 
     onExportClick(): void {
        this.operation = 'Active';
-      this.myadservice.getAdsById(this.companyId, this.operation).subscribe(
+      this.myadservice.getAdsById(this.companyId, this.operation,this.ad_type).subscribe(
         (data: Advertisement[]) => {
           this.Eads = data;
           console.log(" this is e data"+ this.Eads);
@@ -546,7 +682,37 @@ onExport(){
     this.title= null
     this.description = null
   }
+  toggleContainerSection() {
+    this.showContainerSection = true;
+    this.showSpaceSection = false;
+  }
+
+  toggleSpaceSection() {
+    this.showSpaceSection = true;
+    this.showContainerSection = false;
+  }
+  onAdTypeChange(selectedAdType: string) {
+    this.ad_type = selectedAdType;
+    this.operation = 'Active'; // Set the default operation to 'Active'
+    this.viewAds();
+  }
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectOption(option: { label: any; }) {
+    console.log('Selected:', option.label);
+    this.isDropdownOpen = false;
+    // Implement your logic for handling the selected option
+  }
   
+  
+  toggleSection(section: string) {
+    this.selectedOption = section;
+  }
+  toggleSection2(event: any) {
+    this.showSectio = event.target.checked;
+  }
   deleteAd(id: number) {
     this.myadservice.deleteAd(id)
       .subscribe(
@@ -554,16 +720,16 @@ onExport(){
           console.log(data);
           if(this.operation === 'Draft')
           {
-            this.AdsCount();
+            this.fetchAdsCounts(this.ad_type);
             this.onDraftsActive();
           }
           else if(this.operation === 'Pending')
           {
-            this.AdsCount();
+            this.fetchAdsCounts(this.ad_type);
             this.onPendingActive();
           }
           else{
-            this.AdsCount();
+            this.fetchAdsCounts(this.ad_type);
             this.onViewActive();
           }
          
@@ -571,7 +737,7 @@ onExport(){
         (        error: any) => console.log(error));
   }
 }
-/////////////////////////////////////////////
+
 
 
 

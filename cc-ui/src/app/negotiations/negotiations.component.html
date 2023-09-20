@@ -1,17 +1,40 @@
-<div class="flex sticky mt-20">
+<div class="flex mt-20">
+  <div id="main-neg-component" class="w-full bg-white font-poppins min-h-screen">
 
+    <div id="title" class="w-full p-2 h-fit flex flex-col">
 
+      <div class="flex justify-between -ml-2">
 
-  <div id="main-neg-component" class="w-full bg-gray-50 font-poppins min-h-screen sticky">
-
-    <div id="title" class="w-full mx-2 p-2 h-fit flex flex-col">
-
-      <div class="flex justify-between">
-
-        <div class="text-2xl">My Negotiations</div>
-
+        <div class="radio-buttons"><label class="forecast font-semibold ml-2 whitespace-nowrap">My Negotiations</label>
+          <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
+        
+             
+            <div class="select-type whitespace-nowrap ml-2 font-semibold">
+              <span *ngIf="ad_type === 'container'">Container Negotiations</span>
+              <span *ngIf="ad_type === 'space'">Space Negotiations</span>
+            </div>           
+        </div>
         <div>
-
+          <!-- <div style="display: inline-block;margin-right: 16px;">   
+            <label class="radio mt-[10px]" style="cursor: pointer;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              
+              </svg>            
+              Container
+              <input type="radio" style="cursor: pointer;" name="search-space" value="container" [(ngModel)]="ad_type" (change)="updateAdType('container')">
+            </label>
+          </div>
+          <div style="display: inline-block;">
+            <label class="radio" style="cursor: pointer;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              
+              </svg>            
+              Space
+              <input type="radio" style="cursor: pointer;" name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="updateAdType('space')">
+            </label>
+          </div> -->
+          
+          
           <button class="button-no-bg mx-4">Export Data</button>
 
           <button class="button-blue-bg mx-4">Create Bid</button>
@@ -29,9 +52,9 @@
       <div class="flex p-1">
 
         <span
-          class="rounded-full flex bg-blue-500 text-white w-4 h-4 text-[0.5rem] items-center justify-center">99+</span>
+          class="rounded-full flex bg-blue-500 text-white w-4 h-4 text-[0.5rem] items-center justify-center">{{negCount[0]}}</span>
 
-        <span class="text-xs mx-2">Active ads</span>
+        <span class="text-xs mx-2">Active Offers</span>
 
       </div>
 
@@ -80,9 +103,9 @@
 
     </div>
 
-    <div class="bg-gray-50 ml-0 mr-0" style="height: 4px"></div>
+    <div class="bg-gray-50 ml-0 mr-0 flex" style="height: 4px"></div>
 
-    <ng-container *ngFor="
+      <ng-container *ngFor="
 
         let n of filteredNlist
 
@@ -90,11 +113,9 @@
 
       " class="flex justify-center items-center border">
 
-      <div class="flex flex-col border-4 mx-2">
+      <div class="flex flex-col border-2 mx-2 bg-white">
 
         <div class="p-1 flex flex-row items-center justify-around">
-
-
 
           <img *ngIf="n.status === 'accepted'" [src]="getCompanylogo(n.ad_id)"
             [ngClass]="{ 'company-name': n.status != 'accepted' }" class="w-16 h-8 object-contain" />
@@ -206,22 +227,17 @@
 
           <div class="flex flex-row gap-1">
 
-            <button [class.disabled-button]="n.status != 'accepted'" [disabled]="n.status != 'accepted'" [ngClass]="{
-
-                'button-red-bg-list': n.status === 'accepted',
-
-                'button-gray-bg-list': n.status !== 'accepted'
-
-              }" class="whitespace-nowrap">
-
-              Message
-
-            </button>
-
-
-
-
-            <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
+              <button matTooltip="Messaging" [class.disabled-button]="n.status != 'accepted'"
+          [disabled]="n.status != 'accepted'"
+          [ngClass]="{
+            'button-red-bg-list': n.status === 'accepted',
+            'button-gray-bg-list': n.status !== 'accepted',
+            'highlight': selectedConversation === n
+          }"
+          class="whitespace-nowrap cursor-pointer"
+          (click)="createConversation(n)">
+        Message
+        </button>
 
           </div>
 
@@ -239,49 +255,58 @@
 
               <div class="flex flex-row gap-2">
 
-                <div class="flex flex-col">
-
-                  <div>
-
-                    <i class="material-icons mr-1 text-xs">place</i>Departure
-
-                  </div>
-
-                  <div class="gray-highlights">
-
-                    {{ AdsDeparturePort[n.ad_id] }}
-
-                  </div>
-
-                </div>
-
-                <div class="flex flex-col">
-
-                  <div>
-
-                    <i class="material-icons mr-1 text-xs">place</i>Arrival
-
-                  </div>
-
-                  <div>
-
-                    <div class="flex flex-row gap-1">
-
-                      <div class="gray-highlights">
-
-                        {{ AdsArrivalPort[n.ad_id] }}
-
-                      </div>
-
+                <div [ngSwitch]="ad_type">
+                  <div class="flex flex-col" *ngSwitchCase="'container'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Port of Ad
                     </div>
-
+                    <div class="gray-highlights">
+                      {{AdsPortofAd[n.ad_id]}}
+                    </div>
                   </div>
-
+                
+                 <div class="flex flex-col" *ngSwitchCase="'space'">
+                    <div class="flex flex-row gap-1">
+                      <div>
+                        <i class="material-icons mr-1 text-xs">place</i>Departure
+                      </div>
+                      <div class="ml-2">
+                        <i class="material-icons mr-1 text-xs">place</i>Arrival
+                      </div>
+                    </div>
+                    <div class="flex flex-row gap-1">
+                      <div class="gray-highlights ml-3">
+                        {{AdsDeparturePort[n.ad_id]}}
+                      </div>
+                      <div class="gray-highlights ml-6">
+                        {{AdsArrivalPort[n.ad_id]}}
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
                 </div>
+                
 
               </div>
+              
+            </div>
+
+          </div>
+
+          
+
+          <div class="flex flex-col items-center">
+
+            <div class="items-center justify-center">
+
+              <i class="material-icons mr-1 text-xs">event_available</i>
+
+              <span class="text-[0.6rem]">Created Date</span>
 
             </div>
+
+            <div class="text-xs font-bold">{{ getDateOnly(n.date_created) }}</div>
 
           </div>
 
@@ -289,16 +314,14 @@
 
             <div class="items-center justify-center">
 
-              <i class="material-icons mr-1 text-xs">description</i>
+              <i class="material-icons mr-1 text-xs">event_available</i>
 
               <span class="text-[0.6rem]">Expiry Date</span>
 
             </div>
 
             <div class="text-xs font-bold">
-
               {{ getDateOnly(n.expiry_date) }}
-
             </div>
 
           </div>
@@ -339,19 +362,7 @@
 
           </div>
 
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">payments</i>
-
-              <span class="text-[0.6rem]">Price</span>
-
-            </div>
-
-            <div class="text-xs font-bold">{{ n.price }}</div>
-
-          </div>
+          
 
 
 
@@ -370,19 +381,7 @@
 
           </div>
 
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">event_available</i>
-
-              <span class="text-[0.6rem]">Price</span>
-
-            </div>
-
-            <div class="text-xs font-bold">{{ n.price }}</div>
-
-          </div>
+          
 
           <div class="flex flex-col items-center">
 
@@ -435,78 +434,55 @@
 
 
 
-    <div
-    class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
-    *ngIf="this.filteredNlist.length > 0"
-  >
-    <nav aria-label="Page navigation">
-      <ul class="inline-flex gap-2">
-        <li class="button1">
-          <button 
-            [class.opacity-50]="currentPage === totalPages"
-            (click)="(currentPage === 1)"
-            (click)="prevPage()"
-            [disabled]="currentPage < 2"
-          
-          >
-          <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
-            </svg>
-            
-          </button>
-        </li>
+    <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.filteredNlist.length > 0">
+      <nav aria-label="Page navigation">
+        <ul class="inline-flex gap-2">
+          <li class="button1">
+            <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)" (click)="prevPage()"
+              [disabled]="currentPage < 2">
+              <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
+                  fill="black" fill-opacity="0.25" />
+              </svg>
 
-        <li class="button3"  *ngIf="currentPage > 1" >
-          <button
-      
-            (click)="currentPage = currentPage"
-            (click)="prevPage()"
-            *ngIf="currentPage > 1"
-            [hidden]="currentPage < 2"
-          
-          >
-            {{ currentPage - 1 }}
-          </button>
-        </li>
+            </button>
+          </li>
 
-        <li class="button2">
-          <button
-          
-            *ngIf="totalPages != 1"
-          >
-            {{ currentPage }}
-          </button>
-        </li>
+          <li class="button3" *ngIf="currentPage > 1">
+            <button (click)="currentPage = currentPage" (click)="prevPage()" *ngIf="currentPage > 1"
+              [hidden]="currentPage < 2">
+              {{ currentPage - 1 }}
+            </button>
+          </li>
 
-        <li class="button3" *ngIf="currentPage < totalPages">
-          <button
-            [class.opacity-50]="currentPage === totalPages"
-            (click)="currentPage = currentPage"
-            (click)="nextPage()"
-            [hidden]="currentPage >= totalPages"
-            *ngIf="currentPage <= totalPages"
-          >
-            {{ currentPage + 1 }}
-          </button>
-        </li>
+          <li class="button2">
+            <button *ngIf="totalPages != 1">
+              {{ currentPage }}
+            </button>
+          </li>
 
-        <li class="button4">
-          <button
-            [class.opacity-50]="currentPage === totalPages"
-            (click)="currentPage = currentPage"
-            (click)="nextPage()"
-            [disabled]="currentPage >= totalPages"
-           
-          >
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
-            </svg>
-            
-          </button>
-        </li>
-      </ul>
-    </nav>
-  </div>
+          <li class="button3" *ngIf="currentPage < totalPages">
+            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+              (click)="nextPage()" [hidden]="currentPage >= totalPages" *ngIf="currentPage <= totalPages">
+              {{ currentPage + 1 }}
+            </button>
+          </li>
+
+          <li class="button4">
+            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+              (click)="nextPage()" [disabled]="currentPage >= totalPages">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
+                  fill="black" fill-opacity="0.88" />
+              </svg>
+
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
   </div>
 

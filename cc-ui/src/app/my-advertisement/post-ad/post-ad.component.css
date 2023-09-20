@@ -11,6 +11,10 @@
         margin-left: 50px;
       }
     }
+    .uppercase {
+      text-transform: uppercase;
+    }
+    
     .shadow-outline {
       box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
     }
@@ -375,4 +379,57 @@
     color: #595959;
     font-size: 20px;
   }
+  /* custom-styles.css */
+.custom-button-toggle-group {
+  border: 2px ;
   
+  
+}
+
+.custom-button-toggle {
+  font-family: Poppins;
+  color: #333;
+  font-size: 14px;
+  width: 90px; height: 40px;
+
+}
+.custom-button-toggle-curved {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.custom-button-toggle custom-button-toggle-curved-sell{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  
+}
+
+.style-font{
+  font-family:Poppins;
+}
+.custom-snackbar.mat-simple-snackbar {
+  background-color: #ff9900;
+  color: white;
+}
+.blue-snackbar {
+  background: #2196F3;
+}
+::ng-deep .warning{
+  background-color: #ff9900;
+}
+::ng-deep .redNoMatch
+{
+  color:white;
+  background: #F44336 !important;
+}
+.mycsssnackbartest {
+  background-color: blue;
+}
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-color: blue;
+}
+.success-snackbar {
+  --mdc-snackbar-container-color: green !important;
+  --mdc-snackbar-supporting-text-color: white !important;
+  --mat-mdc-snack-bar-button-color: white !important;
+  white-space: pre-wrap
+}

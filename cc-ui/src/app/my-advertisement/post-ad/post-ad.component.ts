@@ -16,7 +16,15 @@ import { SessionService } from 'src/app/session.service';
 import { Advertisement, PostAdService } from './post-ad.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
+import { ViewOtherAdsService } from 'src/app/view-other-ads/view-other-ads.service';
+import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef } from '@angular/material/snack-bar';
+export interface Containers {
+  container_type_id: number;
+  type: string;
+  capacity: number;
 
+
+}
 
 @Component({
   selector: 'app-post-ad',
@@ -38,6 +46,8 @@ export class PostAdComponent implements OnInit{
   C_Type="";
   isLoading:any;
   ads: Advertisement[] = [];
+  container_type_list:Containers[]=[];
+  container_list:Containers[]=[];
   ExcelData:any;
   fileName?: string
   file?: File
@@ -47,28 +57,35 @@ export class PostAdComponent implements OnInit{
   showFile:boolean = false
   showform:boolean=true;
 date_created:any;
-
+type:any;
+selectedContainer: {
+  container_type_id: number;
+  container_size_id: number;
+} = { container_type_id: -1, container_size_id: -1 };
   from_date:any;
   expiry_date:any;
   type_of_ad:any;
   operation:any;
   container_type_id:any;
+  container_type:any;
   price:any;
 status:any;
 quantity:any;
+size:any;
 port_id:any;
 contents:any;
 port_of_departure:any;
 port_of_arrival:any;
 free_days:any;
 per_diem:any;
+port_of_ad:any;
 pickup_charges:any;
 public isButtonDisabled: boolean = false;
 Approve: any;
 
 
 
-  constructor(@Inject(MAT_DIALOG_DATA)public data:any, private ref:MatDialogRef<PostAdComponent>,private postAdService: PostAdService,private router:Router,private sessionService: SessionService) {
+  constructor(@Inject(MAT_DIALOG_DATA)public data:any,private snackBar: MatSnackBar, private ref:MatDialogRef<PostAdComponent>,private postAdService: PostAdService,private router:Router,private sessionService: SessionService,private viewotherads:ViewOtherAdsService) {
   }
 
   addExcel(): void {
@@ -150,11 +167,11 @@ console.error('Uploaded file is empty');
    this.ContinueDraft=this.data.ContinueDraft; 
    this.Approve=this.data.Approve;
    this.adId=this.data.adId;
-
+this.type=this.data.type;
    console.log(this.Approve+"fghjht");
 
    console.log("the adid for draft continue is"+this.adId);
-   
+   console.log("type is "+this.type)
 
     if(this.ContinueDraft==1)
     {
@@ -166,7 +183,8 @@ console.error('Uploaded file is empty');
         this.per_diem=this.ads[0].per_diem;
         this.pickup_charges=this.ads[0].ad_id;
         this.type_of_ad=this.ads[0].type_of_ad;
-        this.container_type_id=this.ads[0].container_type_id;
+        this.container_type=this.ads[0].container_type;
+        this.size=this.ads[0].container_size;
         this.price=this.ads[0].price;
         this.port_of_departure=this.ads[0].port_of_departure;
         this.from_date=this.getDateOnly(this.ads[0].from_date);
@@ -175,6 +193,7 @@ console.error('Uploaded file is empty');
         this.port_of_departure=this.ads[0].port_of_departure;
         this.port_of_arrival=this.ads[0].port_of_arrival;
         this.free_days=this.ads[0].free_days;
+        this.port_of_ad=this.ads[0].port_of_ad;
      
         this.expiry_date=this.getWeekDifference(this.ads[0].from_date,this.expiry_date);
        
@@ -196,7 +215,21 @@ console.error('Uploaded file is empty');
       }
     );
 
-
+    this.viewotherads.getAllContainers().subscribe(
+      (condata: Containers[]) => {
+        // Filter out duplicate values based on capacity
+        const uniqueContainers = condata.filter((container, index, self) =>
+          index === self.findIndex((c) => c.capacity === container.capacity)
+        );
+        const uniqueContainertypes = condata.filter((container, index, self) =>
+        index === self.findIndex((c) => c.type === container.type)
+      );
+  
+        this.container_list = uniqueContainers;
+        this.container_type_list = uniqueContainertypes;
+        console.log(JSON.stringify(this.container_list));
+      }
+    );
     //user id from session 
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
@@ -231,19 +264,31 @@ console.error('Uploaded file is empty');
   }
   
 
-  async onChange($event: Event) {
+    async onChange($event: Event) {
+      const target = $event.target as HTMLInputElement;
+      const file: File = (target.files as FileList)[0];
+      this.file = file;
+      this.title = file.name;
+      this.fileName = file.name;
+      this.showFile = !this.showFile;
+      await setTimeout(() => {
+        this.showFile = !this.showFile;
+      }, 3000);
+      const snackBarConfig: MatSnackBarConfig = {
+        duration: 2000,
+        verticalPosition: 'top',
+        panelClass: ['success-snackbar'],
+      };
+      const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+        `${file.name} Successfully uploaded the file.`,
+        'Close',
+        snackBarConfig
+      );
+    }
 
-    const target = $event.target as HTMLInputElement;
-    const file: File = (target.files as FileList)[0];
-    this.file = file
-    this.title = file.name
-    this.fileName = file.name
-    this.showFile = !this.showFile;
-    await  setTimeout(() => {this.showFile = !this.showFile}, 3000);
-  }
 
   async Draft(){
-  
+  debugger
     this.operation="Draft";
     this.onPost();
 
@@ -251,6 +296,19 @@ console.error('Uploaded file is empty');
   async PostAd(){
     this.operation="PostAd";
     this.onPost();
+    await setTimeout(() => {
+      this.showFile = !this.showFile;
+    }, 3000);
+    const snackBarConfig: MatSnackBarConfig = {
+      duration: 4000,
+      verticalPosition: 'top',
+      panelClass: ['success-snackbar'],
+    };
+    const snackBarRef: MatSnackBarRef<any> = this.snackBar.open(
+      `Successfully Posted the Advertisement`,
+      'Close',
+      snackBarConfig
+    );
   }
 
  getWeekDifference(from_date: Date, expiry_date: Date): number {
@@ -260,15 +318,21 @@ console.error('Uploaded file is empty');
   console.log("expiry date calculated is"+differenceInWeeks);
   return differenceInWeeks;
 }
+capitalizeFirstLetter(text: string): string {
+  if (!text) return text;
 
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
   
   async onPost() {
+    debugger
     this.isLoading=true;
   if(this.operation=="PostAd"){
-    if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) {
-
     
-      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+    if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.container_type && this.size && this.type_of_ad) {
+
+    debugger
+      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type,this.size,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
      
         
         if (response.message === 'Success') {
@@ -294,10 +358,10 @@ console.error('Uploaded file is empty');
 
   else{
     this.isLoading=true;
-    if (this.port_id && this.container_type_id && this.file) {
+    if (this.container_type && this.file) {
 
 
-      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+      this.postAdService.uploadFile(this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type,this.size,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
     
       
        if (response.message === 'Success') {
@@ -363,10 +427,10 @@ console.error('Uploaded file is empty');
 
   Edit(ad_id: number){
     if(this.operation=="PostAd"){
-      if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file && this.port_id && this.container_type_id && this.type_of_ad) 
+      if (this.from_date && this.expiry_date && this.type_of_ad && this.price && this.file  && this.container_type_id && this.type_of_ad) 
       {
 
-                  this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+                  this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type,this.size,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
                 
                   
                   if (response.message === 'Success') {
@@ -392,7 +456,7 @@ console.error('Uploaded file is empty');
     if (this.port_id && this.container_type_id && this.file) {
     
 
-      this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type_id,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation).subscribe((response: any) => {
+      this.postAdService.updateAd(ad_id,this.file,this.from_date,this.expiry_date,this.type_of_ad,this.container_type,this.size,this.price,this.quantity,this.port_id, this.userId, this.companyId, this.contents,this.port_of_departure,this.port_of_arrival,this.free_days,this.per_diem,this.pickup_charges,this.operation,this.port_of_ad,this.type).subscribe((response: any) => {
     
       
        if (response.message === 'Success') {
@@ -414,20 +478,9 @@ console.error('Uploaded file is empty');
   }
   }
   
-//   options = ['Buy', 'Lease', 'Sell','Swap'];
- 
-//    selectedOption = 0;
-//    selectOption(index: number) {
-//    this.selectedOption = index;
-//    this.type_of_ad = this.options[index];
-   
-// }
+
   clear(){
     this.title= null
     this.description = null
   }
 }
-
-
-
-

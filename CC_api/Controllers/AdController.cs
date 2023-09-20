@@ -35,11 +35,25 @@ namespace CC_api.Controllers
 
     }
     [HttpGet("GetAllAdvertisement")]
-    public async Task<List<Ad>> GetAllFiles(string ad_type,int companyID)
+    public async Task<List<Ad>> GetAllFiles(string ad_type, int companyID)
     {
       var Ads = await this._AdRepository.GetAllAdvertisement(ad_type, companyID);
       return Ads;
     }
+    [HttpGet("GetMyAd")]
+    public async Task<List<Ad>> GetAllFiless(string ad_type, int companyID)
+    {
+      var Ads = await this._AdRepository.GetMyAd(ad_type, companyID);
+      return Ads;
+    }
+
+    [HttpGet("GetMyAds")]
+    public async Task<IActionResult> GetMyAdscount(string ad_type)
+    {
+      var count = await _AdBusiness.GetMyAdscount(ad_type);
+      return Ok(count);
+    }
+
 
 
     [HttpPost("ExcelUploadAd")]
@@ -63,13 +77,17 @@ namespace CC_api.Controllers
 
 
 
+
+
+
+
+
     [HttpPost("PostAd")]
     public async Task<ActionResult> PostAd(IFormFile file,
-      DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
+      DateTime from_date, int expiry_date, string type_of_ad, string container_type, int container_size,
       decimal price, int quantity, int port_id, int posted_by, int company_id,
       string contents, string port_of_departure, string port_of_arrival, int free_days,
-      int per_diem, decimal pickup_charges, string port_of_ad, string operation, string ad_type)
-
+      int per_diem, decimal pickup_charges, string operation, string port_of_ad, string ad_type)
 
     {
       if (operation == "PostAd")
@@ -102,16 +120,25 @@ namespace CC_api.Controllers
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
 
+          var ad_for_port = await _AdBusiness.GetPortName(port_id);
+          if (ad_for_port == null)
+          {
+            ad_for_port = "NA";
+            port_id = await _AdBusiness.GetPortId(port_of_departure);
+          }
+
+
           DateTime expiry_date_time = from_date.AddDays(expiry_date * 7);
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = expiry_date_time,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = expiry_date_time.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "pending",
             quantity = quantity,
@@ -124,7 +151,9 @@ namespace CC_api.Controllers
             free_days = free_days,
             per_diem = per_diem,
             pickup_charges = pickup_charges,
-            port_of_ad = port_of_ad,
+
+
+            port_of_ad = ad_for_port,
             ad_type = ad_type,
             file = uploadedFileId
           };
@@ -163,17 +192,25 @@ namespace CC_api.Controllers
           {
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
+          var ad_for_port = await _AdBusiness.GetPortName(port_id);
 
+          if (ad_for_port == null)
+          {
+            ad_for_port = "NA";
+            port_id = await _AdBusiness.GetPortId(port_of_departure);
+
+          }
           DateTime expiry_date_time = from_date.AddDays(expiry_date * 7);
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = expiry_date_time,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = expiry_date_time.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "draft",
             quantity = quantity,
@@ -186,6 +223,8 @@ namespace CC_api.Controllers
             free_days = free_days,
             per_diem = per_diem,
             pickup_charges = pickup_charges,
+            port_of_ad = ad_for_port,
+            ad_type = ad_type,
             file = uploadedFileId
           };
           await this._AdBusiness.PostAd(Ad);
@@ -196,6 +235,8 @@ namespace CC_api.Controllers
       }
 
     }
+
+
 
     //End upload
 
@@ -237,11 +278,18 @@ namespace CC_api.Controllers
       var Ads = await this._AdRepository.GetAdByAdID(ad_id);
       return Ads;
     }
+    [HttpGet("GetAllAdvertisementbytype")]
+    public async Task<List<Ad>> GetAllFilesbytype(string ad_type, int companyID)
+    {
+      var Ads = await this._AdRepository.GetAllAdvertisementbytype(ad_type, companyID);
+      return Ads;
+    }
+
 
     [HttpGet("GetAllAds")]
-    public async Task<List<Ad>> GetAllFiles(int companyID, string operation)
+    public async Task<List<Ad>> GetAllFiles(int companyID, string operation, string ad_type)
     {
-      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation);
+      var Ads = await this._AdRepository.GetAdByCompanyID(companyID, operation, ad_type);
       return Ads;
 
 
@@ -292,15 +340,24 @@ namespace CC_api.Controllers
       return Ok(count);
     }
 
+    [HttpGet("MyadvertisementCount")]
+    public async Task<IActionResult> GetMyadvertisementCount(string ad_type, int companyId)
+    {
+      var count = await _AdBusiness.GetMyadvertisementCount(ad_type, companyId);
+      return Ok(count);
+    }
+
 
 
     [HttpPut("Edit/{id}")]
 
+
+
     public async Task<ActionResult> UpdateAd(int id, IFormFile file,
-      DateTime from_date, int expiry_date, string type_of_ad, int container_type_id,
-      decimal price, int quantity, int port_id, int posted_by, int company_id,
-      string contents, string port_of_departure, string port_of_arrival, int free_days,
-      int per_diem, decimal pickup_charges, string operation)
+    DateTime from_date, int expiry_date, string type_of_ad, string container_type, int container_size,
+    decimal price, int quantity, int port_id, int posted_by, int company_id,
+    string contents, string port_of_departure, string port_of_arrival, int free_days,
+    int per_diem, decimal pickup_charges, string operation, string port_of_ad, string ad_type)
     {
       if (operation == "Approve")
       {
@@ -308,10 +365,14 @@ namespace CC_api.Controllers
         var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
                         .CreateScoped(DriveService.ScopeConstants.Drive);
 
+
+
         var service = new DriveService(new BaseClientService.Initializer()
         {
           HttpClientInitializer = credential
         });
+
+
 
         // Upload file Metadata
         var fileMetadata = new Google.Apis.Drive.v3.Data.File()
@@ -319,6 +380,8 @@ namespace CC_api.Controllers
           Name = file.FileName,
           Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
         };
+
+
 
         await using (var stream = file.OpenReadStream())
         {
@@ -332,19 +395,33 @@ namespace CC_api.Controllers
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
 
+
+
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
+          var ad_for_port = await _AdBusiness.GetPortName(port_id);
 
+          if (ad_for_port == null)
+          {
+            ad_for_port = "NA";
+            port_id = await _AdBusiness.GetPortId(port_of_departure);
+
+
+
+          }
           DateTime expiry_date_time = from_date.AddDays(expiry_date * 7);
+
+
 
           var Ad = new Ad
           {
             ad_id = id,
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = expiry_date_time,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = expiry_date_time.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "active",
             quantity = quantity,
@@ -356,14 +433,23 @@ namespace CC_api.Controllers
             port_of_arrival = port_of_arrival,
             free_days = free_days,
             per_diem = per_diem,
+
+
+
+            port_of_ad = ad_for_port,
+            ad_type = ad_type,
             pickup_charges = pickup_charges,
             file = uploadedFileId
           };
           await this._AdBusiness.UpdateAd(Ad);
 
 
+
+
           return Ok(new { uploadedFileId, message = "Success" });
         }
+
+
 
       }
       else if (operation == "Draft")
@@ -372,10 +458,14 @@ namespace CC_api.Controllers
         var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
                         .CreateScoped(DriveService.ScopeConstants.Drive);
 
+
+
         var service = new DriveService(new BaseClientService.Initializer()
         {
           HttpClientInitializer = credential
         });
+
+
 
         // Upload file Metadata
         var fileMetadata = new Google.Apis.Drive.v3.Data.File()
@@ -383,6 +473,8 @@ namespace CC_api.Controllers
           Name = file.FileName,
           Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
         };
+
+
 
         await using (var stream = file.OpenReadStream())
         {
@@ -395,17 +487,29 @@ namespace CC_api.Controllers
           {
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
+          var ad_for_port = await _AdBusiness.GetPortName(port_id);
 
+
+
+          if (ad_for_port == null)
+          {
+            ad_for_port = "NA";
+            port_id = await _AdBusiness.GetPortId(port_of_departure);
+
+
+
+          }
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
             ad_id = id,
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = from_date,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = from_date.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "draft",
             quantity = quantity,
@@ -417,14 +521,23 @@ namespace CC_api.Controllers
             port_of_arrival = port_of_arrival,
             free_days = free_days,
             per_diem = per_diem,
+
+
+
+            port_of_ad = ad_for_port,
+            ad_type = ad_type,
             pickup_charges = pickup_charges,
             file = uploadedFileId
           };
           await this._AdBusiness.UpdateAd(Ad);
 
 
+
+
           return Ok(new { uploadedFileId, message = "Success" });
         }
+
+
 
       }
       else
@@ -433,10 +546,14 @@ namespace CC_api.Controllers
         var credential = GoogleCredential.FromFile(PathToServiceAccountKeyFile)
                         .CreateScoped(DriveService.ScopeConstants.Drive);
 
+
+
         var service = new DriveService(new BaseClientService.Initializer()
         {
           HttpClientInitializer = credential
         });
+
+
 
         // Upload file Metadata
         var fileMetadata = new Google.Apis.Drive.v3.Data.File()
@@ -444,6 +561,8 @@ namespace CC_api.Controllers
           Name = file.FileName,
           Parents = new List<string>() { "1w4uzPE0UuoaQVeKDLALs4l1ceqUFfLMS" }
         };
+
+
 
         await using (var stream = file.OpenReadStream())
         {
@@ -456,17 +575,27 @@ namespace CC_api.Controllers
           {
             Console.WriteLine($"Error uploading file: {results.Exception.Message}");
           }
+          var ad_for_port = await _AdBusiness.GetPortName(port_id);
 
+          if (ad_for_port == null)
+          {
+            ad_for_port = "NA";
+            port_id = await _AdBusiness.GetPortId(port_of_departure);
+
+
+
+          }
           // the file id of the new file we created
           uploadedFileId = request.ResponseBody?.Id;
           var Ad = new Ad
           {
             ad_id = id,
-            date_created = DateTime.Now,
-            from_date = from_date,
-            expiry_date = from_date,
+            date_created = DateTime.Now.ToUniversalTime(),
+            from_date = from_date.ToUniversalTime(),
+            expiry_date = from_date.ToUniversalTime(),
             type_of_ad = type_of_ad,
-            container_type_id = container_type_id,
+            container_type = container_type,
+            container_size = container_size,
             price = price,
             status = "pending",
             quantity = quantity,
@@ -478,16 +607,27 @@ namespace CC_api.Controllers
             port_of_arrival = port_of_arrival,
             free_days = free_days,
             per_diem = per_diem,
+
+
+
+            port_of_ad = ad_for_port,
+            ad_type = ad_type,
             pickup_charges = pickup_charges,
             file = uploadedFileId
           };
           await this._AdBusiness.UpdateAd(Ad);
 
 
+
+
           return Ok(new { uploadedFileId, message = "Success" });
         }
 
+
+
       }
+
+
 
     }
 

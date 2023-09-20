@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { ApiService } from 'src/app/api.service';
 
 
 @Injectable({
@@ -9,27 +10,35 @@ import { Observable } from 'rxjs';
 })
 export class EditProfileService {
  
-  private apiUrl='https://localhost:7157/UpdateCompany';
-  constructor(private http:HttpClient) { }
-  edit(editprofileForm: FormGroup<any>)
-  {
-    const headers=new HttpHeaders().set('contentType','application/json; charset=UTF-8');
-    return this.http.post(this.apiUrl,editprofileForm,{headers});
-  }
-  GetAllCompany():Observable<any>{
-  
-    return this.http.get('https://localhost:7157/GetAllCompany')
-    // .pipe(map(res => res.json()));
-  }
-  getCompanyById(company_id:number):Observable<any>{
-    return this.http.get('https://localhost:7157/GetCompanyById',{params:{'companyId':company_id}})
-  }
- updatecompany(id:number,editprofileForm: FormGroup<any>){
-  debugger;
-  const headers=new HttpHeaders().set('ContentType','application/json');
+
+  private apiUrl='UpdateCompany';
+  private countUrl='GetCompanyById';
+  constructor(private http:HttpClient,private apiService: ApiService) { }
  
-  return this.http.put(`${this.apiUrl}/${id}`,editprofileForm,{headers});
- }
+  edit(editprofileForm: FormGroup<any>): Observable<any> {
+    const url = this.apiService.getFullUrl(this.apiUrl);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=UTF-8');
+    return this.http.post(url, editprofileForm, { headers });
+  }
+ 
+  GetAllCompany(): Observable<any> {
+    const url = this.apiService.getFullUrl(`GetAllCompany`);
+    return this.http.get(url);
+
+  }
+ 
+  getCompanyById(company_id:number):Observable<any>{
+
+    const url = this.apiService.getFullUrl(`${this.countUrl}?companyId':company_id}`);
+    return this.http.get(url);
+
+  }
+
+ updatecompany(id: number, editprofileForm: FormGroup<any>): Observable<any> {
+  const fullUrl = this.apiService.getFullUrl(`${this.apiUrl}/${id}`);
+  const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  return this.http.put(fullUrl, editprofileForm, { headers });
+}
 }
 
 

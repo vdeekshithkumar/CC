@@ -63,6 +63,12 @@ namespace CC_api.Business
 
 
     }
+    public async Task<int?> GetCompanyIdByCompanyName(string companyname)
+    {
+      int? companyId = await companyRepository.GetCompanyIdByCompanyName(companyname);
+      return companyId;
+    }
+
     public async Task<List<Company>> GetOtherCompanyAsync(int companyID)
     {
 

@@ -16,8 +16,20 @@
     background-color: #FAFAFA;
  }
  .div-card-div{
-  @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full ml-4
+  @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full 
  }
+ .highlight-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+  
+  background-color: #fff; /* Set a background color (here it's white, but you can change it) */
+  transition: box-shadow 0.3s ease, border 0.3s ease; /* Add a transition effect for smooth animation */
+}
+
+.highlight-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust the shadow effect when hovering over the card */
+   /* Adjust the border color on hover (here it's orange) */
+}
+
  .h1-div{
     color: var(--gray-gray-8, #595959);
 font-family: Poppins;
@@ -43,14 +55,80 @@ letter-spacing: 0.64px;
   .my-custom-class {
     width: 80%;
   }
+ 
+  .chart-container {
+    width: 100%; 
+    height: 200px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-family: Poppins;
+    color: var(--neutral-9, #434343);
+  }
+  .chart-container-neg{
+    margin-top:150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-size:10px;
+    font-family: Poppins;
+    color: var(--neutral-9, #434343);
+  }
+  .curved-labels {
+    position: absolute;
+    left: 500;
+    width:340px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none; 
+    margin-top:0px;
+  }
+  
+  .label {
+    position: absolute;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+  }
+  .chart-container-pie {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-family: Poppins;
+    color: var(--neutral-9, #434343);
+  }
+  
+  .horizontal-bar{
+    height: 600px; 
+    width: 350px;
+     overflow: hidden;
+     margin-top:50px;
+     font-family:Poppins;
+  }
+  .text{
+    color:black;
+    font-family: Poppins;
+    font-size: 10px;
+  }
+  .main{
+    margin-top:16px;
+  }
+
+  
   .div-card-card {
     width: 80%;
+    height:300px;
   }
  .div-card-card1{
-    @apply flex-1 m-3 h-10 overflow-y-auto bg-white pl-4 pt-2 pb-2
+    @apply flex-1 m-3 h-10  bg-white pl-4 pt-2 pb-2
    }
  .div-div-card{
-  @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] overflow-y-auto
+  @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] 
  }
 
 .flex-container {
@@ -68,9 +146,19 @@ border-bottom: 2px solid var(--gray-gray-3, #F5F5F5);
   }
   .foot{
    
-color:#2F54EB;
-font-family: Poppins;
-
-line-height: 20px;
-border-top: 2px solid var(--gray-gray-3, #F5F5F5);
+    color:#2F54EB;
+    font-family: Poppins;
+    
+    line-height: 20px;
+    border-top: 2px solid var(--gray-gray-3, #F5F5F5);
+      }
+  chart-container-line{
+    width: 100%; 
+    height: 250px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    font-family: Poppins;
+    color: var(--neutral-9, #434343);
   }

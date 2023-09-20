@@ -1,4 +1,3 @@
-using Azure;
 using CC_api.Models;
 using CC_api.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -34,8 +33,7 @@ namespace CC_api.Business
         n.ad_id = ad_id;
         n.price = item.price;
         n.negotiation_type = item.type_of_ad;
-        var container_type = await this.AdRepository.getContainerType(item.container_type_id);
-        n.container_type = container_type;
+        n.container_type = item.container_type;
         n.quantity = item.quantity;
         n.status = "pending";
         n.company_id = company_id;
@@ -49,7 +47,16 @@ namespace CC_api.Business
       return new OkResult();
     }
 
-
+    public async Task<List<int>> GetMyNegotiationsCount(int company_id)
+    {
+      var GetMyNegcount = await NegotiationRepository.GetMyNegotiationsCount(company_id);
+      var count = new List<int>();
+      foreach (var c in GetMyNegcount)
+      {
+        count.Add((int)c);
+      }
+      return count;
+    }
     public async Task DeleteNegotiation(Negotiation n)
     {
       try

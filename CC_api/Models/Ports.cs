@@ -17,7 +17,7 @@ namespace CC_api.Models
     public string country { get; set; }
     public string city { get; set; }
     public string region { get; set; }
-    public string sub_region { get; set; }
+    public string? sub_region { get; set; }
     public string status { get; set; }
     public string port_code{ get; set; }
     
