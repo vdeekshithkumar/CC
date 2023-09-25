@@ -66,7 +66,7 @@
     <div>
 
       <div class="port-search-container">
-        <div *ngIf="ad_type === 'container'">
+        <div *ngIf="ad_type === 'container'&& selectedOptions['type'] != 'OneWay'">
           <ng-container class="mt-6">
         <p class="port-text">Port of Ad</p>
         <div class="select-container">
@@ -85,6 +85,26 @@
      
     
       <ng-container *ngIf="ad_type === 'space'">
+        <p class="port-text">Port of Departure</p>
+       
+          <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            </option>
+          </select>
+       
+    
+        <p class="port-text">Port of Arrival</p>
+       
+          <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            </option>
+          </select>
+       
+      </ng-container>
+
+      <ng-container *ngIf="ad_type === 'container'&&selectedOptions['type'] === 'OneWay'">
         <p class="port-text">Port of Departure</p>
        
           <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
@@ -353,16 +373,55 @@
             />
             <div class="flex flex-col text-[0.6rem]">
               <div class="flex flex-row gap-2">
-                <div class="flex flex-col" *ngIf="ad_type === 'container'" >
+                <div class="flex flex-col" *ngIf="ad_type === 'container'&& ad.type_of_ad != 'oneway'">
                   <div>
-                    <i class="material-icons mr-1 text-xs">place</i
-                    >Port of Ad
+                    <i class="material-icons mr-1 text-xs">place</i>Port of Ad
                   </div>
-                  <div class="gray-highlights" >
-                    {{ capitalizeFirstLetter(ad.port_of_ad) }} 
-
+                  <div class="gray-highlights">
+                    {{ capitalizeFirstLetter(ad.port_of_ad) }}
+                    {{type_of_ad}}
                   </div>
                 </div>
+                
+                <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i>Departure
+                  </div>
+                  <div class="gray-highlights">
+                    {{ capitalizeFirstLetter(ad.port_of_departure) }}
+                  </div>
+                </div>
+                
+                <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i>Arrival
+                  </div>
+                  <div>
+                    <div class="flex flex-row gap-1">
+                      <div class="gray-highlights">
+                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+
+
+  
+                <!-- <div class="flex flex-col"*ngIf="ad_type === 'container'&&type_of_ad=='oneway'">
+                  <div>
+                    <i class="material-icons mr-1 text-xs">place</i
+                    >Arrival
+                  </div>
+                  <div>
+                    <div class="flex flex-row gap-1">
+                      <div class="gray-highlights">
+                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+
                 <div class="flex flex-col" *ngIf="ad_type !== 'container'">
                   <div>
                     <i class="material-icons mr-1 text-xs">place</i
@@ -385,6 +444,9 @@
                     </div>
                   </div>
                 </div>
+
+                
+                
               </div>
             </div>
           </div>
