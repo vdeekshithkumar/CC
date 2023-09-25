@@ -152,6 +152,27 @@
                                           </select>
                                       </div>
                                 </div>
+
+                                <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type==='container'&&type_of_ad === 'oneway'">
+                                  <label class="text-gray-600 rounded-lg font-medium text-sm  ml-1">Port of Departure</label>
+                                  <div class="bg-white font-medium rounded-lg">
+                                      <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
+                                          <option selected>Select your port </option>
+                                          <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
+                                        </select>
+                                    </div>
+                              </div>
+
+                              <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type==='container'&&type_of_ad === 'oneway'">
+                                  <label class="text-gray-600 font-medium rounded-lg text-sm  ml-1">Port of Arrival</label>
+                                  <div class="bg-white font-medium rounded-lg">
+                                      <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
+                                          <option selected>Select your port </option>
+                                          <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
+                                        </select>
+                                    </div>
+                              </div>
+
                                 <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
                                     <label class="text-gray-600 font-medium text-sm  ml-1">From Date<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
                                     <div>
@@ -251,7 +272,7 @@
                                   <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Select Here</label>
                               </div>
     
-                                <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'">
+                                <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'&&type_of_ad != 'oneway'">
 
                                   <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Port of Ad<span class="text-red-500"> *</span></label>
 
