@@ -218,11 +218,18 @@
                           {{ ad_type === 'container' ? 'Port of Ad' : 'Port of Departure' }}
                         </th>
                         <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Port of Departure
+                        </th>
+                        <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                          Port of Arrival
+                        </th>
+                        <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
                           Negotiations
                         </th>
                         <th scope="col border-2" *ngIf="ad_type === 'space'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
                           Port of Arrival
                         </th>
+                       
                         <th scope="col border-2" *ngIf="ad_type === 'space' && operation === 'Active'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
                           Negotiations
                         </th>
@@ -336,6 +343,27 @@
                             </div>
                           </div>
                         </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap" *ngIf="ad_type == 'container'">
+                          <div class="flex flex-row gap-2">
+                            <div class="flex flex-col">
+                              
+                              <div class="gray-highlights">
+                                {{ ad.port_of_departure }}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap" *ngIf="ad_type == 'container'">
+                          <div class="flex flex-row gap-2">
+                            <div class="flex flex-col">
+                              
+                              <div class="gray-highlights">
+                                {{ ad.port_of_arrival }}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        
 
                         <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
                           <div style="display: flex;">
