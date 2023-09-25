@@ -40,6 +40,7 @@ export class ViewOtherAdsService {
   private  nUrl= 'GetAllNegotiation';
   private  startNUrl= 'StartNegotiation';
   private contUrl='GetAllContainers';
+  private typeadvurl='GetAllAdontypeofad';
   constructor(private http:HttpClient,private apiService: ApiService) { }
 
 
@@ -50,6 +51,11 @@ export class ViewOtherAdsService {
   
   getAdvertisement(ad_type:string,companyId:number): Observable<Advertisement[]> {
     const url = this.apiService.getFullUrl(`${this.advUrl}?ad_type=${ad_type}&companyId=${companyId}`);
+    return this.http.get<Advertisement[]>(url);
+  }
+
+  getAdvertisementbytypeofad(ad_type:string,type_of_ad:string,companyId:number): Observable<Advertisement[]> {
+    const url = this.apiService.getFullUrl(`${this.typeadvurl}?ad_type=${ad_type}&type_of_ad=${type_of_ad}&companyId=${companyId}`);
     return this.http.get<Advertisement[]>(url);
   }
 
