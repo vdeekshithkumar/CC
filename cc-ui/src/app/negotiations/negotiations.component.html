@@ -1,489 +1,479 @@
-<div class="flex mt-20">
-  <div id="main-neg-component" class="w-full bg-white font-poppins min-h-screen">
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SessionService } from '../session.service';
+import { NegotiationsService } from './negotiations.service';
+import { MessagingService } from '../messaging/messaging.service';
+import { conversation } from '../DTO/conversation';
+import { Observable, map, catchError, of } from 'rxjs';
+import { SharedServiceService } from '../shared-service.service';
 
-    <div id="title" class="w-full p-2 h-fit flex flex-col">
+ 
 
-      <div class="flex justify-between -ml-2">
+export interface Negotiation {
+  [x: string]: any;
+  negotiation_id: number;
+  user_id: number;
+ 
+  ad_id: number;
+  price: number;
+  negotiation_type: string;
+  container_type: string;
+  quantity: number;
+  status: string;
+  company_id: number;
+  contract_id: any;
+  date_created: Date;
+  expiry_date: Date;
+  updated_by: number;
+}
 
-        <div class="radio-buttons"><label class="forecast font-semibold ml-2 whitespace-nowrap">My Negotiations</label>
-          <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
+ 
+
+@Component({
+  selector: 'app-negotiations',
+  templateUrl: './negotiations.component.html',
+  styleUrls: ['./negotiations.component.css']
+})
+export class NegotiationsComponent implements OnInit {
+  public isButtonDisabled: boolean = false;
+  conversations: conversation[] = [];
+  companyId: any;
+  
+selectedNegotiation: any;
+  NButtonDisabled: boolean = false;
+  itemsPerPage: number = 3;
+  currentPage: number = 1;
+  userId: any;
+  adId: any;
+  x:number=0;
+  filteredNlist: any[] = [];
+  company_list_by_companyId: any[] = [];
+  alluser_list: any[] = [];
+  ads_list: any[] = [];
+  userNames: { [userId: number]: string } = {};
+  userLNames: { [userId: number]: string } = {};
+  userNo: { [userId: number]: string } = {};
+  AdsArrivalPort: { [ad_id: number]: string } = {};
+  AdsType: { [ad_id: number]: string } = {};
+  AdsDeparturePort: { [ad_id: number]: string } = {};
+  AdsPortofAd: { [ad_id: number]: string } = {};
+  AdscompanyNames: { [ad_id: number]: string } = {};
+  Negotiatorcompanynames:{[companyId:number]:string }={};
+  AdscompanyLogos: { [ad_id: number]: string } = {};
+  AdscompanyDomain: { [ad_id: number]: string } = {};
+  AdscompanyRating: { [ad_id: number]: string } = {};
+  AdscompanyAddress: { [ad_id: number]: string } = {};
+  companyNames: { [companyId: number]: string } = {};
+  companyLogos: { [companyId: number]: string } = {};
+  companyDomain: { [companyId: number]: string } = {};
+  companyRating: { [companyId: number]: string } = {};
+  companyAddress: { [companyId: number]: string } = {};
+  testpassing: any;
+  companyName: any;
+  PList: any[] = [];
+  negotiations: Negotiation[] = [];
+  date_created: any;
+  elementRef: any;
+  AdscompanyId: any;
+  NegcompanyId:any;
+
+  ad_type: string='container';
+  negad_type!: string;
+  conversationID!:number
+  negotiation_id!:number;
+ negCount:any;
+  selectedConversationIndex:any=null;
+  selectedConversation:any;
+  constructor(
+    private dialog: MatDialog,
+    private route: ActivatedRoute,
+    private sessionService: SessionService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private negotiationservice: NegotiationsService,
+    private messageService: MessagingService,
+   
+  ) {}
+
+ 
+
+  async ngOnInit(): Promise<void> {
+    
+    await this.fetchAdvertisements();
+    await this.fetchCompanyId();
+    await this.fetchOtherCompanies();
+    await this.fetchUserId();
+    await this.fetchPermissions();
+    await this.fetchNegotiations('selectedAdType');
+    this.route.paramMap.subscribe((params) => {
+      const adType = params.get('ad_type') ?? 'container'; 
+      this.fetchNegotiations(adType);
+    });
+        this.sessionService.getCompanyId().subscribe({
+          next: (companyId: number) => {
+            this.companyId = companyId;
+            this.companyName = this.companyName;
+          },
+          error: (error: any) => {
+            console.error('Error retrieving company ID:', error);
+          }
+        });
+    this.messageService.getMessges(this.conversationID).subscribe({
+      next: (data: any[]) => {
+        this.conversations = data;
+      },
+      error: (error: any) => {
+        console.error('Error retrieving conversations:', error);
+      }
+    });
+    
+  }
+
+ 
+
+  async fetchAdvertisements(): Promise<void> {
+    try {
+      const data: any = await this.negotiationservice.getAdvertisementbytype(this.ad_type, this.companyId).toPromise();
+      this.ads_list = data;
+      console.log("Ads by company ID and ad_type:", this.ads_list);
+      // Populate the company names object and other properties
+      this.ads_list.forEach((ad: any) => {
+        this.AdscompanyNames[ad.ad_id] = ad.company_id;
+        this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
+        this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
+        this.AdsType[ad.ad_id] = ad.ad_type;
+        this.AdsPortofAd[ad.ad_id] = ad.port_of_ad;
+        this.Negotiatorcompanynames[ad.company_id] = ad.company_id;
+      });
+    } catch (error) {
+      console.log("Error loading advertisements:", error);
+    }
+  }
+
+  updateAdType(selectedAdType: string) {
+    this.ad_type = selectedAdType;
+  }
+
+  async fetchCompanyId(): Promise<void> {
+    try {
+      
+      this.companyId = await this.sessionService.getCompanyId().toPromise();
+      this.companyName = this.companyName;
+      console.log('Company ID is:', this.companyId);
+    } catch (error) {
+      console.error('Error retrieving company ID:', error);
+    } 
+  }
+
+ 
+
+  async fetchOtherCompanies(): Promise<void> {
+    try {
+      const data: any = await this.negotiationservice.getotherCompany(this.companyId).toPromise();
+      this.company_list_by_companyId = data;
+      console.log("Other company by company ID is fetched:", this.company_list_by_companyId);
+
+      // Populate the company names object
+      this.company_list_by_companyId.forEach((company: any) => {
+        this.companyNames[company.company_id] = company.name;
+        this.companyLogos[company.company_id] = company.company_logo;
+
+        this.companyDomain[company.company_id] = company.domain_address;
+        this.companyRating[company.company_id] = company.rating;
+        this.companyAddress[company.company_id] = company.address;
+      });
+    } catch (error) {
+      console.log("Error loading company details:", error);
+    }
+  }
+
+ 
+
+  async fetchUserId(): Promise<void> {
+    try {
+      this.userId = await this.sessionService.getUserId().toPromise();
+      console.log('User ID is:', this.userId);
+    } catch (error) {
+      console.error('Error retrieving user ID:', error);
+    }
+  }
+
+ 
+
+  async fetchPermissions(): Promise<void> {
+    try {
+      const permissions: any[] = await this.negotiationservice.getPermissions(this.userId).toPromise();
+      this.PList = permissions;
+      this.isButtonDisabled = !this.PList.includes(2);
+    } catch (error) {
+      console.log(error);
+      alert("error");
+    }
+  }
+
+ 
+  async fetchNegotiations(selectedAdType: string): Promise<void> {
+    try {
+      this.updateAdType(selectedAdType); // Call the updateAdType method here
+      
+      debugger;
+      const data: Negotiation[] = await this.negotiationservice.getNegotiationsByCId(this.companyId).toPromise();
+      this.negotiations = data;
+      console.log("This is ads_list", this.ads_list);
+      debugger;
+  
+      // Filter negotiations based on the selected ad_type
+      this.filteredNlist = this.negotiations.filter((negotiation) => {
+        const ad = this.ads_list.find((ad) => ad.ad_id === negotiation.ad_id && ad.ad_type === selectedAdType);
+        return !!ad; // Include the negotiation if a matching ad with the selected ad_type is found
+      });
+  
+      console.log("Filtered negotiations:", this.filteredNlist);
+      console.log("All negotiations:", this.negotiations);
+    } catch (error) {
+      console.log(error);
+    }
+    
+
+    this.negotiationservice.getallUser(this.companyId).subscribe(
+      (data: any) => {
+        this.alluser_list = data;
+        console.log("Other users by company ID is fetched:", this.alluser_list);
+
+        // Populate the user names object
+        this.alluser_list.forEach((user: any) => {
+          this.userNames[user.user_id] = user.first_name;
+          this.userLNames[user.user_id] = user.last_name;
+          this.userNo[user.user_id] = user.phone_no;
+
+
+        });
+      },
+      (error: any) => {
+        console.log("Error loading company details:", error);
+      }
+    );
+debugger
+    this.negotiationservice.getnegotiationcount(this.companyId).subscribe(
+      (count: number[]) => {
+        this.negCount = count;
+       
+        console.log('Ads count:', this.negCount[0]);
+      
+      },
+      (error: any) => {
+        console.log(error);
+        alert('Error occurred');
+      }
+    );
+
+  }
+
+onCancel() {
+
+  window.location.reload()
+}
+
+// navigateToMessaging(convo: any): void {
+//   if (convo.status === 'accepted') {
+//     const negotiationId = convo.negotiation_id;
+//     this.router.navigate(['/messaging'], { queryParams: { negotiationId: negotiationId } });
+//   }
+// }
+
+
+get totalPages(): number {
+  return Math.ceil(this.filteredNlist.length /this.itemsPerPage);
+}
+prevPage(): void {
+  if (this.currentPage > 1) {
+    this.currentPage--;
+  }
+}
+
+// Function to go to the next page
+nextPage(): void {
+  if (this.currentPage < this.totalPages) {
+    this.currentPage++;
+  }
+}
+// createConversation(conversation: any) {
+//   debugger
+//   const companyId = conversation.company_id;
+//   const companyName = this.getCompanyName(conversation.ad_id);
+//   const adcompanyId=this.getCompanyID(conversation.ad_id);
+//   const newConversation = {
+//     company_id: companyId,
+//     company_name: companyName,
+//     user_id: conversation.user_id,
+//     user_name: this.getUserName(conversation.user_id),
+//     negotiation_id:conversation.negotiation_id,
+//     AdscompanyId:adcompanyId,
+//     is_active:1
+//   };
+
+//   this.messageService.createConversation(newConversation).subscribe(
+//     (response) => {
+//       console.log(newConversation)
+//       console.log('Conversation created:', response);
+//       this.router.navigate(['/messaging']); 
+//     },
+//     (error) => {
+//       console.error('Error creating conversation:', error);
+//     }
+//   );
+// }
+createConversation(conversation: any) {
+  debugger
+  const companyId = conversation.company_id;
+  const negcompanName=this.getNegCompanyName(conversation.company_id)
+  const companyName = this.getCompanyName(conversation.ad_id);
+  const adcompanyId = this.getCompanyID(conversation.ad_id);
+  const companylogo=this.getCompanylogo(conversation.ad_id);
+  const negcompanyLogo=this.getNegCompanyLogo(conversation.company_id)
+  const newConversation = {
+    company_id: companyId,
+    negotiator_company_name:negcompanName,
+    negotiator_company_logo:negcompanyLogo,
+    company_name: companyName,
+    user_id: conversation.user_id,
+    first_name: this.getUserName(conversation.user_id),
+    negotiation_id: conversation.negotiation_id,
+    AdscompanyId: adcompanyId,
+    is_active: 1, // Set the is_active field to 1
+    company_logo:companylogo
+
+  };
+
+  this.checkConversationExists(newConversation).then((conversationExists) => {
+    if (conversationExists) {
+      this.router.navigate(['/messaging']);
+    } else {
+      this.messageService.createConversation(newConversation).subscribe(
+        (response) => {
+          console.log('Conversation created:', response);
+          this.selectedConversation = conversation;
+          this.router.navigate(['/messaging']);
         
-             
-            <div class="select-type whitespace-nowrap ml-2 font-semibold">
-              <span *ngIf="ad_type === 'container'">Container Negotiations</span>
-              <span *ngIf="ad_type === 'space'">Space Negotiations</span>
-            </div>           
-        </div>
-        <div>
-          <!-- <div style="display: inline-block;margin-right: 16px;">   
-            <label class="radio mt-[10px]" style="cursor: pointer;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              
-              </svg>            
-              Container
-              <input type="radio" style="cursor: pointer;" name="search-space" value="container" [(ngModel)]="ad_type" (change)="updateAdType('container')">
-            </label>
-          </div>
-          <div style="display: inline-block;">
-            <label class="radio" style="cursor: pointer;">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              
-              </svg>            
-              Space
-              <input type="radio" style="cursor: pointer;" name="search-space-space" value="space" [(ngModel)]="ad_type" (change)="updateAdType('space')">
-            </label>
-          </div> -->
-          
-          
-          <button class="button-no-bg mx-4">Export Data</button>
+          this.selectedConversationIndex = this.conversations.findIndex((convo) => convo === conversation);
+        },
+        (error) => {
+          console.error('Error creating conversation:', error);
+        }
+      );
+    }
+  });
+}
+
+
+async checkConversationExists(newConversation: any): Promise<boolean> {
+  try {
+    const existingConversations = await this.messageService.getconversationbynegid(newConversation.negotiation_id).toPromise();
+    const conversationExists = existingConversations?.some(
+      (conversation: any) =>
+        conversation.user_id === newConversation.user_id &&
+        conversation.negotiation_id === newConversation.negotiation_id
+    );
+    return conversationExists || false;
+  } catch (error) {
+    console.error('Error fetching existing conversations:', error);
+    return false;
+  }
+}
+
+getCompanyNameByCompanyId(companyId: number): Observable<string> {
+  // Assuming you have a service method to retrieve the company details by ID
+  return this.sessionService.getCompanyId().pipe(
+    map((company) => company.name),
+    catchError((error) => {
+      console.error('Error fetching company name:', error);
+      return of('Unknown Company');
+    })
+  );
+}
+
+
+   backPage(){
+    this.router.navigate(['forecast-map']);
+   }
+
+   getUserName(userId: number): string {
+    return this.userNames[userId] || 'Unknown User';
+  }
+  getNegCompanyName(companyID: number): string {
+    debugger
+     this.NegcompanyId = this.Negotiatorcompanynames[companyID];
+     
+    return this.companyNames[this.NegcompanyId] || 'Unknown Company';
+  }
+  getNegCompanyLogo(companyID: number): string {
+    debugger
+     this.NegcompanyId = this.Negotiatorcompanynames[companyID];
+    
+    return this.companyLogos[this.NegcompanyId] || 'Unknown Company';
+  }
+   getCompanyName(adId: number): string {
+     this.AdscompanyId = this.AdscompanyNames[adId];
+     console.log('this is ad c'+this.companyNames[this.AdscompanyId])
+    return this.companyNames[this.AdscompanyId] || 'Unknown Company';
+  }
+  getCompanyID(adId: number): number {
+    const adcompanyId = this.AdscompanyNames[adId];
+    if (typeof adcompanyId === 'number') {
+      return adcompanyId;
+    }
+    return 0; // Default value for unknown company ID
+  }
+  
+  getCompanylogo(adId: number): string {
+
+     this.AdscompanyId = this.AdscompanyNames[adId];
+
+    return this.companyLogos[this.AdscompanyId] || 'Unknown Company';
+  }
+  getCompanyrating(adId: number): string {
+
+     this.AdscompanyId = this.AdscompanyNames[adId];
+
+    return this.companyRating[this.AdscompanyId] || 'Unknown Company';
+  }
+  getCompanydomain(adId: number): string {
+
+     this.AdscompanyId = this.AdscompanyNames[adId];
+
+    return this.companyDomain[this.AdscompanyId] || 'Unknown Company';
+  }
+  getCompanyaddress(adId: number): string {
+
+     this.AdscompanyId = this.AdscompanyNames[adId];
+
+    return this.companyAddress[this.AdscompanyId] || 'Unknown Company';
+  }
+  navigateToMessaging(negotiationId: number, adId: number): void {
+    if (this.selectedNegotiation && this.selectedNegotiation.status === 'accepted') {
+      this.router.navigate(['/messaging'], { queryParams: { negotiationId: negotiationId, adId: adId } });
+    }
+  }
+  // navigateToMessaging(negotiation: any): void {
+  //   if (negotiation.status === 'accepted') {
+  //     const negotiation_id = negotiation.negotiation_id;
+  //     const adId = negotiation.ad_id;
+  //     this.router.navigate(['/messaging'], { queryParams: { negotiation_id: negotiation_id, adId: adId } });
+  //   }
+  // }
+getDateOnly(date: Date): Date {
+  const newDate = new Date(date);
+  newDate.setHours(0);
+  newDate.setMinutes(0);
+  newDate.setSeconds(0);
+  newDate.setMilliseconds(0);
+  const timestamp = newDate.getTime();
+  const dateOnly=new Date(timestamp);
+  const dateString = dateOnly.toLocaleDateString('en-GB');
+  this.date_created=dateString.toString().slice(0, 10);
+  return this.date_created;
+}
+}
 
-          <button class="button-blue-bg mx-4">Create Bid</button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <hr class="w-full" />
-
-    <div class="w-full mb-4 h-fit px-1 py-1 bg-white flex-row flex items-center">
-
-      <div class="flex p-1">
-
-        <span
-          class="rounded-full flex bg-blue-500 text-white w-4 h-4 text-[0.5rem] items-center justify-center">{{negCount[0]}}</span>
-
-        <span class="text-xs mx-2">Active Offers</span>
-
-      </div>
-
-      <div class="flex p-1">
-
-        <span
-          class="rounded-full flex bg-gray-200 font-semibold w-4 h-4 text-[0.5rem] items-center justify-center">99+</span>
-
-        <span class="text-xs mx-2">New Offers</span>
-
-      </div>
-
-      <div class="flex p-1">
-
-        <span
-          class="rounded-full flex bg-gray-200 font-semibold w-4 h-4 text-[0.5rem] items-center justify-center">99+</span>
-
-        <span class="text-xs mx-2">Expired Offers</span>
-
-      </div>
-
-
-
-
-      <div class="m-0 p-0 flex flex-row ml-auto mx-3 items-center justify-center">
-
-        <svg class="w-5 h-5 mx-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#9ca3af"
-          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-
-          <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
-
-        </svg>
-
-
-
-
-        <div class="flex bg-gray-50 p-1 px-2 w-[300px] border-2">
-
-          <i class="material-icons md-15 text-gray-400">search</i>
-
-          <input type="text" placeholder="Search" class="outline-none bg-transparent w-full text-xs" />
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <div class="bg-gray-50 ml-0 mr-0 flex" style="height: 4px"></div>
-
-      <ng-container *ngFor="
-
-        let n of filteredNlist
-
-          | paginate : { itemsPerPage: itemsPerPage, currentPage: currentPage }
-
-      " class="flex justify-center items-center border">
-
-      <div class="flex flex-col border-2 mx-2 bg-white">
-
-        <div class="p-1 flex flex-row items-center justify-around">
-
-          <img *ngIf="n.status === 'accepted'" [src]="getCompanylogo(n.ad_id)"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }" class="w-16 h-8 object-contain" />
-
-          <img *ngIf="n.status != 'accepted'" src="../../assets/images/black.png"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }" class="w-16 h-8 object-contain" />
-
-
-
-
-          <div *ngIf="n.status === 'accepted'" [ngClass]="{ 'company-name': n.status != 'accepted' }"
-            class="font-bold whitespace-nowrap ml-8">
-
-            {{ getCompanyName(n.ad_id) }}
-
-          </div>
-
-          <div *ngIf="n.status != 'accepted'" [ngClass]="{ 'company-name': n.status != 'accepted' }"
-            class="font-bold whitespace-nowrap ml-8">
-
-            ABCDEF
-
-          </div>
-
-
-
-
-          <div *ngIf="n.status === 'accepted'" class="gray-highlights ml-4"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }">
-
-            <i class="material-icons text-sm text-yellow-400">star</i>
-
-            {{ getCompanyrating(n.ad_id) }}
-
-          </div>
-
-          <div *ngIf="n.status != 'accepted'" class="gray-highlights ml-4"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }">
-
-            <i class="material-icons text-sm text-yellow-400">star</i>
-
-            0000
-
-          </div>
-
-
-
-
-
-
-          <div *ngIf="n.status === 'accepted'" class="gray-highlights"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }">
-
-            <i class="material-icons text-xs mr-1">computer</i>
-
-            {{ getCompanydomain(n.ad_id) }}
-
-          </div>
-
-          <div *ngIf="n.status != 'accepted'" class="gray-highlights"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }">
-
-            <i class="material-icons text-xs mr-1">computer</i>
-
-            www.example.com
-
-          </div>
-
-
-
-
-          <div *ngIf="n.status === 'accepted'" class="gray-highlights"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }">
-
-            <i class="material-icons text-xs mr-1">place</i>
-
-            {{ getCompanyaddress(n.ad_id) }}
-
-          </div>
-
-          <div *ngIf="n.status != 'accepted'" class="gray-highlights"
-            [ngClass]="{ 'company-name': n.status != 'accepted' }">
-
-            <i class="material-icons text-xs mr-1">place</i>
-
-            XYZ XYZ XYZ
-
-          </div>
-
-
-
-
-          <div class="gray-highlights ml-4">
-
-            <i class="material-icons text-sm text-yellow-400">person</i>
-
-            <label> Negotiatior </label>
-
-            <div class="font-bold whitespace-nowrap ml-4 text-sm">
-
-              {{ userNames[n.updated_by] }}
-
-            </div>
-
-          </div>
-
-
-
-
-          <div class="flex flex-row gap-1">
-
-              <button matTooltip="Messaging" [class.disabled-button]="n.status != 'accepted'"
-          [disabled]="n.status != 'accepted'"
-          [ngClass]="{
-            'button-red-bg-list': n.status === 'accepted',
-            'button-gray-bg-list': n.status !== 'accepted',
-            'highlight': selectedConversation === n
-          }"
-          class="whitespace-nowrap cursor-pointer"
-          (click)="createConversation(n)">
-        Message
-        </button>
-
-          </div>
-
-        </div>
-
-        <hr class="mx-2" />
-
-        <div class="p-1 flex flex-row items-center gap-1 justify-around">
-
-          <div class="flex justify-start">
-
-            <img src="../../assets/images/Container.png" class="bg-gray-50 p-1 w-10 h-10" />
-
-            <div class="flex flex-col text-[0.6rem]">
-
-              <div class="flex flex-row gap-2">
-
-                <div [ngSwitch]="ad_type">
-                  <div class="flex flex-col" *ngSwitchCase="'container'">
-                    <div>
-                      <i class="material-icons mr-1 text-xs">place</i>Port of Ad
-                    </div>
-                    <div class="gray-highlights">
-                      {{AdsPortofAd[n.ad_id]}}
-                    </div>
-                  </div>
-                
-                 <div class="flex flex-col" *ngSwitchCase="'space'">
-                    <div class="flex flex-row gap-1">
-                      <div>
-                        <i class="material-icons mr-1 text-xs">place</i>Departure
-                      </div>
-                      <div class="ml-2">
-                        <i class="material-icons mr-1 text-xs">place</i>Arrival
-                      </div>
-                    </div>
-                    <div class="flex flex-row gap-1">
-                      <div class="gray-highlights ml-3">
-                        {{AdsDeparturePort[n.ad_id]}}
-                      </div>
-                      <div class="gray-highlights ml-6">
-                        {{AdsArrivalPort[n.ad_id]}}
-                      </div>
-                    </div>
-                  </div>
-                  
-                  
-                </div>
-                
-
-              </div>
-              
-            </div>
-
-          </div>
-
-          
-
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">event_available</i>
-
-              <span class="text-[0.6rem]">Created Date</span>
-
-            </div>
-
-            <div class="text-xs font-bold">{{ getDateOnly(n.date_created) }}</div>
-
-          </div>
-
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">event_available</i>
-
-              <span class="text-[0.6rem]">Expiry Date</span>
-
-            </div>
-
-            <div class="text-xs font-bold">
-              {{ getDateOnly(n.expiry_date) }}
-            </div>
-
-          </div>
-
-          <div class="flex flex-col">
-
-            <div>
-
-              <i class="material-icons mr-1 text-xs">compare_arrows</i>
-
-              <span class="text-[0.6rem]">Type</span>
-
-            </div>
-
-            <div>
-
-              <div class="flex flex-row gap-1">
-
-                <div class="button-in-list">{{ n.negotiation_type }}</div>
-
-              </div>
-
-            </div>
-
-          </div>
-
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">payments</i>
-
-              <span class="text-[0.6rem]">Container Type</span>
-
-            </div>
-
-            <div class="text-xs font-bold">{{ n.container_type }}</div>
-
-          </div>
-
-          
-
-
-
-
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">inventory_2</i>
-
-              <span class="text-[0.6rem]">Quantity</span>
-
-            </div>
-
-            <div class="text-xs font-bold">{{ n.quantity }}</div>
-
-          </div>
-
-          
-
-          <div class="flex flex-col items-center">
-
-            <div class="items-center justify-center">
-
-              <i class="material-icons mr-1 text-xs">event_available</i>
-
-              <span class="text-[0.6rem]">Status</span>
-
-            </div>
-
-            <div class="text-xs font-bold">
-
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-
-                {{
-
-                  n.status === 'accepted'
-
-                    ? 'bg-green-100 text-green-800'
-
-                    : n.status === 'rejected'
-
-                    ? 'bg-red-100 text-red-800'
-
-                    : 'bg-yellow-100 text-yellow-800'
-
-                }}">
-
-                {{ n.status }}
-
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      <div>
-
-        <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
-
-      </div>
-
-    </ng-container>
-
-
-
-
-    <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.filteredNlist.length > 0">
-      <nav aria-label="Page navigation">
-        <ul class="inline-flex gap-2">
-          <li class="button1">
-            <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)" (click)="prevPage()"
-              [disabled]="currentPage < 2">
-              <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
-                  fill="black" fill-opacity="0.25" />
-              </svg>
-
-            </button>
-          </li>
-
-          <li class="button3" *ngIf="currentPage > 1">
-            <button (click)="currentPage = currentPage" (click)="prevPage()" *ngIf="currentPage > 1"
-              [hidden]="currentPage < 2">
-              {{ currentPage - 1 }}
-            </button>
-          </li>
-
-          <li class="button2">
-            <button *ngIf="totalPages != 1">
-              {{ currentPage }}
-            </button>
-          </li>
-
-          <li class="button3" *ngIf="currentPage < totalPages">
-            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
-              (click)="nextPage()" [hidden]="currentPage >= totalPages" *ngIf="currentPage <= totalPages">
-              {{ currentPage + 1 }}
-            </button>
-          </li>
-
-          <li class="button4">
-            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
-              (click)="nextPage()" [disabled]="currentPage >= totalPages">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
-                  fill="black" fill-opacity="0.88" />
-              </svg>
-
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
-
-  </div>
-
-</div>
