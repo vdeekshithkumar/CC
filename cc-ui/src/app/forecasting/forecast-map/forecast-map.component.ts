@@ -76,6 +76,7 @@ totalDeficitPercentage: number = 0;
    surplusMarkers: google.maps.Marker[] = [];
  deficitMarkers: google.maps.Marker[] = [];
  ngAfterViewInit() {
+  debugger
   if (this.portElement) {
     // Access the selected value
     this.selectedPort = this.portElement.nativeElement.value;
@@ -183,6 +184,7 @@ totalDeficitPercentage: number = 0;
 
 // Helper function to clear markers for a specific port
 clearMarkersForPort(port: any) {
+  debugger
   this.surplusMarkers = this.surplusMarkers.filter(marker => {
     const position = marker.getPosition();
     if (position && position.lat() === port.latitude && position.lng() === port.longitude) {
@@ -232,8 +234,8 @@ createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPerce
   componentRef.instance.portId = port.portId;
   componentRef.instance.surplus = port.surplus;
   componentRef.instance.deficit = port.deficit;
-  componentRef.instance.surplusPercentage = surplusPercentage; // Pass surplusPercentage here
-  componentRef.instance.deficitPercentage = deficitPercentage; // Pass deficitPercentage here
+  componentRef.instance.surplusPercentage = surplusPercentage; 
+  componentRef.instance.deficitPercentage = deficitPercentage; 
   console.log("in forecast", surplusPercentage, deficitPercentage);
   componentRef.instance.surplusContainerTypesByPort = surplusContainerTypesByPort;
   componentRef.instance.surplusContainerSizesByPort = surplusContainerSizesByPort;
@@ -264,7 +266,9 @@ createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPerce
       // Find the selected port based on port_name in your port_list
       const selectedPort = this.port_list.find((port: { port_name: string; }) => port.port_name === selectedPortName);
   
+
       if (selectedPort) {
+        
         // Get the latitude and longitude of the selected port
         const latitude = +selectedPort.latitude;
         const longitude = +selectedPort.longitude;
@@ -281,7 +285,7 @@ createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPerce
   
  
   viewSurplus(){
-    debugger
+  
     this.markers = [];
       this.forecastService.getSurplus(this.companyId).subscribe(data => {
   
@@ -314,6 +318,7 @@ createMarker(port: any, iconUrl: string, surplusPercentage: number, deficitPerce
  
           const factory = this.resolver.resolveComponentFactory(FormComponent);
           const componentRef = factory.create(this.viewContainerRef.injector);
+         
           componentRef.instance.portCode = port.portCode;
           componentRef.instance.portId = port.portId;
           componentRef.instance.surplus = port.surplus;
