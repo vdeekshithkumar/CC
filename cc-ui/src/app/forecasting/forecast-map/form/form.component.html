@@ -125,8 +125,10 @@
     <div class="centered-buttons">
         <button class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue"
             routerLink="/view-other-ads">Search ads</button>&nbsp;
-        <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
-            routerLink="/my-ad">Post ad</button>&nbsp;
+            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayPostForm()"
+            class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+            <span class="ml-1">Post Ad</span>
+          </button>&nbsp;
             <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
             routerLink="/my-ad"  [ngClass]="{'disabled-button': !isOptimizedViewEnabled()}">Optimized View</button>
     </div>
