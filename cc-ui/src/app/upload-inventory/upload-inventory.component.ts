@@ -76,6 +76,7 @@ export class UploadInventoryComponent {
     y:any=0;
     searchTerm:any;
     showValidationErrors: boolean = false;
+port_code: any;
     constructor(private snackBar: MatSnackBar,private formBuilder: FormBuilder,private sessionService: SessionService,private dialog: MatDialog,private router:Router,private uploadInventoryservice:UploadInventoryservice,private viewotherAds: ViewOtherAdsService){ 
      }
 
@@ -309,7 +310,18 @@ export class UploadInventoryComponent {
   {
     window.location.reload()
   }
-
+  getPortCode(portId: number): string {
+    const port = this.getPortById(portId);
+    if (port) {
+      return ` ${port.port_code}`;
+    }
+    return ''; // Handle the case when the port is not found or portList is not loaded
+  }
+  
+  getPortById(portId: number) {
+    return this.port_list.find((port: { port_id: number; }) => port.port_id === portId);
+  }
+  
 
   logout(): void {
     // clear session data and redirect to login page
