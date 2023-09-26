@@ -337,7 +337,7 @@ class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 f
 
               <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3">
-                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}</span>
+                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{ getPortCode(inv.port_id) }})</span>
                 </div>
                 
               </td>
@@ -351,7 +351,7 @@ class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 f
                 <div class="inline-flex items-center gap-x-3 ">
 
 
-                  <span> {{inv.container_size}} TEU</span>
+                  <span> {{inv.container_size}}'</span>
                 </div>
               </td>
               <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
@@ -486,11 +486,12 @@ class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 f
           <div class="col-span-1 mt-0">
             <label class="top mb-2 font-normal">Name of Port</label>
             <div>
-              <select class="upload-input-data border" style="font-size: 11px;" #port [(ngModel)]="port_name" formControlName="port_id">
-                  <option value="" disabled selected >Select your Port</option>
-                  <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}</option>
-                </select>
+              <select class="upload-input-data border" style="font-size: 11px;" #port [(ngModel)]="port_id" formControlName="port_id">
+                <option value="" disabled selected>Select your Port</option>
+                <option *ngFor="let port of port_list" [value]="port.port_id">{{ port.port_name }}({{ port.port_code }}) </option>
+              </select>
             </div>
+            
           </div>
           <div class="col-span-1 mt-0">
               <label class="top mb-2 font-normal">Container Type</label>
