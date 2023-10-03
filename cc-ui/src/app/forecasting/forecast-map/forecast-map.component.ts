@@ -547,7 +547,6 @@ viewSurplus() {
 
 
 }
-
 interface Inventory {
   port_name:string;
   port_id: number;
