@@ -41,6 +41,7 @@ filteredInventoryList=[];
 // sortedData: Inventory[] = [];
 port_list:any;
 port_name="";
+port_code="";
 itemsPerPage: number = 5;
 currentPage: number = 1;
 records:any[]=[];
@@ -149,6 +150,16 @@ ngOnInit(): void {
 getPortName(portId: number): string {
       const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
       return port ? port.port_name : '';
+  }
+  getPortById(portId: number) {
+    return this.port_list.find((port: { port_id: number; }) => port.port_id === portId);
+  }
+ getPortCode(portId: number): string {
+    const port = this.getPortById(portId);
+    if (port) {
+      return ` ${port.port_code}`;
+    }
+    return ''; // Handle the case when the port is not found or portList is not loaded
   }
   options = ['Map', 'Table', 'Surplus','Deficit'];
   selectedOption = 0;
