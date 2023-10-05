@@ -388,11 +388,10 @@ ondeficitDropdownChange() {
 // Define your method to handle the button click
 onOptimizedViewButtonClick() {
   if (this.isOptimizedViewEnabled()) {
-    const port_code = this.portCode; 
-    const container_type = this.deifcitcontainerType;
+    const port_code = this.portCode; // Replace with the actual port code you want to send
+    const container_type = this.deifcitcontainerType; // Corrected variable name
     const container_size = this.deficitcontainerSize;
- 
-    this.sharedservice.setData(port_code,container_type,container_size); // Call the setData method with the port_code and container_type values
+    this.sharedservice.setData(port_code, container_type,container_size); // Call the setData method with the port_code and container_type values
   }
 }
 
