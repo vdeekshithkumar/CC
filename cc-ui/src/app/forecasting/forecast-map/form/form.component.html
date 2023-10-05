@@ -1,135 +1,306 @@
-<div>
-    <p class="text-center header">Port Summary</p>
+<div *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">
+  <p class="text-center header">Port Summary</p>
 </div>
-<hr class="col-span-3">
+<hr class="col-span-3"*ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">
 <br />
-<div class="flex-container">
-    <div class="flex-item" style="width: 30px;">
-        <div class="grid grid-cols-3 gap-y-2 font-poppins">
+<!--both surplus and deficit-->
+<div class="flex-container" *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">
+  <div class="flex-item" style="width: 30px;">
+      <div class="grid grid-cols-3 gap-y-2 font-poppins">
 
-            <div class="col-span-1 text-xs">Port Code</div>
-            <div></div>
-            <strong class="text-right col-span-1 text-sm">{{ portCode }}</strong>
+          <div class="col-span-1 text-xs">Port Code</div>
+          <div></div>
+          <strong class="text-right col-span-1 text-sm">{{ portCode }}</strong>
 
-            <!-- Display Surplus Percentage -->
-            <div class="col-span-1 text-xs">Surplus</div>
-            <div></div>
-            <div class="flex flex-row justify-end">
-              <!-- Check if surplusCount has a value, if so, display it, otherwise, display surplusPercentage -->
-              <ng-container *ngIf="surplusCount !== null; else displayPercentage">
-                {{ surplusCount | number:'1.0-0' }}
+          <!-- Display Surplus Percentage -->
+          <div class="col-span-1 text-xs" *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">Surplus</div>
+          <div></div>
+          <div class="flex flex-row justify-end">
+            <!-- Check if surplusCount has a value, if so, display it, otherwise, display surplusPercentage -->
+            <ng-container *ngIf="surplusCount !== null; else displayPercentage">
+              {{ surplusCount | number:'1.0-0' }}
+            </ng-container>
+            <ng-template #displayPercentage>
+              {{ surplusPercentage | number:'1.0-0' }} %
+            </ng-template>
+            <svg class="mt-1" width="10" height="10">
+              <polygon points="5 0, 10 10, 0 10" fill="green" />
+            </svg>
+          </div>
+          
+          <!-- Display Deficit Percentage -->
+
+
+          <hr class="col-span-3">
+
+          <div class="col-span-2 text-xs">Container Type</div>
+          <div class="text-right">
+            <select class="custom-select" [(ngModel)]="surpluscontainerType" (change)="onDropdownChange()">
+              <option selected >Select the Type</option> <!-- Added [ngValue] to set value to null -->
+              <option *ngFor="let surpluscontainerType of uniqueSurplusContainerTypes" [value]="surpluscontainerType">{{ surpluscontainerType }}</option>
+            </select>
+          </div>
+          
+          <div class="col-span-2 text-xs">Container Size</div>
+          <div class="text-right">
+            <select [(ngModel)]="surpluscontainerSize" (change)="onDropdownChange()">
+              <option selected>Select the Size</option>
+              <ng-container *ngFor="let size of uniqueContainerSizes">
+                <option [value]="size">{{ size }}</option>
               </ng-container>
-              <ng-template #displayPercentage>
-                {{ surplusPercentage | number:'1.0-0' }} %
-              </ng-template>
-              <svg class="mt-1" width="10" height="10">
-                <polygon points="5 0, 10 10, 0 10" fill="green" />
-              </svg>
-            </div>
-            
-            <!-- Display Deficit Percentage -->
-
-
-            <hr class="col-span-3">
-
-            <div class="col-span-2 text-xs">Container Type</div>
-            <div class="text-right">
-              <select class="custom-select" [(ngModel)]="surpluscontainerType" (change)="onDropdownChange()">
-                <option selected >Select the Type</option> <!-- Added [ngValue] to set value to null -->
-                <option *ngFor="let surpluscontainerType of surplusContainerTypesByPort" [value]="surpluscontainerType">{{ surpluscontainerType }}</option>
-              </select>
-            </div>
-            
-            <div class="col-span-2 text-xs">Container Size</div>
-            <div class="text-right">
-                
-                <select [(ngModel)]="surpluscontainerSize" (change)="onDropdownChange()">
-                    <option selected >Select the Size</option>
-                    <option *ngFor="let surpluscontainerSize of surplusContainerSizesByPort" [value]="surpluscontainerSize">{{ surpluscontainerSize }}</option>
-                  </select>
-            </div>
-
-            <div class="col-span-2 text-xs">EMPTY ACTUAL</div>
-            <div class="text-right">600</div>
-
-
-        </div>
-    </div>
-    <div class="vertical-line"></div>
-    <br />
-&nbsp;
-&nbsp;&nbsp;&nbsp;&nbsp;
-    <div class="flex-item"style="width: 800px;">
-
-        <div class="grid grid-cols-3 gap-y-2 font-poppins">
-
-            <div class="col-span-1 text-xs">Port Code</div>
-            <div></div>
-            <strong class="text-right col-span-1 text-sm">{{ portCode }}</strong>
-
-            <!-- Display Surplus Percentage -->
-            <div class="col-span-1 text-xs">Deficit</div>
-<div></div>
-<div class="flex flex-row justify-end">
-  <!-- Check if deficitCount has a value, if so, display it, otherwise, display deficitPercentage -->
-  <ng-container *ngIf="deficitCount !== null; else displaydeficiPercentage">
-    {{ deficitCount | number:'1.0-0' }}
-  </ng-container>
-  <ng-template #displaydeficiPercentage>
-    {{ deficitPercentage | number:'1.0-0' }} %
-  </ng-template>
-  <svg class="mt-1" width="10" height="10">
-    <polygon points="0 0, 10 0, 5 10" fill="red" />
-  </svg>
-</div>
-
-
-            <!-- Display Deficit Percentage -->
-
-
-            <hr class="col-span-3">
-           
-            <div class="col-span-2 text-xs">Container Type</div>
-            <div class="text-right">
-                <select class="custom-select-deficit"[(ngModel)]="deifcitcontainerType" (change)="ondeficitDropdownChange()">
-                    <option selected >Select the Type</option>
-                    <option *ngFor="let deifcitcontainerType of DeficitContainerTypesByPort" [value]="deifcitcontainerType">{{
-                        deifcitcontainerType }}</option>
-                </select>
-            </div>
-           
+            </select>
+          </div>
           
 
-
-            <div class="col-span-2 text-xs">Container Size</div>
-            <div class="text-right">
-                <select [(ngModel)]="deficitcontainerSize" (change)="ondeficitDropdownChange()">
-                    <option selected >Select the Size</option>
-                    <option *ngFor="let deficitcontainerSize of DeficitlusContainerSizesByPort" [value]="deficitcontainerSize">{{
-                        deficitcontainerSize }}</option>
-                </select>
-            </div>
-
-            <div class="col-span-2 text-xs">EMPTY ACTUAL</div>
-            <div class="text-right">600</div>
+          <div class="col-span-2 text-xs">EMPTY ACTUAL</div>
+          <div class="text-right">600</div>
 
 
-        </div>
-        <br />
+      </div>
+  </div>
+  <div class="vertical-line"></div>
+  <br />
+&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;
+  <div class="flex-item"style="width: 800px;">
 
-    </div>
+      <div class="grid grid-cols-3 gap-y-2 font-poppins">
+
+          <div class="col-span-1 text-xs">Port Code</div>
+          <div></div>
+          <strong class="text-right col-span-1 text-sm">{{ portCode }}</strong>
+
+          <!-- Display Surplus Percentage -->
+          <div class="col-span-1 text-xs">Deficit</div>
+<div></div>
+<div class="flex flex-row justify-end">
+<!-- Check if deficitCount has a value, if so, display it, otherwise, display deficitPercentage -->
+<ng-container *ngIf="deficitCount !== null; else displaydeficiPercentage">
+  {{ deficitCount | number:'1.0-0' }}
+</ng-container>
+<ng-template #displaydeficiPercentage>
+  {{ deficitPercentage | number:'1.0-0' }} %
+</ng-template>
+<svg class="mt-1" width="10" height="10">
+  <polygon points="0 0, 10 0, 5 10" fill="red" />
+</svg>
+</div>
+
+
+          <!-- Display Deficit Percentage -->
+
+
+          <hr class="col-span-3">
+         
+          <div class="col-span-2 text-xs">Container Type</div>
+          <div class="text-right">
+              <select class="custom-select-deficit"[(ngModel)]="deifcitcontainerType" (change)="ondeficitDropdownChange()">
+                  <option selected >Select the Type</option>
+                  <option *ngFor="let deifcitcontainerType of uniqueDeficitContainerTypes" [value]="deifcitcontainerType">{{
+                      deifcitcontainerType }}</option>
+              </select>
+          </div>
+         
+        
+
+
+          <div class="col-span-2 text-xs">Container Size</div>
+          <div class="text-right">
+              <select [(ngModel)]="deficitcontainerSize" (change)="ondeficitDropdownChange()">
+                  <option selected >Select the Size</option>
+                  <option *ngFor="let deficitcontainerSize of uniqueDeficitContainerSizes" [value]="deficitcontainerSize">{{
+                      deficitcontainerSize }}</option>
+              </select>
+          </div>
+
+          <div class="col-span-2 text-xs">EMPTY ACTUAL</div>
+          <div class="text-right">600</div>
+
+
+      </div>
+      <br />
+
+  </div>
 
 
 </div>
-<div class="text-center">
-    <div class="centered-buttons">
-        <button class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue"
-            routerLink="/view-other-ads">Search ads</button>&nbsp;
-            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayPostForm()"
-            class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
-            <span class="ml-1">Post Ad</span>
-          </button>&nbsp;
-            <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
-            routerLink="/my-ad"  [ngClass]="{'disabled-button': !isOptimizedViewEnabled()}">Optimized View</button>
+<div class="text-center" *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">
+  <div class="centered-buttons">
+      <button class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue"
+          routerLink="/view-other-ads">Search ads</button>&nbsp;
+          <button (click)="DisplayPostForm()"
+          class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue">
+          <span class="ml-1">Post Ad</span>
+        </button>&nbsp;
+      
+      
+        <button
+        class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
+        routerLink="/optimized-view" (click)="onOptimizedViewButtonClick()"
+        [ngClass]="{'disabled-button': !isOptimizedViewEnabled()}"
+      >
+        Optimized View
+      </button>
+      
+  </div>
+</div>
+<!--only for surplus area-->
+<div *ngIf="isSurplusAreaSelected">
+<p class="text-center header">Surplus Summary</p>
+</div>
+<hr class="col-span-3" *ngIf="isSurplusAreaSelected">
+<br />
+<div class="flex-container">
+<div class="flex-item">
+  <div class="grid grid-cols-3 gap-y-2 font-poppins" *ngIf="isSurplusAreaSelected">
+
+    <div class="col-span-1 text-xs">Port Code</div>
+    <div></div>
+    <strong class="text-right col-span-1 text-sm">{{ portCode }}</strong>
+
+    <!-- Display Surplus Value -->
+    <div class="col-span-1 text-xs">Surplus</div>
+    <div></div>
+    <div class="flex flex-row justify-end">
+
+      <span *ngIf="container_types && container_size">{{ totalSurplus | number:'1.0-0' }}</span>
+      <span *ngIf="!container_types || !container_size">
+        {{ getSurplusValueForPortCode(portCode) | number:'1.0-0' }}
+      </span>
+      
+      
+
+      <svg class="mt-1" width="10" height="10">
+        <polygon points="5 0, 10 10, 0 10" fill="green" />
+      </svg>
     </div>
+
+    
+    
+
+
+
+    <!-- Display Container Type and Container Size -->
+    <hr class="col-span-3">
+    
+    <div class="col-span-2 text-xs">Container Type</div>
+    <div class="text-right">
+      <select class="custom-select" [(ngModel)]="container_types"(ngModelChange)="onSelectionChange()">
+        <option selected>Select the Type</option>
+        <option *ngFor="let containerType of filteredContainerTypes" [value]="containerType">{{ containerType }}</option>
+      </select>
+    </div>
+    
+    
+    
+    <div class="col-span-2 text-xs">Container Size</div>
+    <div class="text-right">
+      <select [(ngModel)]="container_size" (ngModelChange)="onSelectionChange()">
+        <option selected>Select the Size</option>
+        <option *ngFor="let container_size of filteredContainerSizes" [value]="container_size">{{ container_size }}</option>
+      </select>
+    </div>
+    
+
+
+  
+
+
+    <div class="col-span-2 text-xs">EMPTY ACTUAL</div>
+    <div class="text-right">600</div>
+
+  </div>
+
+
+
+<div class="text-center" *ngIf="isSurplusAreaSelected">
+<div class="centered-buttons">
+    <button class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue"
+        routerLink="/view-other-ads">Search ads</button>&nbsp;
+        <button (click)="DisplayPostForm()"
+        class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue">
+        <span class="ml-1">Post Ad</span>
+      </button>&nbsp;
+        <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
+        routerLink="/optimized-view"  [ngClass]="{'disabled-button': !isOptimizedViewEnabled()}">Optimized View</button>
+</div>
+</div>
+</div>
+</div>
+<!--only for deficit-->
+<div *ngIf="isDeficitAreaSelected">
+<p class="text-center header">Deficit Summary</p>
+</div>
+<hr class="col-span-3" *ngIf="isDeficitAreaSelected">
+<br />
+
+<div class="flex-container" *ngIf="isDeficitAreaSelected">
+<div class="flex-item" >
+    <div class="grid grid-cols-3 gap-y-2 font-poppins">
+
+        <div class="col-span-1 text-xs">Port Code</div>
+        <div></div>
+        <strong class="text-right col-span-1 text-sm">{{ portCode }}</strong>
+
+      
+
+
+        <!-- Display Surplus Percentage -->
+        <div class="col-span-1 text-xs">Deficit</div>
+        <div></div>
+        <div class="flex flex-row justify-end">
+          <span *ngIf="deifcit_Type && deficit_Size">{{ totalDeficit | number:'1.0-0' }}</span>
+          <span *ngIf="!deifcit_Type || !deficit_Size">
+            {{ getDeficitValueForPortCode(portCode) | number:'1.0-0' }}
+          </span>
+          <svg class="mt-1" width="10" height="10">
+            <polygon points="0 0, 10 0, 5 10" fill="red" />
+          </svg>
+        </div>
+        
+
+
+        <!-- Display Deficit Percentage -->
+
+
+        <hr class="col-span-3">
+       
+        <div class="col-span-2 text-xs">Container Type</div>
+        <div class="text-right">
+            <select class="custom-select-deficit"[(ngModel)]="deifcit_Type" (ngModelChange)="onDeficitChange()">
+                <option selected >Select the Type</option>
+                <option *ngFor="let deifcitType of filteredDeficitTypes" [value]="deifcitType">{{
+                  deifcitType }}</option>
+            </select>
+        </div>
+       
+      
+
+
+        <div class="col-span-2 text-xs">Container Size</div>
+        <div class="text-right">
+            <select [(ngModel)]="deficit_Size" (ngModelChange)="onDeficitChange()">
+                <option selected >Select the Size</option>
+                <option *ngFor="let deficitSize of filteredDeficitSizes" [value]="deficitSize">{{
+                  deficitSize }}</option>
+            </select>
+        </div>
+
+        <div class="col-span-2 text-xs">EMPTY ACTUAL</div>
+        <div class="text-right">600</div>
+
+
+    </div>
+    
+<div class="text-center" *ngIf="isDeficitAreaSelected">
+<div class="centered-buttons">
+    <button class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue"
+        routerLink="/view-other-ads">Search ads</button>&nbsp;
+        <button (click)="DisplayPostForm()"
+        class="bg-white text-xs align-middle p-1 px-3 border text-black rounded-xl hover:text-CCblue">
+        <span class="ml-1">Post Ad</span>
+      </button>&nbsp;
+        <button class="bg-blue-600 text-xs align-middle p-1 px-4 mx-auto text-white rounded-xl hover:bg-CCblue"
+        routerLink="/optimized-view"  [ngClass]="{'disabled-button': !isOptimizedViewEnabled()}">Optimized View</button>
+</div>
 </div>
