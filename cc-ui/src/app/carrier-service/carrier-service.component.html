@@ -1,0 +1,23 @@
+<div class="div-card bg-div mt-16">
+   
+    <div class="div-card-div h1-div ">
+        Carrier Services
+   
+<div class="head">
+<div class="text-center">
+    <div class="div-card-div">All Services</div>
+    <div *ngFor="let service of services" class="ml-0">
+        <button (click)="getServiceDetails(service.service_name)" class="hover-button">{{ service.service_name }}</button>
+    </div>
+</div>
+
+<!-- <div class="">
+    <h1>Display Route</h1>
+    <div *ngFor="let service of services">
+        {{ service.port_name }}
+        {{ service.seq_no }}
+    </div>
+</div>
+</div> -->
+
+</div>

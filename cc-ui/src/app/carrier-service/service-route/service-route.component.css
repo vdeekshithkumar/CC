@@ -1,0 +1,72 @@
+.head{
+    font-weight: 500;
+    font-size: small;
+}
+.div-card{
+    @apply w-full flex flex-col first:flex-row text-lg
+   }
+.bg-div{
+      background-color: #FAFAFA;
+   }
+.div-card-div{
+    @apply  font-medium font-poppins w-full 
+   }
+.port-txt{
+    color: var(--gray-gray-8, #595959); 
+    font-size: 18px; 
+}
+.route-sequence {
+    display: flex;
+    flex-direction: column;  
+  }
+  .bg{
+    color: var(--gray-gray-8, #1e6ce0); 
+    font-size: 16px;
+  }
+  .route-sequence ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .route-sequence li {
+    padding: 5px;
+   
+  }
+  .port-rotation-container {
+    display: flex; /* Use flexbox to create a two-column layout */
+}
+
+.port-rotation-left {
+    flex: 1; /* Take up 50% of the container width */
+    padding: 0px; /* Add padding for spacing */
+}
+.back{
+  cursor: pointer;
+}
+.port-rotation-right {
+    flex: 1; /* Take up 50% of the container width */
+    padding: 0px; /* Add padding for spacing */
+}
+.map-container {
+    margin-top: 10px;
+    flex: 2; 
+    width: 100;
+    height: 600px; /* Adjust the height as needed */
+  }
+  .port-rotation-container {
+    display: flex; /* Use flexbox layout */
+  }
+  
+  .left-panel {
+    flex: 1; /* Allow the left panel to expand to fill available space */
+    padding: 0px; /* Add padding as needed */
+    /* Add any other styles for the left panel */
+  }
+  
+ 
+
+  
+/* You can add more styles as needed for responsiveness and aesthetics */
+ 
+  

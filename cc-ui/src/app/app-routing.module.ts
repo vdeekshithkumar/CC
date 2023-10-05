@@ -157,6 +157,16 @@ const routes: Routes = [
   },
   {
     component:TemplateComponent,
+    path:'carrier-service',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:TemplateComponent,
+    path:'route-service/:serviceName',
+    canActivate: [AuthGuard]
+  },
+  {
+    component:TemplateComponent,
     path:'view-contract',
     canActivate: [AuthGuard]
   },

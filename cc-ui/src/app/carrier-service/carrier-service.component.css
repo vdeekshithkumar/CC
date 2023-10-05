@@ -1,0 +1,32 @@
+
+.head{
+    font-weight: 500;
+    font-size: small;
+}
+.div-card{
+    @apply w-full flex flex-col first:flex-row
+   }
+.bg-div{
+      background-color: #FAFAFA;
+   }
+.div-card-div{
+    @apply text-2xl font-medium font-poppins mt-6 mb-4 p-3 w-full 
+   }
+
+.hover-button {
+    cursor: pointer;
+   
+    color: #000000; 
+    border: none; 
+    padding: 10px 20px; 
+
+   
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.hover-button:hover {
+  
+    background-color: #0056b3; 
+    color: #fff; 
+    cursor: pointer;
+}

@@ -1,0 +1,36 @@
+<div class="div-card bg-div mt-20">
+   
+    <div class="div-card-div h1-div ">
+       <span class="back" routerLink="/carrier-service">Carrier Services</span> 
+        <span class="text-center ml-[496px]"> {{selectedServiceName}}</span>
+       
+        <div class="port-rotation-container">
+            <div class="left-panel">
+              <div class="port-txt mt-6 ml-8">Port Rotation</div>
+              <div class="text-xs ml-8">
+                <div class="route-sequence">
+                  <ul>
+                    <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span class="bg ml-2">{{ services[0].port_name }}</span>
+                    </li>
+                    <ng-container *ngFor="let service of services.slice(1)">
+                      <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="bg ml-2">{{ service.port_name }}</span>
+                      </li>
+                    </ng-container>
+                    <li>
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span class="bg ml-2">{{ services[0].port_name }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div #mapElement id="map-container" class="map-container mr-20"></div>
+          </div>
+          
+</div>
+
+        

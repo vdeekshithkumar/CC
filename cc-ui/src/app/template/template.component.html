@@ -46,6 +46,12 @@
     <div class="right-section" *ngIf="isActive('/messaging')">
       <app-messaging></app-messaging>
     </div>
+    <div class="right-section"  *ngIf="isActive('/carrier-service')">
+      <app-carrier-service></app-carrier-service>
+    </div>
+    <div class="right-section"  *ngIf="isActive('/route-service')">
+      <app-service-route></app-service-route>
+    </div>
     <!-- <div class="right-section" *ngIf="isActive('/forecasting')">
     <app-forecasting></app-forecasting>
     </div> -->

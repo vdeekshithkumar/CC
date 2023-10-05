@@ -59,6 +59,8 @@ import { TemplateComponent } from './template/template.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-reset-password.component';
 import { NgChartsModule } from 'ng2-charts';
+import { CarrierServiceComponent } from './carrier-service/carrier-service.component';
+import { ServiceRouteComponent } from './carrier-service/service-route/service-route.component';
 
 
 @NgModule({
@@ -102,6 +104,8 @@ import { NgChartsModule } from 'ng2-charts';
           TemplateComponent,
           ViewOtherAdsMapViewComponent,
           ForgotResetPasswordComponent,
+          CarrierServiceComponent,
+          ServiceRouteComponent,
     
   ],
   imports: [
