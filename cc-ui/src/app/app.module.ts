@@ -61,6 +61,7 @@ import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-res
 import { NgChartsModule } from 'ng2-charts';
 import { CarrierServiceComponent } from './carrier-service/carrier-service.component';
 import { ServiceRouteComponent } from './carrier-service/service-route/service-route.component';
+import { OptimizedViewComponent } from './optimized-view/optimized-view.component';
 
 
 @NgModule({
@@ -106,6 +107,7 @@ import { ServiceRouteComponent } from './carrier-service/service-route/service-r
           ForgotResetPasswordComponent,
           CarrierServiceComponent,
           ServiceRouteComponent,
+          OptimizedViewComponent,
     
   ],
   imports: [

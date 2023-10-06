@@ -8,6 +8,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { UploadContractComponent } from './upload-contract/upload-contract.component';
 import { UploadInventoryComponent } from './upload-inventory/upload-inventory.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
+import { OptimizedViewComponent } from './optimized-view/optimized-view.component';
 import { AuthGuard } from './auth.guard';
 import { PostAdComponent } from './my-advertisement/post-ad/post-ad.component';
 import { PageNotFoundComponent } from './redundant/page-not-found/page-not-found.component';
@@ -106,7 +107,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
 
   },
-  
+  {
+    component:TemplateComponent,
+    path:'optimized-view',
+    canActivate: [AuthGuard]
+  },
   {
     component:VerifyComponent,
     path:'verify',
@@ -165,6 +170,7 @@ const routes: Routes = [
     path:'route-service/:serviceName',
     canActivate: [AuthGuard]
   },
+  
   {
     component:TemplateComponent,
     path:'view-contract',

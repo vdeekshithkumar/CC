@@ -265,60 +265,21 @@ pickup_charges:any;
   //   this.updateDeficitCount(this.portcode,this.deifcitcontainerType,this.deficitcontainerSize);
   // }
  
-  async onDropdownChange() {
-  
-    if (this.surpluscontainerType && this.surpluscontainerSize) {
-      debugger
-      await this.updateSurplusCount(this.portCode, this.surpluscontainerType, this.surpluscontainerSize);
-    }
+  onDropdownChange() {
+    debugger
+  if (this.surpluscontainerType && this.surpluscontainerSize) {
+    debugger
+    this.updateSurplusCount(this.portCode, this.surpluscontainerType, this.surpluscontainerSize);
   }
-  async updateSurplusCount(portCode: any, surpluscontainerType: any, surpluscontainerSize: any) {
-    debugger;
-    console.log('Current portCode:', portCode);
-    console.log('Port List:', this.port_list);
-    const selectedPort = this.port_list.find((port: { port_code: any; }) => port.port_code === portCode);
-    console.log("Selected Port:", selectedPort);
-    if (selectedPort) {
-      const selectedPortName = selectedPort.port_name;
-      console.log("Selected Port Name:", selectedPortName);
-      const port_id = selectedPort.port_id;
-      console.log("Port ID for selected portCode:", port_id);
-      const inventoryForPort = this.inventory_list_by_companyId.filter((item: Inventory) => {
-        return item.port_id === port_id;
-      });
-      console.log("Inventory for Port:", inventoryForPort);
-      const inventoryForContainerType = inventoryForPort.filter((item: Inventory) => {
-        return item.container_type === surpluscontainerType;
-      });
-    
-    const targetSize = parseInt(surpluscontainerSize, 10);
-    const inventoryForContainerSize = inventoryForContainerType.filter((item: Inventory) => {
-      const itemSize = typeof item.container_size === 'number' ? item.container_size : parseInt(item.container_size, 10);
-      return itemSize === targetSize;
-    });
-  
-      const finalFilteredInventory = inventoryForContainerSize;
-  
-      if (finalFilteredInventory.length > 0) {
-        const selectedInventory = finalFilteredInventory[0];
-        this.surplusCount = selectedInventory.surplus;
-        console.log("Surplus Count:", this.surplusCount);
-      } else {
-        this.surplusCount = null;
-        console.log("No matching inventory found.");
-      }
-    } else {
-      console.log("Port with the selected portCode does not exist.");
-    }
-  }
-async onSelectionChange() {
+}
+onSelectionChange() {
   debugger
 if (this.container_types && this.container_size) {
   debugger
-  await this.SurplusCount(this.portCode, this.container_types, this.container_size);
+  this.SurplusCount(this.portCode, this.container_types, this.container_size);
 }
 }
-async SurplusCount(portCode: string, container_types: any, container_size: any) {
+SurplusCount(portCode: string, container_types: any, container_size: any) {
   debugger
   console.log("This method is called with:", portCode, container_types, container_size);
   let selectedPortId: number | null = null;
@@ -418,47 +379,10 @@ DeficitCount(portCode: string, deifcit_Type: any, deficit_Size: any) {
   }
 }
 
-async ondeficitDropdownChange() {
-  if (this.deifcitcontainerType && this.deficitcontainerSize) {
-    await this.updateDeficitCount(this.portCode, this.deifcitcontainerType, this.deficitcontainerSize);
-  }
-}
-
-async updateDeficitCount(portCode: any, deifcitcontainerType: any, deficitcontainerSize: any) {
-  debugger;
-  console.log('Current portCode:', portCode);
- 
-  const selectedPort = this.port_list.find((port: { port_code: any; }) => port.port_code === portCode);
- 
-  if (selectedPort) {
-    const port_id = selectedPort.port_id;
-   
-    const inventoryForPort = this.inventory_list_by_companyId.filter((item: Inventory) => {
-      return item.port_id === port_id;
-    });
-   
-    const inventoryForContainerType = inventoryForPort.filter((item: Inventory) => {
-      return item.container_type === deifcitcontainerType;
-    });
+ondeficitDropdownChange() {
   
-    const targetSize = parseInt(deficitcontainerSize, 10);
-
-    const inventoryForContainerSize = inventoryForContainerType.filter((item: Inventory) => {
-      const itemSize = typeof item.container_size === 'number' ? item.container_size : parseInt(item.container_size, 10);
-      return itemSize === targetSize;
-    });
-
-    const finalFilteredInventory = inventoryForContainerSize;
-    if (finalFilteredInventory.length > 0) {
-      const selectedInventory = finalFilteredInventory[0];
-      this.deficitCount = selectedInventory.deficit;
-      console.log("Deficit Count:", this.deficitCount);
-    } else {
-      this.surplusCount = null;
-      console.log("No matching inventory found.");
-    }
-  } else {
-    console.log("Port with the selected portCode does not exist.");
+  if (this.deifcitcontainerType && this.deficitcontainerSize) {
+    this.updateDeficitCount(this.portCode, this.deifcitcontainerType, this.deficitcontainerSize);
   }
 }
 // Define your method to handle the button click
@@ -518,8 +442,82 @@ console.log("to post ad",portName)
 
 
 
+updateSurplusCount(portCode: any, surpluscontainerType: any, surpluscontainerSize: any) {
+  debugger;
+  console.log('Current portCode:', portCode);
+  console.log('Port List:', this.port_list);
+  const selectedPort = this.port_list.find((port: { port_code: any; }) => port.port_code === portCode);
+  console.log("Selected Port:", selectedPort);
+  if (selectedPort) {
+    const selectedPortName = selectedPort.port_name;
+    console.log("Selected Port Name:", selectedPortName);
+    const port_id = selectedPort.port_id;
+    console.log("Port ID for selected portCode:", port_id);
+    const inventoryForPort = this.inventory_list_by_companyId.filter((item: Inventory) => {
+      return item.port_id === port_id;
+    });
+    console.log("Inventory for Port:", inventoryForPort);
+    const inventoryForContainerType = inventoryForPort.filter((item: Inventory) => {
+      return item.container_type === surpluscontainerType;
+    });
+  
+  const targetSize = parseInt(surpluscontainerSize, 10);
+  const inventoryForContainerSize = inventoryForContainerType.filter((item: Inventory) => {
+    const itemSize = typeof item.container_size === 'number' ? item.container_size : parseInt(item.container_size, 10);
+    return itemSize === targetSize;
+  });
 
+    const finalFilteredInventory = inventoryForContainerSize;
 
+    if (finalFilteredInventory.length > 0) {
+      const selectedInventory = finalFilteredInventory[0];
+      this.surplusCount = selectedInventory.surplus;
+      console.log("Surplus Count:", this.surplusCount);
+    } else {
+      this.surplusCount = null;
+      console.log("No matching inventory found.");
+    }
+  } else {
+    console.log("Port with the selected portCode does not exist.");
+  }
+}
+updateDeficitCount(portCode: any, deifcitcontainerType: any, deficitcontainerSize: any) {
+  debugger;
+  console.log('Current portCode:', portCode);
+ 
+  const selectedPort = this.port_list.find((port: { port_code: any; }) => port.port_code === portCode);
+ 
+  if (selectedPort) {
+    const port_id = selectedPort.port_id;
+   
+    const inventoryForPort = this.inventory_list_by_companyId.filter((item: Inventory) => {
+      return item.port_id === port_id;
+    });
+   
+    const inventoryForContainerType = inventoryForPort.filter((item: Inventory) => {
+      return item.container_type === deifcitcontainerType;
+    });
+  
+  const targetSize = parseInt(deficitcontainerSize, 10);
+
+  const inventoryForContainerSize = inventoryForContainerType.filter((item: Inventory) => {
+    const itemSize = typeof item.container_size === 'number' ? item.container_size : parseInt(item.container_size, 10);
+    return itemSize === targetSize;
+  });
+
+    const finalFilteredInventory = inventoryForContainerSize;
+    if (finalFilteredInventory.length > 0) {
+      const selectedInventory = finalFilteredInventory[0];
+      this.deficitCount = selectedInventory.deficit;
+      console.log("Deficit Count:", this.deficitCount);
+    } else {
+      this.surplusCount = null;
+      console.log("No matching inventory found.");
+    }
+  } else {
+    console.log("Port with the selected portCode does not exist.");
+  }
+}
 
 }
 interface Inventory {
