@@ -13,7 +13,6 @@ import { CarrierServiceService } from '../carrier-service/carrier-service.servic
   styleUrls: ['./optimized-view.component.css']
 })
 export class OptimizedViewComponent implements OnInit, AfterViewInit {
-  methodExecuted: boolean = false;
   @ViewChild('mapElement', { static: true }) mapElement: ElementRef | undefined;
   map: google.maps.Map | undefined;
   port_list: any[] = [];
@@ -59,40 +58,8 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
    
    
    
-    this.sessionService.getCompanyId()
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe(
-      (companyId: number) => {
-        this.companyId = companyId;
-       
-      },
-      (error: any) => {
-        console.error('Error retrieving company ID:', error);
-      }
-    );
-    this.forecastingtableService.getAllPorts().subscribe(
-      (data: any) => {
-        this.port_list = data;
-        console.log("PortData", this.port_list);
-        
-      },
-      (error: any) => {
-        console.error('Error retrieving port list:', error);
-      }
-    );
-    this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
-      (data: Inventory[]) => {
-        this.inventory_list_by_companyId = data;
-        console.log('Inventory list by company id is fetched:', this.inventory_list_by_companyId);
-        this.filteredInventoryList = this.inventory_list_by_companyId;
-
-        
-        this.filterData(this.receivedportCode, this.receivedcontainerType, this.receivedcontainerSize);
-      },
-      (error: any) => {
-        console.log('Inventory loading error:', error);
-      }
-    );
+  
+    this.loadInitialData();
     let latitudeReceived = false;
     let longitudeReceived = false;
     
@@ -120,34 +87,37 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
     
   
     
-   debugger
+   
     combineLatest([
       this.sharedService.selected_port,
       this.sharedService.selectedContainerType$,
       this.sharedService.selectedContainerSize$,
     ])
-      .subscribe(([portCode, containerType, containerSize]) => {
-        // Check if receivedportCode is received and set the flag
-        if (portCode !== undefined) {
-          this.receivedportCode = portCode;
-        }
+    .pipe(
+      filter(([portCode, containerType, containerSize]) => 
+        portCode !== undefined && containerType !== undefined && containerSize !== undefined
+      )
+    )
+    .subscribe(([portCode, containerType, containerSize]) => {
+      // Assign the values
+      debugger
+      this.receivedportCode = portCode;
+      this.receivedcontainerType = containerType;
+      this.receivedcontainerSize = containerSize;
     
-        // Check if containerType is received and set the flag
-        if (containerType !== undefined) {
-          this.receivedcontainerType = containerType;
-        }
+      this.portCodeReceived = true;
+      this.containerTypeReceived = true;
+      this.containerSizeReceived = true;
     
-        // Check if containerSize is received and set the flag
-        if (containerSize !== undefined) {
-          this.receivedcontainerSize = containerSize;
-        }
-    
-        // Check if all three values are received before calling filterData
-        if (this.receivedportCode !== undefined && this.receivedcontainerType !== undefined && this.receivedcontainerSize !== undefined) {
-          this.filterData(this.receivedportCode, this.receivedcontainerType, this.receivedcontainerSize);
-        }
-      });
-    
+      // Check if all values are received before calling filterData
+      if (
+        this.portCodeReceived &&
+        this.containerTypeReceived &&
+        this.containerSizeReceived
+      ) {
+        this.filterData(this.receivedportCode, this.receivedcontainerType, this.receivedcontainerSize);
+      }
+    });
 
     
    
@@ -165,21 +135,54 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
     }
   }
 
+  private loadInitialData(): void {
+    this.sessionService.getCompanyId()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (companyId: number) => {
+          this.companyId = companyId;
+          this.loadPortList(); // Load port list after getting company ID
+        },
+        (error: any) => {
+          console.error('Error retrieving company ID:', error);
+        }
+      );
+  }
 
- 
- 
-  async filterData(receivedportCode: string, receivedcontainerType: string, receivedcontainerSize: string): Promise<void> {
-    debugger
-   await  this.sessionService.getCompanyId().subscribe(
-      (companyId: number) => {
-        this.companyId = companyId;
-        console.log('company ID is :', companyId);
+  public loadPortList(): void {
+    this.forecastingtableService.getAllPorts().subscribe(
+      (data: any) => {
+        this.port_list = data;
+        console.log("PortData", this.port_list);
+        this.loadInventoryData(); // Load inventory data after getting port list
       },
       (error: any) => {
-        console.error('Error retrieving company ID:', error);
+        console.error('Error retrieving port list:', error);
       }
     );
-    await this.forecastingtableService.getAllPorts().subscribe(
+  }
+
+  private loadInventoryData(): void {
+    this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
+      (data: Inventory[]) => {
+        this.inventory_list_by_companyId = data;
+        console.log('Inventory list by company id is fetched:', this.inventory_list_by_companyId);
+        this.filteredInventoryList = this.inventory_list_by_companyId;
+
+        
+        this.filterData(this.receivedportCode, this.receivedcontainerType, this.receivedcontainerSize);
+      },
+      (error: any) => {
+        console.log('Inventory loading error:', error);
+      }
+    );
+  }
+  
+  async filterData(receivedportCode: string, receivedcontainerType: string, receivedcontainerSize: string): Promise<void> {
+    console.log("inside filter data",this.companyId);
+    console.log('Searching for Port Code:', receivedportCode);
+    
+    this.forecastingtableService.getAllPorts().subscribe(
       (data: any) => {
         this.port_list = data;
         console.log("PortData",this.port_list)
@@ -188,10 +191,6 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
         console.error('Error retrieving company ID:', error);
       }
     );
-    console.log("inside filter data",this.companyId);
-    console.log('Searching for Port Code:', receivedportCode);
-    
- 
     // Use Array.find() to find the matching port_id
     const matchedPort = this.port_list.find((port: any) => port.port_code === receivedportCode);
   
@@ -246,17 +245,8 @@ this.filteredInventoryData = filteredInventoryWithSurplus;
 
 
 async getDeficitServices(portCode: string) {
-  debugger
   this.loading = true;
-  this.sessionService.getCompanyId().subscribe(
-    (companyId: number) => {
-      this.companyId = companyId;
-      console.log('company ID is :', companyId);
-    },
-    (error: any) => {
-      console.error('Error retrieving company ID:', error);
-    }
-  );
+
   try {
     const response: any = await this.carrierservice.getServicesforDeficit(this.companyId, portCode).toPromise();
     
@@ -296,11 +286,11 @@ async getDeficitServices(portCode: string) {
     this.latlong = latLongData;
 
     this.initMap();
-    this.methodExecuted = true;
     this.loading = false;
+    
   } catch (error) {
     console.error('Error fetching data:', error);
-    this.loading = false;
+    
   }
 }
 
@@ -399,7 +389,19 @@ const lineColors = ['green', 'rgba(0, 0, 139, 1)', 'orange', 'purple', 'yellow',
       }
     }
   }
-
+  searchAds() {
+    if (this.receivedportCode && this.receivedcontainerType && this.receivedcontainerSize) {
+      // Set all values in the SharedService using a single function call
+      this.sharedService.setValues({
+        portCode: this.receivedportCode,
+        containerType: this.receivedcontainerType,
+        containerSize: this.receivedcontainerSize,
+      });
+  
+      // Navigate to the view-other-ads component
+      this.router.navigate(['/view-other-ads']);
+    }
+  }
   onExport() {
     const worksheetName = 'Inventory';
     const excelFileName = 'Inventory.xlsx';
