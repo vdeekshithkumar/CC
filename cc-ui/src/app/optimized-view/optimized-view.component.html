@@ -101,16 +101,16 @@
 </div>
 
 <!-- Check if the method is executed completely -->
-<ng-container *ngIf="methodExecuted">
+<ng-container >
 
   <!-- If matchedService is empty, display "No service" message and "Search Ads" button -->
-  <div *ngIf="matchedService && matchedService.length === 0" style="textstyles">
+  <div *ngIf=" !loading && matchedService && matchedService.length === 0" style="textstyles">
     There is no service. You can Search an Ad for this Criteria &nbsp;
-    <button class="btnstyle" routerLink="/view-other-ads">Search Ads</button>
+    <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search Ads</button>
   </div>
 
   <!-- If matchedService is not empty, display service-related content -->
-  <ng-container *ngIf="matchedService && matchedService.length > 0; else Service">
+  <ng-container *ngIf="!loading && matchedService && matchedService.length > 0; else Service">
     <ng-container *ngTemplateOutlet="Service"></ng-container>
   </ng-container>
 </ng-container>
