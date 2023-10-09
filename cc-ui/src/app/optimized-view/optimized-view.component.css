@@ -264,3 +264,50 @@ border-radius: 0px;
     border-bottom: 10px solid transparent;
     border-right: 10px solid #ffffff; /* Color matches the background */
   }
+  .style{
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+  }
+  /* Add these styles to your CSS file */
+.loading-bar {
+  width: 100%;
+  height: 4px; /* Adjust the height of the loading bar as needed */
+  background-color: #ccc; /* Set the background color of the loading bar */
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-bar-inner {
+  width: 0; /* The initial width of the loading bar (empty) */
+  height: 100%;
+  background-color: #007bff; /* Set the color of the loading bar indicator */
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.3s ease; /* Add a smooth transition effect */
+}
+.btnstyle {
+  height: 30px;
+  width: 150px;
+  padding: 5px 10px; 
+  background-color: rgb(53,85,235); 
+  color: white; 
+  border: 1px solid #1e4f8e; 
+  border-radius: 4px; 
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer; /* Cursor on hover */
+  white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.btnstyle:hover {
+  background-color: #1e4f8e; /* Change background color on hover */
+  color: #fff; /* Change text color on hover */
+}
+.textstyles{
+  font-size: 50px; /* Font size */
+  font-weight: 400;
+  font-family: "Poppins"
+}
