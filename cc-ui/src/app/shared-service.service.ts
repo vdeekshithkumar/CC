@@ -5,6 +5,15 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedServiceService {
+  private valuesSource = new BehaviorSubject<{
+    portCode: string;
+    containerType: string;
+    containerSize: string;
+  }>({
+    portCode: '',
+    containerType: '',
+    containerSize: '',
+  });
   private registeredEmailSource = new BehaviorSubject<string>('');
   private PortSelected = new BehaviorSubject<string>('');
   private selectedContainerType = new BehaviorSubject<string>('');
@@ -19,6 +28,7 @@ export class SharedServiceService {
   selectedContainerSize$ = this.selectedContainerSize.asObservable();
   PortLatitude$ = this.portlatitude.asObservable();
   PortLongitude$ = this.portlongitude.asObservable();
+  values$ = this.valuesSource.asObservable();
 
   setRegisteredEmail(email: string) {
     this.registeredEmailSource.next(email);
@@ -42,4 +52,12 @@ setDeficitServices(data: any[]) {
 getDeficitServices() {
   return this.deficitServicesData;
 }
+setValues(values: {
+  portCode: string;
+  containerType: string;
+  containerSize: string;
+}) {
+  this.valuesSource.next(values);
+}
+
 }
