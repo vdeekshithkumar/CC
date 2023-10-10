@@ -104,7 +104,7 @@ export class ServiceRouteComponent implements OnInit {
     // Create markers and polyline path
     for (let i = 0; i < service.length; i++) {
         const serviceItem = service[i];
-        let markerColor = '#FF0000'; // Red color for starting point
+        let markerColor = '#FFA500'; // Red color for starting point
         if (i > 0) {
             markerColor = '#FFFF00'; // Yellow color for other points
         }
