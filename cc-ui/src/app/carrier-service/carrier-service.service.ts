@@ -9,7 +9,8 @@ import { Observable, catchError } from 'rxjs';
 export class CarrierServiceService {
   private carUrl='GetAllServicesByCompanyId';
   private sernameUrl='GetPortSequencesByServiceName';
-  private deficitServices = 'GetInternalServicePortSequenceData';
+  private deficitServices = 'GetInternalServiceforDeficitPort';
+  private seq_nourl = 'GetSeqNo';
   constructor(private http: HttpClient,private apiService: ApiService) { }
   
   getCarrierServicesbyCId(companyId: number): Observable<any> {
@@ -38,5 +39,9 @@ private handleError(error: any): Observable<never> {
   console.error('An error occurred:', error);
   throw error;
 }
-
+getPortSeqNo(portCode:string)
+{
+  const url = this.apiService.getFullUrl(`${this.seq_nourl}?portCode=${portCode}`);
+    return this.http.get(url);
+}
 }
