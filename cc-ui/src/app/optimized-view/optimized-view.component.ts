@@ -344,7 +344,9 @@ async getDeficitServices(portCode: string) {
     throw error;
   }
 }
-
+getFinalServiceDataKeys() {
+  return Object.keys(this.finalServiceData || {});
+}
 async getlatitudelongitude(finalServiceData: { [serviceId: string]: any }): Promise<void> {
   // Create a new array to store port data
   const portCoordinates: { latitude: number, longitude: number, port_name: string }[] = [];
