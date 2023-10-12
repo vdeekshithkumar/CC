@@ -10,6 +10,7 @@ export class CarrierServiceService {
   private carUrl='GetAllServicesByCompanyId';
   private sernameUrl='GetPortSequencesByServiceName';
   private deficitServices = 'GetInternalServiceforDeficitPort';
+  private surplusServices = 'GetInternalServiceforSurplusPort';
   private seq_nourl = 'GetSeqNo';
   constructor(private http: HttpClient,private apiService: ApiService) { }
   
@@ -38,6 +39,20 @@ private handleError(error: any): Observable<never> {
   // Implement your error handling logic here (e.g., logging, showing user-friendly messages).
   console.error('An error occurred:', error);
   throw error;
+}
+getServicesforSurplus(companyId: number, portCode: string): Observable<Response> {
+  const url = this.apiService.getFullUrl(`${this.surplusServices}?companyId=${companyId}&portCode=${portCode}`);
+  
+  return this.http.get<Response>(url)
+    .pipe(
+      catchError(this.handleerror)
+    );
+}
+
+private handleerror(error: any): Observable<never> {
+// Implement your error handling logic here (e.g., logging, showing user-friendly messages).
+console.error('An error occurred:', error);
+throw error;
 }
 getPortSeqNo(portCode:string)
 {
