@@ -102,28 +102,41 @@
 
 <ng-container>
   <!-- If finalServiceData has data, display service_name -->
-  <div *ngIf="finalServiceData">
+  <div *ngIf="groupeData">
     <div *ngFor="let serviceId of getFinalServiceDataKeys()">
-      <div *ngIf="finalServiceData[serviceId]?.portSequences.length > 0">
-        You can use this Service Name: {{ finalServiceData[serviceId]?.serviceName }}
+      <div *ngIf="groupeData[serviceId] && groupeData[serviceId].portSequences">
+        <div *ngIf="groupeData[serviceId].portSequences.length > 0">
+          You can use this Service Name: {{ groupeData[serviceId].serviceName }}
+        </div>
       </div>
     </div>
   </div>
-  
-  
-    
-    
-    
-
 
   <!-- If finalServiceData is empty, display "No service" message and "Search Ads" button -->
-  <div *ngIf="!loading && !hasFinalServiceData" style="textstyles">
+  <div *ngIf="!loading && !groupeData" style="textstyles">
     There is no service. You can Search an Ad for this Criteria &nbsp;
     <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search Ads</button>
   </div>
 </ng-container>
 
-
+<ng-container >
+  <!-- If finalServiceData has data, display service_name -->
+  <div *ngIf="groupedsurplus">
+    <div *ngFor="let serviceId of getFinalSurplusDataKeys()">
+      <div *ngIf="groupedsurplus[serviceId] && groupedsurplus[serviceId].portSequences">
+        <div *ngIf="groupedsurplus[serviceId].portSequences.length > 0">
+          You can use this Service : {{ groupedsurplus[serviceId].serviceName }}
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+  <div *ngIf="!loading && !groupedsurplus" style="textstyles">
+    There is no service. &nbsp;
+   
+  </div>
+</ng-container>
 
 
 
