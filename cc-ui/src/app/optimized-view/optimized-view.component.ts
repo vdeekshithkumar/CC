@@ -150,7 +150,7 @@ console.log("Received values in ov",this.surpluslongitude);
         
         if (this.receiveddeficitportCode && this.receiveddeficitcontainerType && this.receiveddeficitcontainerSize) {
           this.filterData(this.receiveddeficitportCode, this.receiveddeficitcontainerType, this.receiveddeficitcontainerSize);
-      } else {
+      } else if(this.receivedsurplusportCode && this.receivedsurpluscontainerType && this.receivedsurpluscontainerSize) {
           this.filtersurplusData(this.receivedsurplusportCode, this.receivedsurpluscontainerType, this.receivedsurpluscontainerSize);
       }
       
@@ -160,10 +160,10 @@ console.log("Received values in ov",this.surpluslongitude);
       }
     );
   }
- async filtersurplusData(receivedsurplusportCode: any, receiveddeficitcontainerType: any, receivedsurpluscontainerSize: any) {
+ async filtersurplusData(receivedsurplusportCode: any, receivedsurpluscontainerType: any, receivedsurpluscontainerSize: any) {
    console.log("filtersurplusdata methos is executed");
    console.log("filtersurplusdata methos is executed port value received",receivedsurplusportCode);
-   console.log("filtersurplusdata methos is executed type received" ,receiveddeficitcontainerType);
+   console.log("filtersurplusdata methos is executed type received" ,receivedsurpluscontainerType);
    console.log("filtersurplusdata methos is executed size received",receivedsurpluscontainerSize);
    console.log("inside filter data",this.companyId);
    
@@ -288,9 +288,7 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
       throw error;
     }
   }
-  getFinalSurplusDataKeys() {
-    return Object.keys(this.groupedsurplus || {});
-  }
+
   async getsurpluslatitudelongitude(groupedsurplus: { [serviceId: string]: any }): Promise<void> {
     const portCoordinates: { [serviceId: string]: { serviceName: string, portSequences: any[] } } = {};
 
@@ -329,7 +327,7 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
   this.afterinitsurplusmap();
   }
   afterinitsurplusmap() {
-    console.log("to inside initmap check", this.latlong);
+    debugger
 
   // Check if the mapElement exists and if both latitude and longitude are defined
   if (this.mapElement && this.surpluslatitude !== undefined && this.surpluslongitude !== undefined) {
@@ -350,7 +348,7 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
         url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
         scaledSize: new google.maps.Size(30, 30)
       },
-      title: this.receiveddeficitportCode
+      title: this.receivedsurplusportCode
     });
 
     if (this.surplusPortData) {
@@ -370,23 +368,23 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
           const color = serviceIdColorMap[serviceId];
 
           // Iterate through portSequences for this service
-          for (const port of serviceData.portSequences) {
+          for (const surplusport of serviceData.portSequences) {
             // Create a marker with a green icon
             const greenMarker = new google.maps.Marker({
-              position: { lat: port.latitude, lng: port.longitude },
+              position: { lat: surplusport.latitude, lng: surplusport.longitude },
               map: this.map,
               icon: {
                 url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
                 scaledSize: new google.maps.Size(30, 30)
               },
-              title: port.port_name,
+              title: surplusport.port_name,
             });
 
             // Create a polyline with the selected color
             const polyline = new google.maps.Polyline({
               path: [
                 { lat: this.surpluslatitude, lng: this.surpluslongitude },
-                { lat: port.latitude, lng: port.longitude }
+                { lat: surplusport.latitude, lng: surplusport.longitude }
                
               ],
               geodesic: true,
@@ -416,7 +414,9 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
   }
   }
   
-
+  getFinalSurplusDataKeys() {
+    return Object.keys(this.groupedsurplus || {});
+  }
 
 
 
@@ -676,7 +676,11 @@ afterinitmap() {
   }
 }
 
-
+goback() {
+  console.log("go back is clicked")
+  window.location.reload();
+  window.location.href = '/forecast-map'; // Assuming 'forecast-map' is the route to your forecast map component
+}
 
 
 
