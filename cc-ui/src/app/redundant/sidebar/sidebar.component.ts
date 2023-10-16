@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,7 +12,7 @@ export class SidebarComponent {
   isDropdownOpen: boolean = false;
   showPopupp: boolean  = false;
   popupMaxHeight: number = 150;
-  constructor(public dialog: MatDialog){}
+  constructor(public dialog: MatDialog,private router: Router){}
   changeImageColor(event: MouseEvent) {
     const svg = (event.currentTarget as HTMLElement).querySelector('svg');
     if (svg) {
@@ -25,13 +26,57 @@ export class SidebarComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
+  reloadMySpaceAd() {
+    const queryParams = { type: 'space' };
+    this.router.navigate(['/my-ad'], { queryParams: queryParams })
+      .then(() => {
+        window.location.reload(); // Reload the component after navigation
+      });
+  }
+  reloadOtherLeaseSpaceAd() {
+    const queryParams = { type: 'space', typee:'Leasing' };
+    this.router.navigate(['/view-other-ads'], { queryParams: queryParams })
+      .then(() => {
+        window.location.reload(); // Reload the component after navigation
+      });
+  }
+  reloadOtherTradSpaceAd() {
+    const queryParams = { type: 'space' , typee:'Trading'};
+    this.router.navigate(['/view-other-ads'], { queryParams: queryParams })
+      .then(() => {
+        window.location.reload(); // Reload the component after navigation
+      });
+  }
+  reloadMyContAd() {
+    const queryParams = { type: 'container' };
+    this.router.navigate(['/my-ad'], { queryParams: queryParams })
+      .then(() => {
+        window.location.reload(); // Reload the component after navigation
+      });
+  }
+  reloadOtherLeasContAd() {
+    const queryParams = { type: 'container', typee:'Leasing'};
+    this.router.navigate(['/view-other-ads'], { queryParams: queryParams })
+      .then(() => {
+        window.location.reload(); // Reload the component after navigation
+      });
+  }
+  reloadOtherTradContAd() {
+    const queryParams = { type: 'container', typee:'Trading'};
+    this.router.navigate(['/view-other-ads'], { queryParams: queryParams })
+      .then(() => {
+        window.location.reload(); // Reload the component after navigation
+      });
+  }
   togglePopup() {
     this.showPopup = !this.showPopup;
   }
   togglePopupp() {
     this.showPopupp = !this.showPopupp;
   }
+  
   toggleDropdown(event: Event) {
+    
     event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
 
