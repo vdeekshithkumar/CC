@@ -473,20 +473,22 @@ onOptimizedViewButtonClick() {
     if (this.deifcitcontainerType && this.deficitcontainerSize) {
       // Set values for deficit
       this.sharedservice.setisvaluesfordeficit({
-        portCode: this.portCode,
-        containerType: this.deifcitcontainerType,
-        containerSize: this.deficitcontainerSize,
-        latitude: this.portlatitude,
-        longitude: this.portlongitude,
+        deficitportCode: this.portCode,
+        deficitcontainerType: this.deifcitcontainerType,
+        deficitcontainerSize: this.deficitcontainerSize,
+        deficitlatitude: this.portlatitude,
+        deficitlongitude: this.portlongitude,
       });
-          // Logging the values (for both cases)
-    console.log("from form to ov for deficit", this.portCode);
-    console.log("from form to ov for deficit", this.deifcitcontainerType);
-    console.log("from form to ov for deficit", this.deficitcontainerSize);
-    console.log("from form to ov for deficit", this.portlatitude);
-    console.log("from form to ov for deficit", this.portlongitude);
+      // Logging the values for deficit
+      console.log("from form to ov for deficit", this.portCode);
+      console.log("from form to ov for deficit", this.deifcitcontainerType);
+      console.log("from form to ov for deficit", this.deficitcontainerSize);
+      console.log("from form to ov for deficit", this.portlatitude);
+      console.log("from form to ov for deficit", this.portlongitude);
+
+     
     } else if (this.surpluscontainerType && this.surpluscontainerSize) {
-      debugger
+      debugger;
       // Set values for surplus
       this.sharedservice.setisvaluesforsurplus({
         surplusportCode: this.portCode,
@@ -495,17 +497,16 @@ onOptimizedViewButtonClick() {
         surpluslatitude: this.portlatitude, // Set your desired latitude value
         surpluslongitude: this.portlongitude, // Set your desired longitude value
       });
+      // Logging the values for surplus
+      console.log("from form to ov for surplus", this.portCode);
+      console.log("from form to ov for surplus", this.surpluscontainerType);
+      console.log("from form to ov for surplus", this.surpluscontainerSize);
+      console.log("from form to ov for surplus", this.portlatitude);
+      console.log("from form to ov for surplus", this.portlongitude);
     }
-    
-
-
-    console.log("from form to ov for surplus", this.portCode);
-    console.log("from form to ov for surplus", this.surpluscontainerType);
-    console.log("from form to ov for surplus", this.surpluscontainerSize);
-    console.log("from form to ov for surplus", this.portlatitude);
-    console.log("from form to ov for surplus", this.portlongitude);
   }
 }
+
 
 
 
