@@ -16,10 +16,11 @@ import { values } from 'lodash';
 export class OptimizedViewComponent implements OnInit, AfterViewInit {
   @ViewChild('mapElement', { static: true }) mapElement: ElementRef | undefined;
   map: google.maps.Map | undefined;
-  hasFinalServiceData: boolean = false;
+
   port_list: any[] = [];
   companyId!: number;
   Einv: Inventory[] = [];
+  noServiceAvailable: boolean = false;
   receiveddeficitportCode: any;
   receiveddeficitcontainerType: any;
   receiveddeficitcontainerSize: any;
@@ -37,7 +38,7 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
   public company_id?: number;
   service_id?:number;
   services: any[] = [];
-  loading = true;
+  loading:boolean = true;
   router: any;
   public carrierServices: any[] = [];
   latlong:any[]=[];
@@ -59,11 +60,12 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
     port_name: string | null | undefined; latitude: number; longitude: number; 
 }[] | undefined;
 filterDataExecuted: boolean = false;
+portcodereceived:boolean = false;
 groupeData: { [serviceId: string]: GroupedServiceData } = {};
   deficitPortData: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
   groupedsurplus: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
   surplusPortData: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
-
+  
   constructor(
     private sessionService: SessionService,
     private forecastingtableService: ForecastingTableService,
@@ -226,11 +228,19 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
     try {
       this.portseq_no = await this.carrierservice.getPortSeqNo(receivedsurplusportCode).toPromise();
       console.log('Received data from the service:', this.portseq_no);
+      if (!this.portseq_no) {
+        this.portcodereceived = false;
+      } else {
+        this.portcodereceived = true; // Set the flag to true if portseq_no is received
+      }
     } catch (error) {
       console.error('Error:', error);
       this.loading = false;
+      this.portcodereceived = false; // Set the flag to false if an error occurs
       throw error;
     }
+    
+    
   
     // Now, proceed with loading and processing the services
     this.loading = true;
@@ -274,7 +284,9 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
       // Log the grouped data
       console.log('Grouped data by service ID:', groupedsurplusData);
      this.groupedsurplus = groupedsurplusData;
-    
+     if (Object.keys(groupedsurplusData).length === 0) {
+      this.noServiceAvailable = true;
+    }
       await this.getsurpluslatitudelongitude( this.groupedsurplus);
       console.log('For html',  this.groupedsurplus);
       
