@@ -15,7 +15,7 @@
           <!-- Display Surplus Percentage -->
           <div class="col-span-1 text-xs" *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">Surplus</div>
           <div></div>
-          <div class="flex flex-row justify-end">
+          <div class="flex flex-row justify-end"*ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">
             <!-- Check if surplusCount has a value, if so, display it, otherwise, display surplusPercentage -->
             <ng-container *ngIf="surplusCount !== null; else displayPercentage">
               {{ surplusCount | number:'1.0-0' }}
