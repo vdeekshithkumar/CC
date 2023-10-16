@@ -5,6 +5,11 @@ import { BehaviorSubject, Observable, Subject, zip } from 'rxjs';
   providedIn: 'root'
 })
 export class SharedServiceService {
+  deficitportCode: any;
+deficitcontainerType: any;
+deficitcontainerSize: any;
+deficitlatitude: any;
+deficitlongitude: any;
   private valuesSource = new BehaviorSubject<{
     portcode: string;
     containertype: string;
@@ -15,17 +20,17 @@ export class SharedServiceService {
     containersize: '',
   });
   private valuesfordeficit = new BehaviorSubject<{
-    portCode: string;
-    containerType: string;
-    containerSize: number;
-    latitude:number;
-    longitude:number;
+    deficitportCode: string;
+    deficitcontainerType: string;
+    deficitcontainerSize: number;
+    deficitlatitude:number;
+    deficitlongitude:number;
   }>({
-    portCode: '',
-    containerType: '',
-    containerSize: 0,
-    latitude:0,
-    longitude:0
+    deficitportCode: '',
+    deficitcontainerType: '',
+    deficitcontainerSize: 0,
+    deficitlatitude:0,
+    deficitlongitude:0
   });
   private valuesforsurplus = new BehaviorSubject<{
     surplusportCode: string;
@@ -48,6 +53,7 @@ export class SharedServiceService {
   private registeredEmailSource = new BehaviorSubject<string>('');
  
   registeredEmail$ = this.registeredEmailSource.asObservable();
+
   
  
 
@@ -66,15 +72,18 @@ setValues(values: {
 }) {
   this.valuesSource.next(values);
 }
-setisvaluesfordeficit(valuesforis:{
-  portCode: string;
-    containerType: string;
-    containerSize: number;
-    latitude:number;
-    longitude:number;
-}){
+setisvaluesfordeficit(valuesforis: {
+  deficitportCode: string;
+  deficitcontainerType: string;
+  deficitcontainerSize: number;
+  deficitlatitude: number;
+  deficitlongitude: number;
+}) {
   this.valuesfordeficit.next(valuesforis);
+
+  
 }
+
 setisvaluesforsurplus(valuesforsurplus:{
   surplusportCode: string;
     surpluscontainerType: string;
