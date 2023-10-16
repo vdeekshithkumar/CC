@@ -71,24 +71,24 @@ groupeData: { [serviceId: string]: GroupedServiceData } = {};
     private carrierservice:CarrierServiceService
   ) {}
 
- 
+  onBackButtonClick() {
+    // Add logic for the back button click event
+    this.router.navigateByUrl('/forecast-map');
+  }
 
   ngOnInit(): void {
     this.loadInitialData();
-  
+   
+    
     this.sharedService.valuesforis$.subscribe(valuesfordeficit => {
-      this.receiveddeficitportCode = valuesfordeficit.portCode;
-      this.receiveddeficitcontainerType = valuesfordeficit.containerType;
-      this.receiveddeficitcontainerSize = valuesfordeficit.containerSize;
-      this.deficitlatitude = valuesfordeficit.latitude;
-      this.deficitlongitude = valuesfordeficit.longitude;
+      this.receiveddeficitportCode = valuesfordeficit.deficitportCode;
+      this.receiveddeficitcontainerType = valuesfordeficit.deficitcontainerType;
+      this.receiveddeficitcontainerSize = valuesfordeficit.deficitcontainerSize;
+      this.deficitlatitude = valuesfordeficit.deficitlatitude;
+      this.deficitlongitude = valuesfordeficit.deficitlongitude;
       
     });
-console.log("Received values in ov",this.receiveddeficitportCode);
-console.log("Received values in ov",this.receiveddeficitcontainerType);
-console.log("Received values in ov",this.receiveddeficitcontainerSize);
-console.log("Received values in ov",this.deficitlatitude);
-console.log("Received values in ov",this.deficitlongitude);
+
 
 this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
   this.receivedsurplusportCode = valuesforsurplus.surplusportCode;
@@ -98,11 +98,7 @@ this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
   this.surpluslongitude = valuesforsurplus.surpluslongitude;
 })
 
-console.log("Received values in ov",this.receivedsurplusportCode);
-console.log("Received values in ov",this.receivedsurpluscontainerType);
-console.log("Received values in ov",this.receivedsurpluscontainerSize);
-console.log("Received values in ov",this.surpluslatitude);
-console.log("Received values in ov",this.surpluslongitude);
+
    
    
   
