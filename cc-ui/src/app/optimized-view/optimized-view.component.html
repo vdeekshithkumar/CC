@@ -101,20 +101,24 @@
 </div>
 
 <ng-container>
-<!-- If finalServiceData has data, display service_name -->
-<div *ngIf="groupeData">
-  <div *ngFor="let serviceId of getFinalServiceDataKeys()">
-    <div *ngIf="groupeData[serviceId] && groupeData[serviceId].portSequences">
-      <div *ngIf="groupeData[serviceId].portSequences.length > 0">
-        You can use this Service Name: {{ groupeData[serviceId].serviceName }}
+  <!-- If finalServiceData has data, display service_name -->
+  <div *ngIf="groupeData">
+    <div *ngFor="let serviceId of getFinalServiceDataKeys()">
+      <div *ngIf="groupeData[serviceId] && groupeData[serviceId].portSequences">
+        <div *ngIf="groupeData[serviceId].portSequences.length > 0">
+          You can use this Service Name: {{ groupeData[serviceId].serviceName }}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-
-
+  <!-- If finalServiceData is empty, display "No service" message and "Search Ads" button -->
+  <div class="textstyles" *ngIf="(!groupeData || getFinalServiceDataKeys().length === 0) && (receiveddeficitcontainerType && receiveddeficitcontainerSize) ">
+    No service Available. Search an Ad for this.
+    <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search ad</button>
+  </div>
 </ng-container>
+
 
 <ng-container >
 <!-- If finalServiceData has data, display service_name -->
@@ -128,11 +132,14 @@
   </div>
 </div>
 
-
-
+<div class="textstyles" *ngIf="(!groupedsurplus || getFinalSurplusDataKeys().length === 0) && (receivedsurpluscontainerType && receivedsurpluscontainerSize) ">
+  No service Available.
+ 
+</div>
 </ng-container>
 
-<button (click)="goback()">Go back</button>
+<button (click)="goback()" class="blue-button">Go back</button>
+
 
 
 
