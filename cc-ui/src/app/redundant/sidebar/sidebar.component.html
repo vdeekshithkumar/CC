@@ -203,12 +203,12 @@
                 </button>
                 
                 <div class="dropdown-menu font-light" id="advertisementDropdownMenu" [ngClass]="{ 'show': isDropdownOpen }">
-                  <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Trading' }" routerLinkActive="active-link">Trading</a>
-                  <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Leasing' }" routerLinkActive="active-link">Leasing</a>
+                  <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Trading' }" routerLinkActive="active-link" (click)="reloadOtherTradContAd()">Trading</a>
+                  <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Leasing' }" routerLinkActive="active-link" (click)="reloadOtherLeasContAd()">Leasing</a>
                 </div>
               </div>
               
-              <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }" class="h-a" routerLinkActive="active-link">My-ad</a>
+              <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }" class="h-a" routerLinkActive="active-link" (click)="reloadMyContAd()">My-ad</a>
               <a [routerLink]="['/negotiations', 'container']" routerLinkActive="active-link">Negotiations</a>
             </div>
           </div>
@@ -239,11 +239,12 @@
             </button>
             
             <div class="dropdown-menu font-light" id="advertisementDropdownMenu" [ngClass]="{ 'show': isDropdownOpen }">
-              <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Trading' }" routerLinkActive="active-link">Trading</a>
-              <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Leasing' }" routerLinkActive="active-link">Leasing</a>
+              <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Trading' }" routerLinkActive="active-link" (click)="reloadOtherTradSpaceAd()">Trading</a>
+              <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Leasing' }" routerLinkActive="active-link" (click)="reloadOtherLeaseSpaceAd()">Leasing</a>
             </div>
           </div>
-          <a class="" [routerLink]="['/my-ad']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link">My-ad</a>
+          <a [routerLink]="['/my-ad']" [queryParams]="{ type: 'space' }" routerLinkActive="active-link" (click)="reloadMySpaceAd()">My-ad</a>
+
           <a class="" [routerLink]="['/negotiations', 'space']" routerLinkActive="active-link">Negotiations</a>
         </div>
       </div>
