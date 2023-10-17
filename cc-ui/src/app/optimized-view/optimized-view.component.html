@@ -97,10 +97,10 @@
 <br/>
 <!-- Loading indicator when data is loading -->
 <div *ngIf="loading" class="loading-bar">
-<div class="loading-bar-inner"></div>
+  <div class="loading-bar-inner"></div>
 </div>
 
-<ng-container>
+<ng-container *ngIf="!loading">
   <!-- If finalServiceData has data, display service_name -->
   <div *ngIf="groupeData">
     <div *ngFor="let serviceId of getFinalServiceDataKeys()">
@@ -113,11 +113,12 @@
   </div>
 
   <!-- If finalServiceData is empty, display "No service" message and "Search Ads" button -->
-  <div class="textstyles" *ngIf="(!groupeData || getFinalServiceDataKeys().length === 0) && (receiveddeficitcontainerType && receiveddeficitcontainerSize) ">
+  <div class="textstyles" *ngIf="showNoDeficitAvailableMessage && receiveddeficitcontainerType && receiveddeficitcontainerSize">
     No service Available. Search an Ad for this.
     <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search ad</button>
   </div>
 </ng-container>
+
 
 
 <ng-container >
@@ -132,11 +133,18 @@
   </div>
 </div>
 
-<div class="textstyles" *ngIf="(!groupedsurplus || getFinalSurplusDataKeys().length === 0) && (receivedsurpluscontainerType && receivedsurpluscontainerSize) ">
+<div class="textstyles" *ngIf="showNoServiceAvailableMessage && receivedsurpluscontainerType && receivedsurpluscontainerSize">
   No service Available.
  
 </div>
+
 </ng-container>
+<div *ngIf="!portseq_no && !loading">
+  <div>
+    <p>Port not Available in any Service</p>
+  </div>
+</div>
+
 
 <button (click)="goback()" class="blue-button">Go back</button>
 
