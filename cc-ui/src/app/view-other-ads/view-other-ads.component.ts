@@ -14,6 +14,7 @@ import { ViewOtherAdsService } from './view-other-ads.service';
 import { UploadInventoryservice } from '../upload-inventory/upload-inventory.service';
 import { ForecastMapService } from '../forecasting/forecast-map/forecast-map.service';
 import { ViewOtherAdsMapViewComponent } from './view-other-ads-map-view/view-other-ads-map-view.component';
+import { SharedServiceService } from '../shared-service.service';
 export interface Port {
   port_id: number;
   company_id: number;
@@ -157,6 +158,9 @@ selectedMainOption: string = ''; // To store the selected main option
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
 
+  receivedportCode: any;
+  receivedcontainerType: any;
+  receivedcontainerSize: any;
 
   
   
@@ -164,11 +168,19 @@ selectedMainOption: string = ''; // To store the selected main option
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService,private route: ActivatedRoute, private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService) {
+  constructor(private sessionService: SessionService,private route: ActivatedRoute, private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService,private sharedService:SharedServiceService ) {
 
   }
   ngOnInit(): void {
-    
+    this.sharedService.values$.subscribe(values => {
+      this.receivedportCode = values.portcode;
+      this.receivedcontainerType = values.containertype;
+      this.receivedcontainerSize = parseInt(values.containersize, 10);
+      
+    });
+    console.log( "to check",this.receivedportCode)
+    console.log( "to check", this.receivedcontainerType)
+    console.log( "to check",this.receivedcontainerSize)
     if (this.selectedView === 'map') {
       this.showMapView = true;
     } else {
