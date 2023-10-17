@@ -31,7 +31,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   ads: Advertisement[] = [];
  
   companyId: any;
-  mapId: string = '2b03aff8b2fb72a3'; // Replace with your Map ID
+  mapId: string = '2b03aff8b2fb72a3'; 
   ports: Port[] = [];
   map: google.maps.Map | undefined;
   markers: google.maps.Marker[] = [];
