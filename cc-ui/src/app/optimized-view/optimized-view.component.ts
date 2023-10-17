@@ -59,12 +59,14 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
   surplusportdata: {
     port_name: string | null | undefined; latitude: number; longitude: number; 
 }[] | undefined;
-filterDataExecuted: boolean = false;
+
 portcodereceived:boolean = false;
 groupeData: { [serviceId: string]: GroupedServiceData } = {};
   deficitPortData: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
   groupedsurplus: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
   surplusPortData: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
+  showNoServiceAvailableMessage: boolean =false;
+  showNoDeficitAvailableMessage: boolean = false;
   
   constructor(
     private sessionService: SessionService,
@@ -226,76 +228,74 @@ this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
   }
   async getSurplusServices(receivedsurplusportCode: any) {
     try {
-      this.portseq_no = await this.carrierservice.getPortSeqNo(receivedsurplusportCode).toPromise();
-      console.log('Received data from the service:', this.portseq_no);
-      if (!this.portseq_no) {
-        this.portcodereceived = false;
-      } else {
-        this.portcodereceived = true; // Set the flag to true if portseq_no is received
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      this.loading = false;
-      this.portcodereceived = false; // Set the flag to false if an error occurs
-      throw error;
-    }
-    
-    
-  
-    // Now, proceed with loading and processing the services
-    this.loading = true;
-  
-    try {
-      const surplusresponse: any = await this.carrierservice.getServicesforSurplus(this.companyId, receivedsurplusportCode).toPromise();
-      console.log('Response received from the service for surplus', surplusresponse);
-  
-      this.loading = false;
-  
-      const groupedsurplusData: { [serviceId: string]: GroupedServiceData } = {};
-  
-      for (const item of this.filteredsurplusInventoryData) {
-        const portIdToMatch = item.port_id;
-  
-        for (const serviceId in surplusresponse) {
-          if (surplusresponse.hasOwnProperty(serviceId)) {
-            const serviceData = surplusresponse[serviceId];
-            for (const portSequence of serviceData.portSequences) {
-              if (portSequence.port_id === portIdToMatch) {
-                if (!groupedsurplusData[serviceId]) {
-                  groupedsurplusData[serviceId] = {
-                    serviceName: serviceData.serviceName,
-                    portSequences: [],
-                  };
+        this.loading = true;
+        // Await the retrieval of port sequence number
+        this.portseq_no = await this.carrierservice.getPortSeqNo(receivedsurplusportCode).toPromise();
+        console.log('Received data from the service:', this.portseq_no);
+
+        // Get the surplus response data
+        const surplusresponse: any = await this.carrierservice.getServicesforSurplus(this.companyId, receivedsurplusportCode).toPromise();
+        console.log('Response received from the service for surplus', surplusresponse);
+
+        // Initialize an object to store grouped surplus data
+        const groupedsurplusData: { [serviceId: string]: GroupedServiceData } = {};
+
+        // Loop through the filtered surplus inventory data
+        for (const item of this.filteredsurplusInventoryData) {
+            const portIdToMatch = item.port_id;
+
+            // Iterate through the surplus response data
+            for (const serviceId in surplusresponse) {
+                if (surplusresponse.hasOwnProperty(serviceId)) {
+                    const serviceData = surplusresponse[serviceId];
+                    // Check for matching port sequences and group the data accordingly
+                    for (const portSequence of serviceData.portSequences) {
+                        if (portSequence.port_id === portIdToMatch) {
+                            if (!groupedsurplusData[serviceId]) {
+                                groupedsurplusData[serviceId] = {
+                                    serviceName: serviceData.serviceName,
+                                    portSequences: [],
+                                };
+                            }
+                            groupedsurplusData[serviceId].portSequences.push(portSequence);
+                        }
+                    }
                 }
-                groupedsurplusData[serviceId].portSequences.push(portSequence);
-              }
             }
-          }
         }
-      }
-  
-      for (const serviceId in groupedsurplusData) {
-        if (groupedsurplusData.hasOwnProperty(serviceId)) {
-          groupedsurplusData[serviceId].portSequences.sort((a, b) => a.seq_no - b.seq_no);
+
+        // Sort the port sequences for each service ID in the grouped surplus data
+        for (const serviceId in groupedsurplusData) {
+            if (groupedsurplusData.hasOwnProperty(serviceId)) {
+                groupedsurplusData[serviceId].portSequences.sort((a, b) => a.seq_no - b.seq_no);
+            }
         }
-        
-      }
-  
-      // Log the grouped data
-      console.log('Grouped data by service ID:', groupedsurplusData);
-     this.groupedsurplus = groupedsurplusData;
-     if (Object.keys(groupedsurplusData).length === 0) {
-      this.noServiceAvailable = true;
-    }
-      await this.getsurpluslatitudelongitude( this.groupedsurplus);
-      console.log('For html',  this.groupedsurplus);
-      
+
+        // Log the grouped data
+        console.log('Grouped data by service ID:', groupedsurplusData);
+
+        // Update the surplus data and manage the no service available message
+        this.groupedsurplus = groupedsurplusData;
+        if (!this.groupedsurplus || Object.keys(this.groupedsurplus).length === 0) {
+            this.showNoServiceAvailableMessage = true;
+        } else {
+            this.showNoServiceAvailableMessage = false;
+        }
+
+        // Call the function to get surplus latitude and longitude
+        await this.getsurpluslatitudelongitude(this.groupedsurplus);
+        console.log('For html', this.groupedsurplus);
+
     } catch (error) {
-      console.error('An error occurred:', error);
-      this.loading = false;
-      throw error;
+        // If an error occurs during processing, log it and throw the error
+        console.error('An error occurred:', error);
+        throw error;
+    } finally {
+        // Set loading to false after the process is completed
+        this.loading = false;
     }
-  }
+}
+
 
   async getsurpluslatitudelongitude(groupedsurplus: { [serviceId: string]: any }): Promise<void> {
     const portCoordinates: { [serviceId: string]: { serviceName: string, portSequences: any[] } } = {};
@@ -545,6 +545,11 @@ async getDeficitServices(portCode: string) {
     console.log('Grouped data by service ID:', groupedData) ;
 
     this.groupeData = groupedData;
+    if (!this.groupeData || Object.keys(this.groupeData).length === 0) {
+      this.showNoDeficitAvailableMessage = true;
+    } else {
+      this.showNoDeficitAvailableMessage = false;
+    }
     await this.getlatitudelongitude( this.groupeData);
   
   } catch (error) {
@@ -723,7 +728,7 @@ initMap() {
       position: { lat: this.deficitlatitude, lng: this.deficitlongitude },
       map: this.map,
       icon: {
-        url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        url: 'http://maps.google.com/mapfiles/ms/icons/black-dot.png',
         scaledSize: new google.maps.Size(30, 30)
       },
       title: this.receiveddeficitportCode
