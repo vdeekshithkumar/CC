@@ -62,7 +62,7 @@ totalDeficitPercentage: number = 0;
 
   }
   reloadMap() {
-    window.location.reload();
+    location.reload();
   }
   options = ['Map', 'Table', 'Surplus Area','Deficit Area'];
   selectedOption = 0;
