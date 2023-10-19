@@ -100,6 +100,7 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     debugger
     this.adsService.getAdvertisement(this.ad_typetomap, this.companyId).subscribe(
       (adsdata: Advertisement[]) => {
+        debugger
         this.ads = adsdata;
         console.log("From map view", this.ads);
       },
@@ -144,10 +145,13 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     );
   
   
-  
-    if (this.ad_typetomap === 'container') {
+  debugger
+    if (this.ad_typetomap === 'container'&&this.typetomap==='oneway') {
+      this.markPortOfDepArrOnMap();
+    } else if (this.ad_typetomap === 'container') {
       this.markPortOfAdOnMap();
-    } else if (this.ad_typetomap === 'space') {
+    }
+    else if(this.ad_typetomap === 'space'){
       this.markPortOfDepArrOnMap();
     }
   }
@@ -169,13 +173,14 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
     return null;
   }
   markPortOfAdOnMap(): void {
+    debugger
     if (!this.map || !this.typetomap || !this.selectedTypePortOfAd || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
       return;
     }
   
     const bounds = new google.maps.LatLngBounds();
     const matchingAds = [];
-  
+  debugger
     // Find ads with matching port_of_ad, container_type, and container_size
     for (const ad of this.ads) {
       if (
@@ -235,13 +240,14 @@ export class ViewOtherAdsMapViewComponent implements OnInit {
   
   
   markPortOfDepArrOnMap(): void {
+    debugger
     if (!this.map ||!this.typetomap|| !this.selectedTypePortOfDep || !this.selectedTypePortOfArr || !this.selectedcontainertypetomap || !this.selectedcontainersizetomap) {
       return;
     }
   
     const bounds = new google.maps.LatLngBounds();
     const matchingAds = [];
-  
+  debugger
     // Find ads with matching port_of_departure, port_of_arrival, container_type, and container_size
     for (const ad of this.ads) {
       if (
