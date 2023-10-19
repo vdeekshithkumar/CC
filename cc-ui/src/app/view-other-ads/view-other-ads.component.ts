@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SessionService } from '../session.service';
 import { DatePipe } from '@angular/common';
-import { Location } from '@angular/common';
+
 import { forkJoin } from 'rxjs';
 
 // ...
@@ -12,9 +12,10 @@ import { forkJoin } from 'rxjs';
 
 import { ViewOtherAdsService } from './view-other-ads.service';
 import { UploadInventoryservice } from '../upload-inventory/upload-inventory.service';
-import { ForecastMapService } from '../forecasting/forecast-map/forecast-map.service';
+
 import { ViewOtherAdsMapViewComponent } from './view-other-ads-map-view/view-other-ads-map-view.component';
 import { SharedServiceService } from '../shared-service.service';
+import { MyAdService } from '../my-advertisement/my-ad.service';
 export interface Port {
   port_id: number;
   company_id: number;
@@ -154,6 +155,10 @@ selectedMainOption: string = ''; // To store the selected main option
   isTypeDropdownOpen: boolean = false;
   selectedcontainerType: string = '';
   selectedTypePortOfArr: any;
+  userDesignation: any;
+  UserPList: any[]=[];
+  isStartnegDisabled: boolean = false;
+  selectedCount: number = 0;
   get totalPages(): number {
     return Math.ceil(this.ads.length / this.adsPerPage);
   }
@@ -168,7 +173,7 @@ selectedMainOption: string = ''; // To store the selected main option
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService,private route: ActivatedRoute, private location: Location, private renderer: Renderer2, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private forecastService: ForecastMapService,private sharedService:SharedServiceService ) {
+  constructor(private sessionService: SessionService,private route: ActivatedRoute, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private sharedService:SharedServiceService,private myadservice:MyAdService ) {
 
   }
   ngOnInit(): void {
@@ -313,15 +318,40 @@ selectedMainOption: string = ''; // To store the selected main option
 
 
     this.isLoading = false;
+
+    this.sessionService.getUserDesignation().subscribe(
+      (userDesignation: string) => {
+        this.userDesignation = userDesignation;
+        console.log('User des is :', userDesignation);
+      },
+      (error: any) => {
+        console.error('Error retrieving user des:', error);
+      }
+    );
+    this.myadservice.getPermissions(this.userId).subscribe(
+      (permissions: any[]) => {
+        this.UserPList = permissions;
+        this.isStartnegDisabled = !(this.UserPList.includes(4) || this.userDesignation ==='admin');
+       
+       console.log("User permissions",this.UserPList);
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
+      }
+    );
   }
-  // In your component.ts file
-onSizeClick(size: any) {
-  if (this.selectedcontainerSize === size) {
-    this.selectedcontainerSize = null; // Unselect the option if it's already selected
-  } else {
-    this.selectedcontainerSize = size.capacity; // Otherwise, select the clicked option
+  onSizeClick(size: any) {
+    if (this.selectedcontainerSize === size.capacity) {
+      // If the same option is clicked twice, reset the selection and the count
+      this.selectedcontainerSize = null;
+      this.selectedCount = 0;
+    } else {
+      // Otherwise, select the clicked option and increase the count
+      this.selectedcontainerSize = size.capacity;
+      this.selectedCount += 1;
+    }
   }
-}
 
 capitalizeFirstLetter(text: string): string {
   if (!text) return text;
