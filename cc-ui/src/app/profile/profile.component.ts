@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PostAdComponent } from '../my-advertisement/post-ad/post-ad.component';
 import { AddEmployeeComponent } from '../add-employee/add-employee.component';
 import { RegisterComponent } from '../home-template/register/register.component';
+import { MyAdService } from '../my-advertisement/my-ad.service';
 
 @Component({
   selector: 'app-profile',
@@ -45,13 +46,21 @@ export class ProfileComponent implements OnInit {
   phone?: string
   companyId: any;
   userId:any;
-  
+  UserPList: any[]=[];
   adscount: any;
   approvedadscount:any;
   //for the employees table 
   currentPage = 1;
   itemsPerPage = 4;
   paginatedUsers: any[] = []; 
+  userDesignation: any;
+  
+  isAddUserDisabled: boolean= false;
+  isAddInventoryDisabled:boolean = false;
+  isUploadcontractsDisabled:boolean = false;
+  isEditcompanyDisabled:boolean = false;
+  isEditEmployeeDisabled: boolean = false;
+  isDeleteEmployeeDisabled: boolean=false;
   //for pagination
   get totalPages(): number {
     return Math.ceil(this.filteredUsers.length / this.itemsPerPage);
@@ -71,7 +80,7 @@ export class ProfileComponent implements OnInit {
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private dialog:MatDialog,private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute) { }
+  constructor(private dialog:MatDialog,private sessionService: SessionService, private router: Router, private profileService: ProfileService,private activatedRoute: ActivatedRoute,private myadservice:MyAdService) { }
   ngOnInit(): void {
    
     this.sessionService.getUserId().subscribe(
@@ -93,8 +102,7 @@ export class ProfileComponent implements OnInit {
           const id = this.activatedRoute.snapshot.params['id'];
           console.log('ID:', id);
         }
-
-       
+      
     this.sessionService.getCurrentUser().subscribe(user => {
       // if (user.id==null && user.token==null) {  // use this once token is used for a user
       if (user.user_id == null) {
@@ -220,6 +228,32 @@ export class ProfileComponent implements OnInit {
     ).subscribe(() => {
       this.sessionService.clearSession();
     });
+    this.sessionService.getUserDesignation().subscribe(
+      (userDesignation: string) => {
+        this.userDesignation = userDesignation;
+        console.log('User des is :', this.userDesignation);
+      },
+      (error: any) => {
+        console.error('Error retrieving user des:', error);
+      }
+    );
+    this.myadservice.getPermissions(this.userId).subscribe(
+      (permissions: any[]) => {
+        this.UserPList = permissions;
+        this.isAddUserDisabled = !(this.UserPList.includes(10) || this.userDesignation ==='admin');
+        this.isAddInventoryDisabled = !(this.UserPList.includes(16) || this.userDesignation ==='admin');
+        this.isUploadcontractsDisabled =!(this.UserPList.includes(18) || this.userDesignation ==='admin');
+        this.isEditcompanyDisabled =!(this.UserPList.includes(18) || this.userDesignation ==='admin');
+        this.isEditEmployeeDisabled = !(this.UserPList.includes(14) || this.userDesignation ==='admin');
+        this.isDeleteEmployeeDisabled = !(this.UserPList.includes(12) || this.userDesignation ==='admin');
+       console.log("User permissions",this.UserPList);
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
+      }
+    );
+   
   }
   DisplayPostForm(){
     this.dialog.open(AddEmployeeComponent,{
@@ -366,7 +400,11 @@ export class ProfileComponent implements OnInit {
 
   
 
-   
+  capitalizeFirstLetter(text: string): string {
+    if (!text) return text;
+  
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
   
 
 }
