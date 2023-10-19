@@ -4,6 +4,7 @@ import { ViewContractsService } from './view-contracts.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContractDto } from '../DTO/ContractDto';
+import { MyAdService } from '../my-advertisement/my-ad.service';
 
 @Component({
   selector: 'app-view-contracts',
@@ -18,8 +19,12 @@ export class ViewContractsComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 6                          ;
   companyId!: number;
+  userDesignation: any;
+  UserPList: any[]=[];
+  isUploadcontractsDisabled:boolean = false;
+  isDeleteContractsDisabled: boolean=false;
 
-  constructor(private router: Router, private sessionService: SessionService, private formBuilder: FormBuilder, private viewContractService: ViewContractsService) { }
+  constructor(private router: Router, private sessionService: SessionService,private myadservice:MyAdService, private viewContractService: ViewContractsService) { }
   ngOnInit(): void {
     //user id from session 
     this.sessionService.getUserId().subscribe(
@@ -48,6 +53,27 @@ export class ViewContractsComponent implements OnInit {
       error=>
       {
         console.log(error)
+      }
+    );
+    this.sessionService.getUserDesignation().subscribe(
+      (userDesignation: string) => {
+        this.userDesignation = userDesignation;
+        console.log('User des is :', this.userDesignation);
+      },
+      (error: any) => {
+        console.error('Error retrieving user des:', error);
+      }
+    );
+    this.myadservice.getPermissions(this.userId).subscribe(
+      (permissions: any[]) => {
+        this.UserPList = permissions;
+        this.isUploadcontractsDisabled =!(this.UserPList.includes(18) || this.userDesignation ==='admin');
+        this.isDeleteContractsDisabled =!(this.UserPList.includes(22) || this.userDesignation ==='admin');
+       console.log("User permissions",this.UserPList);
+      },
+      (error: any) => {
+        console.log(error);
+        alert("error")
       }
     );
   }
