@@ -1,4 +1,4 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { NavigationEnd, Router, ActivatedRoute } from '@angular/router';
 import { AddEmployeeServiceService } from './add-employee.service';
 import { SessionService } from '../session.service';
@@ -144,7 +144,7 @@ export class AddEmployeeComponent {
       last_name: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*'), Validators.maxLength(20)]],
       address: ['', Validators.required],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(25)]],
-      phone_no: ['', [Validators.pattern('[0-9]*'), Validators.maxLength(15)]],
+      phone_no: ['', [Validators.required, this.validPhoneNumber()]],
       city: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
       confirm_password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$'), Validators.maxLength(15)]],
@@ -203,6 +203,17 @@ export class AddEmployeeComponent {
       this.sessionService.clearSession();
     });
  
+  }
+  validPhoneNumber(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const phoneNumberPattern = /^[0-9]+$/; // Regular expression to allow only numbers
+  
+      if (control.value && !phoneNumberPattern.test(control.value)) {
+        return { invalidPhoneNumber: true };
+      }
+  
+      return null;
+    };
   }
   logout(): void {
     // clear session data and redirect to login page
