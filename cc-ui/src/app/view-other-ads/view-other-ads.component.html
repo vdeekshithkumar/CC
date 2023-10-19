@@ -201,19 +201,25 @@
           </div>
         </ng-template>
         
+        <div>
+          <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
+          <ul class="horizontal-list">
+            <li
+              *ngFor="let size of container_list"
+              (click)="onSizeClick(size)"
+              [class.selected]="selectedcontainerSize === size.capacity && selectedCount === 1"
+              [class.selected-twice]="selectedcontainerSize === size.capacity && selectedCount > 1"
+              [style.padding]="'5px'"
+            >
+              {{ size.capacity }}'
+            </li>
+          </ul>
+        </div>
         
-        <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
-        <ul class="horizontal-list">
-          <li
-            *ngFor="let size of container_list"
-            (click)="onSizeClick(size)"
-            [ngClass]="{ 'selected': receivedcontainerSize === size.capacity }"
-            [style.color]="receivedcontainerSize === size.capacity ? 'white' : 'inherit'"
-            [style.padding]="'5px'" 
-          >
-            {{ size.capacity }}'
-          </li>
-        </ul>
+        
+        
+        
+      
         
         
         
@@ -268,31 +274,31 @@
           </button>
           
 </div>
-  <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
-    <app-view-other-ads-map-view
-      [ad_typetomap]="ad_typetomap"
-      [typetomap]="typetomap"
-      [selectedTypePortOfAd]="selectedTypePortOfAd"
-      [selectedTypePortOfDep]="selectedTypePortOfDep"
-      [selectedTypePortOfArr]="selectedTypePortOfArr"
-      [selectedcontainertypetomap]="selectedcontainertypetomap"
-      [selectedcontainersizetomap]="selectedcontainersizetomap"
+<div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
+  <app-view-other-ads-map-view
+    [ad_typetomap]="ad_typetomap"
+    [typetomap]="typetomap"
+    [selectedTypePortOfAd]="selectedTypePortOfAd"
+    [selectedTypePortOfDep]="selectedTypePortOfDep"
+    [selectedTypePortOfArr]="selectedTypePortOfArr"
+    [selectedcontainertypetomap]="selectedcontainertypetomap"
+    [selectedcontainersizetomap]="selectedcontainersizetomap"
 
-      
-    ></app-view-other-ads-map-view>
-  </div>
-  <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'space'" class="map-view">
-    <app-view-other-ads-map-view
-      [ad_typetomap]="ad_typetomap"
-      [typetomap]="typetomap"
-      [selectedTypePortOfDep]="selectedTypePortOfDep"
-      [selectedTypePortOfArr]="selectedTypePortOfArr"
-      [selectedcontainertypetomap]="selectedcontainertypetomap"
-      [selectedcontainersizetomap]="selectedcontainersizetomap"
+    
+  ></app-view-other-ads-map-view>
+</div>
+<div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'space'" class="map-view">
+  <app-view-other-ads-map-view
+    [ad_typetomap]="ad_typetomap"
+    [typetomap]="typetomap"
+    [selectedTypePortOfDep]="selectedTypePortOfDep"
+    [selectedTypePortOfArr]="selectedTypePortOfArr"
+    [selectedcontainertypetomap]="selectedcontainertypetomap"
+    [selectedcontainersizetomap]="selectedcontainersizetomap"
 
-      
-    ></app-view-other-ads-map-view>
-  </div>
+    
+  ></app-view-other-ads-map-view>
+</div>
  
   <div *ngIf="!showMapView"   >
     <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
@@ -396,14 +402,14 @@
             <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
           </div>
           <button
-            class="negotiation-button"
-            [disabled]="DisableStartNegoBtn(ad.ad_id)"
-            [disabled]="NButtonDisabled"
-            [class.disabled-button]="NButtonDisabled"
-            (click)="StartNegotiation(ad.ad_id)"
-          >
-            Start Negotiation
-          </button>
+    class="negotiation-button"
+    [disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
+    [class.disabled-button]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
+    (click)="StartNegotiation(ad.ad_id)"
+>
+    Start Negotiation
+</button>
+
         </div>
         <hr class="mx-2" />
         <div class="p-1 flex flex-row items-center gap-1 justify-around">
