@@ -161,11 +161,7 @@ this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
     );
   }
  async filtersurplusData(receivedsurplusportCode: any, receivedsurpluscontainerType: any, receivedsurpluscontainerSize: any) {
-   console.log("filtersurplusdata methos is executed");
-   console.log("filtersurplusdata methos is executed port value received",receivedsurplusportCode);
-   console.log("filtersurplusdata methos is executed type received" ,receivedsurpluscontainerType);
-   console.log("filtersurplusdata methos is executed size received",receivedsurpluscontainerSize);
-   console.log("inside filter data",this.companyId);
+  
    
    
    this.forecastingtableService.getAllPorts().subscribe(
@@ -201,7 +197,7 @@ this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
 
        console.log('Filtered Inventory:', filteredsurplusport);
        const filteredsurplusByContainerType = filteredsurplusport.filter((inventory: Inventory) => {
-           return inventory.container_type === this.receivedsurpluscontainerType;
+           return inventory.container_type === receivedsurpluscontainerType;
        });
 
        console.log('Filtered Inventory by Container Type:', filteredsurplusByContainerType);
