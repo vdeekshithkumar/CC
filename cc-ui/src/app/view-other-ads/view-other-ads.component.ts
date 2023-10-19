@@ -454,9 +454,14 @@ selectSubOption(subOption: string) {
     const searchPortOfArr = this.port_of_arrival;
     const selectedContainerType = this.selectedcontainerType;
     const selectedContainerSize = this.selectedcontainerSize;
-
+    if (searchType === 'oneway') {
+      this.searchSpaceAdvertisements();
+  }
     if (this.selectedOptions['view'] !== 'MAP') {
-        const matchedAds = [];
+      const matchedAds = [];
+  debugger
+      // Check if selectedContainerType is 'oneway' and call searchSpaceAdvertisements() method
+      
 
         for (const ad of this.originalAds) {
             let isMatched = false;
@@ -507,18 +512,17 @@ selectSubOption(subOption: string) {
 
         // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
         if (this.mapViewComponent) {
-            this.mapViewComponent.markPortOfAdOnMap();
-        }
-    } else {
-        this.showMapView = false;
-    }
+          if (this.ad_typetomap === 'oneway') {
+              this.mapViewComponent.markPortOfDepArrOnMap(); // Call markPortOfDepArrOnMap() if ad_typetomap is 'oneway'
+          } else {
+              this.mapViewComponent.markPortOfAdOnMap(); // Call markPortOfAdOnMap() for other cases
+          }
+      }
+  } else {
+      this.showMapView = false;
+  }
 
-    // Calculate the updated total number of pages based on the filtered ads
-    this.totalPages;
-    
-}
-
-
+  }
   
   // Function to get the ads for the current page
   get currentAds(): Advertisement[] {
@@ -568,6 +572,8 @@ searchSpaceAdvertisements() {
 
         // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
         if (this.mapViewComponent) {
+          this.selectedTypePortOfDep = searchPortOfDep;
+          this.selectedTypePortOfArr = searchPortOfArr;
             this.mapViewComponent.markPortOfDepArrOnMap();
         }
     } else {
