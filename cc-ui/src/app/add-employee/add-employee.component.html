@@ -3,10 +3,9 @@
   <div class="mt-4 mx-auto font-poppins relative z-20">
     <div class=" justify-center h1 w-[55rem] h-[5rem]">
       <div>
-
         <div class="flex items-center justify-between ">
           <h1 *ngIf="!isEdit" class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
-            Add New Employee</h1>
+            Add New User</h1>
             <h1 *ngIf="isEdit" class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
               Edit User Details</h1>
           <div>
@@ -70,10 +69,20 @@
           placeholder="E.g. +918707312194"
           name="phone_no"
         />
+        <div *ngIf="addEmployeeForm.get('phone_no')?.errors?.['invalidPhoneNumber'] && addEmployeeForm.get('phone_no')?.dirty" class="text-red-500 text-sm">
+          Enter valid phone number
+        </div>
         <div *ngIf="showValidationErrors && addEmployeeForm.get('phone_no')?.invalid" class="text-red-500 text-sm mt-1"></div>
         <div class="error" *ngIf="addEmployeeForm?.get('phone_no')?.invalid && addEmployeeForm?.get('phone_no')?.errors?.['maxlength']">
           Maximum limit exceeded.
         </div>
+      
+        
+        
+        
+        
+        
+        
       </div>
       
       
@@ -212,4 +221,3 @@
 
   </div>
 </div>
-
