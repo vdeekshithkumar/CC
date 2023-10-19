@@ -14,7 +14,7 @@
             <div class=" flex flex-row items-center w-full">
               <div class="relative px-1 py-2" id="company-logo">
                 <img class="bg-img object-contain overflow-hidden w-16 h-14 rounded-full border-1 border-transparent outline-2" src="{{ company_logo }}" />
-                <button (click)="showDiv = !showDiv" matTooltip="Edit Company Profile" class="absolute bottom-1 right-0 cursor-pointer">
+                <button (click)="showDiv = !showDiv"  [disabled]="isEditcompanyDisabled" [class.disabled-button]="isEditcompanyDisabled "matTooltip="Edit Company Profile" class="absolute bottom-1 right-0 cursor-pointer">
                   <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="16" height="16" transform="translate(0.5)" fill="white" style="mix-blend-mode:multiply"/>
                     <path d="M15.5 13H1.5V14H15.5V13Z" fill="#597EF7"/>
@@ -166,7 +166,7 @@
               <path d="M8.5 2C8.99445 2 9.4778 2.14662 9.88893 2.42133C10.3 2.69603 10.6205 3.08648 10.8097 3.54329C10.9989 4.00011 11.0484 4.50277 10.952 4.98773C10.8555 5.47268 10.6174 5.91814 10.2678 6.26777C9.91814 6.6174 9.47268 6.8555 8.98773 6.95196C8.50277 7.04843 8.00011 6.99892 7.54329 6.8097C7.08648 6.62048 6.69603 6.30005 6.42133 5.88893C6.14662 5.4778 6 4.99445 6 4.5C6 3.83696 6.26339 3.20107 6.73223 2.73223C7.20107 2.26339 7.83696 2 8.5 2ZM8.5 1C7.80777 1 7.13108 1.20527 6.5555 1.58986C5.97993 1.97444 5.53133 2.52107 5.26642 3.16061C5.00152 3.80015 4.9322 4.50388 5.06725 5.18282C5.2023 5.86175 5.53564 6.48539 6.02513 6.97487C6.51461 7.46436 7.13825 7.7977 7.81718 7.93275C8.49612 8.0678 9.19985 7.99849 9.83939 7.73358C10.4789 7.46867 11.0256 7.02007 11.4101 6.4445C11.7947 5.86892 12 5.19223 12 4.5C12 3.57174 11.6313 2.6815 10.9749 2.02513C10.3185 1.36875 9.42826 1 8.5 1Z" fill="#595959"/>
               <path d="M13.5 15H12.5V12.5C12.5 12.1717 12.4353 11.8466 12.3097 11.5433C12.1841 11.24 11.9999 10.9644 11.7678 10.7322C11.5356 10.5001 11.26 10.3159 10.9567 10.1903C10.6534 10.0647 10.3283 10 10 10H7C6.33696 10 5.70107 10.2634 5.23223 10.7322C4.76339 11.2011 4.5 11.837 4.5 12.5V15H3.5V12.5C3.5 11.5717 3.86875 10.6815 4.52513 10.0251C5.1815 9.36875 6.07174 9 7 9H10C10.9283 9 11.8185 9.36875 12.4749 10.0251C13.1313 10.6815 13.5 11.5717 13.5 12.5V15Z" fill="#595959"/>
               </svg>              
-            <div class="text-name ml-2">Admin</div>
+            <div class="text-name ml-2">{{capitalizeFirstLetter(userDesignation)}}</div>
           </div>
           <div class="font-semibold text-sm">{{first_name}} {{last_name}}</div>
         </div>
@@ -202,7 +202,9 @@
           Sync Data
         </button>
         <div class="button-container relative inline-block">
-          <button class="div-action-button" routerLink="/upload-contract" matTooltip="Upload Contract">
+          <button class="div-action-button" 
+          [disabled]="isUploadcontractsDisabled" [class.disabled-button]="isUploadcontractsDisabled"
+          routerLink="/upload-contract" matTooltip="Upload Contract">
             Upload Contracts
           </button>
           <div class="dropdown flex flex-col">
@@ -215,7 +217,9 @@
         </div>
         </div>
 
-        <button class="div-action-button ml-2" routerLink="/upload-inventory" matTooltip="Upload Inventory">
+        <button class="div-action-button ml-2"
+        [disabled]="isAddInventoryDisabled" [class.disabled-button]="isAddInventoryDisabled"
+        routerLink="/upload-inventory" matTooltip="Upload Inventory">
           Upload Inventory
         </button>
 
@@ -247,6 +251,7 @@
      
       <button color="primary"
       class="btn-primary1 text-white h-[14em]  py-3 rounded-none px-2 mr-4  font-light  ml-auto  justify-end w-fit" matTooltip="Add User"
+      [disabled]="isAddUserDisabled" [class.disabled-button]="isAddUserDisabled"
       (click)="DisplayPostForm()">+ Add User</button>
 
   </div>
@@ -274,18 +279,22 @@
                   <td class="emplist border-r-2">{{u.email}}</td>
                   <td class="emplist border-r-2">{{u.phone_no}}</td>
                   <td class="whitespace-nowrap px-6 py-4 border-r-2">
-                    <a (click)="getUserByID(u.user_id)" class="text-CCblue cursor-pointer"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M21.125 19.5938H3.875C3.46016 19.5938 3.125 19.9289 3.125 20.3438V21.1875C3.125 21.2906 3.20937 21.375 3.3125 21.375H21.6875C21.7906 21.375 21.875 21.2906 21.875 21.1875V20.3438C21.875 19.9289 21.5398 19.5938 21.125 19.5938ZM6.53984 17.625C6.58672 17.625 6.63359 17.6203 6.68047 17.6133L10.6227 16.9219C10.6695 16.9125 10.7141 16.8914 10.7469 16.8563L20.682 6.92109C20.7038 6.89941 20.721 6.87366 20.7328 6.8453C20.7445 6.81695 20.7506 6.78656 20.7506 6.75586C20.7506 6.72516 20.7445 6.69477 20.7328 6.66642C20.721 6.63806 20.7038 6.61231 20.682 6.59063L16.7867 2.69297C16.7422 2.64844 16.6836 2.625 16.6203 2.625C16.557 2.625 16.4984 2.64844 16.4539 2.69297L6.51875 12.6281C6.48359 12.6633 6.4625 12.7055 6.45312 12.7523L5.76172 16.6945C5.73892 16.8201 5.74707 16.9493 5.78545 17.071C5.82384 17.1927 5.89132 17.3032 5.98203 17.393C6.13672 17.543 6.33125 17.625 6.53984 17.625Z" fill="#8C8C8C"/>
+                    <a (click)="!isEditEmployeeDisabled && getUserByID(u.user_id)" 
+                      class="text-CCblue cursor-pointer" 
+                      [class.disabled-button]="isEditEmployeeDisabled">
+                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21.125 19.5938H3.875C3.46016 19.5938 3.125 19.9289 3.125 20.3438V21.1875C3.125 21.2906 3.20937 21.375 3.3125 21.375H21.6875C21.7906 21.375 21.875 21.2906 21.875 21.1875V20.3438C21.875 19.9289 21.5398 19.5938 21.125 19.5938ZM6.53984 17.625C6.58672 17.625 6.63359 17.6203 6.68047 17.6133L10.6227 16.9219C10.6695 16.9125 10.7141 16.8914 10.7469 16.8563L20.682 6.92109C20.7038 6.89941 20.721 6.87366 20.7328 6.8453C20.7445 6.81695 20.7506 6.78656 20.7506 6.75586C20.7506 6.72516 20.7445 6.69477 20.7328 6.66642C20.721 6.63806 20.7038 6.61231 20.682 6.59063L16.7867 2.69297C16.7422 2.64844 16.6836 2.625 16.6203 2.625C16.557 2.625 16.4984 2.64844 16.4539 2.69297L6.51875 12.6281C6.48359 12.6633 6.4625 12.7055 6.45312 12.7523L5.76172 16.6945C5.73892 16.8201 5.74707 16.9493 5.78545 17.071C5.82384 17.1927 5.89132 17.3032 5.98203 17.393C6.13672 17.543 6.33125 17.625 6.53984 17.625Z" fill="#8C8C8C"/>
                       </svg>
-                      </a>
+                    </a>
                   </td>
+                  
                   <td class="whitespace-nowrap px-6 py-4">
                     <div *ngIf="alluser_list">
                       <div *ngIf="alluser_list.length === 0">
                         <p>No users added.</p>
                       </div>
                       <div *ngIf="alluser_list.length > 0">
-                        <a routerLink="/profile" (click)="deleteUserById(u.user_id)" class="text-CCblue"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <a routerLink="/profile" (click)="!isDeleteEmployeeDisabled &&deleteUserById(u.user_id)" class="text-CCblue "  [class.disabled-button]="isDeleteEmployeeDisabled"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M20.75 6H17.75V4.125C17.75 3.29766 17.0773 2.625 16.25 2.625H8.75C7.92266 2.625 7.25 3.29766 7.25 4.125V6H4.25C3.83516 6 3.5 6.33516 3.5 6.75V7.5C3.5 7.60313 3.58437 7.6875 3.6875 7.6875H5.10312L5.68203 19.9453C5.71953 20.7445 6.38047 21.375 7.17969 21.375H17.8203C18.6219 21.375 19.2805 20.7469 19.318 19.9453L19.8969 7.6875H21.3125C21.4156 7.6875 21.5 7.60313 21.5 7.5V6.75C21.5 6.33516 21.1648 6 20.75 6ZM16.0625 6H8.9375V4.3125H16.0625V6Z" fill="#8C8C8C"/>
                           </svg>
                           </a>
