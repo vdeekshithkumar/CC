@@ -642,27 +642,25 @@ th {
   margin: 0;
 }
 
-.horizontal-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+
 
 .horizontal-list li {
   display: inline-block;
   border: 1px solid #ccc; 
   padding: 5px 10px;
-  width:90px;
+  width: 90px;
   text-align: center;
   cursor: pointer;
 }
 
-
 .horizontal-list li.selected {
-  background-color: #1779FB;
+  background-color: #1677FB;
   color: white;
-  border-color: #1779FB;
 }
+.horizontal-list li.selected-twice {
+  background-color: white;
+}
+
 .horizontal-list li:first-child {
   border-radius: 8px 0 0 8px; /* Curved left side for the first item */
 }
@@ -1175,21 +1173,12 @@ box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
     margin-top: 10px; /* Add margin top to create space */
   
   }
-  .port-text{
-
-    font-family:Poppins;
-  font-weight: 500;
-    color:#595959;
+  .port-text {
+    font-family: Poppins;
+    font-weight: 500;
+    color: #595959;
     margin-top: 20px;
-  }
-  
-  .port-text p{
-  
-    font-family:Poppins;
-  
-    color:#595959;
-  
-  }
+}
   .port-input {
 
     margin-bottom: 9px;
