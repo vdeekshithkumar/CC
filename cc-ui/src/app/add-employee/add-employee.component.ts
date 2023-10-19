@@ -152,7 +152,7 @@ export class AddEmployeeComponent {
       is_approved: [true, Validators.required],
       is_active: [true, Validators.required],
       last_login:formattedDateTime,
-      designation: ['Employee'],
+      designation: ['employee'],
     }
     );
 
