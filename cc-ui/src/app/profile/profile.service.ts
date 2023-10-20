@@ -39,10 +39,10 @@ export class ProfileService {
     const url = this.apiService.getFullUrl(`${this.userUrl}/${companyid}`);
     return this.http.get(url);
   }
-deleteUserById(id: number): Observable<any> {
-  const url = this.apiService.getFullUrl(`${this.deleteUrl}/${id}`);
-  return this.http.get(url);
-}
+  deleteUserById(id: number): Observable<any> {
+    const url = this.apiService.getFullUrl(`${this.deleteUrl}/${id}`);
+    return this.http.delete(url); 
+  }
   getUserById(id: number): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.UIdUrl}/${id}`);
     return this.http.get(url);
