@@ -200,28 +200,52 @@
             </select>
           </div>
         </ng-template>
+        <ng-container *ngIf="receivedcontainerSize !== undefined; else showContainerSizeSelect">
+          <div>
+            <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
+            <ul class="horizontal-list">
+              <li
+                *ngFor="let size of container_list"
+                (click)="onSizeClick(size)"
+                [class.selected]="selectedcontainerSize === size.capacity && selectedCount === 1"
+                [class.selected-twice]="selectedcontainerSize === size.capacity && selectedCount > 1"
+                [style.padding]="'5px'"
+                [ngClass]="{'blue-background': !receivedcontainerSize && selectedcontainerSize === size.capacity}"
+              >
+                {{ size.capacity }}'
+              </li>
+            </ul>
+          </div>
+        </ng-container>
         
-        <div>
-          <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
-          <ul class="horizontal-list">
-            <li
-              *ngFor="let size of container_list"
-              (click)="onSizeClick(size)"
-              [class.selected]="selectedcontainerSize === size.capacity && selectedCount === 1"
-              [class.selected-twice]="selectedcontainerSize === size.capacity && selectedCount > 1"
-              [style.padding]="'5px'"
+        <ng-template #showContainerSizeSelect>
+          <!-- Display when receivedcontainerType does not have a value -->
+          <p class="port-text">Select Size</p>
+          <div>
+            <select
+              class="container-select"
+              style="height: 30px; width: 275px; padding: 0px"
+              menu="bottom"
+              [(ngModel)]="receivedcontainerSize"
+              (change)="onSizeSelected()"
             >
-              {{ size.capacity }}'
-            </li>
-          </ul>
-        </div>
+              <option
+                style="height: 10px; position: absolute; z-index: 2000;"
+                *ngFor="let size of container_list"
+                [value]="size.capacity"
+                [selected]="size.capacity === receivedcontainerSize"
+                [style.background]="receivedcontainerSize === size.capacity ? '#1677FB' : 'white'"
+                [style.color]="receivedcontainerSize === size.capacity ? 'white' : 'black'"
+              >
+                {{ size.capacity }}
+              </option>
+            </select>
+          </div>
+        </ng-template>
         
         
         
-        
-      
-        
-        
+
         
         <div class="clear-search-container" *ngIf="ad_type === 'container'">
           <button (click)="clearOptions()" class="clear-color">
