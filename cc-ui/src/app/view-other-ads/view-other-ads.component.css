@@ -664,7 +664,10 @@ th {
 .horizontal-list li:first-child {
   border-radius: 8px 0 0 8px; /* Curved left side for the first item */
 }
-
+.blue-background {
+  background-color: #1677FB;
+  color: white;
+}
 .horizontal-list li:last-child {
   border-radius: 0 8px 8px 0; /* Curved right side for the last item */
 }
