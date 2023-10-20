@@ -91,7 +91,9 @@ Approve: any;
     this.container_type = data.containerType;
     this.size = data.containerSize;
     this.port_of_ad = data.portName;
+    this.port_id = data.port_id;
  console.log("in post ad",this.port_of_ad)
+ console.log("in post ad port_id",this.port_id)
   }
 
   
@@ -316,6 +318,7 @@ this.type=this.data.type;
       'Close',
       snackBarConfig
     );
+    
   }
   // closeDialog() {
   //   this.dialogRef.close();
@@ -348,7 +351,7 @@ capitalizeFirstLetter(text: string): string {
           this.statusMsg = 'Success';
           setTimeout(()=> {this.statusMsg = ""},2000)
           this.clear()
-
+          window.location.reload();
           this.router.navigate(['/my-ad']); 
          
           this.isLoading=false;
@@ -361,6 +364,7 @@ capitalizeFirstLetter(text: string): string {
           
         }
       });
+      
     }
     else{
       alert("Please Fill the Mandatory Fields")
