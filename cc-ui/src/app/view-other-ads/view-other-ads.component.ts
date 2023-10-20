@@ -177,10 +177,14 @@ selectedMainOption: string = ''; // To store the selected main option
 
   }
   ngOnInit(): void {
+    debugger
     this.sharedService.values$.subscribe(values => {
       this.receivedportCode = values.portcode;
       this.receivedcontainerType = values.containertype;
       this.receivedcontainerSize = parseInt(values.containersize, 10);
+      if (!isNaN(this.receivedcontainerSize)) {
+        this.selectedcontainerSize = this.receivedcontainerSize;
+      }
       
     });
     console.log( "to check",this.receivedportCode)
@@ -471,6 +475,9 @@ selectSubOption(subOption: string) {
   }
 
   onTypeSelected(){
+    console.log("for check",this.selectedcontainerType)
+  }
+  onSizeSelected(){
     console.log("for check",this.selectedcontainerType)
   }
   updateSearchPortOfAd() {
