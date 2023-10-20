@@ -137,7 +137,9 @@
           id="ph-no"
          
         />
-       
+        <div *ngIf="registrationForm.get('phone_no')?.errors?.['invalidPhoneNumber'] && registrationForm.get('phone_no')?.dirty" class="text-red-500 text-sm">
+          Enter valid phone number
+        </div>
       </div>
       <div class="error" *ngIf="registrationForm?.get('phone_no')?.invalid && registrationForm?.get('phone_no')?.errors?.['maxlength']">
         Maximum limit exceeded.
