@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/session.service';
 import { Router } from '@angular/router';
 import * as XLSX from 'xlsx';
 import { ForecastingTableService } from '../forecasting-table-view/forecasting-table-view.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-forecast-map',
   templateUrl: './forecast-map.component.html',
@@ -23,14 +24,15 @@ export class ForecastMapComponent implements OnInit,AfterViewInit  {
   companyId!: number
   totalSurplusPercentage: number = 0;
 totalDeficitPercentage: number = 0;
-
+isInventoryEmpty: boolean = false;
   portData: any
   markers: google.maps.Marker[] = [];
   Einv: Inventory[] = [];
   selectedPort: any;
   constructor(private resolver: ComponentFactoryResolver,
     private viewContainerRef: ViewContainerRef, private appRef: ApplicationRef
-    , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService) {
+    , private forecastService: ForecastMapService, private sessionService: SessionService,private router:Router,private forecastingtableService:ForecastingTableService,
+    private _snackBar: MatSnackBar) {
 
 
   }
@@ -308,19 +310,29 @@ debugger
     const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
     return port ? port.port_name : '';
 }
-  onExportClick(): void {
-    this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
+onExportClick(): void {
+  this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
       (data: Inventory[]) => {
-        this.Einv = data.map((item: Inventory) => {
-          const portName = this.getPortName(item.port_id);
-          return { ...item, port_name: portName };
-        });
-        console.log("This is Einv with port names:", this.Einv);
-        this.onExport();
+          this.Einv = data.map((item: Inventory) => {
+              const portName = this.getPortName(item.port_id);
+              return { ...item, port_name: portName };
+          });
+          console.log("This is Einv with port names:", this.Einv);
+
+          // Check if the inventory list is empty
+          if (this.Einv.length === 0) {
+              this._snackBar.open('Inventory list is empty. Cannot export to Excel.', 'Close', {
+                  duration: 1000,
+                  panelClass: ['header-snackbar'],
+                  verticalPosition: 'top'
+              });
+          } else {
+              this.onExport();
+          }
       },
       error => console.log(error)
-    );
-  }
+  );
+}
   
  onExport(){
   const worksheetName = 'Inventory';
