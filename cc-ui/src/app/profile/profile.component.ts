@@ -328,6 +328,7 @@ export class ProfileComponent implements OnInit {
  
   
   deleteUserById(userId: number) {
+    debugger
     this.profileService.deleteUserById(userId).subscribe(
       () => {
         console.log("Employee deleted successfully.");
