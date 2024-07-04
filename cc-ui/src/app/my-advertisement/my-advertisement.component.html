@@ -278,47 +278,47 @@
                       <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
                         <!-- table row data here -->
 
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
                           <div class="inline-flex items-center gap-x-3 ">
 
                             <span> {{ getDateOnly(ad.expiry_date) }}</span>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm  text-gray-700 border-2  whitespace-nowrap">
                           {{ ad.type_of_ad }}
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
                           <span
                             class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ad.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                             {{ ad.status }}
                           </span>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
                           <div class="inline-flex items-center gap-x-3 ">
                             <span> {{ ad.price }}</span>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                           <div class="inline-flex items-center gap-x-3 ">
                             <span> {{ ad.quantity }}</span>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                           <div class="inline-flex items-center gap-x-3 ">
                             <span> {{ ad.free_days }}</span>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700whitespace-nowrap">
                           <div class="inline-flex items-center gap-x-3 ">
                             <span>{{ ad.per_diem }}</span>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                           <div class="inline-flex items-center gap-x-3 ">
                             <span>{{ ad.pickup_charges }}</span>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                           <ng-container *ngIf="ad_type === 'container'">
                             <div class="gray-highlights">
                               {{ ad.port_of_ad }}
@@ -333,7 +333,7 @@
                             </div>
                           </ng-container>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap" *ngIf="ad_type !== 'container'">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type !== 'container'">
                           <div class="flex flex-row gap-2">
                             <div class="flex flex-col">
                               
@@ -343,7 +343,7 @@
                             </div>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap" *ngIf="ad_type == 'container'">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type == 'container'">
                           <div class="flex flex-row gap-2">
                             <div class="flex flex-col">
                               
@@ -353,7 +353,7 @@
                             </div>
                           </div>
                         </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap" *ngIf="ad_type == 'container'">
+                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type == 'container'">
                           <div class="flex flex-row gap-2">
                             <div class="flex flex-col">
                               
@@ -365,7 +365,7 @@
                         </td>
                         
 
-                        <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                        <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 whitespace-nowrap">
                           <div style="display: flex;">
                            
                             <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayDraftForm(ad.ad_id)"
