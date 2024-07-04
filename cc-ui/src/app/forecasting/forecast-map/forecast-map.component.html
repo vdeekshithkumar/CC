@@ -7,11 +7,11 @@
     <form>
       <div class="flex flex-row">
         <div class="-mt-3">
-          <label class="top mb-2 ml-8 font-normal">Port</label>
+          <label class="top mb-2 ml-8 font-normal">Country</label>
        <div>
-  <select #port class="ml-8 top-selct1 div-bg" (change)="onPortSelected(port.value)">
-    <option selected >Select Port</option>
-    <option *ngFor="let port of port_list" [value]="port.port_name">{{ port.port_name }}</option>
+        <select #countrySelect class="ml-8 top-selct1 div-bg" (change)="onCountrySelected(countrySelect.value)">
+          <option selected>Select Country</option>
+    <option *ngFor="let country of countryPorts_list" [value]="country.country_name">{{ country.country_name }}({{country.country_code}})</option>
   </select>
 </div>
 
