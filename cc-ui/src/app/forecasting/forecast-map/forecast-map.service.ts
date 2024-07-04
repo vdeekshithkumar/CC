@@ -15,7 +15,8 @@ import { ApiService } from 'src/app/api.service';
     private apiUrlSurplus = 'GetSurplus';
     private IdUrl='GetInventoryById';
     private CIdUrl='GetInventoryByIdCID';
-    
+    private countrynameurl='GetAllPortsbyCountryName';
+
   constructor(private http: HttpClient,private apiService: ApiService) {}
 
 
@@ -43,6 +44,18 @@ import { ApiService } from 'src/app/api.service';
     return this.http.get(url);  
 
   }
+  getAllCountry(): Observable<any> {
+    const url = this.apiService.getFullUrl(`GetAllCountries`);
+    return this.http.get(url);  
+
+  }
+
+  getPortsByCountryName(countryname: string): Observable<any> {
+    debugger
+    const url = this.apiService.getFullUrl(`${this.countrynameurl}?countryname=${countryname}`);
+    return this.http.get(url);
+  }
+
   getInventoryById(id: number): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);
     return this.http.get(url, { responseType: 'json' });
@@ -51,4 +64,5 @@ import { ApiService } from 'src/app/api.service';
     const url = this.apiService.getFullUrl(`${this.CIdUrl}/${companyId}`);
     return this.http.get(url, { responseType: 'json' });
   }
+ 
   }
