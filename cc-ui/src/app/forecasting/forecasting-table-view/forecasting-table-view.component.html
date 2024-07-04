@@ -241,36 +241,36 @@
               *ngFor="let inv of filteredInventoryList | search: searchTerm:getPortName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
               <!-- table row data here -->
 
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
 
 
                   <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{ getPortCode(inv.port_id) }})</span>
                 </div>
               </td>
-              <td class="px-4 py-4 text-sm  text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm  text-gray-700 border-2  whitespace-nowrap">
                 {{ formatContainerType(inv.container_type)}}
               </td>
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
 
 
                   <span> {{inv.container_size}}</span>
                 </div>
               </td>
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
                   <span> {{inv.available}}</span>
                 </div>
               </td>
 
            
-              <td class="px-8 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-8 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
                   <button class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60" style="display: block;">
                     <span> {{inv.surplus}}</span>
                   </button>
               </td>
-              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700  whitespace-nowrap">
                 <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60" style="display: block;border-color: #FFA39E;">
                   <span> {{inv.deficit}}</span>
                 </button>
