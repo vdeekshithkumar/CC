@@ -335,46 +335,46 @@ class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 f
               *ngFor="let inv of inventory_list_by_companyId | search: searchTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
               <!-- table row data here -->
 
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm border-2 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3">
-                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{ getPortCode(inv.port_id) }})</span>
+                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{getPortCode(inv.port_id)}})</span>
                 </div>
                 
               </td>
-              <td class="px-4 py-4 text-sm text-gray-700 border-2 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm text-gray-700 border-2whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
                 {{ formatContainerType(inv.container_type) }}
               </div>
               </td>
               
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
 
 
                   <span> {{inv.container_size}}'</span>
                 </div>
               </td>
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                 <div class="inline-flex items-center gap-x-3 ">
                   <span> {{inv.available}}</span>
                 </div>
               </td>
 
 
-              <td class="px-8 py-4 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-8 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
                 <button
                   class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60"
                   style="display: block;">
                   <span> {{inv.maximum}}</span>
                 </button>
               </td>
-              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700 whitespace-nowrap">
                 <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60"
                   style="display: block;border-color: #FFA39E;">
                   <span> {{inv.minimum}}</span>
                 </button>
               </td>
-              <td class="py-4  text-sm border-2 text-gray-700 dark:text-gray-200 whitespace-nowrap">
+              <td class="py-4  text-sm border-2 text-gray-700 whitespace-nowrap">
                 <button type="button" (click)="updateFormHeading('Edit Inventory')" (click)="getInventoryById(inv.inventory_id)" class="ml-2"><svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M21.125 19.5938H3.875C3.46016 19.5938 3.125 19.9289 3.125 20.3438V21.1875C3.125 21.2906 3.20937 21.375 3.3125 21.375H21.6875C21.7906 21.375 21.875 21.2906 21.875 21.1875V20.3438C21.875 19.9289 21.5398 19.5938 21.125 19.5938ZM6.53984 17.625C6.58672 17.625 6.63359 17.6203 6.68047 17.6133L10.6227 16.9219C10.6695 16.9125 10.7141 16.8914 10.7469 16.8563L20.682 6.92109C20.7038 6.89941 20.721 6.87366 20.7328 6.8453C20.7445 6.81695 20.7506 6.78656 20.7506 6.75586C20.7506 6.72516 20.7445 6.69477 20.7328 6.66642C20.721 6.63806 20.7038 6.61231 20.682 6.59063L16.7867 2.69297C16.7422 2.64844 16.6836 2.625 16.6203 2.625C16.557 2.625 16.4984 2.64844 16.4539 2.69297L6.51875 12.6281C6.48359 12.6633 6.4625 12.7055 6.45312 12.7523L5.76172 16.6945C5.73892 16.8201 5.74707 16.9493 5.78545 17.071C5.82384 17.1927 5.89132 17.3032 5.98203 17.393C6.13672 17.543 6.33125 17.625 6.53984 17.625Z" fill="#8C8C8C"/>
                   </svg></button>
