@@ -272,20 +272,30 @@ border-radius: 0px;
   /* Add these styles to your CSS file */
 .loading-bar {
   width: 100%;
-  height: 4px; /* Adjust the height of the loading bar as needed */
-  background-color: #ccc; /* Set the background color of the loading bar */
+  height: 4px; /* Thin bar for a sleek look */
+  background-color: #e0e0e0; /* Light gray background for the bar */
   position: relative;
   overflow: hidden;
+  border-radius: 2px;
 }
 
 .loading-bar-inner {
-  width: 0; /* The initial width of the loading bar (empty) */
+  width: 20%; /* Width of the moving line (adjust for desired effect) */
   height: 100%;
-  background-color: #007bff; /* Set the color of the loading bar indicator */
+  background-color: #2f54eb; /* Blue color to match your button styles */
   position: absolute;
   top: 0;
   left: 0;
-  transition: width 0.3s ease; /* Add a smooth transition effect */
+  animation: moveLine 1.5s infinite linear; /* Animation for continuous movement */
+}
+
+@keyframes moveLine {
+  0% {
+    left: -20%; /* Start slightly off-screen to the left */
+  }
+  100% {
+    left: 100%; /* Move to the right edge */
+  }
 }
 .btnstyle {
   height: 30px;
