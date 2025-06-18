@@ -73,9 +73,11 @@
             <button (click)="onExportClick()"
               class="ml-2 inline-flex justify-center items-center btn-primary2 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z" fill="#2F54EB"/>
-                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB"/>
-                </svg>
+                <path
+                  d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
+                  fill="#2F54EB" />
+                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB" />
+              </svg>
               <span class="ml-1">Export data</span>
             </button>
           </div>
@@ -94,21 +96,27 @@
 </div>
 
 <div class="inline-block min-w-full py-2 flex items-center bg-white">
-  <button (click)="backPage()" class="inline-flex -mt-2 btn-primary4 text-blue-500 justify-center items-center space-x-1 font-medium font-poppins">
+  <button (click)="backPage()"
+    class="inline-flex -mt-2 btn-primary4 text-blue-500 justify-center items-center space-x-1 font-medium font-poppins">
     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply"/>
-      <path d="M8.75 16.25L9.63125 15.3687L4.89375 10.625H17.5V9.375H4.89375L9.63125 4.63125L8.75 3.75L2.5 10L8.75 16.25Z" fill="#2F54EB"/>
-    </svg>                
+      <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply" />
+      <path
+        d="M8.75 16.25L9.63125 15.3687L4.89375 10.625H17.5V9.375H4.89375L9.63125 4.63125L8.75 3.75L2.5 10L8.75 16.25Z"
+        fill="#2F54EB" />
+    </svg>
     <span class="txt-map">Back to Map View</span>
   </button>
   <div class="div-search my-2 search justify-start mx-10 mt-2">
     <div class="div-search-icon">
       <svg xmlns="http://www.w3.org/2000/svg" class="pl-1 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="gray">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     </div>
-    <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search" placeholder="Search (eg. PortName, Container_Type)" autocomplete="off" (focus)="showClearButton()"/>
-      <button class="text-red-500 font-poppins ml-2 mr-2" (click)="clearSearch()" (blur)="hideClearButton()" id="clearButton">
+    <input class="input-search" type="text" [(ngModel)]="searchTerm" id="search"
+      placeholder="Search (eg. PortName, Container_Type)" autocomplete="off" (focus)="showClearButton()" />
+    <button class="text-red-500 font-poppins ml-2 mr-2" (click)="clearSearch()" (blur)="hideClearButton()"
+      id="clearButton">
       Clear
     </button>
 
@@ -118,13 +126,15 @@
       <button (click)="toggleForm()" [ngClass]="{'myClass': isClicked}"
         class="ml-2 inline-flex justify-start items-center btn-primary5 space-x-3 border font-medium focus:outline-none w-full py-2  pr-3 leading-6 font-poppins">
         <svg width="20" class="ml-3" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M11.25 17.5H8.75C8.41848 17.5 8.10054 17.3683 7.86612 17.1339C7.6317 16.8995 7.5 16.5815 7.5 16.25V11.5063L2.86875 6.875C2.63401 6.64166 2.5014 6.32474 2.5 5.99375V3.75C2.5 3.41848 2.6317 3.10054 2.86612 2.86612C3.10054 2.6317 3.41848 2.5 3.75 2.5H16.25C16.5815 2.5 16.8995 2.6317 17.1339 2.86612C17.3683 3.10054 17.5 3.41848 17.5 3.75V5.99375C17.4986 6.32474 17.366 6.64166 17.1313 6.875L12.5 11.5063V16.25C12.5 16.5815 12.3683 16.8995 12.1339 17.1339C11.8995 17.3683 11.5815 17.5 11.25 17.5ZM3.75 3.75V5.99375L8.75 10.9937V16.25H11.25V10.9937L16.25 5.99375V3.75H3.75Z" fill="#597EF7"/>
-          </svg>
-          <span class="btn-primary4">Filter</span>
+          <path
+            d="M11.25 17.5H8.75C8.41848 17.5 8.10054 17.3683 7.86612 17.1339C7.6317 16.8995 7.5 16.5815 7.5 16.25V11.5063L2.86875 6.875C2.63401 6.64166 2.5014 6.32474 2.5 5.99375V3.75C2.5 3.41848 2.6317 3.10054 2.86612 2.86612C3.10054 2.6317 3.41848 2.5 3.75 2.5H16.25C16.5815 2.5 16.8995 2.6317 17.1339 2.86612C17.3683 3.10054 17.5 3.41848 17.5 3.75V5.99375C17.4986 6.32474 17.366 6.64166 17.1313 6.875L12.5 11.5063V16.25C12.5 16.5815 12.3683 16.8995 12.1339 17.1339C11.8995 17.3683 11.5815 17.5 11.25 17.5ZM3.75 3.75V5.99375L8.75 10.9937V16.25H11.25V10.9937L16.25 5.99375V3.75H3.75Z"
+            fill="#597EF7" />
+        </svg>
+        <span class="btn-primary4">Filter</span>
       </button>
     </div>
   </div>
-  
+
 </div>
 <div class="flex flex-col first:flex-row div-bg-form " *ngIf="isClicked">
   <div class="p-2 h-24 w-full mt-2">
@@ -133,22 +143,25 @@
         <div class="-mt-3">
           <label class="top mb-2 font-normal">Container Type</label>
           <div>
-            <select class="top-select2  div-bg-form" [(ngModel)]="containerType" formControlName="container_type" >
-                <option value="" disabled selected>Select Container Type</option>
-                <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{ type.toUpperCase().replace('_', ' ')}}</option>
-              </select>
+            <select class="top-select2  div-bg-form" [(ngModel)]="containerType" formControlName="container_type">
+              <option value="" disabled selected>Select Container Type</option>
+              <option *ngFor="let type of ['refrigerated', 'non_refrigerated']" [value]="type">{{
+                type.toUpperCase().replace('_', ' ')}}</option>
+            </select>
           </div>
         </div>
         <div class="-mt-3">
           <label class=" mb-2 ml-2 top font-normal">Container Size</label>
           <div>
-            <input [(ngModel)]="containerSize" formControlName="container_size" class="ml-2 top-select2 div-bg-form" type="number">
+            <input [(ngModel)]="containerSize" formControlName="container_size" class="ml-2 top-select2 div-bg-form"
+              type="number">
           </div>
         </div>
         <div class=" -mt-3">
           <label class="top mb-2 ml-2 font-normal">Available</label>
           <div>
-            <input [(ngModel)]="available" formControlName="available" class="ml-2 top-select2 div-bg-form" type="number">
+            <input [(ngModel)]="available" formControlName="available" class="ml-2 top-select2 div-bg-form"
+              type="number">
           </div>
         </div>
         <div class=" -mt-3">
@@ -160,14 +173,15 @@
         <div class=" -mt-3">
           <label class="top mb-2 ml-2 font-normal">Deficit</label>
           <div>
-            <input [(ngModel)]="containerType" class="ml-2 top-select2 div-bg-form" formControlName="deficit" type="number">
+            <input [(ngModel)]="containerType" class="ml-2 top-select2 div-bg-form" formControlName="deficit"
+              type="number">
           </div>
         </div>
         <div>
         </div>
       </div>
     </form>
-    
+
     <div class="mt-4 w-12 float-right mr-6 flex-wrap">
       <div>
         <button (click)="filterData()"
@@ -179,20 +193,44 @@
       <div>
         <button (click)="toggleForm()"
           class="rounded-sm inline-flex justify-start btn-primary7 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins">
-         Cancel</button>
+          Cancel</button>
       </div>
     </div>
     <div class="mx-1 mt-4 w-12  float-right bg-red flex-wrap">
       <div>
-        <button 
+        <button
           class="rounded-sm inline-flex btn-primary6 items-center focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">
           Reset</button>
       </div>
     </div>
-    </div>
+  </div>
 </div>
+<div *ngIf="isLoadingTable" class="loading-container" style="height: 563px;">
+  <!-- Optional: Add skeleton content while loading -->
+  <div class="skeleton-content p-4">
+    <div class="animate-pulse">
+      <!-- Skeleton for top form -->
+      <div class="flex flex-row justify-around mb-8 gap-32">
+        <div class="h-10 bg-gray-300 rounded w-full"></div>
+        <div class="h-10 bg-gray-300 rounded w-full"></div>
+        <div class="h-10 bg-gray-300 rounded w-full"></div>
+        <div class="h-10 bg-gray-300 rounded w-full"></div>
+        <div class="h-10 bg-gray-300 rounded w-full"></div>
+      </div>
 
-<div class="w-full flex flex-col first:flex-row max-h-screen bg-white">
+      <!-- Skeleton for table -->
+      <div class="space-y-3">
+        <div class="h-12 bg-gray-300 rounded"></div>
+        <div class="h-8 bg-gray-200 rounded"></div>
+        <div class="h-8 bg-gray-200 rounded"></div>
+        <div class="h-8 bg-gray-200 rounded"></div>
+        <div class="h-8 bg-gray-200 rounded"></div>
+        <div class="h-8 bg-gray-200 rounded"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="w-full flex flex-col first:flex-row max-h-screen bg-white" *ngIf="!isLoadingTable">
   <section class="ml-4 mr-6 rounded-sm">
     <div class="flex flex-col">
       <div class="overflow-hidden rounded-lg  border-2  mr-0">
@@ -245,7 +283,8 @@
                 <div class="inline-flex items-center gap-x-3 ">
 
 
-                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{ getPortCode(inv.port_id) }})</span>
+                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{
+                    getPortCode(inv.port_id) }})</span>
                 </div>
               </td>
               <td class="px-4 py-4 text-sm  text-gray-700 border-2  whitespace-nowrap">
@@ -264,95 +303,76 @@
                 </div>
               </td>
 
-           
+
               <td class="px-8 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                  <button class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60" style="display: block;">
-                    <span> {{inv.surplus}}</span>
-                  </button>
+                <button
+                  class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60"
+                  style="display: block;">
+                  <span> {{inv.surplus}}</span>
+                </button>
               </td>
               <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700  whitespace-nowrap">
-                <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60" style="display: block;border-color: #FFA39E;">
+                <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60"
+                  style="display: block;border-color: #FFA39E;">
                   <span> {{inv.deficit}}</span>
                 </button>
-            </td>
+              </td>
             </tr>
 
           </tbody>
         </table>
       </div>
-      <div
-      class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
-      *ngIf="this.filteredInventoryList.length > 0">
-      <nav aria-label="Page navigation">
-        <ul class="inline-flex gap-2">
-          <li class="button1">
-            <button
-              [class.opacity-50]="currentPage === totalPages"
-              (click)="(currentPage === 1)"
-              (click)="prevPage()"
-              [disabled]="currentPage < 2"
-            
-            >
-            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
-              </svg>
-              
-            </button>
-          </li>
+      <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.filteredInventoryList.length > 0">
+        <nav aria-label="Page navigation">
+          <ul class="inline-flex gap-2">
+            <li class="button1">
+              <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)" (click)="prevPage()"
+                [disabled]="currentPage < 2">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
+                    fill="black" fill-opacity="0.25" />
+                </svg>
 
-          <li class="button3"  *ngIf="currentPage > 1" >
-            <button
-        
-              (click)="currentPage = currentPage"
-              (click)="prevPage()"
-              *ngIf="currentPage > 1"
-              [hidden]="currentPage < 2"
-            
-            >
-              {{ currentPage - 1 }}
-            </button>
-          </li>
+              </button>
+            </li>
 
-          <li class="button2">
-            <button
-            
-              *ngIf="totalPages != 1"
-            >
-              {{ currentPage }}
-            </button>
-          </li>
+            <li class="button3" *ngIf="currentPage > 1">
+              <button (click)="currentPage = currentPage" (click)="prevPage()" *ngIf="currentPage > 1"
+                [hidden]="currentPage < 2">
+                {{ currentPage - 1 }}
+              </button>
+            </li>
 
-          <li class="button3" *ngIf="currentPage < totalPages">
-            <button
-              [class.opacity-50]="currentPage === totalPages"
-              (click)="currentPage = currentPage"
-              (click)="nextPage()"
-              [hidden]="currentPage >= totalPages"
-              *ngIf="currentPage <= totalPages"
-            >
-              {{ currentPage + 1 }}
-            </button>
-          </li>
+            <li class="button2">
+              <button *ngIf="totalPages != 1">
+                {{ currentPage }}
+              </button>
+            </li>
 
-          <li class="button4">
-            <button
-              [class.opacity-50]="currentPage === totalPages"
-              (click)="currentPage = currentPage"
-              (click)="nextPage()"
-              [disabled]="currentPage >= totalPages"
-             
-            >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
-              </svg>
-              
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
-     
-     
+            <li class="button3" *ngIf="currentPage < totalPages">
+              <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                (click)="nextPage()" [hidden]="currentPage >= totalPages" *ngIf="currentPage <= totalPages">
+                {{ currentPage + 1 }}
+              </button>
+            </li>
+
+            <li class="button4">
+              <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                (click)="nextPage()" [disabled]="currentPage >= totalPages">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
+                    fill="black" fill-opacity="0.88" />
+                </svg>
+
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+
     </div>
   </section>
 </div>
