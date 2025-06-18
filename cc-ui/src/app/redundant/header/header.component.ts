@@ -27,27 +27,27 @@ export class HeaderComponent {
   constructor(private router: Router, private sessionService: SessionService, public dialog: MatDialog,private messageService:MessagingService) {
 
   }
-  ngOnInit(): void {
-    this.sessionService.getCompanyId().subscribe(
-      (companyId: number) => {
-        this.companyId = companyId;
-        console.log('company ID is:', companyId);
-      },
-      (error: any) => {
-        console.error('Error retrieving company ID:', error);
-      }
-    );
+//   ngOnInit(): void {
+//     this.sessionService.getCompanyId().subscribe(
+//       (companyId: number) => {
+//         this.companyId = companyId;
+//         console.log('company ID is:', companyId);
+//       },
+//       (error: any) => {
+//         console.error('Error retrieving company ID:', error);
+//       }
+//     );
    
-    const refreshInterval = 1000; //refreshing messagecount
-interval(refreshInterval).subscribe(() => {
-  this.fetchMessageCount();
-});
+//     const refreshInterval = 1000; //refreshing messagecount
+// interval(refreshInterval).subscribe(() => {
+//   this.fetchMessageCount();
+// });
  
 
 
 
     
-  }
+//   }
   fetchMessageCount() {
     this.messageService.getMessageCount(this.companyId).subscribe(
       (response: any) => {
@@ -114,4 +114,3 @@ interval(refreshInterval).subscribe(() => {
     this.showPopup = !this.showPopup;
   }
 }
-                  
