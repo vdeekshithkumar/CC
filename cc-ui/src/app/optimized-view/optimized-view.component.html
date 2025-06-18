@@ -101,19 +101,28 @@
 </div>
 
 <ng-container *ngIf="!loading">
-  <!-- If finalServiceData has data, display service_name -->
-  <div *ngIf="groupeData">
+  <!-- Display partial surplus message if applicable -->
+  <div class="textstyles" *ngIf="partialSurplusMessage" role="alert">
+    {{ partialSurplusMessage }}
+    <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search ad</button>
+  </div>
+
+  <!-- Display service names if available and no partial surplus message -->
+  <div *ngIf="groupeData && !partialSurplusMessage">
     <div *ngFor="let serviceId of getFinalServiceDataKeys()">
       <div *ngIf="groupeData[serviceId] && groupeData[serviceId].portSequences">
         <div *ngIf="groupeData[serviceId].portSequences.length > 0">
-          You can use this Service Name: {{ groupeData[serviceId].serviceName }}
+          You can use this Service: {{ groupeData[serviceId].serviceName }}
         </div>
       </div>
     </div>
   </div>
 
-  <!-- If finalServiceData is empty, display "No service" message and "Search Ads" button -->
-  <div class="textstyles" *ngIf="showNoDeficitAvailableMessage && receiveddeficitcontainerType && receiveddeficitcontainerSize">
+  <!-- Display "No service" message if no services and no partial surplus -->
+  <div
+    class="textstyles"
+    *ngIf="showNoDeficitAvailableMessage && receiveddeficitcontainerType && receiveddeficitcontainerSize && !partialSurplusMessage"
+  >
     No service Available. Search an Ad for this.
     <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search ad</button>
   </div>
@@ -147,8 +156,6 @@
 
 
 <button (click)="goback()" class="blue-button">Go back</button>
-
-
 
 
 
