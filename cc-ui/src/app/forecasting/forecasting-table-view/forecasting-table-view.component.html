@@ -3,90 +3,92 @@
   <div class="-ml-32 h-16 w-full mt-16">
 
     <form>
-      <div class="flex flex-row">
-        <div class="-mt-3">
-          <label class="top mb-2 ml-8 font-normal">Port</label>
-          <div>
-            <select #port [(ngModel)]="port_name" formControlName="port_id" class="ml-8 top-selct1 div-bg">
-              <option selected>Select your port</option>
-              <option *ngFor="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
-            </select>
+      <div class="flex flex-row justify-between w-full h-full items-end pr-4">
+        <div class="flex flex-row gap-2 flex-wrap items-end">
+          <div class="-mt-3">
+            <label class="top mb-2 ml-8 font-normal">Port</label>
+            <div>
+              <select #port [(ngModel)]="port_name" formControlName="port_id" class="ml-8 top-selct1 div-bg">
+                <option selected>Select your port</option>
+                <option *ngFor="let port of port_list" [value]="port.port_id">{{port.port_name}}</option>
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="-mt-3">
-          <label class="top mb-2 ml-2 font-normal">Sub Region</label>
-          <div>
-            <select class="top-selct2 font-normal  text-sm ml-2 div-bg">
-              <option>IDS</option>
-              <option>IND</option>
-              <option>UK</option>
-            </select>
+          <div class="-mt-3">
+            <label class="top mb-2 ml-2 font-normal">Sub Region</label>
+            <div>
+              <select class="top-selct2 font-normal  text-sm ml-2 div-bg">
+                <option>IDS</option>
+                <option>IND</option>
+                <option>UK</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="-mt-3">
+            <label class=" mb-2 ml-2 top font-normal">Area</label>
+            <div>
+              <select class="ml-2 top-selct2 div-bg">
+                <option>NGAE</option>
+                <option>NGAE</option>
+                <option>NGAE</option>
+              </select>
+            </div>
+          </div>
+          <div class=" -mt-3">
+            <label class="top mb-2 ml-2 font-normal">Year and Week</label>
+            <div>
+              <input class="ml-2 top-selct2 div-bg" type="date">
+            </div>
+          </div>
+          <div class=" flex-wrap -mt-3">
+            <label class="top mb-2 ml-2 font-normal">Week of Stock</label>
+            <div>
+              <select class="top-selct2 ml-2 div-bg">
+                <option>1 week</option>
+                <option>2 week</option>
+                <option>3 week</option>
+              </select>
+            </div>
+          </div>
+
+          <div class=" flex-wrap -mt-3">
+            <label class="top mb-0 ml-2 font-normal">Equipment Type</label>
+            <div>
+              <select class="top-selct2 ml-2 div-bg">
+                <option>40 HC</option>
+                <option>45 HC</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <div class="-mt-3">
-          <label class=" mb-2 ml-2 top font-normal">Area</label>
-          <div>
-            <select class="ml-2 top-selct2 div-bg">
-              <option>NGAE</option>
-              <option>NGAE</option>
-              <option>NGAE</option>
-            </select>
-          </div>
-        </div>
-        <div class=" -mt-3">
-          <label class="top mb-2 ml-2 font-normal">Year and Week</label>
-          <div>
-            <input class="ml-2 top-selct2 div-bg" type="date">
-          </div>
-        </div>
-        <div class=" flex-wrap -mt-3">
-          <label class="top mb-2 ml-2 font-normal">Week of Stock</label>
-          <div>
-            <select class="top-selct2 ml-2 div-bg">
-              <option>1 week</option>
-              <option>2 week</option>
-              <option>3 week</option>
-            </select>
-          </div>
-        </div>
-
-        <div class=" flex-wrap -mt-3">
-          <label class="top mb-0 ml-2 font-normal">Equipment Type</label>
-          <div>
-            <select class="top-selct2 ml-2 div-bg">
-              <option>40 HC</option>
-              <option>45 HC</option>
-            </select>
-          </div>
-        </div>
-        <div class="ml-10 -mt-10 w-[7em] h-[2em] div-box-bg flex-wrap justify-start ">
+        <div class="flex flex-row gap-4 mb-1">
           <div>
             <button
-              class="inline-flex justify-center bg-gray-50 items-center btn-primary3 space-x-2 border font-semibold focus:outline-none w-36 py-2 px-2 pr-2 leading-6 font-poppins">Carrier
-              Services</button>
-          </div>
-        </div>
-
-        <div class="mx-10 ml-16 -mt-10 w-[10em] h-[0.5em] bg-gray flex-wrap">
-          <div>
-            <button (click)="onExportClick()"
-              class="ml-2 inline-flex justify-center items-center btn-primary2 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
-                  fill="#2F54EB" />
-                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB" />
-              </svg>
-              <span class="ml-1">Export data</span>
+              class="inline-flex justify-center items-center px-4 py-2 bg-white text-gray-700 font-medium text-sm rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-poppins transition-colors">
+              Carrier Services
             </button>
           </div>
-        </div>
-        <div class="-mt-10 w-[8em] h-[2em] bg-red flex-wrap -ml-2">
+          <div>
+            <button (click)="onExportClick()"
+              class="inline-flex justify-center items-center px-4 py-2 bg-white text-blue-600 font-medium text-sm rounded-lg border border-blue-200 shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-poppins transition-colors">
+              <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
+                  fill="currentColor" />
+                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z"
+                  fill="currentColor" />
+              </svg>
+              Export data
+            </button>
+          </div>
           <div>
             <button
-              class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">Sync
-              data</button>
+              class="inline-flex justify-center items-center px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-poppins transition-colors">
+              Sync data
+            </button>
           </div>
         </div>
       </div>
@@ -97,14 +99,12 @@
 
 <div class="inline-block min-w-full py-2 flex items-center bg-white">
   <button (click)="backPage()"
-    class="inline-flex -mt-2 btn-primary4 text-blue-500 justify-center items-center space-x-1 font-medium font-poppins">
-    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect width="20" height="20" fill="white" style="mix-blend-mode:multiply" />
-      <path
-        d="M8.75 16.25L9.63125 15.3687L4.89375 10.625H17.5V9.375H4.89375L9.63125 4.63125L8.75 3.75L2.5 10L8.75 16.25Z"
-        fill="#2F54EB" />
+    class="ml-4 flex items-center text-gray-500 hover:text-blue-600 hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors group">
+    <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform" fill="none"
+      stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
     </svg>
-    <span class="txt-map">Back to Map View</span>
+    <span class="font-medium">Back to Map View</span>
   </button>
   <div class="div-search my-2 search justify-start mx-10 mt-2">
     <div class="div-search-icon">
@@ -231,98 +231,69 @@
   </div>
 </div>
 <div class="w-full flex flex-col first:flex-row max-h-screen bg-white" *ngIf="!isLoadingTable">
-  <section class="ml-4 mr-6 rounded-sm">
+  <section class="ml-4 mr-8 rounded-sm">
     <div class="flex flex-col">
-      <div class="overflow-hidden rounded-lg  border-2  mr-0">
+      <div class="overflow-hidden rounded-lg border border-gray-200 mr-0">
         <table class="rounded-lg min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-100 dark:bg-gray-100">
+          <thead class="bg-gray-100 dark:bg-gray-100 border-b border-gray-200">
             <tr>
-              <th scope="col-4"
-                class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
-                <div class="flex items-center gap-x-3">
-                  <button class="flex items-center gap-x-1  text-sm">
-                    <span>Port Name</span>
-                  </button>
-                </div>
+              <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-500 tracking-wider">
+                Port Name
               </th>
-
-              <th scope="col border-2"
-                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+              <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-500 tracking-wider">
                 Container Type
               </th>
-
-              <th scope="col border-2"
-                class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+              <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-500 tracking-wider">
                 Container Size
               </th>
-
-              <th scope="col border-2"
-                class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+              <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-500 tracking-wider">
                 Available
               </th>
-
-              <th scope="col border-2"
-                class="border-2 px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                <div class="flex items-center justify-between">
-                  <span>Surplus</span>
-
-                </div>
+              <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-500 tracking-wider">
+                Surplus
               </th>
-              <th scope="col border-2"
-                class="border-2 px-4 py-3.5 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+              <th scope="col" class="px-6 py-3 text-left text-sm font-semibold text-gray-500 tracking-wider">
                 Deficit
               </th>
             </tr>
           </thead>
-          <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
-            <tr
+          <tbody class="bg-white divide-y divide-gray-100">
+            <tr class="hover:bg-gray-50 transition-colors duration-150"
               *ngFor="let inv of filteredInventoryList | search: searchTerm:getPortName.bind(this) | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-              <!-- table row data here -->
 
-              <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
-                <div class="inline-flex items-center gap-x-3 ">
-
-
-                  <span>{{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}({{
-                    getPortCode(inv.port_id) }})</span>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="text-sm text-gray-600">
+                    {{ getPortName(inv.port_id).charAt(0).toUpperCase() + getPortName(inv.port_id).slice(1) }}
+                  </div>
                 </div>
               </td>
-              <td class="px-4 py-4 text-sm  text-gray-700 border-2  whitespace-nowrap">
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {{ formatContainerType(inv.container_type)}}
               </td>
-              <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                <div class="inline-flex items-center gap-x-3 ">
-
-
-                  <span> {{inv.container_size}}</span>
-                </div>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{inv.container_size}}
               </td>
-              <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                <div class="inline-flex items-center gap-x-3 ">
-                  <span> {{inv.available}}</span>
-                </div>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{inv.available}}
               </td>
-
-
-              <td class="px-8 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                <button
-                  class="text-xs align-middle h-6 w-10 rounded-sm text-green-500 -ml-2 border-2 border-green-400 bg-emerald-100/60"
-                  style="display: block;">
-                  <span> {{inv.surplus}}</span>
-                </button>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-500">
+                  {{inv.surplus}}
+                </span>
               </td>
-              <td class="px-8 py-4 -ml-1 text-sm border-2 text-gray-700  whitespace-nowrap">
-                <button class="text-xs align-middle h-6 w-10 rounded-sm text-red-500 border-2  -ml-2 bg-red-100/60"
-                  style="display: block;border-color: #FFA39E;">
-                  <span> {{inv.deficit}}</span>
-                </button>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span
+                  class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-500">
+                  {{inv.deficit}}
+                </span>
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
-      <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.filteredInventoryList.length > 0">
+      <div class="bg-white p-4 flex items-center flex-wrap justify-end" *ngIf="this.filteredInventoryList.length > 0">
         <nav aria-label="Page navigation">
           <ul class="inline-flex gap-2">
             <li class="button1">
