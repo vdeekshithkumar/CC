@@ -62,8 +62,8 @@ import { NgChartsModule } from 'ng2-charts';
 import { CarrierServiceComponent } from './carrier-service/carrier-service.component';
 import { ServiceRouteComponent } from './carrier-service/service-route/service-route.component';
 import { OptimizedViewComponent } from './optimized-view/optimized-view.component';
-
-
+import { LoaderComponent } from './loader/loader.component';
+import { LoadingInterceptor } from './loading.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,37 +78,38 @@ import { OptimizedViewComponent } from './optimized-view/optimized-view.componen
     ProfileComponent,
     EditProfileComponent,
     AddEmployeeComponent,
-   
+
     SearchPipe,
-    
+
     PageNotFoundComponent,
-          ResetPasswordComponent,
-          OtpVerifyComponent,
-          ForgotPasswordComponent,
-          VerifyComponent,
-          MyAdvertisementComponent,
-          PostAdComponent,
-          EmpSearchPipe,
-          ViewContractsComponent,
-          ForecastingComponent,
-          ForecastingTableViewComponent,
-          ForecastMapComponent,
-          FormComponent,
-          ViewOtherAdsComponent,
-          EditUserDetailsComponent,
-          NegotiationListComponent,
-          NegotiationsComponent,
-          DialogComponent,
-          HomeTemplateComponent,
-          MessagingComponent,
-          ViewOtherAdsMapViewComponent,
-          TemplateComponent,
-          ViewOtherAdsMapViewComponent,
-          ForgotResetPasswordComponent,
-          CarrierServiceComponent,
-          ServiceRouteComponent,
-          OptimizedViewComponent,
-    
+    ResetPasswordComponent,
+    OtpVerifyComponent,
+    ForgotPasswordComponent,
+    VerifyComponent,
+    MyAdvertisementComponent,
+    PostAdComponent,
+    EmpSearchPipe,
+    ViewContractsComponent,
+    ForecastingComponent,
+    ForecastingTableViewComponent,
+    ForecastMapComponent,
+    FormComponent,
+    ViewOtherAdsComponent,
+    EditUserDetailsComponent,
+    NegotiationListComponent,
+    NegotiationsComponent,
+    DialogComponent,
+    HomeTemplateComponent,
+    MessagingComponent,
+    ViewOtherAdsMapViewComponent,
+    TemplateComponent,
+    ViewOtherAdsMapViewComponent,
+    ForgotResetPasswordComponent,
+    CarrierServiceComponent,
+    ServiceRouteComponent,
+    OptimizedViewComponent,
+    LoaderComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -124,13 +125,13 @@ import { OptimizedViewComponent } from './optimized-view/optimized-view.componen
     MatDialogModule,
     MatSnackBarModule,
     NgChartsModule,
-   
+
   ],
-  providers: [UploadInventoryservice,  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },    {
+  providers: [UploadInventoryservice, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }, {
     provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
     useValue: { panelClass: ['mycsssnackbartest'] },
   },
-SignInService,Registerservice,EditProfileService,SessionService],
+    SignInService, Registerservice, EditProfileService, SessionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

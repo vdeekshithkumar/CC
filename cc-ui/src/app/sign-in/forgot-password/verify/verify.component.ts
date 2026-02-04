@@ -11,8 +11,8 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 })
 export class VerifyComponent {
   result?: boolean
-  constructor(private snackBar: MatSnackBar,private forgotPasswordService: ForgotPassService,  private router: Router,private resetPasswordService:ResetService,
-     private resetService: ResetService) { }
+  constructor(private snackBar: MatSnackBar, private forgotPasswordService: ForgotPassService, private router: Router, private resetPasswordService: ResetService,
+    private resetService: ResetService) { }
 
 
   userID = 0
@@ -34,7 +34,7 @@ export class VerifyComponent {
     this.resetPasswordService.setShowEmailInput(value);
   }
   verify(a: string, b: string, c: string, d: string, e: string, f: string) {
-    debugger
+
     this.result = this.forgotPasswordService.verifyOtp(a + b + c + d + e + f)
     if (this.result) {
       this.router.navigate(['reset-password'])
@@ -48,7 +48,7 @@ export class VerifyComponent {
           }
         }
       )
-      
+
 
     }
     else {

@@ -1,4 +1,4 @@
-import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable, catchError, switchMap, throwError } from 'rxjs';
@@ -16,15 +16,15 @@ export class AddEmployeeServiceService {
   private editUrl = 'EditUserById'
   private baseEditUrl = 'EditPermission'
   private UIdUrl = 'GetUserById';
-  constructor(private http:HttpClient,private apiService: ApiService) { }
-  addPermission(ppList: any,emailValue:string): Observable<any> {
+  constructor(private http: HttpClient, private apiService: ApiService) { }
+  addPermission(ppList: any, emailValue: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
 
-const payload = {
+    const payload = {
       ppList: ppList,
       emailValue: emailValue
     };
@@ -40,29 +40,29 @@ const payload = {
     console.error('An error occurred', error);
     return throwError(error);
   }
-  addEmployee(addEmployeeForm: FormGroup<any>){
+  addEmployee(addEmployeeForm: FormGroup<any>) {
     const url = this.apiService.getFullUrl(`${this.apiUrl}`);
-    const headers=new HttpHeaders().set('content-Type','application/json');
-    return this.http.post(url,addEmployeeForm,{headers});
+    const headers = new HttpHeaders().set('content-Type', 'application/json');
+    return this.http.post(url, addEmployeeForm, { headers });
   }
 
-  EditUser(id:number,addEmployeeForm:FormGroup<any>){
-    debugger
+  EditUser(id: number, addEmployeeForm: FormGroup<any>) {
+
     const url = this.apiService.getFullUrl(`${this.editUrl}/${id}`);
     const headers = new HttpHeaders().set('content-Type', 'application/json');
-      return this.http.put(url,addEmployeeForm,{ headers });
+    return this.http.put(url, addEmployeeForm, { headers });
   }
-  EditPermission(ppList: any,user_id:number): Observable<any> {
+  EditPermission(ppList: any, user_id: number): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-const payload = {
-  ppList: ppList,
+    const payload = {
+      ppList: ppList,
       user_id: user_id
     };
-    const url =this.apiService.getFullUrl(`${this.baseEditUrl}/${user_id}`);
+    const url = this.apiService.getFullUrl(`${this.baseEditUrl}/${user_id}`);
 
     return this.http.put(url, payload, httpOptions)
       .pipe(
@@ -86,4 +86,3 @@ const payload = {
     return this.http.get(url, { responseType: 'json' });
   }
 }
-  

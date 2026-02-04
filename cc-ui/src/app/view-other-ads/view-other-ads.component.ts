@@ -37,8 +37,8 @@ export interface Advertisement {
   from_date: Date;
   expiry_date: Date;
   type_of_ad: string;
-  container_type:string;
-  container_size:number;
+  container_type: string;
+  container_size: number;
   container_type_id: number;
   price: number;
   status: string;
@@ -53,8 +53,8 @@ export interface Advertisement {
   free_days: number;
   per_diem: number;
   pickup_charges: number;
-  ad_type:string;
-  port_of_ad:string;
+  ad_type: string;
+  port_of_ad: string;
 }
 @Component({
   selector: 'app-view-other-ads',
@@ -62,8 +62,8 @@ export interface Advertisement {
   styleUrls: ['./view-other-ads.component.css', '../app.component.css'],
   providers: [DatePipe]
 })
-export class ViewOtherAdsComponent  {
-  
+export class ViewOtherAdsComponent {
+
   @ViewChild(ViewOtherAdsMapViewComponent) mapViewComponent!: ViewOtherAdsMapViewComponent;
   isAdClicked: boolean = false;
   selectedView: string | undefined;
@@ -80,9 +80,9 @@ export class ViewOtherAdsComponent  {
   domain_address?: string;
   licence_id?: number;
   rating?: number;
-selectedcontainerSize: any;
-selectedcontainertypetomap:any;
-selectedcontainersizetomap:any;
+  selectedcontainerSize: any;
+  selectedcontainertypetomap: any;
+  selectedcontainersizetomap: any;
   address?: string;
   fname?: string
   isBuyHovered: boolean = false;
@@ -116,9 +116,9 @@ selectedcontainersizetomap:any;
   advertisements: any;
   http: any;
   port_of_departure: any;
-  port_of_ad:any;
+  port_of_ad: any;
   port_of_arrival: any;
-selectedMainOption: string = ''; // To store the selected main option
+  selectedMainOption: string = ''; // To store the selected main option
   isMainDropdownOpen: boolean = false; // To control the visibility of the main dropdown
   selectedOptions: { [key: string]: string } = {
     type: '',
@@ -137,15 +137,15 @@ selectedMainOption: string = ''; // To store the selected main option
   selectedSize: any;
   showListView: boolean = true;
   containerTypeId: any;
-  showNoResultsMessage: boolean=true;
+  showNoResultsMessage: boolean = true;
   ad_type!: string;
   searchPortOfAd: any;
-  displayedAds: Advertisement[] =[];
-  matchedAds:  Advertisement[] =[];
+  displayedAds: Advertisement[] = [];
+  matchedAds: Advertisement[] = [];
   type_of_ad!: string;
-  container_type_list:Containers[]=[];
-  isMatched:boolean = false;
-  originalAds: Advertisement[] =[];
+  container_type_list: Containers[] = [];
+  isMatched: boolean = false;
+  originalAds: Advertisement[] = [];
   pageSize: any;
   selectedTypePortOfAd: any;
   selectedSizetomap: any;
@@ -156,7 +156,7 @@ selectedMainOption: string = ''; // To store the selected main option
   selectedcontainerType: string = '';
   selectedTypePortOfArr: any;
   userDesignation: any;
-  UserPList: any[]=[];
+  UserPList: any[] = [];
   isStartnegDisabled: boolean = false;
   selectedCount: number = 0;
   get totalPages(): number {
@@ -167,17 +167,17 @@ selectedMainOption: string = ''; // To store the selected main option
   receivedcontainerType: any;
   receivedcontainerSize: any;
 
-  
-  
+
+
   userId: any;
   getCompanyId() {
     return this.company_id;
   }
-  constructor(private sessionService: SessionService,private route: ActivatedRoute, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private sharedService:SharedServiceService,private myadservice:MyAdService ) {
+  constructor(private sessionService: SessionService, private route: ActivatedRoute, private router: Router, private viewotherAds: ViewOtherAdsService, private uploadInventoryservice: UploadInventoryservice, private sharedService: SharedServiceService, private myadservice: MyAdService) {
 
   }
   ngOnInit(): void {
-    debugger
+
     this.sharedService.values$.subscribe(values => {
       this.receivedportCode = values.portcode;
       this.receivedcontainerType = values.containertype;
@@ -185,17 +185,17 @@ selectedMainOption: string = ''; // To store the selected main option
       if (!isNaN(this.receivedcontainerSize)) {
         this.selectedcontainerSize = this.receivedcontainerSize;
       }
-      
+
     });
-    console.log( "to check",this.receivedportCode)
-    console.log( "to check", this.receivedcontainerType)
-    console.log( "to check",this.receivedcontainerSize)
+    console.log("to check", this.receivedportCode)
+    console.log("to check", this.receivedcontainerType)
+    console.log("to check", this.receivedcontainerSize)
     if (this.selectedView === 'map') {
       this.showMapView = true;
     } else {
       this.showMapView = false;
     }
-    
+
     this.selectedView = 'list';
     this.isLoading = true;
     this.viewotherAds.getallnegotiation(this.companyId).subscribe(
@@ -264,7 +264,7 @@ selectedMainOption: string = ''; // To store the selected main option
 
     );
     this.searchAds();
- 
+
 
 
     this.viewotherAds.getAllContainers().subscribe(
@@ -274,9 +274,9 @@ selectedMainOption: string = ''; // To store the selected main option
           index === self.findIndex((c) => c.capacity === container.capacity)
         );
         const uniqueContainertypes = condata.filter((container, index, self) =>
-        index === self.findIndex((c) => c.type === container.type)
-      );
-  
+          index === self.findIndex((c) => c.type === container.type)
+        );
+
         this.container_list = uniqueContainers;
         this.container_type_list = uniqueContainertypes;
         console.log(JSON.stringify(this.container_list));
@@ -335,9 +335,9 @@ selectedMainOption: string = ''; // To store the selected main option
     this.myadservice.getPermissions(this.userId).subscribe(
       (permissions: any[]) => {
         this.UserPList = permissions;
-        this.isStartnegDisabled = !(this.UserPList.includes(4) || this.userDesignation ==='admin');
-       
-       console.log("User permissions",this.UserPList);
+        this.isStartnegDisabled = !(this.UserPList.includes(4) || this.userDesignation === 'admin');
+
+        console.log("User permissions", this.UserPList);
       },
       (error: any) => {
         console.log(error);
@@ -357,85 +357,85 @@ selectedMainOption: string = ''; // To store the selected main option
     }
   }
 
-capitalizeFirstLetter(text: string): string {
-  if (!text) return text;
+  capitalizeFirstLetter(text: string): string {
+    if (!text) return text;
 
-  return text.charAt(0).toUpperCase() + text.slice(1);
-}
-togglePopup() {
-  this.showPopup = !this.showPopup;
-}
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+  togglePopup() {
+    this.showPopup = !this.showPopup;
+  }
 
 
 
-searchAds() {
-  debugger;
-  // Check if ad_type is defined
-  if (this.ad_type && this.selectedMainOption) {
-    const type_of_ads = []; // Array to store type_of_ad values
+  searchAds() {
+    ;
+    // Check if ad_type is defined
+    if (this.ad_type && this.selectedMainOption) {
+      const type_of_ads = []; // Array to store type_of_ad values
 
-    // Determine type_of_ad based on selectedMainOption
-    if (this.selectedMainOption === 'Trading') {
-      type_of_ads.push('buy', 'sell',); // Add all types to the array
-    } else if (this.selectedMainOption === 'Leasing') {
-      type_of_ads.push('lease','swap','oneway'); // Add 'Lease' to the array
-    }
-
-    // Create an array to store the observables for each type_of_ad request
-    const observables = type_of_ads.map(type_of_ad =>
-      this.viewotherAds.getAdvertisementbytypeofad(this.ad_type, type_of_ad, this.companyId)
-    );
-
-    // Use forkJoin to make parallel requests for all type_of_ad values
-    forkJoin(observables).subscribe(
-      (responses: any[]) => {
-        // responses is an array containing the responses for each type_of_ad
-        const allAds = ([] as Advertisement[]).concat(...responses); // Combine all responses into a single array
-        console.log('All Ads:', allAds);
-
-        // Store the combined advertisements in the component property
-        this.ads = allAds;
-        this.originalAds = this.ads;
-        this.currentPage = 1;
-
-        console.log("Combined Ads:", this.ads);
-      },
-      error => {
-        console.error('Error fetching advertisements:', error);
+      // Determine type_of_ad based on selectedMainOption
+      if (this.selectedMainOption === 'Trading') {
+        type_of_ads.push('buy', 'sell',); // Add all types to the array
+      } else if (this.selectedMainOption === 'Leasing') {
+        type_of_ads.push('lease', 'swap', 'oneway'); // Add 'Lease' to the array
       }
-    );
-  }
-}
 
+      // Create an array to store the observables for each type_of_ad request
+      const observables = type_of_ads.map(type_of_ad =>
+        this.viewotherAds.getAdvertisementbytypeofad(this.ad_type, type_of_ad, this.companyId)
+      );
 
+      // Use forkJoin to make parallel requests for all type_of_ad values
+      forkJoin(observables).subscribe(
+        (responses: any[]) => {
+          // responses is an array containing the responses for each type_of_ad
+          const allAds = ([] as Advertisement[]).concat(...responses); // Combine all responses into a single array
+          console.log('All Ads:', allAds);
 
+          // Store the combined advertisements in the component property
+          this.ads = allAds;
+          this.originalAds = this.ads;
+          this.currentPage = 1;
 
-
-  
-  
-    adTypeChanged(type: string) {
-      this.ad_type = type;
-      this.searchAds();
+          console.log("Combined Ads:", this.ads);
+        },
+        error => {
+          console.error('Error fetching advertisements:', error);
+        }
+      );
     }
-    toggleDropdown(section: string) {
-  if (section === 'type') {
-    this.isTypeDropdownOpen = !this.isTypeDropdownOpen;
   }
-}
-toggleMainDropdown() {
-  this.isMainDropdownOpen = !this.isMainDropdownOpen;
-}
 
-selectMainOption(option: string) {
-  this.selectedMainOption = option;
-  this.isMainDropdownOpen = false; // Close the main dropdown when a main option is selected
-}
 
-selectSubOption(subOption: string) {
-  // Handle the selection of sub-options based on the selected main option
-  // For example, you can update a variable or perform any other action here
-  console.log(`Selected ${this.selectedMainOption} sub-option: ${subOption}`);
-}
+
+
+
+
+
+  adTypeChanged(type: string) {
+    this.ad_type = type;
+    this.searchAds();
+  }
+  toggleDropdown(section: string) {
+    if (section === 'type') {
+      this.isTypeDropdownOpen = !this.isTypeDropdownOpen;
+    }
+  }
+  toggleMainDropdown() {
+    this.isMainDropdownOpen = !this.isMainDropdownOpen;
+  }
+
+  selectMainOption(option: string) {
+    this.selectedMainOption = option;
+    this.isMainDropdownOpen = false; // Close the main dropdown when a main option is selected
+  }
+
+  selectSubOption(subOption: string) {
+    // Handle the selection of sub-options based on the selected main option
+    // For example, you can update a variable or perform any other action here
+    console.log(`Selected ${this.selectedMainOption} sub-option: ${subOption}`);
+  }
   toggleOption(section: string, option: string) {
     if (this.selectedOptions[section] === option) {
       // If the clicked option is already selected, deselect it
@@ -474,17 +474,17 @@ selectSubOption(subOption: string) {
     }
   }
 
-  onTypeSelected(){
-    console.log("for check",this.selectedcontainerType)
+  onTypeSelected() {
+    console.log("for check", this.selectedcontainerType)
   }
-  onSizeSelected(){
-    console.log("for check",this.selectedcontainerType)
+  onSizeSelected() {
+    console.log("for check", this.selectedcontainerType)
   }
   updateSearchPortOfAd() {
     this.searchPortOfAd = this.port_of_ad;
   }
   searchContainerAdvertisements() {
-    debugger;
+    ;
     const searchType = this.type.toLowerCase();
     const searchPortOfAd = this.port_of_ad;
     const searchPortOfDep = this.port_of_departure;
@@ -493,103 +493,104 @@ selectSubOption(subOption: string) {
     const selectedContainerSize = this.selectedcontainerSize;
     if (searchType === 'oneway') {
       this.searchSpaceAdvertisements();
-  }
+    }
     if (this.selectedOptions['view'] !== 'MAP') {
       const matchedAds = [];
-  debugger
+
       // Check if selectedContainerType is 'oneway' and call searchSpaceAdvertisements() method
-      
 
-        for (const ad of this.originalAds) {
-            let isMatched = false;
 
-            if (ad.ad_type === 'container') {
-              let isMatched = false;
-          
-              if (searchType === 'oneway') {
-                  // Check only Port of Departure and Port of Arrival
-                  if (ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr) {
-                      isMatched = true;
-                  }
-              } else {
-                  // Check only Port of Ad
-                  if (ad.port_of_ad === searchPortOfAd) {
-                      isMatched = true;
-                  }
-              }
-          
-              if (isMatched) {
-                  const matchedAd = { ...ad };
-                  matchedAds.push(matchedAd);
-              }
-            }}
-          
+      for (const ad of this.originalAds) {
+        let isMatched = false;
 
-        if (matchedAds.length > 0) {
-            this.ads = matchedAds;
-            this.currentPage = 1;
-        } else {
-            // No matched ads found
-            this.ads = [];
-            this.currentPage = 1;
+        if (ad.ad_type === 'container') {
+          let isMatched = false;
+
+          if (searchType === 'oneway') {
+            // Check only Port of Departure and Port of Arrival
+            if (ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr) {
+              isMatched = true;
+            }
+          } else {
+            // Check only Port of Ad
+            if (ad.port_of_ad === searchPortOfAd) {
+              isMatched = true;
+            }
+          }
+
+          if (isMatched) {
+            const matchedAd = { ...ad };
+            matchedAds.push(matchedAd);
+          }
         }
+      }
+
+
+      if (matchedAds.length > 0) {
+        this.ads = matchedAds;
+        this.currentPage = 1;
+      } else {
+        // No matched ads found
+        this.ads = [];
+        this.currentPage = 1;
+      }
     }
 
     if (this.selectedOptions['view'] === 'MAP') {
-        this.showMapView = true;
+      this.showMapView = true;
 
-        // Set the selected values
-        this.ad_typetomap = this.ad_type;
-        this.typetomap = this.type.toLowerCase();
-        this.selectedTypePortOfAd = searchPortOfAd;
-        this.selectedTypePortOfDep =searchPortOfDep;
-        this.selectedTypePortOfArr=searchPortOfArr;
-        this.selectedcontainertypetomap = selectedContainerType;
-        this.selectedcontainersizetomap = selectedContainerSize;
+      // Set the selected values
+      this.ad_typetomap = this.ad_type;
+      this.typetomap = this.type.toLowerCase();
+      this.selectedTypePortOfAd = searchPortOfAd;
+      this.selectedTypePortOfDep = searchPortOfDep;
+      this.selectedTypePortOfArr = searchPortOfArr;
+      this.selectedcontainertypetomap = selectedContainerType;
+      this.selectedcontainersizetomap = selectedContainerSize;
 
-        // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
-        if (this.mapViewComponent) {
-          if (this.ad_typetomap === 'oneway') {
-              this.mapViewComponent.markPortOfDepArrOnMap(); // Call markPortOfDepArrOnMap() if ad_typetomap is 'oneway'
-          } else {
-              this.mapViewComponent.markPortOfAdOnMap(); // Call markPortOfAdOnMap() for other cases
-          }
+      // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
+      if (this.mapViewComponent) {
+        if (this.ad_typetomap === 'oneway') {
+          this.mapViewComponent.markPortOfDepArrOnMap(); // Call markPortOfDepArrOnMap() if ad_typetomap is 'oneway'
+        } else {
+          this.mapViewComponent.markPortOfAdOnMap(); // Call markPortOfAdOnMap() for other cases
+        }
       }
-  } else {
+    } else {
       this.showMapView = false;
-  }
+    }
 
   }
-  
+
   // Function to get the ads for the current page
   get currentAds(): Advertisement[] {
     const startIndex = (this.currentPage - 1) * this.adsPerPage;
     const endIndex = startIndex + this.adsPerPage;
     return this.ads.slice(startIndex, endIndex);
   }
-  
+
   // Function to go to the previous page
   prevPage() {
     if (this.currentPage > 1) {
       this.currentPage = this.currentPage - 1;
     }
   }
-  
+
   // Function to go to the next page
   nextPage() {
     if (this.currentPage < this.totalPages) {
       this.currentPage = this.currentPage + 1;
     }
   }
-  
-  
-  
-  
-  
-  
-  
-searchSpaceAdvertisements() {
-    debugger;
+
+
+
+
+
+
+
+  searchSpaceAdvertisements() {
+    ;
     const searchType = this.type.toLowerCase();
     const searchPortOfDep = this.port_of_departure;
     const searchPortOfArr = this.port_of_arrival;
@@ -597,72 +598,72 @@ searchSpaceAdvertisements() {
     const searchcontainersize = this.selectedcontainerSize;
 
     if (this.selectedOptions['view'] === 'MAP') {
-        this.showMapView = true;
+      this.showMapView = true;
 
-        // Set the selected values
-        this.ad_typetomap = this.ad_type;
-        this.typetomap = this.type.toLowerCase();
+      // Set the selected values
+      this.ad_typetomap = this.ad_type;
+      this.typetomap = this.type.toLowerCase();
+      this.selectedTypePortOfDep = searchPortOfDep;
+      this.selectedTypePortOfArr = searchPortOfArr;
+      this.selectedcontainertypetomap = searchcontainertype;
+      this.selectedcontainersizetomap = searchcontainersize;
+
+      // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
+      if (this.mapViewComponent) {
         this.selectedTypePortOfDep = searchPortOfDep;
         this.selectedTypePortOfArr = searchPortOfArr;
-        this.selectedcontainertypetomap = searchcontainertype;
-        this.selectedcontainersizetomap = searchcontainersize;
-
-        // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
-        if (this.mapViewComponent) {
-          this.selectedTypePortOfDep = searchPortOfDep;
-          this.selectedTypePortOfArr = searchPortOfArr;
-            this.mapViewComponent.markPortOfDepArrOnMap();
-        }
+        this.mapViewComponent.markPortOfDepArrOnMap();
+      }
     } else {
-        if (searchType && searchPortOfDep && searchPortOfArr && searchcontainertype && searchcontainersize) {
-            const matchedAds = [];
+      if (searchType && searchPortOfDep && searchPortOfArr && searchcontainertype && searchcontainersize) {
+        const matchedAds = [];
 
-            for (const ad of this.originalAds) { // Loop over originalAds instead of ads
-                let isMatched = false;
+        for (const ad of this.originalAds) { // Loop over originalAds instead of ads
+          let isMatched = false;
 
-                if (ad.ad_type === 'space' && ad.type_of_ad === searchType && ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr && ad.container_type === searchcontainertype && ad.container_size === searchcontainersize) {
-                    isMatched = true;
-                }
+          if (ad.ad_type === 'space' && ad.type_of_ad === searchType && ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr && ad.container_type === searchcontainertype && ad.container_size === searchcontainersize) {
+            isMatched = true;
+          }
 
-                if (isMatched) {
-                    const matchedAd = { ...ad };
-                    matchedAds.push(matchedAd);
-                }
-            }
-
-            if (matchedAds.length > 0) {
-                this.ads = matchedAds;
-                this.currentPage = 1;
-            } else {
-                // No matched ads found
-                this.ads = [];
-                this.currentPage = 1;
-            }
-        } else {
-            // No search criteria provided, reset ads to the original list
-            this.ads = [...this.originalAds];
-            this.currentPage = 1;
+          if (isMatched) {
+            const matchedAd = { ...ad };
+            matchedAds.push(matchedAd);
+          }
         }
+
+        if (matchedAds.length > 0) {
+          this.ads = matchedAds;
+          this.currentPage = 1;
+        } else {
+          // No matched ads found
+          this.ads = [];
+          this.currentPage = 1;
+        }
+      } else {
+        // No search criteria provided, reset ads to the original list
+        this.ads = [...this.originalAds];
+        this.currentPage = 1;
+      }
     }
 
     // Calculate the updated total number of pages based on the filtered ads
     this.totalPages;
-}
+  }
 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   backPage() {
     this.router.navigate(['forecast-map']);
@@ -671,7 +672,7 @@ searchSpaceAdvertisements() {
 
   checkNegotiation(company_id: number, ad_id: number): boolean {
     let x = false;
-  
+
     for (const negotiation of this.negotiation_list) {
       if (negotiation.ad_id === ad_id && negotiation.company_id === company_id) {
         x = true;
@@ -698,23 +699,23 @@ searchSpaceAdvertisements() {
 
 
   DisableStartNegoBtn(ad_id: number) {
-   
+
     this.NButtonDisabled = this.checkNegotiation(this.companyId, ad_id);
 
   }
 
-  
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
+
 
 
   onDeparturePortSelected(port: Port) {
-   
+
     this.selectedDeparturePort = port.port_id;
     console.log("in view" + this.selectedDeparturePort)
     this.port_of_departure = port.port_id;
@@ -752,7 +753,7 @@ searchSpaceAdvertisements() {
     const selectedPorts = type === 'departure' ? this.selectedDeparturePorts : this.selectedArrivalPorts;
     return selectedPorts.includes(port);
   }
-  
+
   clearOptions(): void {
     this.selectedOptions = {};
     this.port_of_departure = '';
@@ -772,7 +773,7 @@ searchSpaceAdvertisements() {
   }
 
   displayAllAdvertisements() {
-    debugger
+
     this.showMapView = false;
     this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
     // this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
@@ -781,11 +782,11 @@ searchSpaceAdvertisements() {
     //   },
     //   error => console.log(error)
     // );
-    debugger
-    this.viewotherAds.getAdvertisementbytypeofad(this.ad_type,this.type_of_ad,this.companyId).subscribe(
+
+    this.viewotherAds.getAdvertisementbytypeofad(this.ad_type, this.type_of_ad, this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
-        console.log("type_of_ad"+data)
+        console.log("type_of_ad" + data)
       },
       error => console.log(error)
     );
@@ -798,9 +799,9 @@ searchSpaceAdvertisements() {
     newDate.setSeconds(0);
     newDate.setMilliseconds(0);
     const timestamp = newDate.getTime();
-    const dateOnly=new Date(timestamp);
+    const dateOnly = new Date(timestamp);
     const dateString = dateOnly.toLocaleDateString('en-GB');
-    this.date_created=dateString.toString().slice(0, 10);
+    this.date_created = dateString.toString().slice(0, 10);
     return this.date_created;
   }
 }  

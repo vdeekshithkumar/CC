@@ -9,13 +9,13 @@ import { conversation } from '../DTO/conversation';
 import { Observable, map, catchError, of } from 'rxjs';
 import { SharedServiceService } from '../shared-service.service';
 
- 
+
 
 export interface Negotiation {
   [x: string]: any;
   negotiation_id: number;
   user_id: number;
- 
+
   ad_id: number;
   price: number;
   negotiation_type: string;
@@ -29,7 +29,7 @@ export interface Negotiation {
   updated_by: number;
 }
 
- 
+
 
 @Component({
   selector: 'app-negotiations',
@@ -40,14 +40,14 @@ export class NegotiationsComponent implements OnInit {
   public isButtonDisabled: boolean = false;
   conversations: conversation[] = [];
   companyId: any;
-  
-selectedNegotiation: any;
+
+  selectedNegotiation: any;
   NButtonDisabled: boolean = false;
   itemsPerPage: number = 3;
   currentPage: number = 1;
   userId: any;
   adId: any;
-  x:number=0;
+  x: number = 0;
   filteredNlist: any[] = [];
   company_list_by_companyId: any[] = [];
   alluser_list: any[] = [];
@@ -60,7 +60,7 @@ selectedNegotiation: any;
   AdsDeparturePort: { [ad_id: number]: string } = {};
   AdsPortofAd: { [ad_id: number]: string } = {};
   AdscompanyNames: { [ad_id: number]: string } = {};
-  Negotiatorcompanynames:{[companyId:number]:string }={};
+  Negotiatorcompanynames: { [companyId: number]: string } = {};
   AdscompanyLogos: { [ad_id: number]: string } = {};
   AdscompanyDomain: { [ad_id: number]: string } = {};
   AdscompanyRating: { [ad_id: number]: string } = {};
@@ -77,15 +77,15 @@ selectedNegotiation: any;
   date_created: any;
   elementRef: any;
   AdscompanyId: any;
-  NegcompanyId:any;
+  NegcompanyId: any;
 
-  ad_type: string='container';
+  ad_type: string = 'container';
   negad_type!: string;
-  conversationID!:number
-  negotiation_id!:number;
- negCount:any;
-  selectedConversationIndex:any=null;
-  selectedConversation:any;
+  conversationID!: number
+  negotiation_id!: number;
+  negCount: any;
+  selectedConversationIndex: any = null;
+  selectedConversation: any;
   constructor(
     private dialog: MatDialog,
     private route: ActivatedRoute,
@@ -94,13 +94,13 @@ selectedNegotiation: any;
     private router: Router,
     private negotiationservice: NegotiationsService,
     private messageService: MessagingService,
-   
-  ) {}
 
- 
+  ) { }
+
+
 
   async ngOnInit(): Promise<void> {
-    
+
     await this.fetchAdvertisements();
     await this.fetchCompanyId();
     await this.fetchOtherCompanies();
@@ -108,18 +108,18 @@ selectedNegotiation: any;
     await this.fetchPermissions();
     await this.fetchNegotiations('selectedAdType');
     this.route.paramMap.subscribe((params) => {
-      const adType = params.get('ad_type') ?? 'container'; 
+      const adType = params.get('ad_type') ?? 'container';
       this.fetchNegotiations(adType);
     });
-        this.sessionService.getCompanyId().subscribe({
-          next: (companyId: number) => {
-            this.companyId = companyId;
-            this.companyName = this.companyName;
-          },
-          error: (error: any) => {
-            console.error('Error retrieving company ID:', error);
-          }
-        });
+    this.sessionService.getCompanyId().subscribe({
+      next: (companyId: number) => {
+        this.companyId = companyId;
+        this.companyName = this.companyName;
+      },
+      error: (error: any) => {
+        console.error('Error retrieving company ID:', error);
+      }
+    });
     this.messageService.getMessges(this.conversationID).subscribe({
       next: (data: any[]) => {
         this.conversations = data;
@@ -128,10 +128,10 @@ selectedNegotiation: any;
         console.error('Error retrieving conversations:', error);
       }
     });
-    
+
   }
 
- 
+
 
   async fetchAdvertisements(): Promise<void> {
     try {
@@ -158,16 +158,16 @@ selectedNegotiation: any;
 
   async fetchCompanyId(): Promise<void> {
     try {
-      
+
       this.companyId = await this.sessionService.getCompanyId().toPromise();
       this.companyName = this.companyName;
       console.log('Company ID is:', this.companyId);
     } catch (error) {
       console.error('Error retrieving company ID:', error);
-    } 
+    }
   }
 
- 
+
 
   async fetchOtherCompanies(): Promise<void> {
     try {
@@ -189,7 +189,7 @@ selectedNegotiation: any;
     }
   }
 
- 
+
 
   async fetchUserId(): Promise<void> {
     try {
@@ -200,7 +200,7 @@ selectedNegotiation: any;
     }
   }
 
- 
+
 
   async fetchPermissions(): Promise<void> {
     try {
@@ -213,29 +213,29 @@ selectedNegotiation: any;
     }
   }
 
- 
+
   async fetchNegotiations(selectedAdType: string): Promise<void> {
     try {
       this.updateAdType(selectedAdType); // Call the updateAdType method here
-      
-      debugger;
+
+      ;
       const data: Negotiation[] = await this.negotiationservice.getNegotiationsByCId(this.companyId).toPromise();
       this.negotiations = data;
       console.log("This is ads_list", this.ads_list);
-      debugger;
-  
+      ;
+
       // Filter negotiations based on the selected ad_type
       this.filteredNlist = this.negotiations.filter((negotiation) => {
         const ad = this.ads_list.find((ad) => ad.ad_id === negotiation.ad_id && ad.ad_type === selectedAdType);
         return !!ad; // Include the negotiation if a matching ad with the selected ad_type is found
       });
-  
+
       console.log("Filtered negotiations:", this.filteredNlist);
       console.log("All negotiations:", this.negotiations);
     } catch (error) {
       console.log(error);
     }
-    
+
 
     this.negotiationservice.getallUser(this.companyId).subscribe(
       (data: any) => {
@@ -255,13 +255,13 @@ selectedNegotiation: any;
         console.log("Error loading company details:", error);
       }
     );
-debugger
+
     this.negotiationservice.getnegotiationcount(this.companyId).subscribe(
       (count: number[]) => {
         this.negCount = count;
-       
+
         console.log('Ads count:', this.negCount[0]);
-      
+
       },
       (error: any) => {
         console.log(error);
@@ -271,152 +271,152 @@ debugger
 
   }
 
-onCancel() {
+  onCancel() {
 
-  window.location.reload()
-}
-
-// navigateToMessaging(convo: any): void {
-//   if (convo.status === 'accepted') {
-//     const negotiationId = convo.negotiation_id;
-//     this.router.navigate(['/messaging'], { queryParams: { negotiationId: negotiationId } });
-//   }
-// }
-
-
-get totalPages(): number {
-  return Math.ceil(this.filteredNlist.length /this.itemsPerPage);
-}
-prevPage(): void {
-  if (this.currentPage > 1) {
-    this.currentPage--;
+    window.location.reload()
   }
-}
 
-// Function to go to the next page
-nextPage(): void {
-  if (this.currentPage < this.totalPages) {
-    this.currentPage++;
+  // navigateToMessaging(convo: any): void {
+  //   if (convo.status === 'accepted') {
+  //     const negotiationId = convo.negotiation_id;
+  //     this.router.navigate(['/messaging'], { queryParams: { negotiationId: negotiationId } });
+  //   }
+  // }
+
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredNlist.length / this.itemsPerPage);
   }
-}
-// createConversation(conversation: any) {
-//   debugger
-//   const companyId = conversation.company_id;
-//   const companyName = this.getCompanyName(conversation.ad_id);
-//   const adcompanyId=this.getCompanyID(conversation.ad_id);
-//   const newConversation = {
-//     company_id: companyId,
-//     company_name: companyName,
-//     user_id: conversation.user_id,
-//     user_name: this.getUserName(conversation.user_id),
-//     negotiation_id:conversation.negotiation_id,
-//     AdscompanyId:adcompanyId,
-//     is_active:1
-//   };
-
-//   this.messageService.createConversation(newConversation).subscribe(
-//     (response) => {
-//       console.log(newConversation)
-//       console.log('Conversation created:', response);
-//       this.router.navigate(['/messaging']); 
-//     },
-//     (error) => {
-//       console.error('Error creating conversation:', error);
-//     }
-//   );
-// }
-createConversation(conversation: any) {
-  debugger
-  const companyId = conversation.company_id;
-  const negcompanName=this.getNegCompanyName(conversation.company_id)
-  const companyName = this.getCompanyName(conversation.ad_id);
-  const adcompanyId = this.getCompanyID(conversation.ad_id);
-  const companylogo=this.getCompanylogo(conversation.ad_id);
-  const negcompanyLogo=this.getNegCompanyLogo(conversation.company_id)
-  const newConversation = {
-    company_id: companyId,
-    negotiator_company_name:negcompanName,
-    negotiator_company_logo:negcompanyLogo,
-    company_name: companyName,
-    user_id: conversation.user_id,
-    first_name: this.getUserName(conversation.user_id),
-    negotiation_id: conversation.negotiation_id,
-    AdscompanyId: adcompanyId,
-    is_active: 1, // Set the is_active field to 1
-    company_logo:companylogo
-
-  };
-
-  this.checkConversationExists(newConversation).then((conversationExists) => {
-    if (conversationExists) {
-      this.router.navigate(['/messaging']);
-    } else {
-      this.messageService.createConversation(newConversation).subscribe(
-        (response) => {
-          console.log('Conversation created:', response);
-          this.selectedConversation = conversation;
-          this.router.navigate(['/messaging']);
-        
-          this.selectedConversationIndex = this.conversations.findIndex((convo) => convo === conversation);
-        },
-        (error) => {
-          console.error('Error creating conversation:', error);
-        }
-      );
+  prevPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
     }
-  });
-}
-
-
-async checkConversationExists(newConversation: any): Promise<boolean> {
-  try {
-    const existingConversations = await this.messageService.getconversationbynegid(newConversation.negotiation_id).toPromise();
-    const conversationExists = existingConversations?.some(
-      (conversation: any) =>
-        conversation.user_id === newConversation.user_id &&
-        conversation.negotiation_id === newConversation.negotiation_id
-    );
-    return conversationExists || false;
-  } catch (error) {
-    console.error('Error fetching existing conversations:', error);
-    return false;
   }
-}
 
-getCompanyNameByCompanyId(companyId: number): Observable<string> {
-  // Assuming you have a service method to retrieve the company details by ID
-  return this.sessionService.getCompanyId().pipe(
-    map((company) => company.name),
-    catchError((error) => {
-      console.error('Error fetching company name:', error);
-      return of('Unknown Company');
-    })
-  );
-}
+  // Function to go to the next page
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+  // createConversation(conversation: any) {
+  //   
+  //   const companyId = conversation.company_id;
+  //   const companyName = this.getCompanyName(conversation.ad_id);
+  //   const adcompanyId=this.getCompanyID(conversation.ad_id);
+  //   const newConversation = {
+  //     company_id: companyId,
+  //     company_name: companyName,
+  //     user_id: conversation.user_id,
+  //     user_name: this.getUserName(conversation.user_id),
+  //     negotiation_id:conversation.negotiation_id,
+  //     AdscompanyId:adcompanyId,
+  //     is_active:1
+  //   };
+
+  //   this.messageService.createConversation(newConversation).subscribe(
+  //     (response) => {
+  //       console.log(newConversation)
+  //       console.log('Conversation created:', response);
+  //       this.router.navigate(['/messaging']); 
+  //     },
+  //     (error) => {
+  //       console.error('Error creating conversation:', error);
+  //     }
+  //   );
+  // }
+  createConversation(conversation: any) {
+
+    const companyId = conversation.company_id;
+    const negcompanName = this.getNegCompanyName(conversation.company_id)
+    const companyName = this.getCompanyName(conversation.ad_id);
+    const adcompanyId = this.getCompanyID(conversation.ad_id);
+    const companylogo = this.getCompanylogo(conversation.ad_id);
+    const negcompanyLogo = this.getNegCompanyLogo(conversation.company_id)
+    const newConversation = {
+      company_id: companyId,
+      negotiator_company_name: negcompanName,
+      negotiator_company_logo: negcompanyLogo,
+      company_name: companyName,
+      user_id: conversation.user_id,
+      first_name: this.getUserName(conversation.user_id),
+      negotiation_id: conversation.negotiation_id,
+      AdscompanyId: adcompanyId,
+      is_active: 1, // Set the is_active field to 1
+      company_logo: companylogo
+
+    };
+
+    this.checkConversationExists(newConversation).then((conversationExists) => {
+      if (conversationExists) {
+        this.router.navigate(['/messaging']);
+      } else {
+        this.messageService.createConversation(newConversation).subscribe(
+          (response) => {
+            console.log('Conversation created:', response);
+            this.selectedConversation = conversation;
+            this.router.navigate(['/messaging']);
+
+            this.selectedConversationIndex = this.conversations.findIndex((convo) => convo === conversation);
+          },
+          (error) => {
+            console.error('Error creating conversation:', error);
+          }
+        );
+      }
+    });
+  }
 
 
-   backPage(){
+  async checkConversationExists(newConversation: any): Promise<boolean> {
+    try {
+      const existingConversations = await this.messageService.getconversationbynegid(newConversation.negotiation_id).toPromise();
+      const conversationExists = existingConversations?.some(
+        (conversation: any) =>
+          conversation.user_id === newConversation.user_id &&
+          conversation.negotiation_id === newConversation.negotiation_id
+      );
+      return conversationExists || false;
+    } catch (error) {
+      console.error('Error fetching existing conversations:', error);
+      return false;
+    }
+  }
+
+  getCompanyNameByCompanyId(companyId: number): Observable<string> {
+    // Assuming you have a service method to retrieve the company details by ID
+    return this.sessionService.getCompanyId().pipe(
+      map((company) => company.name),
+      catchError((error) => {
+        console.error('Error fetching company name:', error);
+        return of('Unknown Company');
+      })
+    );
+  }
+
+
+  backPage() {
     this.router.navigate(['forecast-map']);
-   }
+  }
 
-   getUserName(userId: number): string {
+  getUserName(userId: number): string {
     return this.userNames[userId] || 'Unknown User';
   }
   getNegCompanyName(companyID: number): string {
-    debugger
-     this.NegcompanyId = this.Negotiatorcompanynames[companyID];
-     
+
+    this.NegcompanyId = this.Negotiatorcompanynames[companyID];
+
     return this.companyNames[this.NegcompanyId] || 'Unknown Company';
   }
   getNegCompanyLogo(companyID: number): string {
-    debugger
-     this.NegcompanyId = this.Negotiatorcompanynames[companyID];
-    
+
+    this.NegcompanyId = this.Negotiatorcompanynames[companyID];
+
     return this.companyLogos[this.NegcompanyId] || 'Unknown Company';
   }
-   getCompanyName(adId: number): string {
-     this.AdscompanyId = this.AdscompanyNames[adId];
-     console.log('this is ad c'+this.companyNames[this.AdscompanyId])
+  getCompanyName(adId: number): string {
+    this.AdscompanyId = this.AdscompanyNames[adId];
+    console.log('this is ad c' + this.companyNames[this.AdscompanyId])
     return this.companyNames[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanyID(adId: number): number {
@@ -426,28 +426,28 @@ getCompanyNameByCompanyId(companyId: number): Observable<string> {
     }
     return 0; // Default value for unknown company ID
   }
-  
+
   getCompanylogo(adId: number): string {
 
-     this.AdscompanyId = this.AdscompanyNames[adId];
+    this.AdscompanyId = this.AdscompanyNames[adId];
 
     return this.companyLogos[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanyrating(adId: number): string {
 
-     this.AdscompanyId = this.AdscompanyNames[adId];
+    this.AdscompanyId = this.AdscompanyNames[adId];
 
     return this.companyRating[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanydomain(adId: number): string {
 
-     this.AdscompanyId = this.AdscompanyNames[adId];
+    this.AdscompanyId = this.AdscompanyNames[adId];
 
     return this.companyDomain[this.AdscompanyId] || 'Unknown Company';
   }
   getCompanyaddress(adId: number): string {
 
-     this.AdscompanyId = this.AdscompanyNames[adId];
+    this.AdscompanyId = this.AdscompanyNames[adId];
 
     return this.companyAddress[this.AdscompanyId] || 'Unknown Company';
   }
@@ -463,17 +463,17 @@ getCompanyNameByCompanyId(companyId: number): Observable<string> {
   //     this.router.navigate(['/messaging'], { queryParams: { negotiation_id: negotiation_id, adId: adId } });
   //   }
   // }
-getDateOnly(date: Date): Date {
-  const newDate = new Date(date);
-  newDate.setHours(0);
-  newDate.setMinutes(0);
-  newDate.setSeconds(0);
-  newDate.setMilliseconds(0);
-  const timestamp = newDate.getTime();
-  const dateOnly=new Date(timestamp);
-  const dateString = dateOnly.toLocaleDateString('en-GB');
-  this.date_created=dateString.toString().slice(0, 10);
-  return this.date_created;
-}
+  getDateOnly(date: Date): Date {
+    const newDate = new Date(date);
+    newDate.setHours(0);
+    newDate.setMinutes(0);
+    newDate.setSeconds(0);
+    newDate.setMilliseconds(0);
+    const timestamp = newDate.getTime();
+    const dateOnly = new Date(timestamp);
+    const dateString = dateOnly.toLocaleDateString('en-GB');
+    this.date_created = dateString.toString().slice(0, 10);
+    return this.date_created;
+  }
 }
 

@@ -63,12 +63,12 @@ export class SignInComponent implements OnInit {
     if (!this.loginForm.controls['email'].valid) {
       this.openErrorDialog('Invalid email format');
       return;
-    } debugger
+    }
     this.signInService.login(this.loginForm.value).subscribe(
       (response: Object) => {
         const loginResponse = response as LoginResponse;
         console.log(response);
-        debugger
+
         if (loginResponse.message === 'Admin Login Successful') {
           this.snackBar.open('hdhdhdh', 'OK', {
             duration: 3000,
@@ -134,7 +134,7 @@ export class SignInComponent implements OnInit {
           this.loginForm.reset();
         }
         else if (loginResponse.message === 'Not Verified') {
-          debugger
+
           this.email = this.loginForm.value.email;
           this.sharedservice.setRegisteredEmail(this.email);
           console.log(this.email + "email emiting from sign in page");

@@ -82,7 +82,7 @@ export class UploadInventoryComponent {
   }
 
   addExcel(): void {
-    debugger
+
     if (this.y === 1) {
       // Assuming this.ExcelData contains the parsed Excel data
       const preparedData = this.ExcelData.map((row: { port_code: any; container_size: any; container_type: any; port_id: any; available: any; maximum: any; minimum: any; }) => {
@@ -114,7 +114,7 @@ export class UploadInventoryComponent {
   }
 
   OnSetY() {
-    debugger
+
     this.y = 1;
     this.showModal = false;
     console.log("this is excel d" + JSON.stringify(this.ExcelData))
@@ -122,7 +122,7 @@ export class UploadInventoryComponent {
   }
 
   ReadFile(event: any): void {
-    debugger;
+    ;
     const file = event.target.files[0];
     const fileType = file.type;
     const validFileTypes = [
@@ -172,7 +172,7 @@ export class UploadInventoryComponent {
 
 
   fetchPortIds(): void {
-    debugger;
+    ;
     // Assuming this.ExcelData contains the prepared Excel data
     this.ExcelData.forEach((row: { port_code: any; port_id: any; }) => {
       const matchingPort = this.port_list.find((port: { port_code: any; }) =>
@@ -354,7 +354,7 @@ export class UploadInventoryComponent {
 
 
   getInventoryById(inv_id: number) {
-    debugger
+
     this.uploadInventoryservice.getInventoryById(inv_id)
       .subscribe(
         (data: any) => {
@@ -373,7 +373,7 @@ export class UploadInventoryComponent {
 
 
   editI(inv_id: number) {
-    debugger
+
     // const parsedData = JSON.parse(this.inventory_data);
 
     console.log('inventory id is    shis' + inv_id)
@@ -418,11 +418,11 @@ export class UploadInventoryComponent {
   }
 
   async onSubmit() {
-    debugger;
+    ;
     const timerDuration = 1000;
     if (this.isEdit == 1) {
       if (this.UploadInventoryForm.valid) {
-        debugger;
+        ;
         const response = await this.uploadInventoryservice.editInventory(this.inventory_data.inventory_id, this.UploadInventoryForm.value).toPromise();
         console.log('edit' + response);
         this.isEdit = 0;
@@ -438,10 +438,10 @@ export class UploadInventoryComponent {
       }
     }
     else {
-      debugger
+
       if (this.UploadInventoryForm.valid) {
         try {
-          debugger
+
           const response = await this.uploadInventoryservice.uploadInventory(this.UploadInventoryForm.value).toPromise();
           console.log(response);
           console.log(this.UploadInventoryForm.value);

@@ -9,13 +9,13 @@ import { ApiService } from '../api.service';
 })
 export class ViewContractsService {
 
- 
-  constructor(private http: HttpClient,private apiService: ApiService) { }
+
+  constructor(private http: HttpClient, private apiService: ApiService) { }
   getAllPorts(): Observable<any> {
 
     const url = this.apiService.getFullUrl(`GetAllPorts`);
     return this.http.get(url);
-  } 
+  }
 
   getAllContracts(companyId: number): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllContracts?companyId=${companyId}`);
@@ -27,19 +27,19 @@ export class ViewContractsService {
     return this.http.get(fullUrl, { responseType: 'json' });
   }
 
-  getContractByIdCID(companyId:number):Observable<any>{
-    debugger
+  getContractByIdCID(companyId: number): Observable<any> {
+
     const endpoint = `GetAllContractsByCompanyID?companyID=${companyId}`; // Endpoint without base URL
     const fullUrl = this.apiService.getFullUrl(endpoint);
     return this.http.get(fullUrl, { responseType: 'json' });
-   
+
   }
   //void is returned
   DeleteContract(contractId: number): Observable<any> {
-    const url = this.apiService.getFullUrl (`DeleteContract?contractID=${contractId}`);
+    const url = this.apiService.getFullUrl(`DeleteContract?contractID=${contractId}`);
     return this.http.delete<any>(url);
   }
- 
+
   async ViewContract(contractID: number, userID: number, companyID: number): Promise<Blob> {
     const endpoint = `DownloadContracts?userId=${userID}&companyId=${companyID}&contractID=${contractID}`; // Endpoint without base URL
     const fullUrl = this.apiService.getFullUrl(endpoint);

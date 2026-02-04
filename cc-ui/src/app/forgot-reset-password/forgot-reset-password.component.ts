@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/session.service';
 
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
@@ -14,32 +14,32 @@ import { ConfirmationResponse, PassWriteRes } from '../sign-in/reset-password/Co
   styleUrls: ['./forgot-reset-password.component.css']
 })
 //Model for confirmation of email
-  
-export class ForgotResetPasswordComponent implements OnInit{
-  userId : any; 
-  showPassword=false;
-  companyId : any;
+
+export class ForgotResetPasswordComponent implements OnInit {
+  userId: any;
+  showPassword = false;
+  companyId: any;
   success = false
   isFailure = false
   showEmailInput = true;
   email = '';
- password: any;
-password1: any;
-password2: any;
-isFailureOldPassword: boolean = false;
-isNewPasswordsMatch: boolean = true;
-isEmailNotFound: boolean = false; 
+  password: any;
+  password1: any;
+  password2: any;
+  isFailureOldPassword: boolean = false;
+  isNewPasswordsMatch: boolean = true;
+  isEmailNotFound: boolean = false;
 
-// Initialize a flag to track the input values
-isFormValid = false;
+  // Initialize a flag to track the input values
+  isFormValid = false;
 
 
-  constructor(private snackBar: MatSnackBar,private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location
-    ,private forgotService:ForgotPassService) {
+  constructor(private snackBar: MatSnackBar, private router: Router, private sessionService: SessionService, private resetService: ResetService, private _location: Location
+    , private forgotService: ForgotPassService) {
     this.showEmailInput = this.resetService.getShowEmailInput();
-   }
+  }
   ngOnInit(): void {
-    debugger
+
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
@@ -60,9 +60,8 @@ isFormValid = false;
     );
 
     //if you enter via forgot password workflow
-    if (this.email = this.forgotService.getEmail())
-    {
-      
+    if (this.email = this.forgotService.getEmail()) {
+
       this.resetService.confirmation(this.email).subscribe(
         (response: ConfirmationResponse) => {
           if (response.message === "User found") {
@@ -75,23 +74,23 @@ isFormValid = false;
           }
         },
         error => {
-         console.log("error occured while fetching the email")
+          console.log("error occured while fetching the email")
         }
       );
     }
 
   }
-  
 
 
-  getBack(){
+
+  getBack() {
     this._location.back();
   }
-  
-  compare(){
-    debugger
+
+  compare() {
+
     if (this.password1 === this.password2)
-    return true 
+      return true
     else return false
   }
 
@@ -104,8 +103,8 @@ isFormValid = false;
       this.isFormValid = false;
     }
   }
-  
- 
+
+
   onEmailSend() {
     this.resetService.confirmation(this.email).subscribe(
       (response: ConfirmationResponse) => {
@@ -131,16 +130,16 @@ isFormValid = false;
       }
     );
   }
- 
+
   OnSubmit() {
     this.isFailureOldPassword = false; // Reset the old password error message
     this.isNewPasswordsMatch = true; // Reset the "New Passwords Not Matched" error message
-  
+
     if (this.password1 !== this.password2) {
       this.isNewPasswordsMatch = false; // Set the flag if passwords do not match
       return;
     }
-  
+
     // Call the reset-password service to check and update the password
     this.resetService.resetPassword(this.userId, this.password).subscribe(
       (result: any) => {
@@ -172,7 +171,7 @@ isFormValid = false;
           // Old password does not match, display error message
           this.isFailureOldPassword = true;
           console.log("Old password does not match");
-  
+
           // Reset the form input fields
           this.password = '';
           this.password1 = '';
@@ -184,11 +183,11 @@ isFormValid = false;
     );
   }
 
-  
-  
-  
-  
-  
+
+
+
+
+
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
