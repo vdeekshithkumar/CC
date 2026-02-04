@@ -4,6 +4,7 @@ import { ForecastingTableService } from '../forecasting/forecasting-table-view/f
 import * as XLSX from 'xlsx';
 import { SharedServiceService } from '../shared-service.service';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
+import { MaritimeCalculatorService } from '../shared/maritime-calculator.service';
 import { Subject, Subscription, combineLatest, forkJoin, of, zip } from 'rxjs';
 import { CarrierServiceService } from '../carrier-service/carrier-service.service';
 import { values } from 'lodash';
@@ -75,7 +76,8 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
     private sessionService: SessionService,
     private forecastingtableService: ForecastingTableService,
     private sharedService: SharedServiceService,
-    private carrierservice: CarrierServiceService
+    private carrierservice: CarrierServiceService,
+    private maritimeService: MaritimeCalculatorService
   ) { }
 
   onBackButtonClick() {
@@ -766,6 +768,14 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
             }
           });
 
+          // Calculate Route Estimation
+          const routeEstimate = this.maritimeService.estimateRoute(
+            this.deficitlatitude,
+            this.deficitlongitude,
+            port.latitude,
+            port.longitude
+          );
+
           // Add click listener to show port name with modern design
           marker.addListener('click', () => {
             new google.maps.InfoWindow({
@@ -778,13 +788,27 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
                   <div class="popover-body">
                     <div class="data-grid">
                       <div class="data-item">
-                         <span class="data-label">Direct Distance</span>
-                         <span class="data-value">${Math.round(item.distance).toLocaleString()} NM</span>
-                      </div>
-                      <div class="data-item">
                          <span class="data-label">Coordinates</span>
                          <span class="data-value">${port.latitude.toFixed(2)}, ${port.longitude.toFixed(2)}</span>
                       </div>
+                      <div style="border-top: 1px solid #eee; margin: 8px 0;"></div>
+                      <div class="data-item">
+                         <span class="data-label">Est. Distance</span>
+                         <span class="data-value">${routeEstimate.estimatedShippingDistanceNm.toLocaleString()} NM</span>
+                      </div>
+                      <div class="data-item">
+                         <span class="data-label">Direct (GC)</span>
+                         <span class="data-value">${routeEstimate.directDistanceNm.toLocaleString()} NM</span>
+                      </div>
+                      <div class="data-item">
+                         <span class="data-label">Transit Time (20kn)</span>
+                         <span class="data-value">${routeEstimate.estimatedTransitDays} Days</span>
+                      </div>
+                      ${routeEstimate.canalRequired !== 'none' ? `
+                      <div class="data-item">
+                         <span class="data-label">Route Via</span>
+                         <span class="data-value" style="text-transform: capitalize; color: #d97706;">${routeEstimate.canalRequired} Canal</span>
+                      </div>` : ''}
                     </div>
                   </div>
                 </div>

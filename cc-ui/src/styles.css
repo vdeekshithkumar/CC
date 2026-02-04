@@ -76,21 +76,31 @@
 
 /* Hide default close button or style it */
 button.gm-ui-hover-effect {
-  background: var(--cc-bg-card) !important;
+  background: transparent !important;
+  /* Transparent to blend with header */
   border-radius: 50% !important;
-  top: 0px !important;
-  right: 0px !important;
-  opacity: 1 !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 24px !important;
-  height: 24px !important;
+  top: 4px !important;
+  /* Adjusted position */
+  right: 4px !important;
+  opacity: 0.7 !important;
+  box-shadow: none !important;
+  /* Remove "popped out" shadow */
+  width: 30px !important;
+  height: 30px !important;
   z-index: 1000 !important;
+  transition: opacity 0.2s ease;
+}
+
+button.gm-ui-hover-effect:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  /* Subtle hover state */
 }
 
 button.gm-ui-hover-effect img {
   width: 14px !important;
   height: 14px !important;
-  margin: 5px !important;
+  margin: 8px !important;
 }
 
 /* Global Popover Card for Google Maps */
