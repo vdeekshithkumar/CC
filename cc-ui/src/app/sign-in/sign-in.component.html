@@ -1,105 +1,62 @@
+<!-- Removing the redundant modal div as it currently serves no purpose in sign-in -->
 
-<div class="div" *ngIf="showModal">
-  <div class="div-card mt-40">
-    <div class="div-bg">
-    </div>
-    <div class="div-size">
-      <div class="div-details">
-        <p>Are you sure you want to add this inventory details ?</p>
-       <!-- <mat-progress-spinner color="blue"></mat-progress-spinner> -->
+<div class="signin-container">
+  <div class="signin-card">
+    <div class="signin-header">
+      <div class="logo-wrapper">
+        <img src="assets/images/Icon.png" alt="CFlow Stream Logo" class="brand-logo">
       </div>
+      <h1 class="welcome-text">Welcome Back</h1>
+      <p class="subtitle">Please enter your details to sign in</p>
     </div>
+
+    <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="onLoginSubmit()" class="signin-form">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope input-icon"></i>
+          <input formControlName="email" class="signin-input" type="email" id="email" placeholder="Enter your email"
+            autocomplete="email">
+        </div>
+        <div *ngIf="showValidationErrors && loginForm.get('email')?.invalid" class="error-text">
+          Please enter a valid email address
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input formControlName="password" class="signin-input" [type]="showPassword ? 'text' : 'password'"
+            id="password" placeholder="••••••••" autocomplete="current-password">
+          <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+          </button>
+        </div>
+        <div
+          *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+          class="error-text">
+          <span *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <label class="remember-me">
+          <input type="checkbox" id="agreeCheckbox" class="custom-checkbox" />
+          <span>Remember me</span>
+        </label>
+        <a routerLink="/forgot-password" class="forgot-password-link">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="signin-button" [disabled]="loginForm.invalid">
+        <span>Sign In</span>
+      </button>
+
+      <div class="signup-prompt">
+        Don't have an account yet?
+        <a routerLink="/register" class="signup-link">Sign Up</a>
+      </div>
+    </form>
   </div>
 </div>
-
-<div class="w-full ml-96" style="margin-top: 10px;">
-
-  <!-- Header -->
-        <div class="mb-4 w-full">
-          <span class="heading">
-            <!-- company's svg -->
-           Enter your login details
-          </span>
-
-        </div>
-              <!-- Just for testing purposes change ng submit-->
-              <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="onLoginSubmit()" class="form">
-                <label for="email" class="label email">Email</label>
-                <input formControlName="email" autocomplete="hidden" class="page-input signin-page-input"
-                  type="email"
-                  id="email"
-                  name="email"
-                  style="margin-top: 6px;height: 38px;">
-              
-              
-                  <div
-                      *ngIf="showValidationErrors && loginForm.get('email')?.invalid"
-                      class="text-red-500 text-sm mt-1"
-                    >
-                    
-                  </div>
-            
-                
-                  <div class="mt-4">
-                    <label for="password" class="label">Password</label>
-                    <div class="password-container">
-                      <input
-                        formControlName="password" autocomplete="off"
-                        class="register-page-data page-input"
-                        type="{{ showPassword ? 'text' : 'password' }}"
-                        id="password"
-                        style="margin-top: 6px;padding: 10px 14px;height: 38px;"
-                        required
-                        minlength="8"
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
-                      />
-                      
-                      <i style="color: #262626; width: 14px;
-                      height: 8px;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
-                
-                 
-                    </div>
-                <div>
-                  <div *ngIf="loginForm.get('password')?.errors && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-red-500 text-sm mt-1">
-                    
-                    <div *ngIf="loginForm.get('password')?.errors?.['minlength']"></div>
-                  </div>
-                </div>
-                 
-                <div class="checkbox-container mt-4 mb-2 term  flex flex-row" style="white-space: nowrap; display: flex;">
-                  <input type="checkbox" id="agreeCheckbox" class="custom-checkbox"/>
-                  <div class="rowbtn" style="display: flex;">
-                    <div class="ml-2 ">
-                      <label for="agreeCheckbox" class="remme" >
-                        Remember me 
-                       </label>
-                    </div>
-                  
-                     <a class="signin-fp"routerLink="/forgot-password">Forgot Password</a>
-                  </div>
-                 
-                </div>
-                </div>
-                <div class="center-position"  style="margin-top: 56px;"> 
-
-              
-                  <button
-                   type="submit" class="btn-primary btn1 sign-in" >
-                    <div>
-                      Sign In 
-                    </div>
-            
-                  </button>
-                </div>
-
-                  <label class="center-position text-new  blw-btn-text">
-                    Don't have an account yet? 
-                    <a href="/register" style="color: #2F54EB;" class="underline px-1">Sign Up</a> 
-                 
-                  </label>
-              </form>          
-   
-                 
-            </div>
-        
-    
