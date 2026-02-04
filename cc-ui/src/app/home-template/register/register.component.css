@@ -215,6 +215,35 @@
   }
 }
 
+/* Dark Mode Overrides */
+.dark-theme :host {
+  background: linear-gradient(135deg, #020617 0%, #0f172a 100%);
+}
+
+.dark-theme .signin-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .welcome-text {
+  color: #f8fafc;
+}
+
+.dark-theme .form-group label {
+  color: #94a3b8;
+}
+
+.dark-theme .signin-input {
+  background: #0f172a;
+  border-color: #334155;
+  color: #f8fafc;
+}
+
+.dark-theme .terms-text,
+.dark-theme .signup-prompt {
+  color: #94a3b8;
+}
+
 @media (max-width: 480px) {
   .form-grid {
     grid-template-columns: 1fr;

@@ -7,6 +7,7 @@ import { ProfileService } from '../profile/profile.service';
 import { MyAdService } from '../my-advertisement/my-ad.service';
 import { NegotiationsService } from '../negotiations/negotiations.service';
 import { DashboardServiceService } from './dashboard.service';
+import { ThemeService } from '../theme.service';
 
 @Injectable({
   providedIn: 'root'
@@ -154,7 +155,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private sessionService: SessionService,
     private profileService: ProfileService,
-    private dashboardService: DashboardServiceService
+    private dashboardService: DashboardServiceService,
+    private themeService: ThemeService
   ) { }
 
   ngOnInit(): void {
@@ -165,6 +167,27 @@ export class DashboardComponent implements OnInit {
       }
     });
     this.sessionService.getCompanyId().subscribe((id: number) => this.company_id = id);
+
+    // Subscribe to theme changes to update chart colors
+    this.themeService.isDarkTheme$.subscribe(isDark => {
+      this.updateChartTheme(isDark);
+    });
+  }
+
+  updateChartTheme(isDark: boolean) {
+    const textColor = isDark ? '#9CA3AF' : '#374151';
+
+    // Update Line/Bar Chart Options
+    this.lineChartOptions = {
+      ...this.lineChartOptions,
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 14, weight: '500' }, color: textColor }
+        },
+        y: { display: false, max: 2 }
+      }
+    };
   }
 
   getGreeting(): string {

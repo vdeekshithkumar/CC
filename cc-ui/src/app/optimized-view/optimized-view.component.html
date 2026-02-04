@@ -1,170 +1,108 @@
-<div class="flex flex-col first:flex-row div-bg div-bg-line mt-16 w-full">
-  <label class="forecast font-semibold text-dark mt-3 ml-2" >Optimized View</label> 
-  <div class="-ml-32 h-16 w-full mt-16">
-
-    <form>
-      <div class="flex flex-row">
-        <div class="-mt-3">
-          <label class="top mb-2 ml-0 font-normal">Port</label>
-       <div>
-  <select #port class="ml-0 top-selct1 div-bg" (change)="onPortSelected(port.value)">
-    <option selected >Select Port</option>
-    <option *ngFor="let port of port_list" [value]="port.port_name">{{ port.port_name }}</option>
-  </select>
+<!-- Loading State -->
+<div *ngIf="loading" class="loading-container">
+  <div class="loading-bar"></div>
 </div>
 
-        </div>
-        <!-- <div class="-mt-3">
-          <label class="top mb-2 ml-2 font-normal">Sub Region</label>
-          <div>
-            <select class="top-selct2 font-normal  text-sm ml-2 div-bg">
-              <option>IDS</option>
-              <option>IND</option>
-              <option>UK</option>
-            </select>
-          </div>
-        </div> -->
+<!-- Header & Controls -->
+<div class="glass-header">
+  <h1 class="page-title">Optimized View</h1>
 
-        <!-- <div class="-mt-3">
-          <label class=" mb-2 ml-2 top font-normal">Area</label>
-          <div>
-            <select class="ml-2 top-selct2 div-bg">
-              <option>NGAE</option>
-              <option>NGAE</option>
-              <option>NGAE</option>
-            </select>
-          </div>
-        </div> -->
-        <!-- <div class=" -mt-3">
-          <label class="top mb-2 ml-2 font-normal">Year and Week</label>
-          <div>
-            <input class="ml-2 top-selct2 div-bg" type="date">
-          </div>
-        </div> -->
-        <!-- <div class=" flex-wrap -mt-3">
-          <label class="top mb-2 ml-2 font-normal">Week of Stock</label>
-          <div>
-            <select class="top-selct2 ml-2 div-bg">
-              <option>1 week</option>
-              <option>2 week</option>
-              <option>3 week</option>
-            </select>
-          </div>
-        </div> -->
+  <div class="controls-area">
+    <!-- Port Selector -->
+    <div class="filter-group">
+      <label class="filter-label">Port</label>
+      <select #portSelect class="modern-select" (change)="onPortSelected(portSelect.value)">
+        <option selected>Select Port</option>
+        <option *ngFor="let port of port_list" [value]="port.port_name">{{ port.port_name }}</option>
+      </select>
+    </div>
 
-        <!-- <div class=" flex-wrap -mt-3">
-          <label class="top mb-0 ml-2 font-normal">Equipment Type</label>
-          <div>
-            <select class="top-selct2 ml-2 div-bg">
-              <option>40 HC</option>
-              <option>45 HC</option>
-            </select>
-          </div>
-        </div> -->
-        <div class="ml-[800px] -mt-10 w-[7em] h-[2em] div-box-bg flex-wrap ">
-          <div>
-            <button routerLink="/carrier-service"
-              class="inline-flex justify-center items-center btn-primary3 space-x-2 border font-semibold focus:outline-none w-36 py-2 px-2 pr-2 leading-6 font-poppins">Carrier
-              Services</button>
-          </div>
-        </div>
+    <!-- Actions -->
+    <button routerLink="/carrier-service" class="btn-secondary">
+      Carrier Services
+    </button>
 
-        <div class="mx-4 ml-12 -mt-10 w-[10em] h-[0.5em] bg-gray flex-wrap">
-          <div>
-            <button (click)="onExportClick()"
-              class="ml-2 inline-flex justify-center items-center btn-primary2 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z" fill="#2F54EB"/>
-                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB"/>
-                </svg>
-              <span class="ml-1">Export data</span>
-            </button>
-          </div>
-        </div>
-        <div class="-mt-10 w-[8em] h-[2em] bg-red flex-wrap ml-2">
-          <div>
-            <button
-              class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">Sync
-              data</button>
-          </div>
-        </div>
+    <button (click)="onExportClick()" class="btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="text-blue-600">
+        <path
+          d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
+          fill="currentColor" />
+        <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="currentColor" />
+      </svg>
+      Export Data
+    </button>
+
+    <button class="btn-primary">
+      Sync Data
+    </button>
+  </div>
+</div>
+
+<div class="content-area">
+  <ng-container *ngIf="!loading">
+    <!-- Partial Surplus Message -->
+    <div class="status-card" *ngIf="partialSurplusMessage" role="alert">
+      <p class="status-message">{{ partialSurplusMessage }}</p>
+      <div class="status-actions">
+        <button class="btn-primary" routerLink="/view-other-ads" (click)="searchAds()">Search Ads</button>
       </div>
-    </form>
+    </div>
 
-  </div>
-  
-</div>
-<br/>
-<!-- Loading indicator when data is loading -->
-<div *ngIf="loading" class="loading-bar">
-  <div class="loading-bar-inner"></div>
-</div>
-
-<ng-container *ngIf="!loading">
-  <!-- Display partial surplus message if applicable -->
-  <div class="textstyles" *ngIf="partialSurplusMessage" role="alert">
-    {{ partialSurplusMessage }}
-    <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search ad</button>
-  </div>
-
-  <!-- Display service names if available and no partial surplus message -->
-  <div *ngIf="groupeData && !partialSurplusMessage">
-    <div *ngFor="let serviceId of getFinalServiceDataKeys()">
-      <div *ngIf="groupeData[serviceId] && groupeData[serviceId].portSequences">
-        <div *ngIf="groupeData[serviceId].portSequences.length > 0">
-          You can use this Service: {{ groupeData[serviceId].serviceName }}
+    <!-- Available Services (Group Data) -->
+    <div *ngIf="groupeData && !partialSurplusMessage">
+      <div *ngFor="let serviceId of getFinalServiceDataKeys()">
+        <div *ngIf="(groupeData[serviceId]?.portSequences?.length || 0) > 0" class="service-info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="mr-2" stroke="currentColor"
+            stroke-width="2">
+            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Available Service: {{ groupeData[serviceId]?.serviceName }}
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Display "No service" message if no services and no partial surplus -->
-  <div
-    class="textstyles"
-    *ngIf="showNoDeficitAvailableMessage && receiveddeficitcontainerType && receiveddeficitcontainerSize && !partialSurplusMessage"
-  >
-    No service Available. Search an Ad for this.
-    <button class="btnstyle" routerLink="/view-other-ads" (click)="searchAds()">Search ad</button>
-  </div>
-</ng-container>
-
-
-
-<ng-container >
-<!-- If finalServiceData has data, display service_name -->
-<div *ngIf="groupedsurplus">
-  <div *ngFor="let serviceId of getFinalSurplusDataKeys()">
-    <div *ngIf="groupedsurplus[serviceId] && groupedsurplus[serviceId].portSequences">
-      <div *ngIf="groupedsurplus[serviceId].portSequences.length > 0">
-        You can use this Service : {{ groupedsurplus[serviceId].serviceName }}
+    <!-- No Service Available (Deficit) -->
+    <div class="status-card"
+      *ngIf="showNoDeficitAvailableMessage && receiveddeficitcontainerType && receiveddeficitcontainerSize && !partialSurplusMessage">
+      <p class="status-message">No service available for this route.</p>
+      <div class="status-actions">
+        <button class="btn-primary" routerLink="/view-other-ads" (click)="searchAds()">Search Ads</button>
       </div>
     </div>
+  </ng-container>
+
+  <!-- Surplus Group Data -->
+  <ng-container *ngIf="groupedsurplus">
+    <div *ngFor="let serviceId of getFinalSurplusDataKeys()">
+      <div *ngIf="(groupedsurplus[serviceId]?.portSequences?.length || 0) > 0" class="service-info">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="mr-2" stroke="currentColor" stroke-width="2">
+          <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        Available Service: {{ groupedsurplus[serviceId]?.serviceName }}
+      </div>
+    </div>
+  </ng-container>
+
+  <!-- No Service Available (Surplus) -->
+  <div class="status-card"
+    *ngIf="showNoServiceAvailableMessage && receivedsurpluscontainerType && receivedsurpluscontainerSize">
+    <p class="status-message">No service available.</p>
   </div>
-</div>
 
-<div class="textstyles" *ngIf="showNoServiceAvailableMessage && receivedsurpluscontainerType && receivedsurpluscontainerSize">
-  No service Available.
- 
-</div>
-
-</ng-container>
-<div *ngIf="!portseq_no && !loading">
-  <div>
-    <p>Port not Available in any Service</p>
+  <!-- Port Not Available -->
+  <div class="status-card" *ngIf="!portseq_no && !loading">
+    <p class="status-message">Port not available in any service route.</p>
   </div>
-</div>
 
+  <!-- Map Container -->
+  <div class="map-container">
+    <div #mapElement style="height: 100%; width: 100%;"></div>
+  </div>
 
-<button (click)="goback()" class="blue-button">Go back</button>
-
-
-
-
-
-
-
-<br/>
-
-<div class="relative">
-  <div #mapElement style="height: 563px; position: relative;"></div>
+  <!-- Back Button -->
+  <div class="back-button-container">
+    <button (click)="goback()" class="btn-back">
+      ← Go Back
+    </button>
+  </div>
 </div>

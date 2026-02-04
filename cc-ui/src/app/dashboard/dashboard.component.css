@@ -1,3 +1,8 @@
+.dashboard-main-content {
+  background: var(--cc-bg-main);
+  min-height: 100%;
+}
+
 .welcome-header {
   margin-bottom: 32px;
 }
@@ -5,8 +10,18 @@
 .welcome-header h1 {
   font-size: 30px;
   font-weight: 600;
-  color: #111827;
+  color: var(--cc-text-main);
   margin: 0;
+}
+
+.text-main-welcome {
+  color: var(--cc-text-main);
+}
+
+.text-muted-welcome {
+  color: var(--cc-text-muted);
+  margin-top: 8px;
+  font-weight: 500;
 }
 
 .dashboard-grid {
@@ -28,12 +43,12 @@
 }
 
 .card-modern {
-  background: #FFFFFF;
-  border: 1px solid #F3F4F6;
+  background: var(--cc-bg-card);
+  border: 1px solid var(--cc-border);
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  transition: box-shadow 200ms ease;
+  transition: all 300ms ease;
   display: flex;
   flex-direction: column;
 }
@@ -64,7 +79,7 @@
 .card-title {
   font-size: 18px;
   font-weight: 600;
-  color: #111827;
+  color: var(--cc-text-main);
 }
 
 .see-more {
@@ -106,13 +121,13 @@
   font-size: 32px;
   font-weight: 800;
   line-height: 1;
-  color: #111827;
+  color: var(--cc-text-main);
 }
 
 .donut-center-label {
   font-size: 10px;
   font-weight: 600;
-  color: #6B7280;
+  color: var(--cc-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-top: 2px;
@@ -142,13 +157,13 @@
   width: 80px;
   font-size: 14px;
   font-weight: 500;
-  color: #6B7280;
+  color: var(--cc-text-muted);
 }
 
 .bar-background {
   flex-grow: 1;
   height: 48px;
-  background: #F3F4F6;
+  background: var(--cc-gray-100);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
@@ -187,7 +202,7 @@
 
 .scale-tick {
   font-size: 12px;
-  color: #9CA3AF;
+  color: var(--cc-text-muted);
 }
 
 /* Refined Advertisement Card */
@@ -252,7 +267,7 @@
 .net-balance-row {
   margin-top: 24px;
   padding-top: 16px;
-  border-top: 1px solid #F3F4F6;
+  border-top: 1px solid var(--cc-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -260,12 +275,12 @@
 
 .net-balance-label {
   font-size: 14px;
-  color: #6B7280;
+  color: var(--cc-text-muted);
   font-weight: 500;
 }
 
 .net-balance-value {
   font-size: 20px;
   font-weight: 700;
-  color: #111827;
+  color: var(--cc-text-main);
 }

@@ -6,8 +6,8 @@
 .sidebar-d {
   display: block;
   height: 100vh;
-  border-right: 1px solid #E5E7EB;
-  background-color: white;
+  border-right: 1px solid var(--cc-border);
+  background-color: var(--cc-bg-card);
   width: 100px;
   transition: all 0.3s ease;
 }
@@ -31,17 +31,17 @@
   border-radius: 0.75rem;
   cursor: pointer;
   transition: all 0.2s;
-  color: #6B7280;
+  color: var(--cc-text-muted);
   text-decoration: none;
 }
 
 .sidebar-a:hover {
-  background-color: #EFF6FF;
+  background-color: rgba(37, 99, 235, 0.1);
   color: #2563EB;
 }
 
 .sidebar-a.active-link {
-  background-color: #EFF6FF;
+  background-color: rgba(37, 99, 235, 0.1);
   color: #2563EB;
   font-weight: 500;
   position: relative;
@@ -79,8 +79,8 @@
   position: absolute;
   left: 90px;
   z-index: 50;
-  background: white;
-  border: 1px solid #F3F4F6;
+  background: var(--cc-bg-card);
+  border: 1px solid var(--cc-border);
   border-radius: 8px;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   padding: 8px;
@@ -93,7 +93,7 @@
   text-align: left;
   padding: 8px 12px;
   font-size: 13px;
-  color: #374151;
+  color: var(--cc-text-main);
   background: none;
   border: none;
   border-radius: 6px;
@@ -103,14 +103,14 @@
 }
 
 .dropdown-toggle:hover {
-  background-color: #F9FAFB;
+  background-color: rgba(37, 99, 235, 0.1);
   color: #2563EB;
 }
 
 .dropdown-menu {
   margin-top: 4px;
   padding: 4px;
-  background-color: #F9FAFB;
+  background-color: var(--cc-bg-main);
   border-radius: 6px;
 }
 
@@ -118,12 +118,12 @@
   display: block;
   padding: 6px 12px;
   font-size: 12px;
-  color: #4B5563;
+  color: var(--cc-text-muted);
   text-decoration: none;
   border-radius: 4px;
 }
 
 .dropdown-menu a:hover {
-  background-color: #EFF2F5;
+  background-color: rgba(37, 99, 235, 0.1);
   color: #2563EB;
 }

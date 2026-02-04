@@ -240,21 +240,8 @@ export class ServiceRouteComponent implements OnInit {
       });
     });
 
-    this.carrierservice.getCarrierServicesbyCId(this.companyId).subscribe(
-      (data: any[]) => {
-        for (let i = 0; i < data.length; i++) {
-          const service = data[i];
-          console.log("Carrier service", service);
-          this.company_id = service.company_id;
-          this.service_name = service.service_name;
-          this.service_id = service.service_id;
-          this.services = data;
-        }
-      },
-      error => {
-        console.warn("oninit error", error);
-      }
-    );
+    // Removed conflicting getCarrierServicesbyCId call that was overwriting specific route details
+    // causing port rotation to sometimes disappear.
   }
 
   addMarker(service: any): void {

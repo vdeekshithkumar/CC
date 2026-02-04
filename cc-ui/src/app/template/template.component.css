@@ -22,9 +22,10 @@
 .left-section {
   width: 100px;
   flex-shrink: 0;
-  background-color: #F9FAFB;
-  border-right: 1px solid #E5E7EB;
+  background-color: var(--cc-bg-main);
+  border-right: 1px solid var(--cc-border);
   z-index: 1001;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .right-section {

@@ -5,6 +5,7 @@ import { SessionService } from 'src/app/session.service';
 import { EditUserDetailsComponent } from './edit-user-details/edit-user-details.component';
 import { MessagingService } from 'src/app/messaging/messaging.service';
 import { ProfileService } from 'src/app/profile/profile.service';
+import { ThemeService } from 'src/app/theme.service';
 
 @Component({
   selector: 'app-header',
@@ -25,7 +26,8 @@ export class HeaderComponent implements OnInit {
     private sessionService: SessionService,
     public dialog: MatDialog,
     private messageService: MessagingService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    public themeService: ThemeService
   ) { }
 
   ngOnInit(): void {
@@ -72,5 +74,9 @@ export class HeaderComponent implements OnInit {
 
   onBellIconClick() {
     this.isCardVisible = !this.isCardVisible;
+  }
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
   }
 }

@@ -686,7 +686,8 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+    const distanceKm = R * c;
+    return distanceKm * 0.539957; // Convert to Nautical Miles (NM)
   }
   afterinitmap() {
     console.log("to inside initmap check", this.latlong);
@@ -765,10 +766,29 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
             }
           });
 
-          // Add click listener to show port name
+          // Add click listener to show port name with modern design
           marker.addListener('click', () => {
             new google.maps.InfoWindow({
-              content: `<div style="font-size: 14px; padding: 5px;">${port.port_name} (Priority ${index + 1})</div>`
+              content: `
+                <div class="popover-card">
+                  <div class="popover-header">
+                    <span class="popover-title">${port.port_name}</span>
+                    <span class="popover-status">Priority ${index + 1}</span>
+                  </div>
+                  <div class="popover-body">
+                    <div class="data-grid">
+                      <div class="data-item">
+                         <span class="data-label">Direct Distance</span>
+                         <span class="data-value">${Math.round(item.distance).toLocaleString()} NM</span>
+                      </div>
+                      <div class="data-item">
+                         <span class="data-label">Coordinates</span>
+                         <span class="data-value">${port.latitude.toFixed(2)}, ${port.longitude.toFixed(2)}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `
             }).open(this.map, marker);
           });
 

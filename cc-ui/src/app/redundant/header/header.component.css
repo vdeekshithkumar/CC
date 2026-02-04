@@ -3,7 +3,9 @@
 @tailwind utilities;
 
 .header-box {
-  @apply bg-[#002f5d] text-white sticky top-0 z-50 font-poppins px-6 py-3 shadow-md;
+  background: var(--cc-header-bg);
+  @apply text-white sticky top-0 z-50 font-poppins px-6 py-3 shadow-md;
+  transition: background-color 0.3s ease;
 }
 
 .header-box-div {
@@ -43,11 +45,15 @@
 }
 
 .profile-menu {
-  @apply absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 text-gray-800 z-[100];
+  background: var(--cc-bg-card);
+  @apply absolute top-full right-0 mt-2 w-48 rounded-xl shadow-xl border border-gray-100 py-2 text-gray-800 z-[100];
+  border-color: var(--cc-border);
+  color: var(--cc-text-main);
 }
 
 .menu-item {
-  @apply w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 transition-all no-underline text-gray-700 bg-transparent border-none cursor-pointer;
+  @apply w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 transition-all no-underline bg-transparent border-none cursor-pointer;
+  color: var(--cc-text-main);
 }
 
 .menu-item-destructive {

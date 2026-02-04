@@ -1,44 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-.disabled-button {
-    cursor: not-allowed;
-  }
-  /* Flex container for two sets of elements */
-.flex-container {
+:host {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+}
+
+.popover-card {
+  width: 480px;
+  background: var(--cc-bg-card);
+  color: var(--cc-text-main);
+  padding: 24px;
+}
+
+.popover-header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--cc-text-main);
+  letter-spacing: -0.5px;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  position: relative;
+}
+
+.data-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-divider {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--cc-border);
+  transform: translateX(-50%);
+}
+
+.info-row {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start; 
-  
-}
-/* Define the disabled button style */
-.disabled-button {
-  background-color: gray; /* Change to your desired gray color */
-  color: white; /* Text color for the disabled state */
-  cursor: not-allowed; /* Change the cursor to not-allowed */
+  align-items: center;
+  font-size: 13px;
 }
 
-.custom-select {
-  margin-left: -20px;
-}
-.custom-select-deficit{
-  margin-left: -76px;
-}
-/* Individual flex items (each set of elements) */
-.flex-item {
-  flex: 1;
+.label {
+  color: var(--cc-text-muted);
+  font-weight: 500;
 }
 
-/* Vertical line separator */
-.vertical-line {
-  width: 5px;
-  background-color: #ccc; /* Adjust the color as needed */
-  margin: 0 10px; /* Adjust the margin as needed */
-  height: 100%; /* Stretch the line to match the height of the container */
+.value {
+  font-weight: 600;
+  color: var(--cc-text-main);
+  text-align: right;
 }
-/* Centered buttons */
-.centered-buttons {
-  text-align: center;
+
+.value.surplus-highlight {
+  color: #10B981;
+  /* Green */
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
-.header {
-  font-size: 25px;
-  font-weight: bold;
+
+.value.deficit-highlight {
+  color: #EF4444;
+  /* Red */
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.modern-select {
+  appearance: none;
+  background: var(--cc-input-bg);
+  border: 1px solid var(--cc-border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--cc-text-main);
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+  text-align: right;
+}
+
+.modern-select:hover {
+  border-color: var(--cc-primary);
+}
+
+.modern-select:focus {
+  border-color: var(--cc-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
+
+.action-buttons {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--cc-border);
+  color: var(--cc-text-main);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-ghost:hover {
+  background: var(--cc-bg-main);
+  border-color: var(--cc-text-muted);
+}
+
+.btn-primary {
+  background: var(--cc-primary);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.btn-primary.disabled {
+  background: var(--cc-text-muted);
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }

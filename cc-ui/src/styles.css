@@ -38,6 +38,136 @@
   /* Shadows */
   --cc-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   --cc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Theme semantic colors */
+  --cc-bg-main: var(--cc-gray-50);
+  --cc-bg-card: var(--cc-white);
+  --cc-text-main: var(--cc-gray-900);
+  --cc-text-muted: var(--cc-gray-500);
+  --cc-border: var(--cc-gray-100);
+  --cc-header-bg: #1e3a8a;
+  --cc-input-bg: var(--cc-white);
+  --cc-primary: #2563EB;
+}
+
+/* Global Google Maps InfoWindow Override */
+.gm-style-iw {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.gm-style-iw-d {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.gm-style-iw-c {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.gm-style-iw-t::after {
+  display: none !important;
+}
+
+/* Hide default close button or style it */
+button.gm-ui-hover-effect {
+  background: var(--cc-bg-card) !important;
+  border-radius: 50% !important;
+  top: 0px !important;
+  right: 0px !important;
+  opacity: 1 !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 24px !important;
+  height: 24px !important;
+  z-index: 1000 !important;
+}
+
+button.gm-ui-hover-effect img {
+  width: 14px !important;
+  height: 14px !important;
+  margin: 5px !important;
+}
+
+/* Global Popover Card for Google Maps */
+.popover-card {
+  background: var(--cc-bg-card);
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  min-width: 280px;
+  max-width: 320px;
+  border: 1px solid var(--cc-border);
+  font-family: 'Inter', sans-serif;
+}
+
+.popover-header {
+  background: var(--cc-bg-main);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cc-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popover-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--cc-text-main);
+}
+
+.popover-status {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  background: var(--cc-blue-100);
+  color: var(--cc-blue-600);
+  border-radius: 12px;
+}
+
+.popover-body {
+  padding: 16px;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.data-label {
+  color: var(--cc-text-muted);
+}
+
+.data-value {
+  color: var(--cc-text-main);
+  font-weight: 500;
+}
+
+.dark-theme {
+  --cc-bg-main: #0f172a;
+  --cc-bg-card: #1e293b;
+  --cc-text-main: #f8fafc;
+  --cc-text-muted: #94a3b8;
+  --cc-border: #334155;
+  --cc-header-bg: #020617;
+  --cc-input-bg: #0f172a;
+
+  --cc-gray-50: #0f172a;
+  --cc-gray-100: #1e293b;
+  --cc-gray-800: #f8fafc;
+  --cc-gray-900: #f8fafc;
 }
 
 @layer utilities {
@@ -58,7 +188,9 @@ body {
   height: 100%;
   overflow: hidden;
   /* Prevent body scrolling */
-  background-color: var(--cc-gray-50);
+  background-color: var(--cc-bg-main);
+  color: var(--cc-text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
@@ -70,12 +202,12 @@ body {
 }
 
 .dashboard-card {
-  background: var(--cc-white);
+  background: var(--cc-bg-card);
   border-radius: 12px;
   box-shadow: var(--cc-shadow-sm);
-  border: 1px solid var(--cc-gray-100);
+  border: 1px solid var(--cc-border);
   padding: var(--sp-6);
-  transition: box-shadow 200ms ease;
+  transition: all 0.3s ease;
 }
 
 
