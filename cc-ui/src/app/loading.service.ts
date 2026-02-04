@@ -33,13 +33,11 @@ export class LoadingService {
             this.loadingTimer = setTimeout(() => {
                 this.loadingSubject.next(true);
 
-                // Specific requirement for /my-ad route: force hide after 500ms
-                if (this.currentUrl.includes('/my-ad')) {
-                    if (this.autoHideTimer) clearTimeout(this.autoHideTimer);
-                    this.autoHideTimer = setTimeout(() => {
-                        this.hide();
-                    }, 500);
-                }
+                // Global auto-hide after 500ms to keep the app feeling snappy
+                if (this.autoHideTimer) clearTimeout(this.autoHideTimer);
+                this.autoHideTimer = setTimeout(() => {
+                    this.hide();
+                }, 500);
             }, 250);
         }
     }
