@@ -1,164 +1,271 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer utilities {
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
-  }
-}
- .div{
-  @apply flex flex-row bg-black
- }
- .div-card{
-  @apply w-full flex flex-col first:flex-row
- }
- .bg-div{
-    background-color: #FAFAFA;
- }
- .div-card-div{
-  @apply text-2xl font-bold font-poppins mt-6 mb-4 p-3 w-full 
- }
- .highlight-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
-  
-  background-color: #fff; /* Set a background color (here it's white, but you can change it) */
-  transition: box-shadow 0.3s ease, border 0.3s ease; /* Add a transition effect for smooth animation */
+.welcome-header {
+  margin-bottom: 32px;
 }
 
-.highlight-card:hover {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adjust the shadow effect when hovering over the card */
-   /* Adjust the border color on hover (here it's orange) */
+.welcome-header h1 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
 }
 
- .h1-div{
-    color: var(--gray-gray-8, #595959);
-font-family: Poppins;
-letter-spacing: 0.64px;
- }
- .div-frame{
-    color: var(--neutral-9, #434343);
-    font-weight: 500;
-    font-family: Poppins;
-    line-height: 22px;
-    letter-spacing: 0.7px;
- }
- .div-card-card{
-  @apply flex-1 text-sm p-2 rounded-sm m-3 h-[170px]  overflow-y-auto bg-white
- }
- .upcoming-bookings {
-    border-radius: 6px;
-    background: var(--color-fill-secondary, rgba(0, 0, 0, 0.06)); /* Set your desired background color */
-    padding: 10px;
-    margin-bottom: 10px;
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 
-  }
-  .my-custom-class {
-    width: 80%;
-  }
- 
-  .chart-container {
-    width: 100%; 
-    height: 200px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-family: Poppins;
-    color: var(--neutral-9, #434343);
-  }
-  .chart-container-neg{
-    margin-top:150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-size:10px;
-    font-family: Poppins;
-    color: var(--neutral-9, #434343);
-  }
-  .curved-labels {
-    position: absolute;
-    left: 500;
-    width:340px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    pointer-events: none; 
-    margin-top:0px;
-  }
-  
-  .label {
-    position: absolute;
-    font-family: 'Poppins', sans-serif;
-    font-weight: bold;
-    color: #000;
-    text-align: center;
-  }
-  .chart-container-pie {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-family: Poppins;
-    color: var(--neutral-9, #434343);
-  }
-  
-  .horizontal-bar{
-    height: 600px; 
-    width: 350px;
-     overflow: hidden;
-     margin-top:50px;
-     font-family:Poppins;
-  }
-  .text{
-    color:black;
-    font-family: Poppins;
-    font-size: 10px;
-  }
-  .main{
-    margin-top:16px;
-  }
+.row-top {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
 
-  
-  .div-card-card {
-    width: 80%;
-    height:300px;
-  }
- .div-card-card1{
-    @apply flex-1 m-3 h-10  bg-white pl-4 pt-2 pb-2
-   }
- .div-div-card{
-  @apply flex-1 shadow-lg text-sm p-2 rounded-sm m-3 h-[250px] 
- }
+.row-bottom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
 
-.flex-container {
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #FAFAFA;
-  }
-  .head{
-    color: var(--gray-gray-8, #595959);
-font-size: 14px;
-font-family: Poppins;
-font-weight: 600;
-line-height: 20px;
-border-bottom: 2px solid var(--gray-gray-3, #F5F5F5);
-  }
-  .foot{
-   
-    color:#2F54EB;
-    font-family: Poppins;
-    
-    line-height: 20px;
-    border-top: 2px solid var(--gray-gray-3, #F5F5F5);
-      }
-  chart-container-line{
-    width: 100%; 
-    height: 250px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    font-family: Poppins;
-    color: var(--neutral-9, #434343);
-  }
+.card-modern {
+  background: #FFFFFF;
+  border: 1px solid #F3F4F6;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: box-shadow 200ms ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-modern:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-vibrant-blue {
+  background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+}
+
+.card-vibrant-blue .card-title,
+.card-vibrant-blue .see-more {
+  color: white;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.see-more {
+  font-size: 14px;
+  color: #2563EB;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 200ms ease;
+}
+
+.see-more:hover {
+  color: #1D4ED8;
+}
+
+.chart-container {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+}
+
+.donut-box {
+  width: 240px;
+  height: 240px;
+  position: relative;
+}
+
+.donut-center-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  pointer-events: none;
+}
+
+.donut-center-value {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  color: #111827;
+}
+
+.donut-center-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #6B7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+
+.bar-chart-container {
+  height: 256px;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.surplus-deficit-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bar-label {
+  width: 80px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B7280;
+}
+
+.bar-background {
+  flex-grow: 1;
+  height: 48px;
+  background: #F3F4F6;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  border-radius: 8px;
+  transition: width 1s ease-out;
+}
+
+.fill-surplus {
+  background: linear-gradient(90deg, #3B82F6 0%, #60A5FA 100%);
+}
+
+.fill-deficit {
+  background: linear-gradient(90deg, #60A5FA 0%, #93C5FD 100%);
+}
+
+.value-text {
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.scale-container {
+  margin-left: 92px;
+  display: flex;
+  justify-content: space-between;
+  padding-right: 4px;
+}
+
+.scale-tick {
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+/* Refined Advertisement Card */
+.ad-item-row {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.ad-label {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.ad-value {
+  font-size: 28px;
+  font-weight: 800;
+}
+
+/* Refined Negotiation Stats */
+.neg-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.neg-stat-card {
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+
+.bg-teal-light {
+  background: #F0FDF4;
+  color: #059669;
+}
+
+.bg-purple-light {
+  background: #F5F3FF;
+  color: #7C3AED;
+}
+
+.neg-stat-value {
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.neg-stat-label {
+  font-size: 10px;
+  font-weight: 600;
+  opacity: 0.8;
+}
+
+.net-balance-row {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #F3F4F6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.net-balance-label {
+  font-size: 14px;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.net-balance-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}

@@ -1,145 +1,132 @@
-<div class="bg-gray-50 ">
-  <div class="div mt-16">
-  
-    <div class="div-card bg-div">
-      <div class="div-card-div h1-div">
-        Welcome, {{first_name}} {{last_name}}
-    </div>
+<div class="p-8 bg-gray-50">
+  <div class="welcome-header">
+    <h1>{{getGreeting()}}, {{first_name}}! 👋</h1>
+    <p style="color: #64748b; margin-top: 8px; font-weight: 500;">Here's your container fleet overview</p>
   </div>
-  </div>
-  
-  <div class="main">
-    <div class="flex-container ml-4">
-    <div class="div-card-card1 head highlight-card">
-      Containers
-    </div>
-    <div class="div-card-card1 head highlight-card">
-      Space
-    </div>
-    <div class="div-card-card1 head highlight-card ">
-       My Advertisements
-    </div>
-  </div>
-  <div class="flex-container ml-4 -mt-6">
-    <div class="div-card-card highlight-card" style="height:340px;">
-  
-      <!-- <div class="p-3"> -->
-        <!-- Line Chart -->
-        <div *ngIf="PieChartData && originalcontainerAds.length>0" class="chart-container-pie">
-          <canvas baseChart style=" height: 280px; overflow: hidden; "
-                  [datasets]="PieChartData.datasets"
-                  [labels]="PieChartData.labels"
-                  [options]="PieChartOptions"
-                  [type]="'pie'"
-                  >
-          </canvas>
-        <!-- </div> -->
+
+  <div class="dashboard-grid">
+    <div class="row-top">
+      <!-- CARD 1: Containers -->
+      <div class="card-modern">
+        <div class="card-header">
+          <span class="card-title">Containers</span>
+          <a routerLink="/my-ad" class="see-more">See more →</a>
+        </div>
+        <div class="chart-container">
+          <div class="donut-box">
+            <canvas baseChart [data]="PieChartData" [options]="donutOptions" [type]="'doughnut'"></canvas>
+          </div>
+        </div>
       </div>
-    </div>
-  
-    <div class="div-card-card highlight-card" style="height:340px;">
-      <div class="p-3">
-        <!-- Line Chart -->
-        <div *ngIf="lineChartData && originalspaceAds.length>0" class="chart-container-line mt-14">
-          <canvas baseChart
-                  [datasets]="lineChartData.datasets"
-                  [labels]="lineChartData.labels"
-                  [options]="lineChartOptions"
-                  [type]="'bar'"
-                  style="height: 200px; width: 350px;">
-          </canvas>
+
+      <!-- CARD 2: Space -->
+      <div class="card-modern">
+        <div class="card-header">
+          <span class="card-title">Space</span>
+          <a routerLink="/my-ad" class="see-more">See more →</a>
+        </div>
+        <div class="chart-container overflow-hidden">
+          <div class="bar-chart-container w-full px-4">
+            <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'bar'"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3: My Advertisements -->
+      <div class="card-modern card-vibrant-blue">
+        <div class="card-header">
+          <div class="flex items-center gap-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14 2H6C4.9 2 4 2.9 4 4V20C4 21.1 4.9 22 6 22H18C19.1 22 20 21.1 20 20V8L14 2ZM13 9V3.5L18.5 9H13Z" />
+            </svg>
+            <span class="card-title">My Advertisements</span>
+          </div>
+        </div>
+        <div class="flex-grow pt-4">
+          <div class="ad-item-row">
+            <span class="ad-label">Active</span>
+            <span class="ad-value">7</span>
+          </div>
+          <div class="ad-item-row" style="background: rgba(255,255,255,0.15)">
+            <span class="ad-label">Pending</span>
+            <span class="ad-value">4</span>
+          </div>
+          <div class="ad-item-row" style="background: rgba(255,255,255,0.1)">
+            <span class="ad-label">Drafts</span>
+            <span class="ad-value">1</span>
+          </div>
         </div>
       </div>
     </div>
-    <div class="div-card-card highlight-card "style="height:340px;" >
-  
-      <div class="p-3">
-        <!-- myads -->
-        <div *ngIf="adsCount.length > 0" class="chart-container mt-6" >
-          <canvas baseChart
-                  [data]="chartData" 
-                  class="curved-labels-adv -mt-50 "
-                  [labels]="chartLabels"
-                  [options]="chartOptions"
-                  [legend]="chartLegend"
-                  [type]="'doughnut'">
-          </canvas>
+
+    <div class="row-bottom">
+      <!-- CARD 4: Inventory Balance -->
+      <div class="card-modern">
+        <div class="card-header">
+          <span class="card-title">Inventory Balance</span>
+          <a routerLink="/forecast-map" class="see-more">See more →</a>
         </div>
-        
-       
-      </div>
-  
-    </div>
-  </div>
-  <div class="flex-container ml-4 -mt-6">
-    <div class="div-card-card1 foot">
-      <a routerLink="/my-ad" class="">See more ></a>
-    </div>
-    <div class="div-card-card1 foot ">
-      <a routerLink="/my-ad" class="">See more ></a>
-    </div>
-    <div class="div-card-card1 foot">
-      <a routerLink="/my-ad" class="">See more ></a>
-    </div>
-  </div>
-  
-  <div class="flex-container ml-4 ">
-    <div class="div-card-card1 head highlight-card">
-      Surplus/Deficit
-    </div>
-    <div class="div-card-card1 head ml-[100px] highlight-card ">
-      Open Negotiations
-    </div>
-    
-  </div>
-  <div class="flex-container ml-4 -mt-6">
-    <div class="div-card-card highlight-card" style="height:340px;">
-  
-      <div class="p-3">
-        <!-- Dummy bookings -->
-        <div style="margin-left: 50px;" >
-          <canvas class="horizontal-bar" id="horizontalBarChart" style="height:200px;"></canvas>
+        <div class="chart-container flex-col">
+          <div class="surplus-deficit-container">
+            <div class="bar-row">
+              <span class="bar-label">Surplus</span>
+              <div class="bar-background">
+                <div class="bar-fill fill-surplus"
+                  [style.width.%]="(surplusDeficitData.surplus / surplusDeficitData.max) * 100">
+                  <span class="value-text">{{surplusDeficitData.surplus}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="bar-row">
+              <span class="bar-label">Deficit</span>
+              <div class="bar-background">
+                <div class="bar-fill fill-deficit"
+                  [style.width.%]="(surplusDeficitData.deficit / surplusDeficitData.max) * 100">
+                  <span class="value-text">{{surplusDeficitData.deficit}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="scale-container">
+              <span class="scale-tick">0</span><span class="scale-tick">5</span>
+              <span class="scale-tick">10</span><span class="scale-tick">15</span>
+              <span class="scale-tick">20</span><span class="scale-tick">25</span>
+            </div>
+          </div>
+
+          <div class="net-balance-row w-full">
+            <span class="net-balance-label">Net Balance</span>
+            <span class="net-balance-value">{{netBalance > 0 ? '+' : ''}}{{netBalance}}</span>
+          </div>
         </div>
-        
-       
       </div>
-  
-    </div>
-  
-   
-      <!--Ads-->
-      
-  
-  
-    <div class="div-card-card highlight-card" style="height:340px;" >
-  
-      <div class="p-3 -ml-4">
-        <!-- myads -->
-        <div *ngIf="negotiationCount.length > 0" class="chart-container-neg">
-          <canvas baseChart
-                  [data]="negotiationchartData" 
-                  class="curved-labels -mt-50 "
-                  [labels]="chartLabels"
-                  [options]="chartOptions"
-                  [legend]="chartLegend"
-                  [type]="'doughnut'">
-          </canvas>
+
+      <!-- CARD 5: Open Negotiations -->
+      <div class="card-modern">
+        <div class="card-header">
+          <span class="card-title">Open Negotiations</span>
+          <a routerLink="/negotiations" class="see-more">See more →</a>
         </div>
-        
-       
+        <div class="chart-container flex-col">
+          <div class="donut-box">
+            <canvas baseChart [data]="negotiationchartData" [options]="donutOptions" [type]="'doughnut'"></canvas>
+            <div class="donut-center-content">
+              <span class="donut-center-value">{{negotiationTotal}}</span>
+              <span class="donut-center-label">Total</span>
+            </div>
+          </div>
+          <div class="neg-stats-grid">
+            <div class="neg-stat-card bg-teal-light">
+              <div class="neg-stat-value">3</div>
+              <div class="neg-stat-label">Accepted</div>
+            </div>
+            <div class="neg-stat-card bg-purple-light">
+              <div class="neg-stat-value">3</div>
+              <div class="neg-stat-label">Pending</div>
+            </div>
+          </div>
+        </div>
       </div>
-  
-    </div>
-    
-  </div>
-  <div class="flex-container ml-4 -mt-6">
-    <div class="div-card-card1 foot">
-      <a routerLink="/forecast-map" class="">See more ></a>
-    </div>
-  
-    <div class="div-card-card1 foot">
-      <a routerLink="/negotiations" class="">See more ></a>
     </div>
   </div>
-  </div>
-  </div>
+</div>

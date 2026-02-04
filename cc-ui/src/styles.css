@@ -2,45 +2,86 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-@layer utilities {
-    @variants responsive {
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-          display: none;
-      }
+:root {
+  /* Brand Colors */
+  --cc-blue-600: #2563EB;
+  --cc-blue-500: #3B82F6;
+  --cc-blue-400: #60A5FA;
+  --cc-blue-100: #E0F2FE;
+  --cc-blue-50: #F0F9FF;
 
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
-      }
+  /* Neutrals */
+  --cc-white: #FFFFFF;
+  --cc-gray-50: #F9FAFB;
+  --cc-gray-100: #F3F4F6;
+  --cc-gray-200: #E5E7EB;
+  --cc-gray-300: #D1D5DB;
+  --cc-gray-400: #9CA3AF;
+  --cc-gray-500: #6B7280;
+  --cc-gray-600: #4B5563;
+  --cc-gray-700: #374151;
+  --cc-gray-800: #1F2937;
+  --cc-gray-900: #111827;
+
+  /* Spacing (4px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+
+  /* Shadows */
+  --cc-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --cc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+@layer utilities {
+  @variants responsive {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
   }
+}
 
-  /* for removing the increase and decrease arrow in the input type number in the frontend */
-  /* @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  } */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  /* Prevent body scrolling */
+  background-color: var(--cc-gray-50);
+}
 
-/* .mat-stepper-horizontal-line{border-color: blue; position: relative;} */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--cc-gray-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-    /* .mat-step-icon-selected {
+.dashboard-card {
+  background: var(--cc-white);
+  border-radius: 12px;
+  box-shadow: var(--cc-shadow-sm);
+  border: 1px solid var(--cc-gray-100);
+  padding: var(--sp-6);
+  transition: box-shadow 200ms ease;
+}
 
-    background-color: red !important;
 
-    color: lightblue !important;
-
-} */
-
+.dashboard-card:hover {
+  box-shadow: var(--cc-shadow-md);
+}
 
 .custom-snackbar {
   background-color: green;
@@ -49,19 +90,23 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mycsssnackbartest {
   background-color: blue;
 }
+
 .green-snackbar {
   background: rgb(65, 252, 134);
   color: white;
 }
+
 .green-snackbar button {
   background-color: rgb(65, 252, 134);
   color: white;
   border: none;
 }
+
 .red-snackbar {
   background: #F44336;
   color: white;
 }
+
 .red-snackbar button {
   background-color: #F44336;
   color: white !important;
