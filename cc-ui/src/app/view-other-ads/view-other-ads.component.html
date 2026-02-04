@@ -1,66 +1,42 @@
-<div class="" >
-  <div class="py-10 px-2">
+<div class="">
+  <div class="py-4 px-2">
 
     <div class="flex items-center  mt-10">
       <span *ngIf="ad_type === 'container'" class="search-text ra">Container Advertisement</span>
       <span *ngIf="ad_type === 'space'" class="search-text ra">Vessel Advertisement</span>
     </div>
-    
-    <br/>
-    <div class="flex flex-wrap   search-type-container" >
-    <div
-      class="search-lease-container"
-     *ngIf="selectedMainOption === 'Trading'"
-      [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }"
-      (click)="toggleOption('type', 'Buy')"
-    >
-      Buy
-    </div>
-    <div
-      class="search-lease-container ml-2"
-      *ngIf="selectedMainOption === 'Trading'"
-      [ngClass]="{ selected: selectedOptions['type'] === 'Sell' }"
-      (click)="toggleOption('type', 'Sell')"
-    >
-      Sell
-    </div>
-    
-    <div
-    class="search-lease-container"
-    *ngIf="ad_type === 'container' && selectedMainOption === 'Leasing'"
-    [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
-    (click)="toggleOption('type', 'Lease')"
-  >
-    Lease
-  </div>
- 
-    <div
-      class="search-lease-container ml-2"
-      *ngIf="ad_type == 'container'&& selectedMainOption === 'Leasing'"
-      [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }"
-      (click)="toggleOption('type', 'Swap')"
-    >
-    Swap
-    </div>
-    <div
-    class="search-lease-container"
-    *ngIf="ad_type == 'space'&& selectedMainOption === 'Leasing'"
-    [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }"
-    (click)="toggleOption('type', 'Lease')"
-  >
-    Lease
-  </div>
-    <div
-      class="search-lease-container ml-2"
-      *ngIf="ad_type == 'container'&& selectedMainOption === 'Leasing'"
-      [ngClass]="{ selected: selectedOptions['type'] === 'OneWay' }"
-      (click)="toggleOption('type', 'OneWay')"
-    >
-    OneWay
-    </div>
 
-    &nbsp; 
-  </div>
+    <br />
+    <div class="flex flex-wrap   search-type-container">
+      <div class="search-lease-container" *ngIf="selectedMainOption === 'Trading'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }" (click)="toggleOption('type', 'Buy')">
+        Buy
+      </div>
+      <div class="search-lease-container ml-2" *ngIf="selectedMainOption === 'Trading'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Sell' }" (click)="toggleOption('type', 'Sell')">
+        Sell
+      </div>
+
+      <div class="search-lease-container" *ngIf="ad_type === 'container' && selectedMainOption === 'Leasing'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }" (click)="toggleOption('type', 'Lease')">
+        Lease
+      </div>
+
+      <div class="search-lease-container ml-2" *ngIf="ad_type == 'container'&& selectedMainOption === 'Leasing'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }" (click)="toggleOption('type', 'Swap')">
+        Swap
+      </div>
+      <div class="search-lease-container" *ngIf="ad_type == 'space'&& selectedMainOption === 'Leasing'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }" (click)="toggleOption('type', 'Lease')">
+        Lease
+      </div>
+      <div class="search-lease-container ml-2" *ngIf="ad_type == 'container'&& selectedMainOption === 'Leasing'"
+        [ngClass]="{ selected: selectedOptions['type'] === 'OneWay' }" (click)="toggleOption('type', 'OneWay')">
+        OneWay
+      </div>
+
+      &nbsp;
+    </div>
     <br />
 
     <div>
@@ -79,7 +55,7 @@
               </select>
             </div>
           </ng-container>
-          
+
           <ng-template #showSelect>
             <!-- Display when receivedportCode does not have a value -->
             <ng-container class="mt-6">
@@ -93,250 +69,221 @@
               </div>
             </ng-container>
           </ng-template>
-          
-          
-         
-          
+
+
+
+
         </div>
       </div>
-     
-    
+
+
       <ng-container *ngIf="ad_type === 'space'">
         <p class="port-text">Port of Departure</p>
-       
-          <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
-            <option *ngFor="let port of port_list" [value]="port.port_name">
-              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
-            </option>
-          </select>
-       
-    
+
+        <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+          </option>
+        </select>
+
+
         <p class="port-text">Port of Arrival</p>
-       
-          <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
-            <option *ngFor="let port of port_list" [value]="port.port_name">
-              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
-            </option>
-          </select>
-       
+
+        <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+          </option>
+        </select>
+
       </ng-container>
 
       <ng-container *ngIf="ad_type === 'container'&&selectedOptions['type'] === 'OneWay'">
         <p class="port-text">Port of Departure</p>
-       
-          <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
-            <option *ngFor="let port of port_list" [value]="port.port_name">
-              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
-            </option>
-          </select>
-       
-    
+
+        <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+          </option>
+        </select>
+
+
         <p class="port-text">Port of Arrival</p>
-       
-          <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
-            <option *ngFor="let port of port_list" [value]="port.port_name">
-              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
-            </option>
-          </select>
-       
+
+        <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+          </option>
+        </select>
+
       </ng-container>
     </div>
-    
-    
-    
-    
-    
+
+
+
+
+
     <br />
     <div>
       <div class="">
         <p class="port-text">Select View</p>
 
-        <div class="flex flex-wrap   search-type-container" >
-    
-          <div
-            class="search-select-container"
-            [ngClass]="{ selected: selectedOptions['view'] === 'MAP' }"
+        <div class="flex flex-wrap   search-type-container">
+
+          <div class="search-select-container" [ngClass]="{ selected: selectedOptions['view'] === 'MAP' }"
             (click)="toggleOption('view', 'MAP')">
-              MAP
+            MAP
           </div>
           <div class="search-select-container"
-          [ngClass]="{ selected: selectedOptions['view'] === 'LIST' || !selectedOptions['view'] }"
-          (click)="toggleOption('view', 'LIST')">
+            [ngClass]="{ selected: selectedOptions['view'] === 'LIST' || !selectedOptions['view'] }"
+            (click)="toggleOption('view', 'LIST')">
             LIST
           </div>
         </div>
       </div>
 
       <br />
-      
-        
-         
-        
-              </div>
-      <div >
-        <ng-container *ngIf="receivedcontainerType; else showContainerTypeSelect">
-          <!-- Display when receivedcontainerType has a value -->
-          <p class="port-text">Select type</p>
-          <div>
-            <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom" [(ngModel)]="receivedcontainerType" (change)="onTypeSelected()">
-              <option style="height: 10px; position: absolute; z-index: 2000;" [value]="receivedcontainerType">
-                {{ receivedcontainerType }}
-              </option>
-              <option *ngFor="let contype of container_type_list" [value]="contype.type">
-                {{ contype.type }}
-              </option>
-            </select>
-          </div>
-        </ng-container>
-        
-        <ng-template #showContainerTypeSelect>
-          <!-- Display when receivedcontainerType does not have a value -->
-          <p class="port-text">Select type</p>
-          <div>
-            <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom" [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
-              <option style="height: 10px; position: absolute; z-index: 2000;" *ngFor="let contype of container_type_list" [value]="contype.type">
-                {{ contype.type }}
-              </option>
-            </select>
-          </div>
-        </ng-template>
-        <ng-container *ngIf="receivedcontainerSize !== undefined; else showContainerSizeSelect">
-          <div>
-            <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
-            <ul class="horizontal-list">
-              <li
-                *ngFor="let size of container_list"
-                (click)="onSizeClick(size)"
-                [class.selected]="selectedcontainerSize === size.capacity && selectedCount === 1"
-                [class.selected-twice]="selectedcontainerSize === size.capacity && selectedCount > 1"
-                [style.padding]="'5px'"
-                [ngClass]="{'blue-background': !receivedcontainerSize && selectedcontainerSize === size.capacity}"
-              >
-                {{ size.capacity }}'
-              </li>
-            </ul>
-          </div>
-        </ng-container>
-        
-        <ng-template #showContainerSizeSelect>
-          <!-- Display when receivedcontainerType does not have a value -->
-          <p class="port-text">Select Size</p>
-          <div>
-            <select
-              class="container-select"
-              style="height: 30px; width: 275px; padding: 0px"
-              menu="bottom"
-              [(ngModel)]="receivedcontainerSize"
-              (change)="onSizeSelected()"
-            >
-              <option
-                style="height: 10px; position: absolute; z-index: 2000;"
-                *ngFor="let size of container_list"
-                [value]="size.capacity"
-                [selected]="size.capacity === receivedcontainerSize"
-                [style.background]="receivedcontainerSize === size.capacity ? '#1677FB' : 'white'"
-                [style.color]="receivedcontainerSize === size.capacity ? 'white' : 'black'"
-              >
-                {{ size.capacity }}
-              </option>
-            </select>
-          </div>
-        </ng-template>
-        
-        
-        
 
-        
-        <div class="clear-search-container" *ngIf="ad_type === 'container'">
-          <button (click)="clearOptions()" class="clear-color">
-            Clear
-          </button>
-         &nbsp;
-          <button (click)="searchContainerAdvertisements()" class="seacrh-color">
-            Search
-          </button>
+
+
+
+    </div>
+    <div>
+      <ng-container *ngIf="receivedcontainerType; else showContainerTypeSelect">
+        <!-- Display when receivedcontainerType has a value -->
+        <p class="port-text">Select type</p>
+        <div>
+          <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom"
+            [(ngModel)]="receivedcontainerType" (change)="onTypeSelected()">
+            <option style="height: 10px; position: absolute; z-index: 2000;" [value]="receivedcontainerType">
+              {{ receivedcontainerType }}
+            </option>
+            <option *ngFor="let contype of container_type_list" [value]="contype.type">
+              {{ contype.type }}
+            </option>
+          </select>
         </div>
-          <div class="clear-search-container" *ngIf="ad_type === 'space'">
-            <button (click)="clearOptions()" class="clear-color">
-              Clear
-            </button>
-          &nbsp;
-            <button (click)="searchSpaceAdvertisements()" class="seacrh-color">
-              Search
-            </button>
-        
-            
-          </div>
+      </ng-container>
 
-       
+      <ng-template #showContainerTypeSelect>
+        <!-- Display when receivedcontainerType does not have a value -->
+        <p class="port-text">Select type</p>
+        <div>
+          <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom"
+            [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
+            <option style="height: 10px; position: absolute; z-index: 2000;" *ngFor="let contype of container_type_list"
+              [value]="contype.type">
+              {{ contype.type }}
+            </option>
+          </select>
+        </div>
+      </ng-template>
+      <ng-container *ngIf="receivedcontainerSize !== undefined; else showContainerSizeSelect">
+        <div>
+          <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
+          <ul class="horizontal-list">
+            <li *ngFor="let size of container_list" (click)="onSizeClick(size)"
+              [class.selected]="selectedcontainerSize === size.capacity && selectedCount === 1"
+              [class.selected-twice]="selectedcontainerSize === size.capacity && selectedCount > 1"
+              [style.padding]="'5px'"
+              [ngClass]="{'blue-background': !receivedcontainerSize && selectedcontainerSize === size.capacity}">
+              {{ size.capacity }}'
+            </li>
+          </ul>
+        </div>
+      </ng-container>
 
-        <br />
-        <br />
-     
-   
-        
+      <ng-template #showContainerSizeSelect>
+        <!-- Display when receivedcontainerType does not have a value -->
+        <p class="port-text">Select Size</p>
+        <div>
+          <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom"
+            [(ngModel)]="receivedcontainerSize" (change)="onSizeSelected()">
+            <option style="height: 10px; position: absolute; z-index: 2000;" *ngFor="let size of container_list"
+              [value]="size.capacity" [selected]="size.capacity === receivedcontainerSize"
+              [style.background]="receivedcontainerSize === size.capacity ? '#1677FB' : 'white'"
+              [style.color]="receivedcontainerSize === size.capacity ? 'white' : 'black'">
+              {{ size.capacity }}
+            </option>
+          </select>
+        </div>
+      </ng-template>
 
-        
+
+
+
+
+      <div class="clear-search-container" *ngIf="ad_type === 'container'">
+        <button (click)="clearOptions()" class="clear-color">
+          Clear
+        </button>
+        &nbsp;
+        <button (click)="searchContainerAdvertisements()" class="seacrh-color">
+          Search
+        </button>
       </div>
+      <div class="clear-search-container" *ngIf="ad_type === 'space'">
+        <button (click)="clearOptions()" class="clear-color">
+          Clear
+        </button>
+        &nbsp;
+        <button (click)="searchSpaceAdvertisements()" class="seacrh-color">
+          Search
+        </button>
+
+
+      </div>
+
+
+
+      <br />
+      <br />
+
+
+
+
+
+    </div>
   </div>
-  
-  <div class="advertisement-details fixed-advertisement-details min-h-screen mt-16  border-l-4 px-2 flex flex-col overflow-hidden">
-          <div class="flex flex-row">
-          <div>
-            <h2 class="mt-3 mx-auto" style="font-weight: 500;
-            font-family: 'Poppins'; margin-left: 350px;">Advertisement Details</h2> 
-            <br/>
-          </div>
-            <button
-            *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
-            routerLink="/my-ad"
-            class="style text-white fixed-advertisement-details font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
-            [disabled]="false"
-            [class.disabled-button]="false"
-          >
-            View My Ads
-          </button>
-          
-</div>
-<div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
-  <app-view-other-ads-map-view
-    [ad_typetomap]="ad_typetomap"
-    [typetomap]="typetomap"
-    [selectedTypePortOfAd]="selectedTypePortOfAd"
-    [selectedTypePortOfDep]="selectedTypePortOfDep"
-    [selectedTypePortOfArr]="selectedTypePortOfArr"
-    [selectedcontainertypetomap]="selectedcontainertypetomap"
-    [selectedcontainersizetomap]="selectedcontainersizetomap"
 
-    
-  ></app-view-other-ads-map-view>
-</div>
-<div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'space'" class="map-view">
-  <app-view-other-ads-map-view
-    [ad_typetomap]="ad_typetomap"
-    [typetomap]="typetomap"
-    [selectedTypePortOfDep]="selectedTypePortOfDep"
-    [selectedTypePortOfArr]="selectedTypePortOfArr"
-    [selectedcontainertypetomap]="selectedcontainertypetomap"
-    [selectedcontainersizetomap]="selectedcontainersizetomap"
+  <div
+    class="advertisement-details fixed-advertisement-details min-h-screen border-l-4 px-2 flex flex-col overflow-hidden">
+    <div class="flex flex-row">
+      <div>
+        <h2 class="mt-3 mx-auto" style="font-weight: 500;
+            font-family: 'Poppins'; margin-left: 350px;">Advertisement Details</h2>
+        <br />
+      </div>
+      <button *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
+        routerLink="/my-ad"
+        class="style text-white fixed-advertisement-details font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
+        [disabled]="false" [class.disabled-button]="false">
+        View My Ads
+      </button>
 
-    
-  ></app-view-other-ads-map-view>
-</div>
- 
-  <div *ngIf="!showMapView"   >
-    <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-    
-    <ng-container
-      *ngFor="let ad of currentAds" 
-      class="flex justify-center w-full items-center  border"
-    >
-      <div class="flex flex-col border-2 mt-4">
-        <div class="p-1 flex flex-row items-center justify-around">
-          <div class="flex flex-row items-center">
-            <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
+    </div>
+    <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
+      <app-view-other-ads-map-view [ad_typetomap]="ad_typetomap" [typetomap]="typetomap"
+        [selectedTypePortOfAd]="selectedTypePortOfAd" [selectedTypePortOfDep]="selectedTypePortOfDep"
+        [selectedTypePortOfArr]="selectedTypePortOfArr" [selectedcontainertypetomap]="selectedcontainertypetomap"
+        [selectedcontainersizetomap]="selectedcontainersizetomap"></app-view-other-ads-map-view>
+    </div>
+    <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'space'" class="map-view">
+      <app-view-other-ads-map-view [ad_typetomap]="ad_typetomap" [typetomap]="typetomap"
+        [selectedTypePortOfDep]="selectedTypePortOfDep" [selectedTypePortOfArr]="selectedTypePortOfArr"
+        [selectedcontainertypetomap]="selectedcontainertypetomap"
+        [selectedcontainersizetomap]="selectedcontainersizetomap"></app-view-other-ads-map-view>
+    </div>
 
-            <!-- <ng-container
+    <div *ngIf="!showMapView">
+      <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+
+      <ng-container *ngFor="let ad of currentAds" class="flex justify-center w-full items-center  border">
+        <div class="flex flex-col border-2 mt-4">
+          <div class="p-1 flex flex-row items-center justify-around">
+            <div class="flex flex-row items-center">
+              <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
+
+              <!-- <ng-container
               *ngIf="ad.status === 'accepted'; else defaultLogo"
             >
               <img
@@ -354,132 +301,103 @@
               />
             </ng-template> -->
 
-            <div
-              *ngIf="ad.status === 'accepted'"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-              class="font-bold whitespace-nowrap ml-8"
-            >
-              {{ companyNames[ad.company_id] }}
-            </div>
-            <div
-              *ngIf="ad.status != 'accepted'"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-              class="font-bold whitespace-nowrap ml-8"
-            >
-              ABCDXYZ
-            </div>
+              <div *ngIf="ad.status === 'accepted'" [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                class="font-bold whitespace-nowrap ml-8">
+                {{ companyNames[ad.company_id] }}
+              </div>
+              <div *ngIf="ad.status != 'accepted'" [ngClass]="{ 'company-name': ad.status != 'accepted' }"
+                class="font-bold whitespace-nowrap ml-8">
+                ABCDXYZ
+              </div>
 
-            <div
-              *ngIf="ad.status === 'accepted'"
-              class="gray-highlights ml-4"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-            >
-              <i class="material-icons text-sm text-yellow-400">star</i>
-              {{ companyRating[ad.company_id] }}
+              <div *ngIf="ad.status === 'accepted'" class="gray-highlights ml-4"
+                [ngClass]="{ 'company-name': ad.status != 'accepted' }">
+                <i class="material-icons text-sm text-yellow-400">star</i>
+                {{ companyRating[ad.company_id] }}
+              </div>
+
+              <div *ngIf="ad.status != 'accepted'" class="gray-highlights ml-4"
+                [ngClass]="{ 'company-name': ad.status != 'accepted' }">
+                <i class="material-icons text-sm text-yellow-400">star</i>
+                000
+              </div>
             </div>
 
-            <div
-              *ngIf="ad.status != 'accepted'"
-              class="gray-highlights ml-4"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-            >
-              <i class="material-icons text-sm text-yellow-400">star</i>
-              000
+            <div *ngIf="ad.status === 'accepted'" class="gray-highlights"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
+              <i class="material-icons text-xs mr-1">computer</i>
+              {{ companyDomain[ad.company_id] }}
             </div>
-          </div>
+            <div *ngIf="ad.status != 'accepted'" class="gray-highlights"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
+              <i class="material-icons text-xs mr-1">computer</i>
+              www.example.com
+            </div>
 
-          <div
-            *ngIf="ad.status === 'accepted'"
-            class="gray-highlights"
-            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-          >
-            <i class="material-icons text-xs mr-1">computer</i>
-            {{ companyDomain[ad.company_id] }}
-          </div>
-          <div
-            *ngIf="ad.status != 'accepted'"
-            class="gray-highlights"
-            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-          >
-            <i class="material-icons text-xs mr-1">computer</i>
-            www.example.com
-          </div>
+            <div *ngIf="ad.status === 'accepted'" class="gray-highlights"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
+              <i class="material-icons text-xs mr-1">place</i>
+              {{ companyAddress[ad.company_id] }}
+            </div>
 
-          <div
-            *ngIf="ad.status === 'accepted'"
-            class="gray-highlights"
-            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-          >
-            <i class="material-icons text-xs mr-1">place</i>
-            {{ companyAddress[ad.company_id] }}
-          </div>
+            <div *ngIf="ad.status != 'accepted'" class="gray-highlights"
+              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
+              <i class="material-icons text-xs mr-1">place</i>
+              XYZ XYZ XYZ
+            </div>
+            <div class="flex flex-row gap-1">
+              <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
+            </div>
+            <button class="negotiation-button"
+              [disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
+              [class.disabled-button]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
+              (click)="StartNegotiation(ad.ad_id)">
+              Start Negotiation
+            </button>
 
-          <div
-            *ngIf="ad.status != 'accepted'"
-            class="gray-highlights"
-            [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-          >
-            <i class="material-icons text-xs mr-1">place</i>
-            XYZ XYZ XYZ
           </div>
-          <div class="flex flex-row gap-1">
-            <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
-          </div>
-          <button
-    class="negotiation-button"
-    [disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
-    [class.disabled-button]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
-    (click)="StartNegotiation(ad.ad_id)"
->
-    Start Negotiation
-</button>
+          <hr class="mx-2" />
+          <div class="p-1 flex flex-row items-center gap-1 justify-around">
+            <div class="flex justify-start">
+              <img src="../../assets/images/Container.png" class="bg-gray-50 p-1 w-10 h-10" />
+              <div class="flex flex-col text-[0.6rem]">
+                <div class="flex flex-row gap-2">
+                  <div class="flex flex-col" *ngIf="ad_type === 'container'&& ad.type_of_ad != 'oneway'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Port of Ad
+                    </div>
+                    <div class="gray-highlights">
+                      {{ capitalizeFirstLetter(ad.port_of_ad) }}
+                      {{type_of_ad}}
+                    </div>
+                  </div>
 
-        </div>
-        <hr class="mx-2" />
-        <div class="p-1 flex flex-row items-center gap-1 justify-around">
-          <div class="flex justify-start">
-            <img 
-              src="../../assets/images/Container.png"
-              class="bg-gray-50 p-1 w-10 h-10"
-            />
-            <div class="flex flex-col text-[0.6rem]">
-              <div class="flex flex-row gap-2">
-                <div class="flex flex-col" *ngIf="ad_type === 'container'&& ad.type_of_ad != 'oneway'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i>Port of Ad
+                  <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Departure
+                    </div>
+                    <div class="gray-highlights">
+                      {{ capitalizeFirstLetter(ad.port_of_departure) }}
+                    </div>
                   </div>
-                  <div class="gray-highlights">
-                    {{ capitalizeFirstLetter(ad.port_of_ad) }}
-                    {{type_of_ad}}
-                  </div>
-                </div>
-                
-                <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i>Departure
-                  </div>
-                  <div class="gray-highlights">
-                    {{ capitalizeFirstLetter(ad.port_of_departure) }}
-                  </div>
-                </div>
-                
-                <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i>Arrival
-                  </div>
-                  <div>
-                    <div class="flex flex-row gap-1">
-                      <div class="gray-highlights">
-                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
+
+                  <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Arrival
+                    </div>
+                    <div>
+                      <div class="flex flex-row gap-1">
+                        <div class="gray-highlights">
+                          {{ capitalizeFirstLetter(ad.port_of_arrival) }}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                
 
 
-  
-                <!-- <div class="flex flex-col"*ngIf="ad_type === 'container'&&type_of_ad=='oneway'">
+
+
+                  <!-- <div class="flex flex-col"*ngIf="ad_type === 'container'&&type_of_ad=='oneway'">
                   <div>
                     <i class="material-icons mr-1 text-xs">place</i
                     >Arrival
@@ -493,176 +411,146 @@
                   </div>
                 </div> -->
 
-                <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i
-                    >Departure
+                  <div class="flex flex-col" *ngIf="ad_type !== 'container'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Departure
+                    </div>
+                    <div class="gray-highlights">
+                      {{capitalizeFirstLetter(ad.port_of_departure) }}
+                    </div>
                   </div>
-                  <div class="gray-highlights" >
-                    {{capitalizeFirstLetter(ad.port_of_departure)  }}
-                  </div>
-                </div>
-                <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i
-                    >Arrival
-                  </div>
-                  <div>
-                    <div class="flex flex-row gap-1">
-                      <div class="gray-highlights">
-                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
+                  <div class="flex flex-col" *ngIf="ad_type !== 'container'">
+                    <div>
+                      <i class="material-icons mr-1 text-xs">place</i>Arrival
+                    </div>
+                    <div>
+                      <div class="flex flex-row gap-1">
+                        <div class="gray-highlights">
+                          {{ capitalizeFirstLetter(ad.port_of_arrival) }}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                
-                
+
+
+                </div>
               </div>
             </div>
-          </div>
 
 
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">inventory_2</i>
-              <span class="text-[0.6rem]">Quantity</span>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">inventory_2</i>
+                <span class="text-[0.6rem]">Quantity</span>
+              </div>
+              <div class="text-xs font-bold">{{ ad.quantity }}</div>
             </div>
-            <div class="text-xs font-bold">{{ ad.quantity }}</div>
-          </div>
 
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">inventory_2</i>
-              <span class="text-[0.6rem]">Type of Ad</span>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">inventory_2</i>
+                <span class="text-[0.6rem]">Type of Ad</span>
+              </div>
+              <div class="text-xs font-bold">{{capitalizeFirstLetter(ad.type_of_ad) }}</div>
             </div>
-            <div class="text-xs font-bold">{{capitalizeFirstLetter(ad.type_of_ad)  }}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">inventory_2</i>
-              <span class="text-[0.6rem]">Container Type</span>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">inventory_2</i>
+                <span class="text-[0.6rem]">Container Type</span>
+              </div>
+              <div class="text-xs font-bold">
+                <div class="text-xs font-bold">{{ ad.container_type }}</div>
+              </div>
             </div>
-            <div class="text-xs font-bold">
-              <div class="text-xs font-bold">{{ ad.container_type }}</div>
-            </div>
-          </div>
-          
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Date Created</span>
-            </div>
-            <div class="text-xs font-bold">{{getDateOnly(ad.date_created)}}</div>
-          </div>
 
-       
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">From Date</span>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">event_available</i>
+                <span class="text-[0.6rem]">Date Created</span>
+              </div>
+              <div class="text-xs font-bold">{{getDateOnly(ad.date_created)}}</div>
             </div>
-            <div class="text-xs font-bold">{{getDateOnly(ad.from_date)}}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Expiry Date</span>
+
+
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">event_available</i>
+                <span class="text-[0.6rem]">From Date</span>
+              </div>
+              <div class="text-xs font-bold">{{getDateOnly(ad.from_date)}}</div>
             </div>
-            <div class="text-xs font-bold">{{getDateOnly(ad.expiry_date)}}</div>
-          </div>
-          <div class="flex flex-col items-center">
-            <div class="items-center justify-center">
-              <i class="material-icons mr-1 text-xs">event_available</i>
-              <span class="text-[0.6rem]">Free Days</span>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">event_available</i>
+                <span class="text-[0.6rem]">Expiry Date</span>
+              </div>
+              <div class="text-xs font-bold">{{getDateOnly(ad.expiry_date)}}</div>
             </div>
-            <div class="text-xs font-bold">{{ ad.free_days }}</div>
+            <div class="flex flex-col items-center">
+              <div class="items-center justify-center">
+                <i class="material-icons mr-1 text-xs">event_available</i>
+                <span class="text-[0.6rem]">Free Days</span>
+              </div>
+              <div class="text-xs font-bold">{{ ad.free_days }}</div>
+            </div>
           </div>
         </div>
+        <div>
+          <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
+        </div>
+      </ng-container>
+
+      <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.ads.length > 0">
+        <nav aria-label="Page navigation">
+          <ul class="inline-flex gap-2">
+            <li class="button1">
+              <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)" (click)="prevPage()"
+                [disabled]="currentPage < 2">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
+                    fill="black" fill-opacity="0.25" />
+                </svg>
+
+              </button>
+            </li>
+
+            <li class="button3" *ngIf="currentPage > 1">
+              <button (click)="currentPage = currentPage" (click)="prevPage()" *ngIf="currentPage > 1"
+                [hidden]="currentPage < 2">
+                {{ currentPage - 1 }}
+              </button>
+            </li>
+
+            <li class="button2">
+              <button *ngIf="totalPages != 1">
+                {{ currentPage }}
+              </button>
+            </li>
+
+            <li class="button3" *ngIf="currentPage < totalPages">
+              <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                (click)="nextPage()" [hidden]="currentPage >= totalPages" *ngIf="currentPage <= totalPages">
+                {{ currentPage + 1 }}
+              </button>
+            </li>
+
+            <li class="button4">
+              <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                (click)="nextPage()" [disabled]="currentPage >= totalPages">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
+                    fill="black" fill-opacity="0.88" />
+                </svg>
+
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
-      <div>
-        <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
-      </div>
-    </ng-container>
 
-    <div
-      class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
-      *ngIf="this.ads.length > 0"
-    >
-      <nav aria-label="Page navigation">
-        <ul class="inline-flex gap-2">
-          <li class="button1">
-            <button
-              [class.opacity-50]="currentPage === totalPages"
-              (click)="(currentPage === 1)"
-              (click)="prevPage()"
-              [disabled]="currentPage < 2"
-            
-            >
-            <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
-              </svg>
-              
-            </button>
-          </li>
-
-          <li class="button3"  *ngIf="currentPage > 1" >
-            <button
-        
-              (click)="currentPage = currentPage"
-              (click)="prevPage()"
-              *ngIf="currentPage > 1"
-              [hidden]="currentPage < 2"
-            
-            >
-              {{ currentPage - 1 }}
-            </button>
-          </li>
-
-          <li class="button2">
-            <button
-            
-              *ngIf="totalPages != 1"
-            >
-              {{ currentPage }}
-            </button>
-          </li>
-
-          <li class="button3" *ngIf="currentPage < totalPages">
-            <button
-              [class.opacity-50]="currentPage === totalPages"
-              (click)="currentPage = currentPage"
-              (click)="nextPage()"
-              [hidden]="currentPage >= totalPages"
-              *ngIf="currentPage <= totalPages"
-            >
-              {{ currentPage + 1 }}
-            </button>
-          </li>
-
-          <li class="button4">
-            <button
-              [class.opacity-50]="currentPage === totalPages"
-              (click)="currentPage = currentPage"
-              (click)="nextPage()"
-              [disabled]="currentPage >= totalPages"
-             
-            >
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
-              </svg>
-              
-            </button>
-          </li>
-        </ul>
-      </nav>
     </div>
-  
+  </div>
 </div>
-        </div>
-</div>
-
-
-        
-     
-   

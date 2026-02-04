@@ -1,14 +1,13 @@
+<!-- Main View Canvas -->
+<div class="w-full mt-4 left-0 overflow-auto mr-2 div-bg-line">
+  <!-- Company Details section  -->
+  <div class="inline-block min-w-full py-2 flex div-bg  items-center">
 
-      <!-- Main View Canvas -->
-      <div class="w-full mt-20 left-0 overflow-auto mr-2 div-bg-line">
-        <!-- Company Details section  -->
-        <div class="inline-block min-w-full py-2 flex div-bg  items-center"> 
-         
-       
-          <div class="radio-buttons">
-            <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
-            <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
-            <!-- <div style="display: inline-block;margin-right: 16px;">
+
+    <div class="radio-buttons">
+      <label class="forecast font-semibold ml-2 whitespace-nowrap">My Advertisement</label>
+      <!-- <p class="select-type whitespace-nowrap">Select Containers or Vessels as per your requirements</p> -->
+      <!-- <div style="display: inline-block;margin-right: 16px;">
               
               <label class="radio mt-[10px]" style="cursor: pointer;">
                 <svg width="24"  height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,11 +29,11 @@
               </label>
             </div> -->
 
-            <div class="flex items-center ml-2">
-              <span *ngIf="ad_type === 'container'" class="select-type whitespace-nowrap">Container Advertisement</span>
-              <span *ngIf="ad_type === 'space'" class="select-type whitespace-nowrap">Vessel Advertisement</span>
-            </div>
-          <!-- <div class="dropdown">
+      <div class="flex items-center ml-2">
+        <span *ngIf="ad_type === 'container'" class="select-type whitespace-nowrap">Container Advertisement</span>
+        <span *ngIf="ad_type === 'space'" class="select-type whitespace-nowrap">Vessel Advertisement</span>
+      </div>
+      <!-- <div class="dropdown">
             <select id="ad-type-dropdown" [(ngModel)]="ad_type" (change)="viewAds(); onAdTypeChange(ad_type)"  class="custom-dropdown radio ml-2 border rounded-md py-1 px-2">
               <option value="container" class="custom-dropdown-option">
                 <img src="../../assets/icons/Container.svg" class="dropdown-icon" alt="Container Icon" />
@@ -48,198 +47,213 @@
             
           </div> -->
 
-          
-         
 
-          
- 
-          <div class="justify-end ml-96 flex float-right -mt-14">
-            <div class="ml-96 justify-end w-[40em] h-[0.5em] flex-wrap mb-4">
-              <button (click)="onExportClick()"
-                class="ml-4 ml-96 float-right inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
-                    fill="#262626" />
-                  <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#262626" />
-                </svg>
-                <span class="ml-2">Export</span>
-              </button>
-            </div>
-            <div class="ml-4 justify-end w-[8em] mb-2 h-[2em] flex-wrap">
-              <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayPostForm()"
-                class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
-                <span class="ml-1">Post Ad</span>
-              </button>
-            </div>
-          </div>
+
+
+
+
+      <div class="justify-end ml-96 flex float-right -mt-14">
+        <div class="ml-96 justify-end w-[40em] h-[0.5em] flex-wrap mb-4">
+          <button (click)="onExportClick()"
+            class="ml-4 ml-96 float-right inline-flex justify-center items-center btn-primary9 space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
+                fill="#262626" />
+              <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#262626" />
+            </svg>
+            <span class="ml-2">Export</span>
+          </button>
+        </div>
+        <div class="ml-4 justify-end w-[8em] mb-2 h-[2em] flex-wrap">
+          <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayPostForm()"
+            class="btn-primary2 inline-flex justify-center items-center space-x-2 border font-semibold focus:outline-none py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
+            <span class="ml-1">Post Ad</span>
+          </button>
         </div>
       </div>
-      
-      
-      <button (click)="downloadTemplate()"
-          class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 font-poppins border-blue-700 justify-end float-right">
-         
-          <span class="ml-0">Download Template</span>
+    </div>
+  </div>
+
+
+  <button (click)="downloadTemplate()"
+    class=" border font-semibold focus:outline-none mr-10 mt-1 px-2 pr-2 leading-6 font-poppins border-blue-700 justify-end float-right">
+
+    <span class="ml-0">Download Template</span>
+  </button>
+
+  <hr style="height: 2px;">
+
+  <nav *ngIf="ad_type==='container'" class="bg-white div-bg-line font-semibold text-base lg:text-lg">
+    <ul class="flex items-center ">
+      <li class="nav-item">
+        <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" *ngIf="ad_type === 'container'"
+          class="underline-button">
+          <div class="flex items-center">
+            <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
+            <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+              style="width: 16px; height: 16px; font-size: 10px;color: white;">
+              <span [class.hover:text-black]="true">{{ this.ad_type === 'container' ? originalcontaineractiveAds :
+                originalspaceactiveAds }}</span>
+            </div>
+          </div>
         </button>
-       
-        <hr style="height: 2px;">
-        
-        <nav *ngIf="ad_type==='container'" class="bg-white div-bg-line font-semibold text-base lg:text-lg">
-          <ul class="flex items-center ">
-            <li class="nav-item">
-              <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" *ngIf="ad_type === 'container'" class="underline-button">
-                <div class="flex items-center">
-                  <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
-                  <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                    style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                    <span [class.hover:text-black]="true">{{ this.ad_type === 'container' ? originalcontaineractiveAds : originalspaceactiveAds }}</span>
-                  </div>
-                </div>
-              </button>
-            </li>&nbsp; &nbsp; &nbsp;
-            <li class="nav-item" [routerLinkActive]="['pending']">
-              <a>
-                <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" *ngIf="ad_type === 'container'" class="underline-button">
-                  <div class="flex items-center">
-                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
-                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.originalcontainerpendingAds}}</span>
-                    </div>
-                  </div>
-                </button></a>
-            </li>
-            &nbsp; &nbsp; &nbsp;
-            <li class="nav-item" [routerLinkActive]="['pending']">
-              <a>
-                <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" *ngIf="ad_type === 'container'" class="underline-button">
-                  <div class="flex items-center">
-                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
-                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.originalcontainerdraftAds}}</span>
-                    </div>
-                  </div>
-                </button></a>
-            </li>
-          </ul>
-        </nav>
-        <nav *ngIf="ad_type==='space'" class="bg-white div-bg-line font-semibold text-base lg:text-lg">
-          <ul class="flex items-center ">
-            <li class="nav-item" [routerLinkActive]="['active']">
-              <a>
-                <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" *ngIf="ad_type === 'space'" class="underline-button">
-                  <div class="flex items-center">
-                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
-                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{ this.ad_type === 'space' ? originalspaceactiveAds : originalcontaineractiveAds }}</span>
-                    </div>
-                  </div>
-                </button></a>
-            </li>&nbsp; &nbsp; &nbsp;
-            <li class="nav-item" [routerLinkActive]="['pending']">
-              <a>
-                <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" *ngIf="ad_type === 'space'" class="underline-button">
-                  <div class="flex items-center">
-                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
-                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.originalspacependingAds}}</span>
-                    </div>
-                  </div>
-                </button></a>
-            </li>
-            &nbsp; &nbsp; &nbsp;
-            <li class="nav-item" [routerLinkActive]="['pending']">
-              <a>
-                <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" *ngIf="ad_type === 'space'" class="underline-button">
-                  <div class="flex items-center">
-                    <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
-                    <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
-                      style="width: 16px; height: 16px; font-size: 10px;color: white;">
-                      <span [class.hover:text-black]="true">{{this.originalspacedraftAds}}</span>
-                    </div>
-                  </div>
-                </button></a>
-            </li>
-          </ul>
-        </nav>
-        
-      
-        <div class="w-full flex flex-col first:flex-row max-h-screen bg-gray-50">
-          <section class="ml-4 mr-6 rounded-sm">
-            <div class="flex flex-col">
-              <div class="overflow-hidden rounded-lg  border-1  mr-0 mt-4">
-                <table class="rounded-lg min-w-full divide-y">
-                    <thead class="bg-gray-100 dark:bg-gray-100">
-                      <tr>
-                        <th scope="col-4"
-                          class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
-                          <div class="flex items-center gap-x-3">
-                            <button class="flex items-center gap-x-1  text-sm">
-                              <span>Expiry Date</span>
-                            </button>
-                          </div>
-                        </th>
+      </li>&nbsp; &nbsp; &nbsp;
+      <li class="nav-item" [routerLinkActive]="['pending']">
+        <a>
+          <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" *ngIf="ad_type === 'container'"
+            class="underline-button">
+            <div class="flex items-center">
+              <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
+              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                <span [class.hover:text-black]="true">{{this.originalcontainerpendingAds}}</span>
+              </div>
+            </div>
+          </button></a>
+      </li>
+      &nbsp; &nbsp; &nbsp;
+      <li class="nav-item" [routerLinkActive]="['pending']">
+        <a>
+          <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" *ngIf="ad_type === 'container'"
+            class="underline-button">
+            <div class="flex items-center">
+              <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
+              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                <span [class.hover:text-black]="true">{{this.originalcontainerdraftAds}}</span>
+              </div>
+            </div>
+          </button></a>
+      </li>
+    </ul>
+  </nav>
+  <nav *ngIf="ad_type==='space'" class="bg-white div-bg-line font-semibold text-base lg:text-lg">
+    <ul class="flex items-center ">
+      <li class="nav-item" [routerLinkActive]="['active']">
+        <a>
+          <button [ngClass]="{'border-b-2': Active}" (click)="onViewActive()" *ngIf="ad_type === 'space'"
+            class="underline-button">
+            <div class="flex items-center">
+              <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Active Ads</span>
+              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                <span [class.hover:text-black]="true">{{ this.ad_type === 'space' ? originalspaceactiveAds :
+                  originalcontaineractiveAds }}</span>
+              </div>
+            </div>
+          </button></a>
+      </li>&nbsp; &nbsp; &nbsp;
+      <li class="nav-item" [routerLinkActive]="['pending']">
+        <a>
+          <button [ngClass]="{'border-b-2': pendingActive}" (click)="onPendingActive()" *ngIf="ad_type === 'space'"
+            class="underline-button">
+            <div class="flex items-center">
+              <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Pending Ads</span>
+              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                <span [class.hover:text-black]="true">{{this.originalspacependingAds}}</span>
+              </div>
+            </div>
+          </button></a>
+      </li>
+      &nbsp; &nbsp; &nbsp;
+      <li class="nav-item" [routerLinkActive]="['pending']">
+        <a>
+          <button [ngClass]="{'border-b-2': draftActive}" (click)="onDraftsActive()" *ngIf="ad_type === 'space'"
+            class="underline-button">
+            <div class="flex items-center">
+              <span class="forecast1 font-semibold ml-2 whitespace-nowrap">Draft Ads</span>
+              <div class="bg-blue-500 rounded-full flex items-center justify-center ml-2"
+                style="width: 16px; height: 16px; font-size: 10px;color: white;">
+                <span [class.hover:text-black]="true">{{this.originalspacedraftAds}}</span>
+              </div>
+            </div>
+          </button></a>
+      </li>
+    </ul>
+  </nav>
 
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Type of Ad
-                        </th>
 
-                        <th scope="col border-2"
-                          class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Status
-                        </th>
+  <div class="w-full flex flex-col first:flex-row max-h-screen bg-gray-50">
+    <section class="ml-4 mr-6 rounded-sm">
+      <div class="flex flex-col">
+        <div class="overflow-hidden rounded-lg  border-1  mr-0 mt-4">
+          <table class="rounded-lg min-w-full divide-y">
+            <thead class="bg-gray-100 dark:bg-gray-100">
+              <tr>
+                <th scope="col-4"
+                  class="px-4 py-3.5 border-2 text-1xl font-medium text-left rtl:text-right text-black dark:text-black">
+                  <div class="flex items-center gap-x-3">
+                    <button class="flex items-center gap-x-1  text-sm">
+                      <span>Expiry Date</span>
+                    </button>
+                  </div>
+                </th>
 
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Price
-                        </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Quality
-                        </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Free days
-                        </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Per Diem
-                        </th>
-                        <th scope="col border-2"
-                          class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Pickup charges
-                        </th>
-                        <th scope="col border-2" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          {{ ad_type === 'container' ? 'Port of Ad' : 'Port of Departure' }}
-                        </th>
-                        <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Port of Departure
-                        </th>
-                        <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Port of Arrival
-                        </th>
-                        <th scope="col border-2" *ngIf="ad_type === 'container'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Negotiations
-                        </th>
-                        <th scope="col border-2" *ngIf="ad_type === 'space'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Port of Arrival
-                        </th>
-                       
-                        <th scope="col border-2" *ngIf="ad_type === 'space' && operation === 'Active'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Negotiations
-                        </th>
-                        <th scope="col border-2" *ngIf="ad_type === 'space' && operation !== 'Active'" class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
-                          Actions
-                        </th>
-                        
-                      </tr>
-                    </thead>
-                    <!-- <div class="flex flex-col text-[0.6rem]">
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Type of Ad
+                </th>
+
+                <th scope="col border-2"
+                  class="px-4 py-3.5  border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Status
+                </th>
+
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Price
+                </th>
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Quality
+                </th>
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Free days
+                </th>
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Per Diem
+                </th>
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Pickup charges
+                </th>
+                <th scope="col border-2"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  {{ ad_type === 'container' ? 'Port of Ad' : 'Port of Departure' }}
+                </th>
+                <th scope="col border-2" *ngIf="ad_type === 'container'"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Port of Departure
+                </th>
+                <th scope="col border-2" *ngIf="ad_type === 'container'"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Port of Arrival
+                </th>
+                <th scope="col border-2" *ngIf="ad_type === 'container'"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Negotiations
+                </th>
+                <th scope="col border-2" *ngIf="ad_type === 'space'"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Port of Arrival
+                </th>
+
+                <th scope="col border-2" *ngIf="ad_type === 'space' && operation === 'Active'"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Negotiations
+                </th>
+                <th scope="col border-2" *ngIf="ad_type === 'space' && operation !== 'Active'"
+                  class="px-4 py-3.5 border-2 text-sm font-medium text-left rtl:text-right text-black dark:text-black">
+                  Actions
+                </th>
+
+              </tr>
+            </thead>
+            <!-- <div class="flex flex-col text-[0.6rem]">
                       <div class="flex flex-row gap-2">
                         <div class="flex flex-col" *ngIf="ad_type === 'container'">
                           <div>
@@ -274,199 +288,177 @@
                         </div>
                       </div>
                     </div> -->
-                    <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
-                      <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
-                        <!-- table row data here -->
+            <tbody class="bg-white border-2 divide-y divide-gray-50 dark:divide-gray-700 dark:bg-gray-50">
+              <tr *ngFor="let ad of ads | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+                <!-- table row data here -->
 
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
+                <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
+                  <div class="inline-flex items-center gap-x-3 ">
 
-                            <span> {{ getDateOnly(ad.expiry_date) }}</span>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm  text-gray-700 border-2  whitespace-nowrap">
-                          {{ ad.type_of_ad }}
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                          <span
-                            class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ad.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                            {{ ad.status }}
-                          </span>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span> {{ ad.price }}</span>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span> {{ ad.quantity }}</span>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span> {{ ad.free_days }}</span>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span>{{ ad.per_diem }}</span>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
-                          <div class="inline-flex items-center gap-x-3 ">
-                            <span>{{ ad.pickup_charges }}</span>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
-                          <ng-container *ngIf="ad_type === 'container'">
-                            <div class="gray-highlights">
-                              {{ ad.port_of_ad }}
-                            </div>
-                          </ng-container>
-                          <ng-container *ngIf="ad_type !== 'container'">
-                            <div class="flex flex-col">
-                              <div class="gray-highlights">
-                                {{ ad.port_of_departure }}
-                              </div>
-                             
-                            </div>
-                          </ng-container>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type !== 'container'">
-                          <div class="flex flex-row gap-2">
-                            <div class="flex flex-col">
-                              
-                              <div class="gray-highlights">
-                                {{ ad.port_of_arrival }}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type == 'container'">
-                          <div class="flex flex-row gap-2">
-                            <div class="flex flex-col">
-                              
-                              <div class="gray-highlights">
-                                {{ ad.port_of_departure }}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type == 'container'">
-                          <div class="flex flex-row gap-2">
-                            <div class="flex flex-col">
-                              
-                              <div class="gray-highlights">
-                                {{ ad.port_of_arrival }}
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        
+                    <span> {{ getDateOnly(ad.expiry_date) }}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm  text-gray-700 border-2  whitespace-nowrap">
+                  {{ ad.type_of_ad }}
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
+                  <span
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ad.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                    {{ ad.status }}
+                  </span>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700  whitespace-nowrap">
+                  <div class="inline-flex items-center gap-x-3 ">
+                    <span> {{ ad.price }}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
+                  <div class="inline-flex items-center gap-x-3 ">
+                    <span> {{ ad.quantity }}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
+                  <div class="inline-flex items-center gap-x-3 ">
+                    <span> {{ ad.free_days }}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700whitespace-nowrap">
+                  <div class="inline-flex items-center gap-x-3 ">
+                    <span>{{ ad.per_diem }}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
+                  <div class="inline-flex items-center gap-x-3 ">
+                    <span>{{ ad.pickup_charges }}</span>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap">
+                  <ng-container *ngIf="ad_type === 'container'">
+                    <div class="gray-highlights">
+                      {{ ad.port_of_ad }}
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="ad_type !== 'container'">
+                    <div class="flex flex-col">
+                      <div class="gray-highlights">
+                        {{ ad.port_of_departure }}
+                      </div>
 
-                        <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 whitespace-nowrap">
-                          <div style="display: flex;">
-                           
-                            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="DisplayDraftForm(ad.ad_id)"
-                              *ngIf="operation === 'Draft'" scope="row"
-                              class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
-                              style="font-size: 12px;">Edit</button>
-                            <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="approve(ad.ad_id)"
-                              *ngIf="operation === 'Pending'" scope="row"
-                              class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 px-2 text-center text-white bg-CCblue disable mt-2"
-                              style="font-size: 12px;">Approve</button>
-                            <button [disabled]="getNegotiationCount(ad.ad_id) < 1" [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id,ad_type)"
-                              *ngIf="operation === 'Active'" scope="row"
-                              class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
-                              style="font-size: 12px;">Open</button>
-                              <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled" (click)="deleteAd(ad.ad_id)"
-                              class="w-6 mr-2 transform disable">
-                              <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M20.75 6H17.75V4.125C17.75 3.29766 17.0773 2.625 16.25 2.625H8.75C7.92266 2.625 7.25 3.29766 7.25 4.125V6H4.25C3.83516 6 3.5 6.33516 3.5 6.75V7.5C3.5 7.60313 3.58437 7.6875 3.6875 7.6875H5.10312L5.68203 19.9453C5.71953 20.7445 6.38047 21.375 7.17969 21.375H17.8203C18.6219 21.375 19.2805 20.7469 19.318 19.9453L19.8969 7.6875H21.3125C21.4156 7.6875 21.5 7.60313 21.5 7.5V6.75C21.5 6.33516 21.1648 6 20.75 6ZM16.0625 6H8.9375V4.3125H16.0625V6Z" fill="#8C8C8C"/>
-                               </svg>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
+                    </div>
+                  </ng-container>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type !== 'container'">
+                  <div class="flex flex-row gap-2">
+                    <div class="flex flex-col">
 
-                    </tbody>
-                  </table>
-                  <div
-                  class="bg-gray-50 p-4 flex items-center flex-wrap justify-end"
-                  *ngIf="this.ads.length > 0"
-                >
-                  <nav aria-label="Page navigation">
-                    <ul class="inline-flex gap-2">
-                      <li class="button1">
-                        <button
-                          [class.opacity-50]="currentPage === totalPages"
-                          (click)="(currentPage === 1)"
-                          (click)="prevPage()"
-                          [disabled]="currentPage < 2"
-                        
-                        >
-                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z" fill="black" fill-opacity="0.25"/>
-                          </svg>
-                          
-                        </button>
-                      </li>
-              
-                      <li class="button3"  *ngIf="currentPage > 1" >
-                        <button
-                    
-                          (click)="currentPage = currentPage"
-                          (click)="prevPage()"
-                          *ngIf="currentPage > 1"
-                          [hidden]="currentPage < 2"
-                        
-                        >
-                          {{ currentPage - 1 }}
-                        </button>
-                      </li>
-              
-                      <li class="button2">
-                        <button
-                        
-                          *ngIf="totalPages != 1"
-                        >
-                          {{ currentPage }}
-                        </button>
-                      </li>
-              
-                      <li class="button3" *ngIf="currentPage < totalPages">
-                        <button
-                          [class.opacity-50]="currentPage === totalPages"
-                          (click)="currentPage = currentPage"
-                          (click)="nextPage()"
-                          [hidden]="currentPage >= totalPages"
-                          *ngIf="currentPage <= totalPages"
-                        >
-                          {{ currentPage + 1 }}
-                        </button>
-                      </li>
-              
-                      <li class="button4">
-                        <button
-                          [class.opacity-50]="currentPage === totalPages"
-                          (click)="currentPage = currentPage"
-                          (click)="nextPage()"
-                          [disabled]="currentPage >= totalPages"
-                         
-                        >
-                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z" fill="black" fill-opacity="0.88"/>
-                          </svg>
-                          
-                        </button>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
-                </div>
-              </div>
-            </section>
+                      <div class="gray-highlights">
+                        {{ ad.port_of_arrival }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type == 'container'">
+                  <div class="flex flex-row gap-2">
+                    <div class="flex flex-col">
+
+                      <div class="gray-highlights">
+                        {{ ad.port_of_departure }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-4 py-4 text-sm border-2 text-gray-700 whitespace-nowrap" *ngIf="ad_type == 'container'">
+                  <div class="flex flex-row gap-2">
+                    <div class="flex flex-col">
+
+                      <div class="gray-highlights">
+                        {{ ad.port_of_arrival }}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+
+
+                <td class="px-2 py-4 -ml-1 text-sm border-2 text-gray-700 whitespace-nowrap">
+                  <div style="display: flex;">
+
+                    <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled"
+                      (click)="DisplayDraftForm(ad.ad_id)" *ngIf="operation === 'Draft'" scope="row"
+                      class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
+                      style="font-size: 12px;">Edit</button>
+                    <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled"
+                      (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'" scope="row"
+                      class="flex-1 inline-flex font-medium rounded-md rounded-sm py-1 px-2 text-center text-white bg-CCblue disable mt-2"
+                      style="font-size: 12px;">Approve</button>
+                    <button [disabled]="getNegotiationCount(ad.ad_id) < 1"
+                      [class.disabled-button]="getNegotiationCount(ad.ad_id) < 1"
+                      (click)="OpenNegotiations(ad.ad_id,ad_type)" *ngIf="operation === 'Active'" scope="row"
+                      class="flex-1 btninline-flex font-medium rounded-sm disable text-white rounded-lg text-center px-2 py-1 mr-2 mt-2 disable bg-CCblue "
+                      style="font-size: 12px;">Open</button>
+                    <button [disabled]="isButtonDisabled" [class.disabled-button]="isButtonDisabled"
+                      (click)="deleteAd(ad.ad_id)" class="w-6 mr-2 transform disable">
+                      <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M20.75 6H17.75V4.125C17.75 3.29766 17.0773 2.625 16.25 2.625H8.75C7.92266 2.625 7.25 3.29766 7.25 4.125V6H4.25C3.83516 6 3.5 6.33516 3.5 6.75V7.5C3.5 7.60313 3.58437 7.6875 3.6875 7.6875H5.10312L5.68203 19.9453C5.71953 20.7445 6.38047 21.375 7.17969 21.375H17.8203C18.6219 21.375 19.2805 20.7469 19.318 19.9453L19.8969 7.6875H21.3125C21.4156 7.6875 21.5 7.60313 21.5 7.5V6.75C21.5 6.33516 21.1648 6 20.75 6ZM16.0625 6H8.9375V4.3125H16.0625V6Z"
+                          fill="#8C8C8C" />
+                      </svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.ads.length > 0">
+            <nav aria-label="Page navigation">
+              <ul class="inline-flex gap-2">
+                <li class="button1">
+                  <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)"
+                    (click)="prevPage()" [disabled]="currentPage < 2">
+                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
+                        fill="black" fill-opacity="0.25" />
+                    </svg>
+
+                  </button>
+                </li>
+
+                <li class="button3" *ngIf="currentPage > 1">
+                  <button (click)="currentPage = currentPage" (click)="prevPage()" *ngIf="currentPage > 1"
+                    [hidden]="currentPage < 2">
+                    {{ currentPage - 1 }}
+                  </button>
+                </li>
+
+                <li class="button2">
+                  <button *ngIf="totalPages != 1">
+                    {{ currentPage }}
+                  </button>
+                </li>
+
+                <li class="button3" *ngIf="currentPage < totalPages">
+                  <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                    (click)="nextPage()" [hidden]="currentPage >= totalPages" *ngIf="currentPage <= totalPages">
+                    {{ currentPage + 1 }}
+                  </button>
+                </li>
+
+                <li class="button4">
+                  <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
+                    (click)="nextPage()" [disabled]="currentPage >= totalPages">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
+                        fill="black" fill-opacity="0.88" />
+                    </svg>
+
+                  </button>
+                </li>
+              </ul>
+            </nav>
           </div>
-      
-   
+        </div>
+      </div>
+    </section>
+  </div>

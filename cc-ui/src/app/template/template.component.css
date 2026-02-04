@@ -1,42 +1,37 @@
 .main-container {
   height: 100vh;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+}
+
+.header-container {
+  flex-shrink: 0;
+  z-index: 1002;
 }
 
 .container-d {
   display: flex;
   flex-direction: row;
-  height: calc(100vh - 64px);
-  /* Subtract header height */
+  flex: 1;
+  min-height: 0;
+  /* Important for flex-child scrolling */
   overflow: hidden;
 }
 
 .left-section {
-  width: 7%;
-  height: auto;
-  display: flex;
-  float: left;
-  justify-content: left;
-  align-items: left;
-  background: fixed;
+  width: 100px;
+  flex-shrink: 0;
   background-color: #F9FAFB;
-  position: relative;
+  border-right: 1px solid #E5E7EB;
   z-index: 1001;
 }
 
 .right-section {
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: #fafafa;
-}
-
-.left-section h1 {
-  text-align: center;
-  width: 100%;
-}
-
-.header-container {
-  position: relative;
-  z-index: 1002;
+  flex: 1;
+  min-width: 0;
+  background-color: #F9FAFB;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
 }
