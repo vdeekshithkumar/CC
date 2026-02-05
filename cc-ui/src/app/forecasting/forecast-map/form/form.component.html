@@ -1,8 +1,26 @@
-<div class="popover-card">
+<div class="popover-card2">
   <!-- Header Section -->
-  <div class="popover-header" *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">Port Summary</div>
-  <div class="popover-header" *ngIf="isSurplusAreaSelected">Surplus Summary</div>
-  <div class="popover-header" *ngIf="isDeficitAreaSelected">Deficit Summary</div>
+  <div class="popover-header" *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected">
+    <div class="header-title">Port Summary</div>
+    <div class="header-subtitle">
+      <span class="port-name">{{ port_name }}</span>
+      <span class="port-code-badge">{{ portCode }}</span>
+    </div>
+  </div>
+  <div class="popover-header" *ngIf="isSurplusAreaSelected">
+    <div class="header-title">Surplus Summarys</div>
+    <div class="header-subtitle">
+      <span class="port-name">{{ port_name }}</span>
+      <span class="port-code-badge">{{ portCode }}</span>
+    </div>
+  </div>
+  <div class="popover-header" *ngIf="isDeficitAreaSelected">
+    <div class="header-title">Deficit Summary</div>
+    <div class="header-subtitle">
+      <span class="port-name">{{ port_name }}</span>
+      <span class="port-code-badge">{{ portCode }}</span>
+    </div>
+  </div>
 
   <!-- Combined View (Both Surplus & Deficit) -->
   <div *ngIf="!isSurplusAreaSelected && !isDeficitAreaSelected" class="data-grid">
@@ -11,12 +29,7 @@
 
     <!-- Left Column (Surplus) -->
     <div class="data-section">
-      <div class="info-row">
-        <span class="label">PORT CODE</span>
-        <span class="value">{{ portCode }}</span>
-      </div>
-
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">SURPLUS</span>
         <div class="value surplus-highlight">
           <ng-container *ngIf="surplusCount !== null; else displayPercentage">
@@ -31,7 +44,7 @@
         </div>
       </div>
 
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">Type</span>
         <select class="modern-select" [(ngModel)]="surpluscontainerType" (change)="onDropdownChange()">
           <option [ngValue]="null" selected>Select Type</option>
@@ -39,7 +52,7 @@
         </select>
       </div>
 
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">Size</span>
         <select class="modern-select" [(ngModel)]="surpluscontainerSize" (change)="onDropdownChange()">
           <option [ngValue]="null" selected>Select Size</option>
@@ -47,7 +60,7 @@
         </select>
       </div>
 
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">EMPTY ACTUAL</span>
         <span class="value">600</span>
       </div>
@@ -55,12 +68,7 @@
 
     <!-- Right Column (Deficit) -->
     <div class="data-section">
-      <div class="info-row">
-        <span class="label">PORT CODE</span>
-        <span class="value">{{ portCode }}</span>
-      </div>
-
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">DEFICIT</span>
         <div class="value deficit-highlight">
           <ng-container *ngIf="deficitCount !== null; else displayDeficitPercentage">
@@ -75,7 +83,7 @@
         </div>
       </div>
 
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">Type</span>
         <select class="modern-select" [(ngModel)]="deifcitcontainerType" (change)="ondeficitDropdownChange()">
           <option [ngValue]="null" selected>Select Type</option>
@@ -83,7 +91,7 @@
         </select>
       </div>
 
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">Size</span>
         <select class="modern-select" [(ngModel)]="deficitcontainerSize" (change)="ondeficitDropdownChange()">
           <option [ngValue]="null" selected>Select Size</option>
@@ -91,7 +99,7 @@
         </select>
       </div>
 
-      <div class="info-row">
+      <div class="info-row grid-row">
         <span class="label">EMPTY ACTUAL</span>
         <span class="value">600</span>
       </div>
@@ -99,13 +107,8 @@
   </div>
 
   <!-- Surplus Only View -->
-  <div *ngIf="isSurplusAreaSelected" class="data-section">
-    <div class="info-row">
-      <span class="label">PORT CODE</span>
-      <span class="value">{{ portCode }}</span>
-    </div>
-
-    <div class="info-row">
+  <div *ngIf="isSurplusAreaSelected" class="data-section single-view">
+    <div class="info-row grid-row">
       <span class="label">SURPLUS</span>
       <div class="value surplus-highlight">
         <span *ngIf="container_types && container_size">{{ totalSurplus | number:'1.0-0' }}</span>
@@ -118,7 +121,7 @@
       </div>
     </div>
 
-    <div class="info-row">
+    <div class="info-row grid-row">
       <span class="label">Type</span>
       <select class="modern-select" [(ngModel)]="container_types" (ngModelChange)="onSelectionChange()">
         <option [ngValue]="null" selected>Select Type</option>
@@ -126,7 +129,7 @@
       </select>
     </div>
 
-    <div class="info-row">
+    <div class="info-row grid-row">
       <span class="label">Size</span>
       <select class="modern-select" [(ngModel)]="container_size" (ngModelChange)="onSelectionChange()">
         <option [ngValue]="null" selected>Select Size</option>
@@ -134,20 +137,15 @@
       </select>
     </div>
 
-    <div class="info-row">
+    <div class="info-row grid-row">
       <span class="label">EMPTY ACTUAL</span>
       <span class="value">600</span>
     </div>
   </div>
 
   <!-- Deficit Only View -->
-  <div *ngIf="isDeficitAreaSelected" class="data-section">
-    <div class="info-row">
-      <span class="label">PORT CODE</span>
-      <span class="value">{{ portCode }}</span>
-    </div>
-
-    <div class="info-row">
+  <div *ngIf="isDeficitAreaSelected" class="data-section single-view">
+    <div class="info-row grid-row">
       <span class="label">DEFICIT</span>
       <div class="value deficit-highlight">
         <span *ngIf="deifcit_Type && deficit_Size">{{ totalDeficit | number:'1.0-0' }}</span>
@@ -160,7 +158,7 @@
       </div>
     </div>
 
-    <div class="info-row">
+    <div class="info-row grid-row">
       <span class="label">Type</span>
       <select class="modern-select" [(ngModel)]="deifcit_Type" (ngModelChange)="onDeficitChange()">
         <option [ngValue]="null" selected>Select Type</option>
@@ -168,7 +166,7 @@
       </select>
     </div>
 
-    <div class="info-row">
+    <div class="info-row grid-row">
       <span class="label">Size</span>
       <select class="modern-select" [(ngModel)]="deficit_Size" (ngModelChange)="onDeficitChange()">
         <option [ngValue]="null" selected>Select Size</option>
@@ -176,7 +174,7 @@
       </select>
     </div>
 
-    <div class="info-row">
+    <div class="info-row grid-row">
       <span class="label">EMPTY ACTUAL</span>
       <span class="value">600</span>
     </div>

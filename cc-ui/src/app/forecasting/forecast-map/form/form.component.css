@@ -5,27 +5,85 @@
   display: block;
 }
 
-.popover-card {
-  width: 480px;
+.popover-card2 {
+  width: 600px !important;
+  /* Increased width further to prevent clipping */
   background: var(--cc-bg-card);
   color: var(--cc-text-main);
-  padding: 24px;
+  padding: 32px;
+  /* Increased padding slightly */
+  border-radius: 12px;
+  /* Added rounded corners */
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modern Heading Styles */
+.header-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cc-text-main);
+  margin-bottom: 4px;
+}
+
+.header-subtitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.port-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--cc-text-main);
+}
+
+.port-code-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--cc-text-muted);
+  background: var(--cc-bg-main);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--cc-border);
 }
 
 .popover-header {
   text-align: center;
+  margin-bottom: 24px;
+}
+
+/* The following rule is replaced by .header-title and .header-subtitle */
+/* .popover-header>div:first-child {
   font-size: 20px;
   font-weight: 700;
-  margin-bottom: 24px;
   color: var(--cc-text-main);
   letter-spacing: -0.5px;
-}
+  margin-bottom: 4px;
+} */
+
+/* The following rule is replaced by .port-name and .port-code-badge */
+/* .port-subtitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--cc-text-muted);
+  background: var(--cc-bg-main);
+  display: inline-block;
+  padding: 2px 12px;
+  border-radius: 12px;
+} */
 
 .data-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   position: relative;
+  padding-bottom: 24px;
+}
+
+.single-view {
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .data-section {
@@ -38,10 +96,19 @@
   position: absolute;
   left: 50%;
   top: 0;
-  bottom: 0;
+  bottom: 24px;
   width: 1px;
   background: var(--cc-border);
   transform: translateX(-50%);
+}
+
+/* Strict Grid Row Alignment */
+.grid-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  /* Fixed width for label, rest for value */
+  align-items: center;
+  gap: 12px;
 }
 
 .info-row {
@@ -49,48 +116,58 @@
   justify-content: space-between;
   align-items: center;
   font-size: 13px;
+  gap: 12px;
+  /* Ensure spacing between label and value/input */
 }
 
 .label {
   color: var(--cc-text-muted);
   font-weight: 500;
+  font-size: 13px;
+  text-align: left;
+  white-space: nowrap;
+  /* Prevent label wrapping */
 }
 
 .value {
   font-weight: 600;
   color: var(--cc-text-main);
   text-align: right;
+  font-size: 13px;
 }
 
 .value.surplus-highlight {
   color: #10B981;
-  /* Green */
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: flex-end;
+  /* Right align flex content */
+  gap: 6px;
 }
 
 .value.deficit-highlight {
   color: #EF4444;
-  /* Red */
   display: flex;
   align-items: center;
-  gap: 4px;
+  justify-content: flex-end;
+  /* Right align flex content */
+  gap: 6px;
 }
 
 .modern-select {
   appearance: none;
   background: var(--cc-input-bg);
   border: 1px solid var(--cc-border);
-  border-radius: 8px;
-  padding: 6px 12px;
-  font-size: 12px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
   color: var(--cc-text-main);
   width: 100%;
+  /* Fill the grid cell */
   cursor: pointer;
   outline: none;
   transition: all 0.2s;
-  text-align: right;
+  text-align: left;
 }
 
 .modern-select:hover {
@@ -99,14 +176,16 @@
 
 .modern-select:focus {
   border-color: var(--cc-primary);
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
 .action-buttons {
-  margin-top: 24px;
+  margin-top: 8px;
   display: flex;
   justify-content: center;
   gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cc-border);
 }
 
 .btn-ghost {
@@ -114,8 +193,8 @@
   border: 1px solid var(--cc-border);
   color: var(--cc-text-main);
   padding: 8px 16px;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 6px;
+  font-size: 13px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
@@ -131,8 +210,8 @@
   color: white;
   border: none;
   padding: 8px 20px;
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 6px;
+  font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
