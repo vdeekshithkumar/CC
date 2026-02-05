@@ -80,6 +80,11 @@ export class ProfileComponent implements OnInit {
   getCompanyId() {
     return this.company_id;
   }
+  // Loading states
+  isLoadingCompany: boolean = true;
+  isLoadingAdmin: boolean = true;
+  isLoadingUsers: boolean = true;
+
   constructor(private dialog: MatDialog, private sessionService: SessionService, private router: Router, private profileService: ProfileService, private activatedRoute: ActivatedRoute, private myadservice: MyAdService) { }
   ngOnInit(): void {
 
@@ -111,7 +116,27 @@ export class ProfileComponent implements OnInit {
       }
       else {
         this.currentUser = user;
-        console.log('From session ' + this.currentUser.email + '  id here ' + this.currentUser.user_id)
+        console.log('From session ' + this.currentUser.email + '  id here ' + this.currentUser.user_id);
+
+        // Fetch User Details (Admin Profile)
+        this.isLoadingAdmin = true;
+        this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
+          data => {
+            // Handle the data returned by the HTTP GET request
+            this.first_name = data.first_name
+            console.log(this.first_name)
+            this.last_name = data.last_name
+            this.email = data.email
+            this.company_id = data.company_id
+            this.phone = data.phone_no
+            this.isLoadingAdmin = false;
+          },
+          error => {
+            // Handle any errors that occur
+            console.warn("oninit error" + error);
+            this.isLoadingAdmin = false;
+          }
+        );
       }
       // store the user session information in a property
 
@@ -137,6 +162,54 @@ export class ProfileComponent implements OnInit {
 
         console.log('company ID is :', companyId);
 
+        // Fetch Company Details
+        this.isLoadingCompany = true;
+        this.profileService.getCompanyById(this.companyId).subscribe(
+          data => {
+            this.company_id = data.company_id,
+              this.name = data.name,
+              this.licence_id = data.licence_id,
+              this.domain_address = data.domain_address,
+              this.company_logo = data.company_logo,
+              this.company_location = data.company_location,
+              this.country = data.country,
+              this.rating = data.rating,
+              this.address = data.address
+            console.log(data)
+            this.isLoadingCompany = false;
+          },
+          error => {
+            console.warn("oninit error" + error);
+            this.isLoadingCompany = false;
+          }
+        );
+
+        // Fetch All Users
+        this.isLoadingUsers = true;
+        this.profileService.getallUser(this.companyId).subscribe(
+          data => {
+            this.alluser_list = data;
+            this.filterUsers();
+            console.log("employee list fetched: ", this.alluser_list);
+            this.isLoadingUsers = false;
+          },
+          error => {
+            console.log("employee loading error:" + error);
+            this.isLoadingUsers = false;
+          }
+        );
+
+        // Fetch User Count (Separate call, but part of company stats)
+        this.profileService.getallUserCount(this.companyId).subscribe(
+          data => {
+            this.usercount_list = data;
+            console.log("employee Count: ", this.usercount_list);
+          },
+          error => {
+            console.log("employee loading error:" + error);
+          }
+        );
+
       },
 
       (error: any) => {
@@ -148,80 +221,10 @@ export class ProfileComponent implements OnInit {
     );
 
 
-    this.profileService.getallUser(this.companyId).subscribe(
-      data => {
-        this.alluser_list = data;
+    //pw: refactored logic above combined scattered calls
+    //original code had separate calls below, removed to avoid duplication and ensuring proper loading state management.
+    // logic now resides inside the subscription blocks above.
 
-        this.filterUsers();
-        console.log("employee list fetched: ", this.alluser_list);
-      },
-      error => {
-        console.log("employee loading error:" + error);
-      }
-    );
-    this.profileService.getallUserCount(this.companyId).subscribe(
-      data => {
-        this.usercount_list = data;
-
-        console.log("employee Count: ", this.usercount_list);
-
-      },
-      error => {
-        console.log("employee loading error:" + error);
-      }
-    );
-    this.profileService.getCompanyById(this.companyId).subscribe(
-
-      data => {
-
-        // Handle the data returned by the HTTP GET request
-
-        this.company_id = data.company_id,
-
-          this.name = data.name,
-
-          this.licence_id = data.licence_id,
-
-          this.domain_address = data.domain_address,
-
-          this.company_logo = data.company_logo,
-
-          this.company_location = data.company_location,
-
-          this.country = data.country,
-
-          this.rating = data.rating,
-
-          this.address = data.address
-
-        console.log(data)
-      },
-
-      error => {
-
-        // Handle any errors that occur
-
-        console.warn("oninit error" + error);
-
-      }
-    );
-
-    this.profileService.getUserDetails(this.currentUser.user_id).subscribe(
-      data => {
-
-        // Handle the data returned by the HTTP GET request
-        this.first_name = data.first_name
-        console.log(this.first_name)
-        this.last_name = data.last_name
-        this.email = data.email
-        this.company_id = data.company_id
-        this.phone = data.phone_no
-      },
-      error => {
-        // Handle any errors that occur
-        console.warn("oninit error" + error);
-      }
-    );
     //when navigate back to sign-in session ends
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd && event.url === '/sign-in')

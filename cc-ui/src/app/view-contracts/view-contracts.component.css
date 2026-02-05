@@ -1,53 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.div{
-    @apply  font-poppins;
-}
-.button{
-    @apply cursor-pointer;
-}
-.disabled-button {
-    cursor: not-allowed;
-  }
-.page-link{
-    @apply  text-xs w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
-}
-.page-link-active{
-    @apply  text-xs text-white font-bold bg-CCblue w-7 h-7 rounded-md border-2 items-center border-angel-blue-2 
-}
-.btn-primary{
-    color: #ffffff;
-    background-color: #2F54EB;
-    height: 30px;
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 0px;
-    padding: 14px 15px;
-}
-.div-bg{
-    background: #FAFAFA;
-  }
-  .div-box-bg{
-    background: #F0F0F0;
-  }
-  .div-bg-line{
-    border-bottom: 1px solid  #E9E9E9;
-    
-  }
-  .forecast {
-    font-family: Poppins;
-    font-size: 16px;
-    line-height: 28px;
-}
-.btn-primary{
-    color: #ffffff;
-    background-color: #2F54EB;
-    height: 38px;
-    
-}
-.border{
-    border: 1px solid #D9D9D9;
-  }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -499,6 +499,10 @@ export class AddEmployeeComponent {
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
+
+  closeDialog() {
+    this.dialogRef.close();
+  }
 }
 function passwordMatchValidator(formGroup: FormGroup): { passwordMismatch: boolean } | null {
   const password = formGroup.get('password')?.value;

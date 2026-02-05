@@ -1,223 +1,207 @@
-<div [class.hidden]="!showform" class="fixed inset-0 flex items-center justify-center rounded-lg">
-  <div class="fixed inset-0 bg-black opacity-60 z-10"></div>
-  <div class="mt-4 mx-auto font-poppins relative z-20">
-    <div class=" justify-center h1 w-[55rem] h-[5rem]">
-      <div>
-        <div class="flex items-center justify-between ">
-          <h1 *ngIf="!isEdit" class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
-            Add New User</h1>
-            <h1 *ngIf="isEdit" class="ml-4 font-semibold mt-4 font-poppins add-h1 mb-4">
-              Edit User Details</h1>
-          <div>
-            <button mat-dialog-close="" class="mr-4 mb-4 mt-4 text-black hover:text-gray-700 focus:outline-none">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18 6L6 18M6 6L18 18" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<div [class.hidden]="!showform"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto w-full h-full" role="dialog"
+  aria-modal="true">
+  <!-- Backdrop -->
+  <div class="fixed inset-0 bg-gray-600 bg-opacity-75 transition-opacity" (click)="closeDialog()"></div>
+
+  <!-- Modal Panel -->
+  <div
+    class="relative bg-white rounded-xl shadow-xl transform transition-all sm:max-w-4xl w-full mx-auto flex flex-col max-h-[90vh]">
+
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between px-6 py-5 border-b border-gray-200">
+      <h1 class="text-xl font-bold text-gray-900">
+        {{ isEdit ? 'Edit User Details' : 'Add New User' }}
+      </h1>
+      <button mat-dialog-close
+        class="text-gray-400 hover:text-gray-500 focus:outline-none transition-colors p-2 rounded-full hover:bg-gray-100"
+        aria-label="Close">
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Stepper Content -->
+    <div class="flex-1 overflow-y-auto p-0">
+      <mat-horizontal-stepper #stepper linear class="bg-white">
+
+        <!-- Step 1: Details -->
+        <mat-step label="Details" [editable]="false">
+          <div class="p-6 pt-2">
+            <form [formGroup]="addEmployeeForm" class="space-y-6">
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- First Name -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <input formControlName="first_name" type="text"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="e.g. John" />
+                  <div *ngIf="showValidationErrors && addEmployeeForm.get('first_name')?.invalid"
+                    class="text-red-500 text-xs mt-1">
+                    First Name is required.
+                  </div>
+                </div>
+
+                <!-- Last Name -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <input formControlName="last_name" type="text"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="e.g. Wick" />
+                  <div *ngIf="showValidationErrors && addEmployeeForm.get('last_name')?.invalid"
+                    class="text-red-500 text-xs mt-1">
+                    Last Name is required.
+                  </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                  <input formControlName="phone_no" type="text"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="e.g. +91 9876543210" />
+                  <div
+                    *ngIf="addEmployeeForm.get('phone_no')?.errors?.['invalidPhoneNumber'] && addEmployeeForm.get('phone_no')?.dirty"
+                    class="text-red-500 text-xs mt-1">
+                    Enter valid phone number
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                  <input formControlName="email" type="email"
+                    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                    placeholder="e.g. john@example.com" />
+                  <div *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid"
+                    class="text-red-500 text-xs mt-1">
+                    Valid email is required.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Address -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Address <span
+                    class="text-gray-400 font-normal">(Optional)</span></label>
+                <input formControlName="address" type="text"
+                  class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm"
+                  placeholder="e.g. 123 Main St, New York, NY" />
+              </div>
+
+              <!-- Passwords -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                  <div class="relative">
+                    <input formControlName="password" [type]="showPassword ? 'text' : 'password'" [readOnly]="isEdit"
+                      class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm pr-10"
+                      [class.bg-gray-100]="isEdit" />
+                    <button *ngIf="!isEdit" type="button" (click)="togglePasswordVisibility()"
+                      class="absolute inset-y-0 right-0 px-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
+                      <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+                  <div class="relative">
+                    <input formControlName="confirm_password" [type]="showPassword ? 'text' : 'password'"
+                      [readOnly]="isEdit"
+                      class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all text-sm pr-10"
+                      [class.bg-gray-100]="isEdit" />
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <!-- Step Actions -->
+            <div class="flex justify-end gap-3 mt-8 pt-4 border-t border-gray-100">
+              <button mat-dialog-close type="button"
+                class="px-5 py-2.5 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium transition-colors text-sm shadow-sm">
+                Cancel
+              </button>
+              <button type="button" (click)="openDialog(stepper)"
+                class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors text-sm shadow-sm flex items-center gap-2">
+                Next
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
-                
-            </button>
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-<mat-horizontal-stepper #stepper  linear ngClass="{{ 'last-edited-step-' + stepper.selectedIndex }}">
-  <mat-step label="Details" [editable]="false">
-    <form [formGroup]="addEmployeeForm" class="grid grid-cols-2 gap-x-4 mt-6 font-poppins">
-      <div class="col-span-1">
-        <h2 class="font-semibold mb-2 font-poppins -ml-2">Add User Details</h2>
-          <label for="first_name"   class="bg-text -ml-2">First Name</label>
-        <input
-        formControlName="first_name"
-        autocomplete="off"
-        class="register-page-data italic-placeholder mt-2 -ml-2"
-      placeholder="E.g. John"
-      name="firstName"
-      />
-      <div
-                  *ngIf="showValidationErrors && addEmployeeForm.get('first_name')?.invalid"
-                  class="text-red-500 text-sm mt-1">
-                </div>
+        </mat-step>
 
-                <div class="error" *ngIf="addEmployeeForm?.get('first_name')?.invalid && addEmployeeForm?.get('first_name')?.errors?.['maxlength']">
-                  Maximum limit exceeded.
-                </div>
-      </div>
-      <div class="mt-10">
-  
-        <label for="first_name" class="bg-text ml-2">Last Name</label>
-        <input
-          formControlName="last_name"
-          autocomplete="off"
-          class="register-page-data italic-placeholder ml-2 mt-2"
-          placeholder="E.g. Wick"
-          name="firstName"
-        />
-        <div
-        *ngIf="showValidationErrors && addEmployeeForm.get('last_name')?.invalid"
-        class="text-red-500 text-sm mt-1">
-      </div>
+        <!-- Step 2: Permissions -->
+        <mat-step label="Permissions" [editable]="false">
+          <div class="p-6 pt-2">
+            <h2 class="text-sm font-semibold text-gray-900 mb-4 uppercase tracking-wide">Assign User Permissions</h2>
 
-      <div class="error" *ngIf="addEmployeeForm?.get('last_name')?.invalid && addEmployeeForm?.get('last_name')?.errors?.['maxlength']">
-        Maximum limit exceeded.
-      </div>
-      </div>
-      <div class="col-span-1 mt-4">
-        <label for="first_name" class="bg-text -ml-2">Phone Number</label>
-        <input
-          formControlName="phone_no"
-          autocomplete="off"
-          class="register-page-data italic-placeholder -ml-2 mt-2"
-          placeholder="E.g. +918707312194"
-          name="phone_no"
-        />
-        <div *ngIf="addEmployeeForm.get('phone_no')?.errors?.['invalidPhoneNumber'] && addEmployeeForm.get('phone_no')?.dirty" class="text-red-500 text-sm">
-          Enter valid phone number
-        </div>
-        <div *ngIf="showValidationErrors && addEmployeeForm.get('phone_no')?.invalid" class="text-red-500 text-sm mt-1"></div>
-        <div class="error" *ngIf="addEmployeeForm?.get('phone_no')?.invalid && addEmployeeForm?.get('phone_no')?.errors?.['maxlength']">
-          Maximum limit exceeded.
-        </div>
-      
-        
-        
-        
-        
-        
-        
-      </div>
-      
-      
-      <div class="col-span-1 mt-4 ">
-        <label for="email" class="bg-text ml-2">Email</label>
-        <input
-          formControlName="email"
-          autocomplete="off"
-          class="register-page-data italic-placeholder ml-2 mt-2"
-          placeholder="yourname@gmail.com"
-          name="firstName"
-        />
-        <div *ngIf="showValidationErrors && addEmployeeForm.get('email')?.invalid" class="text-red-500 text-sm mt-1"></div>
-        <div class="error" *ngIf="addEmployeeForm?.get('email')?.invalid && addEmployeeForm?.get('email')?.errors?.['maxlength']">
-          Maximum limit exceeded.
-        </div>
-      </div>
-      <div class="col-span-2 mt-4">  
-        <label for="first_name" class="bg-text -ml-2">Address<span class="optional"> (optional)</span></label>
-        <input
-          formControlName="address"
-          autocomplete="off"
-          class="register-page-data italic-placeholder -ml-2 mt-2 full-width-input"
-          placeholder="E.g. Marenahalli, Bangalore, India"
-          name="firstName"
-        />
-        
-      </div>
-      <div class="mb-1 mt-4">
-        <h2 class="font-semibold mb-2 font-poppins -ml-2">Create Password</h2>
-        <label for="first_name" class="bg-text -ml-2">Password</label>
-        <div class="relative">
-          <input
-            formControlName="password"
-            [readOnly]="isEdit"
-            class="register-page-data -ml-2 italic-placeholder pr-10 mt-2"
-            required
-            minlength="8"
-            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
-            type="{{ showPassword ? 'text' : 'password' }}"
-            placeholder=""
-            name="password"
-          />
-          <div *ngIf="showValidationErrors && addEmployeeForm.get('password')?.invalid" class="text-red-500 text-sm mt-1"></div>
-          <div class="error" *ngIf="!isEdit &&addEmployeeForm?.get('password')?.invalid && addEmployeeForm?.get('password')?.errors?.['maxlength']">
-            Maximum limit exceeded.
-          </div>
-          <span *ngIf="!isEdit" class="absolute inset-y-0 right-0 mr-3 pr-3 flex items-center cursor-pointer">
-            <i  class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
-          </span>
-          
-        </div>
-      </div>
-      <div class="mt-14">
-        <label for="first_name" class="mt-20 bg-text ml-2">Confirm Password</label>
-        <div class="relative">
-          <input
-            formControlName="confirm_password"
-            [readOnly]="isEdit"
-            class="register-page-data italic-placeholder pr-10 ml-2 mt-2  "
-            placeholder=""
-            name="firstName"
-            type="{{ showPassword ? 'text' : 'password' }}"
-          />
-          <div *ngIf="showValidationErrors &&  addEmployeeForm.get('confirm_password')?.invalid" class="text-red-500 text-sm mt-1"></div>
-          <div class="error" *ngIf="!isEdit && addEmployeeForm?.get('confirm_password')?.invalid && addEmployeeForm?.get('confirm_password')?.errors?.['maxlength']">
-            Maximum limit exceeded.
-          </div>
-          <span *ngIf="!isEdit" class="absolute inset-y-0 ml-96 pr-3 flex items-center cursor-pointer">
-            <i class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
-          </span>
-        </div>
-      </div>
-    </form>
-    <div class="">
-    <div class="flex items-center justify-between">
-      <button  mat-dialog-close="" type="button" class="rounded-sm font-poppins ml-6  mr-3 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-gray-50 border-2 bg-gray-50 text-black mt-4">
-        Cancel
-      </button>
-      <button  (click)="openDialog(stepper)" type="button" class="rounded-sm font-poppins ml-1 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full border-2 px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">
-        Next
-      </button>
-    </div>
-  </div>
-  
-  </mat-step>
-
-  <mat-step  label="Permissions" class="blue-line"[editable]="false">
-    <form [formGroup]="addEmployeeForm" class="mt-6">
-      <div>
-        <h2 class="font-semibold mb-4 ml-0 font-poppins text-sm">Add User Permissions</h2>
-        <table class="full-width min-h-full border-2 ml-0 mb-2 font-poppins">
-          <thead>
-            <tr class="border-2 bg-th">
-              <th class="py-2 justify-start font-poppins full-width-th">
-                <div class="float-left ml-4">Action</div></th>
-              <th class="py-2 justify-start font-poppins border-2 ml-20">
-                <div class="float-left ml-6">Type</div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let p of PList; let i = index">
-              <ng-container *ngIf="i % 2 === 0">
-                <tr class="row font-poppins border-2">
-                    <td class="col-md-20 mb-6 px-4 text-xs pt-3 pb-3 ">{{ p.type }}</td>
-                    <td class="col-md-20 text-right ml-10  border-2 " style="padding: 0.5em;">
-                      <div class="flex">
-                        <div class="form-check flex ml-6 text-xs font-poppins inline-block">
-                          <input class="text-xs font-medium text-gray-900 font-poppins" checked type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read" (change)="updateReadAccess(p, $event)">
-                          <label class="w-4 h-4 ml-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 " [for]="p.type + '-read'">Read </label>
-                        </div>
-                        <div class="form-check flex ml-16 text-xs font-poppins inline-block">
-                          <input class="text-xs font-medium text-gray-900 font-poppins " type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'" [checked]="p?.write" (change)="updateReadAccess(p, $event)">
-                          <label class="w-4 h-4 ml-2 text-black-600 border-gray-300 rounded focus:ring-blue-500 " [for]="p.type + '-write'">Write </label>
-                        </div>
-                      </div>
-                      
-                    </td>
+            <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+              <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
+                  <tr>
+                    <th scope="col"
+                      class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Module /
+                      Action</th>
+                    <th scope="col"
+                      class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">Access
+                      Rights</th>
                   </tr>
-              </ng-container>
-            </ng-container>
-          </tbody>
-        </table>
-      
-      </div>
-      <div class="flex items-center justify-between">
-        <button  matStepperNext type="button" class="font-poppins ml-4 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none w-full px-4 py-1 leading-6 border-gray-50 border-2 bg-gray-50 text-black mt-4">
-          Cancel
-        </button>
-        <button  matStepperNext (click)="onAdd()" type="submit" class="rounded-sm font-poppins ml-1 mr-4 inline-flex justify-center items-center space-0 font-light focus:outline-none border-2 w-full px-4 py-1 leading-6 border-CCblue bg-CCblue text-white mt-4">Submit</button>
-      </div>  
-    </form>
-    
-  </mat-step>
-</mat-horizontal-stepper>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                  <ng-container *ngFor="let p of PList; let i = index">
+                    <tr *ngIf="i % 2 === 0" class="hover:bg-gray-50 transition-colors">
+                      <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ p.type }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-right">
+                        <div class="flex justify-end gap-6">
+                          <label class="inline-flex items-center cursor-pointer group">
+                            <input type="checkbox" [id]="p.type + '-read'" [name]="p.type + '-read'" [checked]="p?.read"
+                              (change)="updateReadAccess(p, $event)"
+                              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 transition duration-150 ease-in-out cursor-pointer">
+                            <span class="ml-2 text-sm text-gray-600 group-hover:text-gray-900 select-none">Read</span>
+                          </label>
+
+                          <label class="inline-flex items-center cursor-pointer group">
+                            <input type="checkbox" [id]="p.type + '-write'" [name]="p.type + '-write'"
+                              [checked]="p?.write" (change)="updateReadAccess(p, $event)"
+                              class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500 transition duration-150 ease-in-out cursor-pointer">
+                            <span class="ml-2 text-sm text-gray-600 group-hover:text-gray-900 select-none">Write</span>
+                          </label>
+                        </div>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Step Actions -->
+            <div class="flex justify-end gap-3 mt-8 pt-4 border-t border-gray-100">
+              <button matStepperPrevious type="button"
+                class="px-5 py-2.5 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 font-medium transition-colors text-sm shadow-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back
+              </button>
+              <button type="submit" (click)="onAdd()"
+                class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-colors text-sm shadow-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                Submit
+              </button>
+            </div>
+
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
 
   </div>
 </div>

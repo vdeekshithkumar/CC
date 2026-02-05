@@ -1,397 +1,462 @@
-<div class="div bg-gray-50 min-h-screen">
+<div class="div bg-gray-50 min-h-screen pt-4 px-4 sm:px-6 lg:px-8 font-poppins pb-10">
+  <div class="space-y-6">
 
+    <!-- Top Grid: Split Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-  <!-- Main View Canvas -->
-  <div class="div-company-details w-full mt-4 max-w-screen-2xl min-w-[780px]">
-    <!-- Company Details section  -->
-    <div class=" my-2 mx-1 h-fit bg-white p-2">
-      <div class="flex">
-        <!-- first box which contains the company details -->
-        <form [formGroup]="profileForm" class="w-full">
+      <!-- Company Profile Card (Left, Span 2) -->
+      <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200 p-5 relative min-h-[400px]">
 
-          <div class="flex justify-between items-center w-full">
-            <div class=" flex flex-row items-center w-full">
-              <div class="relative px-1 py-2" id="company-logo">
-                <img
-                  class="bg-img object-contain overflow-hidden w-16 h-14 rounded-full border-1 border-transparent outline-2"
-                  src="{{ company_logo }}" />
-                <button (click)="showDiv = !showDiv" [disabled]="isEditcompanyDisabled"
-                  [class.disabled-button]="isEditcompanyDisabled " matTooltip="Edit Company Profile"
-                  class="absolute bottom-1 right-0 cursor-pointer">
-                  <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="16" height="16" transform="translate(0.5)" fill="white"
-                      style="mix-blend-mode:multiply" />
-                    <path d="M15.5 13H1.5V14H15.5V13Z" fill="#597EF7" />
-                    <path
-                      d="M13.2 4.5C13.6 4.1 13.6 3.5 13.2 3.1L11.4 1.3C11 0.9 10.4 0.9 10 1.3L2.5 8.8V12H5.7L13.2 4.5ZM10.7 2L12.5 3.8L11 5.3L9.2 3.5L10.7 2ZM3.5 11V9.2L8.5 4.2L10.3 6L5.3 11H3.5Z"
-                      fill="#597EF7" />
-                  </svg>
-                </button>
-                <!-- A hidden div for edit profile -->
-                <div class="my-3 relative" [class.hidden]="!showDiv">
-                  <div class="absolute top-0 left-0 shadow-md z-20">
-                    <app-edit-profile></app-edit-profile>
-                  </div>
-                </div>
-              </div>
-              <!-- Sub box 1 -->
-              <div class="flex flex-col w-full" id="sub-box2">
-                <div class="font-medium whitespace-nowrap ml-2 mt-2" style="font-size: 1.25rem;">
-                  {{name}}
-                </div>
-                <div class="flex flex-row justify-around rounded-none w-full mt-2 -ml-5">
-
-                  <div class="gray-highlights justify-between rounded-none">
-                    <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M5.50001 0C4.04186 0.00177305 2.64394 0.581805 1.61288 1.61287C0.581811 2.64394 0.00177874 4.04185 5.68684e-06 5.5C-0.00171609 6.69163 0.387576 7.85092 1.10816 8.8C1.10816 8.8 1.25816 8.99725 1.28226 9.02585L5.50001 14L9.71951 9.0237C9.7417 8.99705 9.89186 8.7998 9.89186 8.7998L9.89261 8.7986C10.6128 7.84987 11.0018 6.69109 11 5.5C10.9982 4.04185 10.4182 2.64394 9.38713 1.61287C8.35607 0.581805 6.95815 0.00177305 5.50001 0ZM6.00001 8H5.00001V7H6.00001V8ZM6.00001 6H5.00001V5H6.00001V6ZM8.00001 8H7.00001V4H4.00001V8H3.00001V4C3.00031 3.73488 3.10576 3.4807 3.29324 3.29323C3.48071 3.10576 3.73488 3.0003 4.00001 3H7.00001C7.26513 3.0003 7.51931 3.10576 7.70678 3.29323C7.89425 3.4807 7.9997 3.73488 8.00001 4V8Z"
-                        fill="#262626">
-                        ....
-                      </path>
-                    </svg>
-                    <span class="ml-1 truncate txt"
-                      title="{{address}},{{company_location}}, {{country}}">{{address}},{{company_location}},
-                      {{country}}</span>
-                  </div>
-                  <div class="div-sub-box2 ">
-                    <div class="gray-highlights -ml-12">
-                      <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M13.5 9.5H9.5C9.23489 9.49964 8.98075 9.39417 8.79329 9.20671C8.60583 9.01925 8.50036 8.76511 8.5 8.5V7H9.5V8.5H13.5V1.5H9.5V3H8.5V1.5C8.5003 1.23488 8.60576 0.9807 8.79323 0.793229C8.9807 0.605759 9.23488 0.500304 9.5 0.5H13.5C13.7651 0.500304 14.0193 0.605759 14.2068 0.793229C14.3942 0.9807 14.4997 1.23488 14.5 1.5V8.5C14.4996 8.76511 14.3942 9.01925 14.2067 9.20671C14.0193 9.39417 13.7651 9.49964 13.5 9.5Z"
-                          fill="#595959" />
-                        <path d="M5.5 4.5H3.5V5.5H5.5V4.5Z" fill="#595959" />
-                        <path d="M11.5 4.5H9.5V5.5H11.5V4.5Z" fill="#595959" />
-                        <path d="M8.5 4.5H6.5V5.5H8.5V4.5Z" fill="#595959" />
-                        <path
-                          d="M5.5 9.5H1.5C1.23488 9.4997 0.9807 9.39424 0.793229 9.20677C0.605759 9.0193 0.500304 8.76512 0.5 8.5V1.5C0.500265 1.23486 0.605707 0.980665 0.793186 0.793186C0.980665 0.605707 1.23486 0.500265 1.5 0.5H5.5C5.76514 0.500265 6.01934 0.605707 6.20681 0.793186C6.39429 0.980665 6.49974 1.23486 6.5 1.5V3H5.5V1.5H1.5V8.5H5.5V7H6.5V8.5C6.4997 8.76512 6.39424 9.0193 6.20677 9.20677C6.0193 9.39424 5.76512 9.4997 5.5 9.5Z"
-                          fill="#595959" />
-                      </svg>
-
-                      <span class="ml-1 bg-txt">
-                        {{licence_id}}</span>
-                    </div>
-                  </div>
-                  <!-- Sub box 3 -->
-                  <div class="div-sub-box2 ">
-                    <div class="gray-highlights -ml-12">
-                      <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M14.5 0H12.5V2H14.5V0Z" fill="#595959" />
-                        <path d="M14.5 3H12.5V5H14.5V3Z" fill="#595959" />
-                        <path d="M11.5 0H9.5V2H11.5V0Z" fill="#595959" />
-                        <path d="M11.5 3H9.5V5H11.5V3Z" fill="#595959" />
-                        <path
-                          d="M13.5 7V10H1.5V2H7.5V1H1.5C1.23478 1 0.98043 1.10536 0.792893 1.29289C0.605357 1.48043 0.5 1.73478 0.5 2V10C0.5 10.2652 0.605357 10.5196 0.792893 10.7071C0.98043 10.8946 1.23478 11 1.5 11H5.5V13H3.5V14H11.5V13H9.5V11H13.5C13.7652 11 14.0196 10.8946 14.2071 10.7071C14.3946 10.5196 14.5 10.2652 14.5 10V7H13.5ZM8.5 13H6.5V11H8.5V13Z"
-                          fill="#595959">
-                          ....
-                        </path>
-                      </svg>
-
-                      <span class="ml-1 bg-txt truncate1 txt" title="{{domain_address}}">
-                        {{domain_address}}</span>
-                    </div>
-                  </div>
-
-
-
-                  <!-- Ratings -->
-                  <div class=" flex">
-                    <div class="gray-highlights -ml-12 bg-txt">
-                      <i class="material-icons text-sm text-yellow-400 ">star</i>
-                      {{rating}}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- {{usercount_list}} -->
-            <div class="flex justify-end items-center">
-
-              <div class="flex flex-row " id="summary-blocks">
-
-                <div class="bg-box w-fit h-16 p-2 flex mx-1 -ml-10">
-                  <div class="flex-1 flex flex-col">
-                    <span class="bg-box1 font-bold text-md flex-col">{{usercount_list}}</span>
-                    <p class="whitespace-nowrap flex-col bg-box2 mt-2">Active Members</p>
-                  </div>
-                  <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <img src="../../assets/icons/active-members.svg">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="bg-angel-blue h-16 w-fit p-2 flex mx-1">
-                  <div class="flex-1 flex flex-col">
-                    <span class="bg-box1 font-bold text-md inline-flex">
-                      100 <span class="bg-subbox ml-2 ">TEU</span>
-                    </span>
-
-
-                    <p class="whitespace-nowrap flex-col bg-box2 mt-2">Available for sale</p>
-                  </div>
-                  <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <img src="../../assets/icons/sale.svg">
-                    </div>
-                  </div>
-                </div>
-                <div class="bg-angel-blue h-16 w-fit p-2 flex mx-1">
-                  <div class="flex-1 flex flex-col">
-                    <span class="bg-box1 font-bold text-md inline-flex">
-                      100 <span class="bg-subbox ml-2 ">TEU</span>
-                    </span>
-                    <p class="whitespace-nowrap flex-col bg-box2 mt-2">Available for lease</p>
-                  </div>
-                  <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <img src="../../assets/icons/lease.svg">
-                    </div>
-                  </div>
-                </div>
-                <div class="bg-angel-blue h-16 w-fit p-2 flex mx-1">
-                  <div class="flex-1 flex flex-col">
-                    <span class="bg-box1 font-bold text-md inline-flex">
-                      100 <span class="bg-subbox ml-2 ">TEU</span>
-                    </span>
-                    <p class="whitespace-nowrap flex-col bg-box2 mt-2">Available for swap</p>
-                  </div>
-                  <div class="flex-1 items-center mt-auto pl-3 py-1 w-fit">
-                    <div class="flex items-center justify-center rounded-full bg-pale-blue w-8 h-8">
-                      <img src="../../assets/icons/active-members.svg">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- Availability boxes END -->
+        <!-- Skeleton Loader -->
+        <div *ngIf="isLoadingCompany" class="animate-pulse space-y-6">
+          <div class="flex justify-between">
+            <div class="h-6 w-32 bg-gray-200 rounded"></div>
+            <div class="h-8 w-8 bg-gray-200 rounded-full"></div>
           </div>
-        </form>
+          <div class="flex items-center gap-5">
+            <div class="w-16 h-16 bg-gray-200 rounded-xl"></div>
+            <div class="space-y-2">
+              <div class="h-6 w-48 bg-gray-200 rounded"></div>
+              <div class="h-4 w-64 bg-gray-200 rounded"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="h-16 bg-gray-200 rounded-xl" *ngFor="let i of [1,2,3,4,5,6]"></div>
+          </div>
+        </div>
+
+        <!-- Actual Content -->
+        <ng-container *ngIf="!isLoadingCompany">
+          <!-- Header -->
+          <div class="flex justify-between items-start mb-5">
+            <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <div class="p-1.5 bg-gray-100 rounded-lg">
+                <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              Company Profile
+            </h3>
+
+            <div class="relative">
+              <button (click)="showDiv = !showDiv" [disabled]="isEditcompanyDisabled"
+                class="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors border border-gray-200"
+                [class.opacity-50]="isEditcompanyDisabled">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                </svg>
+              </button>
+              <!-- Edit Profile Dropdown -->
+              <div class="absolute top-full right-0 mt-2 z-50 bg-white rounded-lg shadow-xl" [class.hidden]="!showDiv">
+                <app-edit-profile></app-edit-profile>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Info -->
+          <div class="flex items-center gap-5 mb-10">
+            <div
+              class="w-16 h-16 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center p-2 flex-shrink-0">
+              <img class="object-contain w-full h-full" src="{{ company_logo }}" alt="Company Logo" />
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-gray-900">{{name}}</h2>
+              <div class="flex items-center gap-2 text-sm text-gray-500 mt-1">
+                <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                    clip-rule="evenodd" />
+                </svg>
+                {{address}}, {{company_location}}, {{country}}
+              </div>
+            </div>
+          </div>
+
+          <!-- Details Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Website -->
+            <div class="bg-gray-50 rounded-xl p-3 border-l-4 border-blue-600">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">Website</span>
+              <a href="https://{{domain_address}}" target="_blank"
+                class="text-sm text-gray-900 font-semibold hover:text-blue-600 truncate block">
+                {{domain_address}}
+              </a>
+            </div>
+
+            <!-- Rating -->
+            <div class="bg-gray-50 rounded-xl p-3 border-l-4 border-blue-600">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">Rating</span>
+              <div class="flex items-center gap-1.5">
+                <i class="material-icons text-yellow-400 text-base">star</i>
+                <span class="text-sm text-gray-900 font-semibold">{{rating}}</span>
+              </div>
+            </div>
+
+            <!-- License (Total Containers Placeholder) -->
+            <div class="bg-gray-50 rounded-xl p-3 border-l-4 border-blue-600">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">License ID</span>
+              <span class="text-sm text-gray-900 font-semibold">{{licence_id}}</span>
+            </div>
+
+            <!-- Active Members -->
+            <div class="bg-gray-50 rounded-xl p-3 border-l-4 border-blue-600">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">Active
+                Members</span>
+              <span class="text-sm text-gray-900 font-semibold">{{usercount_list}} Users</span>
+            </div>
+
+            <!-- Headquarters -->
+            <div class="bg-gray-50 rounded-xl p-3 border-l-4 border-blue-600">
+              <span
+                class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">Headquarters</span>
+              <span class="text-sm text-gray-900 font-semibold truncate block">{{company_location}}, {{country}}</span>
+            </div>
+
+            <!-- Account Status -->
+            <div class="bg-gray-50 rounded-xl p-3 border-l-4 border-blue-600">
+              <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block mb-0.5">Account
+                Status</span>
+              <div class="flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="text-sm text-gray-900 font-semibold">Verified</span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
       </div>
+
+      <!-- Admin Profile Card (Right, Span 1) -->
+      <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 h-fit min-h-[400px]">
+
+        <!-- Skeleton Loader -->
+        <div *ngIf="isLoadingAdmin" class="animate-pulse flex flex-col items-center space-y-6">
+          <div class="w-full flex justify-between">
+            <div class="h-6 w-24 bg-gray-200 rounded"></div>
+            <div class="h-8 w-8 bg-gray-200 rounded"></div>
+          </div>
+          <div class="flex flex-col items-center w-full space-y-4">
+            <div class="w-24 h-24 bg-gray-200 rounded-full"></div>
+            <div class="h-6 w-48 bg-gray-200 rounded"></div>
+            <div class="h-8 w-32 bg-gray-200 rounded-full"></div>
+          </div>
+          <div class="w-full space-y-4">
+            <div class="h-16 bg-gray-200 rounded-lg" *ngFor="let i of [1,2,3]"></div>
+          </div>
+        </div>
+
+        <!-- Actual Content -->
+        <ng-container *ngIf="!isLoadingAdmin">
+          <!-- Header -->
+          <div class="flex justify-between items-start mb-8">
+            <h3 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <div class="p-2 bg-gray-100 rounded-lg">
+                <svg class="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+              Admin Profile
+            </h3>
+            <button
+              class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors border border-gray-200">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Avatar & Name -->
+          <div class="flex flex-col items-center mb-8">
+            <div
+              class="w-24 h-24 rounded-full bg-pink-500 text-white flex items-center justify-center text-2xl font-bold shadow-lg mb-4">
+              {{first_name?.[0]}}{{last_name?.[0]}}
+            </div>
+            <h2 class="text-xl font-bold text-gray-900">{{first_name}} {{last_name}}</h2>
+            <div
+              class="mt-2 px-4 py-1.5 rounded-full bg-blue-50 text-blue-600 text-xs font-bold uppercase tracking-wide flex items-center gap-1">
+              <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+              </svg>
+              {{capitalizeFirstLetter(userDesignation)}}
+            </div>
+          </div>
+
+          <!-- Contact Info List -->
+          <div class="space-y-4">
+            <div class="bg-gray-50 rounded-lg p-3">
+              <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">Email Address</span>
+              <a href="mailto:{{email}}" class="text-sm font-medium text-blue-600 hover:underline">{{email}}</a>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-3">
+              <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">Phone Number</span>
+              <span class="text-sm font-medium text-gray-900 block">{{phone}}</span>
+            </div>
+
+            <!-- <div class="bg-gray-50 rounded-lg p-3">
+            <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block mb-1">Member Since
+              (Static)</span>
+            <span class="text-sm font-medium text-gray-900 block">January 2024</span>
+          </div> -->
+          </div>
+
+        </ng-container>
+      </div>
+
     </div>
-    <!-- Employee details section -->
-    <hr class="m-2 div-bg-line" />
-    <div class="div-employee">
 
-      <!--Change height to fit-->
-      <div class="flex flex-row justify-start ml-2 gap-20">
-        <div class="flex flex-col">
-          <div class="flex items-center py-2">
-            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="16" height="16" transform="translate(0.5)" fill="white" style="mix-blend-mode:multiply" />
-              <path
-                d="M8.5 2C8.99445 2 9.4778 2.14662 9.88893 2.42133C10.3 2.69603 10.6205 3.08648 10.8097 3.54329C10.9989 4.00011 11.0484 4.50277 10.952 4.98773C10.8555 5.47268 10.6174 5.91814 10.2678 6.26777C9.91814 6.6174 9.47268 6.8555 8.98773 6.95196C8.50277 7.04843 8.00011 6.99892 7.54329 6.8097C7.08648 6.62048 6.69603 6.30005 6.42133 5.88893C6.14662 5.4778 6 4.99445 6 4.5C6 3.83696 6.26339 3.20107 6.73223 2.73223C7.20107 2.26339 7.83696 2 8.5 2ZM8.5 1C7.80777 1 7.13108 1.20527 6.5555 1.58986C5.97993 1.97444 5.53133 2.52107 5.26642 3.16061C5.00152 3.80015 4.9322 4.50388 5.06725 5.18282C5.2023 5.86175 5.53564 6.48539 6.02513 6.97487C6.51461 7.46436 7.13825 7.7977 7.81718 7.93275C8.49612 8.0678 9.19985 7.99849 9.83939 7.73358C10.4789 7.46867 11.0256 7.02007 11.4101 6.4445C11.7947 5.86892 12 5.19223 12 4.5C12 3.57174 11.6313 2.6815 10.9749 2.02513C10.3185 1.36875 9.42826 1 8.5 1Z"
-                fill="#595959" />
-              <path
-                d="M13.5 15H12.5V12.5C12.5 12.1717 12.4353 11.8466 12.3097 11.5433C12.1841 11.24 11.9999 10.9644 11.7678 10.7322C11.5356 10.5001 11.26 10.3159 10.9567 10.1903C10.6534 10.0647 10.3283 10 10 10H7C6.33696 10 5.70107 10.2634 5.23223 10.7322C4.76339 11.2011 4.5 11.837 4.5 12.5V15H3.5V12.5C3.5 11.5717 3.86875 10.6815 4.52513 10.0251C5.1815 9.36875 6.07174 9 7 9H10C10.9283 9 11.8185 9.36875 12.4749 10.0251C13.1313 10.6815 13.5 11.5717 13.5 12.5V15Z"
-                fill="#595959" />
-            </svg>
-            <div class="text-name ml-2">{{capitalizeFirstLetter(userDesignation)}}</div>
-          </div>
-          <div class="font-semibold text-sm">{{first_name}} {{last_name}}</div>
-        </div>
-
-
-        <div class="flex flex-col">
-          <div class="flex items-center py-2">
-            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="16" height="16" transform="translate(0.5)" fill="white" style="mix-blend-mode:multiply" />
-              <path
-                d="M14.5 3H2.5C2.23478 3 1.98043 3.10536 1.79289 3.29289C1.60536 3.48043 1.5 3.73478 1.5 4V12C1.5 12.2652 1.60536 12.5196 1.79289 12.7071C1.98043 12.8946 2.23478 13 2.5 13H14.5C14.7652 13 15.0196 12.8946 15.2071 12.7071C15.3946 12.5196 15.5 12.2652 15.5 12V4C15.5 3.73478 15.3946 3.48043 15.2071 3.29289C15.0196 3.10536 14.7652 3 14.5 3ZM13.4 4L8.5 7.39L3.6 4H13.4ZM2.5 12V4.455L8.215 8.41C8.2987 8.46806 8.39813 8.49918 8.5 8.49918C8.60187 8.49918 8.7013 8.46806 8.785 8.41L14.5 4.455V12H2.5Z"
-                fill="#595959" />
-            </svg>
-            <div class="text-name ml-2">Email-Address</div>
-          </div>
-          <div class="font-semibold text-sm ">{{email}}</div>
-        </div>
-        <div class="flex flex-col">
-          <div class="flex items-center py-2">
-            <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="16" height="16" transform="translate(0.5)" fill="white" style="mix-blend-mode:multiply" />
-              <path
-                d="M13.4999 14.5H13.4149C3.58988 13.935 2.19488 5.645 1.99988 3.115C1.98417 2.91829 2.00742 2.72041 2.06832 2.53271C2.12921 2.345 2.22654 2.17115 2.35474 2.02113C2.48293 1.8711 2.63947 1.74784 2.81538 1.65842C2.9913 1.569 3.18313 1.51516 3.37988 1.5H6.13488C6.33516 1.49981 6.53088 1.55976 6.6967 1.67208C6.86251 1.78441 6.99078 1.94394 7.06488 2.13L7.82488 4C7.89806 4.18177 7.91621 4.38104 7.8771 4.57305C7.83799 4.76505 7.74333 4.94134 7.60488 5.08L6.53988 6.155C6.70624 7.10037 7.15897 7.97183 7.83683 8.65148C8.51468 9.33112 9.38495 9.78615 10.3299 9.955L11.4149 8.88C11.5556 8.74308 11.7336 8.65063 11.9265 8.61417C12.1195 8.57771 12.3189 8.59887 12.4999 8.675L14.3849 9.43C14.5681 9.50644 14.7245 9.63571 14.834 9.80134C14.9435 9.96696 15.0013 10.1614 14.9999 10.36V13C14.9999 13.3978 14.8418 13.7794 14.5605 14.0607C14.2792 14.342 13.8977 14.5 13.4999 14.5ZM3.49988 2.5C3.36727 2.5 3.24009 2.55268 3.14633 2.64645C3.05256 2.74022 2.99988 2.86739 2.99988 3V3.04C3.22988 6 4.70488 13 13.4699 13.5C13.5356 13.5041 13.6014 13.4951 13.6636 13.4737C13.7259 13.4522 13.7832 13.4187 13.8325 13.375C13.8817 13.3314 13.9218 13.2784 13.9506 13.2192C13.9793 13.16 13.9961 13.0957 13.9999 13.03V10.36L12.1149 9.605L10.6799 11.03L10.4399 11C6.08988 10.455 5.49988 6.105 5.49988 6.06L5.46988 5.82L6.88988 4.385L6.13988 2.5H3.49988Z"
-                fill="#595959" />
-            </svg>
-            <div class="text-name ml-2">Phone Number</div>
-          </div>
-          <div class="font-semibold text-sm ml-6">{{phone}}</div>
-        </div>
-
-      </div>
-      <div class="flex flex-row mt-4 div-bg-line">
-        <button class="div-action-button" (click)="onClick()" matTooltip="Approve Ads">
+    <!-- Actions Toolbar -->
+    <div
+      class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex flex-col md:flex-row gap-4 items-center justify-between">
+      <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+        <!-- Approve Ads -->
+        <button (click)="onClick()"
+          class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm text-sm font-medium whitespace-nowrap"
+          matTooltip="Approve Ads">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
           Approve Ads ({{adscount[1]}})
         </button>
-        <button class="div-action-button">
+
+        <!-- Sync Data -->
+        <button
+          class="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm text-sm font-medium whitespace-nowrap">
+          <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
           Sync Data
         </button>
-        <div class="button-container relative inline-block">
-          <button class="div-action-button" [disabled]="isUploadcontractsDisabled"
-            [class.disabled-button]="isUploadcontractsDisabled" routerLink="/upload-contract"
-            matTooltip="Upload Contract">
-            Upload Contracts
-          </button>
-          <div class="dropdown flex flex-col">
-            <button class="dropdown-toggle  border-2 -ml-2 mr-2" (click)="toggleDropdown()"
-              matTooltip="View Contracts">▼</button>
 
-            <div class="dropdown-content -ml-[12.2rem]" [hidden]="!showDropdown">
-              <button class="whitespace-nowrap mt-1 ml-6" routerLink="/view-contract" matTooltip="View Contracts">View
-                Contracts</button>
-            </div>
+        <!-- Upload Contracts -->
+        <div class="relative group dropdown-container">
+          <div class="flex rounded-lg shadow-sm">
+            <button [disabled]="isUploadcontractsDisabled" routerLink="/upload-contract"
+              class="px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-l-lg hover:bg-gray-50 text-sm font-medium whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed">
+              Upload Contracts
+            </button>
+            <button (click)="toggleDropdown()"
+              class="px-2 py-2 bg-gray-50 text-gray-600 border-t border-b border-r border-gray-300 rounded-r-lg hover:bg-gray-100">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
 
+          <div
+            class="absolute top-full right-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20 py-1"
+            [hidden]="!showDropdown">
+            <a routerLink="/view-contract"
+              class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer">View Contracts</a>
           </div>
         </div>
 
-        <button class="div-action-button ml-2" [disabled]="isAddInventoryDisabled"
-          [class.disabled-button]="isAddInventoryDisabled" routerLink="/upload-inventory" matTooltip="Upload Inventory">
+        <!-- Upload Inventory -->
+        <button [disabled]="isAddInventoryDisabled" routerLink="/upload-inventory"
+          class="flex items-center gap-2 px-4 py-2 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm text-sm font-medium whitespace-nowrap disabled:opacity-50">
+          <svg class="w-4 h-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
           Upload Inventory
         </button>
-
-
       </div>
-
-      <!-- <br>&nbsp;&nbsp;&nbsp; -->
-      <div>
-      </div>
-
-
     </div>
 
-    <br>
 
+    <!-- User Management Section -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
 
-    <div class="font-medium bg-gray-50 flex items-center px-6 h-8">
-      <div class="mr-10 user-txt">User Details</div>
-      <div class="div-search my-2 search justify-start mx-10 -mt-0">
-        <div class="div-search-icon">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M14.5001 13.7929L10.7241 10.0169C11.6314 8.92758 12.0839 7.53038 11.9873 6.11596C11.8908 4.70153 11.2526 3.37879 10.2057 2.42288C9.15867 1.46698 7.78347 0.951515 6.36612 0.983723C4.94877 1.01593 3.5984 1.59333 2.59593 2.59581C1.59345 3.59828 1.01605 4.94865 0.983845 6.366C0.951637 7.78335 1.4671 9.15855 2.423 10.2055C3.37891 11.2525 4.70165 11.8907 6.11608 11.9872C7.5305 12.0838 8.9277 11.6313 10.017 10.7239L13.7931 14.5L14.5001 13.7929ZM2.00012 6.5C2.00012 5.60998 2.26404 4.73995 2.75851 3.99993C3.25297 3.25991 3.95578 2.68313 4.77804 2.34254C5.60031 2.00194 6.50511 1.91283 7.37802 2.08646C8.25094 2.2601 9.05276 2.68868 9.6821 3.31802C10.3114 3.94735 10.74 4.74918 10.9137 5.62209C11.0873 6.495 10.9982 7.3998 10.6576 8.22207C10.317 9.04434 9.7402 9.74714 9.00018 10.2416C8.26016 10.7361 7.39013 11 6.50012 11C5.30705 10.9987 4.16323 10.5241 3.3196 9.68052C2.47597 8.83689 2.00144 7.69306 2.00012 6.5Z"
-              fill="#161616" />
-          </svg>
-
+      <!-- Header -->
+      <div
+        class="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 bg-gray-50/50">
+        <div class="flex items-center gap-3">
+          <h2 class="text-lg font-bold text-gray-800">User Details</h2>
+          <span class="px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-800 text-xs font-medium">{{alluser_list?.length
+            || 0}} Users</span>
         </div>
-        <input class="input-search" type="text" [(ngModel)]="searchTerm" (input)="filterUsers()" id="search"
-          placeholder="Search (E.g. Name, Email)" autocomplete="off" (focus)="showClearButton()" />
 
+        <div class="flex flex-col md:flex-row gap-3 w-full md:w-auto">
+          <!-- Search -->
+          <div class="relative w-full md:w-64">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <svg class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <input type="text" [(ngModel)]="searchTerm" (input)="filterUsers()"
+              class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder="Search users..." />
+          </div>
+
+          <!-- Add User Button -->
+          <button (click)="DisplayPostForm()" [disabled]="isAddUserDisabled"
+            class="flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors shadow-sm text-sm font-medium whitespace-nowrap disabled:opacity-50">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            Add User
+          </button>
+        </div>
       </div>
 
-      <button color="primary"
-        class="btn-primary1 text-white h-[14em]  py-3 rounded-none px-2 mr-4  font-light  ml-auto  justify-end w-fit"
-        matTooltip="Add User" [disabled]="isAddUserDisabled" [class.disabled-button]="isAddUserDisabled"
-        (click)="DisplayPostForm()">+ Add User</button>
-
-    </div>
-    <hr class="m-2" />
-
-
-    <!-- Table start -->
-    <div class="flex flex-col overflow-x-hidden ml-2">
-      <div class="employee-list">
-        <div class="overflow-x-auto">
-          <table class="employee-table border-2">
-            <thead class="emplist-thead">
-              <tr>
-                <th scope="col" class="px-6 py-4 ml-20 border-r-2">First Name</th>
-                <th scope="col" class="px-6 py-4 border-r-2">Last Name</th>
-                <th scope="col" class="px-6 py-4 border-r-2">Email</th>
-                <th scope="col" class="px-6 py-4 border-r-2">Phone Number</th>
-                <th colspan="2" scope="col" class="px-6 py-4 border-r-2">&ensp;Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                *ngFor="let u of filteredUsers | search: searchTerm  |  paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"
-                class="employee-add bg-white">
-                <td class="emplist ml-20 border-r-2">{{u.first_name}}</td>
-                <td class="emplist border-r-2">{{u.last_name}}</td>
-                <td class="emplist border-r-2">{{u.email}}</td>
-                <td class="emplist border-r-2">{{u.phone_no}}</td>
-                <td class="whitespace-nowrap px-6 py-4 border-r-2">
-                  <a (click)="!isEditEmployeeDisabled && getUserByID(u.user_id)" class="text-CCblue cursor-pointer"
-                    [class.disabled-button]="isEditEmployeeDisabled">
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M21.125 19.5938H3.875C3.46016 19.5938 3.125 19.9289 3.125 20.3438V21.1875C3.125 21.2906 3.20937 21.375 3.3125 21.375H21.6875C21.7906 21.375 21.875 21.2906 21.875 21.1875V20.3438C21.875 19.9289 21.5398 19.5938 21.125 19.5938ZM6.53984 17.625C6.58672 17.625 6.63359 17.6203 6.68047 17.6133L10.6227 16.9219C10.6695 16.9125 10.7141 16.8914 10.7469 16.8563L20.682 6.92109C20.7038 6.89941 20.721 6.87366 20.7328 6.8453C20.7445 6.81695 20.7506 6.78656 20.7506 6.75586C20.7506 6.72516 20.7445 6.69477 20.7328 6.66642C20.721 6.63806 20.7038 6.61231 20.682 6.59063L16.7867 2.69297C16.7422 2.64844 16.6836 2.625 16.6203 2.625C16.557 2.625 16.4984 2.64844 16.4539 2.69297L6.51875 12.6281C6.48359 12.6633 6.4625 12.7055 6.45312 12.7523L5.76172 16.6945C5.73892 16.8201 5.74707 16.9493 5.78545 17.071C5.82384 17.1927 5.89132 17.3032 5.98203 17.393C6.13672 17.543 6.33125 17.625 6.53984 17.625Z"
-                        fill="#8C8C8C" />
-                    </svg>
-                  </a>
+      <!-- Table -->
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200 border-separate border-spacing-0">
+          <thead class="bg-gray-50">
+            <tr class="border-1"  >
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0">
+                First Name</th>
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0">
+                Last Name</th>
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0">
+                Email</th>
+              <th scope="col"
+                class="px-6 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider border-r border-gray-200 last:border-r-0">
+                Phone</th>
+              <th scope="col" class="px-6 py-3 text-right text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            <!-- Skeleton Loader -->
+            <ng-container *ngIf="isLoadingUsers">
+              <tr *ngFor="let i of [1,2,3,4]">
+                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-200 last:border-r-0">
+                  <div class="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
                 </td>
-
-                <td class="whitespace-nowrap px-6 py-4">
-                  <div *ngIf="alluser_list">
-                    <div *ngIf="alluser_list.length === 0">
-                      <p>No users added.</p>
-                    </div>
-                    <div *ngIf="alluser_list.length > 0">
-                      <a routerLink="/profile" (click)="!isDeleteEmployeeDisabled &&deleteUserById(u.user_id)"
-                        class="text-CCblue " [class.disabled-button]="isDeleteEmployeeDisabled"><svg width="25"
-                          height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M20.75 6H17.75V4.125C17.75 3.29766 17.0773 2.625 16.25 2.625H8.75C7.92266 2.625 7.25 3.29766 7.25 4.125V6H4.25C3.83516 6 3.5 6.33516 3.5 6.75V7.5C3.5 7.60313 3.58437 7.6875 3.6875 7.6875H5.10312L5.68203 19.9453C5.71953 20.7445 6.38047 21.375 7.17969 21.375H17.8203C18.6219 21.375 19.2805 20.7469 19.318 19.9453L19.8969 7.6875H21.3125C21.4156 7.6875 21.5 7.60313 21.5 7.5V6.75C21.5 6.33516 21.1648 6 20.75 6ZM16.0625 6H8.9375V4.3125H16.0625V6Z"
-                            fill="#8C8C8C" />
-                        </svg>
-                      </a>
-                    </div>
+                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-200 last:border-r-0">
+                  <div class="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-200 last:border-r-0">
+                  <div class="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap border-r border-gray-200 last:border-r-0">
+                  <div class="h-4 w-24 bg-gray-200 rounded animate-pulse"></div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right">
+                  <div class="flex justify-end gap-3">
+                    <div class="h-8 w-8 bg-gray-200 rounded-full animate-pulse"></div>
+                    <div class="h-8 w-8 bg-gray-200 rounded-full animate-pulse"></div>
                   </div>
                 </td>
               </tr>
-            </tbody>
-          </table>
+            </ng-container>
 
+            <!-- Actual Content -->
+            <ng-container *ngIf="!isLoadingUsers">
+              <tr
+                *ngFor="let u of filteredUsers | search: searchTerm | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }"
+                class="hover:bg-gray-50 transition-colors">
+                <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 border-r border-gray-200 last:border-r-0">
+                  {{u.first_name}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-r border-gray-200 last:border-r-0">
+                  {{u.last_name}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-r border-gray-200 last:border-r-0">
+                  {{u.email}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 border-r border-gray-200 last:border-r-0">
+                  {{u.phone_no}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <div class="flex items-center justify-end gap-3">
+                    <a (click)="!isEditEmployeeDisabled && getUserByID(u.user_id)"
+                      class="text-blue-600 hover:text-blue-900 cursor-pointer p-1 rounded-full hover:bg-blue-50"
+                      [class.opacity-50]="isEditEmployeeDisabled" matTooltip="Edit User">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                    </a>
+                    <a *ngIf="alluser_list && alluser_list.length > 0"
+                      (click)="!isDeleteEmployeeDisabled && deleteUserById(u.user_id)"
+                      class="text-red-600 hover:text-red-900 cursor-pointer p-1 rounded-full hover:bg-red-50"
+                      [class.opacity-50]="isDeleteEmployeeDisabled" matTooltip="Delete User">
+                      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredUsers.length === 0">
+                <td colspan="5" class="px-6 py-8 text-center text-gray-500 text-sm">
+                  No users found.
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="bg-gray-50 px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+        *ngIf="alluser_list.length > 0">
+        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+          <div>
+            <p class="text-sm text-gray-700">
+              Showing page <span class="font-medium">{{currentPage}}</span> of <span
+                class="font-medium">{{totalPages}}</span>
+            </p>
+          </div>
+          <div>
+            <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+              <button (click)="prevPage()" [disabled]="currentPage === 1"
+                class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50">
+                <span class="sr-only">Previous</span>
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                  aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                    clip-rule="evenodd" />
+                </svg>
+              </button>
+
+              <button *ngIf="currentPage > 1" (click)="currentPage = currentPage - 1; prevPage()"
+                class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                {{ currentPage - 1 }}
+              </button>
+
+              <button
+                class="z-10 bg-blue-50 border-blue-500 text-blue-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                {{ currentPage }}
+              </button>
+
+              <button *ngIf="currentPage < totalPages" (click)="currentPage = currentPage + 1; nextPage()"
+                class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium">
+                {{ currentPage + 1 }}
+              </button>
+
+              <button (click)="nextPage()" [disabled]="currentPage === totalPages"
+                class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50">
+                <span class="sr-only">Next</span>
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                  aria-hidden="true">
+                  <path fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd" />
+                </svg>
+              </button>
+            </nav>
+          </div>
         </div>
       </div>
+
     </div>
-    <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.alluser_list.length > 0">
-      <nav aria-label="Page navigation">
-        <ul class="inline-flex gap-2">
-          <li class="button1">
-            <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)" (click)="prevPage()"
-              [disabled]="currentPage < 2">
-              <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
-                  fill="black" fill-opacity="0.25" />
-              </svg>
 
-            </button>
-          </li>
-
-          <li class="button3" *ngIf="currentPage > 1">
-            <button (click)="currentPage = currentPage" (click)="prevPage()" *ngIf="currentPage > 1"
-              [hidden]="currentPage < 2">
-              {{ currentPage - 1 }}
-            </button>
-          </li>
-
-          <li class="button2">
-            <button *ngIf="totalPages != 1">
-              {{ currentPage }}
-            </button>
-          </li>
-
-          <li class="button3" *ngIf="currentPage < totalPages">
-            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
-              (click)="nextPage()" [hidden]="currentPage >= totalPages" *ngIf="currentPage <= totalPages">
-              {{ currentPage + 1 }}
-            </button>
-          </li>
-
-          <li class="button4">
-            <button [class.opacity-50]="currentPage === totalPages" (click)="currentPage = currentPage"
-              (click)="nextPage()" [disabled]="currentPage >= totalPages">
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
-                  fill="black" fill-opacity="0.88" />
-              </svg>
-
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </div>
-    <!-- Table end -->
   </div>
 </div>
