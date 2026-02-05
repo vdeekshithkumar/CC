@@ -38,12 +38,12 @@
         <button class="dropdown-toggle" (click)="toggleDropdown($event)">Market Listings</button>
         <div class="dropdown-menu" *ngIf="isDropdownOpen">
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Trading' }"
-            (click)="reloadOtherTradContAd()">My Listings</a>
+            (click)="reloadOtherTradContAd()">Trading</a>
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Leasing' }"
             (click)="reloadOtherLeasContAd()">Leasing</a>
         </div>
         <a class="dropdown-toggle" [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }"
-          (click)="reloadMyContAd()">My Ads</a>
+          (click)="reloadMyContAd()">My Listings</a>
         <a class="dropdown-toggle" [routerLink]="['/negotiations', 'container']">Negotiations</a>
       </div>
     </div>
