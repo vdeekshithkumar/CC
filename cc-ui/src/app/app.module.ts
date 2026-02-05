@@ -64,6 +64,7 @@ import { ServiceRouteComponent } from './carrier-service/service-route/service-r
 import { OptimizedViewComponent } from './optimized-view/optimized-view.component';
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingInterceptor } from './loading.interceptor';
+import { SettingsComponent } from './settings/settings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -109,6 +110,7 @@ import { LoadingInterceptor } from './loading.interceptor';
     ServiceRouteComponent,
     OptimizedViewComponent,
     LoaderComponent,
+    SettingsComponent,
 
   ],
   imports: [

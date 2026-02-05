@@ -1,0 +1,521 @@
+<div class="settings-container bg-gray-50 min-h-screen font-poppins">
+    <!-- Header -->
+    <div class="w-full px-6 py-8 bg-white border-b border-gray-100">
+        <div class="max-w-5xl pl-2">
+            <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Settings</h1>
+            <p class="mt-1 text-sm text-gray-500">Manage your CFLOW Stream platform configuration and preferences</p>
+        </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="w-full bg-white border-b border-gray-200">
+        <div class="max-w-5xl pl-8">
+            <nav class="flex space-x-8 overflow-x-auto" aria-label="Settings tabs">
+                <button *ngFor="let tab of tabs" (click)="activeTab = tab.id"
+                    [class.border-blue-600]="activeTab === tab.id" [class.text-blue-600]="activeTab === tab.id"
+                    [class.border-transparent]="activeTab !== tab.id" [class.text-gray-500]="activeTab !== tab.id"
+                    class="whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors hover:text-gray-700 hover:border-gray-300">
+                    {{ tab.label }}
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="max-w-5xl pl-8 pr-6 py-8">
+
+        <!-- Integrations Tab -->
+        <div *ngIf="activeTab === 'integrations'" class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">API Configuration</h2>
+                <div class="space-y-4">
+                    <div class="setting-field">
+                        <label class="setting-label">API Key</label>
+                        <div class="flex gap-2">
+                            <input type="password" class="setting-input flex-1" value="••••••••••••••••" disabled>
+                            <button class="action-btn action-btn-secondary" disabled>Regenerate</button>
+                        </div>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Webhook URL</label>
+                        <input type="url" class="setting-input" placeholder="https://your-domain.com/webhook" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">TOS / ERP Integrations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="integration-card">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-medium text-gray-900">Navis N4</h3>
+                            <span class="status-badge bg-gray-100 text-gray-700">Not Connected</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Terminal Operating System integration</p>
+                        <button class="action-btn action-btn-secondary w-full" disabled>Configure</button>
+                    </div>
+
+                    <div class="integration-card">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-medium text-gray-900">SAP</h3>
+                            <span class="status-badge bg-gray-100 text-gray-700">Not Connected</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">ERP system integration</p>
+                        <button class="action-btn action-btn-secondary w-full" disabled>Configure</button>
+                    </div>
+
+                    <div class="integration-card">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-medium text-gray-900">BluJay</h3>
+                            <span class="status-badge bg-gray-100 text-gray-700">Not Connected</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Supply chain platform integration</p>
+                        <button class="action-btn action-btn-secondary w-full" disabled>Configure</button>
+                    </div>
+
+                    <div class="integration-card">
+                        <div class="flex items-center justify-between mb-3">
+                            <h3 class="font-medium text-gray-900">Custom API</h3>
+                            <span class="status-badge bg-gray-100 text-gray-700">Not Connected</span>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4">Connect your custom system</p>
+                        <button class="action-btn action-btn-secondary w-full" disabled>Configure</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Data Sync Settings</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-gray-900">Auto Sync Inventory</h3>
+                            <p class="text-sm text-gray-600">Automatically sync container inventory data</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-gray-900">Real-time Updates</h3>
+                            <p class="text-sm text-gray-600">Push updates to connected systems in real-time</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optimizer Configuration Tab -->
+        <div *ngIf="activeTab === 'optimizer'" class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Optimization Priorities</h2>
+                <p class="text-sm text-gray-600 mb-6">Configure how the AI optimizer ranks and suggests container
+                    movements</p>
+
+                <div class="space-y-4">
+                    <div class="priority-item">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-medium text-gray-900">Distance</label>
+                            <span class="text-sm text-blue-600 font-semibold">High Priority</span>
+                        </div>
+                        <input type="range" class="w-full" min="0" max="100" value="80" disabled>
+                        <p class="text-xs text-gray-500 mt-1">Minimize distance for container repositioning</p>
+                    </div>
+
+                    <div class="priority-item">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-medium text-gray-900">Fuel Cost</label>
+                            <span class="text-sm text-blue-600 font-semibold">High Priority</span>
+                        </div>
+                        <input type="range" class="w-full" min="0" max="100" value="75" disabled>
+                        <p class="text-xs text-gray-500 mt-1">Optimize for lowest fuel consumption</p>
+                    </div>
+
+                    <div class="priority-item">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-medium text-gray-900">Carbon Footprint</label>
+                            <span class="text-sm text-green-600 font-semibold">Medium Priority</span>
+                        </div>
+                        <input type="range" class="w-full" min="0" max="100" value="60" disabled>
+                        <p class="text-xs text-gray-500 mt-1">Reduce environmental impact</p>
+                    </div>
+
+                    <div class="priority-item">
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="font-medium text-gray-900">Customer Urgency</label>
+                            <span class="text-sm text-orange-600 font-semibold">Medium Priority</span>
+                        </div>
+                        <input type="range" class="w-full" min="0" max="100" value="50" disabled>
+                        <p class="text-xs text-gray-500 mt-1">Prioritize urgent customer requests</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Route Parameters</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="setting-field">
+                        <label class="setting-label">Max Backtrack Distance (km)</label>
+                        <input type="number" class="setting-input" placeholder="500" disabled>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Max Suggestions</label>
+                        <input type="number" class="setting-input" placeholder="5" disabled>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Min Match Percentage</label>
+                        <input type="number" class="setting-input" placeholder="70" disabled>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Optimization Frequency</label>
+                        <select class="setting-input" disabled>
+                            <option>Real-time</option>
+                            <option>Every 15 minutes</option>
+                            <option>Hourly</option>
+                            <option>Daily</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Threshold Settings</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-gray-900">Auto-suggest Swaps</h3>
+                            <p class="text-sm text-gray-600">Automatically suggest container swaps when thresholds are
+                                exceeded</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-gray-900">Smart Matching</h3>
+                            <p class="text-sm text-gray-600">Use AI to find best container matches across network</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications Tab -->
+        <div *ngIf="activeTab === 'notifications'" class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Email Notifications</h2>
+                <div class="space-y-3">
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">New Negotiation Requests</h3>
+                            <p class="text-sm text-gray-600">Get notified when someone wants to negotiate</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">New Messages</h3>
+                            <p class="text-sm text-gray-600">Receive alerts for new chat messages</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">Container Status Changes</h3>
+                            <p class="text-sm text-gray-600">Updates on container availability and status</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">Threshold Alerts</h3>
+                            <p class="text-sm text-gray-600">Alerts when surplus/deficit thresholds are reached</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">In-App Notifications</h2>
+                <div class="space-y-3">
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">Desktop Notifications</h3>
+                            <p class="text-sm text-gray-600">Show browser notifications</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">Sound Alerts</h3>
+                            <p class="text-sm text-gray-600">Play sound for important notifications</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">SMS Notifications</h2>
+                <div class="setting-field mb-4">
+                    <label class="setting-label">Phone Number</label>
+                    <input type="tel" class="setting-input" placeholder="+1 (555) 000-0000" disabled>
+                </div>
+                <div class="space-y-3">
+                    <div class="notification-item">
+                        <label class="toggle-switch">
+                            <input type="checkbox" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <div class="ml-3">
+                            <h3 class="font-medium text-gray-900">Critical Alerts Only</h3>
+                            <p class="text-sm text-gray-600">Receive SMS for urgent matters only</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Tab -->
+        <div *ngIf="activeTab === 'security'" class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Two-Factor Authentication (2FA)</h2>
+                <div class="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg mb-4">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <div>
+                            <h3 class="font-medium text-gray-900">2FA is Enabled</h3>
+                            <p class="text-sm text-gray-600">Your account is protected with OTP verification</p>
+                        </div>
+                    </div>
+                    <button class="action-btn action-btn-secondary" disabled>Manage</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Password Policy</h2>
+                <div class="space-y-3">
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Minimum 8 characters</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Must include uppercase and lowercase letters
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Must include at least one number</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <svg class="w-5 h-5 text-green-500 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <div>
+                            <p class="text-sm font-medium text-gray-900">Password expires every 90 days</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Session Management</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="setting-field">
+                        <label class="setting-label">Session Timeout (minutes)</label>
+                        <input type="number" class="setting-input" value="30" disabled>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Max Concurrent Sessions</label>
+                        <input type="number" class="setting-input" value="3" disabled>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <button class="action-btn action-btn-secondary" disabled>View Active Sessions</button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Access Logs</h2>
+                <p class="text-sm text-gray-600 mb-4">View recent login activity and access history</p>
+                <button class="action-btn action-btn-secondary" disabled>View Access Logs</button>
+            </div>
+        </div>
+
+        <!-- System Preferences Tab -->
+        <div *ngIf="activeTab === 'preferences'" class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Regional Settings</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="setting-field">
+                        <label class="setting-label">Language</label>
+                        <select class="setting-input" disabled>
+                            <option>English (US)</option>
+                            <option>English (UK)</option>
+                            <option>Spanish</option>
+                            <option>French</option>
+                            <option>German</option>
+                            <option>Chinese</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Timezone</label>
+                        <select class="setting-input" disabled>
+                            <option>UTC</option>
+                            <option>America/New_York</option>
+                            <option>Europe/London</option>
+                            <option>Asia/Singapore</option>
+                            <option>Asia/Kolkata</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Date Format</label>
+                        <select class="setting-input" disabled>
+                            <option>MM/DD/YYYY</option>
+                            <option>DD/MM/YYYY</option>
+                            <option>YYYY-MM-DD</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Time Format</label>
+                        <select class="setting-input" disabled>
+                            <option>12 Hour (AM/PM)</option>
+                            <option>24 Hour</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Currency & Units</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="setting-field">
+                        <label class="setting-label">Currency</label>
+                        <select class="setting-input" disabled>
+                            <option>USD ($)</option>
+                            <option>EUR (€)</option>
+                            <option>GBP (£)</option>
+                            <option>INR (₹)</option>
+                            <option>CNY (¥)</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Distance Unit</label>
+                        <select class="setting-input" disabled>
+                            <option>Kilometers (km)</option>
+                            <option>Miles (mi)</option>
+                            <option>Nautical Miles (nm)</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Weight Unit</label>
+                        <select class="setting-input" disabled>
+                            <option>Metric Tons (MT)</option>
+                            <option>Kilograms (kg)</option>
+                            <option>Pounds (lbs)</option>
+                        </select>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Volume Unit</label>
+                        <select class="setting-input" disabled>
+                            <option>TEU</option>
+                            <option>Cubic Meters (m³)</option>
+                            <option>Cubic Feet (ft³)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Display Preferences</h2>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-gray-900">Dark Mode</h3>
+                            <p class="text-sm text-gray-600">Use dark theme across the platform</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="font-medium text-gray-900">Compact View</h3>
+                            <p class="text-sm text-gray-600">Show more data in less space</p>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-field">
+                        <label class="setting-label">Items Per Page</label>
+                        <select class="setting-input" disabled>
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                            <option>100</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
