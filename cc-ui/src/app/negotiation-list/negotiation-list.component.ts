@@ -1,7 +1,7 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component,Inject, Input } from '@angular/core';
 
 
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,20 +9,20 @@ import { SessionService } from '../session.service';
 import { NegotiationListService } from './negotiation-list.service';
 
 
-export interface Negotiation {
+export interface Negotiation{
   negotiation_id: number;
-  user_id: number;
-  ad_id: number;
-  price: number;
-  negotiation_type: string;
-  container_type: string;
+  user_id:number;
+  ad_id:number;
+  price:number;
+  negotiation_type:string;
+  container_type:string;
   quantity: number;
   status: string;
-  company_id: number;
-  contract_id: any;
-  date_created: Date;
-  expiry_date: Date;
-  updated_by: number;
+  company_id:number;
+  contract_id:any;
+  date_created:Date;
+  expiry_date:Date;
+  updated_by:number;
 }
 
 
@@ -31,11 +31,11 @@ export interface Negotiation {
   templateUrl: './negotiation-list.component.html',
   styleUrls: ['./negotiation-list.component.css']
 })
-export class NegotiationListComponent {
-
+export class NegotiationListComponent{
+  
   public isButtonDisabled: boolean = false;
   companyId: any;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 10;
   currentPage: number = 1;
   userId: any;
   adId: any;
@@ -46,69 +46,69 @@ export class NegotiationListComponent {
   AdsDeparturePort: { [ad_id: number]: string } = {};
   AdsAdsPort: { [ad_id: number]: string } = {};
 
-  userNames: { [userId: number]: string } = {};
-  userLNames: { [userId: number]: string } = {};
-  userNo: { [userId: number]: string } = {};
-  companyNames: { [companyId: number]: string } = {};
+userNames: { [userId: number]: string } = {};
+userLNames: { [userId: number]: string } = {};
+userNo: { [userId: number]: string } = {};
+companyNames: { [companyId: number]: string } = {};
 
-  companyLicenceId: { [companyId: number]: string } = {};
-  companyLogos: { [companyId: number]: string } = {};
-  companyDomain: { [companyId: number]: string } = {};
-  companyRating: { [companyId: number]: string } = {};
-  companyAddress: { [companyId: number]: string } = {};
-  testpassing: any;
+companyLicenceId: { [companyId: number]: string } = {};
+companyLogos: { [companyId: number]: string } = {};
+companyDomain: { [companyId: number]: string } = {};
+companyRating: { [companyId: number]: string } = {};
+companyAddress: { [companyId: number]: string } = {};
+testpassing:any;
   companyName: any;
   PList: any[] = [];
   negotiations: Negotiation[] = []
-
+    
 
   date_created: any;
   elementRef: any;
   userDesignation: any;
-  negad_type: any;
+  negad_type:any;
+  
+constructor(@Inject(MAT_DIALOG_DATA)public data:any,private dialog:MatDialog, private route: ActivatedRoute,private sessionService: SessionService,private formBuilder: FormBuilder,private router:Router,private negotiationservice: NegotiationListService){
+}
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private route: ActivatedRoute, private sessionService: SessionService, private formBuilder: FormBuilder, private router: Router, private negotiationservice: NegotiationListService) {
-  }
+ngOnInit(): void {
+  this.negad_type = this.data.ad_type;
+  console.log("ad_type passed"+this.data.ad_type);
+  console.log("ad_type in neg"+this.negad_type);
+console.log("data passed adid is"+this.data.ad_id);
+console.log("data passed adid is"+this.data.testpassing);
+  this.viewNegotiations(this.data.ad_id);
 
-  ngOnInit(): void {
-    this.negad_type = this.data.ad_type;
-    console.log("ad_type passed" + this.data.ad_type);
-    console.log("ad_type in neg" + this.negad_type);
-    console.log("data passed adid is" + this.data.ad_id);
-    console.log("data passed adid is" + this.data.testpassing);
-    this.viewNegotiations(this.data.ad_id);
-
-    this.sessionService.getCompanyId().subscribe(
-      (companyId: number) => {
-        this.companyId = companyId;
-        this.companyName = this.companyName;
-        console.log('company ID is :', companyId);
-      },
-      (error: any) => {
-        console.error('Error retrieving company ID:', error);
-      }
-    );
+  this.sessionService.getCompanyId().subscribe(
+    (companyId: number) => {
+      this.companyId = companyId;
+      this.companyName=this.companyName;
+      console.log('company ID is :', companyId);
+    },
+    (error: any) => {
+      console.error('Error retrieving company ID:', error);
+    }
+  );
 
     this.negotiationservice.getAdvertisement(this.companyId, "Active", this.data.ad_type).subscribe(
       (data: any) => {
-
+        debugger
         this.ads_list = data;
         console.log("Other ads by company ID is fetched:", this.ads_list);
 
-        // Populate the company names object
-        this.ads_list.forEach((ad: any) => {
-          this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
-          this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
-          this.AdsAdsPort[ad.ad_id] = ad.port_of_ad;
+      // Populate the company names object
+      this.ads_list.forEach((ad: any) => {
+        this.AdsArrivalPort[ad.ad_id] = ad.port_of_arrival;
+        this.AdsDeparturePort[ad.ad_id] = ad.port_of_departure;
+        this.AdsAdsPort[ad.ad_id] = ad.port_of_ad;
+     
+    
 
-
-
-        });
-      },
-      (error: any) => {
-        console.log("Error loading company details:", error);
-      }
-    );
+      });
+    },
+    (error: any) => {
+      console.log("Error loading company details:", error);
+    }
+  );
 
 
 
@@ -203,7 +203,7 @@ export class NegotiationListComponent {
 
 
   get totalPages(): number {
-    return Math.ceil(this.negotiations.length / 3);
+    return Math.ceil(this.negotiations.length / this.itemsPerPage);
   }
   prevPage() {
 

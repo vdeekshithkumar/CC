@@ -135,7 +135,7 @@ export class DashboardComponent implements OnInit {
     scales: {
       x: {
         grid: { display: false },
-        ticks: { font: { size: 14, weight: '500' }, color: '#374151' }
+        ticks: { font: { size: 14, weight: 500 }, color: '#374151' }
       },
       y: { display: false, max: 2 }
     },
@@ -183,7 +183,7 @@ export class DashboardComponent implements OnInit {
       scales: {
         x: {
           grid: { display: false },
-          ticks: { font: { size: 14, weight: '500' }, color: textColor }
+          ticks: { font: { size: 14, weight: 500 }, color: textColor }
         },
         y: { display: false, max: 2 }
       }
