@@ -558,6 +558,21 @@
   @apply bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
 }
 
+/* Negotiations Button */
+.negotiations-btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95;
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600;
+}
+
+.negotiations-btn-disabled {
+  @apply bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300;
+  @apply opacity-60;
+}
+
+.negotiations-badge {
+  @apply inline-flex items-center justify-center rounded-full bg-white text-blue-600 px-2 py-0.5 text-[10px] font-bold min-w-[20px];
+}
+
 .delete-btn {
   @apply text-gray-400 transition-colors duration-200 hover:text-rose-500 active:scale-90;
 }

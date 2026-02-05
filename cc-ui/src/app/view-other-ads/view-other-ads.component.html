@@ -287,9 +287,8 @@
           </div>
 
           <div class="card-actions">
-            <button class="negotiation-btn"
-              [disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
-              [class.disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
+            <button class="negotiation-btn" [disabled]="isStartnegDisabled || isNegotiationDisabled(ad.ad_id)"
+              [class.disabled]="isStartnegDisabled || isNegotiationDisabled(ad.ad_id)"
               (click)="StartNegotiation(ad.ad_id)">
               Start Negotiation
             </button>

@@ -35,7 +35,7 @@
         <span class="label">Container</span>
       </a>
       <div class="popup" *ngIf="showPopup1">
-        <button class="dropdown-toggle" (click)="toggleDropdown($event)">Advertisement</button>
+        <button class="dropdown-toggle" (click)="toggleDropdown($event)">Market Listings</button>
         <div class="dropdown-menu" *ngIf="isDropdownOpen">
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'container', typee:'Trading' }"
             (click)="reloadOtherTradContAd()">Trading</a>
@@ -43,7 +43,7 @@
             (click)="reloadOtherLeasContAd()">Leasing</a>
         </div>
         <a class="dropdown-toggle" [routerLink]="['/my-ad']" [queryParams]="{ type: 'container' }"
-          (click)="reloadMyContAd()">My Ads</a>
+          (click)="reloadMyContAd()">My Listings</a>
         <a class="dropdown-toggle" [routerLink]="['/negotiations', 'container']">Negotiations</a>
       </div>
     </div>
@@ -58,7 +58,7 @@
         <span class="label">Vessel</span>
       </a>
       <div class="popup1" *ngIf="showPopup2">
-        <button class="dropdown-toggle" (click)="toggleDropdown($event)">Advertisement</button>
+        <button class="dropdown-toggle" (click)="toggleDropdown($event)">Market Listings</button>
         <div class="dropdown-menu" *ngIf="isDropdownOpen">
           <a [routerLink]="['/view-other-ads']" [queryParams]="{ type: 'space', typee:'Trading' }"
             (click)="reloadOtherTradSpaceAd()">Trading</a>
@@ -66,7 +66,7 @@
             (click)="reloadOtherLeaseSpaceAd()">Leasing</a>
         </div>
         <a class="dropdown-toggle" [routerLink]="['/my-ad']" [queryParams]="{ type: 'space' }"
-          (click)="reloadMySpaceAd()">My Ads</a>
+          (click)="reloadMySpaceAd()">My Listings</a>
         <a class="dropdown-toggle" [routerLink]="['/negotiations', 'space']">Negotiations</a>
       </div>
     </div>

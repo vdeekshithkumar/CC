@@ -1,5 +1,5 @@
 <!-- Main View Canvas -->
-<div class="w-full px-6 py-8 bg-white border-b border-gray-100 mt-12">
+<div class="w-full px-6 py-8 bg-white border-b border-gray-100 mt-6">
   <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
     <div>
       <h1 class="text-2xl font-bold text-gray-900 tracking-tight">My Advertisement</h1>
@@ -10,6 +10,9 @@
     </div>
 
     <div class="flex items-center space-x-3">
+      <button (click)="downloadTemplate()" class="action-btn action-btn-secondary">
+        <span>Download Template</span>
+      </button>
       <button (click)="onExportClick()" class="action-btn action-btn-secondary space-x-2">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -25,15 +28,6 @@
     </div>
   </div>
 </div>
-
-
-<div class="flex justify-end pr-10 py-4">
-  <button (click)="downloadTemplate()" class="action-btn action-btn-secondary">
-    <span>Download Template</span>
-  </button>
-</div>
-
-<hr style="height: 2px;">
 
 <nav *ngIf="ad_type==='container'" class="bg-white mb-6">
   <ul class="nav-tabs">
@@ -185,9 +179,10 @@
                   <button (click)="approve(ad.ad_id)" *ngIf="operation === 'Pending'"
                     class="action-btn action-btn-primary">Approve</button>
                   <button [disabled]="getNegotiationCount(ad.ad_id) < 1" (click)="OpenNegotiations(ad.ad_id,ad_type)"
-                    *ngIf="operation === 'Active'" class="action-btn action-btn-secondary"
-                    [title]="getNegotiationCount(ad.ad_id) < 1 ? 'No negotiations yet' : 'Open negotiations'">
-                    Open ({{ getNegotiationCount(ad.ad_id) }})
+                    *ngIf="operation === 'Active'" class="negotiations-btn"
+                    [class.negotiations-btn-disabled]="getNegotiationCount(ad.ad_id) < 1"
+                    [title]="getNegotiationCount(ad.ad_id) < 1 ? 'No negotiations yet' : 'View negotiations'">
+                    <span>View</span>
                   </button>
                   <button (click)="deleteAd(ad.ad_id)" class="delete-btn" title="Delete Ad">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"

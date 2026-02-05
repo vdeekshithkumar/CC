@@ -1,8 +1,7 @@
-<!-- <app-sidebar class="div-app-sidebar"></app-sidebar> -->
+<!-- Confirmation Modal -->
 <div class="post-ad-form" *ngIf="showModal">
   <div class="div-card mt-40">
-    <div class="div-bg">
-    </div>
+    <div class="div-bg"></div>
     <div class="div-size">
       <div class="div-details">
         <p>Are you sure you want to add this multiple requirements?</p>
@@ -14,435 +13,263 @@
     </div>
   </div>
 </div>
- 
-    <!-- Your form inputs and labels here -->
 
-    <style>@import url('https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css')</style>
-    <style>
-    
-    .form-radio {
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
-      -webkit-print-color-adjust: exact;
-              color-adjust: exact;
-      display: inline-block;
-      vertical-align: middle;
-      background-origin: border-box;
-      -webkit-user-select: none;
-         -moz-user-select: none;
-          -ms-user-select: none;
-              user-select: none;
-      flex-shrink: 0;
-      border-radius: 100%;
-      border-width: 2px;
-    }
-    
-    .form-radio:checked {
-      background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
-      border-color: transparent;
-      background-color: currentColor;
-      background-size: 100% 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-    
-    @media not print {
-      .form-radio::-ms-check {
-        border-width: 1px;
-        color: transparent;
-        background: inherit;
-        border-color: inherit;
-        border-radius: inherit;
-      }
-    }
-    
-    .form-radio:focus {
-      outline: none;
-    }
-    
-    .form-select {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23a0aec0'%3e%3cpath d='M15.3 9.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z'/%3e%3c/svg%3e");
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
-      -webkit-print-color-adjust: exact;
-              color-adjust: exact;
-      background-repeat: no-repeat;
-      padding-top: 0.5rem;
-      padding-right: 2.5rem;
-      padding-bottom: 0.5rem;
-      padding-left: 0.75rem;
-      font-size: 1rem;
-      line-height: 1.5;
-      background-position: right 0.5rem center;
-      background-size: 1.5em 1.5em;
-    }
-    
-    .form-select::-ms-expand {
-      color: #a0aec0;
-      border: none;
-    }
-    
-    
-    @media not print {
-      .form-select::-ms-expand {
-        display: none;
-      }
-    }
-    
-    @media print and (-ms-high-contrast: active), print and (-ms-high-contrast: none) {
-      .form-select {
-        padding-right: 0.75rem;
-      }
-    }
-    
-    </style>
-    
-   
-      
-      <div *ngIf="statusMsg === 'Failed'" class="div w-max mx-auto" role="alert">
-        <strong class="font-bold">Holy smokes!</strong>
-        <span class="block sm:inline">Something seriously bad happened.</span>
-      </div>
-      <!-- <div *ngIf="statusMsg === 'Success'" class="w-max  mx-auto bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative z-50" role="alert">
-        <strong class="font-bold">Successfully</strong>
-        <span class="block sm:inline">Uploaded the file {{fileName}}</span>
-      </div> -->
-    
-      
-      <div class=" mx-auto font-poppins">
-        <div class=" justify-center py-4 min-h-full min-w-[900px] bg-blue-100">
-          <div>
-            <div class="mb-2 ">
-              <h1 class="ml-4 font-semibold mt-2 font-poppins add-h1 ">
-                New Advertisement <span class="uppercase">({{type}})</span></h1>
-           
-            </div>
-            <!-- Other content here -->
-          </div>
-          <i class="fas fa-times mr-3 cursor-pointer absolute top-6  right-2" mat-button matDialogClose=""></i>
+<!-- Main Form -->
+<div class="modern-form-container font-poppins">
+  <!-- Header -->
+  <div class="form-header">
+    <div class="flex items-center justify-between">
+      <h1 class="form-title">
+        New Advertisement <span class="uppercase text-blue-600">({{type}})</span>
+      </h1>
+      <i class="fas fa-times cursor-pointer text-gray-400 hover:text-gray-600 transition-colors" mat-button
+        matDialogClose=""></i>
+    </div>
+  </div>
+
+  <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
+
+  <!-- Error Message -->
+  <div *ngIf="statusMsg === 'Failed'" class="error-alert" role="alert">
+    <strong class="font-bold">Holy smokes!</strong>
+    <span class="block sm:inline">Something seriously bad happened.</span>
+  </div>
+
+  <!-- Form Content -->
+  <div class="form-content">
+
+    <!-- Section 1: Ports and Dates -->
+    <div class="form-section">
+      <div class="form-grid">
+
+        <!-- Port of Departure (Space or Container OneWay) -->
+        <div class="form-field" *ngIf="type!='container' || type_of_ad === 'oneway'">
+          <label class="form-label">Port of Departure</label>
+          <select [(ngModel)]="port_of_departure" class="form-input">
+            <option selected>Select your port</option>
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            </option>
+          </select>
         </div>
-        
+
+        <!-- Port of Arrival (Space or Container OneWay) -->
+        <div class="form-field" *ngIf="type!='container' || type_of_ad === 'oneway'">
+          <label class="form-label">Port of Arrival</label>
+          <select [(ngModel)]="port_of_arrival" class="form-input">
+            <option selected>Select your port</option>
+            <option *ngFor="let port of port_list" [value]="port.port_name">
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            </option>
+          </select>
+        </div>
+
+        <!-- From Date -->
+        <div class="form-field">
+          <label class="form-label">
+            From Date<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span>
+          </label>
+          <input class="form-input" placeholder="Enter your duration here..." [(ngModel)]="from_date" type="date" />
+        </div>
+
+        <!-- For a Period -->
+        <div class="form-field">
+          <label class="form-label">
+            For a period<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span>
+          </label>
+          <input class="form-input" type="number" [(ngModel)]="expiry_date" step="1" min="1" max="100"
+            placeholder="In weeks" />
+        </div>
+
+        <!-- Port of Ad (Container non-OneWay) -->
+        <div class="form-field" *ngIf="type!='space' && type_of_ad != 'oneway'">
+          <label class="form-label">
+            Port of Ad<span class="text-red-500"> *</span>
+          </label>
+          <select [(ngModel)]="port_id" class="form-input">
+            <option selected>Select your port</option>
+            <option *ngFor="let port of port_list" [value]="port.port_id">
+              {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            </option>
+          </select>
+        </div>
+
+      </div>
     </div>
 
-    <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
-    
-        <div class="min-h-[200px]  bg-blue border-t border-b border-gray-200 px-5 text-gray-800 shadow-lg">
-                  <!-- <div class="px-3 md:w-7/12 lg:pr-10"> -->
-                      <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
-                            <div class="min-w-[700px] min-h-[100px] flex  flex-row items-center mt-0">
-                                
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type!='container'">
-                                    <label class="text-gray-600 rounded-lg font-medium text-sm  ml-1">Port of Departure</label>
-                                    <div class="bg-white font-medium rounded-lg">
-                                        <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
-                                            <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
-                                          </select>
-                                      </div>
-                                </div>
+    <!-- Section 2: Requirement Type and Details -->
+    <div class="form-section">
+      <div class="form-grid">
 
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type!='container'">
-                                    <label class="text-gray-600 font-medium rounded-lg text-sm  ml-1">Port of Arrival</label>
-                                    <div class="bg-white font-medium rounded-lg">
-                                        <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
-                                            <option selected>Select your port </option>
-                                            <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
-                                          </select>
-                                      </div>
-                                </div>
-
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type==='container'&&type_of_ad === 'oneway'">
-                                  <label class="text-gray-600 rounded-lg font-medium text-sm  ml-1">Port of Departure</label>
-                                  <div class="bg-white font-medium rounded-lg">
-                                      <select #port [(ngModel)]="port_of_departure" style="height: 36px;" class="post-page-data">
-                                          <option selected>Select your port </option>
-                                          <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
-                                        </select>
-                                    </div>
-                              </div>
-
-                              <div class="flex-grow px-2 ml-0 lg:max-w-xs " *ngIf="type==='container'&&type_of_ad === 'oneway'">
-                                  <label class="text-gray-600 font-medium rounded-lg text-sm  ml-1">Port of Arrival</label>
-                                  <div class="bg-white font-medium rounded-lg">
-                                      <select #port [(ngModel)]="port_of_arrival" class="post-page-data" style="height: 36px;" placeholder="Select here" >
-                                          <option selected>Select your port </option>
-                                          <option  *ngFor ="let port of port_list" [value]="port.port_name"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
-                                        </select>
-                                    </div>
-                              </div>
-
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs ">
-                                    <label class="text-gray-600 font-medium text-sm  ml-1">From Date<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
-                                    <div>
-                                        <input class="post-page-data"  placeholder="Enter your duration here..."
-                                        [(ngModel)]="from_date" type="date"/>
-                                    </div>
-                                  
-                                </div>
-                                <div class="flex-grow px-2 ml-0  lg:max-w-xs">
-                                  <label class="text-gray-600 font-medium text-sm ml-1">For a period<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
-                                    <div>
-                                        <input class="post-page-data" type="number" [(ngModel)]="expiry_date" step="1" min="1" max="100" placeholder="In weeks"/>
-                                    </div>
-                                 
-                                </div>
-                                <div class="flex-grow px-2 lg:max-w-xs" *ngIf="type!='space'&&type_of_ad != 'oneway'">
-                                  
-                                  <label class="text-gray-600 rounded-lg font-medium text-sm mb-2 ml-1">Port of Ad<span class="text-red-500"> *</span></label>
-
-                                  <div class="bg-white font-medium rounded-lg">
-
-                                      <select #port [(ngModel)]="port_id" class="post-page-data" style="width: 154px; height: 34px;">
-
-                                          <option selected>Select your port </option>
-
-                                          <option  *ngFor ="let port of port_list" [value]="port.port_id"> {{ capitalizeFirstLetter(port.port_name) }}({{port.port_code}})</option>
-
-                                        </select>
-
-                                    </div>
-                                     
-                              
-                                                              
-                                      
-                              </div>
-                                
-                            </div>
-
-                            
-                        </div>
-                        <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
-                          
-                            <div class="min-w-[600px] min-h-[100px] flex items-center">
-                               
-                              <div class="flex-grow px-2 lg:max-w-xs" *ngIf="type!='container'">
-                                <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
-                               
-                                   
-                                    <div>
-                                      <mat-button-toggle-group  class="custom-button-toggle-group rounded-md  flex text-black-600  mt-1"  [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style">
-                                        <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved-sell border "  value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
-                                        <mat-button-toggle class=" custom-button-toggle border" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
-                                        <mat-button-toggle class="custom-button-toggle custom-button-toggle-curved border"  value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
-                                      </mat-button-toggle-group>
-                                    <!-- <button
-                                         *ngFor="let option of options; let i = index"
-                                         class="radio-button"
-                                         [ngClass]="{ 'radio-button--selected': selectedOption === i }"
-                                         (click)="selectOption(i)"
-                                         [(ngModel)]="type_of_ad"
-                                        >
-                                         {{ option }}
-                                        </button> -->
-                                        </div>
-                                   
-                            
-                                                            
-                                    
-                            </div>
-                            <div class="flex-grow px-2 mb-6 lg:max-w-xs" *ngIf="type!='space'">
-
-                                  
-                              <label class="text-gray-600 font-medium text-sm ml-1">Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
-                           
-                                <div class="flex text-black-600 mt-1 border rounded-md -ml-2" *ngIf="type == 'container'">
-                                  <mat-button-toggle-group   [(ngModel)]="type_of_ad" name="fontStyle" aria-label="Font Style" style="height: 40px;" *ngIf="type == 'container'">
-                                    <mat-button-toggle class="style-font" value="sell" color="primary" [class.selected-toggle]="type_of_ad === 'sell'">&nbsp;Sell</mat-button-toggle>
-                                    <mat-button-toggle class="style-font" value="buy" color="primary" [class.selected-toggle]="type_of_ad === 'buy'">&nbsp;&nbsp;Buy</mat-button-toggle>
-                                    <mat-button-toggle  class="style-font"value="lease" color="primary" [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
-                                    <mat-button-toggle class="style-font" value="swap" color="primary" [class.selected-toggle]="type_of_ad === 'swap'" >Swap</mat-button-toggle>
-                                    <mat-button-toggle class="style-font -ml-1" value="oneway" color="primary" [class.selected-toggle]="type_of_ad === 'oneway'">OneWay</mat-button-toggle>
-
-                                  </mat-button-toggle-group>
-                                </div>
-                             
-
-                        </div>
-                                <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm mb-2"  >Quantity</label>
-                                    <div>
-                                        <input class="post-page-data ml-1" [(ngModel)]="quantity" placeholder="XXXXXX" type="number" style="width: 220px;"/>
-                                    </div>
-                                    <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Number of TEU's</label>
-                                </div>
-    
-                                <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Container Type<span class="text-red-500">*</span></label>
-                                    <div>
-                                        <select #port [(ngModel)]="container_type" class="post-page-data" placeholder="Select here" style="width: 220px; height: 34px;">
-                  
-                                            <option  *ngFor ="let CType of container_type_list" [value]="CType.type">{{CType.type}}</option>
-                                          </select>
-                                    </div>
-                                    <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Select Here</label>
-                                </div>
-                          
-                                      
-                                <div class="flex-grow px-2 lg:max-w-xs">
-                                  <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Container Size(in Ft')<span class="text-red-500">*</span></label>
-                                  <div>
-                                      <select  [(ngModel)]="size"  #inputRef="ngModel" class="post-page-data" placeholder="Select here" style="width: 220px; height: 34px;">
-                
-                                          <option  *ngFor ="let Csize of container_list" [value]="Csize.capacity">{{Csize.capacity}}</option>
-                                        </select>
-                                  </div>
-                                  <label class="text-gray-500 font-semi text-sm mb-2 ml-1">Select Here</label>
-                              </div>
-    
-                                
-                                
-                                
-                                
-                            </div>
-                        </div>
-                        <div class="min-w-[200px] min-h-[100px] mx-auto text-gray-800 font-light border-b border-gray-500">
-                            
-                            
-                        
-                            <div class="min-w-[600px] min-h-[100px] flex items-center">
-
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm  mb-2 ml-1">Price<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span></label>
-                                    <div>
-                                        <input [(ngModel)]="price" class="post-page-data" placeholder="XXXXXX" style="width: 220px; height: 34px;" type="number"/>
-                                        
-                                    </div>
-                                     <label class="text-gray-500 font-semi text-sm ml-1">Price per TEU IN $</label>
-                                </div>
-                               
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm  mb-2 ml-1">Free Days</label>
-                                    
-                                    <div>
-                                        <input [(ngModel)]="free_days" class="post-page-data" placeholder="XXXXXX" style="width: 224px; height: 34px;" type="number"/>
-                                        
-                                    </div>
-                                    <label class="text-gray-500 font-semi text-sm  ml-1">Days(per container)</label>
-                                </div>
-                                <div class="flex-grow px-2 ml-0 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Per Diem</label>
-                                    <div>
-                                        <input [(ngModel)]="per_diem" class="post-page-data" placeholder="per day after free days" style="width: 220px; height: 34px;" type="text"/>
-                                    </div>
-                                    <label class="text-gray-500 font-semi text-sm ml-1">USD $</label>
-                                </div>
-                                <div class="flex-grow px-2 lg:max-w-xs">
-                                    <label class="text-gray-600 font-medium text-sm mb-2 ml-1">Pick up charges</label>
-                                    <div>
-                                        <input [(ngModel)]="pickup_charges" class="post-page-data" placeholder="XXXXXX"  style="width: 154px; height: 34px;" type="text"/>
-                                        
-                                    </div>
-                                     <label class="text-gray-500 font-semi text-sm  ml-1">USD $(per container)</label>
-                                </div>
-                                
-                                
-                            </div>
-                        </div>
-
-                         
-                        <div class="flex flex-row justify-between items-center">
-                          <div class="flex flex-1">
-                            
-                                
-                                     
-                                      <div class="flex-grow px-2 lg:max-w-xs mt-2">
-                                          <label class="w-2/2    font-medium text-sm mb-2 ml-1">Comments</label>
-                                          <div>
-                                              <textarea [(ngModel)]="contents" class="w-full px-3 py-2 mb-4 border border-gray-200 rounded-md focus:outline-none focus:border-indigo-500 transition-colors" placeholder="Write your comments here"style="height: 80px; width: 120%;" ></textarea>
-                                             
-                                          </div>
-                                      </div>
-                          </div>
-    
-                          <div class="flex flex-1 justify-between items-center">
-                            <div class="w-1/2 mr-2  ml-10 h-20 w-60 mb-10">
-                              
-                                <label class="w-2/2  font-medium text-sm ml-12">Upload pdf related to Ad<span class="text-red-500"> *</span></label>
-                                <div class=" bg-gray-50 flex justify-center ml-10 mr-5 px-6 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                   
-                                    <div class="space-y-1 text-center h-14 ">
-                                      <svg class="mx-auto h-8 w-8 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                      </svg>
-                                      <div class="flex text-sm text-gray-600">
-                                        <label class="relative cursor-pointer rounded-md font-medium text-black hover:text-white-500 focus-within:outline-none focus-within:ring-3 focus-within:ring-offset-3 focus-within:ring-indigo-500">
-                                          <span class="">Upload Pdf Here </span>
-                                          <input class="sr-only" type="file"  (change)="onChange($event)"
-                                          accept="application/pdf">
-                                        </label>
-                                       
-                                      </div>
-                                      <p class="pl-1 text-white">or drag and drop</p>
-                                   
-                              
-                                    </div>
-                                    
-                                 </div>
-                                 
-                            </div>  
-                            
-                      
-                              <!-- upload pdf code goes here -->
-                          
-                            
-                           
-                              <div class="flex flex-1 ml-2  mx-auto h-20 w-60 mb-10">
-                              
-                                    
-                                    
-                                      <div class="flex-grow lg:max-w-xs ">
-                                          <label class="w-2/2  font-medium text-sm ml-6">Upload multiple requirement</label>
-                                          <div class=" bg-gray-50 flex justify-center ml-5 mr-4 px-6 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-                                            
-                                              <div class="space-y-1 text-center h-14">
-                                                <svg class="mx-auto h-8 w-8 text-white" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg>
-                                                <div class="flex text-sm text-gray-600">
-                                                  <label class="relative cursor-pointer rounded-md font-medium text-black hover:text-white-500 focus-within:outline-none focus-within:ring-3 focus-within:ring-offset-3 focus-within:ring-indigo-500">
-                                                    <span class="">Upload Excel Here </span>
-                                                    <input class="sr-only" type="file"  (change)="onExcelRead($event)"
-                                                    accept="application/Excel">
-                                                  </label>
-                                                
-                                                </div>
-                                                
-                                                <p class="pl-1 text-white">or drag and drop</p>
-                                               
-                                        
-                                              </div>
-                                              
-                                          </div>
-                                          
-                                      </div>  
-                                <!-- upload pdf code goes here -->
-                                
-
-
-                         </div> 
-                          </div>
-                        </div>
-
-
-                        <div class="min-h-[30px] mx-auto text-gray-800 font-light  border-gray-500 mb-10 flex flex-row">
-                            
-                                  <div *ngIf="ContinueDraft=== 0"class="flex flex-1">
-                                      <button *ngIf="ContinueDraft === 0" class="flex-1 mt-4 justify-center items-center space-x-2 border font-medium focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-CCblue hover:border-blue-700 text-black-600 font-bold  rounded disabled:opacity-50 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 mr-4 ml-2" type="button" style="height: 40px;" (click)="Draft()">Save as Draft</button>
-                                  </div>
-                                  <div *ngIf="ContinueDraft=== 0" class="flex flex-1">
-                                      <button (click)="PostAd()" *ngIf="ContinueDraft=== 0" class="flex-1 mt-4  justify-center items-center space-x-2 border font-medium focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black bg-CCblue hover:bg-black-700 text-white  font-bold px-4 rounded disabled:opacity-50 hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 ml-4 mr-2" style="height: 40px;">Send for approval</button>
-                                  </div>
-                                  <div *ngIf="ContinueDraft=== 1" class="flex flex-1">
-                                      <button (click)="continueDraft(adId)" *ngIf="ContinueDraft=== 1" class="flex-1 mt-4  justify-center items-center space-x-2 border font-medium focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black hover:text-white hover:bg-CCblue hover:border-blue-700 text-black-600  font-bold  px-4 rounded disabled:opacity-50 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 mr-4 ml-2" style="height: 40px;">Save as Draft</button>
-                                  </div>
-                                  <div *ngIf="ContinueDraft=== 1" class="flex flex-1">
-                                      <button (click)="DraftPosting(adId)" *ngIf="ContinueDraft=== 1" class="flex-1 mt-4 justify-center items-center space-x-2 border font-medium focus:outline-none w-full px-4 py-2 leading-6 rounded border-blue-700 bg-white-500 text-black bg-CCblue hover:bg-black-700 text-white font-bold px-4 rounded disabled:opacity-50 hover:text-white hover:bg-blue-800 hover:border-blue-700 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-500 ml-4 mr-2" style="height: 40px;">Send for approval</button>
-                                  </div>
-                                  
-                                
-                      </div>  
-                     
+        <!-- Select Requirement (Space) -->
+        <div class="form-field" *ngIf="type!='container'">
+          <label class="form-label">
+            Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span>
+          </label>
+          <mat-button-toggle-group class="modern-toggle-group" [(ngModel)]="type_of_ad" name="fontStyle"
+            aria-label="Font Style">
+            <mat-button-toggle class="modern-toggle" value="sell" color="primary"
+              [class.selected-toggle]="type_of_ad === 'sell'">Sell</mat-button-toggle>
+            <mat-button-toggle class="modern-toggle" value="buy" color="primary"
+              [class.selected-toggle]="type_of_ad === 'buy'">Buy</mat-button-toggle>
+            <mat-button-toggle class="modern-toggle" value="lease" color="primary"
+              [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
-    
+
+        <!-- Select Requirement (Container) -->
+        <div class="form-field" *ngIf="type!='space'">
+          <label class="form-label">
+            Select your requirement<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span>
+          </label>
+          <mat-button-toggle-group class="modern-toggle-group" [(ngModel)]="type_of_ad" name="fontStyle"
+            aria-label="Font Style">
+            <mat-button-toggle class="modern-toggle" value="sell" color="primary"
+              [class.selected-toggle]="type_of_ad === 'sell'">Sell</mat-button-toggle>
+            <mat-button-toggle class="modern-toggle" value="buy" color="primary"
+              [class.selected-toggle]="type_of_ad === 'buy'">Buy</mat-button-toggle>
+            <mat-button-toggle class="modern-toggle" value="lease" color="primary"
+              [class.selected-toggle]="type_of_ad === 'lease'">Lease</mat-button-toggle>
+            <mat-button-toggle class="modern-toggle" value="swap" color="primary"
+              [class.selected-toggle]="type_of_ad === 'swap'">Swap</mat-button-toggle>
+            <mat-button-toggle class="modern-toggle" value="oneway" color="primary"
+              [class.selected-toggle]="type_of_ad === 'oneway'">OneWay</mat-button-toggle>
+          </mat-button-toggle-group>
+        </div>
+
+        <!-- Quantity -->
+        <div class="form-field">
+          <label class="form-label">Quantity</label>
+          <input class="form-input" [(ngModel)]="quantity" placeholder="XXXXXX" type="number" />
+          <p class="form-hint">Number of TEU's</p>
+        </div>
+
+        <!-- Container Type -->
+        <div class="form-field">
+          <label class="form-label">Container Type<span class="text-red-500"> *</span></label>
+          <select [(ngModel)]="container_type" class="form-input">
+            <option *ngFor="let CType of container_type_list" [value]="CType.type">{{CType.type}}</option>
+          </select>
+          <p class="form-hint">Select Here</p>
+        </div>
+
+        <!-- Container Size -->
+        <div class="form-field">
+          <label class="form-label">Container Size (in Ft')<span class="text-red-500"> *</span></label>
+          <select [(ngModel)]="size" #inputRef="ngModel" class="form-input">
+            <option *ngFor="let Csize of container_list" [value]="Csize.capacity">{{Csize.capacity}}</option>
+          </select>
+          <p class="form-hint">Select Here</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 3: Pricing -->
+    <div class="form-section">
+      <div class="form-grid">
+
+        <!-- Price -->
+        <div class="form-field">
+          <label class="form-label">
+            Price<span *ngIf="ContinueDraft===0" class="text-red-500"> *</span>
+          </label>
+          <input [(ngModel)]="price" class="form-input" placeholder="XXXXXX" type="number" />
+          <p class="form-hint">Price per TEU IN $</p>
+        </div>
+
+        <!-- Free Days -->
+        <div class="form-field">
+          <label class="form-label">Free Days</label>
+          <input [(ngModel)]="free_days" class="form-input" placeholder="XXXXXX" type="number" />
+          <p class="form-hint">Days (per container)</p>
+        </div>
+
+        <!-- Per Diem -->
+        <div class="form-field">
+          <label class="form-label">Per Diem</label>
+          <input [(ngModel)]="per_diem" class="form-input" placeholder="per day after free days" type="text" />
+          <p class="form-hint">USD $</p>
+        </div>
+
+        <!-- Pickup Charges -->
+        <div class="form-field">
+          <label class="form-label">Pick up charges</label>
+          <input [(ngModel)]="pickup_charges" class="form-input" placeholder="XXXXXX" type="text" />
+          <p class="form-hint">USD $ (per container)</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Section 4: Comments and Uploads -->
+    <div class="form-section">
+      <div class="form-grid-2col">
+
+        <!-- Comments -->
+        <div class="form-field-full">
+          <label class="form-label">Comments</label>
+          <textarea [(ngModel)]="contents" class="form-textarea" placeholder="Write your comments here"></textarea>
+        </div>
+
+        <!-- Upload PDF -->
+        <div class="form-field">
+          <label class="form-label">Upload pdf related to Ad<span class="text-red-500"> *</span></label>
+          <div class="upload-area">
+            <svg class="upload-icon" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+              <path
+                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="upload-text">
+              <label class="upload-label">
+                <span>Upload PDF Here</span>
+                <input class="sr-only" type="file" (change)="onChange($event)" accept="application/pdf">
+              </label>
+              <p class="upload-hint">or drag and drop</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upload Excel -->
+        <div class="form-field">
+          <label class="form-label">Upload multiple requirement</label>
+          <div class="upload-area">
+            <svg class="upload-icon" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+              <path
+                d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <div class="upload-text">
+              <label class="upload-label">
+                <span>Upload Excel Here</span>
+                <input class="sr-only" type="file" (change)="onExcelRead($event)" accept="application/Excel">
+              </label>
+              <p class="upload-hint">or drag and drop</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="form-actions">
+      <div class="action-buttons">
+        <button *ngIf="ContinueDraft === 0" class="btn-secondary" type="button" (click)="Draft()">
+          Save as Draft
+        </button>
+        <button *ngIf="ContinueDraft === 0" class="btn-primary" (click)="PostAd()">
+          Send for approval
+        </button>
+        <button *ngIf="ContinueDraft === 1" class="btn-secondary" (click)="continueDraft(adId)">
+          Save as Draft
+        </button>
+        <button *ngIf="ContinueDraft === 1" class="btn-primary" (click)="DraftPosting(adId)">
+          Send for approval
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

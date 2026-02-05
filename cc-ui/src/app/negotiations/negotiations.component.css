@@ -1,109 +1,120 @@
-
-
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
 
-.button-no-bg {
+@layer components {
 
-  @apply bg-white text-blue-500 border p-1 px-10  text-xs font-thin border-blue-500;
+  /* Action Buttons */
+  .action-btn {
+    @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95;
+  }
 
+  .action-btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600;
+  }
+
+  .action-btn-secondary {
+    @apply bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
+  }
+
+  .action-btn-disabled {
+    @apply bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300 opacity-60;
+  }
+
+  /* Info Cards */
+  .info-card {
+    @apply flex flex-col space-y-1;
+  }
+
+  .info-label {
+    @apply flex items-center gap-1 text-xs font-medium text-gray-500 uppercase tracking-wide;
+  }
+
+  .info-value {
+    @apply text-sm font-semibold text-gray-900;
+  }
+
+  /* Message Button Styles */
+  .message-btn {
+    @apply inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95;
+  }
+
+  .message-btn-active {
+    @apply bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600;
+  }
+
+  .message-btn-disabled {
+    @apply bg-gray-300 text-gray-500 cursor-not-allowed hover:bg-gray-300 opacity-60;
+  }
+
+  /* Company Name Blur (for non-accepted status) */
+  .company-name {
+    filter: blur(3px);
+  }
+
+  /* Highlight for selected conversation */
+  .highlight {
+    @apply ring-2 ring-blue-500 ring-offset-2;
+  }
+
+  /* Typography */
+  .forecast {
+    font-family: Poppins;
+    font-size: 16px;
+    line-height: 28px;
+  }
+
+  .select-type {
+    margin-top: 10px;
+    color: var(--gray-gray-8, #595959);
+    font-size: 12px;
+    font-family: Poppins;
+    line-height: 20px;
+  }
 }
-.forecast {
-  font-family: Poppins;
-  font-size: 16px;
-  line-height: 28px;
-}
-.radio{
-  border-radius: 2px;
-border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);
-background: #FFF;
-display: flex;
-width: 138px;
-padding: 4px;
-justify-content: space-between;
-align-items: center;
-align-content: flex-start;
-row-gap: 8px;
-flex-wrap: wrap;
-}
-.select-type{
-  margin-top:10px;
-  color: var(--gray-gray-8, #595959);
-font-size: 12px;
-font-family: Poppins;
-line-height: 20px;
-}
+
+/* Legacy button styles (keeping for backwards compatibility if needed) */
 .button-blue-bg {
+  @apply bg-blue-600 text-white border px-10 py-2 text-xs font-medium border-blue-600 rounded-lg hover:bg-blue-700 transition-colors;
+}
 
-  @apply bg-CCdarkblue text-white border p-1 px-10  text-xs font-thin border-blue-500;
-
+.button-no-bg {
+  @apply bg-white text-blue-500 border px-10 py-2 text-xs font-medium border-blue-500 rounded-lg hover:bg-blue-50 transition-colors;
 }
 
 .gray-highlights {
-
-  @apply flex items-center justify-center text-[0.6rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
-
+  @apply flex items-center justify-center text-xs bg-gray-50 rounded-md px-2 py-1 whitespace-nowrap;
 }
 
 .button-no-bg-list {
-
-  @apply bg-white text-blue-500 border px-10  text-[0.6rem] font-thin border-blue-500;
-
+  @apply bg-white text-blue-500 border px-10 text-xs font-thin border-blue-500;
 }
 
-.btn-gray{
-
+.btn-gray {
   @apply bg-gray-300;
-
 }
 
 .disabled-button {
-
   cursor: not-allowed;
-
-}
-
-.company-name {
-
-  filter: blur(3px);
-
 }
 
 .button-gray-bg-list {
-
-  @apply bg-gray-200  border  px-10  text-[0.6rem] font-thin;
-
+  @apply bg-gray-200 border px-10 text-xs font-thin;
 }
 
 .button-red-bg-list {
-
-  @apply bg-red-300  border px-10  text-[0.6rem] font-thin border-red-300;
-
+  @apply bg-red-300 border px-10 text-xs font-thin border-red-300;
 }
 
-.button-in-list{
-
-  @apply bg-blue-50 text-blue-500 text-xs px-1 items-center justify-center flex;
-
+.button-in-list {
+  @apply bg-blue-50 text-blue-500 text-xs px-2 py-1 items-center justify-center flex rounded;
 }
-.button2{
-  display: flex;
-width: 32px;
-height: 32px;
-padding: 0px 6px;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-gap: 10px;
-border-radius: 6px;
-color: #1677FF;
-border: 1px solid var(--color-primary-base, #1677FF);
-}
-.button1{
 
+/* Pagination buttons */
+.button1,
+.button2,
+.button3,
+.button4 {
   display: flex;
   width: 32px;
   height: 32px;
@@ -113,34 +124,27 @@ border: 1px solid var(--color-primary-base, #1677FF);
   align-items: center;
   gap: 10px;
   border-radius: 6px;
-  }
-  .button3{
-    border-radius: 6px;
-    display: flex;
-    width: 32px;
-    height: 32px;
-    color: 000000;
-    padding: 0px 6px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-  .button4{
+}
+
+.button2 {
+  color: #1677FF;
+  border: 1px solid var(--color-primary-base, #1677FF);
+}
+
+.button3 {
+  color: #000000;
+}
+
+.radio {
+  border-radius: 2px;
+  border: 1px solid var(--geek-blue-geekblue-6, #2F54EB);
+  background: #FFF;
   display: flex;
-  width: 32px;
-  height: 32px;
-  padding: 0px 6px;
-  flex-direction: column;
-  justify-content: center;
+  width: 138px;
+  padding: 4px;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  border-radius: 6px;
-  
-  
-  }
-  .highlight {
-    background-color: blue;
-    color: white;
-  }
-  
+  align-content: flex-start;
+  row-gap: 8px;
+  flex-wrap: wrap;
+}
