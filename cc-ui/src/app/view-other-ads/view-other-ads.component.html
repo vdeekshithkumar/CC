@@ -1,13 +1,15 @@
-<div class="">
-  <div class="py-10 px-2">
+<div class="flex h-[calc(100vh-64px)] overflow-hidden">
 
-    <div class="flex items-center  mt-10">
-      <span *ngIf="ad_type === 'container'" class="search-text ra">Container Advertisement</span>
-      <span *ngIf="ad_type === 'space'" class="search-text ra">Vessel Advertisement</span>
+  <!-- Sidebar Filter Section -->
+  <div class="w-[380px] flex-shrink-0 overflow-y-auto border-r border-gray-200 bg-white py-10 px-4 custom-scrollbar">
+
+    <div class="flex items-center mt-2 mb-6">
+      <span *ngIf="ad_type === 'container'" class="text-lg font-semibold text-gray-800">Container Advertisement</span>
+      <span *ngIf="ad_type === 'space'" class="text-lg font-semibold text-gray-800">Vessel Advertisement</span>
     </div>
 
-    <br />
-    <div class="flex flex-wrap   search-type-container">
+    <!-- Filters ... -->
+    <div class="flex flex-wrap search-type-container mb-6">
       <div class="search-lease-container" *ngIf="selectedMainOption === 'Trading'"
         [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }" (click)="toggleOption('type', 'Buy')">
         Buy
@@ -245,7 +247,7 @@
     </div>
   </div>
 
-  <div class="advertisement-details fixed-advertisement-details px-2 flex flex-col">
+  <div class="flex-1 px-6 py-10 advertisement-details overflow-y-auto bg-gray-50 h-full">
     <div class="page-header">
       <h2 class="page-title">Advertisement Details</h2>
       <button *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"

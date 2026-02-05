@@ -9,7 +9,7 @@
 }
 
 .header-box-div {
-  @apply flex justify-between items-center max-w-[1600px] mx-auto;
+  @apply flex justify-between items-center w-full;
 }
 
 .header-brand {

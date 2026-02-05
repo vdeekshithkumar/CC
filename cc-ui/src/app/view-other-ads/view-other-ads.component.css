@@ -66,7 +66,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 2500px;
+  width: 100%;
 }
 
 
@@ -197,13 +197,11 @@
 }
 
 .advertisement-details {
-  position: fixed;
-  top: 64px;
-  bottom: 0;
-  left: calc(31.5% + 16px);
-  width: 67.8%;
-  z-index: 99;
-  overflow-y: auto !important;
+  position: relative;
+  /* Removing fixed positioning to allow natural flow */
+  /* was: fixed, top 64px, etc. */
+  width: 100%;
+  z-index: 1;
   background: #f8fafc;
   display: block;
   padding: 24px;
@@ -461,7 +459,7 @@
   border: 3px solid #ccc;
   padding: 10px;
   flex-direction: row;
-  width: 940px;
+  width: 100%;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
