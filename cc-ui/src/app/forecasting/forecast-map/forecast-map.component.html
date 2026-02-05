@@ -1,9 +1,8 @@
-<div class="flex flex-col first:flex-row div-bg div-bg-line mt-16 w-full">
-  <label class="forecast font-semibold text-dark mt-3 ml-2">Forecasting</label>
-  <div class="-ml-32 h-16 w-full mt-16">
+<div class="flex flex-col first:flex-row div-bg div-bg-line mt-4 w-full">
+  <div class="-ml-2 h-16 w-full mt-6">
 
     <form>
-      <div class="flex flex-row">
+      <div class="flex flex-row justify-between w-full h-full items-end">
         <div class="-mt-3">
           <label class="top mb-2 ml-8 font-normal">Country</label>
           <div>
@@ -15,37 +14,32 @@
           </div>
         </div>
 
-        <div class="ml-[800px] -mt-10 w-[7em] h-[2em] div-box-bg flex-wrap ">
+        <div class="flex flex-row gap-4 mb-1">
           <div>
             <button routerLink="/carrier-service"
-              class="inline-flex justify-center items-center btn-primary3 space-x-2 border font-semibold focus:outline-none w-36 py-2 px-2 pr-2 leading-6 font-poppins">Carrier
-              Services</button>
+              class="inline-flex justify-center items-center px-4 py-2 bg-white text-gray-700 font-medium text-sm rounded-lg border border-gray-300 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-poppins transition-colors">
+              Carrier Services
+            </button>
           </div>
-        </div>
-        <div class="header">
-          <div class="mx-4 ml-12 -mt-10 w-[10em] h-[0.5em] bg-gray flex-wrap">
-            <div>
-              <button (click)="onExportClick()"
-                class="ml-2 inline-flex justify-center items-center btn-primary2 space-x-2 border font-semibold focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
-                    fill="#2F54EB" />
-                  <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z" fill="#2F54EB" />
-                </svg>
-                <span class="ml-1">Export data</span>
-              </button>
-            </div>
+          <div>
+            <button (click)="onExportClick()"
+              class="inline-flex justify-center items-center px-4 py-2 bg-white text-blue-600 font-medium text-sm rounded-lg border border-blue-200 shadow-sm hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-poppins transition-colors">
+              <svg class="mr-2" width="16" height="16" viewBox="0 0 16 16" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M13 12V14H3V12H2V14L2.0038 13.9976C2.00333 14.1288 2.02873 14.2589 2.07854 14.3803C2.12836 14.5017 2.20163 14.6121 2.29414 14.7052C2.38666 14.7983 2.49662 14.8723 2.61774 14.9229C2.73885 14.9734 2.86875 14.9997 3 15H13C13.2652 15 13.5196 14.8946 13.7071 14.7071C13.8946 14.5196 14 14.2652 14 14V12H13Z"
+                  fill="currentColor" />
+                <path d="M3 6L3.7055 6.7025L7.5 2.9125V12H8.5V2.9125L12.2955 6.7025L13 6L8 1L3 6Z"
+                  fill="currentColor" />
+              </svg>
+              Export data
+            </button>
           </div>
-
-        </div>
-
-
-        <div class="-mt-10 w-[8em] h-[2em] bg-red flex-wrap ml-2">
           <div>
             <button
-              class="inline-flex justify-center btn-primary items-center space-x-2 border font-medium focus:outline-none w-full py-2 px-2 pr-2 leading-6 font-poppins border-blue-700  text-white active:border-blue-700">Sync
-              data</button>
+              class="inline-flex justify-center items-center px-4 py-2 bg-blue-600 text-white font-medium text-sm rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 font-poppins transition-colors">
+              Sync data
+            </button>
           </div>
         </div>
       </div>
@@ -55,10 +49,10 @@
 </div>
 
 <div class="relative">
-  <div *ngIf="isMapLoading" class="loading-container" style="height: 563px;">
+  <div *ngIf="isMapLoading" class="loading-container" style="height: calc(100vh - 230px);">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
-  <div #mapElement style="height: 563px; position: relative;">
+  <div #mapElement style="height: calc(100vh - 230px); position: relative;">
   </div>
   <div class="absolute top-4 inset-x-0 text-center  pointer-events-none">
     <div class="p-2 w-[15em] h-[7em] bg-white rounded shadow-lg ml-4 mb-96">

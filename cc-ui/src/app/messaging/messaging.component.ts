@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef,  OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SessionService } from '../session.service';
 import { MessagingService } from './messaging.service';
 import { Candidatee, conversation } from '../DTO/conversation';
@@ -12,7 +12,7 @@ import { NegotiationsService } from '../negotiations/negotiations.service';
   selector: 'app-messaging',
   templateUrl: './messaging.component.html',
   styleUrls: ['./messaging.component.css']
- 
+
 })
 
 export class MessagingComponent implements OnInit {
@@ -21,55 +21,55 @@ export class MessagingComponent implements OnInit {
   conversationsRef!: ElementRef;
   isBold: boolean = false;
   tempContent: string = "";
-  selectedConversationData!:any;
-  isItalic:boolean=false;
+  selectedConversationData!: any;
+  isItalic: boolean = false;
   todayHeadingDisplayed = false;
   companyId!: number
-  adcompanyId!:number
+  adcompanyId!: number
   userId: number = 0
   conversations: conversation[] = [];
   convid: conversation[] = [];
-  filteredConversations: conversation[]=[];
+  filteredConversations: conversation[] = [];
   messages: Message[] = []
   lastMessages: { [key: number]: Message | undefined } = {};
   participants: participant[] = []
-  conversationID!:number
-  negotiation_id:any
-  user_id:any;
+  conversationID!: number
+  negotiation_id: any
+  user_id: any;
   AdscompanyId!: number;
   ad_id!: number;
-  selectedNegotiationId!:any;
+  selectedNegotiationId!: any;
   selectedNegotiation: any; // Replace 'any' with the appropriate type of negotiation
-  content!:string
+  content!: string
   users: Candidate[] = []
-  use:Candidatee[]=[]
+  use: Candidatee[] = []
   loadUsers = true
-  ads_list:any;
+  ads_list: any;
 
   negotiationId!: string;
   selectedConversationName!: string;
   selectedConversationDesc!: string;
-  selectedcompanyname!:string;
-  first_name!:string;
-  selectedConversationLogo!:string;
+  selectedcompanyname!: string;
+  first_name!: string;
+  selectedConversationLogo!: string;
   selectedConversationIndex: number = -1;
   showPopup: boolean = false;
-  company_list:any;
+  company_list: any;
   selectedConversation: any;
 
 
   companyNames: { [companyId: number]: string } = {};
   AdscompanyNames: { [ad_id: number]: string } = {};
-  constructor(private negotiationservice:NegotiationsService, private route: ActivatedRoute,private cdr: ChangeDetectorRef,private sessionService: SessionService, private messageService: MessagingService) { }
+  constructor(private negotiationservice: NegotiationsService, private route: ActivatedRoute, private cdr: ChangeDetectorRef, private sessionService: SessionService, private messageService: MessagingService) { }
 
   ngOnInit(): void {
-  
+
     this.getAllConversations();
-   
+
     // this.route.params.subscribe(params => {
     //   this.negotiation_id = params['negotiation_id'];
     //   console.log(this.negotiation_id);
-    
+
     // });
     this.loadSelectedUsers();
     // get company id from session
@@ -82,8 +82,8 @@ export class MessagingComponent implements OnInit {
         console.error('Error retrieving company ID:', error);
       }
     });
-   
-  
+
+
     // user id from session
     this.sessionService.getUserId().subscribe({
       next: (userId: number) => {
@@ -93,11 +93,11 @@ export class MessagingComponent implements OnInit {
         console.error('Error retrieving user ID:', error);
       }
     });
-  
+
     this.container.nativeElement.scrollTop = this.container.nativeElement.scrollHeight;
   }
   retrieveConversationsByCompanyId(): void {
-   
+
     this.sessionService.getCompanyId().subscribe({
       next: companyId => {
         this.companyId = companyId;
@@ -120,7 +120,7 @@ export class MessagingComponent implements OnInit {
     });
   }
   EditMessageStatusForConversation() {
-    debugger
+
     this.messageService.EditMessagestatus(this.conversationID, this.companyId).subscribe({
       next: (response: any) => {
         // Handle the response after editing the message status
@@ -134,11 +134,11 @@ export class MessagingComponent implements OnInit {
   // EditMessageStatus():void{
   // this.messageService.EditMessagestatus()
   // }
-  
+
   // filterConversationsByNegotiationId(): void {
-  //   debugger
+  //   
   //   if (this.companyId && this.conversations &&this.adcompanyId) {
-      
+
   //     this.filteredConversations = this.conversations.map(convo => {
   //       console.log(this.adcompanyId);
   //       return {
@@ -148,42 +148,42 @@ export class MessagingComponent implements OnInit {
   //     });
   //   }
   // }
-  
+
   filterConversationsByNegotiationId(): void {
-  
+
     if (this.companyId && this.conversations) {
       // Filter the conversations based on the companyId and adCompanyId
       // this.filteredConversations = this.conversations.filter(
       //   convo => convo.company_id === this.companyId || convo.adcompanyId === this.adcompanyId
       // );
       this.filteredConversations = this.conversations.map(convo => {
-           return {
-           ...convo,
-              companyName: (convo.company_id === this.companyId) ? convo.negotiator_company_name : convo.company_name
-             
-            };
-            
-       });
-          }
+        return {
+          ...convo,
+          companyName: (convo.company_id === this.companyId) ? convo.negotiator_company_name : convo.company_name
+
+        };
+
+      });
     }
-  
-  
-  
+  }
+
+
+
   selectConversation(index: number, conversation: any) {
-   
+
     this.selectedConversationIndex = index;
     // Perform any necessary actions with the selected conversation
     this.getMessages(conversation.conversationId);
     this.selectedConversationName = conversation.company_name;
     this.selectedConversationDesc = conversation.first_name;
-    console.log("in msg",this.selectedConversationDesc);
+    console.log("in msg", this.selectedConversationDesc);
     this.selectedConversationLogo = conversation.company_logo;
   }
   getAllConversations() {
     // Implement the logic to fetch all conversations
     // Assign the fetched conversations to a property in your MessagingComponent
   }
-  
+
   loadSelectedUsers() {
     const storedUsers = localStorage.getItem('selectedUsers');
     if (storedUsers) {
@@ -196,28 +196,28 @@ export class MessagingComponent implements OnInit {
     });
   }
 
-    // this.selectedNegotiationId = negotiation_id;
+  // this.selectedNegotiationId = negotiation_id;
   getMessages(conversationId: number) {
-   
-  this.loadUsers = false;
-  this.conversationID = conversationId;
-  this.messageService.getMessges(conversationId).subscribe({
-    next: data => {
-      this.messages = data;
-      if (data && data.length > 0) {
-        this.lastMessages[conversationId] = data[data.length - 1];
-      } else {
-        this.lastMessages[conversationId] = undefined;
-      } // Store the last message in lastMessage variable
-    },
-    error: error => {
-      console.log(error);
-    }
-  });
-  this.getParticipants();
-  this.selectedConversationData = this.conversations.filter(convo => convo.company_id === this.selectedNegotiationId);
-}
-  
+
+    this.loadUsers = false;
+    this.conversationID = conversationId;
+    this.messageService.getMessges(conversationId).subscribe({
+      next: data => {
+        this.messages = data;
+        if (data && data.length > 0) {
+          this.lastMessages[conversationId] = data[data.length - 1];
+        } else {
+          this.lastMessages[conversationId] = undefined;
+        } // Store the last message in lastMessage variable
+      },
+      error: error => {
+        console.log(error);
+      }
+    });
+    this.getParticipants();
+    this.selectedConversationData = this.conversations.filter(convo => convo.company_id === this.selectedNegotiationId);
+  }
+
   setSelectedConversationIndex(index: number): void {
     this.selectedConversationIndex = index;
   }
@@ -234,7 +234,7 @@ export class MessagingComponent implements OnInit {
     }
     this.tempContent = "";
   }
-  
+
   handleKeyDown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       if (!event.shiftKey) {
@@ -255,12 +255,12 @@ export class MessagingComponent implements OnInit {
   //   const port = this.company_list.find((p: { company_id: number, company_name: string }) => p.company_id === companyId);
   //   return port ? port.company_name : '';
   // }
-//   getCompanyName(adId: number): string {
-//     debugger
-//     this.AdscompanyId = this.AdscompanyNames[adId];
-//     console.log(this.companyNames[this.AdscompanyId])
-//    return this.companyNames[this.AdscompanyId] || 'Unknown Company';
-//  }
+  //   getCompanyName(adId: number): string {
+  //     
+  //     this.AdscompanyId = this.AdscompanyNames[adId];
+  //     console.log(this.companyNames[this.AdscompanyId])
+  //    return this.companyNames[this.AdscompanyId] || 'Unknown Company';
+  //  }
   toggleItalic(textArea: HTMLTextAreaElement) {
     this.isItalic = !this.isItalic;
     if (this.isItalic) {
@@ -273,7 +273,7 @@ export class MessagingComponent implements OnInit {
     const today = new Date().setHours(0, 0, 0, 0); // Get the start of the current day
     return this.messages.some(message => this.isToday(message.timestamp));
   }
-  
+
   isFirstMessageOrDateChanged(index: number): boolean {
     if (index === 0) {
       return true; // It's the first message
@@ -292,7 +292,7 @@ export class MessagingComponent implements OnInit {
   // }
   isToday(date: Date) {
     const today = new Date();
-    return date.setHours(0,0,0,0) === today.setHours(0,0,0,0);
+    return date.setHours(0, 0, 0, 0) === today.setHours(0, 0, 0, 0);
   }
   timestampToDate(timestamp: number) {
     return new Date(timestamp);
@@ -306,16 +306,16 @@ export class MessagingComponent implements OnInit {
     if (content.length == 0) {
       return;
     }
-    
+
     const message: Message = {
       content: content,
       senderid: this.userId,
       conversationid: this.conversationID,
       timestamp: new Date(),
-  
+
       // negotiation_id:this.negotiation_id,
     };
- 
+
     this.messageService.sendMessage(message).subscribe({
       next: data => {
         this.getMessages(this.conversationID);
@@ -327,12 +327,11 @@ export class MessagingComponent implements OnInit {
       }
     });
   }
-  
-  getParticipants()
-  {
+
+  getParticipants() {
     this.messageService.GetParticipants(this.conversationID).subscribe({
       next: data => {
-       
+
         this.participants = data
       },
       error: error => {
@@ -341,24 +340,24 @@ export class MessagingComponent implements OnInit {
     });
   }
   getSenderName(senderId: number): string {
-   debugger
+
     const participant = this.participants.find(p => p.userId === senderId);
     return participant ? participant.first_name : '';
   }
-  
-  
-  getUsers(){
+
+
+  getUsers() {
     this.messageService.GetUsersAsync(this.conversationID, this.companyId).subscribe({
-      next:data=>{
+      next: data => {
         this.users = data
       },
-      error :error=>{
+      error: error => {
         console.error(error)
       }
     })
   }
   async addParticipant(candidate: Candidate) {
-    debugger
+
     const participant: participant = {
       conversationId: this.conversationID,
       userId: candidate.user_id,
@@ -366,7 +365,7 @@ export class MessagingComponent implements OnInit {
       first_name: candidate.first_name,
       last_name: candidate.last_name,
       company_name: candidate.company_name,
-      AdscompanyId:candidate.AdscompanyId
+      AdscompanyId: candidate.AdscompanyId
     };
     this.messageService.AddParticipant(participant).subscribe({
       next: data => {
@@ -376,9 +375,9 @@ export class MessagingComponent implements OnInit {
         // Handle the error
       }
     });
-    
+
   }
-   
+
   togglePopup() {
     this.showPopup = !this.showPopup;
   }
@@ -388,7 +387,7 @@ export class MessagingComponent implements OnInit {
   }
   // async sendMessage(senderId:number, content:string , )  
   addParticipants() {
-debugger
+
     const selectedUsers = this.users.filter(user => user.selected);
     this.users.forEach(user => {
       if (user.selected) {
@@ -404,7 +403,7 @@ debugger
     this.cdr.detectChanges();
   }
   addParticipantss() {
-  
+
     const selectedUsers = this.users.filter(user => user.selected);
     this.users.forEach(user => {
       if (user.selected) {

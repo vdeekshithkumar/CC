@@ -2,55 +2,228 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  /* Brand Colors */
+  --cc-blue-600: #2563EB;
+  --cc-blue-500: #3B82F6;
+  --cc-blue-400: #60A5FA;
+  --cc-blue-100: #E0F2FE;
+  --cc-blue-50: #F0F9FF;
+
+  /* Neutrals */
+  --cc-white: #FFFFFF;
+  --cc-gray-50: #F9FAFB;
+  --cc-gray-100: #F3F4F6;
+  --cc-gray-200: #E5E7EB;
+  --cc-gray-300: #D1D5DB;
+  --cc-gray-400: #9CA3AF;
+  --cc-gray-500: #6B7280;
+  --cc-gray-600: #4B5563;
+  --cc-gray-700: #374151;
+  --cc-gray-800: #1F2937;
+  --cc-gray-900: #111827;
+
+  /* Spacing (4px base) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+
+  /* Shadows */
+  --cc-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --cc-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+
+  /* Theme semantic colors */
+  --cc-bg-main: var(--cc-gray-50);
+  --cc-bg-card: var(--cc-white);
+  --cc-text-main: var(--cc-gray-900);
+  --cc-text-muted: var(--cc-gray-500);
+  --cc-border: var(--cc-gray-100);
+  --cc-header-bg: #1e3a8a;
+  --cc-input-bg: var(--cc-white);
+  --cc-primary: #2563EB;
+}
+
+/* Global Google Maps InfoWindow Override */
+.gm-style-iw {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  max-width: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.gm-style-iw-d {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.gm-style-iw-c {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.gm-style-iw-t::after {
+  display: none !important;
+}
+
+/* Hide default close button or style it */
+button.gm-ui-hover-effect {
+  background: transparent !important;
+  /* Transparent to blend with header */
+  border-radius: 50% !important;
+  top: 4px !important;
+  /* Adjusted position */
+  right: 4px !important;
+  opacity: 0.7 !important;
+  box-shadow: none !important;
+  /* Remove "popped out" shadow */
+  width: 30px !important;
+  height: 30px !important;
+  z-index: 1000 !important;
+  transition: opacity 0.2s ease;
+}
+
+button.gm-ui-hover-effect:hover {
+  opacity: 1 !important;
+  background: rgba(0, 0, 0, 0.05) !important;
+  /* Subtle hover state */
+}
+
+button.gm-ui-hover-effect img {
+  width: 14px !important;
+  height: 14px !important;
+  margin: 8px !important;
+}
+
+/* Global Popover Card for Google Maps */
+.popover-card {
+  background: var(--cc-bg-card);
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  min-width: 280px;
+  max-width: 320px;
+  border: 1px solid var(--cc-border);
+  font-family: 'Inter', sans-serif;
+}
+
+.popover-header {
+  background: var(--cc-bg-main);
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--cc-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popover-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--cc-text-main);
+}
+
+.popover-status {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  background: var(--cc-blue-100);
+  color: var(--cc-blue-600);
+  border-radius: 12px;
+}
+
+.popover-body {
+  padding: 16px;
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+
+.data-label {
+  color: var(--cc-text-muted);
+}
+
+.data-value {
+  color: var(--cc-text-main);
+  font-weight: 500;
+}
+
+.dark-theme {
+  --cc-bg-main: #0f172a;
+  --cc-bg-card: #1e293b;
+  --cc-text-main: #f8fafc;
+  --cc-text-muted: #94a3b8;
+  --cc-border: #334155;
+  --cc-header-bg: #020617;
+  --cc-input-bg: #0f172a;
+
+  --cc-gray-50: #0f172a;
+  --cc-gray-100: #1e293b;
+  --cc-gray-800: #f8fafc;
+  --cc-gray-900: #f8fafc;
+}
 
 @layer utilities {
   @variants responsive {
-
-    /* Hide scrollbar for Chrome, Safari and Opera */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
 
-    /* Hide scrollbar for IE, Edge and Firefox */
     .no-scrollbar {
       -ms-overflow-style: none;
-      /* IE and Edge */
       scrollbar-width: none;
-      /* Firefox */
     }
   }
 }
 
-/* for removing the increase and decrease arrow in the input type number in the frontend */
-/* @layer base {
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-  } */
 html,
 body {
   height: 100%;
+  overflow: hidden;
+  /* Prevent body scrolling */
+  background-color: var(--cc-bg-main);
+  color: var(--cc-text-main);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--cc-gray-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* .mat-stepper-horizontal-line{border-color: blue; position: relative;} */
+.dashboard-card {
+  background: var(--cc-bg-card);
+  border-radius: 12px;
+  box-shadow: var(--cc-shadow-sm);
+  border: 1px solid var(--cc-border);
+  padding: var(--sp-6);
+  transition: all 0.3s ease;
+}
 
-/* .mat-step-icon-selected {
 
-    background-color: red !important;
-
-    color: lightblue !important;
-
-} */
-
+.dashboard-card:hover {
+  box-shadow: var(--cc-shadow-md);
+}
 
 .custom-snackbar {
   background-color: green;

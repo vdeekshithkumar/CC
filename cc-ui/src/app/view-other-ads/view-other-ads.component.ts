@@ -369,12 +369,12 @@ export class ViewOtherAdsComponent {
     if (this.ad_type && this.selectedMainOption) {
       const type_of_ads = []; // Array to store type_of_ad values
 
-      // Determine type_of_ad based on selectedMainOption
-      if (this.selectedMainOption === 'Trading') {
-        type_of_ads.push('buy', 'sell',); // Add all types to the array
-      } else if (this.selectedMainOption === 'Leasing') {
-        type_of_ads.push('lease', 'swap', 'oneway'); // Add 'Lease' to the array
-      }
+    // Determine type_of_ad based on selectedMainOption
+    if (this.selectedMainOption === 'Trading') {
+      type_of_ads.push('buy', 'sell',); // Add all types to the array
+    } else if (this.selectedMainOption === 'Leasing') {
+      type_of_ads.push('lease','swap','oneway'); // Add 'Lease' to the array
+    }
 
       // Create an array to store the observables for each type_of_ad request
       const observables = type_of_ads.map(type_of_ad =>

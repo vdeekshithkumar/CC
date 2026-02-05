@@ -1,236 +1,111 @@
-<div class="registration-form">
-  <!-- User registration form here -->
-  <div style="color: #120338; font-size: 24px; font-family: Poppins; font-weight: 500; line-height: 40px; margin-bottom: 32px;">Your details</div>
-
-
-  <form [formGroup]="registrationForm"  autocomplete="off" role="presentation"(ngSubmit)="onSubmit()">
-    <div class="grow w-full bg-white mb-8">
-      <div class="rowbtn">
-
-        
-          <div class="relative">
-            <label for="first_name" class="label">First Name</label>
-            <input
-              type="text"
-              formControlName="first_name"
-              onfocus="changeInputType(this, 'first name')"
-              class="register-page-data page-input"
-              type="text"
-              id="first_name"
-              style="width: 145px; margin-top: 6px;height: 32px;"
-              placeholder="e.g. John" 
-             
-             
-            
-            />
-                <div
-                  *ngIf="showValidationErrors && registrationForm.get('first_name')?.invalid"
-                  class="text-red-500 text-sm mt-1">
-                </div>
-
-                <div class="error" *ngIf="registrationForm?.get('first_name')?.invalid && registrationForm?.get('first_name')?.errors?.['maxlength']">
-                  Maximum limit exceeded.
-                </div>
-                
-
-
-            </div>
-          <div class="relative">
-            <label for="last_name" class="label">Last Name</label>
-            <input
-              formControlName="last_name"
-              onfocus="changeInputType(this, 'last name')"
-              class="register-page-data page-input"
-              type="text"
-              id="last_name"
-              style="width: 145px; margin-top: 6px; height: 32px;"
-              placeholder="e.g. Mark"
-              autocomplete="hidden"
-            
-            />
-                  <div
-                  *ngIf="showValidationErrors && registrationForm.get('last_name')?.invalid"
-                  class="text-red-500 text-sm mt-1"
-                > 
-                 
-               </div>
-               <div class="error" *ngIf="registrationForm?.get('last_name')?.invalid && registrationForm?.get('last_name')?.errors?.['maxlength']">
-                Maximum limit exceeded.
-              </div>
-          </div>
+<div class="signin-container">
+  <div class="signin-card register-card">
+    <div class="signin-header">
+      <div class="logo-wrapper">
+        <span [class.hover:text-black]="true">
+          <img src="assets/images/Icon.png" style="width: 36px; height: 36px; color: blue;" alt="Logo" />
+        </span>
       </div>
-
-      <div class="col-span-2 mt-[0.5rem]">
-        <label for="email" class="label" >Email</label>
-        <input
-          [(ngModel)]="email"
-          formControlName="email"
-          onfocus="changeInputType(this, 'email')"
-          class="register-page-data page-input"
-          type="email"
-          id="email"
-          style=" margin-top: 6px;padding: 10px 14px;height: 32px;"
-          placeholder="e.g. someone@gmail.com"
-          autocomplete="hidden"
-        
-        />
-        <div
-        *ngIf="showValidationErrors && registrationForm.get('email')?.invalid"
-        class="text-red-500 text-sm mt-1"
-      >
-     
-      
-        </div>
-         <div class="error" *ngIf="registrationForm?.get('email')?.invalid && registrationForm?.get('email')?.errors?.['maxlength']">
-        Maximum limit exceeded.
-      </div>
-      </div>
-      <div class="rowbtn mt-[0.5rem]">
-      <div class="space-y-1">
-        <label for="address" class="label">Select country</label>
-        <select class=" border-2 page-input text-xs" style="padding: 0px; width: 145px; margin-top: 6px; height: 32px; padding-left: 6px; color: var(--gray-gray-9, #262626); font-size: 14px; font-family: Poppins; line-height: 20px;" id="address" formControlName="address">
-          <option class="text-xs" *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
-        </select>
-        
-    
-        <div
-        *ngIf="showValidationErrors && registrationForm.get('address')?.invalid"
-        class="text-red-500 text-sm mt-1"
-      >
-      <div *ngIf="showValidationErrors && registrationForm.get('address')?.invalid" class="text-red-500 text-sm mt-1">
-        <!-- <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['required']">Country is required</div>
-        <div class="warnings" *ngIf="registrationForm.get('address')?.errors?.['pattern']">Invalid input. Only characters are allowed.</div> -->
-        
-      </div>
+      <h1 class="welcome-text">Create Account</h1>
+      <p class="subtitle">Join CFlow Stream today</p>
     </div>
-      
-      </div> &nbsp;
-      <div class="space-y-1 ">
-        <label for="address" class="label ml-2 ">City<span class="optional"> (Optional)</span></label>
-        <input
-          list="countries"
-          class="register-page-data page-input ml-2"
-          type="text"
-          id="city"
-          formControlName="city"
-          autocomplete="hidden"
-          style="width: 145px; margin-top: 6px;height: 32px;"
-        />
-        
-        <div class="error" *ngIf="registrationForm?.get('city')?.invalid && registrationForm?.get('city')?.errors?.['maxlength']">
-          Maximum limit exceeded.
-        </div>
-      </div>
-      
-      </div>
-      
-      <div class="space-y-1 col-span-2 mt-[0.5rem]">
-        <label for="ph-no" class="label">Phone Number<span class="optional"> (Optional)</span></label>
 
-        <input
-          formControlName="phone_no"
-          class="register-page-data page-input"
-          type="text"
-          autocomplete="none"
-          readonly onfocus="this.removeAttribute('readonly');"
-          style=" margin-top: 6px; height: 32px;"
-          id="ph-no"
-         
-        />
-        <div *ngIf="registrationForm.get('phone_no')?.errors?.['invalidPhoneNumber'] && registrationForm.get('phone_no')?.dirty" class="text-red-500 text-sm">
-          Enter valid phone number
-        </div>
-      </div>
-      <div class="error" *ngIf="registrationForm?.get('phone_no')?.invalid && registrationForm?.get('phone_no')?.errors?.['maxlength']">
-        Maximum limit exceeded.
-      </div>
-      <div class="space-y-1 col-span-2 mt-[0.5rem]">
-        <label for="company" class="label">Company</label>
-        <input
-          [(ngModel)]="enteredCompanyName"
-          (input)="onCompanyNameChange($event)"
-          name="companyName"
-          id="Company"
-          class="page-input"
-          style="padding: 0px; padding-left: 10px; height: 32px; margin-top: 6px;padding-left: 6px; color: var(--gray-gray-9, #262626); font-size: 14px;  line-height: 20px;"
-          placeholder="Enter company name"
-        >
-        <div
-          *ngIf="showValidationErrors && registrationForm.get('company_id')?.invalid"
-          class="text-red-500 text-sm mt-1"
-        >
-        </div>
-      </div>
-      
-      
-      <div class = 'space-y-1 col-span-2 mt-[0.5rem]'>
-        <div >
-          <label for="password" class="label">Create Password</label>
-          <div class="password-container">
-            <input
-              formControlName="password"
-              class="register-page-data page-input"
-              type="{{ showPassword ? 'text' : 'password' }}"
-              id="password"
-              style=" margin-top: 6px; height: 32px;"
-              required
-              minlength="8"
-              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$"
-            />
-            <i style="color: #262626; width: 14px;
-            height: 8px;" class="fas password-toggle" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'" (click)="togglePasswordVisibility()"></i>
-
+    <form [formGroup]="registrationForm" autocomplete="off" (ngSubmit)="onSubmit()" class="signin-form">
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="first_name">First Name</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input formControlName="first_name" class="signin-input" type="text" id="first_name" placeholder="John">
           </div>
-          
-                <div *ngIf="showValidationErrors && registrationForm.get('password')?.invalid" class="text-red-500 text-sm mt-1">
-                  <!-- <div *ngIf="registrationForm.get('password')?.errors?.['required']">Password is required</div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters long</div>
-                  <div *ngIf="registrationForm.get('password')?.errors?.['pattern']">Password must contain at least one uppercase letter, one lowercase letter, and one digit</div> -->
-                </div>
-                <div class="error" *ngIf="registrationForm?.get('password')?.invalid && registrationForm?.get('password')?.errors?.['maxlength']">
-                  Maximum limit exceeded.
-                </div>
         </div>
-        
-      
-      </div>
 
-     <div class="checkbox-container"style="white-space: nowrap; mb-2 term flex flex-row items-center gap-2 mt-[1.25rem]">
-    <input type="checkbox" id="agreeCheckbox" class="custom-checkbox" [checked]="checkEnabled" (change)="toggleCheckEnabled()" formControlName="iagree"  />
-    <label for="agreeCheckbox" class="remme"  > &nbsp;
-        I agree to <a href="#" style="color: blue;">Terms &amp; services</a> and <a href="#" style="color: blue;">privacy policy</a>
-    </label>
-</div>
-
-
-    
-
-      <div *ngIf="showValidationErrors && registrationForm.get('iagree')?.invalid" class="text-red-500 text-xs mt-1">
-        <div *ngIf="registrationForm.get('iagree')?.errors?.['required']" class="text-xs whitespace-nowrap">
-          You need to agree to our Terms & Services
+        <div class="form-group">
+          <label for="last_name">Last Name</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user input-icon"></i>
+            <input formControlName="last_name" class="signin-input" type="text" id="last_name" placeholder="Doe">
+          </div>
         </div>
       </div>
-  
-      
 
-      <div class="center-position mt-[20px] ">
-         
-        <button type="submit" [class.disabled-button]="!checkEnabled" class="btn-primary btn  continue-button"  [disabled]="!checkEnabled" style="height: 28px;" >
-     
-Continue
-       
-        </button>
-
-      
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <i class="fas fa-envelope input-icon"></i>
+          <input formControlName="email" class="signin-input" type="email" id="email"
+            placeholder="john.doe@example.com">
+        </div>
       </div>
-      <label class="center-position   blw-btn-text">
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="country">Country</label>
+          <div class="input-wrapper">
+            <i class="fas fa-globe input-icon"></i>
+            <select class="signin-input select-input" id="country" formControlName="address">
+              <option *ngFor="let country of countryList" [value]="country.value">{{ country.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City (Optional)</label>
+          <div class="input-wrapper">
+            <i class="fas fa-city input-icon"></i>
+            <input formControlName="city" class="signin-input" type="text" id="city" placeholder="London">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="phone_no">Phone Number (Optional)</label>
+        <div class="input-wrapper">
+          <i class="fas fa-phone input-icon"></i>
+          <input formControlName="phone_no" class="signin-input" type="text" id="phone_no"
+            placeholder="+1 (555) 000-0000">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="company">Company</label>
+        <div class="input-wrapper">
+          <i class="fas fa-building input-icon"></i>
+          <input [(ngModel)]="enteredCompanyName" [ngModelOptions]="{standalone: true}"
+            (input)="onCompanyNameChange($event)" class="signin-input" type="text" id="company"
+            placeholder="Company Name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input formControlName="password" class="signin-input" [type]="showPassword ? 'text' : 'password'"
+            id="password" placeholder="••••••••">
+          <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+            <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-footer no-justify mt-4">
+        <label class="remember-me">
+          <input type="checkbox" id="agreeCheckbox" class="custom-checkbox" formControlName="iagree" />
+          <span class="terms-text">I agree to <a href="#" class="terms-link">Terms</a> & <a href="#"
+              class="terms-link">Privacy</a></span>
+        </label>
+      </div>
+
+      <button type="submit" class="signin-button mt-4"
+        [disabled]="registrationForm.invalid || !registrationForm.get('iagree')?.value">
+        <span>Create Account</span>
+      </button>
+
+      <div class="signup-prompt">
         Already have an account?
-        <a href="/sign-in" style="color: blue;" class="underline">&nbsp;Sign In</a> 
-     
-      </label>
-      
-
-
-    </div>
-  </form>
+        <a routerLink="/sign-in" class="signup-link">Sign In</a>
+      </div>
+    </form>
+  </div>
 </div>

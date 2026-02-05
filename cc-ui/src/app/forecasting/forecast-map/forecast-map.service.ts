@@ -5,53 +5,53 @@ import { PortData } from './PortData';
 import { ApiService } from 'src/app/api.service';
 
 @Injectable({
-    providedIn: 'root'
-    
-  })
-  
-  export class ForecastMapService{
+  providedIn: 'root'
 
-    private apiUrl = 'GetInventoryForMap';
-    private apiUrlSurplus = 'GetSurplus';
-    private IdUrl='GetInventoryById';
-    private CIdUrl='GetInventoryByIdCID';
-    private countrynameurl='GetAllPortsbyCountryName';
+})
 
-  constructor(private http: HttpClient,private apiService: ApiService) {}
+export class ForecastMapService {
+
+  private apiUrl = 'GetInventoryForMap';
+  private apiUrlSurplus = 'GetSurplus';
+  private IdUrl = 'GetInventoryById';
+  private CIdUrl = 'GetInventoryByIdCID';
+  private countrynameurl = 'GetAllPortsbyCountryName';
+
+  constructor(private http: HttpClient, private apiService: ApiService) { }
 
 
-  getPortData(companyID:number): Observable<PortData[]> {
+  getPortData(companyID: number): Observable<PortData[]> {
     const url = this.apiService.getFullUrl(`${this.apiUrl}/${companyID}`);
     return this.http.get<PortData[]>(url);
   }
-  getSurplus(companyID:number): Observable<PortData[]> {
+  getSurplus(companyID: number): Observable<PortData[]> {
     const url = this.apiService.getFullUrl(`${this.apiUrlSurplus}/${companyID}`);
     return this.http.get<PortData[]>(url);
   }
-  getDeficit(companyID:number): Observable<PortData[]> {
+  getDeficit(companyID: number): Observable<PortData[]> {
     const url = this.apiService.getFullUrl(`${this.apiUrl}/${companyID}`);
     return this.http.get<PortData[]>(url);
   }
-  
+
   getAllPorts(): Observable<any> {
 
     const url = this.apiService.getFullUrl(`GetAllPorts`);
     return this.http.get(url);
   }
-  
+
   getAllInventory(): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllInventory`);
-    return this.http.get(url);  
+    return this.http.get(url);
 
   }
   getAllCountry(): Observable<any> {
     const url = this.apiService.getFullUrl(`GetAllCountries`);
-    return this.http.get(url);  
+    return this.http.get(url);
 
   }
 
   getPortsByCountryName(countryname: string): Observable<any> {
-    debugger
+
     const url = this.apiService.getFullUrl(`${this.countrynameurl}?countryname=${countryname}`);
     return this.http.get(url);
   }
@@ -60,9 +60,9 @@ import { ApiService } from 'src/app/api.service';
     const url = this.apiService.getFullUrl(`${this.IdUrl}/${id}`);
     return this.http.get(url, { responseType: 'json' });
   }
-  getInventoryByIdCID(companyId:number): Observable<any> {
+  getInventoryByIdCID(companyId: number): Observable<any> {
     const url = this.apiService.getFullUrl(`${this.CIdUrl}/${companyId}`);
     return this.http.get(url, { responseType: 'json' });
   }
- 
-  }
+
+}

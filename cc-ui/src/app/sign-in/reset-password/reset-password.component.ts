@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/session.service';
 import { ResetService } from './reset.service';
-import {ConfirmationResponse,PassWriteRes} from './ConfirmationResponse';
-import {Location} from '@angular/common';
+import { ConfirmationResponse, PassWriteRes } from './ConfirmationResponse';
+import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { ForgotPassService } from '../forgot-password/forgot-password.service';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
@@ -12,23 +12,23 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
   styleUrls: ['./reset-password.component.css']
 })
 //Model for confirmation of email
-  
-export class ResetPasswordComponent implements OnInit{
-  userId : any; 
-  showPassword=false;
-  companyId : any;
+
+export class ResetPasswordComponent implements OnInit {
+  userId: any;
+  showPassword = false;
+  companyId: any;
   success = false
   isFailure = false
   showEmailInput = true;
   email = '';
-  password1! :string
-  password2! :string
-  constructor(private snackBar: MatSnackBar,private router:Router,private sessionService:SessionService, private resetService:ResetService, private _location : Location
-    ,private forgotService:ForgotPassService) {
+  password1!: string
+  password2!: string
+  constructor(private snackBar: MatSnackBar, private router: Router, private sessionService: SessionService, private resetService: ResetService, private _location: Location
+    , private forgotService: ForgotPassService) {
     this.showEmailInput = this.resetService.getShowEmailInput();
-   }
+  }
   ngOnInit(): void {
-    debugger
+
     this.sessionService.getUserId().subscribe(
       (userId: number) => {
         this.userId = userId;
@@ -49,9 +49,8 @@ export class ResetPasswordComponent implements OnInit{
     );
 
     //if you enter via forgot password workflow
-    if (this.email = this.forgotService.getEmail())
-    {
-      
+    if (this.email = this.forgotService.getEmail()) {
+
       this.resetService.confirmation(this.email).subscribe(
         (response: ConfirmationResponse) => {
           if (response.message === "User found") {
@@ -64,36 +63,35 @@ export class ResetPasswordComponent implements OnInit{
           }
         },
         error => {
-         console.log("error occured while fetching the email")
+          console.log("error occured while fetching the email")
         }
       );
     }
 
   }
-  
 
 
-  getBack(){
+
+  getBack() {
     this._location.back();
   }
-  
-  compare(){
+
+  compare() {
     if (this.password1 === this.password2)
-    return true 
+      return true
     else return false
   }
 
 
 
-  onEmailSend(){
-    debugger
+  onEmailSend() {
+
     this.resetService.confirmation(this.email).subscribe(
       (response: ConfirmationResponse) => {
         if (response.message === "User found") {
           const { user_id, company_id } = response.user;
-          if (user_id ===this.userId && company_id === this.companyId)
-          {
-            debugger
+          if (user_id === this.userId && company_id === this.companyId) {
+
             this.showEmailInput = false
           }
           // Do something with user_id and company_id
@@ -102,35 +100,32 @@ export class ResetPasswordComponent implements OnInit{
         }
       },
       error => {
-       console.log("error occured while fetching the email")
+        console.log("error occured while fetching the email")
       }
     );
-    
+
   }
-  OnSubmit(){
-    this.resetService.updatePassword(this.userId,this.companyId,this.password2).subscribe((response:PassWriteRes )=>{
-      debugger
-      if (response.message === "Success")
-      {
-        this.success = true 
+  OnSubmit() {
+    this.resetService.updatePassword(this.userId, this.companyId, this.password2).subscribe((response: PassWriteRes) => {
+
+      if (response.message === "Success") {
+        this.success = true
         new Promise(f => setTimeout(f, 1000));
       }
-      else 
-      {
-        console.log ("error in the password changing process")
-     
+      else {
+        console.log("error in the password changing process")
+
         this.isFailure = true
       }
     },
-    error=>
-    {
-      console.log("network error")
-    }
-  );
-  this.snackBar.open('Password Reset Successfull', 'OK', {
-    duration: 3000
-  });
-  this.router.navigate(['/sign-in']);
+      error => {
+        console.log("network error")
+      }
+    );
+    this.snackBar.open('Password Reset Successfull', 'OK', {
+      duration: 3000
+    });
+    this.router.navigate(['/sign-in']);
   }
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;

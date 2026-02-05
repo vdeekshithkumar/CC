@@ -274,7 +274,7 @@ export class ForecastingTableViewComponent implements OnInit {
   }
 
   filterData(): void {
-    debugger
+
     this.filteredInventoryList = this.inventory_list_by_companyId.filter((inv: any) => {
       const containerType = inv.container_type.toLowerCase();
       const containerSize = inv.container_size.toString().toLowerCase();
@@ -294,7 +294,7 @@ export class ForecastingTableViewComponent implements OnInit {
     console.log('Filters applied! Filtered inventory:', this.filteredInventoryList);
   }
   applyFilter(): void {
-    debugger
+
     this.filterData(); // Apply the filters and update the filteredInventoryList
 
     // Perform additional actions based on the filtered data
@@ -319,7 +319,7 @@ export class ForecastingTableViewComponent implements OnInit {
     return formattedWords.join(' ');
   }
   filterInventory() {
-    debugger
+
     this.filteredInventoryList = this.inventory_data.filter((inv: { container_type: string; container_size: number; available: number; surplus: any; deficit: any; }) => {
       let isMatch = true;
       if (this.containerType && inv.container_type !== this.containerType) {

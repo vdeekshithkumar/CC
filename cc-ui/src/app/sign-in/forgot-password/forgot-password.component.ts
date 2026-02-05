@@ -13,28 +13,28 @@ import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent{
+export class ForgotPasswordComponent {
   showValidationErrors: boolean = false;
-  email: string= ''
+  email: string = ''
   otp?: any
   validCode = false
 
-  constructor(private snackBar: MatSnackBar,private resetService: ResetService,private dialog: MatDialog,private formBuilder: FormBuilder, private forgotService: ForgotPassService,private router:Router) {
-  
+  constructor(private snackBar: MatSnackBar, private resetService: ResetService, private dialog: MatDialog, private formBuilder: FormBuilder, private forgotService: ForgotPassService, private router: Router) {
+
   }
 
 
   IfExistsThenSendOTP() {
- 
+
 
     this.resetService.confirmation(this.email).subscribe(
       (response: ConfirmationResponse) => {
         if (response.message === "User found") {
-         
+
           this.forgotService.setEmail(this.email)//sets the email value to refer from other components
           this.forgotService.getOTP(this.email).subscribe(response => {
             this.otp = response
-            this.validCode= ! this.validCode
+            this.validCode = !this.validCode
             this.snackBar.open('OTP sent successfully! Check Your Email', 'OK', {
               duration: 3000
             });
@@ -49,12 +49,12 @@ export class ForgotPasswordComponent{
         }
       },
       error => {
-        console.log("error occured while fetching the email: "+ error)
+        console.log("error occured while fetching the email: " + error)
       }
     );
   }
   validateEmail() {
-    debugger
+
     if (!this.email) {
       this.dialog.open(DialogComponent, {
         data: {
@@ -64,7 +64,7 @@ export class ForgotPasswordComponent{
         }
       });
       return;
-    }else{
+    } else {
       this.IfExistsThenSendOTP();
     }
   }

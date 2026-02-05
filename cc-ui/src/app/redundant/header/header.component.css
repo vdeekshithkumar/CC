@@ -2,86 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-.header-box-div{
-    @apply flex justify-between items-center
-}
-.header-box-a{
-    @apply flex  font-medium items-center text-gray-900 mb-4 md:mb-0
-}
-.main{
-  position: fixed;
-}
-.header-box{
-  @apply text-gray-600 sticky bg-white  top-0 z-50 font-poppins p-1;
-}
-.header-box-svg{
-  @apply w-10 h-10 text-white p-2 bg-indigo-500 rounded-full
-}
-.div-svg{
-  @apply w-10 h-10 text-white p-2 bg-indigo-500 rounded-full 
-}
-.search-bar{
-  @apply relative flex items-center w-fit h-7 focus-within:shadow-lg bg-gray-200 overflow-hidden;
-}
-.search-bar-icon{
-  @apply grid place-items-center h-full w-12 text-black -ml-4
-}
-.search-bar-inp{
-  @apply  h-full w-full outline-none text-sm bg-gray-400 pr-2;
+.header-box {
+  background: var(--cc-header-bg);
+  @apply text-white sticky top-0 z-50 font-poppins px-6 py-3 shadow-md;
+  transition: background-color 0.3s ease;
 }
 
-.header-img {
-  @apply rounded-full border-CCblue border-2 w-[2.5em] h-[2.5em] cursor-pointer ;
+.header-box-div {
+  @apply flex justify-between items-center max-w-[1600px] mx-auto;
 }
 
-a:hover {
-  @apply text-CCblue cursor-pointer;
-
-}
-.profile-icon{
-  @apply flex-1 flex justify-end relative 
-}     
-.profile-div{
-  @apply absolute top-full right-0 rounded-md 
-}
-.profile-box{
-  @apply text-xs w-fit items-center font-poppins leading-6 p-2 flex flex-col shadow-lg bg-white 
-}
-.hidden {
-  display: none;
-}
-.notification-bell {
-  position: relative;
-  display: inline-block;
-  
-  
+.header-brand {
+  @apply flex items-center gap-3 no-underline transition-opacity hover:opacity-90;
 }
 
-.red-dot {
-  position: absolute;
-  top: 4px; 
-  right: 4px;
-  width: 6px;
-  height: 6px;
-  background-color: red;
-  border-radius: 50%;
-  display: inline-block;
+.search-container {
+  @apply relative flex items-center w-full max-w-md mx-8;
 }
 
-
-
-
-.notification-card {
-  position: absolute;
-  top: 40px; /* Adjust the top value to position the card below the bell */
-  right: 0;
-  width: 200px;
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  z-index: 10; 
-  cursor: pointer;
+.search-icon {
+  @apply absolute left-3 text-gray-400 pointer-events-none;
 }
 
+.search-input {
+  @apply w-full bg-white/10 border-none rounded-lg py-2 pl-10 pr-4 text-sm text-white placeholder-gray-300 focus:ring-2 focus:ring-blue-400 focus:bg-white/20 outline-none transition-all;
+}
+
+.actions-container {
+  @apply flex items-center gap-4;
+}
+
+.icon-button {
+  @apply relative p-2 text-gray-300 hover:text-white hover:bg-white/10 rounded-full transition-all border-none bg-transparent cursor-pointer;
+}
+
+.notification-dot {
+  @apply absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-[#002f5d];
+}
+
+.profile-trigger {
+  @apply flex items-center gap-2 cursor-pointer p-1 rounded-full hover:bg-white/10 transition-all;
+}
+
+.profile-menu {
+  background: var(--cc-bg-card);
+  @apply absolute top-full right-0 mt-2 w-48 rounded-xl shadow-xl border border-gray-100 py-2 text-gray-800 z-[100];
+  border-color: var(--cc-border);
+  color: var(--cc-text-main);
+}
+
+.menu-item {
+  @apply w-full text-left px-4 py-2 text-sm hover:bg-gray-50 flex items-center gap-2 transition-all no-underline bg-transparent border-none cursor-pointer;
+  color: var(--cc-text-main);
+}
+
+.menu-item-destructive {
+  @apply text-red-600 hover:bg-red-50;
+}

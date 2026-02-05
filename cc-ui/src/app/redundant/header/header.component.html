@@ -1,152 +1,81 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-<header class="header-box border-2 w-full " style="position: fixed;">
-  <div class="header-box-div py-2">
-    <!-- Title -->
-    <div class="flex-1">
-      <!-- This div will take up the remaining space -->
-      <a class="header-box-a">
-        <button (click)="OnClick()">
-        <!-- svg for company logo (change req) -->
-        <img src="../../../assets/icons/cc_logo.svg">
-        </button> 
-        <span class="ml-3 text-lg font-semibold text-CCblue whitespace-nowrap">CFlow Stream</span>
-      </a>
-    </div>
-
-
- <div class="flex-1" >
-  <div class="relative">
-    <div class="flex items-center border bg-gray-50 border-gray-200 px-4 ml-40 w-60 py-2">
-      <!-- search bar icon -->
-      <div class="search-bar-icon">
-        <!-- search bar icon -->
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="gray"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-          />
+<header class="header-box">
+  <div class="header-box-div">
+    <!-- Brand -->
+    <a routerLink="/dashboard" class="header-brand">
+      <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="white" stroke="white" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" />
         </svg>
       </div>
-      <!-- icon end -->
-      <!-- input for the search bar -->
-      <input
-        class="ml-0 w-full bg-transparent placeholder-gray-400 focus:outline-none"
-        type="text"
-        id="search"
-        placeholder="Search"
-        [(ngModel)]="searchTerm"
-        (blur)="showFilterOptions = false"
-      />
-      <svg width="24" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="24" height="24" rx="2" fill="#F5F5F5"/>
-        <path d="M5.92606 6.89093V9.11432H4.95071C3.87572 9.11432 3 9.96382 3 11.044C3 12.1243 3.87048 13 4.95071 13C6.02045 13 6.89617 12.1243 6.89617 11.044V10.0792H9.10383V11.044C9.10383 12.1243 9.97955 13 11.0493 13C12.1295 13 13 12.1243 13 11.044C13 9.96382 12.1243 9.11432 11.0493 9.11432H10.0739V6.89093H11.0493C12.1243 6.88568 13 6.03618 13 4.95595C13 3.88096 12.1295 3 11.0493 3C9.97955 3 9.10383 3.88096 9.10383 4.95595V5.92606H6.89617V4.95595C6.89617 3.88096 6.02045 3 4.95071 3C3.87048 3 3 3.88096 3 4.95595C3 6.03618 3.87572 6.88568 4.95071 6.89093H5.92606ZM4.96644 5.93655C4.42108 5.93655 3.9806 5.49607 3.9806 4.95595C3.9806 4.42108 4.42108 3.9806 4.95071 3.9806C5.48034 3.9806 5.92082 4.42108 5.92082 4.97168V5.93655H4.96644ZM11.0388 5.93655H10.0792V4.97168C10.0792 4.42108 10.5197 3.9806 11.0493 3.9806C11.5842 3.9806 12.0194 4.42108 12.0194 4.95595C12.0194 5.49607 11.5789 5.93655 11.0388 5.93655ZM6.90142 9.11956V6.88044H9.10383V9.11956H6.90142ZM4.96644 10.0635H5.92082V11.0283C5.92082 11.5737 5.48034 12.0142 4.95071 12.0142C4.42108 12.0142 3.9806 11.5789 3.9806 11.0388C3.9806 10.5039 4.42108 10.0635 4.96644 10.0635ZM11.0388 10.0635C11.5789 10.0635 12.0194 10.5039 12.0194 11.0388C12.0194 11.5789 11.5842 12.0142 11.0493 12.0142C10.5197 12.0142 10.0792 11.5737 10.0792 11.0283V10.0635H11.0388Z" fill="black" fill-opacity="0.45"/>
-        <rect x="0.2" y="0.2" width="15.6" height="15.6" rx="1.8" stroke="black" stroke-opacity="0.06" stroke-width="0.4"/>
-        </svg>
-        <svg width="24" class="ml-2" height="24" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="24" height="24" rx="2" fill="#F5F5F5"/>
-          <path d="M6.352 4.278V7.54H9.908V8.59H6.352V11.95H10.328V13H5.078V3.228H10.328V4.278H6.352Z" fill="black" fill-opacity="0.45"/>
-          <rect x="0.2" y="0.2" width="15.6" height="15.6" rx="1.8" stroke="black" stroke-opacity="0.06" stroke-width="0.4"/>
+      <span class="text-lg font-bold text-white tracking-tight">{{companyName}}</span>
+    </a>
+
+    <!-- Search -->
+    <div class="search-container">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" class="search-input" placeholder="Search for containers, space, or negotiations...">
+    </div>
+
+    <!-- Actions -->
+    <div class="actions-container">
+      <!-- Theme Toggle -->
+      <button class="icon-button mr-2" (click)="toggleTheme()"
+        [title]="(themeService.isDarkTheme$ | async) ? 'Switch to Light Mode' : 'Switch to Dark Mode'">
+        <ng-container *ngIf="!(themeService.isDarkTheme$ | async)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
-          
-      <!-- display selected filters -->
-      <span *ngIf="selectedFilters.length > 0" class="ml-2 text-gray-500">
-        {{ selectedFilters.join(', ') }}
-        <span class="ml-2 cursor-pointer" (click)="clearFilters()">
-          &times;
-        </span>
-      </span>
-    </div>
-    <!-- filtering options -->
-    <div
-      class="absolute top-full left-1/2 transform -translate-x-1/2 bg-white border border-gray-200 rounded-lg shadow-lg px-2 py-2 mt-2 w-72 text-center"
-      id="filter-options"
-      [ngClass]="{ hidden: !showFilterOptions }"
-      (click)="stopPropagation($event)"
-    >
-      <label class="mb-2 mr-2">Search for</label>
-      <label class="inline-flex items-center">
-        <input
-          type="checkbox"
-          class="form-checkbox"
-          name="ads"
-          value="ads"
-          [(ngModel)]="filterAds"
-          (change)="applyFilters()"
-        />
-        <span class="ml-2">Ads</span>
-      </label>
-      <label class="inline-flex items-center ml-6">
-        <input
-          type="checkbox"
-          class="form-checkbox"
-          name="negotiation"
-          value="negotiation"
-          [(ngModel)]="filterNegotiation"
-          (change)="applyFilters()"
-        />
-        <span class="ml-2">Negotiation</span>
-      </label>
+        </ng-container>
+        <ng-container *ngIf="themeService.isDarkTheme$ | async">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </ng-container>
+      </button>
+
+      <button class="icon-button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <div class="notification-dot"></div>
+      </button>
+
+      <div class="relative">
+        <div class="profile-trigger" (click)="toggleDropdown()">
+          <div
+            class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-semibold text-sm">
+            {{first_name ? first_name[0] : 'U'}}
+          </div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9l6 6 6-6"></path>
+          </svg>
+        </div>
+
+        <div class="profile-menu" *ngIf="showDiv">
+          <a routerLink="/profile" class="menu-item">My Profile</a>
+          <a routerLink="/settings" class="menu-item">Settings</a>
+          <div class="h-px bg-gray-100 my-1"></div>
+          <button class="menu-item menu-item-destructive" (click)="logout()">Sign out</button>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-
-
-
-    <!-- Profile icon -->
-    <div class="flex-1">
-    
-        <!-- <img
-          src="https://picsum.photos/200/300"
-          class="header-img"
-        /> -->
-        <div class="profile-icon">
-          <a class="header-box-a" (click)="onBellIconClick()">
-            <button style="margin-right: 20px; margin-top: 8px;">
-              <span class="material-symbols-outlined">
-                <div class="notification-bell">
-                  <span class="red-dot" *ngIf="totalMessageCount > 0"></span>
-                  notifications
-                </div>
-              </span>
-              
-              
-              
-            </button>
-          </a>
-          <div class="notification-card" *ngIf="isCardVisible &&totalMessageCount > 0">
-          <p routerLink="/messaging">You have {{totalMessageCount}} unread messages</p>
-          </div>
-          &nbsp;
-          
-          <svg (click)="showPopup = !showPopup" class="cursor-pointer" width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.5" y="0.5" width="35" height="35" rx="17.5" stroke="#597EF7"/>
-            <rect width="20.5714" height="20.5714" transform="translate(7.71484 6.85742)" fill="white" style="mix-blend-mode:multiply"/>
-            <path d="M18.0008 9.42884C18.6366 9.42884 19.258 9.61736 19.7866 9.97055C20.3152 10.3237 20.7272 10.8257 20.9705 11.4131C21.2137 12.0004 21.2774 12.6467 21.1534 13.2702C21.0293 13.8937 20.7232 14.4664 20.2737 14.916C19.8242 15.3655 19.2514 15.6716 18.6279 15.7957C18.0044 15.9197 17.3581 15.856 16.7708 15.6127C16.1834 15.3695 15.6814 14.9575 15.3283 14.4289C14.9751 13.9003 14.7866 13.2789 14.7866 12.6431C14.7866 11.7906 15.1252 10.9731 15.728 10.3703C16.3308 9.76749 17.1484 9.42884 18.0008 9.42884ZM18.0008 8.14313C17.1108 8.14313 16.2408 8.40705 15.5008 8.90151C14.7608 9.39598 14.184 10.0988 13.8434 10.9211C13.5028 11.7433 13.4137 12.6481 13.5873 13.521C13.7609 14.3939 14.1895 15.1958 14.8189 15.8251C15.4482 16.4544 16.25 16.883 17.1229 17.0567C17.9958 17.2303 18.9006 17.1412 19.7229 16.8006C20.5452 16.46 21.248 15.8832 21.7425 15.1432C22.2369 14.4032 22.5008 13.5331 22.5008 12.6431C22.5008 11.4497 22.0267 10.3051 21.1828 9.46115C20.3389 8.61723 19.1943 8.14313 18.0008 8.14313Z" fill="#597EF7"/>
-            <path d="M24.4294 26.1431H23.1437V22.9288C23.1437 22.5067 23.0606 22.0888 22.899 21.6988C22.7375 21.3088 22.5007 20.9545 22.2023 20.656C21.9038 20.3575 21.5494 20.1208 21.1595 19.9592C20.7695 19.7977 20.3515 19.7146 19.9294 19.7146H16.0723C15.2198 19.7146 14.4022 20.0532 13.7994 20.656C13.1966 21.2588 12.858 22.0764 12.858 22.9288V26.1431H11.5723V22.9288C11.5723 21.7354 12.0464 20.5908 12.8903 19.7469C13.7342 18.9029 14.8788 18.4288 16.0723 18.4288H19.9294C21.1229 18.4288 22.2675 18.9029 23.1114 19.7469C23.9553 20.5908 24.4294 21.7354 24.4294 22.9288V26.1431Z" fill="#597EF7"/>
-            </svg>
-        </div>
-     
-    
-       
-          
-          
-        <div class="profile-div" *ngIf="showPopup" >
-          <div class="profile-box">
-            <a  (click)="openDialog()">Edit profile</a>
-            <a routerLink="../forgot-reset-password">Reset password</a>
-            <button (click)="logout()" class="text-red-600" >Logout</button>
-          </div>
-        </div>
-      
-    </div>
-  </div>
-  
 </header>

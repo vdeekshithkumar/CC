@@ -1,18 +1,32 @@
 
 import { Injectable } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 
 export class SessionService {
-  
+
   private readonly USER_SESSION_KEY = 'userSession';
   private TOKEN_KEY = 'my_app_token';
-   
+  private companyNameSubject = new BehaviorSubject<string>('CFlow Stream');
+  public companyName$ = this.companyNameSubject.asObservable();
 
-  constructor(private router: Router) { 
+  public get syncCompanyName(): string {
+    if (this.companyNameSubject.value !== 'CFlow Stream') {
+      return this.companyNameSubject.value;
+    }
+    const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+    if (user.company_name) {
+      this.companyNameSubject.next(user.company_name);
+      return user.company_name;
+    }
+    return 'CFlow Stream';
+  }
+
+
+  constructor(private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd && event.url.includes('sign-in')) {
         const registered = this.router.parseUrl(event.url).queryParams['registered'];
@@ -26,25 +40,25 @@ export class SessionService {
 
 
 
-public getUserId(): Observable<any> {
-  const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
-  return of(user.user_id);
-}
+  public getUserId(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+    return of(user.user_id);
+  }
 
-public getUserDesignation(): Observable<any> {
-  const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
-  return of(user.designation);
-}
+  public getUserDesignation(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+    return of(user.designation);
+  }
 
-public getCompanyId(): Observable<any> {
-  const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
-  return of(user.company_id);
-}
+  public getCompanyId(): Observable<any> {
+    const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+    return of(user.company_id);
+  }
 
-// public getInventoryId(): Observable<any> {
-//   const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
-//   return of(user.);
-// }
+  // public getInventoryId(): Observable<any> {
+  //   const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+  //   return of(user.);
+  // }
 
   setToken(token: string): void {
     sessionStorage.setItem(this.TOKEN_KEY, token);
@@ -75,6 +89,21 @@ public getCompanyId(): Observable<any> {
   }
   public clearSession(): void {
     localStorage.removeItem(this.USER_SESSION_KEY);
+  }
+
+  public setCompanyName(name: string): void {
+    const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+    user.company_name = name;
+    localStorage.setItem(this.USER_SESSION_KEY, JSON.stringify(user));
+    this.companyNameSubject.next(name);
+  }
+
+  public getCompanyName(): Observable<string> {
+    const user = JSON.parse(localStorage.getItem(this.USER_SESSION_KEY) || '{}');
+    if (user.company_name && this.companyNameSubject.value === 'CFlow Stream') {
+      this.companyNameSubject.next(user.company_name);
+    }
+    return this.companyName$;
   }
 }
 

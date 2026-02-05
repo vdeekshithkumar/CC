@@ -1,337 +1,229 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer components {
-    .w-13 {
-      width: 8%;
-    }
-  }
-  @layer components {
-    .aspect-w-2 {
-      width: 2;
-    }
-  }
-  @layer components {
-    .aspect-h-1 {
-      height: 1;
-    }
-  }
-  /* .div-img{
-    @apply w-13 aspect-w-2 aspect-h-1 object-cover mix-blend-color-burn rounded-full ;
-  }
-   */
-.div{
-  @apply flex flex-row font-poppins;
-}
-.div-app-sidebar{
-    @apply sticky w-[8vw] ;
-  }
-.div-company-details{
-    @apply w-fit flex flex-col  first:flex-row ml-20 -mt-2;
-}
-.div-editcompany{
-    @apply absolute right-0 w-4 h-4 rounded-full top-8;
-}
-.div-company{
-    @apply px-3 w-fit text-xl mb-[0.625rem] font-bold font-poppins flex md:text-sm;
-}
-.div-company-name{
-    @apply text-xs font-thin pt-2 px-2;
-}
-.disabled-button {
-    cursor: not-allowed;
-  }
-.div-tag{
-    @apply bg-gray-100 w-fit h-[1rem]  flex flex-shrink-0 mt-[0.2rem]  justify-end rounded-md sm:text-[10px];
-}
-.div-detail{
-    @apply px-1 flex-1 text-sm md:overflow-hidden leading-3;
-}
-.forecast{
-    font-family: Poppins;
-font-size: 16px;
-line-height: 28px;
-display: inline;
-white-space: nowrap;
-}
-.btn{
-    padding: 10px 18px;
-    gap: 8px;
-    
-    width: 152.33px;
-    height: 48px;
-}
-.btn-primary{
-    color: #ffffff;
-    background-color: #2F54EB;
-    height: 38px;
-}
-.top{
-    font-family: 'Poppins';
-font-size: 12px;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-color: #595959;
-}
-.select{
-    font-family: 'Poppins';
-    color: #595959;
-    font-size: 12px;
-}
-.top-select{
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 8px;
-    gap: 10px;
-    width: 150px;
-    height: 36px;
-    border: 1px solid #D9D9D9;
-}
-.top-selct2{
-box-sizing: border-box;
-display: flex;
-flex-direction: row;
-align-items: center;
-padding: 10px 8px;
-gap: 10px;
-width: 150px;
-height: 36px;
-border: 1px solid #D9D9D9;
-}
-.select-box{
-    border: 1px solid #D9D9D9;
-    box-sizing: border-box;
-    font-family: 'Poppins';
-    color: rgba(0, 0, 0, 0.88);
-    font-size: 10px;
-}
-.div-bg{
-    background: #FAFAFA;
-  }
-  .div-box-bg{
-    background: #F0F0F0;
-  }
-  .div-bg-line{
-    border-bottom: 1px solid #ADC6FF;
-  }
-.top-selct1{
-    box-sizing: border-box;
-display: flex;
-flex-direction: row;
-align-items: center;
-width: 150px;
-height: 36px;
-border: 1px solid #D9D9D9;
-gap: 10px;
-}
-.div-header-box{
-    height: 139px;
-width: 1751px;
-left: 165px;
-top: 60px;
-border-radius: 0px;
-
+:host {
+  font-family: 'Poppins', sans-serif;
+  display: block;
+  padding: 24px;
 }
 
-.btn-primary2{
-    color: #2F54EB;
-    height: 38px;
+/* Glass Header Section */
+.glass-header {
+  background: var(--cc-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cc-border);
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  box-shadow: var(--cc-shadow-sm);
 }
-.btn-primary3{
-   background-color: #F0F0F0;
-    color:#595959;
-    height: 38px;
-}
-.div-sub-box{
-    @apply mx-[1rem] flex-shrink-0
-}
-.div-box{
-    @apply mx-2 w-[10em] h-[3.5em] bg-gray-100 flex;
-}
-.div-box-numbers{
-    @apply flex-1 text-3xl font-bold flex items-center justify-center;
-}
-.div-box-data{
-    @apply flex-1 text-sm flex items-center justify-center;
-}
-.div-box-number{
-    @apply flex-1 text-2xl flex-col font-bold flex items-center justify-center;
-}
-.div-employee{
-    @apply m-2 h-fit w-full flex-col;
-}
-.div-employee-box{
-    @apply flex-1 text-xs p-2 text-gray-500 flex align-middle justify-center w-fit;
-}
-.div-employee-name{
-    @apply text-xs px-2 first-letter:uppercase;
-}
-.div-action-button{
-    @apply bg-gray-300 h-[3rem] w-fit px-[1rem]  mx-4 my-3 md:text-sm flex-shrink-0;
-}
-.div-search{
-    @apply relative flex items-center w-40 h-9 focus-within:shadow-lg bg-gray-100 overflow-hidden;
-}
-.div-search-icon{
-    @apply grid place-items-center h-full w-12 text-black;
-}
-.input-search{
-    @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2;
-}
-.employee-list{
-    @apply inline-block min-w-full py-2 sm:px-6 lg:px-8;
-}
-.employee-table{
-    @apply min-w-full text-left text-sm font-light;
-}
-.emplist-thead{
-    @apply border-b font-medium ;
-}
-.employee-add{
-    @apply border-b ;
-}
-.employee-add-btn{
-    @apply whitespace-nowrap px-2 py-4 font-medium;
-}
-.emplist{
-    @apply whitespace-nowrap px-6 py-4;
-}
-.radio-button {
-  @apply px-1 py-1 text-black border-gray-800 ml-2 w-20 h-8;
- }
- 
- .radio-button--selected {
-  @apply bg-blue-500 text-white border-blue-500;
- }
- .my-custom-select {
-   /* add your styles here */
-   font-size: 10px;
-   padding: 8px;
-   border-radius: 4px;
-   border: 1px solid #ccc;
- }
- .custom-box {
-    position: fixed;
-    top: 20px; /* adjust the top position as desired */
-    left: 20px; /* adjust the left position as desired */
-    width: 10em;
-    height: 7em;
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-  }
-  
-  .custom-label {
-    color: #666666;
-    font-weight: 500;
-    font-size: 14px;
-    margin-bottom: 4px;
-  }
-  
 
-.label-contain {
-    display: grid;
-    align-items: center; 
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
-   }
-   .popup {
-    position: absolute;
-    top: 30%;
-    left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-    width: 120px;
-    height: auto; /* Allow the height to adjust based on content */
-    max-height: 150px; /* Limit the maximum height as needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Set the background color to opaque white (#ffffff) */
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    transition: left 0.3s ease-in-out; /* Use left for transition */
-    overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
-    z-index: 2000;
-  }
-  
-  .popup-content{
-    background-color: #ffffff;
-  }
-  .popup::before {
-    content: '';
-    position: absolute;
-    top: 50%; /* Vertically centered */
-    left: -10px; /* Adjust the position */
-    width: 0;
-    height: 0;
-    border-top: 10px solid transparent;
-    border-bottom: 10px solid transparent;
-    border-right: 10px solid #ffffff; /* Color matches the background */
-  }
-  .style{
-    font-weight: bold;
-    font-size: 16px;
-    text-align: center;
-  }
-  /* Add these styles to your CSS file */
-.loading-bar {
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--cc-text-main);
+  margin: 0;
+}
+
+/* Filters & Controls Area */
+.controls-area {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--cc-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modern-select {
+  appearance: none;
+  background: var(--cc-input-bg);
+  border: 1px solid var(--cc-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--cc-text-main);
+  min-width: 180px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+.modern-select:hover {
+  border-color: var(--cc-primary);
+}
+
+.modern-select:focus {
+  border-color: var(--cc-primary);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+  outline: none;
+}
+
+/* Action Buttons */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--cc-border);
+  color: var(--cc-text-main);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background: var(--cc-bg-main);
+  border-color: var(--cc-text-muted);
+}
+
+.btn-primary {
+  background: var(--cc-primary);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Status Messages */
+.status-card {
+  background: var(--cc-bg-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.status-message {
+  font-size: 15px;
+  color: var(--cc-text-main);
+  margin-bottom: 16px;
+}
+
+.status-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+/* Map Container */
+.map-container {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--cc-shadow-md);
+  border: 1px solid var(--cc-border);
+  background: var(--cc-bg-card);
+  height: calc(100vh - 200px);
+  min-height: 500px;
+  position: relative;
+}
+
+/* Service Info Panel */
+.service-info {
+  background: #F0FDF4;
+  /* Light green */
+  border: 1px solid #BBF7D0;
+  color: #15803D;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dark-theme .service-info {
+  background: rgba(21, 128, 61, 0.1);
+  border-color: rgba(21, 128, 61, 0.2);
+  color: #4ADE80;
+}
+
+/* Back Button */
+.back-button-container {
+  margin-top: 24px;
+}
+
+.btn-back {
+  background: var(--cc-gray-100);
+  color: var(--cc-text-main);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-back:hover {
+  background: var(--cc-gray-200);
+}
+
+/* Loading Bar */
+.loading-container {
   width: 100%;
-  height: 4px; /* Thin bar for a sleek look */
-  background-color: #e0e0e0; /* Light gray background for the bar */
+  height: 4px;
+  background-color: var(--cc-bg-main);
   position: relative;
   overflow: hidden;
+  margin-bottom: 16px;
   border-radius: 2px;
 }
 
-.loading-bar-inner {
-  width: 20%; /* Width of the moving line (adjust for desired effect) */
+.loading-bar {
+  width: 30%;
   height: 100%;
-  background-color: #2f54eb; /* Blue color to match your button styles */
+  background-color: var(--cc-primary);
   position: absolute;
   top: 0;
   left: 0;
-  animation: moveLine 1.5s infinite linear; /* Animation for continuous movement */
+  animation: loadingAnimation 1.5s infinite ease-in-out;
 }
 
-@keyframes moveLine {
+@keyframes loadingAnimation {
   0% {
-    left: -20%; /* Start slightly off-screen to the left */
+    left: -30%;
   }
+
   100% {
-    left: 100%; /* Move to the right edge */
+    left: 100%;
   }
-}
-.btnstyle {
-  height: 30px;
-  width: 150px;
-  padding: 5px 10px; 
-  background-color: rgb(53,85,235); 
-  color: white; 
-  border: 1px solid #1e4f8e; 
-  border-radius: 4px; 
-  font-size: 20px;
-  font-weight: 400;
-  cursor: pointer; /* Cursor on hover */
-  white-space: nowrap;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
-}
-
-.btnstyle:hover {
-  background-color: #1e4f8e; /* Change background color on hover */
-  color: #fff; /* Change text color on hover */
-}
-.textstyles{
-  font-size: 20px; /* Font size */
-  font-weight: 400;
-  font-family: "Poppins"
-}
-
-.blue-button {
-  background-color: blue;
-  color: white;
-  /* Add any other styling as needed */
-  border: none;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
 }

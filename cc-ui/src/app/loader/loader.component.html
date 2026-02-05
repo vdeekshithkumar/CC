@@ -1,0 +1,15 @@
+<div class="loader-overlay" *ngIf="loadingService.loading$ | async">
+    <div class="loader-content">
+        <div class="spinner-container">
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="spinner-ring"></div>
+            <div class="logo-incard">
+                <img src="assets/images/Icon.png" alt="CFlow" class="loader-logo">
+            </div>
+        </div>
+        <div class="loader-text">
+            <span class="dot">.</span><span class="dot">.</span><span class="dot">.</span>
+        </div>
+    </div>
+</div>

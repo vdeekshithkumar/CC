@@ -111,9 +111,6 @@ border: 1px solid #D9D9D9;
   .div-box-bg{
     background: #F0F0F0;
   }
-  .div-bg-line{
-    border-bottom: 1px solid #ADC6FF;
-  }
 .top-selct1{
     box-sizing: border-box;
 display: flex;

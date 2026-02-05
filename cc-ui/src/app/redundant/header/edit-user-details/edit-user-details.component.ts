@@ -21,14 +21,14 @@ export class EditUserDetailsComponent implements OnInit {
   phone_no?: string
   showValidationErrors: boolean = false;
   regForm: FormGroup;
-  constructor(private dialog: MatDialog,private snackBar: MatSnackBar,private profileService: ProfileService, private formBuilder: FormBuilder,private sessionService: SessionService, private editUserDetailsService: EditUserDetailsService) { 
-  this.regForm = this.formBuilder.group({
-    firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
-    lastName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
-    phone_no: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
-    address: ['']
-  });
-}
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private profileService: ProfileService, private formBuilder: FormBuilder, private sessionService: SessionService, private editUserDetailsService: EditUserDetailsService) {
+    this.regForm = this.formBuilder.group({
+      firstName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
+      lastName: ['', [Validators.required, Validators.pattern('[A-Za-z]{1,32}')]],
+      phone_no: ['', [Validators.required, Validators.pattern('[0-9]{1,}')]],
+      address: ['']
+    });
+  }
   ngOnInit(): void {
     this.sessionService.getUserId().subscribe(
       (userId: string) => {
@@ -39,8 +39,8 @@ export class EditUserDetailsComponent implements OnInit {
         console.error('Error retrieving user ID:', error);
       }
     );
-    
-    debugger
+
+
     this.profileService.getUserDetails(this.userId).subscribe(
       data => {
         // Handle the data returned by the HTTP GET request
@@ -58,23 +58,23 @@ export class EditUserDetailsComponent implements OnInit {
   onSubmit() {
     const timerDuration = 1000;
     const formValue = this.regForm.value;
-  if (
-    !formValue.firstName ||
-    !formValue.lastName
-  ) {
-    this.showValidationErrors = true;
-    let errorMessage = 'The following fields are required:\n';
-    if (!formValue.firstName) {
-      errorMessage += '- First Name\n';
+    if (
+      !formValue.firstName ||
+      !formValue.lastName
+    ) {
+      this.showValidationErrors = true;
+      let errorMessage = 'The following fields are required:\n';
+      if (!formValue.firstName) {
+        errorMessage += '- First Name\n';
+      }
+      if (!formValue.lastName) {
+        errorMessage += '- Last Name\n';
+      }
+
+      this.openErrorDialog(errorMessage);
+      return;
     }
-    if (!formValue.lastName) {
-      errorMessage += '- Last Name\n';
-    }
-  
-    this.openErrorDialog(errorMessage);
-    return;
-  }
-    debugger
+
     if (this.regForm.invalid) {
       // Show error messages for invalid fields
       this.regForm.markAllAsTouched();
@@ -86,10 +86,10 @@ export class EditUserDetailsComponent implements OnInit {
       this.address ?? '',
       this.phone_no ?? ''
     );
-    debugger
+
     this.editUserDetailsService.updateUser(this.userId, user).subscribe(
       (data) => {
-        debugger
+
         this.snackBar.open('Updated Successfully', 'OK', {
           duration: 3000,
           verticalPosition: 'top',
@@ -112,7 +112,7 @@ export class EditUserDetailsComponent implements OnInit {
   }
 }
 export class User {
- 
+
   constructor(first_name: string, last_name: string, address: string, phone_no: string) {
     this.first_name = first_name; this.last_name = last_name; this.address = address; this.phone_no = phone_no
   }

@@ -225,7 +225,7 @@ export class MyAdvertisementComponent implements OnInit {
 
     this.myadservice.getContainercount('space', this.companyId).subscribe(
       (adsblsscount: any[]) => {
-        debugger
+
         this.originalspaceactiveAds = adsblsscount[0];
         this.originalspacependingAds = adsblsscount[1];
         this.originalspacedraftAds = adsblsscount[2];
@@ -300,7 +300,7 @@ export class MyAdvertisementComponent implements OnInit {
 
 
   onCancel() {
-
+    
     window.location.reload()
   }
 
@@ -418,7 +418,7 @@ export class MyAdvertisementComponent implements OnInit {
   }
   //  DisplayApproveForm(adId: number){
 
-  //   debugger
+  //   
   //   this.dialog.open(PostAdComponent,{
   //     width:'70%',
   //     height:'500px',
@@ -524,10 +524,10 @@ export class MyAdvertisementComponent implements OnInit {
 
 
   fetchAdsCounts(ad_type: string) {
-    debugger;
+    ;
     this.myadservice.getContainercount(ad_type, this.companyId).subscribe(
       (adsCounts: any[]) => {
-        debugger;
+        ;
         if (ad_type === 'container') {
           this.originalcontaineractiveAds = adsCounts[0];
           this.originalcontainerpendingAds = adsCounts[1];
@@ -572,7 +572,7 @@ export class MyAdvertisementComponent implements OnInit {
 
 
   onViewActive() {
-    debugger
+
     this.Active = true;
     this.pendingActive = false;
     this.draftActive = false;

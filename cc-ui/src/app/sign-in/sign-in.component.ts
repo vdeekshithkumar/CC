@@ -17,58 +17,58 @@ interface LoginResponse {
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css','../app.component.css']
+  styleUrls: ['./sign-in.component.css', '../app.component.css']
 })
 
-export class SignInComponent implements OnInit{
+export class SignInComponent implements OnInit {
   loginForm!: FormGroup;
   hide = true;
-  showModal=false;
+  showModal = false;
   submitted: Boolean = false;
   Invalid: Boolean = false;
-  showPassword=false;
-  show=false;
+  showPassword = false;
+  show = false;
   email!: string;
   showValidationErrors: boolean = false;
   errorMessage: string | undefined;
 
 
-@Output() emailSent = new EventEmitter<any>();
-  
-constructor(private snackBar: MatSnackBar,private router: Router,private formBuilder: FormBuilder,private dialog: MatDialog,private sessionService: SessionService, private signInService: SignInService,private sharedservice: SharedServiceService) { }
+  @Output() emailSent = new EventEmitter<any>();
+
+  constructor(private snackBar: MatSnackBar, private router: Router, private formBuilder: FormBuilder, private dialog: MatDialog, private sessionService: SessionService, private signInService: SignInService, private sharedservice: SharedServiceService) { }
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})')]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
-isUserValid:boolean=false;
+  isUserValid: boolean = false;
   onLoginSubmit() {
     const formValue = this.loginForm.value;
-  if (
-    !formValue.email ||
-    !formValue.password
-  ) {
-    this.showValidationErrors = true;
-    let errorMessage = 'The following fields are required:\n';
-    if (!formValue.email) {
-      errorMessage += '- Email\n';
+    if (
+      !formValue.email ||
+      !formValue.password
+    ) {
+      this.showValidationErrors = true;
+      let errorMessage = 'The following fields are required:\n';
+      if (!formValue.email) {
+        errorMessage += '- Email\n';
+      }
+      if (!formValue.password) {
+        errorMessage += '- Password\n';
+      }
+      this.openErrorDialog(errorMessage);
+      return;
     }
-    if (!formValue.password) {
-      errorMessage += '- Password\n';
+    if (!this.loginForm.controls['email'].valid) {
+      this.openErrorDialog('Invalid email format');
+      return;
     }
-    this.openErrorDialog(errorMessage);
-    return;
-  }
-  if (!this.loginForm.controls['email'].valid) {
-    this.openErrorDialog('Invalid email format');
-    return;
-  }debugger
     this.signInService.login(this.loginForm.value).subscribe(
       (response: Object) => {
         const loginResponse = response as LoginResponse;
         console.log(response);
-        debugger
+
         if (loginResponse.message === 'Admin Login Successful') {
           this.snackBar.open('hdhdhdh', 'OK', {
             duration: 3000,
@@ -78,26 +78,26 @@ isUserValid:boolean=false;
           console.log("admin login success inside loop")
 
           this.router.navigate(['/dashboard']);
-      
+
           this.loginForm.reset();
-        } 
+        }
         if (loginResponse.message === 'User Login Successful') {
           this.sessionService.setCurrentUser(loginResponse.user);//session
           // redirect to dashboard
           console.log("printed from loop")
           this.router.navigate(['/dashboard']);
-        
+
           this.loginForm.reset();
-        } 
+        }
 
         else if (loginResponse.message === 'User Not Found') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
-           duration: 3000,
-           verticalPosition: 'top',
+            duration: 3000,
+            verticalPosition: 'top',
 
-         });
+          });
           this.router.navigate(['/register']);
-     
+
           this.loginForm.reset();
         }
 
@@ -105,16 +105,16 @@ isUserValid:boolean=false;
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
             duration: 3000,
             verticalPosition: 'top',
-    });
-            this.loginForm.reset();
-          }
+          });
+          this.loginForm.reset();
+        }
 
         else if (loginResponse.message === 'Admin Password Mismatched') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
             duration: 3000,
             verticalPosition: 'top',
-    });
-            this.loginForm.reset();
+          });
+          this.loginForm.reset();
         }
 
 
@@ -122,29 +122,29 @@ isUserValid:boolean=false;
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
             duration: 3000,
             verticalPosition: 'top',
-    });
-            this.loginForm.reset();
+          });
+          this.loginForm.reset();
         }
 
         else if (loginResponse.message === 'Account Not Active') {
           this.snackBar.open(`${loginResponse.message}`, 'OK', {
             duration: 3000,
             verticalPosition: 'top',
-    });
-            this.loginForm.reset();
+          });
+          this.loginForm.reset();
         }
         else if (loginResponse.message === 'Not Verified') {
-          debugger
+
           this.email = this.loginForm.value.email;
           this.sharedservice.setRegisteredEmail(this.email);
-          console.log(this.email+"email emiting from sign in page");
-          this.snackBar.open("Email is "+loginResponse.message+ ". OTP sent to your email , Please Verify your email to Continue", 'OK', {
+          console.log(this.email + "email emiting from sign in page");
+          this.snackBar.open("Email is " + loginResponse.message + ". OTP sent to your email , Please Verify your email to Continue", 'OK', {
             duration: 3000,
             verticalPosition: 'top',
           });
-            
-            this.sendOtp(this.email); 
-         
+
+          this.sendOtp(this.email);
+
         }
         else {
           // display error message
@@ -153,7 +153,7 @@ isUserValid:boolean=false;
             verticalPosition: 'top',
             panelClass: ['custom-snackbar']
           });
-          
+
           this.loginForm.reset();
         }
       },
@@ -165,10 +165,10 @@ isUserValid:boolean=false;
       }
     );
   }
-  
-  
 
-  sendOtp(email:string){
+
+
+  sendOtp(email: string) {
 
     this.signInService.sendOtp(email).subscribe(
       (response) => {

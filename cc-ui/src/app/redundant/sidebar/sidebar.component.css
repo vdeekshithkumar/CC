@@ -1,224 +1,129 @@
-@tailwind base;
-@tailwind components;
-
-@layer utility{
-    .menu-tile{
-        @apply text-left py-2 px-1 cursor-pointer  ;
-    }
-    .showActive{
-        @apply active:text-CCblue active:border-CCblue active:border-l-4;
-    }
-}
-@layer base {
-    .Poppins {
-      font-family: Poppins;
-    }
-  }
-.main{
+.main {
   position: fixed;
+  height: 100%;
 }
-.sidebar-nav{
-    @apply flex flex-col ;
-}
-.sidebar-a{
-    @apply menu-tile px-2 hover:border-CCblue hover:text-CCblue hover:border-l-4 font-poppins  text-xs ;
-}
-.sidebar-d  {
-    @apply block h-screen shadow-md font-poppins border-r-2 left-0 top-12;
-  }
-  .sidebar-a.active {
-    @apply text-CCblue border-CCblue bg-white border-l-4 bg-opacity-100;
-  }
-  .svg-container svg {
-    fill:#2F54EB;
-  }
-  
-  .svg-image {
-    filter: grayscale(100%) brightness(200%) #2F54EB;
-  }
-  
-  .svg-image.active {
-    filter: none;
-  }
-  .active-link {
-    color: #2F54EB; /* Font color */
-  }
-  
-  .active-link svg path {
-    fill: #2F54EB;  /* SVG fill color */
-  }
-  
-.main{
-  position:fixed;
-}
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-/* sidebar.component.css */
-.popup {
-  position: absolute;
-  top: 30%;
-  left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-  width: 130px;
-  height: auto; /* Allow the height to adjust based on content */
-  max-height: 150px; /* Limit the maximum height as needed */
-  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  transition: left 0.3s ease-in-out; /* Use left for transition */
-  overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
-  z-index: 2000;
-}
-.svg-ad{
-  display: flex; 
-  align-items: center;
 
+.sidebar-d {
+  display: block;
+  height: 100vh;
+  border-right: 1px solid var(--cc-border);
+  background-color: var(--cc-bg-card);
+  width: 100px;
+  transition: all 0.3s ease;
 }
-.popup-content{
-  background-color: #ffffff;
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  gap: 0.5rem;
 }
-.popup::before {
+
+.sidebar-a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--cc-text-muted);
+  text-decoration: none;
+}
+
+.sidebar-a:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
+}
+
+.sidebar-a.active-link {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
+  font-weight: 500;
+  position: relative;
+}
+
+.sidebar-a.active-link::before {
   content: '';
   position: absolute;
-  top: 50%; /* Vertically centered */
-  left: -10px; /* Adjust the position */
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid #ffffff; /* Color matches the background */
+  left: -10px;
+  top: 20%;
+  height: 60%;
+  width: 4px;
+  background-color: #2563EB;
+  border-radius: 0 4px 4px 0;
 }
 
+.sidebar-a svg {
+  margin-bottom: 0.25rem;
+  transition: transform 0.2s;
+  fill: currentColor;
+}
+
+.sidebar-a:hover svg {
+  transform: scale(1.1);
+}
+
+.sidebar-a .label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+
+.popup,
 .popup1 {
   position: absolute;
-  top: 40%;
-  left: calc(100% + 10px); /* Position to the right of the Container button with some spacing (adjust as needed) */
-  width: 130px;
-  height: auto; /* Allow the height to adjust based on content */
-  max-height: 150px; /* Limit the maximum height as needed */
-  background-color: #ffffff; /* Set the background color to opaque white (#ffffff) */
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-  transition: left 0.3s ease-in-out; /* Use left for transition */
-  overflow-y: auto; /* Add vertical scrollbar if content exceeds max height */
-  z-index: 2000;
-}
-.side{
-  background-color: rgba(0, 0, 0, 0.5);
+  left: 90px;
+  z-index: 50;
+  background: var(--cc-bg-card);
+  border: 1px solid var(--cc-border);
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  width: 160px;
 }
 
-
-.show-popup {
-  
-  left: 100%; /* Display the pop-up by moving it to the visible position */
-}
-
-.sidebar-button {
+.dropdown-toggle {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--cc-text-main);
   background: none;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  position: absolute;
-}
-
-.popup-fields a {
-  position: relative;
-  display: block; /* Display the links as block elements */
-  padding: 10px; /* Add padding for spacing between links */
+  transition: background 0.2s;
   text-decoration: none;
-  color: #333;
-  font-weight: 550;
-}
-/* Adjust the positioning of the SVG */
-/* .popup-fields:hover  a{
-  color: #007bff;
-}
-.popup-fields:hover  .h-a{
-  color: #222323;
-} */
-.svg-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 2; /* Ensure the SVG is above the text */
 }
 
-/* Add padding to create space for the SVG */
-.sidebar-button span {
-  position: absolute;
-  padding-left: 30px; /* Adjust this value as needed */
+.dropdown-toggle:hover {
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
 }
 
-/* Initially hide the dropdown menu */
 .dropdown-menu {
-  display: none;
+  margin-top: 4px;
+  padding: 4px;
+  background-color: var(--cc-bg-main);
+  border-radius: 6px;
 }
 
-/* Style the dropdown icon */
-.dropdown-icon {
-  float: right;
-  margin-left: 5px;
-}
-
-/* Show the dropdown menu when the button is clicked */
-.dropdown-menu.show {
-  display: block;
-}
-
-/* Add styles for the dropdown button */
-/* Style the button */
-.dropdown-toggle {
-  background-color: #fff;
-  color: #333;
-  padding: 8px 10px;
-  font-weight: 550;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out; /* Add a transition effect for smooth hover */
-}
-
-/* Style the button text when hovered */
-.dropdown-toggle:hover .svg-ad {
-  color: #007bff; /* Change text color on hover (adjust the color as needed) */
-}
-
-/* Style the dropdown icon */
-.svg-ad {
-  display: flex;
-  align-items: center;
-  margin-right: 5px;
-  color: #333; /* Initial text color */
-}
-
-/* Style the SVG icon */
-.svg-ad svg {
-  margin-left: 5px;
-}
-
-/* Rest of your styles... */
-
-
-/* Add styles for the dropdown menu items */
 .dropdown-menu a {
   display: block;
-  padding: 10px 15px;
-  color: #333;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--cc-text-muted);
   text-decoration: none;
-  font-weight: 500;
+  border-radius: 4px;
 }
-.popup-fields a:hover{
-  background-color: #f0f0f0;
-}
-/* Hover effect for menu items */
+
 .dropdown-menu a:hover {
-  background-color: #f0f0f0;
+  background-color: rgba(37, 99, 235, 0.1);
+  color: #2563EB;
 }
-
-/* Active link style (if needed) */
-.active-link {
-  font-weight: bold;
-}
-
-/* Adjust the padding to create space for the SVG */
-

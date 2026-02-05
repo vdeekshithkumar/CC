@@ -1,429 +1,275 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 
-
-.signin-page-input{
-    width: 100%;
-    height: 38px;
-    border: 1px solid #D9D9D9;
-    padding: 10px;
-
-}
-.form{
-  width: 380px;
-}
-.blw-btn-text{
-    margin-top: 20px;
-    font-size: 10.5px;
-  }
-
-  .btn{
-    width: 180px;
-    margin-top: 14px;
-    top: 631px;
-    font-weight: 500;
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, #f0f5ff 0%, #f0f5ff 50%, #e0e7ff 100%);
+  position: relative;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
-.remme{
-  color: var(--gray-gray-8, #595959);
-font-size: 12px;
-font-family: Poppins;
-font-weight: 500;
-line-height: 20px;
+:host::before {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(89, 126, 247, 0.15) 0%, transparent 70%);
+  top: -150px;
+  left: -150px;
+  border-radius: 50%;
+  pointer-events: none;
 }
-.sign-in {
-  color: var(--base-white, #FFF);
-  font-size: 16px;
-  font-family: Poppins;
-  font-weight: 500;
-  line-height: 24px;
+
+:host::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(47, 84, 235, 0.1) 0%, transparent 70%);
+  bottom: -100px;
+  right: -100px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.signin-container {
   display: flex;
-  width: 235.333px;
-  height: 38px;
-  padding: 10px 18px;
+  align-items: center;
   justify-content: center;
+  min-height: 100%;
+  padding: 20px;
+}
+
+.signin-card {
+  background: rgba(255, 255, 255, 0.85);
+  /* Increased opacity slightly for better contrast */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  width: 100%;
+  max-width: 440px;
+  padding: 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.05),
+    0 10px 15px -5px rgba(0, 0, 0, 0.02);
+  z-index: 10;
+}
+
+.signin-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #0055ff;
+  /* Soft blue background */
+  border-radius: 12px;
+  margin: 0 auto 24px auto;
+}
+
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.welcome-text {
+  color: #120338;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #64748b;
+  font-size: 15px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 14px;
+  color: #2F54EB;
+  /* Changed to theme blue for better visibility */
+  font-size: 16px;
+  z-index: 10;
+}
+
+.signin-input {
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.2s ease;
+  color: #1e293b;
+}
+
+.signin-input::placeholder {
+  color: #94a3b8;
+}
+
+.signin-input:focus {
+  outline: none;
+  border-color: #2F54EB;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(47, 84, 235, 0.1);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.password-toggle:hover {
+  color: #64748b;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.remember-me {
+  display: flex;
   align-items: center;
   gap: 8px;
-  border: 1px solid #3E7BFA;
-  background: var(--geek-blue-geekblue-6, #2F54EB);
-  border-radius: 2px; /* Sets the border radius to 2 pixels */
-  box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  cursor: pointer;
+  font-size: 14px;
+  color: #64748b;
+  user-select: none;
 }
 
-.btn-primary btn1{
-  color: #ffffff;
-  background-color: #2F54EB;
-  height: 38px;
-  display:flex;
-  flex-direction: row;
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 4px;
+  cursor: pointer;
+  accent-color: #2F54EB;
+}
+
+.forgot-password-link {
+  color: #2F54EB;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.forgot-password-link:hover {
+  color: #1a39b1;
+  text-decoration: underline;
+}
+
+.signin-button {
+  width: 100%;
+  padding: 14px;
+  background: #2F54EB;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px 18px 10px 18px;
-}
-.text-new{
-  color: #595959;
-font-size: 13px;
-font-family: Poppins;
-line-height: 22px;
-letter-spacing: 0.39px;
-}
-.custom-checkbox {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  width: 16px;
-  height: 16px;
-  border: 2px solid #D9D9D9;
-  border-radius: 4px;
-  outline: none;
-  transition: border-color 0.3s ease-in-out;
-  position: relative;
-}
-.custom-checkbox:checked {
-  border-color: #1890ff; /* Blue color */
-  background-color: #1890ff; /* Blue color */
+  box-shadow: 0 4px 6px -1px rgba(47, 84, 235, 0.2);
 }
 
-.custom-checkbox:checked::before {
-  content: "\2713"; /* Unicode checkmark character */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 14px;
-  color: #ffffff; /* White color */
+.signin-button:hover {
+  background: #1a39b1;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 12px -2px rgba(47, 84, 235, 0.3);
 }
 
-
-
-
-.signin-fp{
-  color: var(--geek-blue-geekblue-6, #2F54EB);
-  font-size: 12px;
-  font-family: Poppins;
-  font-weight: 550;
-  line-height: 20px;
-}
-.label{
-
-  color: var(--gray-gray-8, #595959);
-font-size: 14px;
-font-family: Poppins;
-font-weight: 500;
-line-height: 20px;
-  }
-  .heading{
-   
-    color: var(--golden-purple-purple-10, #120338);
-font-size: 24px;
-font-family: Poppins;
-font-weight: 500;
-line-height: 40px;
-  }
-  .sub-text{
-      
-    margin-bottom: 20px;
-      
-      font-family: 'Poppins';
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 40px;
-      /* identical to box height, or 167% */
-      
-      
-      /* Golden Purple / purple-10 */
-      
-      color: #120338;
-    }
-.title{
-font-family: 'Poppins';
-font-size: 22px;
-font-weight: 500;
-line-height: 54px;
-letter-spacing: 0em;
-text-align: left;
-
-}
-.term{
-    font-size: 11px;
-  }
-.password-container {
-    position: relative;
-    width: 100%;
-    display: inline-block;
-    
-  }
-  
-  .password-toggle {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-  }
-  
-  .password-input {
-    padding-right: 25px;
-  }
-  
-.sub-title{
-  width: 304px;
-height: 40px;
-justify-items: center;
-text-align: center;
-
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 500;
-font-size: 20px;
-line-height: 40px;
-
-
-color: #120338;
-
-
-flex: none;
-order: 0;
-flex-grow: 0;
+.signin-button:active {
+  transform: translateY(0);
 }
 
-
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer components {
-  .max-w-2x1 {
-    
-  }
-}
-  @layer utilities {
-    .ml-50 {
-      margin-left: 50px;
-    }
-  }
-  .shadow-outline {
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-  }
-  
-  @layer utilities {
-    .focus\:shadow-outline {
-      @apply shadow-outline;
-    }
-  }
-  
-
-.div{
-    @apply fixed z-10 inset-0 overflow-y-auto;
-}
-.div-card{
-    @apply fixed z-10 inset-0 overflow-y-auto
-}
-.div-bg{
-  @apply fixed inset-0 transition-opacity bg-gray-500 opacity-75
-}
-.uploadinv{
-  color: aqua;
-}
-.uploadinv-select option[disabled] {
-  color: #6c6a6a;
+.signin-button:disabled {
+  background: #94a3b8;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.div-size{
-  @apply relative z-50 w-full max-w-md mx-auto mt-8
+.signup-prompt {
+  text-align: center;
+  margin-top: 32px;
+  font-size: 14px;
+  color: #64748b;
 }
-.div-details{
-  @apply bg-white rounded-lg shadow-lg p-6
+
+.signup-link {
+  color: #2F54EB;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
 }
-.div-btn{
-  @apply px-4 py-2 bg-gray-300 text-gray-700 rounded-lg mr-4
+
+.signup-link:hover {
+  text-decoration: underline;
 }
-.div-btn-set{
-  @apply px-4 py-2 bg-blue-500 text-white rounded-lg
-}
-.div-form{
-  @apply flex flex-col items-center md:flex-row
-}
-.div-form-size{
-  @apply mr-4 ml-4 mt-10 w-full md:w-1/2 mb-4
-}
-.uploadinv-grp{
-  @apply col-span-1 lg:col-span-6
-}
-.uploadinv-h1{
-  @apply text-base text-gray-700 mb-5 text-center text-3xl
-}
-.uploadinv-label{
-  @apply block mb-3 text-gray-600
-}
-.uploadinv-select{
-  @apply border border-gray-500 rounded-md inline-block py-2 px-3 leading-6 w-full focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 text-gray-600 tracking-wider
-}
-.uploadinv-btn{
-  @apply w-20 px-2 py-3 mr-0 ml-20 bg-blue-500 rounded-md shadow-md text-blue-600 font-semibold border font-semibold focus:outline-none w-fit px-10 py-3 leading-6 rounded border-blue-700 bg-white text-blue-600 hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
-}
-.upload-btn{
-  @apply flex justify-center w-20 px-2 py-3 mr-10 ml-10 bg-blue-500 rounded-md shadow-md text-blue-600 font-semibold border font-semibold focus:outline-none w-fit px-5 py-3 leading-6 rounded border-blue-700 bg-white text-blue-600 hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
-}
-.uploadinv-input{
-  @apply h-full w-full outline-none text-sm bg-gray-100 text-black pr-2
-}
-.uploadinv-table{
-  @apply min-w-full text-left text-sm font-light
-}
-.uploadinv-thead{
-  @apply border-b font-medium dark:border-neutral-500
-}
-.uploadinv-th{
-  @apply border px-4 py-2 text-center
-}
-.uploadinv-div{
-  @apply w-full md:w-1/2 mt-4 ml-4 mr-4 border
-}
-.uploadinv-card{
-  @apply flex flex-col overflow-x-auto
-}
-.uploadinv-card-div{
-  @apply inline-block min-w-full py-2 sm:px-6 lg:px-8
-}
-.uploadinv-search{
-  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
-}
-.uploadinv-icon{
-  @apply grid place-items-center h-full w-10 text-black
-}
-.uploadinv-size{
-  @apply max-w-sm ml-10 flex items-center
-}
-.uploadinv-nav{
-  @apply mb-2 w-full
-}
-.uploadinv-bt{
-  @apply border font-semibold focus:outline-none w-full px-4 py-3 leading-6 rounded border-blue-700 bg-blue-700 text-white hover:text-white hover:bg-blue-800 hover:border-blue-800 focus:ring focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700 active:border-blue-700
-}
-.div-app-sidebar{
-  @apply sticky w-[8vw] border-r-2 z-50;
-}
-.div-grp{
-  @apply flex flex-col sm:flex-row top-0 mb-0 ml-5
-}
-.div-section{
-  @apply antialiased min-h-screen p-9  mx-auto bg-gray-200 bg-blend-saturation rounded-md shadow-2xl dark:bg-gray-800 ml-32 mt-10 mb-96 bottom-0
-}
-.div-section-h1{
-  @apply text-xl font-medium text-black capitalize dark:text-white
-}
-.div-form{
-  @apply grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2
-}
-.div-form-label{
-  @apply text-black dark:text-gray-200
-}
-.div-form-div{
-  @apply mt-1 flex justify-center ml-50 mr-5 px-6 pt-5 pb-6 border-2 border-black border-dashed rounded-md
-}
-.div-upload{
-  @apply relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500
-}
-.div-table{
-  @apply w-full md:w-10 mt-2 ml-2 mr-1 border flex-1 text-sm  p-6 rounded-sm m-3 h-[900px] overflow-y-auto
-}
-.div-search{
-  @apply relative flex items-center w-full h-7 focus-within:shadow-lg bg-gray-100 overflow-hidden
-}
-.div-search-icon{
-  @apply grid place-items-center h-full w-10 text-black
-}
-.div-table-inv{
-  @apply w-full text-sm text-left bg-white text-blue-100 dark:text-blue-100
-}
-.div-thead{
-  @apply text-xs text-white uppercase bg-gray-600 border-b border-blue-400 dark:text-black
-}
-.div-tbody-th{
-  @apply px-6 py-4 
-}
-.div-tbody-tr{
-  @apply bg-gray-300 border-b border-blue-400 hover:bg-gray-400 text-black
-}
-.div-edit-btn{
-  @apply mr-3 text-sm bg-green-500 hover:bg-green-700 text-white py-1 px-2 rounded focus:outline-none 
-}
-.div-delete-btn{
-  @apply text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none
-}
-.table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .table thead th {
-    font-weight: 500;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  
-  .table th,
-  .table td {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #e2e8f0;
-  }
-  
-  .table th {
-    text-align: center;
-  }
-  
-  /* Styles for the buttons */
-  .edit-button{
-    margin-left: 2rem;
-    padding: 0.5rem;
-    border: none;
-    background-color: #0af3509d;
-    color: #000000;
-    cursor: pointer;
-    margin-right: 0.25rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0.25rem;
-  }
-  .delete-button{
-    margin-left: 2rem;
-    padding: 0.25rem;
-    margin-bottom: 0.25rem;
-    margin-top: 0.25rem;
-    border: none;
-    background-color: #ff0000c3;
-    color: #000000;
-    cursor: pointer;
-    margin-right: 0.25rem;
-  }
-  .edit-button:hover,
-  .delete-button:hover {
-    background-color: #b5f5e1;
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 
-  ::ng-deep .warning{
-    background: #F44336 !important;
- }
-  
- .mycsssnackbartest {
-  background-color: blue;
-}
-.custom-snackbar {
-  background-color: #ff0000; /* Replace with your desired background color */
-}
-  .email{
-    margin-top:32px;
-    display: flex;
-flex-direction: column;
-align-items: flex-start;
-gap: 6px;
-align-self: stretch;
-color: var(--gray-gray-8, #595959);
-font-size: 14px;
-font-family: Poppins;
-font-weight: 500;
-line-height: 20px;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
+
+.signin-card {
+  animation: fadeIn 0.4s ease-out;
+}

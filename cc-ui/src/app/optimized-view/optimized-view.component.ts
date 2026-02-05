@@ -4,6 +4,7 @@ import { ForecastingTableService } from '../forecasting/forecasting-table-view/f
 import * as XLSX from 'xlsx';
 import { SharedServiceService } from '../shared-service.service';
 import { distinctUntilChanged, filter, map, mergeMap, switchMap, takeUntil } from 'rxjs/operators';
+import { MaritimeCalculatorService } from '../shared/maritime-calculator.service';
 import { Subject, Subscription, combineLatest, forkJoin, of, zip } from 'rxjs';
 import { CarrierServiceService } from '../carrier-service/carrier-service.service';
 import { values } from 'lodash';
@@ -27,7 +28,7 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
   totalSurplus: number = 0;
   partialSurplusMessage: string | null = null;
   receiveddeficitcontainerSize: any;
-   deficitlatitude: any;
+  deficitlatitude: any;
   deficitlongitude: any;
   receivedsurplusportCode: any;
   receivedsurpluscontainerType: any;
@@ -39,44 +40,45 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
 
   service_name?: any;
   public company_id?: number;
-  service_id?:number;
+  service_id?: number;
   services: any[] = [];
-  loading:boolean = true;
+  loading: boolean = true;
   router: any;
   public carrierServices: any[] = [];
-  latlong:any[]=[];
+  latlong: any[] = [];
   private unsubscribe$: Subject<void> = new Subject<void>();
   portCode: any;
 
- 
-  
-  matchedService:any[] = [];
+
+
+  matchedService: any[] = [];
   filteredInventoryData: Inventory[] = [];
   portseq_no: any;
   final_service: { [serviceId: string]: any[]; } | undefined;
   finalServiceData: { [serviceId: string]: any; } | undefined;
   portdata: {
-    port_name: string | null | undefined; latitude: number; longitude: number; 
-}[] | undefined;
-  filteredsurplusInventoryData: Inventory[]=[];
+    port_name: string | null | undefined; latitude: number; longitude: number;
+  }[] | undefined;
+  filteredsurplusInventoryData: Inventory[] = [];
   surplusportdata: {
-    port_name: string | null | undefined; latitude: number; longitude: number; 
-}[] | undefined;
+    port_name: string | null | undefined; latitude: number; longitude: number;
+  }[] | undefined;
 
-portcodereceived:boolean = false;
-groupeData: { [serviceId: string]: GroupedServiceData } = {};
+  portcodereceived: boolean = false;
+  groupeData: { [serviceId: string]: GroupedServiceData } = {};
   deficitPortData: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
   groupedsurplus: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
   surplusPortData: { [serviceId: string]: { serviceName: string; portSequences: any[]; }; } | undefined;
-  showNoServiceAvailableMessage: boolean =false;
+  showNoServiceAvailableMessage: boolean = false;
   showNoDeficitAvailableMessage: boolean = false;
-  
+
   constructor(
     private sessionService: SessionService,
     private forecastingtableService: ForecastingTableService,
     private sharedService: SharedServiceService,
-    private carrierservice:CarrierServiceService
-  ) {}
+    private carrierservice: CarrierServiceService,
+    private maritimeService: MaritimeCalculatorService
+  ) { }
 
   onBackButtonClick() {
     // Add logic for the back button click event
@@ -85,32 +87,32 @@ groupeData: { [serviceId: string]: GroupedServiceData } = {};
 
   ngOnInit(): void {
     this.loadInitialData();
-   
-    
+
+
     this.sharedService.valuesforis$.subscribe(valuesfordeficit => {
       this.receiveddeficitportCode = valuesfordeficit.deficitportCode;
       this.receiveddeficitcontainerType = valuesfordeficit.deficitcontainerType;
       this.receiveddeficitcontainerSize = valuesfordeficit.deficitcontainerSize;
       this.deficitlatitude = valuesfordeficit.deficitlatitude;
       this.deficitlongitude = valuesfordeficit.deficitlongitude;
-      
+
     });
 
 
-this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
-  this.receivedsurplusportCode = valuesforsurplus.surplusportCode;
-  this.receivedsurpluscontainerType = valuesforsurplus.surpluscontainerType;
-  this.receivedsurpluscontainerSize = valuesforsurplus.surpluscontainerSize;
-  this.surpluslatitude = valuesforsurplus.surpluslatitude;
-  this.surpluslongitude = valuesforsurplus.surpluslongitude;
-})
+    this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
+      this.receivedsurplusportCode = valuesforsurplus.surplusportCode;
+      this.receivedsurpluscontainerType = valuesforsurplus.surpluscontainerType;
+      this.receivedsurpluscontainerSize = valuesforsurplus.surpluscontainerSize;
+      this.surpluslatitude = valuesforsurplus.surpluslatitude;
+      this.surpluslongitude = valuesforsurplus.surpluslongitude;
+    })
 
 
-   
-   
-  
-    
-   
+
+
+
+
+
   }
 
 
@@ -150,284 +152,284 @@ this.sharedService.valuesforsurplus$.subscribe(valuesforsurplus => {
         console.log('Inventory list by company id is fetched:', this.inventory_list_by_companyId);
         this.filteredInventoryList = this.inventory_list_by_companyId;
 
-        
+
         if (this.receiveddeficitportCode && this.receiveddeficitcontainerType && this.receiveddeficitcontainerSize) {
           this.filterData(this.receiveddeficitportCode, this.receiveddeficitcontainerType, this.receiveddeficitcontainerSize);
-      } else if(this.receivedsurplusportCode && this.receivedsurpluscontainerType && this.receivedsurpluscontainerSize) {
+        } else if (this.receivedsurplusportCode && this.receivedsurpluscontainerType && this.receivedsurpluscontainerSize) {
           this.filtersurplusData(this.receivedsurplusportCode, this.receivedsurpluscontainerType, this.receivedsurpluscontainerSize);
-      }
-      
+        }
+
       },
       (error: any) => {
         console.log('Inventory loading error:', error);
       }
     );
   }
- async filtersurplusData(receivedsurplusportCode: any, receivedsurpluscontainerType: any, receivedsurpluscontainerSize: any) {
-  
-   
-   
-   this.forecastingtableService.getAllPorts().subscribe(
-     (data: any) => {
-       this.port_list = data;
-       console.log("PortData",this.port_list)
-     },
-     (error: any) => {
-       console.error('Error retrieving company ID:', error);
-     }
-   );
-   // Use Array.find() to find the matching port_id
-   const matchedsurplusPort = this.port_list.find((port: any) => port.port_code === receivedsurplusportCode);
- 
-   if (matchedsurplusPort) {
-       const matchedsurplusPortId = matchedsurplusPort.port_id;
-       console.log('Matched Port ID:', matchedsurplusPortId);
-       // Filter the inventory data based on the matchedPortId
-       this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
-         (data: Inventory[]) => {
-           this.inventory_list_by_companyId = data;
-           console.log('inv list by company id is fetched:', this.inventory_list_by_companyId);
-           
-           this.filteredInventoryList = this.inventory_list_by_companyId;
-         },
-         (error: any) => {
-           console.log('inv loading error:', error);
-         }
-       );
-       const filteredsurplusport = this.inventory_list_by_companyId.filter((inventory: Inventory) => {
-           return inventory.port_id != matchedsurplusPortId;
-       });
+  async filtersurplusData(receivedsurplusportCode: any, receivedsurpluscontainerType: any, receivedsurpluscontainerSize: any) {
 
-       console.log('Filtered Inventory:', filteredsurplusport);
-       const filteredsurplusByContainerType = filteredsurplusport.filter((inventory: Inventory) => {
-           return inventory.container_type === receivedsurpluscontainerType;
-       });
 
-       console.log('Filtered Inventory by Container Type:', filteredsurplusByContainerType);
-       const containerSizeInt = parseInt(receivedsurpluscontainerSize, 10);
-       const filteredsurplusByContainerSize = filteredsurplusByContainerType.filter((inventory: Inventory) => {
-           return parseInt(inventory.container_size, 10) === containerSizeInt;
-       });
 
-       console.log('Filtered Inventory by Container Size:', filteredsurplusByContainerSize);
+    this.forecastingtableService.getAllPorts().subscribe(
+      (data: any) => {
+        this.port_list = data;
+        console.log("PortData", this.port_list)
+      },
+      (error: any) => {
+        console.error('Error retrieving company ID:', error);
+      }
+    );
+    // Use Array.find() to find the matching port_id
+    const matchedsurplusPort = this.port_list.find((port: any) => port.port_code === receivedsurplusportCode);
 
-       // Filter inventory data where surplus is greater than deficit
-       const filteredInventoryWithSurplus = filteredsurplusByContainerSize.filter((inventory: Inventory) => {
-           const surplus = inventory.surplus;
-           const deficit = inventory.deficit;
-           return surplus < deficit; 
-       });
-this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
-       console.log('Filtered Inventory with Surplus > Deficit:', filteredInventoryWithSurplus);
+    if (matchedsurplusPort) {
+      const matchedsurplusPortId = matchedsurplusPort.port_id;
+      console.log('Matched Port ID:', matchedsurplusPortId);
+      // Filter the inventory data based on the matchedPortId
+      this.forecastingtableService.getInventoryByIdCID(this.companyId).subscribe(
+        (data: Inventory[]) => {
+          this.inventory_list_by_companyId = data;
+          console.log('inv list by company id is fetched:', this.inventory_list_by_companyId);
 
-   } else {
-       console.log('No matching port found.');
-   }
- await this.getSurplusServices(receivedsurplusportCode);
+          this.filteredInventoryList = this.inventory_list_by_companyId;
+        },
+        (error: any) => {
+          console.log('inv loading error:', error);
+        }
+      );
+      const filteredsurplusport = this.inventory_list_by_companyId.filter((inventory: Inventory) => {
+        return inventory.port_id != matchedsurplusPortId;
+      });
+
+      console.log('Filtered Inventory:', filteredsurplusport);
+      const filteredsurplusByContainerType = filteredsurplusport.filter((inventory: Inventory) => {
+        return inventory.container_type === receivedsurpluscontainerType;
+      });
+
+      console.log('Filtered Inventory by Container Type:', filteredsurplusByContainerType);
+      const containerSizeInt = parseInt(receivedsurpluscontainerSize, 10);
+      const filteredsurplusByContainerSize = filteredsurplusByContainerType.filter((inventory: Inventory) => {
+        return parseInt(inventory.container_size, 10) === containerSizeInt;
+      });
+
+      console.log('Filtered Inventory by Container Size:', filteredsurplusByContainerSize);
+
+      // Filter inventory data where surplus is greater than deficit
+      const filteredInventoryWithSurplus = filteredsurplusByContainerSize.filter((inventory: Inventory) => {
+        const surplus = inventory.surplus;
+        const deficit = inventory.deficit;
+        return surplus < deficit;
+      });
+      this.filteredsurplusInventoryData = filteredInventoryWithSurplus;
+      console.log('Filtered Inventory with Surplus > Deficit:', filteredInventoryWithSurplus);
+
+    } else {
+      console.log('No matching port found.');
+    }
+    await this.getSurplusServices(receivedsurplusportCode);
   }
   async getSurplusServices(receivedsurplusportCode: any) {
     try {
-        this.loading = true;
-        // Await the retrieval of port sequence number
-        this.portseq_no = await this.carrierservice.getPortSeqNo(receivedsurplusportCode).toPromise();
-        console.log('Received data from the service:', this.portseq_no);
+      this.loading = true;
+      // Await the retrieval of port sequence number
+      this.portseq_no = await this.carrierservice.getPortSeqNo(receivedsurplusportCode).toPromise();
+      console.log('Received data from the service:', this.portseq_no);
 
-        // Get the surplus response data
-        const surplusresponse: any = await this.carrierservice.getServicesforSurplus(this.companyId, receivedsurplusportCode).toPromise();
-        console.log('Response received from the service for surplus', surplusresponse);
+      // Get the surplus response data
+      const surplusresponse: any = await this.carrierservice.getServicesforSurplus(this.companyId, receivedsurplusportCode).toPromise();
+      console.log('Response received from the service for surplus', surplusresponse);
 
-        // Initialize an object to store grouped surplus data
-        const groupedsurplusData: { [serviceId: string]: GroupedServiceData } = {};
+      // Initialize an object to store grouped surplus data
+      const groupedsurplusData: { [serviceId: string]: GroupedServiceData } = {};
 
-        // Loop through the filtered surplus inventory data
-        for (const item of this.filteredsurplusInventoryData) {
-            const portIdToMatch = item.port_id;
+      // Loop through the filtered surplus inventory data
+      for (const item of this.filteredsurplusInventoryData) {
+        const portIdToMatch = item.port_id;
 
-            // Iterate through the surplus response data
-            for (const serviceId in surplusresponse) {
-                if (surplusresponse.hasOwnProperty(serviceId)) {
-                    const serviceData = surplusresponse[serviceId];
-                    // Check for matching port sequences and group the data accordingly
-                    for (const portSequence of serviceData.portSequences) {
-                        if (portSequence.port_id === portIdToMatch) {
-                            if (!groupedsurplusData[serviceId]) {
-                                groupedsurplusData[serviceId] = {
-                                    serviceName: serviceData.serviceName,
-                                    portSequences: [],
-                                };
-                            }
-                            groupedsurplusData[serviceId].portSequences.push(portSequence);
-                        }
-                    }
+        // Iterate through the surplus response data
+        for (const serviceId in surplusresponse) {
+          if (surplusresponse.hasOwnProperty(serviceId)) {
+            const serviceData = surplusresponse[serviceId];
+            // Check for matching port sequences and group the data accordingly
+            for (const portSequence of serviceData.portSequences) {
+              if (portSequence.port_id === portIdToMatch) {
+                if (!groupedsurplusData[serviceId]) {
+                  groupedsurplusData[serviceId] = {
+                    serviceName: serviceData.serviceName,
+                    portSequences: [],
+                  };
                 }
+                groupedsurplusData[serviceId].portSequences.push(portSequence);
+              }
             }
+          }
         }
+      }
 
-        // Sort the port sequences for each service ID in the grouped surplus data
-        for (const serviceId in groupedsurplusData) {
-            if (groupedsurplusData.hasOwnProperty(serviceId)) {
-                groupedsurplusData[serviceId].portSequences.sort((a, b) => a.seq_no - b.seq_no);
-            }
+      // Sort the port sequences for each service ID in the grouped surplus data
+      for (const serviceId in groupedsurplusData) {
+        if (groupedsurplusData.hasOwnProperty(serviceId)) {
+          groupedsurplusData[serviceId].portSequences.sort((a, b) => a.seq_no - b.seq_no);
         }
+      }
 
-        // Log the grouped data
-        console.log('Grouped data by service ID:', groupedsurplusData);
+      // Log the grouped data
+      console.log('Grouped data by service ID:', groupedsurplusData);
 
-        // Update the surplus data and manage the no service available message
-        this.groupedsurplus = groupedsurplusData;
-        if (!this.groupedsurplus || Object.keys(this.groupedsurplus).length === 0) {
-            this.showNoServiceAvailableMessage = true;
-        } else {
-            this.showNoServiceAvailableMessage = false;
-        }
+      // Update the surplus data and manage the no service available message
+      this.groupedsurplus = groupedsurplusData;
+      if (!this.groupedsurplus || Object.keys(this.groupedsurplus).length === 0) {
+        this.showNoServiceAvailableMessage = true;
+      } else {
+        this.showNoServiceAvailableMessage = false;
+      }
 
-        // Call the function to get surplus latitude and longitude
-        await this.getsurpluslatitudelongitude(this.groupedsurplus);
-        console.log('For html', this.groupedsurplus);
+      // Call the function to get surplus latitude and longitude
+      await this.getsurpluslatitudelongitude(this.groupedsurplus);
+      console.log('For html', this.groupedsurplus);
 
     } catch (error) {
-        // If an error occurs during processing, log it and throw the error
-        console.error('An error occurred:', error);
-        throw error;
+      // If an error occurs during processing, log it and throw the error
+      console.error('An error occurred:', error);
+      throw error;
     } finally {
-        // Set loading to false after the process is completed
-        this.loading = false;
+      // Set loading to false after the process is completed
+      this.loading = false;
     }
-}
+  }
 
 
   async getsurpluslatitudelongitude(groupedsurplus: { [serviceId: string]: any }): Promise<void> {
     const portCoordinates: { [serviceId: string]: { serviceName: string, portSequences: any[] } } = {};
 
-  for (const serviceId in groupedsurplus) {
-    if (groupedsurplus.hasOwnProperty(serviceId)) {
-      const serviceData = groupedsurplus[serviceId];
+    for (const serviceId in groupedsurplus) {
+      if (groupedsurplus.hasOwnProperty(serviceId)) {
+        const serviceData = groupedsurplus[serviceId];
 
-      // Initialize an empty array for the portSequences if it doesn't exist
-      if (!portCoordinates[serviceId]) {
-        portCoordinates[serviceId] = {
-          serviceName: serviceData.serviceName,
-          portSequences: [],
-        };
-      }
+        // Initialize an empty array for the portSequences if it doesn't exist
+        if (!portCoordinates[serviceId]) {
+          portCoordinates[serviceId] = {
+            serviceName: serviceData.serviceName,
+            portSequences: [],
+          };
+        }
 
-      for (const portSequence of serviceData.portSequences) {
-        const portIdToMatch = portSequence.port_id;
-        const matchingPort = this.port_list.find((port: any) => port.port_id === portIdToMatch);
+        for (const portSequence of serviceData.portSequences) {
+          const portIdToMatch = portSequence.port_id;
+          const matchingPort = this.port_list.find((port: any) => port.port_id === portIdToMatch);
 
-        if (matchingPort) {
-          const latitude = matchingPort.latitude;
-          const longitude = matchingPort.longitude;
-          const port_name = matchingPort.port_name;
+          if (matchingPort) {
+            const latitude = matchingPort.latitude;
+            const longitude = matchingPort.longitude;
+            const port_name = matchingPort.port_name;
 
-          // Store latitude, longitude, and port_name in the portSequences array
-          portCoordinates[serviceId].portSequences.push({ latitude, longitude, port_name });
+            // Store latitude, longitude, and port_name in the portSequences array
+            portCoordinates[serviceId].portSequences.push({ latitude, longitude, port_name });
+          }
         }
       }
     }
-  }
 
-  // Now portCoordinates is structured similarly to groupeData
-  console.log('Port Coordinates:', portCoordinates);
- this.surplusPortData = portCoordinates;
-  console.log("dfdf", this.surplusPortData);
-  this.afterinitsurplusmap();
+    // Now portCoordinates is structured similarly to groupeData
+    console.log('Port Coordinates:', portCoordinates);
+    this.surplusPortData = portCoordinates;
+    console.log("dfdf", this.surplusPortData);
+    this.afterinitsurplusmap();
   }
   afterinitsurplusmap() {
-    debugger
 
-  // Check if the mapElement exists and if both latitude and longitude are defined
-  if (this.mapElement && this.surpluslatitude !== undefined && this.surpluslongitude !== undefined) {
-    const mapElement = this.mapElement.nativeElement;
-    const mapOptions: google.maps.MapOptions = {
-      center: { lat: this.surpluslatitude, lng: this.surpluslongitude },
-      zoom: 3,
-      mapId: '2b03aff8b2fb72a3'
-    };
 
-    this.map = new google.maps.Map(mapElement, mapOptions);
+    // Check if the mapElement exists and if both latitude and longitude are defined
+    if (this.mapElement && this.surpluslatitude !== undefined && this.surpluslongitude !== undefined) {
+      const mapElement = this.mapElement.nativeElement;
+      const mapOptions: google.maps.MapOptions = {
+        center: { lat: this.surpluslatitude, lng: this.surpluslongitude },
+        zoom: 3,
+        mapId: '2b03aff8b2fb72a3'
+      };
 
-    // Add a red marker at the specified latitude and longitude
-    const redMarker = new google.maps.Marker({
-      position: { lat: this.surpluslatitude, lng: this.surpluslongitude },
-      map: this.map,
-      icon: {
-        url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-        scaledSize: new google.maps.Size(30, 30)
-      },
-      title: this.receivedsurplusportCode
-    });
+      this.map = new google.maps.Map(mapElement, mapOptions);
 
-    if (this.surplusPortData) {
-      // Create a dictionary to store polyline colors by service ID
-      const serviceIdColorMap: { [serviceId: string]: string } = {};
-      const colors = ['#00FF00', '#0000FF', '#FF0000', '#FF00FF', '#FFFF00']; // Add more colors as needed
+      // Add a red marker at the specified latitude and longitude
+      const redMarker = new google.maps.Marker({
+        position: { lat: this.surpluslatitude, lng: this.surpluslongitude },
+        map: this.map,
+        icon: {
+          url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+          scaledSize: new google.maps.Size(30, 30)
+        },
+        title: this.receivedsurplusportCode
+      });
 
-      // Iterate through each service ID in this.deficitPortData and add a marker and polyline for each
-      for (const serviceId in this.surplusPortData) {
-        if (this.surplusPortData.hasOwnProperty(serviceId)) {
-          const serviceData = this.surplusPortData[serviceId];
+      if (this.surplusPortData) {
+        // Create a dictionary to store polyline colors by service ID
+        const serviceIdColorMap: { [serviceId: string]: string } = {};
+        const colors = ['#00FF00', '#0000FF', '#FF0000', '#FF00FF', '#FFFF00']; // Add more colors as needed
 
-          // Assign a color based on service ID if not already assigned
-          if (!serviceIdColorMap[serviceId]) {
-            serviceIdColorMap[serviceId] = colors[Object.keys(serviceIdColorMap).length % colors.length];
-          }
-          const color = serviceIdColorMap[serviceId];
+        // Iterate through each service ID in this.deficitPortData and add a marker and polyline for each
+        for (const serviceId in this.surplusPortData) {
+          if (this.surplusPortData.hasOwnProperty(serviceId)) {
+            const serviceData = this.surplusPortData[serviceId];
 
-          // Iterate through portSequences for this service
-          for (const surplusport of serviceData.portSequences) {
-            // Create a marker with a green icon
-            const greenMarker = new google.maps.Marker({
-              position: { lat: surplusport.latitude, lng: surplusport.longitude },
-              map: this.map,
-              icon: {
-                url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                scaledSize: new google.maps.Size(30, 30)
-              },
-              title: surplusport.port_name,
-            });
+            // Assign a color based on service ID if not already assigned
+            if (!serviceIdColorMap[serviceId]) {
+              serviceIdColorMap[serviceId] = colors[Object.keys(serviceIdColorMap).length % colors.length];
+            }
+            const color = serviceIdColorMap[serviceId];
 
-            // Create a polyline with the selected color
-            const polyline = new google.maps.Polyline({
-              path: [
-                { lat: this.surpluslatitude, lng: this.surpluslongitude },
-                { lat: surplusport.latitude, lng: surplusport.longitude }
-               
-              ],
-              geodesic: true,
-              strokeColor: color,
-              strokeOpacity: 1.0,
-              strokeWeight: 2,
-              icons: [
-                {
-                  icon: {
-                    path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                    scale: 3,
-                    fillColor: color,
-                    fillOpacity: 1,
-                    strokeWeight: 1,
-                  },
-                  offset: '100%',
+            // Iterate through portSequences for this service
+            for (const surplusport of serviceData.portSequences) {
+              // Create a marker with a green icon
+              const greenMarker = new google.maps.Marker({
+                position: { lat: surplusport.latitude, lng: surplusport.longitude },
+                map: this.map,
+                icon: {
+                  url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                  scaledSize: new google.maps.Size(30, 30)
                 },
-              ],
-            });
+                title: surplusport.port_name,
+              });
 
-            // Set the polyline on the map
-            polyline.setMap(this.map);
+              // Create a polyline with the selected color
+              const polyline = new google.maps.Polyline({
+                path: [
+                  { lat: this.surpluslatitude, lng: this.surpluslongitude },
+                  { lat: surplusport.latitude, lng: surplusport.longitude }
+
+                ],
+                geodesic: true,
+                strokeColor: color,
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+                icons: [
+                  {
+                    icon: {
+                      path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                      scale: 3,
+                      fillColor: color,
+                      fillOpacity: 1,
+                      strokeWeight: 1,
+                    },
+                    offset: '100%',
+                  },
+                ],
+              });
+
+              // Set the polyline on the map
+              polyline.setMap(this.map);
+            }
           }
         }
       }
     }
   }
-  }
-  
+
   getFinalSurplusDataKeys() {
     return Object.keys(this.groupedsurplus || {});
   }
 
 
 
-async filterData(
+  async filterData(
     receivedportCode: string,
     receivedcontainerType: string,
     receivedcontainerSize: string
@@ -472,7 +474,7 @@ async filterData(
             inventory.port_id === matchedPortId &&
             inventory.container_type === receivedcontainerType &&
             parseInt(inventory.container_size, 10) ===
-              parseInt(receivedcontainerSize, 10)
+            parseInt(receivedcontainerSize, 10)
         );
 
         this.totalDeficit = deficitInventory ? deficitInventory.deficit : 0;
@@ -601,7 +603,7 @@ async filterData(
             inv.port_id === portId &&
             inv.container_type === this.receiveddeficitcontainerType &&
             parseInt(inv.container_size, 10) ===
-              parseInt(this.receiveddeficitcontainerSize, 10) &&
+            parseInt(this.receiveddeficitcontainerSize, 10) &&
             inv.surplus > inv.deficit
         );
         if (inventory) {
@@ -614,9 +616,8 @@ async filterData(
 
       // Set partial surplus message if applicable
       if (this.totalSurplus > 0 && this.totalSurplus < this.totalDeficit) {
-        this.partialSurplusMessage = `You can use ${this.totalSurplus} from carrier service and for the remaining ${
-          this.totalDeficit - this.totalSurplus
-        } search for an ad.`;
+        this.partialSurplusMessage = `You can use ${this.totalSurplus} from carrier service and for the remaining ${this.totalDeficit - this.totalSurplus
+          } search for an ad.`;
       } else {
         this.partialSurplusMessage = null;
       }
@@ -635,50 +636,50 @@ async filterData(
       this.loading = false;
     }
   }
-getFinalServiceDataKeys() {
-  return Object.keys(this.groupeData || {});
-}
-async getlatitudelongitude(groupeData: { [serviceId: string]: any }): Promise<void> {
-  const portCoordinates: { [serviceId: string]: { serviceName: string, portSequences: any[] } } = {};
+  getFinalServiceDataKeys() {
+    return Object.keys(this.groupeData || {});
+  }
+  async getlatitudelongitude(groupeData: { [serviceId: string]: any }): Promise<void> {
+    const portCoordinates: { [serviceId: string]: { serviceName: string, portSequences: any[] } } = {};
 
-  for (const serviceId in groupeData) {
-    if (groupeData.hasOwnProperty(serviceId)) {
-      const serviceData = groupeData[serviceId];
+    for (const serviceId in groupeData) {
+      if (groupeData.hasOwnProperty(serviceId)) {
+        const serviceData = groupeData[serviceId];
 
-      // Initialize an empty array for the portSequences if it doesn't exist
-      if (!portCoordinates[serviceId]) {
-        portCoordinates[serviceId] = {
-          serviceName: serviceData.serviceName,
-          portSequences: [],
-        };
-      }
+        // Initialize an empty array for the portSequences if it doesn't exist
+        if (!portCoordinates[serviceId]) {
+          portCoordinates[serviceId] = {
+            serviceName: serviceData.serviceName,
+            portSequences: [],
+          };
+        }
 
-      for (const portSequence of serviceData.portSequences) {
-        const portIdToMatch = portSequence.port_id;
-        const matchingPort = this.port_list.find((port: any) => port.port_id === portIdToMatch);
+        for (const portSequence of serviceData.portSequences) {
+          const portIdToMatch = portSequence.port_id;
+          const matchingPort = this.port_list.find((port: any) => port.port_id === portIdToMatch);
 
-        if (matchingPort) {
-          const latitude = matchingPort.latitude;
-          const longitude = matchingPort.longitude;
-          const port_name = matchingPort.port_name;
+          if (matchingPort) {
+            const latitude = matchingPort.latitude;
+            const longitude = matchingPort.longitude;
+            const port_name = matchingPort.port_name;
 
-          // Store latitude, longitude, and port_name in the portSequences array
-          portCoordinates[serviceId].portSequences.push({ latitude, longitude, port_name });
+            // Store latitude, longitude, and port_name in the portSequences array
+            portCoordinates[serviceId].portSequences.push({ latitude, longitude, port_name });
+          }
         }
       }
     }
+
+    // Now portCoordinates is structured similarly to groupeData
+    console.log('Port Coordinates:', portCoordinates);
+    this.deficitPortData = portCoordinates;
+    console.log("dfdf", this.deficitPortData);
+    this.afterinitmap();
   }
 
-  // Now portCoordinates is structured similarly to groupeData
-  console.log('Port Coordinates:', portCoordinates);
- this.deficitPortData = portCoordinates;
-  console.log("dfdf", this.deficitPortData);
-  this.afterinitmap();
-}
 
 
-
- public calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
+  public calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number): number {
     const R = 6371; // Earth's radius in kilometers
     const dLat = (lat2 - lat1) * Math.PI / 180;
     const dLon = (lon2 - lon1) * Math.PI / 180;
@@ -687,9 +688,10 @@ async getlatitudelongitude(groupeData: { [serviceId: string]: any }): Promise<vo
       Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
+    const distanceKm = R * c;
+    return distanceKm * 0.539957; // Convert to Nautical Miles (NM)
   }
-   afterinitmap() {
+  afterinitmap() {
     console.log("to inside initmap check", this.latlong);
 
     if (this.mapElement && this.deficitlatitude !== undefined && this.deficitlongitude !== undefined) {
@@ -766,10 +768,51 @@ async getlatitudelongitude(groupeData: { [serviceId: string]: any }): Promise<vo
             }
           });
 
-          // Add click listener to show port name
+          // Calculate Route Estimation
+          const routeEstimate = this.maritimeService.estimateRoute(
+            this.deficitlatitude,
+            this.deficitlongitude,
+            port.latitude,
+            port.longitude
+          );
+
+          // Add click listener to show port name with modern design
           marker.addListener('click', () => {
             new google.maps.InfoWindow({
-              content: `<div style="font-size: 14px; padding: 5px;">${port.port_name} (Priority ${index + 1})</div>`
+              content: `
+                <div class="popover-card">
+                  <div class="popover-header">
+                    <span class="popover-title">${port.port_name}</span>
+                    <span class="popover-status">Priority ${index + 1}</span>
+                  </div>
+                  <div class="popover-body">
+                    <div class="data-grid">
+                      <div class="data-item">
+                         <span class="data-label">Coordinates</span>
+                         <span class="data-value">${port.latitude.toFixed(2)}, ${port.longitude.toFixed(2)}</span>
+                      </div>
+                      <div style="border-top: 1px solid #eee; margin: 8px 0;"></div>
+                      <div class="data-item">
+                         <span class="data-label">Est. Distance</span>
+                         <span class="data-value">${routeEstimate.estimatedShippingDistanceNm.toLocaleString()} NM</span>
+                      </div>
+                      <div class="data-item">
+                         <span class="data-label">Direct (GC)</span>
+                         <span class="data-value">${routeEstimate.directDistanceNm.toLocaleString()} NM</span>
+                      </div>
+                      <div class="data-item">
+                         <span class="data-label">Transit Time (20kn)</span>
+                         <span class="data-value">${routeEstimate.estimatedTransitDays} Days</span>
+                      </div>
+                      ${routeEstimate.canalRequired !== 'none' ? `
+                      <div class="data-item">
+                         <span class="data-label">Route Via</span>
+                         <span class="data-value" style="text-transform: capitalize; color: #d97706;">${routeEstimate.canalRequired} Canal</span>
+                      </div>` : ''}
+                    </div>
+                  </div>
+                </div>
+              `
             }).open(this.map, marker);
           });
 
@@ -804,54 +847,54 @@ async getlatitudelongitude(groupeData: { [serviceId: string]: any }): Promise<vo
   }
 
 
-goback() {
-  console.log("go back is clicked")
-  window.location.reload();
-  window.location.href = '/forecast-map'; // Assuming 'forecast-map' is the route to your forecast map component
-}
-
-
-
-
-
-
-
-
-
-
-
-
-ngAfterViewInit() {
-    this.initMap();
-}
-initMap() {
-  console.log("to inside initmap check", this.latlong);
-
-  // Check if the mapElement exists and if both latitude and longitude are defined
-  if (this.mapElement && this.deficitlatitude !== undefined && this.deficitlongitude !== undefined) {
-    const mapElement = this.mapElement.nativeElement;
-    const mapOptions: google.maps.MapOptions = {
-      center: { lat: this.deficitlatitude, lng: this.deficitlongitude },
-      zoom: 3,
-      mapId: '2b03aff8b2fb72a3'
-    };
-
-    this.map = new google.maps.Map(mapElement, mapOptions);
-
-    // Add a red marker at the specified latitude and longitude
-    const redMarker = new google.maps.Marker({
-      position: { lat: this.deficitlatitude, lng: this.deficitlongitude },
-      map: this.map,
-      icon: {
-        url: 'http://maps.google.com/mapfiles/ms/icons/black-dot.png',
-        scaledSize: new google.maps.Size(30, 30)
-      },
-      title: this.receiveddeficitportCode
-    });
-
-   
+  goback() {
+    console.log("go back is clicked")
+    window.location.reload();
+    window.location.href = '/forecast-map'; // Assuming 'forecast-map' is the route to your forecast map component
   }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+  ngAfterViewInit() {
+    this.initMap();
+  }
+  initMap() {
+    console.log("to inside initmap check", this.latlong);
+
+    // Check if the mapElement exists and if both latitude and longitude are defined
+    if (this.mapElement && this.deficitlatitude !== undefined && this.deficitlongitude !== undefined) {
+      const mapElement = this.mapElement.nativeElement;
+      const mapOptions: google.maps.MapOptions = {
+        center: { lat: this.deficitlatitude, lng: this.deficitlongitude },
+        zoom: 3,
+        mapId: '2b03aff8b2fb72a3'
+      };
+
+      this.map = new google.maps.Map(mapElement, mapOptions);
+
+      // Add a red marker at the specified latitude and longitude
+      const redMarker = new google.maps.Marker({
+        position: { lat: this.deficitlatitude, lng: this.deficitlongitude },
+        map: this.map,
+        icon: {
+          url: 'http://maps.google.com/mapfiles/ms/icons/black-dot.png',
+          scaledSize: new google.maps.Size(30, 30)
+        },
+        title: this.receiveddeficitportCode
+      });
+
+
+    }
+  }
 
 
   onPortSelected(selectedPortName: string) {
@@ -882,7 +925,7 @@ initMap() {
         containertype: this.receiveddeficitcontainerType,
         containersize: this.receiveddeficitcontainerSize,
       });
-  
+
       // Navigate to the view-other-ads component
       this.router.navigate(['/view-other-ads']);
     }
@@ -933,10 +976,10 @@ interface Inventory {
   available: number;
   surplus: number;
   deficit: number;
-} 
+}
 
 interface GroupedServiceData {
   serviceName: string;
-  portSequences: any[]; 
-  
+  portSequences: any[];
+
 }

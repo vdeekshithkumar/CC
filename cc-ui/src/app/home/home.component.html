@@ -1,20 +1,47 @@
-<div class="min-h-screen flex flex-row font-poppins bg-angel-blue ">
-    <div class="absolute top-20 left-12 text-CCblue font-semibold text-2xl flex flex-row  whitespace-nowrap">
-        <img src="../../assets/icons/cc_logo.svg" class="px-2">CFlow Stream
-    </div>
-    <div class="min-h-screen bg-white flex  justify-center button-container w-[30rem] flex-col px-12">
-        <div id="title" class="text-2xl font-semibold whitespace-nowrap float-left py-4">
-            Create an account or Sign-in
-        </div>
-        <button routerLink="register" id="register-btn" class="div-register-btn-create  whitespace-nowrap">
-            Create an account
-        </button>
-        <button routerLink="sign-in" id="sign-in-btn" class="div-signin-btn1 whitespace-nowrap">
-            Sign in
-        </button>
+<div class="landing-container">
+    <!-- Background Shapes -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
 
-    </div>
-    <div class="h-screen">
-        <img src="../../assets/images/home.webp" class=" absolute h-full object-contain right-0">
+    <div class="split-layout">
+        <!-- Left Section: Content -->
+        <div class="content-section">
+            <div class="landing-card">
+                <div class="brand-header">
+                    <div class="logo-wrapper">
+                        <img src="assets/images/Icon.png" alt="CFlow Stream Logo" class="brand-logo">
+                    </div>
+                    <h1 class="brand-name">CFlow Stream</h1>
+                </div>
+
+                <div class="hero-content">
+                    <h2 class="hero-title">Future of logistics is here</h2>
+                    <p class="hero-subtitle">Optimize your supply chain with intelligent insights and seamless
+                        collaboration.</p>
+                </div>
+
+                <div class="action-buttons">
+                    <button routerLink="register" class="btn btn-primary">
+                        <span>Create Account</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button routerLink="sign-in" class="btn btn-secondary">
+                        <span>Sign In</span>
+                    </button>
+                </div>
+
+                <div class="landing-footer">
+                    <p>Futuristic Logistics Platform</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Section: Visual -->
+        <div class="visual-section">
+            <div class="image-wrapper">
+                <img src="assets/images/home.webp" alt="Logistics Containers" class="hero-image">
+                <div class="image-overlay"></div>
+            </div>
+        </div>
     </div>
 </div>

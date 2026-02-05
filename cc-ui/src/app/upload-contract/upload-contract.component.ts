@@ -48,7 +48,7 @@ export class UploadContractComponent implements OnInit {
   }
 
   async onChange($event: Event) {
-    debugger
+
     const target = $event.target as HTMLInputElement;
     const files: FileList = target.files as FileList;
     this.files = Array.from(files);
@@ -60,28 +60,27 @@ export class UploadContractComponent implements OnInit {
           duration: 3000,
           verticalPosition: 'top', // Set the duration to 3000 milliseconds (3 seconds)
         });
-      }    
+      }
     }
     // await setTimeout(() => { this.showFile = !this.showFile }, 3000);
   }
 
   async onUpload() {
-    if (this.title == null || this.description ==null || this.files ==null )
-    {
+    if (this.title == null || this.description == null || this.files == null) {
       this.snackBar.open(`All the fields are mandatory!!`, 'Close', {
         duration: 3000,
         verticalPosition: 'top',// Set the duration to 3000 milliseconds (3 seconds)
       });
     }
-    debugger
+
     if (this.files.length > 0) {
-      debugger
+
       this.title = this.title.trim().toLowerCase();
       this.uploadService.uploadFile(this.files, this.userId, this.companyId, this.description, this.title).subscribe((response: any) => {
-        debugger
+
         if (response.message === 'Success') {
           this.statusMsg = 'Success';
-          setTimeout(() => { 
+          setTimeout(() => {
             this.statusMsg = "";
             this.snackBar.dismiss();
           }, 2000);
