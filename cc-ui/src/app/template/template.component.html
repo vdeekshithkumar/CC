@@ -10,23 +10,23 @@
     <div class="left-section">
       <app-sidebar class="min-h-screen w-[100px]"></app-sidebar>
     </div>
-   
+
     <!--right view-->
     <div class="right-section" *ngIf="isActive('/dashboard')">
-        <app-dashboard></app-dashboard>
+      <app-dashboard></app-dashboard>
     </div>
     <div class="right-section" *ngIf="isActive('/profile')">
-        <app-profile></app-profile>
+      <app-profile></app-profile>
     </div>
     <div class="right-section" *ngIf="isActive('/view-other-ads')">
-     <app-view-other-ads></app-view-other-ads>
+      <app-view-other-ads></app-view-other-ads>
     </div>
     <div class="right-section" *ngIf="isActive('/negotiations')">
-    <app-negotiations></app-negotiations>
+      <app-negotiations></app-negotiations>
     </div>
     <div class="right-section" *ngIf="isActive('/forecast-map')">
       <app-forecast-map></app-forecast-map>
-      </div>
+    </div>
     <div class="right-section" *ngIf="isActive('/forecasting-table-view')">
       <app-forecasting-table-view></app-forecasting-table-view>
     </div>
@@ -39,7 +39,7 @@
     <div class="right-section" *ngIf="isActive('/upload-inventory')">
       <app-upload-inventory></app-upload-inventory>
     </div>
-   
+
     <div class="right-section" *ngIf="isActive('/upload-contract')">
       <app-upload-contract></app-upload-contract>
     </div>
@@ -49,11 +49,14 @@
     <div class="right-section" *ngIf="isActive('/messaging')">
       <app-messaging></app-messaging>
     </div>
-    <div class="right-section"  *ngIf="isActive('/carrier-service')">
+    <div class="right-section" *ngIf="isActive('/carrier-service')">
       <app-carrier-service></app-carrier-service>
     </div>
-    <div class="right-section"  *ngIf="isActive('/route-service')">
+    <div class="right-section" *ngIf="isActive('/route-service')">
       <app-service-route></app-service-route>
+    </div>
+    <div class="right-section" *ngIf="isActive('/settings')">
+      <app-settings></app-settings>
     </div>
     <!-- <div class="right-section" *ngIf="isActive('/forecasting')">
     <app-forecasting></app-forecasting>

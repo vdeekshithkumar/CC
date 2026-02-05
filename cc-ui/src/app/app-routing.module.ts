@@ -31,158 +31,163 @@ import { ForgotResetPasswordComponent } from './forgot-reset-password/forgot-res
 
 const routes: Routes = [
   {
-    component:HomeComponent,
-    path:''
+    component: HomeComponent,
+    path: ''
   },
   {
-    component:HomeTemplateComponent,
-    path:'register'
+    component: HomeTemplateComponent,
+    path: 'register'
   },
   {
-    component:HomeTemplateComponent,
-    path:'sign-in'
+    component: HomeTemplateComponent,
+    path: 'sign-in'
   },
   {
     // component:DashboardComponent,
-    component:TemplateComponent,
-    path:'dashboard',
+    component: TemplateComponent,
+    path: 'dashboard',
     canActivate: [AuthGuard]
   },
- 
+
   {
-    component:PostAdComponent,
-    path:'post-ad',
-    canActivate: [AuthGuard]
-  },
-  {
-    component:TemplateComponent,
-    path:'upload-contract',
+    component: PostAdComponent,
+    path: 'post-ad',
     canActivate: [AuthGuard]
   },
   {
-    component:TemplateComponent,
-    path:'upload-inventory',
+    component: TemplateComponent,
+    path: 'upload-contract',
     canActivate: [AuthGuard]
   },
   {
-    component:TemplateComponent,
-    path:'profile',
+    component: TemplateComponent,
+    path: 'upload-inventory',
     canActivate: [AuthGuard]
   },
   {
-    component:AddEmployeeComponent,
-    path:'add-employee',
+    component: TemplateComponent,
+    path: 'profile',
     canActivate: [AuthGuard]
   },
   {
-    component:ResetPasswordComponent,
-    path:'reset-password',
+    component: AddEmployeeComponent,
+    path: 'add-employee',
     canActivate: [AuthGuard]
   },
   {
-    component:HomeTemplateComponent,
-    path:'otp-validation',
+    component: ResetPasswordComponent,
+    path: 'reset-password',
+    canActivate: [AuthGuard]
   },
   {
-    component:ForgotPasswordComponent,
-    path:'forgot-password',
+    component: HomeTemplateComponent,
+    path: 'otp-validation',
+  },
+  {
+    component: ForgotPasswordComponent,
+    path: 'forgot-password',
     canActivate: [AuthGuard]
 
   },
   {
-    component:ForgotResetPasswordComponent,
-    path:'forgot-reset-password',
+    component: ForgotResetPasswordComponent,
+    path: 'forgot-reset-password',
     canActivate: [AuthGuard]
 
   },
   {
-    component:TemplateComponent,
-    path:'forecasting-table-view',
+    component: TemplateComponent,
+    path: 'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
-    component:PostAdComponent,
-    path:'forecasting-table-view',
+    component: PostAdComponent,
+    path: 'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
-    component:TemplateComponent,
-    path:'optimized-view',
+    component: TemplateComponent,
+    path: 'optimized-view',
     canActivate: [AuthGuard]
   },
   {
-    component:VerifyComponent,
-    path:'verify',
+    component: VerifyComponent,
+    path: 'verify',
     canActivate: [AuthGuard]
   },
   {
-    component:TemplateComponent,
-    path:'forecasting',
-    canActivate: [AuthGuard]
-
-  },
-  {
-    component:TemplateComponent,
-    path:'my-ad',
-    canActivate: [AuthGuard]
-  },
-  {
-    component:PostAdComponent,
-    path:'post-ad',
-    canActivate: [AuthGuard]
-  },
-  {
-    component:TemplateComponent,
-    path:'view-other-ads',
-    canActivate: [AuthGuard]
-  },
-  {
-    component:ViewOtherAdsMapViewComponent ,
-    path:'view-other-ads-map-view',
-    canActivate: [AuthGuard]
-  },
-  {
-    component:TemplateComponent,
-    path:'forecasting-table-view',
+    component: TemplateComponent,
+    path: 'forecasting',
     canActivate: [AuthGuard]
 
   },
   {
-    component:TemplateComponent,
-    path:'forecast-map',
+    component: TemplateComponent,
+    path: 'my-ad',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: PostAdComponent,
+    path: 'post-ad',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: TemplateComponent,
+    path: 'view-other-ads',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: ViewOtherAdsMapViewComponent,
+    path: 'view-other-ads-map-view',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: TemplateComponent,
+    path: 'forecasting-table-view',
     canActivate: [AuthGuard]
 
   },
   {
-    component:TemplateComponent,
-    path:'messaging',
-    canActivate:[AuthGuard]
+    component: TemplateComponent,
+    path: 'forecast-map',
+    canActivate: [AuthGuard]
+
   },
   {
-    component:TemplateComponent,
-    path:'carrier-service',
+    component: TemplateComponent,
+    path: 'messaging',
     canActivate: [AuthGuard]
   },
   {
-    component:TemplateComponent,
-    path:'route-service/:serviceName',
+    component: TemplateComponent,
+    path: 'carrier-service',
     canActivate: [AuthGuard]
   },
-  
   {
-    component:TemplateComponent,
-    path:'view-contract',
+    component: TemplateComponent,
+    path: 'route-service/:serviceName',
     canActivate: [AuthGuard]
   },
-{
+
+  {
+    component: TemplateComponent,
+    path: 'view-contract',
+    canActivate: [AuthGuard]
+  },
+  {
+    component: TemplateComponent,
+    path: 'settings',
+    canActivate: [AuthGuard]
+  },
+  {
     component: TemplateComponent,
     path: 'negotiations/:ad_type',
     canActivate: [AuthGuard]
   },
 
-  {path: '**', component: PageNotFoundComponent}
+  { path: '**', component: PageNotFoundComponent }
 
 
 

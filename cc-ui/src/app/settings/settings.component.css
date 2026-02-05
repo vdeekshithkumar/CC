@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+    /* Settings Field Styles */
+    .setting-field {
+        @apply flex flex-col;
+    }
+
+    .setting-label {
+        @apply block text-sm font-medium text-gray-700 mb-2;
+    }
+
+    .setting-input {
+        @apply w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all disabled:bg-gray-100 disabled:cursor-not-allowed;
+    }
+
+    /* Action Buttons */
+    .action-btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+    }
+
+    .action-btn-primary {
+        @apply bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600 disabled:hover:bg-blue-600;
+    }
+
+    .action-btn-secondary {
+        @apply bg-white text-gray-700 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:hover:bg-white;
+    }
+
+    /* Status Badge */
+    .status-badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium;
+    }
+
+    /* Integration Card */
+    .integration-card {
+        @apply p-4 border border-gray-200 rounded-lg hover:border-blue-300 transition-colors;
+    }
+
+    /* Toggle Switch */
+    .toggle-switch {
+        @apply relative inline-block w-12 h-6 flex-shrink-0;
+    }
+
+    .toggle-switch input {
+        @apply opacity-0 w-0 h-0;
+    }
+
+    .toggle-slider {
+        @apply absolute cursor-pointer top-0 left-0 right-0 bottom-0 bg-gray-300 rounded-full transition-all duration-300;
+    }
+
+    .toggle-slider:before {
+        @apply absolute content-[''] h-5 w-5 left-0.5 bottom-0.5 bg-white rounded-full transition-all duration-300;
+    }
+
+    .toggle-switch input:checked+.toggle-slider {
+        @apply bg-blue-600;
+    }
+
+    .toggle-switch input:checked+.toggle-slider:before {
+        @apply transform translate-x-6;
+    }
+
+    .toggle-switch input:disabled+.toggle-slider {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    /* Notification Item */
+    .notification-item {
+        @apply flex items-start gap-3 p-4 bg-gray-50 rounded-lg;
+    }
+
+    /* Priority Item */
+    .priority-item {
+        @apply p-4 bg-gray-50 rounded-lg;
+    }
+
+    /* Modern Table */
+    .modern-table {
+        @apply w-full border-separate border-spacing-0 overflow-hidden rounded-xl border border-gray-200 bg-white;
+    }
+
+    .modern-table thead {
+        @apply bg-gray-50/50 backdrop-blur-sm;
+    }
+
+    .modern-table th {
+        @apply px-4 py-4 text-xs font-semibold uppercase tracking-wider text-gray-500 border-b border-gray-100 first:pl-6 last:pr-6 text-left;
+    }
+
+    .modern-table tbody tr {
+        @apply transition-colors duration-200 hover:bg-blue-50/30;
+    }
+
+    .modern-table td {
+        @apply px-4 py-4 text-sm text-gray-600 border-b border-b-2 first:pl-6 last:pr-6;
+    }
+
+    .modern-table tr:last-child td {
+        @apply border-b-0;
+    }
+}
+
+/* Custom scrollbar for better UX */
+.settings-container ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.settings-container ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.settings-container ::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+.settings-container ::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* Range input styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: #e2e8f0;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    background: #2563eb;
+    transform: scale(1.1);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+    background: #2563eb;
+    transform: scale(1.1);
+}
+
+input[type="range"]:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-webkit-slider-thumb {
+    cursor: not-allowed;
+}
+
+input[type="range"]:disabled::-moz-range-thumb {
+    cursor: not-allowed;
+}
