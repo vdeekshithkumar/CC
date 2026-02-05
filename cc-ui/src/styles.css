@@ -6,34 +6,44 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 @layer utilities {
-    @variants responsive {
-      /* Hide scrollbar for Chrome, Safari and Opera */
-      .no-scrollbar::-webkit-scrollbar {
-          display: none;
-      }
+  @variants responsive {
 
-      /* Hide scrollbar for IE, Edge and Firefox */
-      .no-scrollbar {
-          -ms-overflow-style: none;  /* IE and Edge */
-          scrollbar-width: none;  /* Firefox */
-      }
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      /* IE and Edge */
+      scrollbar-width: none;
+      /* Firefox */
     }
   }
+}
 
-  /* for removing the increase and decrease arrow in the input type number in the frontend */
-  /* @layer base {
+/* for removing the increase and decrease arrow in the input type number in the frontend */
+/* @layer base {
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
       -webkit-appearance: none;
       margin: 0;
     }
   } */
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 /* .mat-stepper-horizontal-line{border-color: blue; position: relative;} */
 
-    /* .mat-step-icon-selected {
+/* .mat-step-icon-selected {
 
     background-color: red !important;
 
@@ -49,21 +59,30 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mycsssnackbartest {
   background-color: blue;
 }
+
 .green-snackbar {
   background: rgb(65, 252, 134);
   color: white;
 }
+
 .green-snackbar button {
   background-color: rgb(65, 252, 134);
   color: white;
   border: none;
 }
+
 .red-snackbar {
   background: #F44336;
   color: white;
 }
+
 .red-snackbar button {
   background-color: #F44336;
   color: white !important;
   border: none;
+}
+
+/* Global override to fix mat-icon alignment issues */
+.mat-icon {
+  height: auto !important;
 }
