@@ -1,5 +1,5 @@
 <div class="">
-  <div class="py-4 px-2">
+  <div class="py-10 px-2">
 
     <div class="flex items-center  mt-10">
       <span *ngIf="ad_type === 'container'" class="search-text ra">Container Advertisement</span>
@@ -245,21 +245,13 @@
     </div>
   </div>
 
-  <div
-    class="advertisement-details fixed-advertisement-details min-h-screen border-l-4 px-2 flex flex-col overflow-hidden">
-    <div class="flex flex-row">
-      <div>
-        <h2 class="mt-3 mx-auto" style="font-weight: 500;
-            font-family: 'Poppins'; margin-left: 350px;">Advertisement Details</h2>
-        <br />
-      </div>
+  <div class="advertisement-details fixed-advertisement-details px-2 flex flex-col">
+    <div class="page-header">
+      <h2 class="page-title">Advertisement Details</h2>
       <button *ngIf="(selectedView != 'MAP' && !isAdClicked) || isAdClicked || (currentAds.length === 0 && !isLoading)"
-        routerLink="/my-ad"
-        class="style text-white fixed-advertisement-details font-bold py-2 mt-2 px-4 mr-4 rounded disable ml-auto viewmyads"
-        [disabled]="false" [class.disabled-button]="false">
+        routerLink="/my-ad" class="view-my-ads-btn">
         View My Ads
       </button>
-
     </div>
     <div *ngIf="selectedView === 'MAP' && showMapView && ad_type === 'container'" class="map-view">
       <app-view-other-ads-map-view [ad_typetomap]="ad_typetomap" [typetomap]="typetomap"
@@ -277,235 +269,111 @@
     <div *ngIf="!showMapView">
       <mat-progress-bar mode="buffer" *ngIf="isLoading"></mat-progress-bar>
 
-      <ng-container *ngFor="let ad of currentAds" class="flex justify-center w-full items-center  border">
-        <div class="flex flex-col border-2 mt-4">
-          <div class="p-1 flex flex-row items-center justify-around">
-            <div class="flex flex-row items-center">
-              <!-- <img [src]="companyLogos[ad.company_id]" [ngClass]="{'company-name': ad.status != 'accepted'}" class="w-16 h-8 object-contain"> -->
-
-              <!-- <ng-container
-              *ngIf="ad.status === 'accepted'; else defaultLogo"
-            >
-              <img
-                [src]="companyLogos[ad.company_id]"
-                [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                class="w-16 h-8 object-contain"
-              />
-            </ng-container>
-
-            <ng-template #defaultLogo>
-              <img
-                src="../../assets/images/black.png"
-                [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                class="w-16 h-8 object-contain"
-              />
-            </ng-template> -->
-
-              <div *ngIf="ad.status === 'accepted'" [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                class="font-bold whitespace-nowrap ml-8">
-                {{ companyNames[ad.company_id] }}
-              </div>
-              <div *ngIf="ad.status != 'accepted'" [ngClass]="{ 'company-name': ad.status != 'accepted' }"
-                class="font-bold whitespace-nowrap ml-8">
-                ABCDXYZ
-              </div>
-
-              <div *ngIf="ad.status === 'accepted'" class="gray-highlights ml-4"
-                [ngClass]="{ 'company-name': ad.status != 'accepted' }">
-                <i class="material-icons text-sm text-yellow-400">star</i>
-                {{ companyRating[ad.company_id] }}
-              </div>
-
-              <div *ngIf="ad.status != 'accepted'" class="gray-highlights ml-4"
-                [ngClass]="{ 'company-name': ad.status != 'accepted' }">
-                <i class="material-icons text-sm text-yellow-400">star</i>
-                000
+      <div *ngFor="let ad of currentAds" class="ad-card">
+        <div class="ad-card-header">
+          <div class="company-brand">
+            <div class="company-identity">
+              <span class="company-name">
+                {{ ad.status === 'accepted' ? companyNames[ad.company_id] : 'ABCDXYZ' }}
+              </span>
+              <div class="rating-badge">
+                <i class="material-icons">star</i>
+                <span>{{ ad.status === 'accepted' ? companyRating[ad.company_id] : '5.0' }}</span>
               </div>
             </div>
 
-            <div *ngIf="ad.status === 'accepted'" class="gray-highlights"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
-              <i class="material-icons text-xs mr-1">computer</i>
-              {{ companyDomain[ad.company_id] }}
-            </div>
-            <div *ngIf="ad.status != 'accepted'" class="gray-highlights"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
-              <i class="material-icons text-xs mr-1">computer</i>
-              www.example.com
-            </div>
+          </div>
 
-            <div *ngIf="ad.status === 'accepted'" class="gray-highlights"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
-              <i class="material-icons text-xs mr-1">place</i>
-              {{ companyAddress[ad.company_id] }}
-            </div>
-
-            <div *ngIf="ad.status != 'accepted'" class="gray-highlights"
-              [ngClass]="{ 'company-name': ad.status != 'accepted' }">
-              <i class="material-icons text-xs mr-1">place</i>
-              XYZ XYZ XYZ
-            </div>
-            <div class="flex flex-row gap-1">
-              <!-- <button class="button-no-bg-list whitespace-nowrap">Open Negotiation</button> -->
-            </div>
-            <button class="negotiation-button"
+          <div class="card-actions">
+            <button class="negotiation-btn"
               [disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
-              [class.disabled-button]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
+              [class.disabled]="isStartnegDisabled || DisableStartNegoBtn(ad.ad_id) || NButtonDisabled"
               (click)="StartNegotiation(ad.ad_id)">
               Start Negotiation
             </button>
-
           </div>
-          <hr class="mx-2" />
-          <div class="p-1 flex flex-row items-center gap-1 justify-around">
-            <div class="flex justify-start">
-              <img src="../../assets/images/Container.png" class="bg-gray-50 p-1 w-10 h-10" />
-              <div class="flex flex-col text-[0.6rem]">
-                <div class="flex flex-row gap-2">
-                  <div class="flex flex-col" *ngIf="ad_type === 'container'&& ad.type_of_ad != 'oneway'">
-                    <div>
-                      <i class="material-icons mr-1 text-xs">place</i>Port of Ad
-                    </div>
-                    <div class="gray-highlights">
-                      {{ capitalizeFirstLetter(ad.port_of_ad) }}
-                      {{type_of_ad}}
-                    </div>
-                  </div>
+        </div>
 
-                  <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
-                    <div>
-                      <i class="material-icons mr-1 text-xs">place</i>Departure
-                    </div>
-                    <div class="gray-highlights">
-                      {{ capitalizeFirstLetter(ad.port_of_departure) }}
-                    </div>
-                  </div>
+        <div class="ad-card-body">
+          <div class="product-icon">
+            <img src="../../assets/images/Container.png" alt="Container" />
+          </div>
 
-                  <div class="flex flex-col" *ngIf="ad_type === 'container' && ad.type_of_ad === 'oneway'">
-                    <div>
-                      <i class="material-icons mr-1 text-xs">place</i>Arrival
-                    </div>
-                    <div>
-                      <div class="flex flex-row gap-1">
-                        <div class="gray-highlights">
-                          {{ capitalizeFirstLetter(ad.port_of_arrival) }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
-
-                  <!-- <div class="flex flex-col"*ngIf="ad_type === 'container'&&type_of_ad=='oneway'">
-                  <div>
-                    <i class="material-icons mr-1 text-xs">place</i
-                    >Arrival
-                  </div>
-                  <div>
-                    <div class="flex flex-row gap-1">
-                      <div class="gray-highlights">
-                        {{ capitalizeFirstLetter(ad.port_of_arrival) }}
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-                  <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-                    <div>
-                      <i class="material-icons mr-1 text-xs">place</i>Departure
-                    </div>
-                    <div class="gray-highlights">
-                      {{capitalizeFirstLetter(ad.port_of_departure) }}
-                    </div>
-                  </div>
-                  <div class="flex flex-col" *ngIf="ad_type !== 'container'">
-                    <div>
-                      <i class="material-icons mr-1 text-xs">place</i>Arrival
-                    </div>
-                    <div>
-                      <div class="flex flex-row gap-1">
-                        <div class="gray-highlights">
-                          {{ capitalizeFirstLetter(ad.port_of_arrival) }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
-
+          <div class="info-grid">
+            <!-- Port Info -->
+            <div class="info-group">
+              <ng-container *ngIf="ad_type === 'container'">
+                <div class="info-item" *ngIf="ad.type_of_ad !== 'oneway'">
+                  <label><i class="material-icons">place</i> Port of Ad</label>
+                  <span>{{ capitalizeFirstLetter(ad.port_of_ad) }}</span>
                 </div>
+                <ng-container *ngIf="ad.type_of_ad === 'oneway'">
+                  <div class="info-item">
+                    <label><i class="material-icons">flight_takeoff</i> Departure</label>
+                    <span>{{ capitalizeFirstLetter(ad.port_of_departure) }}</span>
+                  </div>
+                  <div class="info-item">
+                    <label><i class="material-icons">flight_land</i> Arrival</label>
+                    <span>{{ capitalizeFirstLetter(ad.port_of_arrival) }}</span>
+                  </div>
+                </ng-container>
+              </ng-container>
+              <ng-container *ngIf="ad_type !== 'container'">
+                <div class="info-item">
+                  <label><i class="material-icons">flight_takeoff</i> Departure</label>
+                  <span>{{ capitalizeFirstLetter(ad.port_of_departure) }}</span>
+                </div>
+                <div class="info-item">
+                  <label><i class="material-icons">flight_land</i> Arrival</label>
+                  <span>{{ capitalizeFirstLetter(ad.port_of_arrival) }}</span>
+                </div>
+              </ng-container>
+            </div>
+
+            <!-- Quantity & Type -->
+            <div class="info-group">
+              <div class="info-item">
+                <label><i class="material-symbols-outlined">inventory_2</i> Quantity</label>
+                <span class="highlight">{{ ad.quantity }}</span>
+              </div>
+              <div class="info-item">
+                <label><i class="material-icons">category</i> Ad Type</label>
+                <span>{{ capitalizeFirstLetter(ad.type_of_ad) }}</span>
               </div>
             </div>
 
-
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">inventory_2</i>
-                <span class="text-[0.6rem]">Quantity</span>
+            <!-- Container Details -->
+            <div class="info-group">
+              <div class="info-item">
+                <label><i class="material-icons">view_in_ar</i> Container Type</label>
+                <span>{{ ad.container_type }}</span>
               </div>
-              <div class="text-xs font-bold">{{ ad.quantity }}</div>
-            </div>
-
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">inventory_2</i>
-                <span class="text-[0.6rem]">Type of Ad</span>
-              </div>
-              <div class="text-xs font-bold">{{capitalizeFirstLetter(ad.type_of_ad) }}</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">inventory_2</i>
-                <span class="text-[0.6rem]">Container Type</span>
-              </div>
-              <div class="text-xs font-bold">
-                <div class="text-xs font-bold">{{ ad.container_type }}</div>
+              <div class="info-item">
+                <label><i class="material-icons">schedule</i> Free Days</label>
+                <span>{{ ad.free_days }}</span>
               </div>
             </div>
 
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">event_available</i>
-                <span class="text-[0.6rem]">Date Created</span>
+            <!-- Dates -->
+            <div class="info-group">
+              <div class="info-item">
+                <label><i class="material-icons">event</i> From Date</label>
+                <span>{{ getDateOnly(ad.from_date) }}</span>
               </div>
-              <div class="text-xs font-bold">{{getDateOnly(ad.date_created)}}</div>
-            </div>
-
-
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">event_available</i>
-                <span class="text-[0.6rem]">From Date</span>
+              <div class="info-item">
+                <label><i class="material-icons">event_busy</i> Expiry Date</label>
+                <span>{{ getDateOnly(ad.expiry_date) }}</span>
               </div>
-              <div class="text-xs font-bold">{{getDateOnly(ad.from_date)}}</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">event_available</i>
-                <span class="text-[0.6rem]">Expiry Date</span>
-              </div>
-              <div class="text-xs font-bold">{{getDateOnly(ad.expiry_date)}}</div>
-            </div>
-            <div class="flex flex-col items-center">
-              <div class="items-center justify-center">
-                <i class="material-icons mr-1 text-xs">event_available</i>
-                <span class="text-[0.6rem]">Free Days</span>
-              </div>
-              <div class="text-xs font-bold">{{ ad.free_days }}</div>
             </div>
           </div>
         </div>
-        <div>
-          <div class="bg-gray-50 ml-0 mr-0">&nbsp;&nbsp;</div>
-        </div>
-      </ng-container>
+      </div>
 
-      <div class="bg-gray-50 p-4 flex items-center flex-wrap justify-end" *ngIf="this.ads.length > 0">
+      <div class="pagination-container" *ngIf="this.ads.length > 0">
         <nav aria-label="Page navigation">
           <ul class="inline-flex gap-2">
             <li class="button1">
-              <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage === 1)" (click)="prevPage()"
+              <button [class.opacity-50]="currentPage === totalPages" (click)="(currentPage = 1)" (click)="prevPage()"
                 [disabled]="currentPage < 2">
                 <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path

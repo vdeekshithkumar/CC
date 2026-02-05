@@ -1,45 +1,63 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-.button-no-bg {
-  @apply bg-white text-blue-500 border p-1 px-10  text-xs font-thin border-blue-500;
-}
-.negotiation-list {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+/* Modern Card for Negotiation Item */
+.neg-card {
+  @apply bg-white rounded-xl border border-gray-100 shadow-sm transition-all duration-200 hover:shadow-md mb-6 overflow-hidden;
 }
 
-.disabled-button {
-  cursor: not-allowed;
+.neg-card-header {
+  @apply bg-gray-50/50 px-6 py-4 flex items-center justify-between border-b border-gray-50;
 }
 
-
-.disable:disabled {
-
-
-    background: rgba(0, 0, 0, 0.04);
-    color: rgb(120, 119, 119);
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    
-  
+.neg-card-body {
+  @apply p-6 flex items-center flex-wrap gap-6;
 }
 
-.button-blue-bg {
-  @apply bg-CCdarkblue text-white border p-1 px-10  text-xs font-thin border-blue-500;
+.neg-company-info {
+  @apply flex items-center space-x-4;
 }
-.gray-highlights {
-  @apply flex items-center justify-center text-[0.6rem] bg-gray-50 rounded-md px-1 whitespace-nowrap;
+
+.neg-info-group {
+  @apply flex flex-col items-center justify-center space-y-1 px-4 border-l border-gray-100 first:border-l-0;
 }
-.button-no-bg-list {
-  @apply bg-white text-blue-500 border px-10  text-[0.6rem] font-thin border-blue-500;
+
+.neg-info-label {
+  @apply text-[10px] font-semibold uppercase tracking-wider text-gray-400;
 }
-.button-gray-bg-list {
-  @apply bg-gray-200  border  px-10  text-[0.6rem] font-thin;
+
+.neg-info-value {
+  @apply text-sm font-bold text-gray-700;
 }
-.button-red-bg-list {
-  @apply bg-red-300  border px-10  text-[0.6rem] font-thin border-red-300;
+
+/* Icons */
+.neg-icon {
+  @apply text-gray-400 text-lg;
 }
-.button-in-list{
-  @apply bg-blue-50 text-blue-500 text-xs px-1 items-center justify-center flex;
+
+/* Status Pills (Reusing from main app) */
+.status-pill {
+  @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide transition-all duration-200 shadow-sm ring-1 ring-inset;
+}
+
+.status-pill-accepted {
+  @apply bg-emerald-50 text-emerald-700 ring-emerald-600/20;
+}
+
+.status-pill-rejected {
+  @apply bg-rose-50 text-rose-700 ring-rose-600/20;
+}
+
+.status-pill-pending {
+  @apply bg-amber-50 text-amber-700 ring-amber-600/20;
+}
+
+/* Action Buttons */
+.neg-btn {
+  @apply inline-flex items-center justify-center rounded-lg px-4 py-2 text-xs font-semibold shadow-sm transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 active:scale-95;
+}
+
+.neg-btn-accept {
+  @apply bg-blue-600 text-white hover:bg-blue-700 focus-visible:outline-blue-600 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.neg-btn-cancel {
+  @apply text-gray-400 hover:text-rose-500 transition-colors duration-200;
 }

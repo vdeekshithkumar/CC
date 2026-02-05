@@ -9,6 +9,9 @@ import { NegotiationsService } from '../negotiations/negotiations.service';
 import { DashboardServiceService } from './dashboard.service';
 import { ThemeService } from '../theme.service';
 
+// Register the plugin to ensure it works
+Chart.register(ChartDataLabels);
+
 @Injectable({
   providedIn: 'root'
 })
@@ -38,7 +41,7 @@ export class DashboardComponent implements OnInit {
   public PieChartData: ChartData<'doughnut', number[], string> = {
     labels: ['SELL', 'BUY', 'SWAP', 'LEASE', 'ONEWAY'],
     datasets: [{
-      data: [7, 5, 1, 0, 0],
+      data: [7, 5, 1, 4, 2],
       backgroundColor: [
         this.CHART_COLORS.BLUE_DARK,
         this.CHART_COLORS.BLUE_MEDIUM,
@@ -61,7 +64,7 @@ export class DashboardComponent implements OnInit {
   public chartData: ChartData<'doughnut', number[], string> = {
     labels: ['Active', 'Pending', 'Drafts'],
     datasets: [{
-      data: [7, 4, 1],
+      data: [6, 4, 1],
       backgroundColor: [
         this.CHART_COLORS.BLUE_MEDIUM,
         this.CHART_COLORS.BLUE_DARK,
@@ -99,16 +102,37 @@ export class DashboardComponent implements OnInit {
     maintainAspectRatio: false,
     cutout: '75%',
     plugins: {
-      legend: { display: false },
-      datalabels: { display: false }
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+          usePointStyle: true,
+          boxWidth: 8,
+          padding: 20,
+          font: {
+            size: 11
+          }
+        }
+      },
+      datalabels: {
+        display: true,
+        color: '#ffffff',
+        font: {
+          weight: 'bold',
+          size: 12
+        },
+        formatter: (value) => {
+          return value > 0 ? value : '';
+        }
+      }
     }
   };
 
   // CARD 2: Space (Bar Chart)
   public lineChartData: ChartData<'bar', number[], string> = {
-    labels: ['BUY', 'SELL', 'LEASE'],
+    labels: ['BUY', 'SELL', 'LEASE' ,'RENT'],
     datasets: [{
-      data: [1, 1, 1],
+      data: [4, 3, 6, 2],
       backgroundColor: (ctx) => {
         const canvas = ctx.chart.ctx;
         const gradient = canvas.createLinearGradient(0, 0, 0, 200);
@@ -132,16 +156,31 @@ export class DashboardComponent implements OnInit {
   public lineChartOptions: ChartOptions<'bar'> = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: { top: 20 }
+    },
     scales: {
       x: {
         grid: { display: false },
         ticks: { font: { size: 14, weight: '500' }, color: '#374151' }
       },
-      y: { display: false, max: 2 }
+      y: {
+        display: false,
+        grace: '10%'
+      }
     },
     plugins: {
       legend: { display: false },
-      datalabels: { display: false }
+      datalabels: {
+        display: true,
+        anchor: 'end',
+        align: 'end',
+        color: '#374151',
+        font: {
+          weight: 'bold',
+          size: 12
+        }
+      }
     }
   };
 
@@ -185,7 +224,7 @@ export class DashboardComponent implements OnInit {
           grid: { display: false },
           ticks: { font: { size: 14, weight: '500' }, color: textColor }
         },
-        y: { display: false, max: 2 }
+        y: { display: false, grace: '10%' }
       }
     };
   }

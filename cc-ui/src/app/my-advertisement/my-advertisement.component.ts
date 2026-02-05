@@ -59,7 +59,7 @@ export class MyAdvertisementComponent implements OnInit {
   contractForm!: FormGroup;
   description!: any;
   companyId: any;
-  itemsPerPage: number = 3;
+  itemsPerPage: number = 10;
   currentPage: number = 1;
   port_of_ad: any;
   userId: any;
@@ -300,12 +300,12 @@ export class MyAdvertisementComponent implements OnInit {
 
 
   onCancel() {
-
+    
     window.location.reload()
   }
 
   //   async onEdit(){
-  //     ;
+  //     debugger;
 
 
 
@@ -436,7 +436,7 @@ export class MyAdvertisementComponent implements OnInit {
 
   //  }
   ApproveAd(ad_id: number) {
-
+    debugger
     this.myadservice.updateAdStatus(ad_id).subscribe(() => {
       console.log('Ad status updated successfully');
       this.fetchAdsCounts(this.ad_type);

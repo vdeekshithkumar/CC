@@ -94,6 +94,8 @@ export class ViewOtherAdsComponent {
   activeAdsClicked = false;
   pendingAdsClicked = false;
   ads: Advertisement[] = [];
+  currentPage = 1;
+  adsPerPage = 6;
   container_size: Containers[] = [];
   con_type: any[] = [];
   adv: Advertisement[] = [];
@@ -125,8 +127,6 @@ export class ViewOtherAdsComponent {
     view: '',
     size: ''
   };
-  currentPage = 1; // Current page number
-  adsPerPage = 4; // Number of ads to display per page
   mapView: any;
   selectedDeparturePort: any;
   adtype: any;
@@ -159,9 +159,6 @@ export class ViewOtherAdsComponent {
   UserPList: any[] = [];
   isStartnegDisabled: boolean = false;
   selectedCount: number = 0;
-  get totalPages(): number {
-    return Math.ceil(this.ads.length / this.adsPerPage);
-  }
 
   receivedportCode: any;
   receivedcontainerType: any;
@@ -177,7 +174,6 @@ export class ViewOtherAdsComponent {
 
   }
   ngOnInit(): void {
-
     this.sharedService.values$.subscribe(values => {
       this.receivedportCode = values.portcode;
       this.receivedcontainerType = values.containertype;
@@ -369,17 +365,16 @@ export class ViewOtherAdsComponent {
 
 
   searchAds() {
-    ;
     // Check if ad_type is defined
     if (this.ad_type && this.selectedMainOption) {
       const type_of_ads = []; // Array to store type_of_ad values
 
-      // Determine type_of_ad based on selectedMainOption
-      if (this.selectedMainOption === 'Trading') {
-        type_of_ads.push('buy', 'sell',); // Add all types to the array
-      } else if (this.selectedMainOption === 'Leasing') {
-        type_of_ads.push('lease', 'swap', 'oneway'); // Add 'Lease' to the array
-      }
+    // Determine type_of_ad based on selectedMainOption
+    if (this.selectedMainOption === 'Trading') {
+      type_of_ads.push('buy', 'sell',); // Add all types to the array
+    } else if (this.selectedMainOption === 'Leasing') {
+      type_of_ads.push('lease','swap','oneway'); // Add 'Lease' to the array
+    }
 
       // Create an array to store the observables for each type_of_ad request
       const observables = type_of_ads.map(type_of_ad =>
@@ -396,9 +391,8 @@ export class ViewOtherAdsComponent {
           // Store the combined advertisements in the component property
           this.ads = allAds;
           this.originalAds = this.ads;
-          this.currentPage = 1;
 
-          console.log("Combined Ads:", this.ads);
+          console.log("Combined Ads loaded:", this.ads.length);
         },
         error => {
           console.error('Error fetching advertisements:', error);
@@ -484,11 +478,11 @@ export class ViewOtherAdsComponent {
     this.searchPortOfAd = this.port_of_ad;
   }
   searchContainerAdvertisements() {
-    ;
-    const searchType = this.type.toLowerCase();
-    const searchPortOfAd = this.port_of_ad;
-    const searchPortOfDep = this.port_of_departure;
-    const searchPortOfArr = this.port_of_arrival;
+    console.log('searchContainerAdvertisements called');
+    const searchType = (this.type || '').toLowerCase();
+    const searchPortOfAd = this.port_of_ad || '';
+    const searchPortOfDep = this.port_of_departure || '';
+    const searchPortOfArr = this.port_of_arrival || '';
     const selectedContainerType = this.selectedcontainerType;
     const selectedContainerSize = this.selectedcontainerSize;
     if (searchType === 'oneway') {
@@ -508,12 +502,15 @@ export class ViewOtherAdsComponent {
 
           if (searchType === 'oneway') {
             // Check only Port of Departure and Port of Arrival
-            if (ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr) {
+            if (
+              (!searchPortOfDep || ad.port_of_departure === searchPortOfDep) &&
+              (!searchPortOfArr || ad.port_of_arrival === searchPortOfArr)
+            ) {
               isMatched = true;
             }
           } else {
             // Check only Port of Ad
-            if (ad.port_of_ad === searchPortOfAd) {
+            if (!searchPortOfAd || ad.port_of_ad === searchPortOfAd) {
               isMatched = true;
             }
           }
@@ -528,11 +525,11 @@ export class ViewOtherAdsComponent {
 
       if (matchedAds.length > 0) {
         this.ads = matchedAds;
-        this.currentPage = 1;
+        console.log('matchedAds found', this.ads.length);
       } else {
         // No matched ads found
+        console.log('No matched ads, emptying list');
         this.ads = [];
-        this.currentPage = 1;
       }
     }
 
@@ -569,17 +566,19 @@ export class ViewOtherAdsComponent {
     return this.ads.slice(startIndex, endIndex);
   }
 
-  // Function to go to the previous page
+  get totalPages(): number {
+    return Math.ceil(this.ads.length / this.adsPerPage);
+  }
+
   prevPage() {
     if (this.currentPage > 1) {
-      this.currentPage = this.currentPage - 1;
+      this.currentPage--;
     }
   }
 
-  // Function to go to the next page
   nextPage() {
     if (this.currentPage < this.totalPages) {
-      this.currentPage = this.currentPage + 1;
+      this.currentPage++;
     }
   }
 
@@ -590,64 +589,60 @@ export class ViewOtherAdsComponent {
 
 
   searchSpaceAdvertisements() {
-    ;
-    const searchType = this.type.toLowerCase();
-    const searchPortOfDep = this.port_of_departure;
-    const searchPortOfArr = this.port_of_arrival;
+    const searchType = (this.type || '').toLowerCase();
+    const searchPortOfDep = this.port_of_departure || '';
+    const searchPortOfArr = this.port_of_arrival || '';
     const searchcontainertype = this.selectedcontainerType;
     const searchcontainersize = this.selectedcontainerSize;
 
     if (this.selectedOptions['view'] === 'MAP') {
       this.showMapView = true;
-
-      // Set the selected values
       this.ad_typetomap = this.ad_type;
-      this.typetomap = this.type.toLowerCase();
+      this.typetomap = (this.type || '').toLowerCase();
       this.selectedTypePortOfDep = searchPortOfDep;
       this.selectedTypePortOfArr = searchPortOfArr;
       this.selectedcontainertypetomap = searchcontainertype;
       this.selectedcontainersizetomap = searchcontainersize;
 
-      // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
       if (this.mapViewComponent) {
         this.selectedTypePortOfDep = searchPortOfDep;
         this.selectedTypePortOfArr = searchPortOfArr;
         this.mapViewComponent.markPortOfDepArrOnMap();
       }
     } else {
-      if (searchType && searchPortOfDep && searchPortOfArr && searchcontainertype && searchcontainersize) {
-        const matchedAds = [];
 
-        for (const ad of this.originalAds) { // Loop over originalAds instead of ads
-          let isMatched = false;
+      const matchedAds = [];
+      for (const ad of this.originalAds) {
+        let isMatched = false;
 
-          if (ad.ad_type === 'space' && ad.type_of_ad === searchType && ad.port_of_departure === searchPortOfDep && ad.port_of_arrival === searchPortOfArr && ad.container_type === searchcontainertype && ad.container_size === searchcontainersize) {
-            isMatched = true;
-          }
+        if (ad.ad_type === 'space') {
+          if (searchType && ad.type_of_ad !== searchType) continue;
+          if (searchPortOfDep && ad.port_of_departure !== searchPortOfDep) continue;
+          if (searchPortOfArr && ad.port_of_arrival !== searchPortOfArr) continue;
+          if (searchcontainertype && ad.container_type !== searchcontainertype) continue;
+          if (searchcontainersize && ad.container_size !== searchcontainersize) continue;
 
-          if (isMatched) {
-            const matchedAd = { ...ad };
-            matchedAds.push(matchedAd);
-          }
+          isMatched = true;
         }
 
-        if (matchedAds.length > 0) {
-          this.ads = matchedAds;
-          this.currentPage = 1;
-        } else {
-          // No matched ads found
-          this.ads = [];
-          this.currentPage = 1;
+        if (isMatched) {
+          matchedAds.push({ ...ad });
         }
-      } else {
-        // No search criteria provided, reset ads to the original list
-        this.ads = [...this.originalAds];
-        this.currentPage = 1;
       }
-    }
 
-    // Calculate the updated total number of pages based on the filtered ads
-    this.totalPages;
+      if (matchedAds.length > 0) {
+        this.ads = matchedAds;
+      } else {
+
+        const hasFilters = searchType || searchPortOfDep || searchPortOfArr || searchcontainertype || searchcontainersize;
+        if (!hasFilters) {
+          this.ads = [...this.originalAds];
+        } else {
+          this.ads = [];
+        }
+      }
+
+    }
   }
 
 
@@ -773,7 +768,6 @@ export class ViewOtherAdsComponent {
   }
 
   displayAllAdvertisements() {
-
     this.showMapView = false;
     this.selectedView = 'MAP'; // Reset the selected view to 'MAP'
     // this.viewotherAds.getAdvertisement(this.ad_type,this.companyId).subscribe(
@@ -782,7 +776,6 @@ export class ViewOtherAdsComponent {
     //   },
     //   error => console.log(error)
     // );
-
     this.viewotherAds.getAdvertisementbytypeofad(this.ad_type, this.type_of_ad, this.companyId).subscribe(
       (data: Advertisement[]) => {
         this.ads = data;
