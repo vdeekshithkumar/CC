@@ -65,6 +65,7 @@ import { OptimizedViewComponent } from './optimized-view/optimized-view.componen
 import { LoaderComponent } from './loader/loader.component';
 import { LoadingInterceptor } from './loading.interceptor';
 import { SettingsComponent } from './settings/settings.component';
+import { AiInsightsComponent, AiInsightsModalComponent } from './forecasting/forecast-map/ai-insights/ai-insights.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,6 +112,8 @@ import { SettingsComponent } from './settings/settings.component';
     OptimizedViewComponent,
     LoaderComponent,
     SettingsComponent,
+    AiInsightsComponent,
+    AiInsightsModalComponent,
 
   ],
   imports: [
