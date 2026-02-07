@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "cc-ui:build:production"
+              "buildTarget": "cc-ui:build:production"
             },
             "development": {
-              "browserTarget": "cc-ui:build:development"
+              "buildTarget": "cc-ui:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -75,7 +75,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "cc-ui:build"
+            "buildTarget": "cc-ui:build"
           }
         },
         "test": {
