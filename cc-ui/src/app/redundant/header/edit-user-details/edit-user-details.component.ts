@@ -8,9 +8,10 @@ import { DialogComponent } from 'src/app/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-edit-user-details',
-  templateUrl: './edit-user-details.component.html',
-  styleUrls: ['./edit-user-details.component.css']
+    selector: 'app-edit-user-details',
+    templateUrl: './edit-user-details.component.html',
+    styleUrls: ['./edit-user-details.component.css'],
+    standalone: false
 })
 
 export class EditUserDetailsComponent implements OnInit {

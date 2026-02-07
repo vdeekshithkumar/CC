@@ -32,9 +32,10 @@ export interface Negotiation {
 
 
 @Component({
-  selector: 'app-negotiations',
-  templateUrl: './negotiations.component.html',
-  styleUrls: ['./negotiations.component.css']
+    selector: 'app-negotiations',
+    templateUrl: './negotiations.component.html',
+    styleUrls: ['./negotiations.component.css'],
+    standalone: false
 })
 export class NegotiationsComponent implements OnInit {
   public isButtonDisabled: boolean = false;

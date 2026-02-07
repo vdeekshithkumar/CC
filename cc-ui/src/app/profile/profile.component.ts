@@ -13,9 +13,10 @@ import { RegisterComponent } from '../home-template/register/register.component'
 import { MyAdService } from '../my-advertisement/my-ad.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css', '../app.component.css']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.css', '../app.component.css'],
+    standalone: false
 })
 export class ProfileComponent implements OnInit {
 

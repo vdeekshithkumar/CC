@@ -33,9 +33,10 @@ export interface Inventory {
   providedIn: 'root'
 })
 @Component({
-  selector: 'app-upload-inventory',
-  templateUrl: './upload-inventory.component.html',
-  styleUrls: ['./upload-inventory.component.css']
+    selector: 'app-upload-inventory',
+    templateUrl: './upload-inventory.component.html',
+    styleUrls: ['./upload-inventory.component.css'],
+    standalone: false
 })
 
 export class UploadInventoryComponent {

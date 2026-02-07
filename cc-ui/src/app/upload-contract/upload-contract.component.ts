@@ -5,9 +5,10 @@ import { SessionService } from '../session.service';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 
 @Component({
-  selector: 'app-upload-contract',
-  templateUrl: './upload-contract.component.html',
-  styleUrls: ['./upload-contract.component.css']
+    selector: 'app-upload-contract',
+    templateUrl: './upload-contract.component.html',
+    styleUrls: ['./upload-contract.component.css'],
+    standalone: false
 })
 export class UploadContractComponent implements OnInit {
   contractForm!: FormGroup;

@@ -27,9 +27,10 @@ export interface Negotiation{
 
 
 @Component({
-  selector: 'app-negotiation-list',
-  templateUrl: './negotiation-list.component.html',
-  styleUrls: ['./negotiation-list.component.css']
+    selector: 'app-negotiation-list',
+    templateUrl: './negotiation-list.component.html',
+    styleUrls: ['./negotiation-list.component.css'],
+    standalone: false
 })
 export class NegotiationListComponent{
   

@@ -23,9 +23,10 @@ interface Permission {
 
 }
 @Component({
-  selector: 'app-add-employee',
-  templateUrl: './add-employee.component.html',
-  styleUrls: ['./add-employee.component.css', '../../stepper.scss', '../../styles.css', '../app.component.css']
+    selector: 'app-add-employee',
+    templateUrl: './add-employee.component.html',
+    styleUrls: ['./add-employee.component.css', '../../stepper.scss', '../../styles.css', '../app.component.css'],
+    standalone: false
 })
 export class AddEmployeeComponent {
   @ViewChild('stepper') stepper!: MatStepper;

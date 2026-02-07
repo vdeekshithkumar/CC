@@ -15,9 +15,10 @@ interface RegisterResponse {
 }
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css', '../../app.component.css']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.css', '../../app.component.css'],
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
   email!: string;

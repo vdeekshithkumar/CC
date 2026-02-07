@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-template',
-  templateUrl: './template.component.html',
-  styleUrls: ['./template.component.css', '../app.component.css']
+    selector: 'app-template',
+    templateUrl: './template.component.html',
+    styleUrls: ['./template.component.css', '../app.component.css'],
+    standalone: false
 })
 export class TemplateComponent {
   constructor(private router: Router) { }

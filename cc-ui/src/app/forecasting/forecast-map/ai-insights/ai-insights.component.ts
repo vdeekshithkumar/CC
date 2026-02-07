@@ -34,7 +34,8 @@ interface AIInsight {
 @Component({
     selector: 'app-ai-insights',
     templateUrl: './ai-insights.component.html',
-    styleUrls: ['./ai-insights.component.css']
+    styleUrls: ['./ai-insights.component.css'],
+    standalone: false
 })
 export class AiInsightsComponent implements OnInit {
 
@@ -256,7 +257,8 @@ export class AiInsightsComponent implements OnInit {
                 grid-template-columns: 1fr;
             }
         }
-    `]
+    `],
+    standalone: false
 })
 export class AiInsightsModalComponent {
     constructor(

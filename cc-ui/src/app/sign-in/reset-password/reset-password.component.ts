@@ -7,9 +7,10 @@ import { Router } from '@angular/router';
 import { ForgotPassService } from '../forgot-password/forgot-password.service';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+    selector: 'app-reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.css'],
+    standalone: false
 })
 //Model for confirmation of email
 

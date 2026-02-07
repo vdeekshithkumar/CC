@@ -36,9 +36,10 @@ export interface Advertisement {
 }
 
 @Component({
-  selector: 'app-my-advertisement',
-  templateUrl: './my-advertisement.component.html',
-  styleUrls: ['./my-advertisement.component.css']
+    selector: 'app-my-advertisement',
+    templateUrl: './my-advertisement.component.html',
+    styleUrls: ['./my-advertisement.component.css'],
+    standalone: false
 })
 export class MyAdvertisementComponent implements OnInit {
   @Input() adType: string | undefined;

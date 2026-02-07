@@ -9,10 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 import { NegotiationsService } from '../negotiations/negotiations.service';
 
 @Component({
-  selector: 'app-messaging',
-  templateUrl: './messaging.component.html',
-  styleUrls: ['./messaging.component.css']
-
+    selector: 'app-messaging',
+    templateUrl: './messaging.component.html',
+    styleUrls: ['./messaging.component.css'],
+    standalone: false
 })
 
 export class MessagingComponent implements OnInit {

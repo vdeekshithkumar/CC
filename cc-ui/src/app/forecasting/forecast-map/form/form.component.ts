@@ -10,9 +10,10 @@ import { SharedServiceService } from 'src/app/shared-service.service';
 import { map, zip } from 'rxjs';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+    selector: 'app-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.css'],
+    standalone: false
 })
 export class FormComponent implements OnInit {
   port_of_departure: any;

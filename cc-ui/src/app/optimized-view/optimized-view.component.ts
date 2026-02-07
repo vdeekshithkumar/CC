@@ -10,9 +10,10 @@ import { CarrierServiceService } from '../carrier-service/carrier-service.servic
 import { values } from 'lodash';
 
 @Component({
-  selector: 'app-optimized-view',
-  templateUrl: './optimized-view.component.html',
-  styleUrls: ['./optimized-view.component.css']
+    selector: 'app-optimized-view',
+    templateUrl: './optimized-view.component.html',
+    styleUrls: ['./optimized-view.component.css'],
+    standalone: false
 })
 export class OptimizedViewComponent implements OnInit, AfterViewInit {
   @ViewChild('mapElement', { static: true }) mapElement: ElementRef | undefined;

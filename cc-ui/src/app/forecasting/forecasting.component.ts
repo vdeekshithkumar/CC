@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { SessionService } from '../session.service';
 
 @Component({
-  selector: 'app-forecasting',
-  templateUrl: './forecasting.component.html',
-  styleUrls: ['./forecasting.component.css']
+    selector: 'app-forecasting',
+    templateUrl: './forecasting.component.html',
+    styleUrls: ['./forecasting.component.css'],
+    standalone: false
 })
 export class ForecastingComponent implements OnInit{
   port_name="";

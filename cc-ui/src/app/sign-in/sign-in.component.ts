@@ -15,9 +15,10 @@ interface LoginResponse {
   };
 }
 @Component({
-  selector: 'app-sign-in',
-  templateUrl: './sign-in.component.html',
-  styleUrls: ['./sign-in.component.css', '../app.component.css']
+    selector: 'app-sign-in',
+    templateUrl: './sign-in.component.html',
+    styleUrls: ['./sign-in.component.css', '../app.component.css'],
+    standalone: false
 })
 
 export class SignInComponent implements OnInit {

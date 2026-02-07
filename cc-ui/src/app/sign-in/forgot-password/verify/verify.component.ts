@@ -5,9 +5,10 @@ import { ResetService } from '../../reset-password/reset.service';
 import { ConfirmationResponse } from '../../reset-password/ConfirmationResponse';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 @Component({
-  selector: 'app-verify',
-  templateUrl: './verify.component.html',
-  styleUrls: ['./verify.component.css']
+    selector: 'app-verify',
+    templateUrl: './verify.component.html',
+    styleUrls: ['./verify.component.css'],
+    standalone: false
 })
 export class VerifyComponent {
   result?: boolean

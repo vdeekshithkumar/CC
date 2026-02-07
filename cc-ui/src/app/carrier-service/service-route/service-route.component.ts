@@ -6,9 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 declare const google: any;
 
 @Component({
-  selector: 'app-service-route',
-  templateUrl: './service-route.component.html',
-  styleUrls: ['./service-route.component.css']
+    selector: 'app-service-route',
+    templateUrl: './service-route.component.html',
+    styleUrls: ['./service-route.component.css'],
+    standalone: false
 })
 export class ServiceRouteComponent implements OnInit {
   @ViewChild('mapElement') mapElement!: ElementRef;

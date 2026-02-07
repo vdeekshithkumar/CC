@@ -7,9 +7,10 @@ import * as XLSX from 'xlsx';
 import { ForecastingTableService } from '../forecasting-table-view/forecasting-table-view.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
-  selector: 'app-forecast-map',
-  templateUrl: './forecast-map.component.html',
-  styleUrls: ['./forecast-map.component.css']
+    selector: 'app-forecast-map',
+    templateUrl: './forecast-map.component.html',
+    styleUrls: ['./forecast-map.component.css'],
+    standalone: false
 })
 export class ForecastMapComponent implements OnInit, AfterViewInit {
   containerTypesByPort: { [key: string]: string[] } = {};

@@ -9,9 +9,10 @@ import { ForgotPassService } from '../sign-in/forgot-password/forgot-password.se
 import { ResetService } from '../sign-in/reset-password/reset.service';
 import { ConfirmationResponse, PassWriteRes } from '../sign-in/reset-password/ConfirmationResponse';
 @Component({
-  selector: 'app-forgot-reset-password',
-  templateUrl: './forgot-reset-password.component.html',
-  styleUrls: ['./forgot-reset-password.component.css']
+    selector: 'app-forgot-reset-password',
+    templateUrl: './forgot-reset-password.component.html',
+    styleUrls: ['./forgot-reset-password.component.css'],
+    standalone: false
 })
 //Model for confirmation of email
 

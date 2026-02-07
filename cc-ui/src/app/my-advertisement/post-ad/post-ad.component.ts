@@ -27,9 +27,10 @@ export interface Containers {
 }
 
 @Component({
-  selector: 'app-post-ad',
-  templateUrl: './post-ad.component.html',
-  styleUrls: ['./post-ad.component.css']
+    selector: 'app-post-ad',
+    templateUrl: './post-ad.component.html',
+    styleUrls: ['./post-ad.component.css'],
+    standalone: false
 })
 export class PostAdComponent implements OnInit {
 

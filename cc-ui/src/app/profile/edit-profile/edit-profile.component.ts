@@ -9,9 +9,10 @@ import { ProfileService } from '../profile.service';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-edit-profile',
-  templateUrl: './edit-profile.component.html',
-  styleUrls: ['./edit-profile.component.css']
+    selector: 'app-edit-profile',
+    templateUrl: './edit-profile.component.html',
+    styleUrls: ['./edit-profile.component.css'],
+    standalone: false
 })
 
 export class EditProfileComponent implements OnInit {

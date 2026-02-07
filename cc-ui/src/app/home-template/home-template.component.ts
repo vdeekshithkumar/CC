@@ -2,9 +2,10 @@ import { Component, Output,EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedServiceService } from '../shared-service.service';
 @Component({
-  selector: 'app-home-template',
-  templateUrl: './home-template.component.html',
-  styleUrls: ['./home-template.component.css','../app.component.css']
+    selector: 'app-home-template',
+    templateUrl: './home-template.component.html',
+    styleUrls: ['./home-template.component.css', '../app.component.css'],
+    standalone: false
 })
 export class HomeTemplateComponent {
   constructor(private route: ActivatedRoute,private router:Router,private sharedservice: SharedServiceService){}

@@ -14,9 +14,10 @@ export interface Port {
 declare const google: any;
 
 @Component({
-  selector: 'app-view-other-ads-map-view',
-  templateUrl: './view-other-ads-map-view.component.html',
-  styleUrls: ['./view-other-ads-map-view.component.css']
+    selector: 'app-view-other-ads-map-view',
+    templateUrl: './view-other-ads-map-view.component.html',
+    styleUrls: ['./view-other-ads-map-view.component.css'],
+    standalone: false
 })
 export class ViewOtherAdsMapViewComponent implements OnInit {
   @ViewChild('mapContainer') mapContainer!: ElementRef;

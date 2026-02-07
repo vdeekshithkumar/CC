@@ -57,10 +57,11 @@ export interface Advertisement {
   port_of_ad: string;
 }
 @Component({
-  selector: 'app-view-other-ads',
-  templateUrl: './view-other-ads.component.html',
-  styleUrls: ['./view-other-ads.component.css', '../app.component.css'],
-  providers: [DatePipe]
+    selector: 'app-view-other-ads',
+    templateUrl: './view-other-ads.component.html',
+    styleUrls: ['./view-other-ads.component.css', '../app.component.css'],
+    providers: [DatePipe],
+    standalone: false
 })
 export class ViewOtherAdsComponent {
 

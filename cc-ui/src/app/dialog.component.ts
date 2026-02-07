@@ -6,10 +6,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 @Component({
-
-  selector: 'app-dialog',
-
-  template: `
+    selector: 'app-dialog',
+    template: `
 
     <style>
 
@@ -129,7 +127,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
     </div>
 
   `,
-
+    standalone: false
 })
 
 export class DialogComponent {

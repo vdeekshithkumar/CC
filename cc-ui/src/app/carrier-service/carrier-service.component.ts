@@ -4,9 +4,10 @@ import { CarrierServiceService } from './carrier-service.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-carrier-service',
-  templateUrl: './carrier-service.component.html',
-  styleUrls: ['./carrier-service.component.css']
+    selector: 'app-carrier-service',
+    templateUrl: './carrier-service.component.html',
+    styleUrls: ['./carrier-service.component.css'],
+    standalone: false
 })
 export class CarrierServiceComponent implements OnInit {
   public company_id?: number;

@@ -7,9 +7,10 @@ import { ContractDto } from '../DTO/ContractDto';
 import { MyAdService } from '../my-advertisement/my-ad.service';
 
 @Component({
-  selector: 'app-view-contracts',
-  templateUrl: './view-contracts.component.html',
-  styleUrls: ['./view-contracts.component.css']
+    selector: 'app-view-contracts',
+    templateUrl: './view-contracts.component.html',
+    styleUrls: ['./view-contracts.component.css'],
+    standalone: false
 })
 export class ViewContractsComponent implements OnInit {
   contracts: any

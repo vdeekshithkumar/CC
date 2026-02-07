@@ -16,9 +16,10 @@ interface RegisterResponse {
 };
 }
 @Component({
-  selector: 'app-otp-verify',
-  templateUrl: './otp-verify.component.html',
-  styleUrls: ['./otp-verify.component.css','../../app.component.css']
+    selector: 'app-otp-verify',
+    templateUrl: './otp-verify.component.html',
+    styleUrls: ['./otp-verify.component.css', '../../app.component.css'],
+    standalone: false
 })
 export class OtpVerifyComponent implements OnInit{
 

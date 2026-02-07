@@ -7,9 +7,10 @@ import { ForecastingTableService } from './forecasting-table-view.service';
 import * as XLSX from 'xlsx';
 
 @Component({
-  selector: 'app-forecasting-table-view',
-  templateUrl: './forecasting-table-view.component.html',
-  styleUrls: ['./forecasting-table-view.component.css']
+    selector: 'app-forecasting-table-view',
+    templateUrl: './forecasting-table-view.component.html',
+    styleUrls: ['./forecasting-table-view.component.css'],
+    standalone: false
 })
 export class ForecastingTableViewComponent implements OnInit {
   isSearchIconClicked!: boolean;
