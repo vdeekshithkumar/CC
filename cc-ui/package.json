@@ -42,7 +42,7 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-"@angular-devkit/build-angular": "^18.2.14",
+"@angular-devkit/build-angular": "^20.2.14",
 "@angular/cli": "~18.2.14",
 
     "@angular/compiler-cli": "^18.2.14",
@@ -59,6 +59,6 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7",
-    "typescript": "~5.4.5"
+    "typescript": "~5.5.4"
   }
 }
