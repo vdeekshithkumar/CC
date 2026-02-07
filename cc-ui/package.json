@@ -2,9 +2,6 @@
   "name": "cc-ui",
   "version": "0.0.0",
   "private": true,
-  "engines": {
-    "node": "22.x"
-  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,13 +11,13 @@
   },
   "dependencies": {
     "@angular/animations": "^17.3.12",
-    "@angular/cdk": "^15.2.9",
     "@angular/common": "^17.3.12",
     "@angular/compiler": "^17.3.12",
     "@angular/core": "^17.3.12",
     "@angular/forms": "^17.3.12",
-    "@angular/google-maps": "^15.2.9",
-    "@angular/material": "^15.2.9",
+"@angular/cdk": "^17.3.10",
+"@angular/material": "^17.3.10",
+"@angular/google-maps": "^17.3.10",
     "@angular/platform-browser": "^17.3.12",
     "@angular/platform-browser-dynamic": "^17.3.12",
     "@angular/router": "^17.3.12",
