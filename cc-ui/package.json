@@ -15,9 +15,10 @@
     "@angular/compiler": "^18.2.14",
     "@angular/core": "^18.2.14",
     "@angular/forms": "^18.2.14",
-    "@angular/cdk": "^17.3.10",
-    "@angular/material": "^17.3.10",
-    "@angular/google-maps": "^17.3.10",
+"@angular/cdk": "^18.2.14",
+"@angular/material": "^18.2.14",
+"@angular/google-maps": "^18.2.14",
+
     "@angular/platform-browser": "^18.2.14",
     "@angular/platform-browser-dynamic": "^18.2.14",
     "@angular/router": "^18.2.14",
@@ -41,8 +42,9 @@
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^17.3.17",
-    "@angular/cli": "~17.3.17",
+"@angular-devkit/build-angular": "^18.2.14",
+"@angular/cli": "~18.2.14",
+
     "@angular/compiler-cli": "^18.2.14",
     "@types/bcryptjs": "^2.4.2",
     "@types/jasmine": "~4.3.0",
