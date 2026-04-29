@@ -185,11 +185,67 @@ export class DashboardComponent implements OnInit {
     }
   };
 
+  // CARD 3: My Advertisements stats (used for display + insight)
+  public adStats = { active: 7, pending: 4, drafts: 1 };
+
   // CARD 4: Inventory Balance
   public surplusDeficitData = { surplus: 21, deficit: 5, max: 25 };
 
   public get netBalance(): number {
     return this.surplusDeficitData.surplus - this.surplusDeficitData.deficit;
+  }
+
+  // ── AI Insight Getters ────────────────────────────────────────────────────
+
+  get containerInsight(): string {
+    const data = this.PieChartData.datasets[0].data as number[];
+    const labels = this.PieChartData.labels as string[];
+    const total = data.reduce((a, b) => a + b, 0);
+    const maxIdx = data.indexOf(Math.max(...data));
+    const pct = Math.round((data[maxIdx] / total) * 100);
+    return pct > 35
+      ? `${labels[maxIdx]} leads at ${pct}% — high concentration. Consider diversifying container types.`
+      : `${labels[maxIdx]} leads at ${pct}%. Distribution is balanced across all types.`;
+  }
+
+  get spaceInsight(): string {
+    const data = this.lineChartData.datasets[0].data as number[];
+    const labels = this.lineChartData.labels as string[];
+    const maxIdx = data.indexOf(Math.max(...data));
+    const minIdx = data.indexOf(Math.min(...data));
+    return `${labels[maxIdx]} space leads at ${data[maxIdx]} units. ${labels[minIdx]} is lowest at ${data[minIdx]} — potential underutilized revenue.`;
+  }
+
+  get adsInsight(): string {
+    const { active, pending, drafts } = this.adStats;
+    const total = active + pending + drafts;
+    const pendingPct = Math.round((pending / total) * 100);
+    if (pendingPct >= 30) {
+      return `${pendingPct}% of ads are pending — above the healthy 20% mark. Review and activate to maximise exposure.`;
+    }
+    return `${active} active ads running. ${drafts > 0 ? `${drafts} draft${drafts > 1 ? 's' : ''} ready to publish.` : 'No drafts pending.'}`;
+  }
+
+  get inventoryInsight(): string {
+    const { surplus, deficit } = this.surplusDeficitData;
+    const net = surplus - deficit;
+    if (deficit === 0) return `No deficit detected. Surplus of ${surplus} units is fully healthy.`;
+    const ratio = Math.round((deficit / surplus) * 100);
+    return ratio >= 25
+      ? `Deficit is ${ratio}% of surplus — risk of per diem charges. Consider repositioning idle units.`
+      : `Net balance of +${net} is healthy. Monitor ${deficit} deficit unit${deficit > 1 ? 's' : ''} to avoid idle charges.`;
+  }
+
+  get negotiationsInsight(): string {
+    const data = this.negotiationchartData.datasets[0].data as number[];
+    const accepted = data[0];
+    const pending = data[1];
+    const total = accepted + pending;
+    if (total === 0) return 'No active negotiations. Post new ads to start trading.';
+    const pendingPct = Math.round((pending / total) * 100);
+    return pendingPct >= 50
+      ? `${pending} of ${total} negotiations still pending. Follow up — average close time is 4 days.`
+      : `${accepted} of ${total} negotiations accepted — ${Math.round((accepted / total) * 100)}% close rate this period.`;
   }
 
   constructor(
