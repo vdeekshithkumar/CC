@@ -17,6 +17,7 @@
             <canvas baseChart [data]="PieChartData" [options]="donutOptions" [type]="'doughnut'"></canvas>
           </div>
         </div>
+        <div class="ai-insight-chip">{{ containerInsight }}</div>
       </div>
 
       <!-- CARD 2: Space -->
@@ -30,6 +31,7 @@
             <canvas baseChart [data]="lineChartData" [options]="lineChartOptions" [type]="'bar'"></canvas>
           </div>
         </div>
+        <div class="ai-insight-chip">{{ spaceInsight }}</div>
       </div>
 
       <!-- CARD 3: My Advertisements -->
@@ -46,17 +48,18 @@
         <div class="flex-grow pt-4">
           <div class="ad-item-row">
             <span class="ad-label">Active</span>
-            <span class="ad-value">7</span>
+            <span class="ad-value">{{ adStats.active }}</span>
           </div>
           <div class="ad-item-row" style="background: rgba(255,255,255,0.15)">
             <span class="ad-label">Pending</span>
-            <span class="ad-value">4</span>
+            <span class="ad-value">{{ adStats.pending }}</span>
           </div>
           <div class="ad-item-row" style="background: rgba(255,255,255,0.1)">
             <span class="ad-label">Drafts</span>
-            <span class="ad-value">1</span>
+            <span class="ad-value">{{ adStats.drafts }}</span>
           </div>
         </div>
+        <div class="ai-insight-chip">{{ adsInsight }}</div>
       </div>
     </div>
 
@@ -99,6 +102,7 @@
             <span class="net-balance-value">{{netBalance > 0 ? '+' : ''}}{{netBalance}}</span>
           </div>
         </div>
+        <div class="ai-insight-chip">{{ inventoryInsight }}</div>
       </div>
 
       <!-- CARD 5: Open Negotiations -->
@@ -126,6 +130,7 @@
             </div>
           </div>
         </div>
+        <div class="ai-insight-chip">{{ negotiationsInsight }}</div>
       </div>
     </div>
   </div>
