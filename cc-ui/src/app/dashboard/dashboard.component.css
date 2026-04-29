@@ -284,3 +284,32 @@
   font-weight: 700;
   color: var(--cc-text-main);
 }
+
+/* ── AI Insight Chip ─────────────────────────────────────────────────────── */
+.ai-insight-chip {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background: #EFF6FF;
+  border-left: 3px solid #3B82F6;
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: #4B5563;
+}
+
+.ai-insight-chip::before {
+  content: '💡 ';
+}
+
+/* On the blue gradient card, flip to white-tinted version */
+.card-vibrant-blue .ai-insight-chip {
+  background: rgba(255, 255, 255, 0.15);
+  border-left-color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Dark theme override */
+.dark-theme .ai-insight-chip {
+  background: rgba(59, 130, 246, 0.08);
+  color: #9CA3AF;
+}
