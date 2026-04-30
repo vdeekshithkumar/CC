@@ -159,7 +159,6 @@
 /* Service Info Panel */
 .service-info {
   background: #F0FDF4;
-  /* Light green */
   border: 1px solid #BBF7D0;
   color: #15803D;
   padding: 12px 16px;
@@ -167,14 +166,52 @@
   margin-bottom: 16px;
   font-size: 14px;
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.service-header {
+  display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 14px;
+}
+
+.port-names-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 28px;
+}
+
+.port-route {
+  font-size: 12px;
+  color: #166534;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arrow {
+  color: #4ADE80;
+  font-weight: 600;
+}
+
+.deficit-port-label,
+.surplus-port-label {
+  font-weight: 700;
+  color: #15803D;
 }
 
 .dark-theme .service-info {
   background: rgba(21, 128, 61, 0.1);
   border-color: rgba(21, 128, 61, 0.2);
   color: #4ADE80;
+}
+
+.dark-theme .port-names-list {
+  color: #86EFAC;
 }
 
 /* Back Button */
