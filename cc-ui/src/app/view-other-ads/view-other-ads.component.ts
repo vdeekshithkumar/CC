@@ -432,38 +432,15 @@ export class ViewOtherAdsComponent {
   }
   toggleOption(section: string, option: string) {
     if (this.selectedOptions[section] === option) {
-      // If the clicked option is already selected, deselect it
-      this.selectedOptions = {
-        ...this.selectedOptions,
-        [section]: ''
-      };
+      this.selectedOptions = { ...this.selectedOptions, [section]: '' };
     } else {
-      // Otherwise, select the clicked option
-      this.selectedOptions = {
-        ...this.selectedOptions,
-        [section]: option
-      };
+      this.selectedOptions = { ...this.selectedOptions, [section]: option };
 
       if (section === 'type') {
         this.type = this.selectedOptions[section] || '';
       } else if (section === 'view') {
         this.selectedView = this.selectedOptions[section] || '';
-
-        // Update the logic to handle the map view display
-        if (this.selectedView === 'map') {
-          this.showMapView = true;
-        } else {
-          this.showMapView = false;
-        }
-      } else if (section === 'size') {
-        this.selectedSize = this.selectedOptions[section] || '';
-
-        // Print the container_type_id assigned to the selected size
-        this.container_size.forEach((container: Containers) => {
-          if (container.type === this.selectedSize) {
-            console.log('Container Type ID:', container.container_type_id);
-          }
-        });
+        this.showMapView = this.selectedView === 'MAP';
       }
     }
   }
@@ -475,88 +452,70 @@ export class ViewOtherAdsComponent {
     console.log("for check", this.selectedcontainerType)
   }
   updateSearchPortOfAd() {
+    // When the user picks from the dropdown while receivedportCode is active,
+    // clear receivedportCode so resolvePortName() uses the new selection
+    if (this.receivedportCode) {
+      this.receivedportCode = null;
+    }
     this.searchPortOfAd = this.port_of_ad;
   }
+  private resolvePortName(): string {
+    // If the user changed the dropdown, port_of_ad holds the port_name directly
+    if (this.port_of_ad) return this.port_of_ad;
+    // When navigating from optimizer, receivedportCode is a port code — look up the port name
+    if (this.receivedportCode && this.port_list) {
+      const match = this.port_list.find((p: any) =>
+        p.port_code === this.receivedportCode || p.port_name === this.receivedportCode
+      );
+      return match ? match.port_name : '';
+    }
+    return '';
+  }
+
   searchContainerAdvertisements() {
-    console.log('searchContainerAdvertisements called');
     const searchType = (this.type || '').toLowerCase();
-    const searchPortOfAd = this.port_of_ad || '';
+    const searchPortOfAd = this.resolvePortName();
     const searchPortOfDep = this.port_of_departure || '';
     const searchPortOfArr = this.port_of_arrival || '';
-    const selectedContainerType = this.selectedcontainerType;
-    const selectedContainerSize = this.selectedcontainerSize;
+    const activeContainerType = this.selectedcontainerType || this.receivedcontainerType || '';
+    const activeContainerSize = this.selectedcontainerSize || this.receivedcontainerSize;
+
     if (searchType === 'oneway') {
       this.searchSpaceAdvertisements();
-    }
-    if (this.selectedOptions['view'] !== 'MAP') {
-      const matchedAds = [];
-
-      // Check if selectedContainerType is 'oneway' and call searchSpaceAdvertisements() method
-
-
-      for (const ad of this.originalAds) {
-        let isMatched = false;
-
-        if (ad.ad_type === 'container') {
-          let isMatched = false;
-
-          if (searchType === 'oneway') {
-            // Check only Port of Departure and Port of Arrival
-            if (
-              (!searchPortOfDep || ad.port_of_departure === searchPortOfDep) &&
-              (!searchPortOfArr || ad.port_of_arrival === searchPortOfArr)
-            ) {
-              isMatched = true;
-            }
-          } else {
-            // Check only Port of Ad
-            if (!searchPortOfAd || ad.port_of_ad === searchPortOfAd) {
-              isMatched = true;
-            }
-          }
-
-          if (isMatched) {
-            const matchedAd = { ...ad };
-            matchedAds.push(matchedAd);
-          }
-        }
-      }
-
-
-      if (matchedAds.length > 0) {
-        this.ads = matchedAds;
-        console.log('matchedAds found', this.ads.length);
-      } else {
-        // No matched ads found
-        console.log('No matched ads, emptying list');
-        this.ads = [];
-      }
+      return;
     }
 
     if (this.selectedOptions['view'] === 'MAP') {
       this.showMapView = true;
-
-      // Set the selected values
       this.ad_typetomap = this.ad_type;
-      this.typetomap = this.type.toLowerCase();
+      this.typetomap = (this.type || '').toLowerCase();
       this.selectedTypePortOfAd = searchPortOfAd;
       this.selectedTypePortOfDep = searchPortOfDep;
       this.selectedTypePortOfArr = searchPortOfArr;
-      this.selectedcontainertypetomap = selectedContainerType;
-      this.selectedcontainersizetomap = selectedContainerSize;
+      this.selectedcontainertypetomap = activeContainerType;
+      this.selectedcontainersizetomap = activeContainerSize;
 
-      // Call markPortOfAdOnMap() in the mapViewComponent to update the location markers on the map
       if (this.mapViewComponent) {
-        if (this.ad_typetomap === 'oneway') {
-          this.mapViewComponent.markPortOfDepArrOnMap(); // Call markPortOfDepArrOnMap() if ad_typetomap is 'oneway'
-        } else {
-          this.mapViewComponent.markPortOfAdOnMap(); // Call markPortOfAdOnMap() for other cases
-        }
+        this.mapViewComponent.markPortOfAdOnMap();
       }
-    } else {
-      this.showMapView = false;
+      return;
     }
 
+    this.showMapView = false;
+    const matchedAds = [];
+
+    for (const ad of this.originalAds) {
+      if (ad.ad_type !== 'container') continue;
+      if (searchType && ad.type_of_ad?.toLowerCase() !== searchType) continue;
+      if (searchPortOfAd && ad.port_of_ad?.toLowerCase() !== searchPortOfAd.toLowerCase()) continue;
+      if (activeContainerType && ad.container_type !== activeContainerType) continue;
+      if (activeContainerSize && ad.container_size !== activeContainerSize) continue;
+      matchedAds.push({ ...ad });
+    }
+
+    this.ads = matchedAds;
+    this.currentPage = 1;
+    console.log('Matched ads:', this.ads.length);
   }
 
   // Function to get the ads for the current page
