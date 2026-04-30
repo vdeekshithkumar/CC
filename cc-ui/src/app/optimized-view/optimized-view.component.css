@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
+ 
 :host {
   font-family: 'Poppins', sans-serif;
   display: block;
   padding: 24px;
 }
-
+ 
 /* Glass Header Section */
 .glass-header {
   background: var(--cc-bg-card);
@@ -23,27 +23,27 @@
   border-radius: 16px;
   box-shadow: var(--cc-shadow-sm);
 }
-
+ 
 .page-title {
   font-size: 20px;
   font-weight: 600;
   color: var(--cc-text-main);
   margin: 0;
 }
-
+ 
 /* Filters & Controls Area */
 .controls-area {
   display: flex;
   align-items: center;
   gap: 16px;
 }
-
+ 
 .filter-group {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
-
+ 
 .filter-label {
   font-size: 11px;
   font-weight: 500;
@@ -51,7 +51,7 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-
+ 
 .modern-select {
   appearance: none;
   background: var(--cc-input-bg);
@@ -69,17 +69,17 @@
   background-size: 16px;
   padding-right: 32px;
 }
-
+ 
 .modern-select:hover {
   border-color: var(--cc-primary);
 }
-
+ 
 .modern-select:focus {
   border-color: var(--cc-primary);
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
   outline: none;
 }
-
+ 
 /* Action Buttons */
 .btn-secondary {
   background: transparent;
@@ -95,12 +95,12 @@
   gap: 8px;
   transition: all 0.2s;
 }
-
+ 
 .btn-secondary:hover {
   background: var(--cc-bg-main);
   border-color: var(--cc-text-muted);
 }
-
+ 
 .btn-primary {
   background: var(--cc-primary);
   color: white;
@@ -116,12 +116,12 @@
   align-items: center;
   gap: 8px;
 }
-
+ 
 .btn-primary:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
-
+ 
 /* Status Messages */
 .status-card {
   background: var(--cc-bg-card);
@@ -131,19 +131,19 @@
   text-align: center;
   margin-bottom: 24px;
 }
-
+ 
 .status-message {
   font-size: 15px;
   color: var(--cc-text-main);
   margin-bottom: 16px;
 }
-
+ 
 .status-actions {
   display: flex;
   justify-content: center;
   gap: 12px;
 }
-
+ 
 /* Map Container */
 .map-container {
   border-radius: 16px;
@@ -155,11 +155,10 @@
   min-height: 500px;
   position: relative;
 }
-
+ 
 /* Service Info Panel */
 .service-info {
   background: #F0FDF4;
-  /* Light green */
   border: 1px solid #BBF7D0;
   color: #15803D;
   padding: 12px 16px;
@@ -167,21 +166,59 @@
   margin-bottom: 16px;
   font-size: 14px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
 }
-
+ 
+.service-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+ 
+.port-names-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 28px;
+}
+ 
+.port-route {
+  font-size: 12px;
+  color: #166534;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+ 
+.arrow {
+  color: #4ADE80;
+  font-weight: 600;
+}
+ 
+.deficit-port-label,
+.surplus-port-label {
+  font-weight: 700;
+  color: #15803D;
+}
+ 
 .dark-theme .service-info {
   background: rgba(21, 128, 61, 0.1);
   border-color: rgba(21, 128, 61, 0.2);
   color: #4ADE80;
 }
-
+ 
+.dark-theme .port-names-list {
+  color: #86EFAC;
+}
+ 
 /* Back Button */
 .back-button-container {
   margin-top: 24px;
 }
-
+ 
 .btn-back {
   background: var(--cc-gray-100);
   color: var(--cc-text-main);
@@ -192,11 +229,11 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-
+ 
 .btn-back:hover {
   background: var(--cc-gray-200);
 }
-
+ 
 /* Loading Bar */
 .loading-container {
   width: 100%;
@@ -207,7 +244,7 @@
   margin-bottom: 16px;
   border-radius: 2px;
 }
-
+ 
 .loading-bar {
   width: 30%;
   height: 100%;
@@ -217,12 +254,12 @@
   left: 0;
   animation: loadingAnimation 1.5s infinite ease-in-out;
 }
-
+ 
 @keyframes loadingAnimation {
   0% {
     left: -30%;
   }
-
+ 
   100% {
     left: 100%;
   }
