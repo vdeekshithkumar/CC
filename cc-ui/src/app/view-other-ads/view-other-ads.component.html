@@ -1,250 +1,131 @@
 <div class="flex h-[calc(100vh-64px)] overflow-hidden">
 
   <!-- Sidebar Filter Section -->
-  <div class="w-[380px] flex-shrink-0 overflow-y-auto border-r border-gray-200 bg-white py-10 px-4 custom-scrollbar">
+  <div class="sidebar w-[300px] flex-shrink-0 overflow-y-auto">
 
-    <div class="flex items-center mt-2 mb-6">
-      <span *ngIf="ad_type === 'container'" class="text-lg font-semibold text-gray-800">Container Advertisement</span>
-      <span *ngIf="ad_type === 'space'" class="text-lg font-semibold text-gray-800">Vessel Advertisement</span>
+    <div class="sidebar-title">
+      <span *ngIf="ad_type === 'container'">Container Advertisement</span>
+      <span *ngIf="ad_type === 'space'">Vessel Advertisement</span>
     </div>
 
-    <!-- Filters ... -->
-    <div class="flex flex-wrap search-type-container mb-6">
-      <div class="search-lease-container" *ngIf="selectedMainOption === 'Trading'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Buy' }" (click)="toggleOption('type', 'Buy')">
-        Buy
+    <!-- Trade Type Toggle -->
+    <div class="filter-section">
+      <label class="filter-label">Type</label>
+      <div class="toggle-group">
+        <button *ngIf="selectedMainOption === 'Trading'"
+          [class.active]="selectedOptions['type'] === 'Buy'" (click)="toggleOption('type', 'Buy')">Buy</button>
+        <button *ngIf="selectedMainOption === 'Trading'"
+          [class.active]="selectedOptions['type'] === 'Sell'" (click)="toggleOption('type', 'Sell')">Sell</button>
+        <button *ngIf="ad_type === 'container' && selectedMainOption === 'Leasing'"
+          [class.active]="selectedOptions['type'] === 'Lease'" (click)="toggleOption('type', 'Lease')">Lease</button>
+        <button *ngIf="ad_type === 'container' && selectedMainOption === 'Leasing'"
+          [class.active]="selectedOptions['type'] === 'Swap'" (click)="toggleOption('type', 'Swap')">Swap</button>
+        <button *ngIf="ad_type === 'container' && selectedMainOption === 'Leasing'"
+          [class.active]="selectedOptions['type'] === 'OneWay'" (click)="toggleOption('type', 'OneWay')">One Way</button>
+        <button *ngIf="ad_type === 'space' && selectedMainOption === 'Leasing'"
+          [class.active]="selectedOptions['type'] === 'Lease'" (click)="toggleOption('type', 'Lease')">Lease</button>
       </div>
-      <div class="search-lease-container ml-2" *ngIf="selectedMainOption === 'Trading'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Sell' }" (click)="toggleOption('type', 'Sell')">
-        Sell
-      </div>
-
-      <div class="search-lease-container" *ngIf="ad_type === 'container' && selectedMainOption === 'Leasing'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }" (click)="toggleOption('type', 'Lease')">
-        Lease
-      </div>
-
-      <div class="search-lease-container ml-2" *ngIf="ad_type == 'container'&& selectedMainOption === 'Leasing'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Swap' }" (click)="toggleOption('type', 'Swap')">
-        Swap
-      </div>
-      <div class="search-lease-container" *ngIf="ad_type == 'space'&& selectedMainOption === 'Leasing'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'Lease' }" (click)="toggleOption('type', 'Lease')">
-        Lease
-      </div>
-      <div class="search-lease-container ml-2" *ngIf="ad_type == 'container'&& selectedMainOption === 'Leasing'"
-        [ngClass]="{ selected: selectedOptions['type'] === 'OneWay' }" (click)="toggleOption('type', 'OneWay')">
-        OneWay
-      </div>
-
-      &nbsp;
     </div>
-    <br />
 
-    <div>
-
-      <div class="port-search-container">
-        <div *ngIf="ad_type === 'container'&& selectedOptions['type'] != 'OneWay'">
-          <ng-container *ngIf="receivedportCode; else showSelect">
-            <!-- Display when receivedportCode has a value -->
-            <p class="port-text">Port of Ad</p>
-            <div class="select-container">
-              <select class="container-select" [(ngModel)]="receivedportCode" (change)="updateSearchPortOfAd()">
-                <option [value]="receivedportCode">{{ receivedportCode }}</option>
-                <option *ngFor="let port of port_list" [value]="port.port_name">
-                  {{ capitalizeFirstLetter(port.port_name) }} ({{ port.port_code }})
-                </option>
-              </select>
-            </div>
-          </ng-container>
-
-          <ng-template #showSelect>
-            <!-- Display when receivedportCode does not have a value -->
-            <ng-container class="mt-6">
-              <p class="port-text">Port of Ad</p>
-              <div class="select-container">
-                <select class="container-select" [(ngModel)]="port_of_ad" (change)="updateSearchPortOfAd()">
-                  <option *ngFor="let port of port_list" [value]="port.port_name">
-                    {{ capitalizeFirstLetter(port.port_name) }} ({{ port.port_code }})
-                  </option>
-                </select>
-              </div>
-            </ng-container>
-          </ng-template>
-
-
-
-
-        </div>
-      </div>
-
-
-      <ng-container *ngIf="ad_type === 'space'">
-        <p class="port-text">Port of Departure</p>
-
-        <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
+    <!-- Port of Ad -->
+    <div class="filter-section" *ngIf="ad_type === 'container' && selectedOptions['type'] !== 'OneWay'">
+      <label class="filter-label">Port of Ad</label>
+      <ng-container *ngIf="receivedportCode; else showSelect">
+        <select class="filter-select" [(ngModel)]="receivedportCode" (change)="updateSearchPortOfAd()">
+          <option [value]="receivedportCode">{{ receivedportCode }}</option>
           <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            {{ capitalizeFirstLetter(port.port_name) }} ({{ port.port_code }})
           </option>
         </select>
-
-
-        <p class="port-text">Port of Arrival</p>
-
-        <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
-          </option>
-        </select>
-
       </ng-container>
-
-      <ng-container *ngIf="ad_type === 'container'&&selectedOptions['type'] === 'OneWay'">
-        <p class="port-text">Port of Departure</p>
-
-        <select class="container-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
+      <ng-template #showSelect>
+        <select class="filter-select" [(ngModel)]="port_of_ad" (change)="updateSearchPortOfAd()">
+          <option value="">Select a port</option>
           <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
+            {{ capitalizeFirstLetter(port.port_name) }} ({{ port.port_code }})
           </option>
         </select>
-
-
-        <p class="port-text">Port of Arrival</p>
-
-        <select class="container-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
-          <option *ngFor="let port of port_list" [value]="port.port_name">
-            {{ capitalizeFirstLetter(port.port_name) }} ({{port.port_code}})
-          </option>
-        </select>
-
-      </ng-container>
+      </ng-template>
     </div>
 
-
-
-
-
-    <br />
-    <div>
-      <div class="">
-        <p class="port-text">Select View</p>
-
-        <div class="flex flex-wrap   search-type-container">
-
-          <div class="search-select-container" [ngClass]="{ selected: selectedOptions['view'] === 'MAP' }"
-            (click)="toggleOption('view', 'MAP')">
-            MAP
-          </div>
-          <div class="search-select-container"
-            [ngClass]="{ selected: selectedOptions['view'] === 'LIST' || !selectedOptions['view'] }"
-            (click)="toggleOption('view', 'LIST')">
-            LIST
-          </div>
-        </div>
+    <!-- Port of Departure / Arrival (Space or OneWay) -->
+    <ng-container *ngIf="ad_type === 'space' || selectedOptions['type'] === 'OneWay'">
+      <div class="filter-section">
+        <label class="filter-label">Port of Departure</label>
+        <select class="filter-select" [(ngModel)]="port_of_departure" (change)="updateSearchPortOfAd()">
+          <option value="">Select a port</option>
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ capitalizeFirstLetter(port.port_name) }} ({{ port.port_code }})
+          </option>
+        </select>
       </div>
+      <div class="filter-section">
+        <label class="filter-label">Port of Arrival</label>
+        <select class="filter-select" [(ngModel)]="port_of_arrival" (change)="updateSearchPortOfAd()">
+          <option value="">Select a port</option>
+          <option *ngFor="let port of port_list" [value]="port.port_name">
+            {{ capitalizeFirstLetter(port.port_name) }} ({{ port.port_code }})
+          </option>
+        </select>
+      </div>
+    </ng-container>
 
-      <br />
-
-
-
-
+    <!-- View Toggle -->
+    <div class="filter-section">
+      <label class="filter-label">View</label>
+      <div class="toggle-group">
+        <button [class.active]="selectedOptions['view'] === 'MAP'" (click)="toggleOption('view', 'MAP')">Map</button>
+        <button [class.active]="selectedOptions['view'] === 'LIST' || !selectedOptions['view']"
+          (click)="toggleOption('view', 'LIST')">List</button>
+      </div>
     </div>
-    <div>
+
+    <!-- Container Type -->
+    <div class="filter-section">
+      <label class="filter-label">Container Type</label>
       <ng-container *ngIf="receivedcontainerType; else showContainerTypeSelect">
-        <!-- Display when receivedcontainerType has a value -->
-        <p class="port-text">Select type</p>
-        <div>
-          <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom"
-            [(ngModel)]="receivedcontainerType" (change)="onTypeSelected()">
-            <option style="height: 10px; position: absolute; z-index: 2000;" [value]="receivedcontainerType">
-              {{ receivedcontainerType }}
-            </option>
-            <option *ngFor="let contype of container_type_list" [value]="contype.type">
-              {{ contype.type }}
-            </option>
-          </select>
-        </div>
+        <select class="filter-select" [(ngModel)]="receivedcontainerType" (change)="onTypeSelected()">
+          <option [value]="receivedcontainerType">{{ receivedcontainerType }}</option>
+          <option *ngFor="let contype of container_type_list" [value]="contype.type">{{ contype.type }}</option>
+        </select>
       </ng-container>
-
       <ng-template #showContainerTypeSelect>
-        <!-- Display when receivedcontainerType does not have a value -->
-        <p class="port-text">Select type</p>
-        <div>
-          <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom"
-            [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
-            <option style="height: 10px; position: absolute; z-index: 2000;" *ngFor="let contype of container_type_list"
-              [value]="contype.type">
-              {{ contype.type }}
-            </option>
-          </select>
-        </div>
+        <select class="filter-select" [(ngModel)]="selectedcontainerType" (change)="onTypeSelected()">
+          <option value="">Select type</option>
+          <option *ngFor="let contype of container_type_list" [value]="contype.type">{{ contype.type }}</option>
+        </select>
       </ng-template>
+    </div>
+
+    <!-- Container Size -->
+    <div class="filter-section">
+      <label class="filter-label">Size (in Ft)</label>
       <ng-container *ngIf="receivedcontainerSize !== undefined; else showContainerSizeSelect">
-        <div>
-          <p class="port-text" style="margin-top: 10px;">Select Size (in Ft)</p>
-          <ul class="horizontal-list">
-            <li *ngFor="let size of container_list" (click)="onSizeClick(size)"
-              [class.selected]="selectedcontainerSize === size.capacity && selectedCount === 1"
-              [class.selected-twice]="selectedcontainerSize === size.capacity && selectedCount > 1"
-              [style.padding]="'5px'"
-              [ngClass]="{'blue-background': !receivedcontainerSize && selectedcontainerSize === size.capacity}">
-              {{ size.capacity }}'
-            </li>
-          </ul>
+        <div class="size-group">
+          <button *ngFor="let size of container_list" (click)="onSizeClick(size)"
+            [class.active]="selectedcontainerSize === size.capacity && selectedCount === 1"
+            [class.active-twice]="selectedcontainerSize === size.capacity && selectedCount > 1">
+            {{ size.capacity }}'
+          </button>
         </div>
       </ng-container>
-
       <ng-template #showContainerSizeSelect>
-        <!-- Display when receivedcontainerType does not have a value -->
-        <p class="port-text">Select Size</p>
-        <div>
-          <select class="container-select" style="height: 30px; width: 275px; padding: 0px" menu="bottom"
-            [(ngModel)]="receivedcontainerSize" (change)="onSizeSelected()">
-            <option style="height: 10px; position: absolute; z-index: 2000;" *ngFor="let size of container_list"
-              [value]="size.capacity" [selected]="size.capacity === receivedcontainerSize"
-              [style.background]="receivedcontainerSize === size.capacity ? '#1677FB' : 'white'"
-              [style.color]="receivedcontainerSize === size.capacity ? 'white' : 'black'">
-              {{ size.capacity }}
-            </option>
-          </select>
-        </div>
+        <select class="filter-select" [(ngModel)]="receivedcontainerSize" (change)="onSizeSelected()">
+          <option value="">Select size</option>
+          <option *ngFor="let size of container_list" [value]="size.capacity">{{ size.capacity }}'</option>
+        </select>
       </ng-template>
-
-
-
-
-
-      <div class="clear-search-container" *ngIf="ad_type === 'container'">
-        <button (click)="clearOptions()" class="clear-color">
-          Clear
-        </button>
-        &nbsp;
-        <button (click)="searchContainerAdvertisements()" class="seacrh-color">
-          Search
-        </button>
-      </div>
-      <div class="clear-search-container" *ngIf="ad_type === 'space'">
-        <button (click)="clearOptions()" class="clear-color">
-          Clear
-        </button>
-        &nbsp;
-        <button (click)="searchSpaceAdvertisements()" class="seacrh-color">
-          Search
-        </button>
-
-
-      </div>
-
-
-
-      <br />
-      <br />
-
-
-
-
-
     </div>
+
+    <!-- Actions -->
+    <div class="filter-actions">
+      <button class="btn-clear" (click)="clearOptions()">Clear</button>
+      <button class="btn-search"
+        (click)="ad_type === 'container' ? searchContainerAdvertisements() : searchSpaceAdvertisements()">
+        Search
+      </button>
+    </div>
+
   </div>
 
   <div class="flex-1 px-6 py-10 advertisement-details overflow-y-auto bg-gray-50 h-full">
@@ -381,7 +262,6 @@
                     d="M6.89846 1.9843V0.927467C6.89846 0.835866 6.79318 0.78528 6.72209 0.841334L0.558809 5.6552C0.506443 5.69592 0.464071 5.74807 0.434924 5.80766C0.405777 5.86725 0.390625 5.93271 0.390625 5.99905C0.390625 6.06539 0.405777 6.13085 0.434924 6.19044C0.464071 6.25003 0.506443 6.30217 0.558809 6.3429L6.72209 11.1568C6.79455 11.2128 6.89846 11.1622 6.89846 11.0706V10.0138C6.89846 9.9468 6.86701 9.88254 6.81506 9.84153L1.89318 5.99973L6.81506 2.15657C6.86701 2.11555 6.89846 2.0513 6.89846 1.9843V1.9843Z"
                     fill="black" fill-opacity="0.25" />
                 </svg>
-
               </button>
             </li>
 
@@ -413,7 +293,6 @@
                     d="M19.4685 15.6556L13.3053 10.8417C13.2892 10.829 13.2698 10.8211 13.2494 10.819C13.2291 10.8168 13.2085 10.8204 13.1901 10.8294C13.1716 10.8384 13.1561 10.8524 13.1453 10.8698C13.1345 10.8872 13.1288 10.9073 13.1289 10.9278V11.9847C13.1289 12.0517 13.1604 12.1159 13.2123 12.1569L18.1342 16.0001L13.2123 19.8433C13.159 19.8843 13.1289 19.9485 13.1289 20.0155V21.0724C13.1289 21.164 13.2342 21.2146 13.3053 21.1585L19.4685 16.3446C19.5209 16.3038 19.5633 16.2515 19.5924 16.1918C19.6216 16.1321 19.6367 16.0665 19.6367 16.0001C19.6367 15.9337 19.6216 15.8681 19.5924 15.8084C19.5633 15.7487 19.5209 15.6964 19.4685 15.6556Z"
                     fill="black" fill-opacity="0.88" />
                 </svg>
-
               </button>
             </li>
           </ul>
