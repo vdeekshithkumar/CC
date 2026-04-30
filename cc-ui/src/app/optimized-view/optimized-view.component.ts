@@ -390,6 +390,26 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
                 title: surplusport.port_name,
               });
 
+              greenMarker.addListener('click', () => {
+                new google.maps.InfoWindow({
+                  content: `
+                    <div class="popover-card">
+                      <div class="popover-header">
+                        <span class="popover-title">${surplusport.port_name}</span>
+                      </div>
+                      <div class="popover-body">
+                        <div class="data-grid">
+                          <div class="data-item">
+                            <span class="data-label">Coordinates</span>
+                            <span class="data-value">${surplusport.latitude.toFixed(2)}, ${surplusport.longitude.toFixed(2)}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  `
+                }).open(this.map, greenMarker);
+              });
+
               // Create a polyline with the selected color
               const polyline = new google.maps.Polyline({
                 path: [
@@ -953,6 +973,11 @@ export class OptimizedViewComponent implements OnInit, AfterViewInit {
   getPortName(portId: number): string {
     const port = this.port_list.find((p: { port_id: number, port_name: string }) => p.port_id === portId);
     return port ? port.port_name : '';
+  }
+
+  getPortNameByCode(portCode: string): string {
+    const port = this.port_list.find((p: { port_code: string, port_name: string }) => p.port_code === portCode);
+    return port ? port.port_name : portCode;
   }
 
   onExportClick(): void {
